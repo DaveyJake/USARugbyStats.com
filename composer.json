@@ -14,7 +14,9 @@
         "symfony/console": "2.1.*",
         "symfony/yaml": "2.1.*",
         "twig/twig": ">=1.8,<2.0-dev",
-	"chrisboulton/php-resque": "*"
+	"chrisboulton/php-resque": "*",
+
+        "zendframework/zendframework": "2.2.*"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master",
