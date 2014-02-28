@@ -2,3 +2,6 @@ app/config.php
 Capfile
 vendor/*
 bin/behat
+
+vagrant/puphpet/config.yaml
+vagrant/.vagrant

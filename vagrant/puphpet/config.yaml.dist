@@ -1,0 +1,139 @@
+---
+vagrantfile-digital_ocean:
+    vm:
+        box: digital_ocean
+        hostname: devbox
+        network:
+            private_network: 192.168.56.101
+            forwarded_port: {  }
+        provider:
+            digital_ocean:
+                image: 'Ubuntu 13.04 x64'
+                region: 'New York 2'
+                size: 512MB
+                client_id: <insert>
+                api_key: <insert>
+        provision:
+            puppet:
+                manifests_path: puphpet/puppet
+                manifest_file: manifest.pp
+                options:
+                    - '--verbose'
+                    - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+                    - '--parser future'
+        synced_folder:
+            bQzD6rnwBDR4:
+                id: webroot
+                source: ../
+                target: /var/www/usarugbystats
+    ssh:
+        host: null
+        port: null
+        private_key_path: ~/.ssh/id_rsa
+        username: <insert>
+        guest_port: null
+        keep_alive: true
+        forward_agent: false
+        forward_x11: false
+        shell: 'bash -l'
+    vagrant:
+        host: detect
+server:
+    packages:
+        - vim
+    dot_files:
+        -
+            bash_aliases: null
+    _prevent_empty: ''
+mailcatcher:
+    install: '1'
+    settings:
+        smtp_ip: 0.0.0.0
+        smtp_port: 1025
+        http_ip: 0.0.0.0
+        http_port: '1080'
+        path: /usr/local/bin
+        log: /var/log/mailcatcher/mailcatcher.log
+apache:
+    install: '1'
+    modules:
+        - php
+        - rewrite
+    vhosts:
+        xY3bKIXCoLYC:
+            servername: usarugbystats.dev
+            docroot: /var/www/usarugbystats/public
+            port: '80'
+            override:
+                - All
+            custom_fragment: ''
+    user: www-data
+    group: www-data
+    default_vhost: true
+    mod_pagespeed: 0
+    mod_spdy: 0
+php:
+    install: '1'
+    version: '54'
+    composer: '1'
+    modules:
+        php:
+            - cli
+            - intl
+            - mcrypt
+        pear: {  }
+        pecl:
+            - pecl_http
+    ini:
+        display_errors: On
+        error_reporting: '-1'
+        session.save_path: /var/lib/php/session
+    timezone: America/Denver
+xdebug:
+    install: '1'
+    settings:
+        xdebug.default_enable: '1'
+        xdebug.remote_autostart: '0'
+        xdebug.remote_connect_back: '1'
+        xdebug.remote_enable: '1'
+        xdebug.remote_handler: dbgp
+        xdebug.remote_port: '9000'
+drush:
+    install: 0
+    settings:
+        drush.tag_branch: 6.x
+mysql:
+    install: '1'
+    root_password: oIlFar0IbwYYb601Q5MN
+    phpmyadmin: '1'
+    adminer: 0
+    databases:
+        XDR7Yw3TtzUT:
+            grant:
+                - ALL
+            name: usarugbystats
+            host: localhost
+            user: usarugbystats
+            password: RKYaQcVO85iWRStblmaY
+            sql_file: /var/www/usarugbystats/db/schema.sql
+mongodb:
+    install: 0
+    auth: 1
+    port: '27017'
+    databases: {  }
+beanstalkd:
+    install: 0
+    settings:
+        listenaddress: 0.0.0.0
+        listenport: '13000'
+        maxjobsize: '65535'
+        maxconnections: '1024'
+        binlogdir: /var/lib/beanstalkd/binlog
+        binlogfsync: null
+        binlogsize: '10485760'
+    beanstalk_console: 0
+    binlogdir: /var/lib/beanstalkd/binlog
+rabbitmq:
+    install: 0
+    port: '5672'
+
