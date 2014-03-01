@@ -47,6 +47,7 @@ vagrantfile-local:
 server:
     packages:
         - vim
+        - php5-curl
     dot_files:
         -
             bash_aliases: null
