@@ -12,5 +12,7 @@ Capfile
 vendor/*
 bin/behat
 
-vagrant/.vagrant
-vagrant/puphpet/config.yaml
+vagrant/staging/.vagrant
+vagrant/staging/puphpet/config.yaml
+
+vagrant/develop/.vagrant

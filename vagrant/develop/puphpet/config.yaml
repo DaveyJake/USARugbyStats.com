@@ -1,18 +1,22 @@
 ---
-vagrantfile-digital_ocean:
+vagrantfile-local:
     vm:
-        box: digital_ocean
-        hostname: devbox
+        box: ubuntu-precise12042-x64-vbox43
+        box_url: 'http://box.puphpet.com/ubuntu-precise12042-x64-vbox43.box'
+        hostname: null
         network:
             private_network: 192.168.56.101
-            forwarded_port: {  }
+            forwarded_port:
+                dccUpYSvvyBh:
+                    host: '5377'
+                    guest: '22'
         provider:
-            digital_ocean:
-                image: 'Ubuntu 13.04 x64'
-                region: 'New York 2'
-                size: 512MB
-                client_id: <insert>
-                api_key: <insert>
+            virtualbox:
+                modifyvm:
+                    natdnshostresolver1: on
+                    memory: '512'
+                setextradata:
+                    VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
         provision:
             puppet:
                 manifests_path: puphpet/puppet
@@ -22,15 +26,17 @@ vagrantfile-digital_ocean:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            bQzD6rnwBDR4:
-                id: webroot
-                source: ../
-                target: /var/www/usarugbystats
+            VYkyFNSs0Ylj:
+                id: vagrant-root
+                source: ../../
+                target: /project
+                nfs: 'false'
+        usable_port_range: 2200..2250
     ssh:
         host: null
         port: null
-        private_key_path: ~/.ssh/id_rsa
-        username: <insert>
+        private_key_path: null
+        username: vagrant
         guest_port: null
         keep_alive: true
         forward_agent: false
@@ -60,9 +66,9 @@ apache:
         - php
         - rewrite
     vhosts:
-        xY3bKIXCoLYC:
+        BcOu3mTcjs1B:
             servername: usarugbystats.dev
-            docroot: /var/www/usarugbystats/public
+            docroot: /project/public
             port: '80'
             override:
                 - All
@@ -108,14 +114,14 @@ mysql:
     phpmyadmin: '1'
     adminer: 0
     databases:
-        XDR7Yw3TtzUT:
+        bKFPMNGO8bwx:
             grant:
                 - ALL
             name: usarugbystats
             host: localhost
             user: usarugbystats
             password: RKYaQcVO85iWRStblmaY
-            sql_file: /var/www/usarugbystats/db/schema.sql
+            sql_file: /project/db/schema.sql
 mongodb:
     install: 0
     auth: 1
