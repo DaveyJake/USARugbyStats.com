@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats;
+namespace UsaRugbyStats\Application;
 
 use Zend\Mvc\MvcEvent;
 
