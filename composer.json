@@ -19,10 +19,12 @@
         "symfony/yaml": "2.1.*",
         "twig/twig": ">=1.8,<2.0-dev",
         "chrisboulton/php-resque": "*",
+        "hounddog/doctrine-data-fixture-module" : "0.*",
 
         "zendframework/zendframework": "2.*",
         "zf-commons/zfc-user": "dev-mine as 0.1.x-dev",
-        "zf-commons/zfc-user-doctrine-orm": "0.*"
+        "zf-commons/zfc-user-doctrine-orm": "0.*",
+        "zf-commons/zfc-rbac": "2.*"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master",

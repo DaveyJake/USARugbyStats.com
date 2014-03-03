@@ -233,4 +233,21 @@ return array(
             'zfcuser_zend_db_adapter' => (isset($settings['zend_db_adapter'])) ? $settings['zend_db_adapter']: 'Zend\Db\Adapter\Adapter',
         ),
     ),
+    
+    /**
+     * Default ZfcRbac configuration for RBAC
+     */
+    'zfc_rbac' => [
+        'guards' => [
+            'ZfcRbac\Guard\RouteGuard' => [
+                'zfcuser' => [ 'user' ],
+                'zfcuser/login' => [ 'guest' ],
+                'zfcuser/authenticate' => [ 'guest' ],
+                'zfcuser/logout' => [ 'member' ],
+                'zfcuser/register' => [ 'guest' ],
+                'zfcuser/changeemail' => [ 'member' ],
+                'zfcuser/changepassword' => [ 'member' ],
+            ],
+        ],
+    ],
 );

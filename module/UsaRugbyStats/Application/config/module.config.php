@@ -14,6 +14,13 @@ return array(
             ),
         ),
     ),
+    'zfc_rbac' => array(
+        'guards' => array(
+            'ZfcRbac\Guard\RouteGuard' => array(
+                'home' => array('member'),
+            ),
+        ),
+    ),
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',

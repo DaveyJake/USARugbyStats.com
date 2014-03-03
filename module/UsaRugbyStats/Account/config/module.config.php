@@ -14,6 +14,12 @@ return array(
         ),
     ),
     'service_manager' => array(
+        'aliases' => array(),
+        'factories' => array(
+            'Zend\Authentication\AuthenticationService' => function($sm) {
+                return $sm->get('doctrine.authenticationservice.orm_default');
+            },
+        ),
     ),
     'translator' => array(
         'translation_file_patterns' => array(
@@ -44,6 +50,27 @@ return array(
                     'UsaRugbyStats\Account\Entity'  => 'usarugbystats_account_entity'
                 )
             )
-        )
+        ),
+        'authentication' => array(
+            'orm_default' => array(
+                'object_manager' => 'zfcuser_doctrine_em',
+                'identity_class' => 'UsaRugbyStats\Account\Entity\Account',
+                'identity_property' => 'email',
+                'credential_property' => 'password',
+            ),
+        ),
     ),
+    
+    'zfc_rbac' => array(
+    	'role_provider' => array(
+    	    'ZfcRbac\Role\ObjectRepositoryRoleProvider' => array(
+    	        'object_manager' 		=> 'zfcuser_doctrine_em',
+    	        'class_name'     		=> 'UsaRugbyStats\Account\Entity\Rbac\Role',
+    	        'role_name_property' 	=> 'name'
+    	    ),
+        ),
+    ),
+    'data-fixture' => [
+        'UsaRugbyStats_Account' => __DIR__ . '/../src/Fixtures',
+    ]
 );
