@@ -2,6 +2,11 @@
 return array(
     'router' => array(
         'routes' => array(
+            'zfcuser' => array(
+                'options' => array(
+                    'route' => '/account',
+                ),
+            ),
         ),
     ),
     'controllers' => array(
@@ -25,5 +30,20 @@ return array(
         'template_path_stack' => array(
             __DIR__ . '/../view',
         ),
+    ),
+
+    'doctrine' => array(
+        'driver' => array(
+            'usarugbystats_account_entity' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\XmlDriver',
+                'paths' => __DIR__ . '/doctrine/self'
+            ),
+    
+            'orm_default' => array(
+                'drivers' => array(
+                    'UsaRugbyStats\Account\Entity'  => 'usarugbystats_account_entity'
+                )
+            )
+        )
     ),
 );
