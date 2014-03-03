@@ -3,6 +3,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/christianchristensen/Goutte"
+        },
+        {
+        	"type": "vcs",
+        	"url": "https://github.com/adamlundrigan/ZfcUser.git"
         }
     ],
     "require": {
@@ -14,13 +18,15 @@
         "symfony/console": "2.1.*",
         "symfony/yaml": "2.1.*",
         "twig/twig": ">=1.8,<2.0-dev",
-	"chrisboulton/php-resque": "*",
+        "chrisboulton/php-resque": "*",
 
-        "zendframework/zendframework": "2.2.*"
+        "zendframework/zendframework": "2.*",
+        "zf-commons/zfc-user": "dev-mine as 0.1.x-dev",
+        "zf-commons/zfc-user-doctrine-orm": "0.*"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master",
-        "behat/behat":           "2.4@stable",
+        "behat/behat": "2.4@stable",
         "behat/mink-extension":  "*",
         "behat/mink-goutte-driver":     "*",
         "behat/mink-selenium2-driver":  "*"
