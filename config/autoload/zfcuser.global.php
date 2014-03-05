@@ -240,7 +240,7 @@ return array(
     'zfc_rbac' => [
         'guards' => [
             'ZfcRbac\Guard\RouteGuard' => [
-                'zfcuser' => [ 'user' ],
+                'zfcuser' => [ 'member' ],
                 'zfcuser/login' => [ 'guest' ],
                 'zfcuser/authenticate' => [ 'guest' ],
                 'zfcuser/logout' => [ 'member' ],
