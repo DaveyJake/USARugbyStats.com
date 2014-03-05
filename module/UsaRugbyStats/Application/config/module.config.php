@@ -21,10 +21,21 @@ return array(
             ),
         ),
     ),
+    'navigation' => array(
+        'default' => array(
+            'home' => array(
+                'label' => 'Home',
+                'route' => 'home',
+            ),
+        ),
+    ),
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory',
+        ),
+        'factories' => array(
+            'default' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),
         'aliases' => array(
             'translator' => 'MvcTranslator',
