@@ -13,6 +13,9 @@ return array(
         
         'ZfcRbac',
 
+        // LegacyApplication goes first so that it's /
+        // route doesn't override the / route from Application
+        'UsaRugbyStats\LegacyApplication',
         'UsaRugbyStats\Application',
         'UsaRugbyStats\Account',
     ),
