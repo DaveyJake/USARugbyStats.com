@@ -37,6 +37,17 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+    
+    'view_helpers' => array(
+        'aliases' => array(
+            'user' => 'zfcUserIdentity'
+        ),
+    ),
+    'controller_plugins' => array(
+        'factories' => array(
+            'user' => 'UsaRugbyStats\Account\Controller\Plugin\UserPluginFactory'
+        ),
+    ),
 
     'doctrine' => array(
         'driver' => array(

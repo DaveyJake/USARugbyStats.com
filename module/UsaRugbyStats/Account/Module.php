@@ -13,7 +13,7 @@ class Module
             $t->getServiceManager()->get('ZfcRbac\View\Strategy\UnauthorizedStrategy')
         );
     }
-
+   
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
