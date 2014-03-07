@@ -23,10 +23,6 @@ return array(
     ),
     'navigation' => array(
         'default' => array(
-            'home' => array(
-                'label' => 'Home',
-                'route' => 'home',
-            ),
         ),
     ),
     'service_manager' => array(

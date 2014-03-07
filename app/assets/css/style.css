@@ -139,8 +139,13 @@ a {
 	color: #FFF;
 }
 
-.navbar .brand {
+.navbar .navbar-brand {
 	width: 401px;
+	padding: 10px 0 0 0 !important;
+}
+
+.navbar .navbar-brand img {
+	height: 27px;
 }
 
 .header {
@@ -1264,7 +1269,7 @@ background: #F5F5F5;
 	body {
 		font-size: 12px;
 	}
-	.navbar .brand {
+	.navbar .navbar-brand {
 		margin-left: 20px;
 	}
 	#maincontent table.table th, .player-name, .scoreboard .away-team h1, .scoreboard .home-team h1 {
@@ -1305,7 +1310,7 @@ background: #F5F5F5;
 		background: #FFF;
 		margin-bottom: 30px;
 		}
-	.navbar .brand {
+	.navbar .navbar-brand {
 		width: 300px;
 		margin-top: 3px;
 		}

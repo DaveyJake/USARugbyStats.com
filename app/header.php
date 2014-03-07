@@ -9,7 +9,8 @@ include_once './include.php';
         <ul class="nav pull-right">
         <?php
 //If the user has a team specific login, provide link to their roster page.
-if ($_SESSION['teamid'] > 0) {
+//@TODO determine which link the user should be shown
+if (true) {
     echo "<li><a href='/'>Games</a></li>";
 } else {
 	echo "<li><a href='/'>Competitions</a></li>";
@@ -22,11 +23,11 @@ if ($_SESSION['teamid'] > 0) {
           	<li><a href="https://usarugby.zendesk.com/anonymous_requests/new" target="_blank">Contact</a></li>
           </ul>
       </li>
-          <li><a href='/logout.php'>Logout</a></li>
+          <li><a href="<?php echo $this->url('zfcuser/logout'); ?>">Logout</a></li>
 
 <?php
 //only display Admin Options to admins
-if (editCheck(1)) {
+if ($this->user()->hasRole('super_admin')) {
     ?>
       <li class = "dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Options <b class = "caret"></b></a>

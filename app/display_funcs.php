@@ -243,24 +243,6 @@ function accessName($access)
     return $output;
 }
 
-/**
- *
- *
- * @param unknown $pagelvl (optional)
- * @param unknown $team_id (optional)
- * @return unknown
- */
-function editCheck($pagelvl = 2, $team_id = -2)
-{
-    require './config.php';
-    if ((isset($_SESSION['access']) && $_SESSION['access'] <= $pagelvl) || (isset($_SESSION['teamid']) && $_SESSION['teamid'] == $team_id) || $_SESSION['user'] == $config['usarugbyadmin']) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 function get_header_string($op)
 {
     switch ($op) {
