@@ -1,10 +1,12 @@
 <?php
-namespace UsaRugbyStats\Account\Controller\Plugin;
+namespace UsaRugbyStats\Account\View\Helper;
 
-use ZfcUser\Controller\Plugin\ZfcUserAuthentication;
+use ZfcUser\View\Helper\ZfcUserIdentity;
 
-class UserPlugin extends ZfcUserAuthentication
+class UserHelper extends ZfcUserIdentity
 {
+    protected $entityClass = 'ZfcUser\Entity\UserInterface';
+    
     /**
      * __invoke
      *
@@ -19,5 +21,16 @@ class UserPlugin extends ZfcUserAuthentication
         
         $factory = new \ProxyManager\Factory\NullObjectFactory();
         return $factory->createProxy($this->getEntityClass());
-    }    
+    }   
+
+    public function setEntityClass($class)
+    {
+        $this->entityClass = $class;
+        return $this;
+    }
+    
+    public function getEntityClass()
+    {
+        return $this->entityClass;
+    }
 }

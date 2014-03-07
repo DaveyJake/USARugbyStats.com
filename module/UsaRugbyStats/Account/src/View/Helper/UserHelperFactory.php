@@ -1,10 +1,10 @@
 <?php
-namespace UsaRugbyStats\Account\Controller\Plugin;
+namespace UsaRugbyStats\Account\View\Helper;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class UserPluginFactory implements FactoryInterface
+class UserHelperFactory implements FactoryInterface
 {
     /**
      * Create service
@@ -14,12 +14,11 @@ class UserPluginFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $zfcUserAuthentication = $sm->get('zfcUserAuthentication');
+        $zfcUserIdentity = $sm->get('zfcUserIdentity');
         $config = $sm->getServiceLocator()->get('Config');
         
-        $obj = new UserPlugin();
-        $obj->setAuthService($zfcUserAuthentication->getAuthService());
-        $obj->setAuthAdapter($zfcUserAuthentication->getAuthAdapter());
+        $obj = new UserHelper();
+        $obj->setAuthService($zfcUserIdentity->getAuthService());
         $obj->setEntityClass($config['zfcuser']['user_entity_class']);
         return $obj;
     }

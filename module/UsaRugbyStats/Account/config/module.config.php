@@ -39,13 +39,13 @@ return array(
     ),
     
     'view_helpers' => array(
-        'aliases' => array(
-            'user' => 'zfcUserIdentity'
+        'factories' => array(
+            'user' => 'UsaRugbyStats\Account\View\Helper\UserHelperFactory',
         ),
     ),
     'controller_plugins' => array(
         'factories' => array(
-            'user' => 'UsaRugbyStats\Account\Controller\Plugin\UserPluginFactory'
+            'user' => 'UsaRugbyStats\Account\Controller\Plugin\UserPluginFactory',
         ),
     ),
 
