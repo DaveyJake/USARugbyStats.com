@@ -1,0 +1,55 @@
+<?php
+$form = $this->loginForm;
+$form->prepare();
+$form->setAttribute('action', $this->url('zfcuser/login'));
+$form->setAttribute('method', 'post');
+?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $this->translate('Please sign in'); ?></h3>
+                </div>
+                <div class="panel-body">
+                    <?php echo $this->form()->openTag($form) ?>
+                        <?php if ($this->redirect): ?>
+                        <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
+                        <?php endif ?>
+                        
+                        <?php echo $this->formElementErrors($form->get('identity')) ?>
+                        
+                        <fieldset>
+                        
+                            <?php $element = $form->get('identity'); ?>
+                            <?php $element->setAttributes(array('class' => 'form-control')); ?>
+                            <div class="form-group">
+                                <?php echo $this->formLabel($element) ?>                            
+                                <?php echo $this->formInput($element); ?>
+                            </div>
+                            
+                            <?php $element = $form->get('credential'); ?>
+                            <?php $element->setAttributes(array('class' => 'form-control')); ?>
+                            <div class="form-group">
+                                <?php echo $this->formLabel($element) ?>
+                                <?php echo $this->formInput($element); ?>
+                            </div>
+                            
+                            <?php $element = $form->get('submit'); ?>
+                            <?php $element->setAttributes(array('class' => 'btn btn-lg btn-primary btn-block', 'value' => 'Sign In')); ?>
+                            <?php echo $this->formSubmit($element); ?>
+                        </fieldset>
+                    <?php echo $this->form()->closeTag() ?>
+                    
+                    <?php if ($this->enableRegistration) : ?>
+                    <div style="margin-top: 15px; text-align: center">
+                    <?php echo $this->translate('Not registered?'); ?> <a href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
+                    </div>
+                    <?php endif; ?>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
