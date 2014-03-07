@@ -1,0 +1,83 @@
+<?php $this->headTitle($this->translate('Account Registration')); ?>
+<?php if ( ! $this->enableRegistration ): ?>
+  <h2><?php echo $this->translate('Account Registration'); ?></h2>
+  <div class="alert alert-danger">Registration is disabled</div>
+  <?php return; ?>
+<?php endif; ?>
+
+
+<?php
+$form = $this->registerForm;
+$form->prepare();
+$form->setAttribute('action', $this->url('zfcuser/register'));
+$form->setAttribute('method', 'post');
+?>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $this->translate('Account Registration'); ?></h3>
+            </div>
+            <div class="panel-body">
+                <?php echo $this->form()->openTag($form) ?>
+                    <?php if ($this->redirect): ?>
+                    <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
+                    <?php endif ?>
+                    
+                    <fieldset>
+                        <?php $element = $form->get('display_name'); ?>
+                        <?php $element->setAttributes(array('class' => 'form-control')); ?>
+                        <div class="form-group">
+                            <?php echo $this->formLabel($element) ?>
+                            <?php echo $this->formInput($element); ?>
+                            <?php echo $this->formElementErrors($element) ?>
+                        </div>
+                        
+                        <?php $element = $form->get('email'); ?>
+                        <?php $element->setAttributes(array('class' => 'form-control')); ?>
+                        <div class="form-group">
+                            <?php echo $this->formLabel($element) ?>
+                            <?php echo $this->formInput($element); ?>
+                            <?php echo $this->formElementErrors($element) ?>
+                        </div>
+                                            
+                        <?php $element = $form->get('username'); ?>
+                        <?php $element->setAttributes(array('class' => 'form-control')); ?>
+                        <div class="form-group">
+                            <?php echo $this->formLabel($element) ?>                            
+                            <?php echo $this->formInput($element); ?>
+                            <?php echo $this->formElementErrors($element) ?>
+                        </div>
+                                            
+                        <?php $element = $form->get('password'); ?>
+                        <?php $element->setAttributes(array('class' => 'form-control')); ?>
+                        <div class="form-group">
+                            <?php echo $this->formLabel($element) ?>                            
+                            <?php echo $this->formInput($element); ?>
+                            <?php echo $this->formElementErrors($element) ?>
+                        </div>
+                                                                    
+                        <?php $element = $form->get('passwordVerify'); ?>
+                        <?php $element->setAttributes(array('class' => 'form-control')); ?>
+                        <div class="form-group">
+                            <?php echo $this->formLabel($element) ?>                            
+                            <?php echo $this->formInput($element); ?>
+                            <?php echo $this->formElementErrors($element) ?>
+                        </div>
+                        
+                        <?php $element = $form->get('submit'); ?>
+                        <?php $element->setAttributes(array('class' => 'btn btn-lg btn-primary btn-block', 'value' => 'Sign Up!')); ?>
+                        <?php echo $this->formSubmit($element); ?>
+                        <?php echo $this->formElementErrors($element) ?>
+                    </fieldset>
+                <?php echo $this->form()->closeTag() ?>
+                
+                <div style="margin-top: 15px; text-align: center">
+                <?php echo $this->translate('Already registered?'); ?> <a href="<?php echo $this->url('zfcuser/login') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign in!'); ?></a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
