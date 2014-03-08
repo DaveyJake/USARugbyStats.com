@@ -22,6 +22,11 @@ class UserHelper extends ZfcUserIdentity
         $factory = new \ProxyManager\Factory\NullObjectFactory();
         return $factory->createProxy($this->getEntityClass());
     }   
+    
+    public function isAuthenticated()
+    {
+        return $this->getAuthService()->hasIdentity();
+    }
 
     public function setEntityClass($class)
     {

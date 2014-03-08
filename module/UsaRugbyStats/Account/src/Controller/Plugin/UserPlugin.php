@@ -20,4 +20,9 @@ class UserPlugin extends ZfcUserAuthentication
         $factory = new \ProxyManager\Factory\NullObjectFactory();
         return $factory->createProxy($this->getEntityClass());
     }    
+    
+    public function isAuthenticated()
+    {
+        return $this->getAuthService()->hasIdentity();
+    }
 }
