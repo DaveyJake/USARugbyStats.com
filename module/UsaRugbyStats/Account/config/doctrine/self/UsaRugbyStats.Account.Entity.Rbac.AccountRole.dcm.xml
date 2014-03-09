@@ -14,7 +14,7 @@
             <unique-constraint columns="account_id,role_id" name="role_mapping" />
         </unique-constraints>
     
-        <many-to-one field="account" target-entity="UsaRugbyStats\Account\Entity\Account" inversed-by="roleAssignments">
+        <many-to-one field="account" target-entity="UsaRugbyStats\Application\Entity\AccountInterface" inversed-by="roleAssignments">
             <join-column name="account_id" referenced-column-name="user_id" />
         </many-to-one>
         

@@ -71,6 +71,13 @@ return array(
                 'credential_property' => 'password',
             ),
         ),
+        'entity_resolver' => array(
+            'orm_default' => array(
+                'resolvers' => array(
+                    'UsaRugbyStats\Application\Entity\AccountInterface' => 'UsaRugbyStats\Account\Entity\Account',
+                ),
+            ),
+        ),
     ),
     
     'zfc_rbac' => array(
