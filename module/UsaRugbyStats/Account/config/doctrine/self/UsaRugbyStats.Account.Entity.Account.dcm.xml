@@ -4,9 +4,9 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="UsaRugbyStats\Account\Entity\Account" table="urs_accounts">
+    <entity name="UsaRugbyStats\Account\Entity\Account" table="accounts">
     
-        <one-to-many field="roleAssignments" target-entity="UsaRugbyStats\Account\Entity\Rbac\AccountRole" mapped-by="account" index-by="role">
+        <one-to-many field="roleAssignments" target-entity="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment" mapped-by="account" index-by="role">
             <cascade>
                 <cascade-persist />
             </cascade>

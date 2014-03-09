@@ -3,7 +3,7 @@ namespace UsaRugbyStats\Account\Service\Strategy;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\Mvc\MvcEvent;
-use UsaRugbyStats\Account\Entity\Rbac\AccountRole;
+use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment;
 use Doctrine\Common\Persistence\ObjectManager;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\Event;
@@ -48,7 +48,7 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
         {
             $role = $svcRole->findOneBy(['name' => $roleName]);
             
-            $assignment = new AccountRole();
+            $assignment = new RoleAssignment();
             $assignment->setAccount($user);
             $assignment->setRole($role);
             

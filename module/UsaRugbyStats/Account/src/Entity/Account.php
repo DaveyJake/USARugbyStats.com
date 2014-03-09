@@ -5,9 +5,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use ZfcRbac\Identity\IdentityInterface;
 use UsaRugbyStats\Application\Entity\Account as BaseAccount;
 use ZfcUser\Entity\UserInterface;
-use UsaRugbyStats\Account\Entity\Rbac\AccountRole;
+use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment;
 use Doctrine\Common\Collections\Collection;
-use UsaRugbyStats\Account\Entity\Rbac\Role;
 
 class Account extends BaseAccount implements UserInterface, IdentityInterface
 {
@@ -48,20 +47,20 @@ class Account extends BaseAccount implements UserInterface, IdentityInterface
     }
     
     /**
-     * @param AccountRole $role
+     * @param RoleAssignment $role
      * @return self
      */
-    public function addRoleAssignment(AccountRole $ra)
+    public function addRoleAssignment(RoleAssignment $ra)
     {
         $this->roleAssignments->set((string)$ra->getRole(), $ra);
         return $this;
     }
     
     /**
-     * @param AccountRole $role
+     * @param RoleAssignment $role
      * @return bool
      */
-    public function hasRoleAssignment(AccountRole $ra)
+    public function hasRoleAssignment(RoleAssignment $ra)
     {
         return $this->roleAssignments->contains($ra);
     }
@@ -76,8 +75,7 @@ class Account extends BaseAccount implements UserInterface, IdentityInterface
     }    
 
     /**
-     * @param AccountRole $role
-     * @return bool
+     * @return array<Role>
      */
     public function getRoles()
     {

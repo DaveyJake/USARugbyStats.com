@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="UsaRugbyStats\Application\Entity\Account" table="urs_accounts">
+    <mapped-superclass name="UsaRugbyStats\Application\Entity\Account" table="accounts">
     
         <id name="id" type="integer" column="user_id">
             <generator strategy="AUTO" />
