@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment" table="accounts_rbac_roleassignment">
+    <entity name="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment" inheritance-type="SINGLE_TABLE" table="accounts_rbac_roleassignment">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
@@ -21,8 +21,16 @@
         <many-to-one field="role" target-entity="UsaRugbyStats\Account\Entity\Rbac\Role">
             <join-column name="role_id" referenced-column-name="id" />
         </many-to-one>
-        
-        <field name="restrictions" type="array" />
+
+        <discriminator-column name="discr" type="string" />
+        <discriminator-map>
+            <discriminator-mapping value="super_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin" />
+            <discriminator-mapping value="union_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\UnionAdmin" />
+            <discriminator-mapping value="league_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\LeagueAdmin" />
+            <discriminator-mapping value="team_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin" />
+            <discriminator-mapping value="member" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member" />
+            <discriminator-mapping value="guest" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Guest" />
+        </discriminator-map>
 
     </entity>
 
