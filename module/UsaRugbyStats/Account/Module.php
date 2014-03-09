@@ -12,6 +12,14 @@ class Module
         $t->getEventManager()->attach(
             $t->getServiceManager()->get('ZfcRbac\View\Strategy\UnauthorizedStrategy')
         );
+        
+        $app = $e->getApplication();
+
+        // Automatically attach Member role to new users
+        $userService = $app->getServiceManager()->get('zfcuser_user_service');
+        $listener = $app->getServiceManager()->get('UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignup');
+        $listener->setGroups(['member']);
+        $userService->getEventManager()->attach($listener);
     }
    
     public function getConfig()

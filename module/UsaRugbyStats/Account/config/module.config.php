@@ -19,6 +19,7 @@ return array(
             'Zend\Authentication\AuthenticationService' => function($sm) {
                 return $sm->get('doctrine.authenticationservice.orm_default');
             },
+            'UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignup' => 'UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignupFactory',
         ),
     ),
     'translator' => array(
