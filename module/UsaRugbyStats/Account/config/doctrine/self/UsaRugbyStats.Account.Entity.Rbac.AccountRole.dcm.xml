@@ -10,7 +10,7 @@
             <generator strategy="AUTO" />
         </id>
     
-        <many-to-one field="account" target-entity="UsaRugbyStats\Account\Entity\Account" inversed-by="roles">
+        <many-to-one field="account" target-entity="UsaRugbyStats\Account\Entity\Account" inversed-by="roleAssignments">
             <join-column name="account_id" referenced-column-name="user_id" />
         </many-to-one>
         
