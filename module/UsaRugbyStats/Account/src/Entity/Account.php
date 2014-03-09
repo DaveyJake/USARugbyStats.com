@@ -16,6 +16,11 @@ class Account extends BaseAccount implements UserInterface, IdentityInterface
     protected $roleAssignments;
     
     /**
+     * @var array
+     */
+    protected $roleCache;
+    
+    /**
      * Init the Doctrine collection
      */
     public function __construct()
@@ -52,7 +57,8 @@ class Account extends BaseAccount implements UserInterface, IdentityInterface
      */
     public function addRoleAssignment(RoleAssignment $ra)
     {
-        $this->roleAssignments->set((string)$ra->getRole(), $ra);
+        $this->roleCache = array();
+        $this->roleAssignments->add($ra);
         return $this;
     }
     
@@ -71,7 +77,7 @@ class Account extends BaseAccount implements UserInterface, IdentityInterface
      */
     public function hasRole($role)
     { 
-        return isset($this->roleAssignments[(string)$role]);
+        return in_array((string)$role, $this->getRoles());
     }    
 
     /**
@@ -79,10 +85,12 @@ class Account extends BaseAccount implements UserInterface, IdentityInterface
      */
     public function getRoles()
     {
-        $roles = array();
-        foreach ( $this->roleAssignments as $ra ) {
-            $roles[] = $ra->getRole();
+        if (empty($this->roleCache)) {
+            $this->roleCache = array();
+            foreach ( $this->roleAssignments as $ra ) {
+                $this->roleCache[] = $ra->getRole();
+            }
         }
-        return $roles;
+        return $this->roleCache;
     }
 }
