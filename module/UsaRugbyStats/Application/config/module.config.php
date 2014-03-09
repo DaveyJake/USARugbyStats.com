@@ -73,4 +73,18 @@ return array(
             ),
         ),
     ),
+    
+    'doctrine' => array(
+        'driver' => array(
+            'usarugbystats_application_entity' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\XmlDriver',
+                'paths' => __DIR__ . '/doctrine/self'
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    'UsaRugbyStats\Application\Entity'  => 'usarugbystats_application_entity'
+                )
+            )
+        ),
+    ),
 );
