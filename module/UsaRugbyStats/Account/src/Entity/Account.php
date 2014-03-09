@@ -1,67 +1,90 @@
 <?php
 namespace UsaRugbyStats\Account\Entity;
 
-use ZfcUser\Entity\User as ZfcUserDoctrineORMUser;
 use Doctrine\Common\Collections\ArrayCollection;
 use ZfcRbac\Identity\IdentityInterface;
+use UsaRugbyStats\Application\Entity\Account as BaseAccount;
+use ZfcUser\Entity\UserInterface;
+use UsaRugbyStats\Account\Entity\Rbac\AccountRole;
+use Doctrine\Common\Collections\Collection;
+use UsaRugbyStats\Account\Entity\Rbac\Role;
 
-class Account extends ZfcUserDoctrineORMUser implements IdentityInterface
+class Account extends BaseAccount implements UserInterface, IdentityInterface
 {
     /**
-     * @var Role[]|\Doctrine\Common\Collections\Collection
+     * @var Collection
      */
-    protected $roles;
+    protected $roleAssignments;
     
     /**
      * Init the Doctrine collection
      */
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
+        $this->roleAssignments = new ArrayCollection();
     }
     
     /**
-     * @return Role[]|\Doctrine\Common\Collections\Collection
+     * @return Collection
      */
-    public function getRoles()
+    public function getRoleAssignments()
     {
-        return $this->roles;
+        return $this->roleAssignments;
     }
     
     /**
-     * @param \Doctrine\Common\Collections\Collection $roles
+     * @param Collection $roleAssignments
      * @return self
      */
-    public function setRoles($roles)
+    public function setRoleAssignments(Collection $roleAssignments)
     {
-        $this->roles = new ArrayCollection();
-        if(count($roles)){
-            foreach($roles as $role){
-                if(!$this->hasRole($role)){
-                    $this->addRole($role);
-                }
+        $this->roleAssignments = new ArrayCollection();
+        if(count($roleAssignments)){
+            foreach($roleAssignments as $ra){
+                $this->addRoleAssignment($ra);
             }
-        }
-    
+        }    
         return $this;
     }
     
     /**
-     * @param Role $role
+     * @param AccountRole $role
      * @return self
      */
-    public function addRole($role)
+    public function addRoleAssignment(AccountRole $ra)
     {
-        $this->roles[(string) $role] = $role;
+        $this->roleAssignments->set((string)$ra->getRole(), $ra);
         return $this;
     }
     
     /**
-     * @param Role $role
+     * @param AccountRole $role
+     * @return bool
+     */
+    public function hasRoleAssignment(AccountRole $ra)
+    {
+        return $this->roleAssignments->contains($ra);
+    }
+
+    /**
+     * @param string|Role $role
      * @return bool
      */
     public function hasRole($role)
+    { 
+        return isset($this->roleAssignments[(string)$role]);
+    }    
+
+    /**
+     * @param AccountRole $role
+     * @return bool
+     */
+    public function getRoles()
     {
-        return isset($this->roles[(string) $role]);
+        $roles = array();
+        foreach ( $this->roleAssignments as $ra ) {
+            $roles[] = $ra->getRole();
+        }
+        return $roles;
     }
 }

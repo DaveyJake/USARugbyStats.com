@@ -128,4 +128,8 @@ class Role implements HierarchicalRoleInterface
         return $this->permissions->contains($permission);
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
