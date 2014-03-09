@@ -6,7 +6,7 @@
 
     <entity name="UsaRugbyStats\Account\Entity\Account" table="urs_accounts">
     
-        <one-to-many field="roleAssignments" target-entity="UsaRugbyStats\Account\Entity\Rbac\AccountRole" mapped-by="account">
+        <one-to-many field="roleAssignments" target-entity="UsaRugbyStats\Account\Entity\Rbac\AccountRole" mapped-by="account" index-by="role">
             <cascade>
                 <cascade-persist />
             </cascade>
