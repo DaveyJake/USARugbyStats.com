@@ -3,7 +3,7 @@ namespace UsaRugbyStats\Account\Entity\Rbac;
 
 use UsaRugbyStats\Application\Entity\AccountInterface;
 
-class RoleAssignment 
+abstract class RoleAssignment 
 {
     protected $id;
     

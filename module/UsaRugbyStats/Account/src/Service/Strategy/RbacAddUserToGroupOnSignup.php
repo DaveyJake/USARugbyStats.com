@@ -7,6 +7,8 @@ use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment;
 use Doctrine\Common\Persistence\ObjectManager;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\Event;
+use Zend\Filter\Word\SeparatorToCamelCase;
+use UsaRugbyStats\Account\Entity\Rbac\Role;
 
 class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
 {
@@ -44,11 +46,19 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
         $user = $e->getParam('user');
         $svcRole = $this->objectManager->getRepository('UsaRugbyStats\Account\Entity\Rbac\Role');
         
+        $filter = new SeparatorToCamelCase('-');
+        
         foreach ( $this->groupNames as $roleName )
         {
             $role = $svcRole->findOneBy(['name' => $roleName]);
-            
-            $assignment = new RoleAssignment();
+            if ( ! $role instanceof Role ) {
+                continue;
+            }
+            $className = 'UsaRugbyStats\\Account\\Entity\\Rbac\\RoleAssignment\\' . $filter->filter($roleName);
+            if ( ! class_exists($className) ) {
+                continue;
+            }
+            $assignment = new $className();
             $assignment->setAccount($user);
             $assignment->setRole($role);
             
