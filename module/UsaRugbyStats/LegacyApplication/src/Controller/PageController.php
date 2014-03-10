@@ -22,7 +22,7 @@ class PageController extends AbstractActionController
             throw new \InvalidArgumentException('The route you specified is not configured');
         }        
         $routeSlug = $config['router']['routes']['urs-la']['child_routes'][$parts[1]]['options']['route'];
-        $requestSlug = ltrim($this->getRequest()->getServer('REQUEST_URI'), '/');
+        $requestSlug = ltrim($this->getRequest()->getServer('REDIRECT_URL'), '/');
         
         // The URI configured by the route doesn't match the URI from the request,
         // so we bail out as something is quite fishy here
@@ -40,7 +40,6 @@ class PageController extends AbstractActionController
         chdir(dirname($scriptFile));
         
         $vm = new ViewModel();
-        $vm->setTerminal(true);
         $vm->setTemplate('usa-rugby-stats/legacy-application/render');
         $vm->setVariables(array('scriptFile' => $scriptFile));
         return $vm;
