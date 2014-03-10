@@ -7,6 +7,7 @@ use UsaRugbyStats\Application\Entity\Account as BaseAccount;
 use ZfcUser\Entity\UserInterface;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 
 class Account extends BaseAccount implements UserInterface, IdentityInterface
 {
@@ -34,6 +35,16 @@ class Account extends BaseAccount implements UserInterface, IdentityInterface
     public function getRoleAssignments()
     {
         return $this->roleAssignments;
+    }
+    
+    public function getRoleAssignment($rolename)
+    {
+        foreach ( $this->roleAssignments as $obj ) {
+            if ( $rolename == $obj->getRole()->getName() ) {
+                return $obj;
+            }
+        }
+        return null;
     }
     
     /**
