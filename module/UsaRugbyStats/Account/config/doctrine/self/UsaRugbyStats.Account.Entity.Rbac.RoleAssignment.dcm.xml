@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment" inheritance-type="SINGLE_TABLE" table="accounts_rbac_roleassignment">
+    <entity name="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment" inheritance-type="JOINED" table="accounts_rbac_roleassignment">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
