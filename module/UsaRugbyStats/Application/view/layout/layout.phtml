@@ -67,8 +67,7 @@
                           <?php echo $this->zfcUserDisplayName(); ?> <b class="caret"></b>
                       </a>
                       <ul class="dropdown-menu">
-                        <li class="divider"></li>
-                        <li><a href="<?php echo $this->url('zfcuser'); ?>">Account</a></li>
+                        <li><a href="<?php echo $this->url('zfcuser'); ?>">Your Profile</a></li>
                         <li><a href="<?php echo $this->url('zfcuser/logout'); ?>">Logout</a></li>
                       </ul>
                     </li>
@@ -111,23 +110,14 @@
                   </li>
                   
                 <?php if ($this->user()->hasRole('super_admin')): ?>
+                
                   <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Options <b class = "caret"></b></a>
-                      <ul class="dropdown-menu">
-                          <!-- <li><a href='db_update.php'>Update Player Database</a></li> -->
-                          <!-- <li><a href='db_update_team.php'>Add Club to Club Database</a></li> -->
-                          <li><a href='users.php'>User Management</a></li>
-                          <li><a href='groups_active.php'>Group Management</a></li>
-                          <li class="divider"></li>
-                          <li class="dropdown-submenu">
-                            <a tabindex="-1" href="processqueue">Sync (<?php $qh = new Source\QueueHelper(); echo $qh->Queue()->count();?>)</a>
-                            <ul class="dropdown-menu">
-                              <li><a href='db_update_users_process.php'>Users</a></li>
-                              <li><a href='groups_sync.php'>Groups</a></li>
-                              <li><a href='group_members_sync.php'>Players in Groups</a></li>
-                            </ul>
-                          </li>
-                      </ul>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Panel <b class = "caret"></b></a>
+                      <?php echo $this->navigation('admin_navigation')
+                                      ->menu()
+                                      ->setUlClass('dropdown-menu')
+                                      ->setMaxDepth(0)
+                                      ->setRenderInvisible(false)?>
                   </li>
                 <?php endif; ?>
                 </ul>

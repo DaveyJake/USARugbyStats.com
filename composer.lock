@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f256189369c8ef772162f62c66165c96",
+    "hash": "87b7922660fc4bf76214f2c85dbf1a74",
     "packages": [
         {
             "name": "allplayers/allplayers",
@@ -187,6 +187,48 @@
             "description": "Credis is a lightweight interface to the Redis key-value store which wraps the phpredis library when available for better performance.",
             "homepage": "https://github.com/colinmollenhour/credis",
             "time": "2013-04-18 17:21:32"
+        },
+        {
+            "name": "danielss89/zfc-user-admin",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Danielss89/ZfcUserAdmin.git",
+                "reference": "ab2cb7d2ec73bc733b6d8fb53639a85e5d1502aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Danielss89/ZfcUserAdmin/zipball/ab2cb7d2ec73bc733b6d8fb53639a85e5d1502aa",
+                "reference": "ab2cb7d2ec73bc733b6d8fb53639a85e5d1502aa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zf-commons/zfc-admin": ">=0.1.1",
+                "zf-commons/zfc-user": ">=0.1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ZfcUserAdmin": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Daniel Strøm",
+                    "email": "daniel@eye4web.dk"
+                }
+            ],
+            "description": "An administration interface for ZfcUser.",
+            "homepage": "https://github.com/Danielss89/ZfcUserAdmin.git",
+            "keywords": [
+                "zf2"
+            ],
+            "time": "2014-01-12 10:48:13"
         },
         {
             "name": "doctrine/annotations",
@@ -1957,6 +1999,59 @@
             "time": "2014-02-28 18:30:16"
         },
         {
+            "name": "zf-commons/zfc-admin",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ZF-Commons/ZfcAdmin.git",
+                "reference": "7dab378720ddbb2ce7c8d505c4ef9e7701fa6a8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ZF-Commons/ZfcAdmin/zipball/7dab378720ddbb2ce7c8d505c4ef9e7701fa6a8d",
+                "reference": "7dab378720ddbb2ce7c8d505c4ef9e7701fa6a8d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zendframework/zendframework": "2.*"
+            },
+            "suggest": {
+                "bjyoungblood/bjy-authorize": "Access control to protect ZfcAdmin against unauthorized users"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ZfcAdmin": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jurian Sluiman ",
+                    "email": "jurian@juriansluiman.nl",
+                    "homepage": "http://juriansluiman.nl/en/"
+                },
+                {
+                    "name": "Martin Shwalbe",
+                    "email": "martin.shwalbe@gmail.com",
+                    "homepage": "http://hounddog.github.com"
+                }
+            ],
+            "description": "A generic Admin module for ZF2.",
+            "homepage": "https://github.com/juriansluiman/ZfcAdmin",
+            "keywords": [
+                "zf2"
+            ],
+            "time": "2013-10-16 14:50:58"
+        },
+        {
             "name": "zf-commons/zfc-base",
             "version": "v0.1.2",
             "source": {
@@ -3128,6 +3223,7 @@
     "stability-flags": {
         "allplayers/allplayers": 20,
         "zf-commons/zfc-user": 20,
+        "danielss89/zfc-user-admin": 20,
         "fabpot/goutte": 20,
         "behat/behat": 0
     },

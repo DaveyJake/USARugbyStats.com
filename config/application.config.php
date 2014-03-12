@@ -11,6 +11,9 @@ return array(
         'ZfcUser',
         'ZfcUserDoctrineORM',
         
+        'ZfcAdmin',
+        'ZfcUserAdmin',
+        
         'ZfcRbac',
 
         // LegacyApplication goes first so that it's /
