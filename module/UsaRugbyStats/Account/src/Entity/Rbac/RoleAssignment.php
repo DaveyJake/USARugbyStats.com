@@ -11,8 +11,6 @@ abstract class RoleAssignment
     
     protected $role;
     
-    protected $restrictions;
-    
     public function getId()
     {
         return $this->id;
@@ -42,16 +40,5 @@ abstract class RoleAssignment
     {
         $this->role = $role;
     }
-
-    public function getRestrictions()
-    {
-        return $this->restrictions;
-    }
-
-    public function setRestrictions(array $restrictions)
-    {
-        $this->restrictions = $restrictions;
-    }
-    
     
 }
