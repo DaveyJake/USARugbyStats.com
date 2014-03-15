@@ -5,6 +5,8 @@ use ZfcUser\Controller\Plugin\ZfcUserAuthentication;
 
 class UserPlugin extends ZfcUserAuthentication
 {
+    protected $entityClass;
+    
     /**
      * __invoke
      *
@@ -25,4 +27,16 @@ class UserPlugin extends ZfcUserAuthentication
     {
         return $this->getAuthService()->hasIdentity();
     }
+
+    public function getEntityClass()
+    {
+        return $this->entityClass;
+    }
+
+    public function setEntityClass($entityClass)
+    {
+        $this->entityClass = $entityClass;
+        return $this;
+    }
+
 }
