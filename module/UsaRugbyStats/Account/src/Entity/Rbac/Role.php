@@ -105,7 +105,7 @@ class Role implements HierarchicalRoleInterface
     
     public function addPermission(Permission $perm)
     {
-        $this->permissions->add($perm);
+        $this->permissions->set((string)$perm, $perm);
         return $this;
     }
     
@@ -125,7 +125,7 @@ class Role implements HierarchicalRoleInterface
     
 	public function hasPermission($permission)
     {
-        return $this->permissions->contains($permission);
+        return $this->permissions->containsKey((string)$permission);
     }
 
     public function __toString()
