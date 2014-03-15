@@ -46,7 +46,7 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
         $user = $e->getParam('user');
         $svcRole = $this->objectManager->getRepository('UsaRugbyStats\Account\Entity\Rbac\Role');
         
-        $filter = new SeparatorToCamelCase('-');
+        $filter = new SeparatorToCamelCase('_');
         
         foreach ( $this->groupNames as $roleName )
         {
