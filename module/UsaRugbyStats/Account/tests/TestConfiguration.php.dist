@@ -1,0 +1,14 @@
+<?php
+return array(
+    'modules' => array(
+        'UsaRugbyStats\Application',
+        'UsaRugbyStats\Account',
+    ),
+    'module_listener_options' => array(
+        'config_glob_paths' => array(),
+        'module_paths' => array(
+            'UsaRugbyStats\Application'  => realpath(__DIR__ . '/../../Application'),
+            'UsaRugbyStats\Account'  => realpath(__DIR__ . '/../../Account'),
+        ),
+    ),
+);
