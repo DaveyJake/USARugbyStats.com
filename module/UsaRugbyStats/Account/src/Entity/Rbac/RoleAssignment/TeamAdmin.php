@@ -2,7 +2,7 @@
 namespace UsaRugbyStats\Account\Entity\Rbac\RoleAssignment;
 
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment as BaseAssignment;
-use UsaRugbyStats\Account\Entity\Team;
+use UsaRugbyStats\Application\Entity\Team;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
