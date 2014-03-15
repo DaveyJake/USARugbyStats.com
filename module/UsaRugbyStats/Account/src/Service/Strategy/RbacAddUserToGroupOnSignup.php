@@ -48,6 +48,7 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
         
         $filter = new SeparatorToCamelCase('_');
         
+        $changed = false;
         foreach ( $this->groupNames as $roleName )
         {
             $role = $svcRole->findOneBy(['name' => $roleName]);
@@ -63,8 +64,10 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
             $assignment->setRole($role);
             
             $user->addRoleAssignment($assignment);
+            $changed = true;
         }
-
-        $e->getTarget()->getUserMapper()->update($user);
+        if ( $changed ) {
+            $e->getTarget()->getUserMapper()->update($user);
+        }
     }
 }
