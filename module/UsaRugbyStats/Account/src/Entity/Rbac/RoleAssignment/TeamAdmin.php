@@ -32,7 +32,7 @@ class TeamAdmin extends BaseAssignment
      */
     public function setManagedTeams(Collection $managedTeams)
     {
-        $this->managedTeams = new ArrayCollection();
+        $this->managedTeams->clear();
         if(count($managedTeams)){
             foreach($managedTeams as $t) {
                 $this->addManagedTeam($t);

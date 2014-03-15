@@ -54,7 +54,7 @@ class Account extends BaseAccount implements UserInterface, AccountRbacInterface
      */
     public function setRoleAssignments(Collection $roleAssignments)
     {
-        $this->roleAssignments = new ArrayCollection();
+        $this->roleAssignments->clear();
         if(count($roleAssignments)){
             foreach($roleAssignments as $ra){
                 $this->addRoleAssignment($ra);
