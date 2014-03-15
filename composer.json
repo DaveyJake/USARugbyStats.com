@@ -34,7 +34,10 @@
         "behat/behat": "2.4@stable",
         "behat/mink-extension":  "*",
         "behat/mink-goutte-driver":     "*",
-        "behat/mink-selenium2-driver":  "*"
+        "behat/mink-selenium2-driver":  "*",
+
+        "phpunit/phpunit": "3.*",
+        "mockery/mockery": "0.*"
     },
     "autoload": {
         "psr-0": { "Source": "lib/" }
