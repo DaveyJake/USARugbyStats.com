@@ -2,14 +2,15 @@
 namespace UsaRugbyStats\Account\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use ZfcRbac\Identity\IdentityInterface;
 use UsaRugbyStats\Application\Entity\Account as BaseAccount;
-use ZfcUser\Entity\UserInterface;
+use UsaRugbyStats\Account\Entity\Rbac\AccountRbacInterface;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Criteria;
+use ZfcUser\Entity\UserInterface;
+use ZfcRbac\Identity\IdentityInterface;
 
-class Account extends BaseAccount implements UserInterface, IdentityInterface
+
+class Account extends BaseAccount implements UserInterface, AccountRbacInterface, IdentityInterface
 {
     /**
      * @var Collection
