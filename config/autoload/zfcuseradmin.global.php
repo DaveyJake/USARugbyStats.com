@@ -8,7 +8,7 @@ $settings = array(
     'user_list_elements' => array(
         'Id' => 'id',
         'Username' => 'username',
-        'Display Name' => 'display_name',
+        'Display Name' => 'displayName',
         'Email address' => 'email',
     ),
 );
