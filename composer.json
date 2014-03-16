@@ -7,6 +7,10 @@
         {
         	"type": "vcs",
         	"url": "https://github.com/adamlundrigan/ZfcUser.git"
+        },
+        {
+        	"type": "vcs",
+        	"url": "https://github.com/adamlundrigan/ZfcUserAdmin.git"
         }
     ],
     "require": {
@@ -27,7 +31,7 @@
         "zf-commons/zfc-rbac": "2.*",
         "ocramius/proxy-manager": "0.5.*",
 
-        "danielss89/zfc-user-admin": "dev-master@dev"
+        "danielss89/zfc-user-admin": "dev-rewrite as dev-master@dev"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master",
