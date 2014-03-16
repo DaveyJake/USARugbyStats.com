@@ -1,0 +1,49 @@
+<?php $form->setAttribute('class', 'form-horizontal'); ?>
+<?php echo $this->form()->openTag($form) ?>
+
+<?php $submitButton = $form->get('submit'); ?>
+<?php $submitButton->setAttribute('class', 'btn btn-lg btn-success'); ?>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Basic Account Details</div>
+            <div class="panel-body">
+                <?php foreach (array('userId','username','email','display_name','password','passwordVerify','reset_password') as $elementName): ?>
+                    <?php if ( ! $form->has($elementName) ) continue; ?>
+                    <?php $element = $form->get($elementName); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+            
+                    <?php $isCheckbox = $element instanceof Zend\Form\Element\Checkbox || $element->getAttribute('type') == 'checkbox'; ?>
+                    
+                    <div class="row form-group">
+                        <?php if ($element->getLabel() != null): ?>
+                            <?php echo $this->formLabel($element) ?>
+                        <?php endif ?>
+                        <?php if ( ! $isCheckbox ): ?>
+                            <?php $element->setAttribute('class', 'form-control'); ?>
+                        <?php endif; ?>
+                        <div class="col-sm-8"><?php echo $this->formElement($element) . $this->formElementErrors($element) ?></div>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Role-based Access Control</div>
+            <div class="panel-body">
+                <div class="alert alert-warning">TODO</div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div class="clearfix"></div>
+<div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>
+
+<?php if ($this->redirect): ?>
+    <input type="hidden" name="redirect" value="<?php echo $this->redirect ?>">
+<?php endif ?>
+<?php echo $this->form()->closeTag() ?>
