@@ -182,5 +182,10 @@ class Team
     {
         $this->groupAboveUuid = $groupAboveUuid;
     }
+    
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
 }
