@@ -194,12 +194,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/adamlundrigan/ZfcUserAdmin.git",
-                "reference": "ab2cb7d2ec73bc733b6d8fb53639a85e5d1502aa"
+                "reference": "03f9c397fa4633fedd06ef692deb9cb71631bbb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adamlundrigan/ZfcUserAdmin/zipball/ab2cb7d2ec73bc733b6d8fb53639a85e5d1502aa",
-                "reference": "ab2cb7d2ec73bc733b6d8fb53639a85e5d1502aa",
+                "url": "https://api.github.com/repos/adamlundrigan/ZfcUserAdmin/zipball/03f9c397fa4633fedd06ef692deb9cb71631bbb1",
+                "reference": "03f9c397fa4633fedd06ef692deb9cb71631bbb1",
                 "shasum": ""
             },
             "require": {
@@ -228,9 +228,9 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/adamlundrigan/ZfcUserAdmin/tree/master"
+                "source": "https://github.com/adamlundrigan/ZfcUserAdmin/tree/rewrite"
             },
-            "time": "2014-01-12 10:48:13"
+            "time": "2014-03-16 13:56:52"
         },
         {
             "name": "doctrine/annotations",
