@@ -1,0 +1,26 @@
+<?php
+$this->fieldset->get('type')->setValue($this->type); 
+foreach ( $this->fieldset as $item ) {
+    $item->setLabelAttributes(array('class' => 'col-md-2 control-label'));
+    $item->setAttributes(array('class' => 'form-control'));
+}
+?>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Team Admin</div>
+    <div class="panel-body">
+        
+        <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
+        
+        <div class="form-group">
+            <?php $element = $this->fieldset->get('managedTeams'); ?>
+            <?php echo $this->formLabel($element); ?>
+            <div class="col-lg-10">
+                <?php foreach ( $element as $item ): ?>
+                <?php   echo $this->formSelect($item->get('team')); ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        
+    </div>
+</div>
