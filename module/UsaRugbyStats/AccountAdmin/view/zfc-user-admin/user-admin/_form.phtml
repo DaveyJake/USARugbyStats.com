@@ -31,25 +31,7 @@
     </div>
     
     <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">Role-based Access Control</div>
-            <div class="panel-body">
-                <?php
-                $collection = $form->get('roleAssignments');
-                foreach ( $collection as $item ) {
-                    if ( ! preg_match('{^UsaRugbyStats\\\\AccountAdmin\\\\Form\\\\Rbac\\\\RoleAssignment\\\\(.*)Fieldset$}is', get_class($item), $matches) ) {
-                        continue;
-                    }
-                    
-                    echo $this->render('usa-rugby-stats/account-admin/role-assignments/' . strtolower(str_replace('\\', DIRECTORY_SEPARATOR, $matches[1])), array(
-                        'type' => $matches[1],
-                        'fieldset' => $item, 
-                        'isTemplate' => false,
-                    ));
-                }
-                ?>
-            </div>
-        </div>
+        <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments', array('collection' => $form->get('roleAssignments')))?>
     </div>
     
 </div>

@@ -24,6 +24,7 @@ return array(
             'zfc-user-admin/user-admin/create'  => __DIR__ . '/../view/zfc-user-admin/user-admin/create.phtml',
             'zfc-user-admin/user-admin/edit'    => __DIR__ . '/../view/zfc-user-admin/user-admin/edit.phtml',
             
+            'usa-rugby-stats/account-admin/role-assignments' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments.phtml',
             'usa-rugby-stats/account-admin/role-assignments/common' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/common.phtml',
             'usa-rugby-stats/account-admin/role-assignments/teamadmin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/teamadmin.phtml',
             'usa-rugby-stats/account-admin/role-assignments/superadmin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/superadmin.phtml',
