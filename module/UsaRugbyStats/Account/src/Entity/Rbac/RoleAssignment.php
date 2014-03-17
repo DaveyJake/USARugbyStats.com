@@ -36,7 +36,7 @@ abstract class RoleAssignment
         return $this->role;
     }
 
-    public function setRole(Role $role)
+    public function setRole(Role $role = NULL)
     {
         $this->role = $role;
     }

@@ -47,10 +47,10 @@ class RoleAssignmentTest extends ServiceManagerTestCase
         $this->assertSame($role, $obj->getRole());
     }
     
-    public function testRoleCannotBeSetToNull()
+    public function testRoleCanBeSetToNull()
     {
-        $this->setExpectedException('PHPUnit_Framework_Error');
         $obj = new RoleAssignmentTestEntity();
         $obj->setRole(NULL);
+        $this->assertNull($obj->getRole());
     }
 }
