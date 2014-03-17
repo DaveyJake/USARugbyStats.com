@@ -4,6 +4,7 @@ namespace UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Collections\Collection;
 use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentFieldset;
+use DoctrineModule\Form\Element\ObjectSelect;
 
 class TeamAdminFieldset extends RoleAssignmentFieldset
 {
@@ -13,13 +14,20 @@ class TeamAdminFieldset extends RoleAssignmentFieldset
     {
         parent::__construct('team-admin');
         
-        $tagFieldset = new TeamAdmin\ManagedTeamFieldset($om);
+        $team = new ObjectSelect();
+        $team->setName('team');
+        $team->setOptions(array(
+            'label' => 'Team',
+            'object_manager' => $om,
+            'target_class'   => 'UsaRugbyStats\Application\Entity\Team',
+        ));
+        
         $this->add(array(
             'type'    => 'Zend\Form\Element\Collection',
             'name'    => 'managedTeams',
             'options' => array(
                 'label' => 'Managed Teams',
-                'target_element' => $tagFieldset
+                'target_element' => $team
             )
         ));
     }
