@@ -55,6 +55,16 @@ class Account extends BaseAccount implements UserInterface, AccountRbacInterface
     public function setRoleAssignments(Collection $roleAssignments)
     {
         $this->roleAssignments->clear();
+        $this->addRoleAssignments($roleAssignments);
+        return $this;
+    }
+
+    /**
+     * @param Collection $roleAssignments
+     * @return self
+     */
+    public function addRoleAssignments(Collection $roleAssignments)
+    {
         if(count($roleAssignments)){
             foreach($roleAssignments as $ra){
                 $this->addRoleAssignment($ra);
@@ -71,6 +81,32 @@ class Account extends BaseAccount implements UserInterface, AccountRbacInterface
     {
         $this->roleCache = array();
         $this->roleAssignments->add($ra);
+        return $this;
+    }
+
+    /**
+     * @param Collection $roleAssignments
+     * @return self
+     */
+    public function removeRoleAssignments(Collection $roleAssignments)
+    {
+        if(count($roleAssignments)){
+            foreach($roleAssignments as $ra){
+                $this->removeRoleAssignment($ra);
+            }
+        }
+        return $this;
+    }
+    
+    /**
+     * @param RoleAssignment $role
+     * @return self
+     */
+    public function removeRoleAssignment(RoleAssignment $ra)
+    {
+        $this->roleCache = array();
+        $ra->setAccount(NULL);
+        $this->roleAssignments->removeElement($ra);
         return $this;
     }
     
