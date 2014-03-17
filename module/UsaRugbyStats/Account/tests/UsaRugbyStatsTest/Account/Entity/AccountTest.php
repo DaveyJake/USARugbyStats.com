@@ -17,8 +17,10 @@ class AccountTest extends ServiceManagerTestCase
         
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('setAccount')->once();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('setAccount')->once();
         
         $newCollection = new ArrayCollection();
         $newCollection->add($ra0);
@@ -39,8 +41,10 @@ class AccountTest extends ServiceManagerTestCase
     
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('setAccount')->once();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('setAccount')->once();
     
         // Add one to the existing collection
         $collection = $obj->getRoleAssignments();
@@ -61,10 +65,13 @@ class AccountTest extends ServiceManagerTestCase
     
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('setAccount')->once();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('setAccount')->once();
         $ra2 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra2->shouldReceive('getRole')->once()->andReturn(new Role('guest'));
+        $ra2->shouldReceive('setAccount')->once();
             
         // Add one to the existing collection
         $collection = $obj->getRoleAssignments();
@@ -180,8 +187,10 @@ class AccountTest extends ServiceManagerTestCase
     
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('setAccount')->once();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('setAccount')->once();
     
         // Add one to the existing collection
         $collection = $obj->getRoleAssignments();
@@ -204,10 +213,13 @@ class AccountTest extends ServiceManagerTestCase
     
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('setAccount')->once();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('setAccount')->once();
         $ra2 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra2->shouldReceive('getRole')->once()->andReturn(new Role('guest'));
+        $ra2->shouldReceive('setAccount')->once();
     
         // Add one to the existing collection
         $collection = $obj->getRoleAssignments();

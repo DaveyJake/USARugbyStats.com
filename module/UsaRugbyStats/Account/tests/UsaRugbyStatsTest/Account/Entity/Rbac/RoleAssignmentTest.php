@@ -29,11 +29,11 @@ class RoleAssignmentTest extends ServiceManagerTestCase
         $this->assertSame($acct, $obj->getAccount());
     }
 
-    public function testAccountCannotBeSetToNull()
+    public function testAccountCanBeSetToNull()
     {
-        $this->setExpectedException('PHPUnit_Framework_Error');
         $obj = new RoleAssignmentTestEntity();
         $obj->setAccount(NULL);
+        $this->assertNull($obj->getAccount());
     }
 
     public function testRole()

@@ -80,6 +80,7 @@ class Account extends BaseAccount implements UserInterface, AccountRbacInterface
     public function addRoleAssignment(RoleAssignment $ra)
     {
         $this->roleCache = array();
+        $ra->setAccount($this);
         $this->roleAssignments->add($ra);
         return $this;
     }
