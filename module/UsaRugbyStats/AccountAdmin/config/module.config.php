@@ -44,6 +44,8 @@ return array(
 	        
 	        'zfcuseradmin_edituser_form'   => 'UsaRugbyStats\AccountAdmin\Form\EditUserFactory',
 	        'zfcuseradmin_edituser_filter' => 'UsaRugbyStats\AccountAdmin\Form\EditUserFilterFactory',
+
+	        'UsaRugbyStats\AccountAdmin\Service\UserService' => 'UsaRugbyStats\AccountAdmin\Service\UserServiceFactory',
 	        
 	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElementFactory',
 
