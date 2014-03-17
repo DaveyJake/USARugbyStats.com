@@ -1,6 +1,43 @@
 <?php
 return array(
     
+    'router' => array(
+        'routes' => array(
+            'zfcadmin' => array(
+                'child_routes' => array(
+                    'zfcuseradmin' => array(
+                        'child_routes' => array(
+                            'template' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '/template',
+                                ),
+                                'may_terminate' => false,
+                                'child_routes' => array(
+                                    'role-assignment' => array(
+                                        'type' => 'Literal',
+                                        'options' => array(
+                                            'route' => '/role-assignment',
+                                            'defaults' => array(
+                                                'controller' => 'UsaRugbyStats\AccountAdmin\Controller\TemplateRenderer',
+                                                'action'     => 'render',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+    'controllers' => array(
+        'invokables' => array(
+            'UsaRugbyStats\AccountAdmin\Controller\TemplateRenderer' => 'UsaRugbyStats\AccountAdmin\Controller\TemplateRendererController',
+        ),
+    ),
+    
     'service_manager' => array(
 	    'factories' => array(
 	        'zfcuseradmin_createuser_form' => 'UsaRugbyStats\AccountAdmin\Form\CreateUserFactory',
@@ -28,6 +65,9 @@ return array(
             'usa-rugby-stats/account-admin/role-assignments/common' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/common.phtml',
             'usa-rugby-stats/account-admin/role-assignments/teamadmin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/teamadmin.phtml',
             'usa-rugby-stats/account-admin/role-assignments/superadmin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/superadmin.phtml',
+        ),
+        'strategies' => array(
+            'ViewJsonStrategy',
         ),
     ),
 );
