@@ -24,7 +24,6 @@ class RoleAssignmentElementFactory implements FactoryInterface
         $element = new NonuniformCollection();
         $element->setName('roleAssignments');
         $element->setTargetElement(array(
-            'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Guest' => $sm->get('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\GuestFieldset'),
             'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin' => $sm->get('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\TeamAdminFieldset'),
             'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin' => $sm->get('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldset'),
         ));

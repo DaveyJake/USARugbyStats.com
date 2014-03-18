@@ -49,7 +49,6 @@ return array(
 	        
 	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElementFactory',
 
-	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\GuestFieldset' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\GuestFieldsetFactory',
 	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\TeamAdminFieldset' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\TeamAdminFieldsetFactory',
 	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldset' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldsetFactory',
         ),
