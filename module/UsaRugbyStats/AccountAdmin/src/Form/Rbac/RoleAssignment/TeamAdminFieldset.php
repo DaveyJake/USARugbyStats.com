@@ -2,17 +2,19 @@
 namespace UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Collections\Collection;
 use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentFieldset;
 use DoctrineModule\Form\Element\ObjectSelect;
+use Doctrine\Common\Persistence\ObjectRepository;
 
 class TeamAdminFieldset extends RoleAssignmentFieldset
 {
-    protected $teamList;
+    protected $teamRepo;
     
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, ObjectRepository $teamRepo)
     {
         parent::__construct('team-admin');
+        
+        $this->teamRepo = $teamRepo;
         
         $team = new ObjectSelect();
         $team->setName('team');
@@ -33,22 +35,11 @@ class TeamAdminFieldset extends RoleAssignmentFieldset
         ));
     }
     
-    public function setTeamList(Collection $c)
-    {
-        $this->teamList = $c;
-        return $this;
-    }
-    
-    public function getTeamList()
-    {
-        return $this->teamList;
-    }
-    
     public function getTeam($teamid)
     {
-        $set = $this->teamList->filter(function($item) use ($teamid) {
-            return $item->getId() == $teamid; 
-        });
-        return $set->current();
+        if (empty($teamid)) {
+            return null;
+        }
+        return $this->teamRepo->find($teamid);
     }
 }
