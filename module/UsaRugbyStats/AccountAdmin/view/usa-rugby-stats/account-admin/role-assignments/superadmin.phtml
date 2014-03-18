@@ -6,21 +6,14 @@ foreach ( $this->fieldset as $item ) {
 }
 ?>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Super Admin</div>
-    <div class="panel-body">
-        
-        <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
-        
-        <?php /*
-        <div class="form-group">
-            <?php $element = $this->fieldset->get('latestVersion'); ?>
-            <?php echo $this->formLabel($element); ?>
-            <div class="col-lg-10">
-                <?php echo $this->formInput($element); ?>
-            </div>
+<div class="rbac-assignment panel panel-default" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
+    <div class="panel-heading">
+        Super Administrator
+        <div class="pull-right">
+            <a class="btn btn-xs btn-danger rbac-assignment-delete"><i class="glyphicon glyphicon-trash"></i></a>
         </div>
-        */?>
-        
     </div>
+
+    <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
+
 </div>
