@@ -21,6 +21,7 @@
     	<field name="type" type="string" length="64" nullable="true" />
     	<field name="status" type="string" length="10" />
     	<field name="groupAboveUuid" column="group_above_uuid" column-definition="CHAR(36) NULL DEFAULT NULL" />
+    	<field name="deleted" type="integer" nullable="true" />
     </entity>
 
 </doctrine-mapping>

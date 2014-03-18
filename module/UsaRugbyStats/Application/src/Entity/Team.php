@@ -59,6 +59,12 @@ class Team
     protected $status;
     
     /**
+     * @var int
+     */
+    protected $deleted;
+
+    
+    /**
      * @var string
      */
     protected $groupAboveUuid;
@@ -182,7 +188,17 @@ class Team
     {
         $this->groupAboveUuid = $groupAboveUuid;
     }
-    
+
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
+
     public function __toString()
     {
         return $this->getName();
