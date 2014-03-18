@@ -70,7 +70,7 @@ $(document).ready(function() {
         });
     });
 
-    $('.rbac-assignment').on('click', 'a.rbac-assignment-delete', function() {
+    $(document).on('click', 'a.rbac-assignment-delete', function() {
         $(this).closest('.rbac-assignment').remove();
     });
 });
