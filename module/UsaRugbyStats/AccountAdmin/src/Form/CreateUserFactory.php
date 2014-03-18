@@ -6,6 +6,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 use ZfcUser\Form\RegisterFilter;
 use ZfcUser\Validator\NoRecordExists;
+use UsaRugbyStats\AccountAdmin\Entity\AccountHydrator;
 
 /**
  * Factory for creating instance of CreateUser form
@@ -27,7 +28,7 @@ class CreateUserFactory implements FactoryInterface
         $zfcUserAdminOptions = $sm->get('zfcuseradmin_module_options');
         
         $form = new CreateUser(null, $zfcUserAdminOptions, $zfcUserOptions, $sm);
-        $form->setHydrator(new DoctrineObject($sm->get('zfcuser_doctrine_em')));
+        $form->setHydrator(new AccountHydrator($sm->get('zfcuser_doctrine_em')));
         
         $filter = new RegisterFilter(
             new NoRecordExists(array(

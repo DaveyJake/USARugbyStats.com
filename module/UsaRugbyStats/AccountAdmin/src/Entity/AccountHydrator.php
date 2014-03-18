@@ -31,7 +31,6 @@ class AccountHydrator extends DoctrineObject
     {
         //$data = $this->mapField('userId', 'id', $data);
         $data = $this->mapField('display_name', 'displayName', $data);
-        var_dump($data);
         return parent::hydrate($data, $object);
     }
     
