@@ -1,26 +1,70 @@
 <?php
+use UsaRugbyStats\Application\Entity\Team;
+
 $this->fieldset->get('type')->setValue($this->type); 
 foreach ( $this->fieldset as $item ) {
     $item->setLabelAttributes(array('class' => 'col-md-2 control-label'));
     $item->setAttributes(array('class' => 'form-control'));
 }
+
+function managedTeamTemplate($view, $element, $team = null, $isTemplate = false)
+{
+    $teamId = $view->escapeHtmlAttr($element->getValue());
+    $hiddenElement = $isTemplate ? $view->formSelect($element) : $view->formHidden($element);
+    $teamName = $view->escapeHtml(( $team instanceof Team ) ? $team->getName() : (string)$team);
+
+    return <<<EOB
+            <tr data-teamid="{$teamId}">
+                <td>
+                    {$hiddenElement}
+                    {$teamName}
+                </td>
+                <td class="col-sm-2" style="text-align:right"><a class="btn btn-xs btn-danger dropteam" title="Remove Team"><i class="glyphicon glyphicon-trash"></i></a></td>
+            </tr>
+EOB;
+}
+
 ?>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Team Admin</div>
-    <div class="panel-body">
-        
-        <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
-        
-        <div class="form-group">
-            <?php $element = $this->fieldset->get('managedTeams'); ?>
-            <?php echo $this->formLabel($element); ?>
-            <div class="col-lg-10">
-                <?php foreach ( $element as $item ): ?>
-                <?php   echo $this->formSelect($item->get('team')); ?>
-                <?php endforeach; ?>
-            </div>
+<div class="rbac-assignment rbac-assignment-teamadmin panel panel-default" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
+    <div class="panel-heading">
+        Team Administrator
+        <div class="pull-right">
+            <a class="btn btn-xs btn-success rbac-assignment-addteam" title="Add Team"><i class="glyphicon glyphicon-plus-sign"></i></a>
+            <a class="btn btn-xs btn-danger rbac-assignment-delete" title="Remove Role Assignment"><i class="glyphicon glyphicon-trash"></i></a>
         </div>
-        
     </div>
+
+    <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
+    
+    <?php $element = $this->fieldset->get('managedTeams'); ?>    
+    <table class="table table-striped">
+        <tbody style="border:0">
+    
+    <?php foreach ( $element->getElements() as $teamElement ): ?>
+    <?php   $team = $fieldset->getTeam($teamElement->getValue()); ?>
+    <?php   if ( $team instanceof Team ): ?>
+    <?php     echo managedTeamTemplate($this, $teamElement, $team); ?>
+    <?php   endif; ?>
+    <?php endforeach; ?>
+    
+        </tbody>
+    </table>
+    
+    <script type="text/javascript">
+        var managedTeamsSelectorTemplate = '<?php echo $this->escapeJs(managedTeamTemplate($this, $element->getTemplateElement(), null, true)); ?>';
+        var managedTeamIndex = <?php echo $this->escapeJs(count($element)); ?>;
+    
+        $(document).ready(function() {
+            $('.rbac-assignment-teamadmin .rbac-assignment-addteam').click(function() {
+                var html = managedTeamsSelectorTemplate.replace(/__index__/g, managedTeamIndex++);
+                var obj = $(html);
+                $('.rbac-assignment-teamadmin table tbody').append(obj);             
+            }); 
+            $(document).on('click', '.rbac-assignment-teamadmin .dropteam', function() {
+                $(this).closest('*[data-teamid]').remove();
+            });
+        });
+    </script>
+    
 </div>

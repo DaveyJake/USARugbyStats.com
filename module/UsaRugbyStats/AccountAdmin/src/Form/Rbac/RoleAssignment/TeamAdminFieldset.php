@@ -27,7 +27,8 @@ class TeamAdminFieldset extends RoleAssignmentFieldset
             'name'    => 'managedTeams',
             'options' => array(
                 'label' => 'Managed Teams',
-                'target_element' => $team
+                'target_element' => $team,
+                'should_create_template' => true,                
             )
         ));
     }
