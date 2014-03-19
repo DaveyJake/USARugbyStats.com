@@ -49,7 +49,10 @@ return array(
 	        
 	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElementFactory',
 
+	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\MemberFieldset' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\MemberFieldsetFactory',
 	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\TeamAdminFieldset' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\TeamAdminFieldsetFactory',
+	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\LeagueAdminFieldset' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\LeagueAdminFieldsetFactory',
+	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\UnionAdminFieldset' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\UnionAdminFieldsetFactory',
 	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldset' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldsetFactory',
         ),
         'shared' => array(
@@ -64,7 +67,10 @@ return array(
             
             'usa-rugby-stats/account-admin/role-assignments' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments.phtml',
             'usa-rugby-stats/account-admin/role-assignments/common' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/common.phtml',
+            'usa-rugby-stats/account-admin/role-assignments/member' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/member.phtml',
             'usa-rugby-stats/account-admin/role-assignments/teamadmin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/teamadmin.phtml',
+            'usa-rugby-stats/account-admin/role-assignments/leagueadmin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/league-admin.phtml',
+            'usa-rugby-stats/account-admin/role-assignments/unionadmin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/union-admin.phtml',
             'usa-rugby-stats/account-admin/role-assignments/superadmin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/superadmin.phtml',
         ),
         'strategies' => array(
