@@ -23,6 +23,8 @@
                     continue;
                 }
                 
+                $item->get('type')->setValue($matches[1]);
+                
                 echo $this->render('usa-rugby-stats/account-admin/role-assignments/' . strtolower(str_replace('\\', DIRECTORY_SEPARATOR, $matches[1])), array(
                     'type' => $matches[1],
                     'fieldset' => $item,

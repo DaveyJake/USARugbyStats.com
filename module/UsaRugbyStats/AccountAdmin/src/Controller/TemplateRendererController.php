@@ -39,7 +39,8 @@ class TemplateRendererController extends AbstractActionController
 
         $fieldset->setName($this->params()->fromPost('namePrefix'));
         $fieldset->prepareElement(new \Zend\Form\Form());
-
+        $fieldset->get('type')->setValue($matches[1]);
+        
         $hvm = new ViewModel(array(
             'fieldset' => $fieldset, 
             'isTemplate' => true, 
