@@ -1,0 +1,6 @@
+*
+!.gitignore
+!cli-config.php
+!console
+!doctrine
+!resque
