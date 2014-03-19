@@ -7,11 +7,16 @@ return array(
                 'options' => array(
                     'route'    => '/',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'UsaRugbyStats\Application\Controller\Index',
                         'action'     => 'index',
                     ),
                 ),
             ),
+        ),
+    ),
+    'controllers' => array(
+        'invokables' => array(
+            'UsaRugbyStats\Application\Controller\Index' => 'UsaRugbyStats\Application\Controller\IndexController',
         ),
     ),
     'zfc_rbac' => array(
@@ -45,10 +50,6 @@ return array(
                 'base_dir' => __DIR__ . '/../language',
                 'pattern'  => '%s.mo',
             ),
-        ),
-    ),
-    'controllers' => array(
-        'invokables' => array(
         ),
     ),
     'view_manager' => array(
