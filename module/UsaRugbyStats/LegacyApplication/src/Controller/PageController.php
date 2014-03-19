@@ -20,8 +20,10 @@ class PageController extends AbstractActionController
              !isset($config['router']['routes']['urs-la']['child_routes'][$parts[1]]['options']['route']) )
         {
             throw new \InvalidArgumentException('The route you specified is not configured');
-        }        
-        $routeSlug = $config['router']['routes']['urs-la']['child_routes'][$parts[1]]['options']['route'];
+        }
+        $routeConfig = $config['router']['routes']['urs-la']['child_routes'][$parts[1]];
+        
+        $routeSlug = $routeConfig['options']['route'];
         $requestSlug = ltrim($this->getRequest()->getServer('REDIRECT_URL'), '/');
         
         // The URI configured by the route doesn't match the URI from the request,
@@ -30,10 +32,15 @@ class PageController extends AbstractActionController
             throw new \InvalidArgumentException('This URI cannot be routed!');
         }
 
+        $targetFile = $routeSlug;
+        if ( isset($routeConfig['options']['target-file']) ) {
+            $targetFile = $routeConfig['options']['target-file'];
+        }
+        
         // Locate the script file
         $scriptFile = realpath($config['usarugbystats']['legacy-application']['directory']
                         . DIRECTORY_SEPARATOR
-                        . $routeSlug);
+                        . $targetFile);
         if ( empty($scriptFile) ) {
             throw new \RuntimeException('The script pointed to by this URI could not be found!');
         }
@@ -42,6 +49,9 @@ class PageController extends AbstractActionController
         $vm = new ViewModel();
         $vm->setTemplate('usa-rugby-stats/legacy-application/render');
         $vm->setVariables(array('scriptFile' => $scriptFile));
+        if ( isset($routeConfig['options']['use-layout']) && $routeConfig['options']['use-layout'] == false ) {
+            $vm->setTerminal(true);
+        }
         return $vm;
     }
 }
