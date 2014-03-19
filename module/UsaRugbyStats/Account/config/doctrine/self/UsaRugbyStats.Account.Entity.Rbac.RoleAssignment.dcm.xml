@@ -29,7 +29,6 @@
             <discriminator-mapping value="league_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\LeagueAdmin" />
             <discriminator-mapping value="team_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin" />
             <discriminator-mapping value="member" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member" />
-            <discriminator-mapping value="guest" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Guest" />
         </discriminator-map>
 
     </entity>

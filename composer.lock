@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6af896004d90a8781246194d4d35f29f",
+    "hash": "76bbe76c2f3d40544a241a6ce03763e5",
     "packages": [
         {
             "name": "allplayers/allplayers",
@@ -190,16 +190,16 @@
         },
         {
             "name": "danielss89/zfc-user-admin",
-            "version": "dev-master",
+            "version": "dev-rewrite",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Danielss89/ZfcUserAdmin.git",
-                "reference": "ab2cb7d2ec73bc733b6d8fb53639a85e5d1502aa"
+                "url": "https://github.com/adamlundrigan/ZfcUserAdmin.git",
+                "reference": "03f9c397fa4633fedd06ef692deb9cb71631bbb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Danielss89/ZfcUserAdmin/zipball/ab2cb7d2ec73bc733b6d8fb53639a85e5d1502aa",
-                "reference": "ab2cb7d2ec73bc733b6d8fb53639a85e5d1502aa",
+                "url": "https://api.github.com/repos/adamlundrigan/ZfcUserAdmin/zipball/03f9c397fa4633fedd06ef692deb9cb71631bbb1",
+                "reference": "03f9c397fa4633fedd06ef692deb9cb71631bbb1",
                 "shasum": ""
             },
             "require": {
@@ -216,7 +216,6 @@
                     "./Module.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Daniel Strøm",
@@ -228,7 +227,10 @@
             "keywords": [
                 "zf2"
             ],
-            "time": "2014-01-12 10:48:13"
+            "support": {
+                "source": "https://github.com/adamlundrigan/ZfcUserAdmin/tree/rewrite"
+            },
+            "time": "2014-03-16 13:56:52"
         },
         {
             "name": "doctrine/annotations",
@@ -3658,6 +3660,12 @@
             "alias_normalized": "0.1.9999999.9999999-dev",
             "version": "dev-mine",
             "package": "zf-commons/zfc-user"
+        },
+        {
+            "alias": "dev-master@dev",
+            "alias_normalized": "dev-master@dev",
+            "version": "dev-rewrite",
+            "package": "danielss89/zfc-user-admin"
         }
     ],
     "minimum-stability": "dev",

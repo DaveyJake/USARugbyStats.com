@@ -26,7 +26,7 @@ abstract class RoleAssignment
         return $this->account;
     }
 
-    public function setAccount(AccountInterface $account)
+    public function setAccount(AccountInterface $account = NULL)
     {
         $this->account = $account;
     }
@@ -36,7 +36,7 @@ abstract class RoleAssignment
         return $this->role;
     }
 
-    public function setRole(Role $role)
+    public function setRole(Role $role = NULL)
     {
         $this->role = $role;
     }

@@ -33,6 +33,16 @@ class TeamAdmin extends BaseAssignment
     public function setManagedTeams(Collection $managedTeams)
     {
         $this->managedTeams->clear();
+        $this->addManagedTeams($managedTeams);
+        return $this;
+    }
+    
+    /**
+     * @param Collection $managedTeams
+     * @return self
+     */
+    public function addManagedTeams(Collection $managedTeams)
+    {
         if(count($managedTeams)){
             foreach($managedTeams as $t) {
                 $this->addManagedTeam($t);
@@ -60,5 +70,28 @@ class TeamAdmin extends BaseAssignment
         return $this->managedTeams->contains($t);
     }
 
+    /**
+     * @param Collection $managedTeams
+     * @return self
+     */
+    public function removeManagedTeams(Collection $managedTeams)
+    {
+        if(count($managedTeams)){
+            foreach($managedTeams as $t) {
+                $this->removeManagedTeam($t);
+            }
+        }
+        return $this;
+    }
+    
+    /**
+     * @param ManagedTeam $t
+     * @return self
+     */
+    public function removeManagedTeam(Team $t)
+    {
+        $this->managedTeams->removeElement($t);
+        return $this;
+    }
     
 }

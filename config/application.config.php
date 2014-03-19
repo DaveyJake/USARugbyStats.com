@@ -21,6 +21,7 @@ return array(
         'UsaRugbyStats\LegacyApplication',
         'UsaRugbyStats\Application',
         'UsaRugbyStats\Account',
+        'UsaRugbyStats\AccountAdmin',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

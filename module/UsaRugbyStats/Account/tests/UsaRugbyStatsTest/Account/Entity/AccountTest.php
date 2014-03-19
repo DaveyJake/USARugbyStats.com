@@ -17,8 +17,10 @@ class AccountTest extends ServiceManagerTestCase
         
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('setAccount')->once();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('setAccount')->once();
         
         $newCollection = new ArrayCollection();
         $newCollection->add($ra0);
@@ -39,8 +41,10 @@ class AccountTest extends ServiceManagerTestCase
     
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('setAccount')->once();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
         $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('setAccount')->once();
     
         // Add one to the existing collection
         $collection = $obj->getRoleAssignments();
@@ -53,6 +57,36 @@ class AccountTest extends ServiceManagerTestCase
         // Ensure we didn't replace the collection object, a no-no in Doctrineland
         $this->assertSame($collection, $obj->getRoleAssignments());
         $this->assertEquals(2, $obj->getRoleAssignments()->count());
+    }
+
+    public function testAddRoleAssignments()
+    {
+        $obj = new Account();
+    
+        $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
+        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('setAccount')->once();
+        $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
+        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('setAccount')->once();
+        $ra2 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
+        $ra2->shouldReceive('getRole')->once()->andReturn(new Role('guest'));
+        $ra2->shouldReceive('setAccount')->once();
+            
+        // Add one to the existing collection
+        $collection = $obj->getRoleAssignments();
+        $collection->add($ra0);
+    
+        // Do teh add
+        $coll = new ArrayCollection();
+        $coll->add($ra1);
+        $coll->add($ra2);
+        $obj->addRoleAssignments($coll);
+    
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getRoleAssignments());
+        // Ensure we didn't replace the collection object, a no-no in Doctrineland
+        $this->assertSame($collection, $obj->getRoleAssignments());
+        $this->assertEquals(3, $obj->getRoleAssignments()->count());
     }
 
     public function testGetRoleAssignment()
@@ -145,6 +179,66 @@ class AccountTest extends ServiceManagerTestCase
         $this->assertFalse($obj->hasRole('foobar'));
         $this->assertContainsOnlyInstancesOf('UsaRugbyStats\Account\Entity\Rbac\Role', $obj->getRoles());
         $this->assertEquals(['super_admin'], $obj->getRoles());
+    }    
+
+    public function testRemoveRoleAssignment()
+    {
+        $obj = new Account();
+    
+        $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
+        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('setAccount')->once();
+        $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
+        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('setAccount')->once();
+    
+        // Add one to the existing collection
+        $collection = $obj->getRoleAssignments();
+        $collection->add($ra0);
+        $collection->add($ra1);
+    
+        // Do the remove
+        $obj->removeRoleAssignment($ra0);
+    
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getRoleAssignments());
+        $this->assertSame($collection, $obj->getRoleAssignments());
+        $this->assertEquals(1, $obj->getRoleAssignments()->count());
+        $this->assertFalse($obj->getRoleAssignments()->contains($ra0));
+        $this->assertTrue($obj->getRoleAssignments()->contains($ra1));
+    }
+    
+    public function testRemoveRoleAssignments()
+    {
+        $obj = new Account();
+    
+        $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
+        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('setAccount')->once();
+        $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
+        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('setAccount')->once();
+        $ra2 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
+        $ra2->shouldReceive('getRole')->once()->andReturn(new Role('guest'));
+        $ra2->shouldReceive('setAccount')->once();
+    
+        // Add one to the existing collection
+        $collection = $obj->getRoleAssignments();
+        $collection->add($ra0);
+        $collection->add($ra1);
+        $collection->add($ra2);
+    
+        // Do the remove
+        $coll = new ArrayCollection();
+        $coll->add($ra0);
+        $coll->add($ra2);
+        $obj->removeRoleAssignments($coll);
+    
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getRoleAssignments());
+        $this->assertSame($collection, $obj->getRoleAssignments());
+        $this->assertEquals(1, $obj->getRoleAssignments()->count());
+        $this->assertFalse($obj->getRoleAssignments()->contains($ra0));
+        $this->assertTrue($obj->getRoleAssignments()->contains($ra1));
+        $this->assertFalse($obj->getRoleAssignments()->contains($ra2));
     }
 
 }
