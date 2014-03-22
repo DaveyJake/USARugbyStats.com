@@ -35,10 +35,12 @@ class UserService extends ZfcUserAdminUserService
         $types = $this->getAvailableRoleAssignments();
         foreach ( $data['roleAssignments'] as $k=>$v ) {
             $key = strtolower($filterCamelToDash->filter($v['type']));
-            if ( isset($types[$key]) ) {
-                $data['roleAssignments'][$k]['__class__'] = $types[$key]['entity_class'];
-                unset($data['roleAssignments'][$k]['type']);
+            if ( ! isset($types[$key]) ) {
+                unset($data['roleAssignments'][$k]);
+                continue;
             }
+            $data['roleAssignments'][$k]['__class__'] = $types[$key]['entity_class'];
+            unset($data['roleAssignments'][$k]['type']);
         }
     }
     
