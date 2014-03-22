@@ -1,7 +1,4 @@
 <?php
-
-use UsaRugbyStatsTest\Account\ServiceManagerTestCase;
-
 ini_set('error_reporting', E_ALL);
 
 $files = array(__DIR__ . '/../../../../vendor/autoload.php', __DIR__ . '/../../../../autoload.php');
@@ -17,7 +14,7 @@ if (! isset($loader)) {
 }
 
 /* @var $loader \Composer\Autoload\ClassLoader */
-$loader->add('UsaRugbyStatsTest\\Account\\', __DIR__);
+$loader->add('UsaRugbyStatsTest\\AccountAdmin\\', __DIR__);
 
 if (file_exists(__DIR__ . '/TestConfiguration.php')) {
     $config = require __DIR__ . '/TestConfiguration.php';
@@ -30,5 +27,4 @@ foreach ($config['modules'] as $module) {
     $loader->addPsr4($module . '\\', $config['module_listener_options']['module_paths'][$module] . '/src');
 }
 
-ServiceManagerTestCase::setConfiguration($config);
 unset($files, $file, $loader, $config);
