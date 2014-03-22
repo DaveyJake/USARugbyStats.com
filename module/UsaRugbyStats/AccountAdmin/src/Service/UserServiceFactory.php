@@ -18,16 +18,17 @@ class UserServiceFactory implements FactoryInterface
         
         $collection = $sm->get('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement');
         $classes = $collection->getTargetElement();
-        
-        $set = array();
-        foreach ( $classes as $item ) {
-            $set[$item->getName()] = array(
-                'name'              => $item->getName(),
-                'fieldset_class'    => get_class($item),
-                'entity_class'      => get_class($item->getObject()),
-            );
-        }        
-        $service->setAvailableRoleAssignments($set);
+        if ( is_array($classes) ) {
+            $set = array();
+            foreach ( $classes as $item ) {
+                $set[$item->getName()] = array(
+                    'name'              => $item->getName(),
+                    'fieldset_class'    => get_class($item),
+                    'entity_class'      => get_class($item->getObject()),
+                );
+            }        
+            $service->setAvailableRoleAssignments($set);
+        }
         
         return $service;
     }
