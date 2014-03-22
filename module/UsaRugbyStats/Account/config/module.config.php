@@ -16,10 +16,9 @@ return array(
     'service_manager' => array(
         'aliases' => array(),
         'factories' => array(
-            'Zend\Authentication\AuthenticationService' => function($sm) {
-                return $sm->get('doctrine.authenticationservice.orm_default');
-            },
+            'Zend\Authentication\AuthenticationService' => function($sm) { return $sm->get('doctrine.authenticationservice.orm_default'); },
             'UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignup' => 'UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignupFactory',
+            'UsaRugbyStats\Account\Service\Strategy\RbacEnforceRoleAssociation' => 'UsaRugbyStats\Account\Service\Strategy\RbacEnforceRoleAssociationFactory',
         ),
     ),
     'translator' => array(
