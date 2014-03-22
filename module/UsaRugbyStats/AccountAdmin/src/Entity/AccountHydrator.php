@@ -29,6 +29,8 @@ class AccountHydrator extends DoctrineObject
      */
     public function hydrate(array $data, $object)
     {
+        //@TODO there is a discrepancy with ZfcUser or ZfcUserAdmin
+        //      extract does id->userId, but hydrate leaves it as userId ???
         //$data = $this->mapField('userId', 'id', $data);
         $data = $this->mapField('display_name', 'displayName', $data);
         return parent::hydrate($data, $object);
