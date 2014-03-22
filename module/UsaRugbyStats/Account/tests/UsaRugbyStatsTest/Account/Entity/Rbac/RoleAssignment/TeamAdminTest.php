@@ -152,4 +152,10 @@ class TeamAdminTest extends ServiceManagerTestCase
         $this->assertFalse($obj->getManagedTeams()->contains($team1));
         $this->assertTrue($obj->getManagedTeams()->contains($team2));
     }
+    
+    public function testGetDiscriminator()
+    {
+        $obj = new TeamAdmin();
+        $this->assertEquals('team_admin', $obj->getDiscriminator());
+    }
 }

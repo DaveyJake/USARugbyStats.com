@@ -93,5 +93,9 @@ class TeamAdmin extends BaseAssignment
         $this->managedTeams->removeElement($t);
         return $this;
     }
-    
+
+    public function getDiscriminator()
+    {
+        return 'team_admin';
+    }
 }

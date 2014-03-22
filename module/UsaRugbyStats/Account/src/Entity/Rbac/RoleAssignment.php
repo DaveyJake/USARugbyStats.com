@@ -41,4 +41,6 @@ abstract class RoleAssignment
         $this->role = $role;
     }
     
+    abstract function getDiscriminator();
+    
 }
