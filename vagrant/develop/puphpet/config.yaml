@@ -74,8 +74,8 @@ apache:
             override:
                 - All
             custom_fragment: ''
-    user: www-data
-    group: www-data
+    user: vagrant 
+    group: vagrant 
     default_vhost: true
     mod_pagespeed: 0
     mod_spdy: 0
