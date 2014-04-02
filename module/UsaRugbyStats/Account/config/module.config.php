@@ -77,6 +77,9 @@ return array(
                 ),
             ),
         ),
+        'fixture' => array(
+            'UsaRugbyStats_Account_fixture_common' => __DIR__ . '/../src/Fixtures/Common',
+        ),
     ),
     
     'zfc_rbac' => array(
@@ -88,7 +91,4 @@ return array(
     	    ),
         ),
     ),
-    'data-fixture' => [
-        'UsaRugbyStats_Account' => __DIR__ . '/../src/Fixtures',
-    ]
 );
