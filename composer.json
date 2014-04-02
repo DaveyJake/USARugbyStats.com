@@ -23,7 +23,7 @@
         "symfony/yaml": "2.1.*",
         "twig/twig": ">=1.8,<2.0-dev",
         "chrisboulton/php-resque": "*",
-        "hounddog/doctrine-data-fixture-module" : "0.*",
+        "hounddog/doctrine-data-fixture-module" : "dev-master",
 
         "zendframework/zendframework": "2.*",
         "zf-commons/zfc-user": "dev-mine as 0.1.x-dev",
