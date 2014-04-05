@@ -56,7 +56,15 @@ return array(
 	        'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldset' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldsetFactory',
         ),
         'shared' => array(
+            // SL-managed form elements should not be singleton
+            'zfcuseradmin_createuser_form' => false,
+            'zfcuseradmin_edituser_form' => false,
 	    	'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement' => false,
+            'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\MemberFieldset' => false,
+            'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\TeamAdminFieldset' => false,
+            'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\LeagueAdminFieldset' => false,
+            'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\UnionAdminFieldset' => false,
+            'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldset' => false,
 	    ),
     ),
     

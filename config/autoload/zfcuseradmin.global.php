@@ -1,6 +1,9 @@
 <?php
 $settings = array(
 
+    // Don't automatically generate a password for users on create
+    'create_user_auto_password' => false,
+    
     // The ZfcUser mapper to use
     'user_mapper' => 'ZfcUserAdmin\Mapper\UserDoctrine',
     

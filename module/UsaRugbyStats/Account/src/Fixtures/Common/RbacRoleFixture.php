@@ -12,6 +12,8 @@ class RbacRoleFixture implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        echo "\nCreating default RBAC role hierarchy...\n";
+        
         $guest = new Role('guest');        
         $manager->persist($guest);
         
