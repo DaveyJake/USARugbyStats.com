@@ -1,0 +1,9 @@
+<?php
+$form->prepare();
+$form->setAttribute('action', $this->url('zfcadmin/usarugbystats_teamadmin/create'));
+$form->setAttribute('method', 'post');
+?>
+
+<h1>Create Team</h1>
+
+<?php echo $this->render('usa-rugby-stats/competition-admin/team-admin/form', $this->vars()); ?>
