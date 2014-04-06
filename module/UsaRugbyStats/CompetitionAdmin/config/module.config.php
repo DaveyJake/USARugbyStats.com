@@ -19,7 +19,7 @@ return array(
                             'list' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/list[/:p]',
+                                    'route' => '/list',
                                     'defaults' => array(
                                         'action'     => 'list',
                                     ),
@@ -37,7 +37,7 @@ return array(
                             'edit' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/edit/:userId',
+                                    'route' => '/edit/:id',
                                     'defaults' => array(
                                         'action'     => 'edit',
                                         'userId'     => 0
@@ -47,7 +47,58 @@ return array(
                             'remove' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/remove/:userId',
+                                    'route' => '/remove/:id',
+                                    'defaults' => array(
+                                        'action'     => 'remove',
+                                        'userId'     => 0
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    'usarugbystats_unionadmin' => array(
+                        'type' => 'Literal',
+                        'priority' => 1000,
+                        'options' => array(
+                            'route' => '/union',
+                            'defaults' => array(
+                                'controller' => 'usarugbystats_unionadmin_controller',
+                                'action'     => 'index',
+                            ),
+                        ),
+                        'child_routes' =>array(
+                            'list' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/list',
+                                    'defaults' => array(
+                                        'action'     => 'list',
+                                    ),
+                                ),
+                            ),
+                            'create' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '/create',
+                                    'defaults' => array(
+                                        'action'     => 'create'
+                                    ),
+                                ),
+                            ),
+                            'edit' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/edit/:id',
+                                    'defaults' => array(
+                                        'action'     => 'edit',
+                                        'userId'     => 0
+                                    ),
+                                ),
+                            ),
+                            'remove' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/remove/:id',
                                     'defaults' => array(
                                         'action'     => 'remove',
                                         'userId'     => 0
@@ -63,6 +114,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'usarugbystats_teamadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\TeamAdminController',
+            'usarugbystats_unionadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\UnionAdminController',
         ),
     ),    
     'navigation' => array(
@@ -74,6 +126,16 @@ return array(
                     'create' => array(
                         'label' => 'New Team',
                         'route' => 'zfcadmin/usarugbystats_teamadmin/create',
+                    ),
+                ),
+            ),
+            'usarugbystats_unionadmin' => array(
+                'label' => 'Unions',
+                'route' => 'zfcadmin/usarugbystats_unionadmin/list',
+                'pages' => array(
+                    'create' => array(
+                        'label' => 'New Union',
+                        'route' => 'zfcadmin/usarugbystats_unionadmin/create',
                     ),
                 ),
             ),

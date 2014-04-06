@@ -2,7 +2,18 @@
 return array(
     'service_manager' => array(
         'aliases' => array(),
-        'factories' => array(),
+        'factories' => array(
+            'usarugbystats_competition_union_service' => 'UsaRugbyStats\Competition\Service\UnionServiceFactory',
+            'usarugbystats_competition_union_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\UnionFieldsetFactory',
+            'usarugbystats_competition_union_createform' => 'UsaRugbyStats\Competition\Form\UnionCreateFormFactory',
+            'usarugbystats_competition_union_updateform' => 'UsaRugbyStats\Competition\Form\UnionUpdateFormFactory',
+            'usarugbystats_competition_union_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\UnionFilterFactory',
+        ),
+        'shared' => array(
+        	'usarugbystats_competition_union_fieldset' => false,
+            'usarugbystats_competition_union_createform' => false,
+            'usarugbystats_competition_union_updateform' => false,
+        ),
     ),
     'translator' => array(
         'translation_file_patterns' => array(

@@ -1,0 +1,9 @@
+<?php
+$form->prepare();
+$form->setAttribute('action', $this->url('zfcadmin/usarugbystats_unionadmin/edit', ['id' => $entity->getId()]));
+$form->setAttribute('method', 'post');
+?>
+
+<h1>Update Union</h1>
+
+<?php echo $this->render('usa-rugby-stats/competition-admin/union-admin/form', $this->vars()); ?>
