@@ -13,9 +13,9 @@ class TeamAdminTest extends ServiceManagerTestCase
     {
         $obj = new TeamAdmin();
         
-        $team0 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
-        $team2 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
 
         // Add one to the existing collection
         $collection = $obj->getManagedTeams();
@@ -41,9 +41,9 @@ class TeamAdminTest extends ServiceManagerTestCase
     {
         $obj = new TeamAdmin();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
-        $team2 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
     
         // Add one to the existing collection
         $collection = $obj->getManagedTeams();
@@ -69,8 +69,8 @@ class TeamAdminTest extends ServiceManagerTestCase
     {
         $obj = new TeamAdmin();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
     
         // Add one to the existing collection
         $collection = $obj->getManagedTeams();
@@ -89,8 +89,8 @@ class TeamAdminTest extends ServiceManagerTestCase
     {
         $obj = new TeamAdmin();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
     
         // Add roles to the existing collection
         $collection = $obj->getManagedTeams();
@@ -104,8 +104,8 @@ class TeamAdminTest extends ServiceManagerTestCase
     {
         $obj = new TeamAdmin();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
     
         // Add both to the existing collection
         $collection = $obj->getManagedTeams();
@@ -127,9 +127,9 @@ class TeamAdminTest extends ServiceManagerTestCase
     {
         $obj = new TeamAdmin();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
-        $team2 = Mockery::mock('UsaRugbyStats\Application\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
     
         // Add them all to the existing collection
         $collection = $obj->getManagedTeams();

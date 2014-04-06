@@ -21,7 +21,7 @@ class TeamAdminFieldset extends RoleAssignmentFieldset
         $team->setOptions(array(
             'label' => 'Team',
             'object_manager' => $om,
-            'target_class'   => 'UsaRugbyStats\Application\Entity\Team',
+            'target_class'   => 'UsaRugbyStats\Competition\Entity\Team',
         ));
         
         $this->add(array(

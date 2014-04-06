@@ -2,7 +2,7 @@
 namespace UsaRugbyStats\Account\Entity\Rbac\RoleAssignment;
 
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment as BaseAssignment;
-use UsaRugbyStats\Application\Entity\Team;
+use UsaRugbyStats\Competition\Entity\Team;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -52,7 +52,7 @@ class TeamAdmin extends BaseAssignment
     }
     
     /**
-     * @param ManagedTeam $t
+     * @param Team $t
      * @return self
      */
     public function addManagedTeam(Team $t)
@@ -62,7 +62,7 @@ class TeamAdmin extends BaseAssignment
     }
     
     /**
-     * @param ManagedTeam $t
+     * @param Team $t
      * @return bool
      */
     public function hasManagedTeam(Team $t)
@@ -85,7 +85,7 @@ class TeamAdmin extends BaseAssignment
     }
     
     /**
-     * @param ManagedTeam $t
+     * @param Team $t
      * @return self
      */
     public function removeManagedTeam(Team $t)

@@ -17,7 +17,7 @@ class TeamAdminFieldsetFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $sm)
     {
         $om = $sm->get('zfcuser_doctrine_em');
-        $mapper = $om->getRepository('UsaRugbyStats\Application\Entity\Team');
+        $mapper = $om->getRepository('UsaRugbyStats\Competition\Entity\Team');
         
         $fieldset = new TeamAdminFieldset($om, $mapper);
         $fieldset->setHydrator(new NonuniformCollectionHydrator($om));
