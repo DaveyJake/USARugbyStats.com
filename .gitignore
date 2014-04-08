@@ -11,7 +11,5 @@ app/config.php
 Capfile
 vendor/*
 
-vagrant/staging/.vagrant
-vagrant/staging/puphpet/config.yaml
-
-vagrant/develop/.vagrant
+vagrant/.vagrant
+vagrant/puphpet/config.yaml
