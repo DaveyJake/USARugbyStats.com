@@ -57,7 +57,10 @@ class TeamAdmin extends BaseAssignment
      */
     public function addManagedTeam(Team $t)
     {
-        $this->managedTeams->add($t);
+        // Only add Team if it's not already here
+        if ( ! $this->hasManagedTeam($t) ) {
+            $this->managedTeams->add($t);
+        }
         return $this;
     }
     
