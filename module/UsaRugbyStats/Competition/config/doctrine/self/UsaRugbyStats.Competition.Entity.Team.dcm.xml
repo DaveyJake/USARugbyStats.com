@@ -11,7 +11,7 @@
         <field name="name" type="string" length="60" unique="true" />
         
         <many-to-one field="union" target-entity="UsaRugbyStats\Competition\Entity\Union" inversed-by="teams">
-            <join-column name="union" referenced-column-name="id" />
+            <join-column name="union_id" referenced-column-name="id" />
         </many-to-one>
         
         <many-to-many field="competitions" target-entity="UsaRugbyStats\Competition\Entity\Competition" mapped-by="teams" />        
