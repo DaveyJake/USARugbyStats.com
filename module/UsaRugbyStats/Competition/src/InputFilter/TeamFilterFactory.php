@@ -11,7 +11,7 @@ class TeamFilterFactory implements FactoryInterface
         $em = $manager->get('zfcuser_doctrine_em');
         $repo = $em->getRepository('UsaRugbyStats\Competition\Entity\Team');
         
-        $filter = new TeamFilter($repo);
+        $filter = new TeamFilter($em, $repo);
         return $filter;
     }
 }

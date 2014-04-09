@@ -9,6 +9,8 @@
     
         <?php $fieldset = $form->get('team'); ?>
         
+        <?php echo $this->formHidden($fieldset->get('id')); ?>
+        
         <div class="panel panel-default">
             <div class="panel-heading">Team Details</div>
             <div class="panel-body">

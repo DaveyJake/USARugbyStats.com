@@ -12,6 +12,14 @@ class UnionFieldset extends Fieldset
         parent::__construct('union');
         
         $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'options' => array(
+                'label' => 'Identifier',
+            ),
+        ));
+        
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'name',
             'options' => array(

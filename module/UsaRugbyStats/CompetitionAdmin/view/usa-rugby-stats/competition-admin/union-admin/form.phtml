@@ -9,6 +9,8 @@
     
         <?php $fieldset = $form->get('union'); ?>
         
+        <?php echo $this->formHidden($fieldset->get('id')); ?>
+        
         <div class="panel panel-default">
             <div class="panel-heading">Union Details</div>
             <div class="panel-body">

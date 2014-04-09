@@ -3,6 +3,7 @@ namespace UsaRugbyStats\Competition\InputFilter;
 
 use Zend\InputFilter\InputFilter;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Union Input Filter
@@ -11,7 +12,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
  */
 class UnionFilter extends InputFilter
 {
-    public function __construct(ObjectRepository $objectRepository)
+    public function __construct(ObjectManager $objectManager, ObjectRepository $objectRepository)
     {
 
         $this->add(array(
@@ -19,10 +20,11 @@ class UnionFilter extends InputFilter
             'required'   => true,
             'validators' => array(
                 array(
-                    'name' => 'DoctrineModule\Validator\NoObjectExists',
+                    'name' => 'DoctrineModule\Validator\UniqueObject',
                     'options' => array(
+                        'object_manager' => $objectManager,
                         'object_repository' => $objectRepository,
-                        'fields' => 'name'
+                        'fields' => 'name',
                     )
                 ),
             ),
