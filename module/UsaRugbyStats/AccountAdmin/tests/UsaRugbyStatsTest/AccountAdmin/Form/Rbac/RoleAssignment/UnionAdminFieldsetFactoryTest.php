@@ -10,8 +10,13 @@ class UnionAdminFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
     
     public function setUp()
     {
+        $mockMapper = Mockery::mock('Doctrine\Common\Persistence\ObjectRepository');
+        
+        $mockObjectManager = Mockery::mock('Doctrine\Common\Persistence\ObjectManager');
+        $mockObjectManager->shouldReceive('getRepository')->andReturn($mockMapper);
+        
         $this->serviceManager = new \Zend\ServiceManager\ServiceManager();
-        $this->serviceManager->setService('zfcuser_doctrine_em', Mockery::mock('Doctrine\Common\Persistence\ObjectManager'));
+        $this->serviceManager->setService('zfcuser_doctrine_em', $mockObjectManager);
     }
 
     public function testCreateService()
