@@ -1,0 +1,12 @@
+<?php
+return array(
+    'modules' => array(
+        'UsaRugbyStats\Competition',
+    ),
+    'module_listener_options' => array(
+        'config_glob_paths' => array(),
+        'module_paths' => array(
+            'UsaRugbyStats\Competition'  => realpath(__DIR__ . '/../../Competition'),
+        ),
+    ),
+);
