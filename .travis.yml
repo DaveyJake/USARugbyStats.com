@@ -16,7 +16,7 @@ before_script:
   - curl -s http://getcomposer.org/installer | php && ./composer.phar install --dev -n
   - sudo service apache2 restart
 script:
-  - bin/behat --verbose
+  - #bin/behat --verbose
   - cd module/UsaRugbyStats/Account/tests ; ../../../../bin/phpunit ; cd -;
   - cd module/UsaRugbyStats/AccountAdmin/tests ; ../../../../bin/phpunit ; cd -;
   - cd module/UsaRugbyStats/Competition/tests ; ../../../../bin/phpunit ; cd -;
