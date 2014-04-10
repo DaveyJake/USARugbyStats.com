@@ -103,7 +103,7 @@ class Game
      * @param Competition $u
      * @return self
      */
-    public function setCompetition(Competition $u)
+    public function setCompetition(Competition $u = NULL)
     {
         $this->competition = $u;
         return $this;

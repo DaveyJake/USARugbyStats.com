@@ -101,7 +101,7 @@ class Team
      * @param Union $u
      * @return self
      */
-    public function setUnion(Union $u)
+    public function setUnion(Union $u = NULL)
     {
         $this->union = $u;
         return $this;
