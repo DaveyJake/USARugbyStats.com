@@ -1,14 +1,17 @@
 ServerName localhost
 
-<Directory PATH>
-  AllowOverride All
-  Options None
-  Order allow,deny
-  Allow from all
-</Directory>
 <VirtualHost *:80>
-  DocumentRoot PATH
-  ServerName localhost
+  ServerName localhost 
+  DocumentRoot PATH 
+
+  <Directory "PATH">
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Require all granted
+  </Directory>
+
   # http://serverfault.com/questions/155558/how-can-i-disable-transfer-encoding-chunked-in-apache-with-http-1-1-responses
   SetEnv downgrade-1.0
 </VirtualHost>
+
+

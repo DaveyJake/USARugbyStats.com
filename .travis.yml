@@ -1,19 +1,22 @@
 language: php
 php:
+  - "5.5"
   - "5.4"
   - "5.3"
 before_script:
   - sudo apt-get update
-  - sudo apt-get install apache2 libapache2-mod-php5 php5-curl php5-mysql
+  - sudo apt-get install apache2 libapache2-mod-php5 php5-curl php5-mysql php5-json
   - sudo a2enmod rewrite;
   - echo "$(cat .travisci/apache2.txt)" | sed -e "s,PATH,`pwd`/app,g" | sudo tee /etc/apache2/sites-available/default
-  - echo "FallBackResource ./index.php" > app/.htaccess
   - mysql -e 'create database usarugby'
-  - mysql -u root usarugby < db/schema.sql
-  - mysql -u root usarugby < db/data.sql
   - mv behat.yml.dist behat.yml
   - echo "$(cat .travisci/config.php)" | sudo tee app/config.php
+  - echo "$(cat .travisci/doctrine.local.php.dist)" | sudo tee config/autoload/doctrine.local.php
+  - echo "$(cat .travisci/testing.local.php.dist)" | sudo tee config/autoload/testing.local.php
   - curl -s http://getcomposer.org/installer | php && ./composer.phar install --dev -n
   - sudo service apache2 restart
 script:
   - bin/behat --verbose
+  - cd module/UsaRugbyStats/Account/tests ; ../../../../bin/phpunit ; cd -;
+  - cd module/UsaRugbyStats/AccountAdmin/tests ; ../../../../bin/phpunit ; cd -;
+  - cd module/UsaRugbyStats/Competition/tests ; ../../../../bin/phpunit ; cd -;
