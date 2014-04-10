@@ -35,6 +35,12 @@ class Team
      */
     protected $competitions;
     
+    
+    public function __construct()
+    {
+        $this->competitions = new ArrayCollection();
+    }
+    
     /**
      * Team Identifier 
      * 
@@ -99,10 +105,88 @@ class Team
     {
         $this->union = $u;
         return $this;
+    }    
+
+    /**
+     * @return Collection
+     */
+    public function getCompetitions()
+    {
+        return $this->competitions;
+    }
+    
+    /**
+     * @param Collection $comps
+     * @return self
+     */
+    public function setCompetitions(Collection $comps)
+    {
+        $this->competitions->clear();
+        $this->addCompetitions($comps);
+        return $this;
+    }
+    
+    /**
+     * @param Collection $comps
+     * @return self
+     */
+    public function addCompetitions(Collection $comps)
+    {
+        if(count($comps)){
+            foreach($comps as $comp){
+                $this->addCompetition($comp);
+            }
+        }
+        return $this;
+    }
+    
+    /**
+     * @param Competition $comp
+     * @return self
+     */
+    public function addCompetition(Competition $comp)
+    {
+        if ( ! $this->hasCompetition($comp) ) {
+            $this->competitions->add($comp);
+        }
+        return $this;
+    }
+    
+    /**
+     * @param Collection $teams
+     * @return self
+     */
+    public function removeCompetitions(Collection $comps)
+    {
+        if(count($comps)){
+            foreach($comps as $comp){
+                $this->removeCompetition($comp);
+            }
+        }
+        return $this;
+    }
+    
+    /**
+     * @param Competition $comp
+     * @return self
+     */
+    public function removeCompetition(Competition $comp)
+    {
+        $this->competitions->removeElement($comp);
+        return $this;
+    }
+    
+    /**
+     * @param Competition$comp$role
+     * @return bool
+     */
+    public function hasCompetition(Competition $comp)
+    {
+        return $this->competitions->contains($comp);
     }
 
     /**
-     * String representation of this Team object
+     * String representation of this Competition object
      * 
      * @return string
      */
