@@ -133,8 +133,10 @@ class Competition
      */
     public function addDivision(Competition\Division $ra)
     {
-        $ra->setCompetition($this);
-        $this->divisions->add($ra);
+        if ( ! $this->hasDivision($ra) ) {
+            $ra->setCompetition($this);
+            $this->divisions->add($ra);
+        }
         return $this;
     }
     
@@ -211,7 +213,10 @@ class Competition
      */
     public function addTeam(Team $ra)
     {
-        $this->teams->add($ra);
+        if ( ! $this->hasTeam($ra) ) {
+            $ra->setCompetition($this);
+            $this->teams->add($ra);
+        }
         return $this;
     }
     
@@ -287,8 +292,10 @@ class Competition
      */
     public function addGame(Competition\Game $ra)
     {
-        $ra->setCompetition($this);
-        $this->games->add($ra);
+        if ( ! $this->hasGame($ra) ) {
+            $ra->setCompetition($this);
+            $this->games->add($ra);
+        }
         return $this;
     }
     

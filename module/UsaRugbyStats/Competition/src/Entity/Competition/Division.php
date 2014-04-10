@@ -148,7 +148,9 @@ class Division
      */
     public function addTeam(Team $ra)
     {
-        $this->teams->add($ra);
+        if ( ! $this->hasTeam($ra) ) {
+            $this->teams->add($ra);
+        }
         return $this;
     }
     

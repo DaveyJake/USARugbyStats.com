@@ -117,8 +117,10 @@ class Union
      */
     public function addTeam(Team $ra)
     {
-        $ra->setUnion($this);
-        $this->teams->add($ra);
+        if ( ! $this->hasTeam($ra) ) {
+            $ra->setUnion($this);
+            $this->teams->add($ra);
+        }
         return $this;
     }
     
