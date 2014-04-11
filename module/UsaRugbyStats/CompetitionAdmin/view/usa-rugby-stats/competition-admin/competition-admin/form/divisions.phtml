@@ -12,7 +12,9 @@
         <tbody style="border:0">
         
         <?php foreach ( $collDivision->getFieldsets() as $fsDivision ): ?>
-        <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['fieldset' => $fsDivision]); ?>
+        <?php   if ( $fsDivision->get('id')->getValue() > 0 ): ?>
+        <?php     echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['fieldset' => $fsDivision]); ?>
+        <?php   endif; ?>
         <?php endforeach; ?>
     
         </tbody>
