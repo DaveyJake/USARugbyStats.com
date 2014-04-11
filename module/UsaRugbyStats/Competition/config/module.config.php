@@ -14,6 +14,13 @@ return array(
             'usarugbystats_competition_union_createform' => 'UsaRugbyStats\Competition\Form\UnionCreateFormFactory',
             'usarugbystats_competition_union_updateform' => 'UsaRugbyStats\Competition\Form\UnionUpdateFormFactory',
             'usarugbystats_competition_union_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\UnionFilterFactory',
+            
+            'usarugbystats_competition_competition_service' => 'UsaRugbyStats\Competition\Service\CompetitionServiceFactory',
+            'usarugbystats_competition_competition_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\CompetitionFieldsetFactory',
+            'usarugbystats_competition_competition_createform' => 'UsaRugbyStats\Competition\Form\CompetitionCreateFormFactory',
+            'usarugbystats_competition_competition_updateform' => 'UsaRugbyStats\Competition\Form\CompetitionUpdateFormFactory',
+            'usarugbystats_competition_competition_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\CompetitionFilterFactory',
+            
         ),
         'shared' => array(
             'usarugbystats_competition_team_fieldset' => false,
@@ -23,6 +30,10 @@ return array(
         	'usarugbystats_competition_union_fieldset' => false,
             'usarugbystats_competition_union_createform' => false,
             'usarugbystats_competition_union_updateform' => false,
+
+            'usarugbystats_competition_competition_fieldset' => false,
+            'usarugbystats_competition_competition_createform' => false,
+            'usarugbystats_competition_competition_updateform' => false,
         ),
     ),
     'translator' => array(
