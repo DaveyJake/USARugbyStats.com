@@ -3,11 +3,12 @@ namespace UsaRugbyStats\Competition\Form\Fieldset;
 
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
+use UsaRugbyStats\Competition\Form\Fieldset\Competition\DivisionFieldset;
 
 class CompetitionFieldset extends Fieldset
 {
 
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, DivisionFieldset $fsDivision)
     {
         parent::__construct('competition');
         
@@ -25,6 +26,15 @@ class CompetitionFieldset extends Fieldset
             'options' => array(
                 'label' => 'Competition Name',
             ),
+        ));        
+
+        $this->add(array(
+            'type'    => 'Zend\Form\Element\Collection',
+            'name'    => 'divisions',
+            'options' => array(
+                'target_element' => $fsDivision,
+                'should_create_template' => true,
+            )
         ));
         
     }

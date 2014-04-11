@@ -1,12 +1,12 @@
 <?php
-namespace UsaRugbyStats\Competition\Form\Fieldset;
+namespace UsaRugbyStats\Competition\Form\Fieldset\Competition;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
-use UsaRugbyStats\Competition\Entity\Competition;
+use UsaRugbyStats\Competition\Entity\Competition\Division;
 
-class CompetitionFieldsetFactory implements FactoryInterface
+class DivisionFieldsetFactory implements FactoryInterface
 {
     /**
      * Create service
@@ -17,13 +17,12 @@ class CompetitionFieldsetFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $sm)
     {
         $om = $sm->get('zfcuser_doctrine_em');
-        $fsDivision = $sm->get('usarugbystats_competition_competition_division_fieldset');
         
-        $form = new CompetitionFieldset($om, $fsDivision);
+        $form = new DivisionFieldset($om);
         
         // Set the hydrator
         $form->setHydrator(new DoctrineObject($om));
-        $form->setObject(new Competition());
+        $form->setObject(new Division());
         
         return $form;
     }

@@ -20,6 +20,9 @@ return array(
             'usarugbystats_competition_competition_createform' => 'UsaRugbyStats\Competition\Form\CompetitionCreateFormFactory',
             'usarugbystats_competition_competition_updateform' => 'UsaRugbyStats\Competition\Form\CompetitionUpdateFormFactory',
             'usarugbystats_competition_competition_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\CompetitionFilterFactory',
+
+            'usarugbystats_competition_competition_division_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\DivisionFieldsetFactory',
+            'usarugbystats_competition_competition_division_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\Competition\DivisionFilterFactory',
             
         ),
         'shared' => array(
@@ -34,6 +37,8 @@ return array(
             'usarugbystats_competition_competition_fieldset' => false,
             'usarugbystats_competition_competition_createform' => false,
             'usarugbystats_competition_competition_updateform' => false,
+            
+            'usarugbystats_competition_competition_division_fieldset' => false,
         ),
     ),
     'translator' => array(

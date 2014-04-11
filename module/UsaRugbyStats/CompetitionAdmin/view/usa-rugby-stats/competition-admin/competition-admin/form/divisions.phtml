@@ -1,0 +1,34 @@
+<div class="panel panel-default competition-divisions">
+    <div class="panel-heading">
+        Competition Divisions
+        <div class="pull-right">
+            <a class="btn btn-xs btn-success competition-divisions-add" title="Add Division"><i class="glyphicon glyphicon-plus-sign"></i></a>
+        </div>
+    </div>
+
+    <?php $collDivision = $fieldset->get('divisions'); ?>
+    
+    <table class="table table-striped">
+        <tbody style="border:0">
+        
+        <?php foreach ( $collDivision->getFieldsets() as $fsDivision ): ?>
+        <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['fieldset' => $fsDivision]); ?>
+        <?php endforeach; ?>
+    
+        </tbody>
+    </table>
+    
+    <script type="text/javascript">
+        var managedDivisionsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['fieldset' => $collDivision->getTemplateElement(), 'isTemplate' => true])); ?>';
+        var managedDivisionIndex = <?php echo $this->escapeJs(count($collDivision)); ?>;
+    
+        $(document).on('click', '.competition-divisions .competition-divisions-add', function() {
+            var html = managedDivisionsSelectorTemplate.replace(/__index__/g, managedDivisionIndex++);
+            $('.competition-divisions table tbody').append(html);
+        }); 
+        $(document).on('click', '.competition-divisions .dropdivision', function() {
+            $(this).closest('*[data-divisionid]').remove();
+        });
+    </script>
+
+</div>
