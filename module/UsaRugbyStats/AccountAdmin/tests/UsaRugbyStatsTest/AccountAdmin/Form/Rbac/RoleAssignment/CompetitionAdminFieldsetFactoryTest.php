@@ -2,9 +2,9 @@
 namespace UsaRugbyStatsTest\AccountAdmin\Form;
 
 use Mockery;
-use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\LeagueAdminFieldsetFactory;
+use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\CompetitionAdminFieldsetFactory;
 
-class LeagueAdminFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
+class CompetitionAdminFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $serviceManager;
     
@@ -16,11 +16,11 @@ class LeagueAdminFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateService()
     {
-        $factory = new LeagueAdminFieldsetFactory();
+        $factory = new CompetitionAdminFieldsetFactory();
         $object = $factory->createService($this->serviceManager);
         
-        $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\LeagueAdminFieldset', $object);
+        $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\CompetitionAdminFieldset', $object);
         $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollectionHydrator', $object->getHydrator());
-        $this->assertInstanceOf('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\LeagueAdmin', $object->getObject());
+        $this->assertInstanceOf('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\CompetitionAdmin', $object->getObject());
     }
 }

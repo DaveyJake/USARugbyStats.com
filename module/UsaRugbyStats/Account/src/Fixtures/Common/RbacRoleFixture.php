@@ -25,12 +25,12 @@ class RbacRoleFixture implements FixtureInterface
         $teamadmin->addChild($member);
         $manager->persist($teamadmin);
 
-        $leagueadmin = new Role('league_admin');
-        $leagueadmin->addChild($teamadmin);
-        $manager->persist($leagueadmin);
+        $compadmin = new Role('competition_admin');
+        $compadmin->addChild($teamadmin);
+        $manager->persist($compadmin);
 
         $unionadmin = new Role('union_admin');
-        $unionadmin->addChild($leagueadmin);
+        $unionadmin->addChild($compadmin);
         $manager->persist($unionadmin);
 
         $superadmin = new Role('super_admin');

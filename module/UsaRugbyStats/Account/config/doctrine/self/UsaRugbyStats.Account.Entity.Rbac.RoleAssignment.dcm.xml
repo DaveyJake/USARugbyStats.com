@@ -26,7 +26,7 @@
         <discriminator-map>
             <discriminator-mapping value="super_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin" />
             <discriminator-mapping value="union_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\UnionAdmin" />
-            <discriminator-mapping value="league_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\LeagueAdmin" />
+            <discriminator-mapping value="competition_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\CompetitionAdmin" />
             <discriminator-mapping value="team_admin" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin" />
             <discriminator-mapping value="member" class="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member" />
         </discriminator-map>

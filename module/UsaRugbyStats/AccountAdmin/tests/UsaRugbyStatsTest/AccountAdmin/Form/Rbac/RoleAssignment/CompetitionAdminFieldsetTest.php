@@ -2,15 +2,15 @@
 namespace UsaRugbyStatsTest\AccountAdmin\Form\Rbac\RoleAssignment;
 
 use Mockery;
-use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\LeagueAdminFieldset;
+use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\CompetitionAdminFieldset;
 
-class LeagueAdminFieldsetTest extends \PHPUnit_Framework_TestCase
+class CompetitionAdminFieldsetTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testCreate()
     {
         $om = Mockery::mock('Doctrine\Common\Persistence\ObjectManager'); 
-        $fieldset = new LeagueAdminFieldset($om);
+        $fieldset = new CompetitionAdminFieldset($om);
         
         $this->assertEquals('league-admin', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));

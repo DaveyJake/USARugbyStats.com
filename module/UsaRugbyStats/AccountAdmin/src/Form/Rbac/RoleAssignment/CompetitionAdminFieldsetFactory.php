@@ -4,10 +4,10 @@ namespace UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollectionHydrator;
-use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\LeagueAdmin;
+use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\CompetitionAdmin;
 
 
-class LeagueAdminFieldsetFactory implements FactoryInterface
+class CompetitionAdminFieldsetFactory implements FactoryInterface
 {
     /**
      * Create service
@@ -18,9 +18,9 @@ class LeagueAdminFieldsetFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $sm)
     {
         $om = $sm->get('zfcuser_doctrine_em');
-        $fieldset = new LeagueAdminFieldset($om);
+        $fieldset = new CompetitionAdminFieldset($om);
         $fieldset->setHydrator(new NonuniformCollectionHydrator($om));
-        $fieldset->setObject(new LeagueAdmin());
+        $fieldset->setObject(new CompetitionAdmin());
         return $fieldset;
     }
 }

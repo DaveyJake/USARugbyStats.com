@@ -51,7 +51,7 @@ class TestAccountsFixture implements FixtureInterface, DependentFixtureInterface
     protected $accountData = array(
         [ 'username' => 'superadmin', 'email' => 'adam+urssuperadmin@lundrigan.ca', 'display_name' => 'Super Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'super-admin' ]] ],
         [ 'username' => 'teamadmin', 'email' => 'adam+ursteamadmin@lundrigan.ca', 'display_name' => 'Team Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'team-admin' ]] ],
-        [ 'username' => 'leagueadmin', 'email' => 'adam+ursleagueadmin@lundrigan.ca', 'display_name' => 'League Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'league-admin' ]] ],
+        [ 'username' => 'competitionadmin', 'email' => 'adam+urscompetitionadmin@lundrigan.ca', 'display_name' => 'Competition Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'competition-admin' ]] ],
         [ 'username' => 'unionadmin', 'email' => 'adam+ursunionadmin@lundrigan.ca', 'display_name' => 'Union Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'union-admin' ]] ],
         [ 'username' => 'memberone', 'email' => 'adam+ursmemberone@lundrigan.ca', 'display_name' => 'Member One', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'member' ]] ],
         [ 'username' => 'membertwo', 'email' => 'adam+ursmembertwo@lundrigan.ca', 'display_name' => 'Member Two', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'member' ]] ],

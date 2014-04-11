@@ -15,7 +15,7 @@ class RoleAssignmentElementFactoryTest extends \PHPUnit_Framework_TestCase
         $sl = Mockery::mock('Zend\ServiceManager\ServiceLocatorInterface');
         $sl->shouldReceive('get')->withArgs(['UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\MemberFieldset'])->andReturn($mockFieldset);
         $sl->shouldReceive('get')->withArgs(['UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\TeamAdminFieldset'])->andReturn($mockFieldset);
-        $sl->shouldReceive('get')->withArgs(['UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\LeagueAdminFieldset'])->andReturn($mockFieldset);
+        $sl->shouldReceive('get')->withArgs(['UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\CompetitionAdminFieldset'])->andReturn($mockFieldset);
         $sl->shouldReceive('get')->withArgs(['UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\UnionAdminFieldset'])->andReturn($mockFieldset);
         $sl->shouldReceive('get')->withArgs(['UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldset'])->andReturn($mockFieldset);
         
