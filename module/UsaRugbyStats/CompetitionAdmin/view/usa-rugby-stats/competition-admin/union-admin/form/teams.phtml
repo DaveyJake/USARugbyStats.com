@@ -1,0 +1,36 @@
+<div class="panel panel-default competition-teams">
+    <div class="panel-heading">
+        Competition Teams
+        <div class="pull-right">
+            <a class="btn btn-xs btn-success competition-teams-add" title="Add Team"><i class="glyphicon glyphicon-plus-sign"></i></a>
+        </div>
+    </div>
+
+    <?php $collTeam = $fieldset->get('teams'); ?>
+    
+    <table class="table table-striped">
+        <tbody style="border:0">
+        
+        <?php foreach ( $collTeam->getFieldsets() as $fsTeam ): ?>
+        <?php   if ( $fsTeam->get('id')->getValue() > 0 ): ?>
+        <?php     echo $this->render('usa-rugby-stats/competition-admin/union-admin/form/teams/team', ['fieldset' => $fsTeam]); ?>
+        <?php   endif; ?>
+        <?php endforeach; ?>
+    
+        </tbody>
+    </table>
+    
+    <script type="text/javascript">
+        var managedTeamsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/union-admin/form/teams/team', ['fieldset' => $collTeam->getTemplateElement(), 'isTemplate' => true])); ?>';
+        var managedTeamIndex = <?php echo $this->escapeJs(count($collTeam)); ?>;
+    
+        $(document).on('click', '.competition-teams .competition-teams-add', function() {
+            var html = managedTeamsSelectorTemplate.replace(/__index__/g, managedTeamIndex++);
+            $('.competition-teams table tbody').append(html);
+        }); 
+        $(document).on('click', '.competition-teams .dropteam', function() {
+            $(this).closest('*[data-teamid]').remove();
+        });
+    </script>
+
+</div>

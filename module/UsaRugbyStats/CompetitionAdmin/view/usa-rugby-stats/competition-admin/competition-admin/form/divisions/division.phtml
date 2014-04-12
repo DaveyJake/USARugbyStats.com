@@ -1,11 +1,11 @@
 <?php $isTemplate = @$isTemplate == true; ?>
+<?php $elId = $fieldset->get('id'); ?>
+<?php $elName = $fieldset->get('name'); ?>
 
-<tr data-divisionid="{$divisionId}">
+<tr data-divisionid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>">
     <td>
-        <?php $elId = $fieldset->get('id'); ?>
         <?php echo $this->formHidden($elId); ?>
 
-        <?php $elName = $fieldset->get('name'); ?>
         <?php if ($isTemplate): ?>
             <?php $elName->setAttribute('class', 'form-control input-sm'); ?>
             <?php echo $this->formElement($elName); ?>

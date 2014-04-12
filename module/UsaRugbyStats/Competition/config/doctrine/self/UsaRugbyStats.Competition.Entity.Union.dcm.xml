@@ -8,7 +8,7 @@
         <id name="id" type="integer"><generator strategy="AUTO" /></id>
         <field name="name" type="string" length="60" unique="true" />
         
-        <one-to-many field="teams" target-entity="UsaRugbyStats\Competition\Entity\Team" mapped-by="union" index-by="id">
+        <one-to-many field="teams" target-entity="UsaRugbyStats\Competition\Entity\Team" mapped-by="union">
             <cascade>
                 <cascade-persist />
             </cascade>
