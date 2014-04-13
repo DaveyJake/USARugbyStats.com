@@ -214,7 +214,6 @@ class Competition
     public function addTeam(Team $ra)
     {
         if ( ! $this->hasTeam($ra) ) {
-            $ra->setCompetition($this);
             $this->teams->add($ra);
         }
         return $this;
