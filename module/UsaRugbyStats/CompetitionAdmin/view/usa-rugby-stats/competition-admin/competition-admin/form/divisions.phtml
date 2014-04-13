@@ -8,8 +8,8 @@
 
     <?php $collDivision = $fieldset->get('divisions'); ?>
     
-    <table class="table table-striped">
-        <tbody style="border:0">
+    <div class="panel-body">
+        <div id="CompetitionDivisionsContainer">
         
         <?php foreach ( $collDivision->getFieldsets() as $fsDivision ): ?>
         <?php   if ( $fsDivision->get('id')->getValue() > 0 ): ?>
@@ -17,19 +17,32 @@
         <?php   endif; ?>
         <?php endforeach; ?>
     
-        </tbody>
-    </table>
+        </div>
+    </div>
     
     <script type="text/javascript">
         var managedDivisionsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['fieldset' => $collDivision->getTemplateElement(), 'isTemplate' => true])); ?>';
         var managedDivisionIndex = <?php echo $this->escapeJs(count($collDivision)); ?>;
-    
+
+        // Division Add/Remove
         $(document).on('click', '.competition-divisions .competition-divisions-add', function() {
             var html = managedDivisionsSelectorTemplate.replace(/__index__/g, managedDivisionIndex++);
             $('.competition-divisions table tbody').append(html);
         }); 
-        $(document).on('click', '.competition-divisions .dropdivision', function() {
+        $(document).on('click', '.competition-divisions .competition-divisions-division-remove', function() {
             $(this).closest('*[data-divisionid]').remove();
+        });
+
+        // Division Team Add/Remove
+        $(document).on('click', '.competition-divisions-division .competition-divisions-division-teams-add', function() {
+        	var template = $(this).closest('.competition-divisions-division').find('.team-selector-template');
+        	var index = parseInt(template.attr('data-nextindex'));
+            var html = template.html().replace(/__index__/g, index);
+            $(this).closest('.competition-divisions-division').find('.competition-divisions-division-teams table tbody').append(html);
+            template.attr('data-nextindex', index+1);
+        }); 
+        $(document).on('click', '.competition-divisions-division .dropteam', function() {
+            $(this).closest('*[data-teamid]').remove();
         });
     </script>
 
