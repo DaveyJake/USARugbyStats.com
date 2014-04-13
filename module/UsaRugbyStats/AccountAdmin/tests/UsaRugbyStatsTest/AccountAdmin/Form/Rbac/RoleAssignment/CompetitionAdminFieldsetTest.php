@@ -12,7 +12,7 @@ class CompetitionAdminFieldsetTest extends \PHPUnit_Framework_TestCase
         $om = Mockery::mock('Doctrine\Common\Persistence\ObjectManager'); 
         $fieldset = new CompetitionAdminFieldset($om);
         
-        $this->assertEquals('league-admin', $fieldset->getName());
+        $this->assertEquals('competition-admin', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('type'));
         
