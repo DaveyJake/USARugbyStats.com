@@ -1,21 +1,24 @@
 language: php
+
 php:
   - "5.5"
   - "5.4"
-before_script:
+
+install:
   - sudo apt-get update
   - sudo apt-get install apache2 libapache2-mod-php5 php5-curl php5-mysql php5-json
   - sudo a2enmod rewrite;
   - echo "$(cat .travisci/apache2.txt)" | sed -e "s,PATH,`pwd`/app,g" | sudo tee /etc/apache2/sites-available/default
+  - sudo service apache2 restart
+  - composer install --dev
+
+before_script:
   - mysql -e 'create database usarugby'
   - mv behat.yml.dist behat.yml
   - echo "$(cat .travisci/config.php)" | sudo tee app/config.php
   - echo "$(cat .travisci/doctrine.local.php.dist)" | sudo tee config/autoload/doctrine.local.php
   - echo "$(cat .travisci/testing.local.php.dist)" | sudo tee config/autoload/testing.local.php
-  - curl -s http://getcomposer.org/installer | php && ./composer.phar install --dev -n
-  - sudo service apache2 restart
+
 script:
+  - find module -type d -name "tests" | while read DIR; do ./bin/phpunit -c $DIR/phpunit.xml || exit 1; done;
   - #bin/behat --verbose
-  - cd module/UsaRugbyStats/Account/tests ; ../../../../bin/phpunit ; cd -;
-  - cd module/UsaRugbyStats/AccountAdmin/tests ; ../../../../bin/phpunit ; cd -;
-  - cd module/UsaRugbyStats/Competition/tests ; ../../../../bin/phpunit ; cd -;
