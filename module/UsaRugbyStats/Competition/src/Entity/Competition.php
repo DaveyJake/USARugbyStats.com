@@ -247,12 +247,12 @@ class Competition
     }
     
     /**
-     * @param Team $role
+     * @param TeamMembership $obj
      * @return bool
      */
-    public function hasTeamMembership(Team $ra)
+    public function hasTeamMembership(TeamMembership $obj)
     {
-        return $this->teamMemberships->contains($ra);
+        return $this->teamMemberships->contains($obj);
     }
 
     /**
