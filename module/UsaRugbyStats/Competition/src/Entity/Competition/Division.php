@@ -178,6 +178,7 @@ class Division
     public function removeTeamMembership(TeamMembership $obj)
     {
         $obj->setDivision(NULL);
+        $obj->setCompetition(NULL);
         $this->teamMemberships->removeElement($obj);
         return $this;
     }
