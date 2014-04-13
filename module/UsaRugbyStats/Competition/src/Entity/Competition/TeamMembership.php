@@ -75,7 +75,7 @@ class TeamMembership
      * @param Team $u
      * @return self
      */
-    public function setTeam(Team $u)
+    public function setTeam(Team $u = NULL)
     {
         $this->team = $u;
         return $this;
