@@ -14,7 +14,11 @@
             <join-column name="union_id" referenced-column-name="id" />
         </many-to-one>
         
-        <many-to-many field="competitions" target-entity="UsaRugbyStats\Competition\Entity\Competition" mapped-by="teams" />        
+        <one-to-many field="teamMemberships" target-entity="UsaRugbyStats\Competition\Entity\Competition\TeamMembership" mapped-by="team" orphan-removal="true">
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
         
     </entity>
 

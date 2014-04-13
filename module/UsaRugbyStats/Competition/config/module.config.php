@@ -25,6 +25,8 @@ return array(
             'usarugbystats_competition_competition_division_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\DivisionFieldsetFactory',
             'usarugbystats_competition_competition_division_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\Competition\DivisionFilterFactory',
             
+            'usarugbystats_competition_competition_teammembership_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\TeamMembershipFieldsetFactory',
+            
         ),
         'shared' => array(
             'usarugbystats_competition_team_fieldset' => false,
@@ -40,6 +42,8 @@ return array(
             'usarugbystats_competition_competition_updateform' => false,
             
             'usarugbystats_competition_competition_division_fieldset' => false,
+            
+            'usarugbystats_competition_competition_teammembership_fieldset' => false,
         ),
     ),
     'translator' => array(

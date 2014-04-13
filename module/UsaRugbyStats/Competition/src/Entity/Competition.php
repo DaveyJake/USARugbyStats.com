@@ -3,6 +3,7 @@ namespace UsaRugbyStats\Competition\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use UsaRugbyStats\Competition\Entity\Competition\TeamMembership;
 
 /**
  * Competition
@@ -34,19 +35,19 @@ class Competition
      * @var Collection
      */
     protected $games;
-    
+
     /**
-     * Teams which are participating
-     * 
+     * Team Memberships
+     *
      * @var Collection
      */
-    protected $teams;
-
+    protected $teamMemberships;
+    
 
     public function __construct()
     {
         $this->divisions = new ArrayCollection();
-        $this->teams = new ArrayCollection();
+        $this->teamMemberships = new ArrayCollection();
         $this->games = new ArrayCollection();
     }
     
@@ -177,69 +178,71 @@ class Competition
     /**
      * @return Collection
      */
-    public function getTeams()
+    public function getTeamMemberships()
     {
-        return $this->teams;
+        return $this->teamMemberships;
     }
     
     /**
-     * @param Collection $teams
+     * @param Collection $teamMemberships
      * @return self
      */
-    public function setTeams(Collection $teams)
+    public function setTeamMemberships(Collection $teamMemberships)
     {
-        $this->teams->clear();
-        $this->addTeams($teams);
+        $this->teamMemberships->clear();
+        $this->addTeamMemberships($teamMemberships);
         return $this;
     }
     
     /**
-     * @param Collection $teams
+     * @param Collection $teamMemberships
      * @return self
      */
-    public function addTeams(Collection $teams)
+    public function addTeamMemberships(Collection $teamMemberships)
     {
-        if(count($teams)){
-            foreach($teams as $ra){
-                $this->addTeam($ra);
+        if(count($teamMemberships)){
+            foreach($teamMemberships as $ra){
+                $this->addTeamMembership($ra);
             }
         }
         return $this;
     }
     
     /**
-     * @param Team $role
+     * @param TeamMembership $obj
      * @return self
      */
-    public function addTeam(Team $ra)
+    public function addTeamMembership(TeamMembership $obj)
     {
-        if ( ! $this->hasTeam($ra) ) {
-            $this->teams->add($ra);
+        if ( ! $this->hasTeamMembership($obj) ) {
+            $obj->setCompetition($this);
+            $this->teamMemberships->add($obj);
         }
         return $this;
     }
     
     /**
-     * @param Collection $teams
+     * @param Collection $teamMemberships
      * @return self
      */
-    public function removeTeams(Collection $teams)
+    public function removeTeamMemberships(Collection $teamMemberships)
     {
-        if(count($teams)){
-            foreach($teams as $ra){
-                $this->removeTeam($ra);
+        if(count($teamMemberships)){
+            foreach($teamMemberships as $ra){
+                $this->removeTeamMembership($ra);
             }
         }
         return $this;
     }
     
     /**
-     * @param Team $role
+     * @param TeamMembership $obj
      * @return self
      */
-    public function removeTeam(Team $ra)
+    public function removeTeamMembership(TeamMembership $obj)
     {
-        $this->teams->removeElement($ra);
+        $obj->setCompetition(NULL);
+        $this->teamMemberships->removeElement($obj);
         return $this;
     }
     
@@ -247,9 +250,9 @@ class Competition
      * @param Team $role
      * @return bool
      */
-    public function hasTeam(Team $ra)
+    public function hasTeamMembership(Team $ra)
     {
-        return $this->teams->contains($ra);
+        return $this->teamMemberships->contains($ra);
     }
 
     /**

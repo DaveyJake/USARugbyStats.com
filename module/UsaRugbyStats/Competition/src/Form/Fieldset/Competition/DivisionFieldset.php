@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class DivisionFieldset extends Fieldset
 {
 
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, TeamMembershipFieldset $fsTeamMembership)
     {
         parent::__construct('division');
         
@@ -26,6 +26,16 @@ class DivisionFieldset extends Fieldset
                 'label' => 'Name',
             ),
         ));
+        
+        $this->add(array(
+            'type'    => 'Zend\Form\Element\Collection',
+            'name'    => 'teamMemberships',
+            'options' => array(
+                'target_element' => $fsTeamMembership,
+                'should_create_template' => true,
+            )
+        ));
+
     }
 
 }

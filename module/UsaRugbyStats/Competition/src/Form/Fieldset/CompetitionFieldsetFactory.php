@@ -25,6 +25,8 @@ class CompetitionFieldsetFactory implements FactoryInterface
         $form->setHydrator(new DoctrineObject($om));
         $form->setObject(new Competition());
         
+        $form->get('divisions')->setHydrator($form->getHydrator());
+        
         return $form;
     }
 }
