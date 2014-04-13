@@ -254,6 +254,20 @@ class Competition
     {
         return $this->teamMemberships->contains($obj);
     }
+    
+    /**
+     * Determine if the given team is competing in this competition
+     * 
+     * @param Team $t
+     * @return boolean
+     */
+    public function hasTeam(Team $t)
+    {
+        $result = $this->teamMemberships->filter(function($i) use ($t) {
+        	return $i->getTeam()->getId() == $t->getId();
+        });
+        return $result->count() > 0;
+    }
 
     /**
      * @return Collection

@@ -285,6 +285,27 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($obj->hasTeamMembership($team0));
         $this->assertFalse($obj->hasTeamMembership($team1));
     }
+
+    public function testHasTeam()
+    {
+        $obj = new Competition();
+        
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team0->shouldReceive('getId')->twice()->andReturn(42);
+        
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team1->shouldReceive('getId')->twice()->andReturn(99);
+    
+        $teamMembership = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $teamMembership->shouldReceive('getTeam')->once()->andReturn($team0);
+    
+        // Add roles to the existing collection
+        $collection = $obj->getTeamMemberships();
+        $collection->add($teamMembership);
+    
+        $this->assertTrue($obj->hasTeam($team0));
+        $this->assertFalse($obj->hasTeam($team1));
+    }
     
     public function testRemoveTeamMembership()
     {
