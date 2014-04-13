@@ -11,7 +11,7 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
     public function testConstructorInitializesCollections()
     {
         $obj = new Division();
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeams());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeamMemberships());
     }
 
     public function testGetSetCompetition()
@@ -29,137 +29,163 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($obj->getCompetition());
     }
 
-    public function testSetTeams()
+    public function testSetTeamMemberships()
     {
         $obj = new Division();
-        $collection = $obj->getTeams();
+        $collection = $obj->getTeamMemberships();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team0->shouldReceive('setDivision')->withArgs([$obj])->once()->andReturnSelf();
+        $team0->shouldReceive('setCompetition')->once()->andReturnSelf();
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team1->shouldReceive('setDivision')->withArgs([$obj])->once()->andReturnSelf();
+        $team1->shouldReceive('setCompetition')->once()->andReturnSelf();
     
         $newCollection = new ArrayCollection();
         $newCollection->add($team0);
         $newCollection->add($team1);
     
         // Do the add
-        $obj->setTeams($newCollection);
+        $obj->setTeamMemberships($newCollection);
     
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeams());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeamMemberships());
         // Ensure we didn't replace the collection object, a no-no in Doctrineland
-        $this->assertSame($collection, $obj->getTeams());
-        $this->assertEquals(2, $obj->getTeams()->count());
+        $this->assertSame($collection, $obj->getTeamMemberships());
+        $this->assertEquals(2, $obj->getTeamMemberships()->count());
     }
     
-    public function testAddTeam()
+    public function testAddTeamMembership()
     {
         $obj = new Division();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team0->shouldReceive('setDivision')->never();
+        $team0->shouldReceive('setCompetition')->never();
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team1->shouldReceive('setDivision')->withArgs([$obj])->once()->andReturnSelf();
+        $team1->shouldReceive('setCompetition')->once()->andReturnSelf();
     
         // Add one to the existing collection
-        $collection = $obj->getTeams();
+        $collection = $obj->getTeamMemberships();
         $collection->add($team0);
     
         // Do teh add
-        $obj->addTeam($team1);
+        $obj->addTeamMembership($team1);
     
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeams());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeamMemberships());
         // Ensure we didn't replace the collection object, a no-no in Doctrineland
-        $this->assertSame($collection, $obj->getTeams());
-        $this->assertEquals(2, $obj->getTeams()->count());
+        $this->assertSame($collection, $obj->getTeamMemberships());
+        $this->assertEquals(2, $obj->getTeamMemberships()->count());
     }
     
-    public function testAddTeamDoesNotAllowDuplicates()
+    public function testAddTeamMembershipDoesNotAllowDuplicates()
     {
         $obj = new Division();
-        $collection = $obj->getTeams();
+        $collection = $obj->getTeamMemberships();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team0->shouldReceive('setDivision')->withArgs([$obj])->once()->andReturnSelf();
+        $team0->shouldReceive('setCompetition')->once()->andReturnSelf();
     
         // Add team0 twice
         $coll = new ArrayCollection();
         $coll->add($team0);
         $coll->add($team0);
-        $obj->addTeams($coll);
+        $obj->addTeamMemberships($coll);
     
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeams());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeamMemberships());
         // Ensure we didn't replace the collection object, a no-no in Doctrineland
-        $this->assertSame($collection, $obj->getTeams());
-        $this->assertEquals(1, $obj->getTeams()->count());
+        $this->assertSame($collection, $obj->getTeamMemberships());
+        $this->assertEquals(1, $obj->getTeamMemberships()->count());
     }
     
-    public function testAddTeams()
+    public function testAddTeamMemberships()
     {
         $obj = new Division();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team0->shouldReceive('setDivision')->never();
+        $team0->shouldReceive('setCompetition')->never();
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team1->shouldReceive('setDivision')->withArgs([$obj])->once()->andReturnSelf();
+        $team1->shouldReceive('setCompetition')->once()->andReturnSelf();
+        $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team2->shouldReceive('setDivision')->withArgs([$obj])->once()->andReturnSelf();
+        $team2->shouldReceive('setCompetition')->once()->andReturnSelf();
     
         // Add one to the existing collection
-        $collection = $obj->getTeams();
+        $collection = $obj->getTeamMemberships();
         $collection->add($team0);
     
         // Do teh add
         $coll = new ArrayCollection();
         $coll->add($team1);
         $coll->add($team2);
-        $obj->addTeams($coll);
+        $obj->addTeamMemberships($coll);
     
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeams());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeamMemberships());
         // Ensure we didn't replace the collection object, a no-no in Doctrineland
-        $this->assertSame($collection, $obj->getTeams());
-        $this->assertEquals(3, $obj->getTeams()->count());
+        $this->assertSame($collection, $obj->getTeamMemberships());
+        $this->assertEquals(3, $obj->getTeamMemberships()->count());
     }
     
-    public function testHasTeam()
+    public function testHasTeamMembership()
     {
         $obj = new Division();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
     
         // Add roles to the existing collection
-        $collection = $obj->getTeams();
+        $collection = $obj->getTeamMemberships();
         $collection->add($team0);
     
-        $this->assertTrue($obj->hasTeam($team0));
-        $this->assertFalse($obj->hasTeam($team1));
+        $this->assertTrue($obj->hasTeamMembership($team0));
+        $this->assertFalse($obj->hasTeamMembership($team1));
     }
     
-    public function testRemoveTeam()
+    public function testRemoveTeamMembership()
     {
         $obj = new Division();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team0->shouldReceive('setDivision')->withArgs([NULL])->once()->andReturnSelf();
+        $team0->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team1->shouldReceive('setDivision')->withArgs([NULL])->once()->andReturnSelf();
+        $team1->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
     
         // Add to the existing collection
-        $collection = $obj->getTeams();
+        $collection = $obj->getTeamMemberships();
         $collection->add($team0);
         $collection->add($team1);
     
         // Do the remove
-        $obj->removeTeam($team0);
+        $obj->removeTeamMembership($team0);
     
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeams());
-        $this->assertSame($collection, $obj->getTeams());
-        $this->assertEquals(1, $obj->getTeams()->count());
-        $this->assertFalse($obj->getTeams()->contains($team0));
-        $this->assertTrue($obj->getTeams()->contains($team1));
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeamMemberships());
+        $this->assertSame($collection, $obj->getTeamMemberships());
+        $this->assertEquals(1, $obj->getTeamMemberships()->count());
+        $this->assertFalse($obj->getTeamMemberships()->contains($team0));
+        $this->assertTrue($obj->getTeamMemberships()->contains($team1));
     }
     
-    public function testRemoveTeams()
+    public function testRemoveTeamMemberships()
     {
         $obj = new Division();
     
-        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team0->shouldReceive('setDivision')->withArgs([NULL])->once()->andReturnSelf();
+        $team0->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
+        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team1->shouldReceive('setDivision')->never();
+        $team1->shouldReceive('setCompetition')->never();
+        $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team2->shouldReceive('setDivision')->withArgs([NULL])->once()->andReturnSelf();
+        $team2->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
     
         // Add one to the existing collection
-        $collection = $obj->getTeams();
+        $collection = $obj->getTeamMemberships();
         $collection->add($team0);
         $collection->add($team1);
         $collection->add($team2);
@@ -168,14 +194,14 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
         $coll = new ArrayCollection();
         $coll->add($team0);
         $coll->add($team2);
-        $obj->removeTeams($coll);
+        $obj->removeTeamMemberships($coll);
     
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeams());
-        $this->assertSame($collection, $obj->getTeams());
-        $this->assertEquals(1, $obj->getTeams()->count());
-        $this->assertFalse($obj->getTeams()->contains($team0));
-        $this->assertTrue($obj->getTeams()->contains($team1));
-        $this->assertFalse($obj->getTeams()->contains($team2));
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeamMemberships());
+        $this->assertSame($collection, $obj->getTeamMemberships());
+        $this->assertEquals(1, $obj->getTeamMemberships()->count());
+        $this->assertFalse($obj->getTeamMemberships()->contains($team0));
+        $this->assertTrue($obj->getTeamMemberships()->contains($team1));
+        $this->assertFalse($obj->getTeamMemberships()->contains($team2));
     }
 
 }
