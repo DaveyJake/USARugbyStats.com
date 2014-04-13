@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStatsTest\TeamMembership\Entity;
+namespace UsaRugbyStatsTest\Competition\Entity;
 
 use Mockery;
 

@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStatsTest\Account\Controller\Plugin;
+namespace UsaRugbyStatsTest\Entity;
 
 use Mockery;
 use UsaRugbyStatsTest\Account\ServiceManagerTestCase;

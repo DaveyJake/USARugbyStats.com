@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStatsTest\AccountAdmin\Form;
+namespace UsaRugbyStatsTest\AccountAdmin\Form\Element;
 
 use Mockery;
 use UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollectionHydrator;

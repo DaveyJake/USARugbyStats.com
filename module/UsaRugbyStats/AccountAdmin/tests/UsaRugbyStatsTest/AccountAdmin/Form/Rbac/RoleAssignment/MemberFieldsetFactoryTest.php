@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStatsTest\AccountAdmin\Form;
+namespace UsaRugbyStatsTest\AccountAdmin\Form\Rbac\RoleAssignment;
 
 use Mockery;
 use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\MemberFieldsetFactory;
