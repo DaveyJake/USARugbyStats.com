@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStatsTest\Entity\Rbac;
+namespace UsaRugbyStatsTest\Account\Entity\Rbac;
 
 use Mockery;
 use UsaRugbyStatsTest\Account\ServiceManagerTestCase;
