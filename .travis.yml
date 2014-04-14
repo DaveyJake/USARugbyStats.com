@@ -3,6 +3,8 @@ language: php
 php:
   - "5.5"
   - "5.4"
+  - "5.6"
+  - "hhvm"
 
 install:
   - sudo apt-get update
@@ -23,3 +25,9 @@ script:
   - for DIR in module config; do bin/php-cs-fixer fix -v --dry-run --fixers=-psr0,psr4 $DIR; done;
   - find module -type d -name "tests" | while read DIR; do ./bin/phpunit -c $DIR/phpunit.xml || exit 1; done;
   - #bin/behat --verbose
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: 5.6
+    - php: hhvm
