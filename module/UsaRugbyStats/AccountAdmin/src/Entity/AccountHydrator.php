@@ -17,6 +17,7 @@ class AccountHydrator extends DoctrineObject
         $result = parent::extract($object);
         $result = $this->mapField('id', 'userId', $result);
         $result = $this->mapField('displayName', 'display_name', $result);
+
         return $result;
     }
 
@@ -33,13 +34,15 @@ class AccountHydrator extends DoctrineObject
         //      extract does id->userId, but hydrate leaves it as userId ???
         //$data = $this->mapField('userId', 'id', $data);
         $data = $this->mapField('display_name', 'displayName', $data);
+
         return parent::hydrate($data, $object);
     }
-    
+
     protected function mapField($keyFrom, $keyTo, array $array)
     {
         $array[$keyTo] = $array[$keyFrom];
         unset($array[$keyFrom]);
+
         return $array;
     }
 }

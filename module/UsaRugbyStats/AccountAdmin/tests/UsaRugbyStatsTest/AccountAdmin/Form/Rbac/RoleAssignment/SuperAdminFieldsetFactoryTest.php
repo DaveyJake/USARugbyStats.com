@@ -7,7 +7,7 @@ use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldsetFactor
 class SuperAdminFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $serviceManager;
-    
+
     public function setUp()
     {
         $this->serviceManager = new \Zend\ServiceManager\ServiceManager();
@@ -18,7 +18,7 @@ class SuperAdminFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new SuperAdminFieldsetFactory();
         $object = $factory->createService($this->serviceManager);
-        
+
         $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldset', $object);
         $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollectionHydrator', $object->getHydrator());
         $this->assertInstanceOf('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin', $object->getObject());

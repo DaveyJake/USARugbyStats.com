@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Team Input Filter
- * 
+ *
  * @author Adam Lundrigan <adam@lundrigan.ca>
  */
 class TeamFilter extends InputFilter
@@ -32,6 +32,6 @@ class TeamFilter extends InputFilter
                 array('name' => 'StringTrim'),
             ),
         ));
-        
+
     }
 }

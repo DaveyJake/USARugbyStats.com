@@ -6,7 +6,7 @@ use UsaRugbyStats\Competition\Entity\Team;
 
 /**
  * Competition Team Membership
- * 
+ *
  * @author Adam Lundrigan <adam@lundrigan.ca>
  */
 class TeamMembership
@@ -15,10 +15,10 @@ class TeamMembership
      * @var integer
      */
     protected $id;
-    
+
     /**
      * The competition this game is part of
-     * 
+     *
      * @var Competition
      */
     protected $competition;
@@ -32,14 +32,14 @@ class TeamMembership
 
     /**
      * Home Team
-     * 
+     *
      * @var Team
      */
     protected $team;
-        
+
     /**
-     * Membership Identifier 
-     * 
+     * Membership Identifier
+     *
      * @return int
      */
     public function getId()
@@ -49,13 +49,14 @@ class TeamMembership
 
     /**
      * Set Membership Identifier
-     * 
-     * @param integer $id
+     *
+     * @param  integer $id
      * @return self
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -68,38 +69,40 @@ class TeamMembership
     {
         return $this->team;
     }
-    
+
     /**
      * Set the team this membership applies to
      *
-     * @param Team $u
+     * @param  Team $u
      * @return self
      */
     public function setTeam(Team $u = NULL)
     {
         $this->team = $u;
+
         return $this;
     }
-    
+
     /**
      * Competition this team is a member of
-     * 
+     *
      * @return Competition
      */
     public function getCompetition()
     {
         return $this->competition;
     }
-    
+
     /**
      * Set the competition this team is a member of
-     * 
-     * @param Competition $u
+     *
+     * @param  Competition $u
      * @return self
      */
     public function setCompetition(Competition $u = NULL)
     {
         $this->competition = $u;
+
         return $this;
     }
 
@@ -112,23 +115,24 @@ class TeamMembership
     {
         return $this->division;
     }
-    
+
     /**
      * Set the division this team is a member of
      *
-     * @param Division $u
+     * @param  Division $u
      * @return self
      */
     public function setDivision(Division $u = NULL)
     {
         $this->division = $u;
         $this->setCompetition(is_null($u) ? NULL : $u->getCompetition());
+
         return $this;
     }
-    
+
     /**
-     * String representation 
-     * 
+     * String representation
+     *
      * @return string
      */
     public function __toString()

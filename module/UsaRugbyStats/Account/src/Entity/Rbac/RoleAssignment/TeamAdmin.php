@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class TeamAdmin extends BaseAssignment
 {
-    protected $managedTeams;   
+    protected $managedTeams;
 
     /**
      * Init the Doctrine collection
@@ -17,7 +17,7 @@ class TeamAdmin extends BaseAssignment
     {
         $this->managedTeams = new ArrayCollection();
     }
-    
+
     /**
      * @return Collection
      */
@@ -25,34 +25,36 @@ class TeamAdmin extends BaseAssignment
     {
         return $this->managedTeams;
     }
-    
+
     /**
-     * @param Collection $managedTeams
+     * @param  Collection $managedTeams
      * @return self
      */
     public function setManagedTeams(Collection $managedTeams)
     {
         $this->managedTeams->clear();
         $this->addManagedTeams($managedTeams);
+
         return $this;
     }
-    
+
     /**
-     * @param Collection $managedTeams
+     * @param  Collection $managedTeams
      * @return self
      */
     public function addManagedTeams(Collection $managedTeams)
     {
-        if(count($managedTeams)){
-            foreach($managedTeams as $t) {
+        if (count($managedTeams)) {
+            foreach ($managedTeams as $t) {
                 $this->addManagedTeam($t);
             }
         }
+
         return $this;
     }
-    
+
     /**
-     * @param Team $t
+     * @param  Team $t
      * @return self
      */
     public function addManagedTeam(Team $t)
@@ -61,11 +63,12 @@ class TeamAdmin extends BaseAssignment
         if ( ! $this->hasManagedTeam($t) ) {
             $this->managedTeams->add($t);
         }
+
         return $this;
     }
-    
+
     /**
-     * @param Team $t
+     * @param  Team $t
      * @return bool
      */
     public function hasManagedTeam(Team $t)
@@ -74,26 +77,28 @@ class TeamAdmin extends BaseAssignment
     }
 
     /**
-     * @param Collection $managedTeams
+     * @param  Collection $managedTeams
      * @return self
      */
     public function removeManagedTeams(Collection $managedTeams)
     {
-        if(count($managedTeams)){
-            foreach($managedTeams as $t) {
+        if (count($managedTeams)) {
+            foreach ($managedTeams as $t) {
                 $this->removeManagedTeam($t);
             }
         }
+
         return $this;
     }
-    
+
     /**
-     * @param Team $t
+     * @param  Team $t
      * @return self
      */
     public function removeManagedTeam(Team $t)
     {
         $this->managedTeams->removeElement($t);
+
         return $this;
     }
 

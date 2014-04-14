@@ -7,13 +7,13 @@ use Doctrine\Common\Persistence\ObjectManager;
 class TeamMembershipFieldset extends Fieldset
 {
     protected $teamRepo;
-    
+
     public function __construct(ObjectManager $om)
     {
         parent::__construct('division');
-        
+
         $this->teamRepo = $om->getRepository('UsaRugbyStats\Competition\Entity\Team');
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
@@ -21,19 +21,19 @@ class TeamMembershipFieldset extends Fieldset
                 'label' => 'Identifier',
             ),
         ));
-        
+
         $this->add(array(
-        	'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'team',
             'options' => array(
                 'label' => 'Team',
                 'object_manager' => $om,
-                'target_class'   => 'UsaRugbyStats\Competition\Entity\Team',        	
+                'target_class'   => 'UsaRugbyStats\Competition\Entity\Team',
             ),
         ));
 
     }
-    
+
     public function getTeam($teamid = NULL)
     {
         if (empty($teamid)) {
@@ -42,6 +42,7 @@ class TeamMembershipFieldset extends Fieldset
         if (empty($teamid)) {
             return null;
         }
+
         return $this->teamRepo->find($teamid);
     }
 }

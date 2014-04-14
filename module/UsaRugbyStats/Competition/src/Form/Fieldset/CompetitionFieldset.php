@@ -11,7 +11,7 @@ class CompetitionFieldset extends Fieldset
     public function __construct(ObjectManager $om, DivisionFieldset $fsDivision)
     {
         parent::__construct('competition');
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
@@ -19,14 +19,14 @@ class CompetitionFieldset extends Fieldset
                 'label' => 'Identifier',
             ),
         ));
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'name',
             'options' => array(
                 'label' => 'Competition Name',
             ),
-        ));        
+        ));
 
         $this->add(array(
             'type'    => 'Zend\Form\Element\Collection',
@@ -36,7 +36,7 @@ class CompetitionFieldset extends Fieldset
                 'should_create_template' => true,
             )
         ));
-        
+
     }
 
 }

@@ -3,14 +3,14 @@ namespace UsaRugbyStats\Account\Entity\Rbac;
 
 use UsaRugbyStats\Application\Entity\AccountInterface;
 
-abstract class RoleAssignment 
+abstract class RoleAssignment
 {
     protected $id;
-    
+
     protected $account;
-    
+
     protected $role;
-    
+
     public function getId()
     {
         return $this->id;
@@ -40,7 +40,7 @@ abstract class RoleAssignment
     {
         $this->role = $role;
     }
-    
-    abstract function getDiscriminator();
-    
+
+    abstract public function getDiscriminator();
+
 }

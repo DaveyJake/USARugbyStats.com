@@ -10,6 +10,7 @@ class IndexController extends AbstractActionController
     {
         $vm = new ViewModel();
         $vm->setTemplate('usa-rugby-stats/application/index/index');
-        return $vm;        
+
+        return $vm;
     }
 }

@@ -11,15 +11,15 @@
         <many-to-one field="competition" target-entity="UsaRugbyStats\Competition\Entity\Competition" inversed-by="games">
         	<join-column name="competition" referenced-column-name="id" />
         </many-to-one>
-        
+
         <many-to-one field="homeTeam" target-entity="UsaRugbyStats\Competition\Entity\Team">
         	<join-column name="homeTeam" referenced-column-name="id" />
         </many-to-one>
-              
+
         <many-to-one field="awayTeam" target-entity="UsaRugbyStats\Competition\Entity\Team">
         	<join-column name="awayTeam" referenced-column-name="id" />
         </many-to-one>
-        
+
     </entity>
 
 </doctrine-mapping>

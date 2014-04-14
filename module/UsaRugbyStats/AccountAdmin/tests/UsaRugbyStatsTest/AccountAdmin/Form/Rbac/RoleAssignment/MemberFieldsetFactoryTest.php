@@ -7,7 +7,7 @@ use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\MemberFieldsetFactory;
 class MemberFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $serviceManager;
-    
+
     public function setUp()
     {
         $this->serviceManager = new \Zend\ServiceManager\ServiceManager();
@@ -18,7 +18,7 @@ class MemberFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new MemberFieldsetFactory();
         $object = $factory->createService($this->serviceManager);
-        
+
         $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\MemberFieldset', $object);
         $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollectionHydrator', $object->getHydrator());
         $this->assertInstanceOf('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member', $object->getObject());

@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Competition Input Filter
- * 
+ *
  * @author Adam Lundrigan <adam@lundrigan.ca>
  */
 class CompetitionFilter extends InputFilter
@@ -32,6 +32,6 @@ class CompetitionFilter extends InputFilter
                 array('name' => 'StringTrim'),
             ),
         ));
-        
+
     }
 }

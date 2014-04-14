@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace UsaRugbyStats\Account\Fixtures\Common;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -13,14 +13,14 @@ class RbacRoleFixture implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         echo "\nCreating default RBAC role hierarchy...\n";
-        
-        $guest = new Role('guest');        
+
+        $guest = new Role('guest');
         $manager->persist($guest);
-        
+
         $member = new Role('member');
         $member->addChild($guest);
         $manager->persist($member);
-        
+
         $teamadmin = new Role('team_admin');
         $teamadmin->addChild($member);
         $manager->persist($teamadmin);

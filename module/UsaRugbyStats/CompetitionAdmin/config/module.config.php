@@ -1,6 +1,6 @@
 <?php
 return array(
-    
+
     'router' => array(
         'routes' => array(
             'zfcadmin' => array(
@@ -168,7 +168,7 @@ return array(
             'usarugbystats_unionadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\UnionAdminController',
             'usarugbystats_competitionadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\CompetitionAdminController',
         ),
-    ),    
+    ),
     'navigation' => array(
         'admin' => array(
             'usarugbystats_teamadmin' => array(
@@ -203,7 +203,7 @@ return array(
             ),
         ),
     ),
-    
+
     'service_manager' => array(
         'aliases' => array(),
         'factories' => array(),

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace UsaRugbyStats\Account\Fixtures;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -15,30 +15,29 @@ class DefaultAccountsFixture implements FixtureInterface, DependentFixtureInterf
     public function load(ObjectManager $manager)
     {
         echo "\nCreating Default Accounts...\n";
-        
+
         $svc  = $this->getServiceLocator()->get('UsaRugbyStats\AccountAdmin\Service\UserService');
 
-        foreach ( $this->accountData as $acct )
-        {
+        foreach ($this->accountData as $acct) {
             echo " - {$acct['username']}";
-            
+
             if ( !isset($acct['password']) || empty($acct['password']) ) {
                 $acct['password'] = uniqid();
                 echo " (password = " . $acct['password'] . " )";
             }
             $acct['passwordVerify'] = $acct['password'];
-                        
+
             echo "\n";
-            
+
             $form = $this->getServiceLocator()->get('zfcuseradmin_createuser_form');
             $entity = $svc->create($form, $acct);
-            if ( ! $entity instanceof Account ) {
+            if (! $entity instanceof Account) {
                 echo "ERROR: Failed to create account: " . $acct['username'] . "\n";
                 continue;
             }
             $manager->persist($entity);
             unset($form, $entity);
-            
+
         }
 
         $manager->flush();
@@ -48,7 +47,7 @@ class DefaultAccountsFixture implements FixtureInterface, DependentFixtureInterf
     {
         return [ 'UsaRugbyStats\Account\Fixtures\Common\RbacRoleFixture'];
     }
-    
+
     protected $accountData = array(
         [ 'username' => 'administrator', 'email' => 'usarugbymedia@gmail.com', 'display_name' => 'Administrator', 'roleAssignments' => [[ 'type' => 'super-admin' ]] ],
     );

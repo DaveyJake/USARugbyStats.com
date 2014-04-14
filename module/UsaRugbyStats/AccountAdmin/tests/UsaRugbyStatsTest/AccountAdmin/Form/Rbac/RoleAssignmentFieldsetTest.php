@@ -1,7 +1,6 @@
 <?php
 namespace UsaRugbyStatsTest\AccountAdmin\Form\Rbac;
 
-use Mockery;
 use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentFieldset;
 
 class RoleAssignmentFieldsetTest extends \PHPUnit_Framework_TestCase
@@ -12,7 +11,7 @@ class RoleAssignmentFieldsetTest extends \PHPUnit_Framework_TestCase
         $fieldset = new LocalRoleAssignmentFieldset();
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('type'));
-        
+
         $inputFilter = $fieldset->getInputFilterSpecification();
         $this->assertArrayHasKey('id', $inputFilter);
         $this->assertArrayHasKey('type', $inputFilter);

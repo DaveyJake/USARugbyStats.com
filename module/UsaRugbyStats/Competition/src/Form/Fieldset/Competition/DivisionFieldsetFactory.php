@@ -11,22 +11,22 @@ class DivisionFieldsetFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return Authentication
      */
     public function createService(ServiceLocatorInterface $sm)
     {
         $om = $sm->get('zfcuser_doctrine_em');
         $fsTeamMembership = $sm->get('usarugbystats_competition_competition_teammembership_fieldset');
-        
+
         $form = new DivisionFieldset($om, $fsTeamMembership);
-        
+
         // Set the hydrator
         $form->setHydrator(new DoctrineObject($om));
         $form->setObject(new Division());
-        
+
         $form->get('teamMemberships')->setHydrator($form->getHydrator());
-        
+
         return $form;
     }
 }

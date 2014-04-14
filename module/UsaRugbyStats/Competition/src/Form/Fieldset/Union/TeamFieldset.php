@@ -13,9 +13,9 @@ class TeamFieldset extends Fieldset
     public function __construct(ObjectManager $om, ObjectRepository $mapper)
     {
         parent::__construct('team');
-        
+
         $this->teamRepo = $mapper;
-        
+
         $team = new ObjectSelect();
         $team->setName('id');
         $team->setOptions(array(
@@ -35,6 +35,7 @@ class TeamFieldset extends Fieldset
         if (empty($teamid)) {
             return null;
         }
+
         return $this->teamRepo->find($teamid);
     }
 }

@@ -10,8 +10,9 @@ class CompetitionFilterFactory implements FactoryInterface
     {
         $em = $manager->get('zfcuser_doctrine_em');
         $repo = $em->getRepository('UsaRugbyStats\Competition\Entity\Competition');
-        
+
         $filter = new CompetitionFilter($em, $repo);
+
         return $filter;
     }
 }

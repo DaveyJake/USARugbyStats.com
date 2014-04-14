@@ -10,11 +10,11 @@
         <many-to-one field="competition" target-entity="UsaRugbyStats\Competition\Entity\Competition" inversed-by="teamMemberships">
         	<join-column name="competition" referenced-column-name="id" />
         </many-to-one>
-        
+
         <many-to-one field="team" target-entity="UsaRugbyStats\Competition\Entity\Team" inversed-by="teamMemberships">
         	<join-column name="team" referenced-column-name="id" />
         </many-to-one>
-              
+
         <many-to-one field="division" target-entity="UsaRugbyStats\Competition\Entity\Competition\Division" inversed-by="teamMemberships">
         	<join-column name="division" referenced-column-name="id" />
         </many-to-one>

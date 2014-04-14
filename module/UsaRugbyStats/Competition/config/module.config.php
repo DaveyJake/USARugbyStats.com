@@ -8,14 +8,14 @@ return array(
             'usarugbystats_competition_team_createform' => 'UsaRugbyStats\Competition\Form\TeamCreateFormFactory',
             'usarugbystats_competition_team_updateform' => 'UsaRugbyStats\Competition\Form\TeamUpdateFormFactory',
             'usarugbystats_competition_team_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\TeamFilterFactory',
-                        
+
             'usarugbystats_competition_union_service' => 'UsaRugbyStats\Competition\Service\UnionServiceFactory',
             'usarugbystats_competition_union_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\UnionFieldsetFactory',
             'usarugbystats_competition_union_team_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Union\TeamFieldsetFactory',
             'usarugbystats_competition_union_createform' => 'UsaRugbyStats\Competition\Form\UnionCreateFormFactory',
             'usarugbystats_competition_union_updateform' => 'UsaRugbyStats\Competition\Form\UnionUpdateFormFactory',
             'usarugbystats_competition_union_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\UnionFilterFactory',
-            
+
             'usarugbystats_competition_competition_service' => 'UsaRugbyStats\Competition\Service\CompetitionServiceFactory',
             'usarugbystats_competition_competition_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\CompetitionFieldsetFactory',
             'usarugbystats_competition_competition_createform' => 'UsaRugbyStats\Competition\Form\CompetitionCreateFormFactory',
@@ -24,25 +24,25 @@ return array(
 
             'usarugbystats_competition_competition_division_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\DivisionFieldsetFactory',
             'usarugbystats_competition_competition_division_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\Competition\DivisionFilterFactory',
-            
+
             'usarugbystats_competition_competition_teammembership_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\TeamMembershipFieldsetFactory',
-            
+
         ),
         'shared' => array(
             'usarugbystats_competition_team_fieldset' => false,
             'usarugbystats_competition_team_createform' => false,
             'usarugbystats_competition_team_updateform' => false,
-            
-        	'usarugbystats_competition_union_fieldset' => false,
+
+            'usarugbystats_competition_union_fieldset' => false,
             'usarugbystats_competition_union_createform' => false,
             'usarugbystats_competition_union_updateform' => false,
 
             'usarugbystats_competition_competition_fieldset' => false,
             'usarugbystats_competition_competition_createform' => false,
             'usarugbystats_competition_competition_updateform' => false,
-            
+
             'usarugbystats_competition_competition_division_fieldset' => false,
-            
+
             'usarugbystats_competition_competition_teammembership_fieldset' => false,
         ),
     ),

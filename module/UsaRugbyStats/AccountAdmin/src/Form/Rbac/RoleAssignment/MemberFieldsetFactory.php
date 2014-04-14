@@ -6,13 +6,12 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollectionHydrator;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member;
 
-
 class MemberFieldsetFactory implements FactoryInterface
 {
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return Authentication
      */
     public function createService(ServiceLocatorInterface $sm)
@@ -21,6 +20,7 @@ class MemberFieldsetFactory implements FactoryInterface
         $fieldset = new MemberFieldset($om);
         $fieldset->setHydrator(new NonuniformCollectionHydrator($om));
         $fieldset->setObject(new Member());
+
         return $fieldset;
     }
 }

@@ -3,17 +3,17 @@ return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
         'ZfcBase',
-        
+
         'DoctrineModule',
         'DoctrineORMModule',
         'DoctrineDataFixtureModule',
-        
+
         'ZfcUser',
         'ZfcUserDoctrineORM',
-        
+
         'ZfcAdmin',
         'ZfcUserAdmin',
-        
+
         'ZfcRbac',
 
         // LegacyApplication goes first so that it's /

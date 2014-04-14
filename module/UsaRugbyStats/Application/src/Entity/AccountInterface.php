@@ -13,7 +13,7 @@ interface AccountInterface
     /**
      * Set id.
      *
-     * @param int $id
+     * @param  int           $id
      * @return UserInterface
      */
     public function setId($id);
@@ -28,7 +28,7 @@ interface AccountInterface
     /**
      * Set username.
      *
-     * @param string $username
+     * @param  string        $username
      * @return UserInterface
      */
     public function setUsername($username);
@@ -43,7 +43,7 @@ interface AccountInterface
     /**
      * Set email.
      *
-     * @param string $email
+     * @param  string        $email
      * @return UserInterface
      */
     public function setEmail($email);
@@ -58,7 +58,7 @@ interface AccountInterface
     /**
      * Set displayName.
      *
-     * @param string $displayName
+     * @param  string        $displayName
      * @return UserInterface
      */
     public function setDisplayName($displayName);
@@ -73,7 +73,7 @@ interface AccountInterface
     /**
      * Set password.
      *
-     * @param string $password
+     * @param  string        $password
      * @return UserInterface
      */
     public function setPassword($password);
@@ -88,7 +88,7 @@ interface AccountInterface
     /**
      * Set state.
      *
-     * @param int $state
+     * @param  int           $state
      * @return UserInterface
      */
     public function setState($state);

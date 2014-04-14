@@ -9,7 +9,7 @@ class TeamUpdateFormFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return Authentication
      */
     public function createService(ServiceLocatorInterface $sm)
@@ -18,7 +18,7 @@ class TeamUpdateFormFactory implements FactoryInterface
 
         $form->setName('update-team');
         $form->get('submit')->setOptions(['label' => 'Save Changes']);
-        
+
         return $form;
     }
 }

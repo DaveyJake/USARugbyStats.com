@@ -17,7 +17,7 @@
                 <cascade-all />
             </cascade>
         </one-to-many>
-        
+
     </entity>
 
 </doctrine-mapping>

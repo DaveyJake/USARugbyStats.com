@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class UnionAdmin extends BaseAssignment
 {
-    protected $managedUnions;   
+    protected $managedUnions;
 
     /**
      * Init the Doctrine collection
@@ -17,7 +17,7 @@ class UnionAdmin extends BaseAssignment
     {
         $this->managedUnions = new ArrayCollection();
     }
-    
+
     /**
      * @return Collection
      */
@@ -25,34 +25,36 @@ class UnionAdmin extends BaseAssignment
     {
         return $this->managedUnions;
     }
-    
+
     /**
-     * @param Collection $managedUnions
+     * @param  Collection $managedUnions
      * @return self
      */
     public function setManagedUnions(Collection $managedUnions)
     {
         $this->managedUnions->clear();
         $this->addManagedUnions($managedUnions);
+
         return $this;
     }
-    
+
     /**
-     * @param Collection $managedUnions
+     * @param  Collection $managedUnions
      * @return self
      */
     public function addManagedUnions(Collection $managedUnions)
     {
-        if(count($managedUnions)){
-            foreach($managedUnions as $t) {
+        if (count($managedUnions)) {
+            foreach ($managedUnions as $t) {
                 $this->addManagedUnion($t);
             }
         }
+
         return $this;
     }
-    
+
     /**
-     * @param Union $t
+     * @param  Union $t
      * @return self
      */
     public function addManagedUnion(Union $t)
@@ -61,11 +63,12 @@ class UnionAdmin extends BaseAssignment
         if ( ! $this->hasManagedUnion($t) ) {
             $this->managedUnions->add($t);
         }
+
         return $this;
     }
-    
+
     /**
-     * @param Union $t
+     * @param  Union $t
      * @return bool
      */
     public function hasManagedUnion(Union $t)
@@ -74,26 +77,28 @@ class UnionAdmin extends BaseAssignment
     }
 
     /**
-     * @param Collection $managedUnions
+     * @param  Collection $managedUnions
      * @return self
      */
     public function removeManagedUnions(Collection $managedUnions)
     {
-        if(count($managedUnions)){
-            foreach($managedUnions as $t) {
+        if (count($managedUnions)) {
+            foreach ($managedUnions as $t) {
                 $this->removeManagedUnion($t);
             }
         }
+
         return $this;
     }
-    
+
     /**
-     * @param Union $t
+     * @param  Union $t
      * @return self
      */
     public function removeManagedUnion(Union $t)
     {
         $this->managedUnions->removeElement($t);
+
         return $this;
     }
 

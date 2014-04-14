@@ -10,7 +10,7 @@ class DivisionFieldset extends Fieldset
     public function __construct(ObjectManager $om, TeamMembershipFieldset $fsTeamMembership)
     {
         parent::__construct('division');
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
@@ -26,7 +26,7 @@ class DivisionFieldset extends Fieldset
                 'label' => 'Name',
             ),
         ));
-        
+
         $this->add(array(
             'type'    => 'Zend\Form\Element\Collection',
             'name'    => 'teamMemberships',

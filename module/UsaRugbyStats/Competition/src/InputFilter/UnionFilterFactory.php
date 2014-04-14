@@ -10,8 +10,9 @@ class UnionFilterFactory implements FactoryInterface
     {
         $em = $manager->get('zfcuser_doctrine_em');
         $repo = $em->getRepository('UsaRugbyStats\Competition\Entity\Union');
-        
+
         $filter = new UnionFilter($em, $repo);
+
         return $filter;
     }
 }

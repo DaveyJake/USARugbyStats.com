@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace UsaRugbyStats\Account\Fixtures\Development;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -15,24 +15,23 @@ class TestAccountsFixture implements FixtureInterface, DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         echo "\nCreating Demo Accounts...\n";
-        
+
         $svc  = $this->getServiceLocator()->get('UsaRugbyStats\AccountAdmin\Service\UserService');
 
-        foreach ( $this->accountData as $acct )
-        {
+        foreach ($this->accountData as $acct) {
             echo " - {$acct['username']}";
-            
+
             if ( !isset($acct['password']) || empty($acct['password']) ) {
                 $acct['password'] = uniqid();
                 echo " (password = " . $acct['password'] . " )";
             }
             $acct['passwordVerify'] = $acct['password'];
-                        
+
             echo "\n";
-            
+
             $form = $this->getServiceLocator()->get('zfcuseradmin_createuser_form');
             $entity = $svc->create($form, $acct);
-            if ( ! $entity instanceof Account ) {
+            if (! $entity instanceof Account) {
                 echo "ERROR: Failed to create account: " . $acct['username'] . "\n";
                 continue;
             }
@@ -42,12 +41,12 @@ class TestAccountsFixture implements FixtureInterface, DependentFixtureInterface
 
         $manager->flush();
     }
-    
+
     public function getDependencies()
     {
         return [ 'UsaRugbyStats\Account\Fixtures\Common\RbacRoleFixture'];
     }
-    
+
     protected $accountData = array(
         [ 'username' => 'superadmin', 'email' => 'adam+urssuperadmin@lundrigan.ca', 'display_name' => 'Super Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'super-admin' ]] ],
         [ 'username' => 'teamadmin', 'email' => 'adam+ursteamadmin@lundrigan.ca', 'display_name' => 'Team Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'team-admin' ]] ],

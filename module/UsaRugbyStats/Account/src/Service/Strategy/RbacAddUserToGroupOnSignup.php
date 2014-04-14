@@ -14,18 +14,19 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
 {
     protected $groupNames = array();
     protected $objectManager;
-    
+
     public function __construct(ObjectManager $om)
     {
         $this->objectManager = $om;
     }
-    
+
     public function setGroups(array $gn)
     {
         $this->groupNames = array_unique($gn);
+
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -45,14 +46,13 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
     {
         $user = $e->getParam('user');
         $svcRole = $this->objectManager->getRepository('UsaRugbyStats\Account\Entity\Rbac\Role');
-        
+
         $filter = new SeparatorToCamelCase('_');
-        
+
         $changed = false;
-        foreach ( $this->groupNames as $roleName )
-        {
+        foreach ($this->groupNames as $roleName) {
             $role = $svcRole->findOneBy(['name' => $roleName]);
-            if ( ! $role instanceof Role ) {
+            if (! $role instanceof Role) {
                 continue;
             }
             $className = 'UsaRugbyStats\\Account\\Entity\\Rbac\\RoleAssignment\\' . $filter->filter($roleName);
@@ -62,11 +62,11 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
             $assignment = new $className();
             $assignment->setAccount($user);
             $assignment->setRole($role);
-            
+
             $user->addRoleAssignment($assignment);
             $changed = true;
         }
-        if ( $changed ) {
+        if ($changed) {
             $e->getTarget()->getUserMapper()->update($user);
         }
     }

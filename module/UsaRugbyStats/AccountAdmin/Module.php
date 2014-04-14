@@ -8,12 +8,12 @@ class Module
     public function onBootstrap(MvcEvent $e)
     {
         $sl = $e->getApplication()->getServiceManager();
-        
+
         // Override the AdminUserService with our own extension
         $zfcUserAdminController = $sl->get('ControllerLoader')->get('zfcuseradmin');
         $zfcUserAdminController->setAdminUserService($sl->get('UsaRugbyStats\AccountAdmin\Service\UserService'));
     }
-   
+
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';

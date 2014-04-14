@@ -14,21 +14,21 @@ class PageController extends AbstractActionController
             throw new \InvalidArgumentException('This route is not eligible to use this controller');
         }
 
-        // Fetch the configuration of the routed route 
+        // Fetch the configuration of the routed route
         $config = $this->getServiceLocator()->get('Config');
-        if ( !isset($config['router']['routes']['urs-la']['child_routes'][$parts[1]]) || 
+        if ( !isset($config['router']['routes']['urs-la']['child_routes'][$parts[1]]) ||
              !isset($config['router']['routes']['urs-la']['child_routes'][$parts[1]]['options']['route']) )
         {
             throw new \InvalidArgumentException('The route you specified is not configured');
         }
         $routeConfig = $config['router']['routes']['urs-la']['child_routes'][$parts[1]];
-        
+
         $routeSlug = $routeConfig['options']['route'];
         $requestSlug = ltrim($this->getRequest()->getServer('REDIRECT_URL'), '/');
-        
+
         // The URI configured by the route doesn't match the URI from the request,
         // so we bail out as something is quite fishy here
-        if ( $routeSlug != $requestSlug ) {
+        if ($routeSlug != $requestSlug) {
             throw new \InvalidArgumentException('This URI cannot be routed!');
         }
 
@@ -36,7 +36,7 @@ class PageController extends AbstractActionController
         if ( isset($routeConfig['options']['target-file']) ) {
             $targetFile = $routeConfig['options']['target-file'];
         }
-        
+
         // Locate the script file
         $scriptFile = realpath($config['usarugbystats']['legacy-application']['directory']
                         . DIRECTORY_SEPARATOR
@@ -45,13 +45,14 @@ class PageController extends AbstractActionController
             throw new \RuntimeException('The script pointed to by this URI could not be found!');
         }
         chdir(dirname($scriptFile));
-        
+
         $vm = new ViewModel();
         $vm->setTemplate('usa-rugby-stats/legacy-application/render');
         $vm->setVariables(array('scriptFile' => $scriptFile));
         if ( isset($routeConfig['options']['use-layout']) && $routeConfig['options']['use-layout'] == false ) {
             $vm->setTerminal(true);
         }
+
         return $vm;
     }
 }

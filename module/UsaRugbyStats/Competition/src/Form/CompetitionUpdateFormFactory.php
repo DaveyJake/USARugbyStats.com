@@ -4,15 +4,13 @@ namespace UsaRugbyStats\Competition\Form;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Form\Form;
-use Zend\InputFilter\InputFilter;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 
 class CompetitionUpdateFormFactory implements FactoryInterface
 {
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return Authentication
      */
     public function createService(ServiceLocatorInterface $sm)
@@ -21,7 +19,7 @@ class CompetitionUpdateFormFactory implements FactoryInterface
 
         $form->setName('update-competition');
         $form->get('submit')->setOptions(['label' => 'Save Changes']);
-        
+
         return $form;
     }
 }

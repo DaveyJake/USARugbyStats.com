@@ -11,19 +11,19 @@ class TeamFieldsetFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return Authentication
      */
     public function createService(ServiceLocatorInterface $sm)
     {
         $om = $sm->get('zfcuser_doctrine_em');
-        
+
         $form = new TeamFieldset($om);
-        
+
         // Set the hydrator
         $form->setHydrator(new DoctrineObject($om));
         $form->setObject(new Team());
-        
+
         return $form;
     }
 }

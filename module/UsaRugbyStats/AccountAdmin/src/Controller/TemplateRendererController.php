@@ -19,9 +19,9 @@ class TemplateRendererController extends AbstractActionController
         }
 
         $collection = $this->getServiceLocator()->get('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement');
-        
+
         $template = $this->params()->fromPost('template');
-        
+
         $fieldset = null;
         foreach ( $collection->getTargetElement() as $item ) {
             if ( $item->getName() == $template ) {
@@ -40,16 +40,17 @@ class TemplateRendererController extends AbstractActionController
         $fieldset->setName($this->params()->fromPost('namePrefix'));
         $fieldset->prepareElement(new \Zend\Form\Form());
         $fieldset->get('type')->setValue($matches[1]);
-        
+
         $hvm = new ViewModel(array(
-            'fieldset' => $fieldset, 
-            'isTemplate' => true, 
+            'fieldset' => $fieldset,
+            'isTemplate' => true,
             'index' => $this->params()->fromPost('index'),
             'type' => $matches[1],
         ));
         $hvm->setTemplate($templateFile);
 
         $viewRender = $this->getServiceLocator()->get('ViewRenderer');
+
         return $vm->setVariables(array('template' => $viewRender->render($hvm)));
     }
 }

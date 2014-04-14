@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Union Input Filter
- * 
+ *
  * @author Adam Lundrigan <adam@lundrigan.ca>
  */
 class UnionFilter extends InputFilter
@@ -32,6 +32,6 @@ class UnionFilter extends InputFilter
                 array('name' => 'StringTrim'),
             ),
         ));
-        
+
     }
 }

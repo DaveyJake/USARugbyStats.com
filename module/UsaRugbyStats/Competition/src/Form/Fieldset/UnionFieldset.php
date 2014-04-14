@@ -4,7 +4,6 @@ namespace UsaRugbyStats\Competition\Form\Fieldset;
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
 use Zend\Form\FieldsetInterface;
-use DoctrineModule\Form\Element\ObjectSelect;
 
 class UnionFieldset extends Fieldset
 {
@@ -12,7 +11,7 @@ class UnionFieldset extends Fieldset
     public function __construct(ObjectManager $om, FieldsetInterface $fsTeam)
     {
         parent::__construct('union');
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
@@ -20,7 +19,7 @@ class UnionFieldset extends Fieldset
                 'label' => 'Identifier',
             ),
         ));
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'name',

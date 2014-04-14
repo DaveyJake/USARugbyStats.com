@@ -10,7 +10,7 @@ class TeamFieldset extends Fieldset
     public function __construct(ObjectManager $om)
     {
         parent::__construct('team');
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
@@ -18,7 +18,7 @@ class TeamFieldset extends Fieldset
                 'label' => 'Identifier',
             ),
         ));
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'name',
@@ -26,13 +26,13 @@ class TeamFieldset extends Fieldset
                 'label' => 'Team Name',
             ),
         ));
-        
+
         $this->add(
             array(
                 'type' => 'DoctrineModule\Form\Element\ObjectSelect',
                 'name' => 'union',
                 'options' => array(
-                    'label' => 'Union',                    
+                    'label' => 'Union',
                     'object_manager' => $om,
                     'target_class'   => 'UsaRugbyStats\Competition\Entity\Union',
                     'display_empty_item' => true,
@@ -40,7 +40,7 @@ class TeamFieldset extends Fieldset
                 ),
             )
         );
-        
+
     }
 
 }

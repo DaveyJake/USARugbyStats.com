@@ -7,7 +7,7 @@ use UsaRugbyStats\Competition\Entity\Competition\TeamMembership;
 
 /**
  * Team
- * 
+ *
  * @author Adam Lundrigan <adam@lundrigan.ca>
  */
 class Team
@@ -16,35 +16,34 @@ class Team
      * @var integer
      */
     protected $id;
-    
+
     /**
      * @var string
      */
     protected $name;
-    
+
     /**
      * The union this team is a member of
-     * 
+     *
      * @var Union
      */
     protected $union;
-        
+
     /**
      * Team Memberships
-     * 
+     *
      * @var Collection
      */
     protected $teamMemberships;
 
-    
     public function __construct()
     {
         $this->teamMemberships = new ArrayCollection();
     }
-    
+
     /**
-     * Team Identifier 
-     * 
+     * Team Identifier
+     *
      * @return int
      */
     public function getId()
@@ -54,19 +53,20 @@ class Team
 
     /**
      * Set Team Identifier
-     * 
-     * @param integer $id
+     *
+     * @param  integer $id
      * @return self
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
     /**
      * Team Name
-     * 
+     *
      * @return string
      */
     public function getName()
@@ -77,36 +77,38 @@ class Team
     /**
      * Set Team Name
      *
-     * @param string $name
+     * @param  string $name
      * @return self
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
-    
+
     /**
      * Union this team is a member of
-     * 
+     *
      * @return Union
      */
     public function getUnion()
     {
         return $this->union;
     }
-    
+
     /**
      * Set the union this team is a member of
-     * 
-     * @param Union $u
+     *
+     * @param  Union $u
      * @return self
      */
     public function setUnion(Union $u = NULL)
     {
         $this->union = $u;
+
         return $this;
-    }    
+    }
 
     /**
      * @return Collection
@@ -115,34 +117,36 @@ class Team
     {
         return $this->teamMemberships;
     }
-    
+
     /**
-     * @param Collection $comps
+     * @param  Collection $comps
      * @return self
      */
     public function setTeamMemberships(Collection $comps)
     {
         $this->teamMemberships->clear();
         $this->addTeamMemberships($comps);
+
         return $this;
     }
-    
+
     /**
-     * @param Collection $comps
+     * @param  Collection $comps
      * @return self
      */
     public function addTeamMemberships(Collection $comps)
     {
-        if(count($comps)){
-            foreach($comps as $comp){
+        if (count($comps)) {
+            foreach ($comps as $comp) {
                 $this->addTeamMembership($comp);
             }
         }
+
         return $this;
     }
-    
+
     /**
-     * @param TeamMembership $comp
+     * @param  TeamMembership $comp
      * @return self
      */
     public function addTeamMembership(TeamMembership $comp)
@@ -151,36 +155,39 @@ class Team
             $comp->setTeam($this);
             $this->teamMemberships->add($comp);
         }
+
         return $this;
     }
-    
+
     /**
-     * @param Collection $teams
+     * @param  Collection $teams
      * @return self
      */
     public function removeTeamMemberships(Collection $comps)
     {
-        if(count($comps)){
-            foreach($comps as $comp){
+        if (count($comps)) {
+            foreach ($comps as $comp) {
                 $this->removeTeamMembership($comp);
             }
         }
+
         return $this;
     }
-    
+
     /**
-     * @param TeamMembership $comp
+     * @param  TeamMembership $comp
      * @return self
      */
     public function removeTeamMembership(TeamMembership $comp)
     {
         $comp->setTeam(NULL);
         $this->teamMemberships->removeElement($comp);
+
         return $this;
     }
-    
+
     /**
-     * @param TeamMembership $comp
+     * @param  TeamMembership $comp
      * @return bool
      */
     public function hasTeamMembership(TeamMembership $comp)
@@ -190,7 +197,7 @@ class Team
 
     /**
      * String representation of this Team object
-     * 
+     *
      * @return string
      */
     public function __toString()
