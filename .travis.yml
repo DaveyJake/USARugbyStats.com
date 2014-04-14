@@ -16,8 +16,8 @@ before_script:
   - mysql -e 'create database usarugby'
   - mv behat.yml.dist behat.yml
   - echo "$(cat .travisci/config.php)" | sudo tee app/config.php
-  - echo "$(cat .travisci/doctrine.local.php.dist)" | sudo tee config/autoload/doctrine.local.php
-  - echo "$(cat .travisci/testing.local.php.dist)" | sudo tee config/autoload/testing.local.php
+  - cp .travisci/doctrine.local.php.dist config/autoload/doctrine.local.php
+  - cp .travisci/testing.local.php.dist config/autoload/testing.local.php
 
 script:
   - for DIR in module config; do bin/php-cs-fixer fix -v --dry-run --fixers=-psr0,psr4 $DIR; done;
