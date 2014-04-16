@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4dbadde1e68d1e3bf89b5c54dfd3c6b8",
+    "hash": "c5b14bf6bb16436f5f4f227e31cc452a",
     "packages": [
         {
             "name": "allplayers/allplayers",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/AllPlayers/allplayers.php.git",
-                "reference": "16fbf48fb01bbef306fe8ca10547db68f9536773"
+                "reference": "f0d8323e7306386b054e222a7d14865f2971cd13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AllPlayers/allplayers.php/zipball/16fbf48fb01bbef306fe8ca10547db68f9536773",
-                "reference": "16fbf48fb01bbef306fe8ca10547db68f9536773",
+                "url": "https://api.github.com/repos/AllPlayers/allplayers.php/zipball/f0d8323e7306386b054e222a7d14865f2971cd13",
+                "reference": "f0d8323e7306386b054e222a7d14865f2971cd13",
                 "shasum": ""
             },
             "require": {
@@ -35,7 +35,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "AllPlayers PHP Client",
-            "time": "2013-12-17 16:00:46"
+            "time": "2014-04-15 21:54:26"
         },
         {
             "name": "chh/kue",
@@ -1009,12 +1009,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "3a1e24e6801961128c27104919050d40d745030b"
+                "reference": "68d477a4c6d2dc2c201015a6fceb4e64e5ce744a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/3a1e24e6801961128c27104919050d40d745030b",
-                "reference": "3a1e24e6801961128c27104919050d40d745030b",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/68d477a4c6d2dc2c201015a6fceb4e64e5ce744a",
+                "reference": "68d477a4c6d2dc2c201015a6fceb4e64e5ce744a",
                 "shasum": ""
             },
             "require": {
@@ -1078,7 +1078,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-04-13 23:22:02"
+            "time": "2014-04-15 12:25:24"
         },
         {
             "name": "evenement/evenement",
@@ -1428,12 +1428,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rybakit/phive-queue.git",
-                "reference": "e9b7a411431d9f6c7ab48a968bfa3a0377577f79"
+                "reference": "08db20031cda47a87932d82877f484c5b97a0525"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rybakit/phive-queue/zipball/e9b7a411431d9f6c7ab48a968bfa3a0377577f79",
-                "reference": "e9b7a411431d9f6c7ab48a968bfa3a0377577f79",
+                "url": "https://api.github.com/repos/rybakit/phive-queue/zipball/08db20031cda47a87932d82877f484c5b97a0525",
+                "reference": "08db20031cda47a87932d82877f484c5b97a0525",
                 "shasum": ""
             },
             "require": {
@@ -1476,7 +1476,7 @@
             "keywords": [
                 "queue scheduler priority delayed"
             ],
-            "time": "2014-04-10 14:57:47"
+            "time": "2014-04-15 14:10:04"
         },
         {
             "name": "silex/silex",
@@ -1484,12 +1484,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Silex.git",
-                "reference": "ddcec0796ed78750b5b3091b4a946913a88ba2f4"
+                "reference": "185be1eb3570232d57aaf846c6e789009f5f5009"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Silex/zipball/ddcec0796ed78750b5b3091b4a946913a88ba2f4",
-                "reference": "ddcec0796ed78750b5b3091b4a946913a88ba2f4",
+                "url": "https://api.github.com/repos/silexphp/Silex/zipball/185be1eb3570232d57aaf846c6e789009f5f5009",
+                "reference": "185be1eb3570232d57aaf846c6e789009f5f5009",
                 "shasum": ""
             },
             "require": {
@@ -1560,7 +1560,7 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2014-01-20 06:44:05"
+            "time": "2014-04-15 20:51:52"
         },
         {
             "name": "symfony/console",
@@ -1721,12 +1721,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "60c5ca765629ecef4b29d93c4d87a96de81a83c0"
+                "reference": "fb82277d56c01f81f0c121e08303934ee456708e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/60c5ca765629ecef4b29d93c4d87a96de81a83c0",
-                "reference": "60c5ca765629ecef4b29d93c4d87a96de81a83c0",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/fb82277d56c01f81f0c121e08303934ee456708e",
+                "reference": "fb82277d56c01f81f0c121e08303934ee456708e",
                 "shasum": ""
             },
             "require": {
@@ -1764,7 +1764,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-11 18:29:09"
+            "time": "2014-04-15 05:44:12"
         },
         {
             "name": "symfony/http-kernel",
@@ -1846,12 +1846,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "08afcafd9af22a24a8055669f85d63b863c4711b"
+                "reference": "bb93fd53786b1b04ceb4065d85333c60e6904779"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/08afcafd9af22a24a8055669f85d63b863c4711b",
-                "reference": "08afcafd9af22a24a8055669f85d63b863c4711b",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/bb93fd53786b1b04ceb4065d85333c60e6904779",
+                "reference": "bb93fd53786b1b04ceb4065d85333c60e6904779",
                 "shasum": ""
             },
             "require": {
@@ -1897,7 +1897,7 @@
             ],
             "description": "Symfony Routing Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-28 10:34:27"
+            "time": "2014-04-15 05:44:12"
         },
         {
             "name": "symfony/yaml",
@@ -1949,12 +1949,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "c8366374d9d531029a6b031528b552c37e1b2e66"
+                "reference": "af6910e1a73eca5ed0adaaa26adfb6c3f92e7eb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/c8366374d9d531029a6b031528b552c37e1b2e66",
-                "reference": "c8366374d9d531029a6b031528b552c37e1b2e66",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/af6910e1a73eca5ed0adaaa26adfb6c3f92e7eb7",
+                "reference": "af6910e1a73eca5ed0adaaa26adfb6c3f92e7eb7",
                 "shasum": ""
             },
             "require": {
@@ -1998,20 +1998,20 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-03-30 17:23:57"
+            "time": "2014-04-15 20:49:49"
         },
         {
             "name": "zendframework/zendframework",
-            "version": "dev-develop",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "d40f7962fbbc68cad3248629f192c07029e888ba"
+                "reference": "4cb4ce2c1127001aa8e8598db1a42c5be09be5e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/d40f7962fbbc68cad3248629f192c07029e888ba",
-                "reference": "d40f7962fbbc68cad3248629f192c07029e888ba",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/4cb4ce2c1127001aa8e8598db1a42c5be09be5e1",
+                "reference": "4cb4ce2c1127001aa8e8598db1a42c5be09be5e1",
                 "shasum": ""
             },
             "require": {
@@ -2116,7 +2116,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2014-04-13 07:54:38"
+            "time": "2014-04-15 14:53:07"
         },
         {
             "name": "zendframework/zendxml",
@@ -2967,12 +2967,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/PHP-CS-Fixer.git",
-                "reference": "5b601200086382cdb2c3c4b68b28487aabc287d2"
+                "reference": "2f1df1dea3941fa840656b48099e4e62cedf5b15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/PHP-CS-Fixer/zipball/5b601200086382cdb2c3c4b68b28487aabc287d2",
-                "reference": "5b601200086382cdb2c3c4b68b28487aabc287d2",
+                "url": "https://api.github.com/repos/fabpot/PHP-CS-Fixer/zipball/2f1df1dea3941fa840656b48099e4e62cedf5b15",
+                "reference": "2f1df1dea3941fa840656b48099e4e62cedf5b15",
                 "shasum": ""
             },
             "require": {
@@ -3009,28 +3009,25 @@
                 }
             ],
             "description": "A script to automatically fix Symfony Coding Standard",
-            "time": "2014-03-31 15:39:17"
+            "time": "2014-04-15 14:30:14"
         },
         {
             "name": "instaclick/php-webdriver",
-            "version": "dev-master",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/instaclick/php-webdriver.git",
-                "reference": "afe26ef8ef47d96e7c765bcba2dec16e3130bb13"
+                "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/afe26ef8ef47d96e7c765bcba2dec16e3130bb13",
-                "reference": "afe26ef8ef47d96e7c765bcba2dec16e3130bb13",
+                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
+                "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "satooshi/php-coveralls": "dev-master"
             },
             "bin": [
                 "bin/webunit"
@@ -3059,7 +3056,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -3070,7 +3067,7 @@
                 "webdriver",
                 "webtest"
             ],
-            "time": "2014-03-06 21:15:35"
+            "time": "2013-10-04 15:03:51"
         },
         {
             "name": "mockery/mockery",
@@ -4013,6 +4010,7 @@
     "stability-flags": {
         "allplayers/allplayers": 20,
         "hounddog/doctrine-data-fixture-module": 20,
+        "zendframework/zendframework": 20,
         "zf-commons/zfc-user": 20,
         "danielss89/zfc-user-admin": 20,
         "fabpot/goutte": 20,

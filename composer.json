@@ -44,7 +44,7 @@
         "chrisboulton/php-resque": "*",
         "hounddog/doctrine-data-fixture-module" : "dev-master",
 
-        "zendframework/zendframework": "2.*",
+        "zendframework/zendframework": "dev-master",
         "zf-commons/zfc-user": "dev-mine as 0.1.x-dev",
         "zf-commons/zfc-user-doctrine-orm": "0.*",
         "zf-commons/zfc-rbac": "2.*",
