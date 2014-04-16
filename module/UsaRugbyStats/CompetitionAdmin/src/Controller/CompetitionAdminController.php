@@ -57,7 +57,7 @@ class CompetitionAdminController extends AbstractActionController
         $form->bind($entity);
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getCompetitionService()->update($form, $entity, $this->getRequest()->getPost()->toArray());
+            $result = $this->getCompetitionService()->update($form, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The competition was updated successfully!');
 

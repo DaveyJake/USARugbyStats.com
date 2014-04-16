@@ -34,9 +34,9 @@ class TeamServiceTest extends \PHPUnit_Framework_TestCase
     public function testFindByID()
     {
         $entity = new \stdClass();
-        
+
         $this->mockRepository->shouldReceive('find')->withArgs([123])->once()->andReturn($entity);
-        
+
         $this->assertSame($entity, $this->service->findByID(123));
     }
 
@@ -46,44 +46,43 @@ class TeamServiceTest extends \PHPUnit_Framework_TestCase
         $this->service->findByID('abc');
         $this->fail('Invalid identifier did not trigger exception');
     }
-    
+
     public function testFetchAllReturnsAPaginatorOfResults()
     {
         $this->assertInstanceOf('Zend\Paginator\Paginator', $this->service->fetchAll());
     }
-    
+
     public function testCreateMethod()
     {
         // Partial-mock the service class to isolate create() from save()
         $service = Mockery::mock('UsaRugbyStats\Competition\Service\TeamService[save]');
         $service->shouldReceive('save')->once()->andReturnNull();
-        
+
         // Inject the rest of the dependencies
         $service->setTeamRepository($this->mockRepository);
         $service->setTeamObjectManager($this->mockObjectManager);
         $service->setCreateForm($this->mockCreateForm);
         $service->setUpdateForm($this->mockUpdateForm);
         $service->setEventManager($this->mockEventManager);
-        
+
         // Build the test data
         $data = ['id' => 42, 'name' => 'Test Team'];
         $entity = new Team();
         $entity->setId($data['id'])->setName($data['name']);
-        
+
         // Specify the entity class type
         $this->mockRepository->shouldReceive('getClassName')->once()->andReturn(get_class($entity));
-        
+
         // Mock the form actions
         $this->mockCreateForm->shouldReceive('bind')->once();
         $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([$data]);
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(true);
-        $this->mockCreateForm->shouldReceive('getData')->once()->andReturn($entity);
-        
+
         // Ensure the event manager is triggered
         $this->mockEventManager->shouldReceive('trigger')->twice();
-        
+
         $result = $service->create($this->mockCreateForm, $data);
-        $this->assertSame($entity, $result);
+        $this->assertInstanceOf(get_class($entity), $result);
     }
 
     public function testCreateMethodShortCircuitsOnFailedValidation()
@@ -92,19 +91,18 @@ class TeamServiceTest extends \PHPUnit_Framework_TestCase
         $data = ['id' => 42, 'name' => 'Test Team'];
         $entity = new Team();
         $entity->setId($data['id'])->setName($data['name']);
-        
+
         // Specify the entity class type
         $this->mockRepository->shouldReceive('getClassName')->once()->andReturn(get_class($entity));
-    
+
         // Mock the form actions
         $this->mockCreateForm->shouldReceive('bind')->once();
         $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([$data]);
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(false);
-        $this->mockCreateForm->shouldReceive('getData')->never();
-    
+
         // Ensure the event manager is not triggered
         $this->mockEventManager->shouldReceive('trigger')->never();
-    
+
         $this->assertFalse($this->service->create($this->mockCreateForm, $data));
     }
 
@@ -113,32 +111,32 @@ class TeamServiceTest extends \PHPUnit_Framework_TestCase
         // Partial-mock the service class to isolate create() from save()
         $service = Mockery::mock('UsaRugbyStats\Competition\Service\TeamService[save]');
         $service->shouldReceive('save')->once()->andReturnNull();
-    
+
         // Inject the rest of the dependencies
         $service->setTeamRepository($this->mockRepository);
         $service->setTeamObjectManager($this->mockObjectManager);
         $service->setCreateForm($this->mockCreateForm);
         $service->setUpdateForm($this->mockUpdateForm);
         $service->setEventManager($this->mockEventManager);
-    
+
         // Build the test data
         $data = ['id' => 42, 'name' => 'Test Team'];
         $entity = new Team();
         $entity->setId($data['id'])->setName($data['name']);
-    
+
         // Mock the form actions
-        $this->mockCreateForm->shouldReceive('bind')->once();
+        $this->mockCreateForm->shouldReceive('bind')->never();
         $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([$data]);
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(true);
         $this->mockCreateForm->shouldReceive('getData')->once()->andReturn($entity);
-    
+
         // Ensure the event manager is triggered
         $this->mockEventManager->shouldReceive('trigger')->twice();
-    
-        $result = $service->update($this->mockCreateForm, $entity, $data);
+
+        $result = $service->update($this->mockCreateForm, $data);
         $this->assertSame($entity, $result);
     }
-    
+
     public function testUpdateMethodShortCircuitsOnFailedValidation()
     {
         // Build the test data
@@ -147,34 +145,34 @@ class TeamServiceTest extends \PHPUnit_Framework_TestCase
         $entity->setId($data['id'])->setName($data['name']);
 
         // Mock the form actions
-        $this->mockCreateForm->shouldReceive('bind')->once();
+        $this->mockCreateForm->shouldReceive('bind')->never();
         $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([$data]);
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(false);
         $this->mockCreateForm->shouldReceive('getData')->never();
-    
+
         // Ensure the event manager is not triggered
         $this->mockEventManager->shouldReceive('trigger')->never();
-    
-        $this->assertFalse($this->service->update($this->mockCreateForm, $entity, $data));
+
+        $this->assertFalse($this->service->update($this->mockCreateForm, $data));
     }
-    
+
     public function testSaveProxiesToObjectManager()
     {
         $entity = new Team();
-        
+
         $this->mockObjectManager->shouldReceive('persist')->with($entity)->once();
         $this->mockObjectManager->shouldReceive('flush')->once();
-        
+
         $this->service->save($entity);
     }
 
     public function testRemoveProxiesToObjectManager()
     {
         $entity = new Team();
-    
+
         $this->mockObjectManager->shouldReceive('remove')->with($entity)->once();
         $this->mockObjectManager->shouldReceive('flush')->once();
-    
+
         $this->service->remove($entity);
     }
 }

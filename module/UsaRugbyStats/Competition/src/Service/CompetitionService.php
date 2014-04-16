@@ -72,47 +72,45 @@ class CompetitionService implements EventManagerAwareInterface
     {
         $entityClass = $this->getCompetitionRepository()->getClassName();
 
-        $form->bind(new $entityClass);
+        $entity = new $entityClass;
+        $form->bind($entity);
+
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
         }
-        $competition = $form->getData();
 
-        $argv = array('entity' => $competition, 'form' => $form, 'data' => $data);
+        $argv = array('entity' => $entity, 'form' => $form, 'data' => $data);
         $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
-        $this->save($competition);
+        $this->save($entity);
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
 
-        return $competition;
+        return $entity;
     }
 
     /**
      * Update existing competition entity with new data
      *
+     * @precondition Entity must already be bound to Form
+     *
      * @param  Form              $form
      * @param  array             $data
      * @return Competition|false
      */
-    public function update(FormInterface $form, Competition $entity, array $data)
+    public function update(FormInterface $form, array $data)
     {
-        // Only bind the entity if it's not already bound
-        if ( ! $form->getObject() === $entity ) {
-            $form->bind($entity);
-        }
-        
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
         }
-        $competition = $form->getData();
+        $entity = $form->getData();
 
-        $argv = array('entity' => $competition, 'form' => $form, 'data' => $data);
+        $argv = array('entity' => $entity, 'form' => $form, 'data' => $data);
         $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
-        $this->save($competition);
+        $this->save($entity);
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
 
-        return $competition;
+        return $entity;
     }
 
     public function save(Competition $entity)

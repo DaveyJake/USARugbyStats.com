@@ -72,47 +72,45 @@ class UnionService implements EventManagerAwareInterface
     {
         $entityClass = $this->getUnionRepository()->getClassName();
 
-        $form->bind(new $entityClass);
+        $entity = new $entityClass;
+        $form->bind($entity);
+
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
         }
-        $union = $form->getData();
 
-        $argv = array('entity' => $union, 'form' => $form, 'data' => $data);
+        $argv = array('entity' => $entity, 'form' => $form, 'data' => $data);
         $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
-        $this->save($union);
+        $this->save($entity);
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
 
-        return $union;
+        return $entity;
     }
 
     /**
      * Update existing union entity with new data
      *
+     * @precondition Entity must already be bound to Form
+     *
      * @param  Form        $form
      * @param  array       $data
      * @return Union|false
      */
-    public function update(FormInterface $form, Union $entity, array $data)
+    public function update(FormInterface $form, array $data)
     {
-        // Only bind the entity if it's not already bound
-        if ( ! $form->getObject() === $entity ) {
-            $form->bind($entity);
-        }
-        
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
         }
-        $union = $form->getData();
+        $entity = $form->getData();
 
-        $argv = array('entity' => $union, 'form' => $form, 'data' => $data);
+        $argv = array('entity' => $entity, 'form' => $form, 'data' => $data);
         $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
-        $this->save($union);
+        $this->save($entity);
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
 
-        return $union;
+        return $entity;
     }
 
     public function save(Union $entity)

@@ -72,47 +72,45 @@ class TeamService implements EventManagerAwareInterface
     {
         $entityClass = $this->getTeamRepository()->getClassName();
 
-        $form->bind(new $entityClass);
+        $entity = new $entityClass;
+        $form->bind($entity);
+
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
         }
-        $team = $form->getData();
 
-        $argv = array('entity' => $team, 'form' => $form, 'data' => $data);
+        $argv = array('entity' => $entity, 'form' => $form, 'data' => $data);
         $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
-        $this->save($team);
+        $this->save($entity);
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
 
-        return $team;
+        return $entity;
     }
 
     /**
      * Update existing team entity with new data
      *
+     * @precondition Entity must already be bound to Form
+     *
      * @param  Form       $form
      * @param  array      $data
      * @return Team|false
      */
-    public function update(FormInterface $form, Team $entity, array $data)
+    public function update(FormInterface $form, array $data)
     {
-        // Only bind the entity if it's not already bound
-        if ( ! $form->getObject() === $entity ) {
-            $form->bind($entity);
-        }
-
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
         }
-        $team = $form->getData();
+        $entity = $form->getData();
 
-        $argv = array('entity' => $team, 'form' => $form, 'data' => $data);
+        $argv = array('entity' => $entity, 'form' => $form, 'data' => $data);
         $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
-        $this->save($team);
+        $this->save($entity);
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
 
-        return $team;
+        return $entity;
     }
 
     public function save(Team $entity)

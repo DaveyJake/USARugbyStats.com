@@ -57,7 +57,7 @@ class UnionAdminController extends AbstractActionController
         $form->bind($entity);
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getUnionService()->update($form, $entity, $this->getRequest()->getPost()->toArray());
+            $result = $this->getUnionService()->update($form, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Union) {
                 $this->flashMessenger()->addSuccessMessage('The union was updated successfully!');
 

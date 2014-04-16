@@ -56,7 +56,7 @@ class TeamAdminController extends AbstractActionController
         $form->bind($entity);
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getTeamService()->update($form, $entity, $this->getRequest()->getPost()->toArray());
+            $result = $this->getTeamService()->update($form, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Team) {
                 $this->flashMessenger()->addSuccessMessage('The team was updated successfully!');
 
