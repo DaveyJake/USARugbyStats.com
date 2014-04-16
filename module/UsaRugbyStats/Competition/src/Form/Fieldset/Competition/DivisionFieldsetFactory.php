@@ -25,8 +25,6 @@ class DivisionFieldsetFactory implements FactoryInterface
         $form->setHydrator(new DoctrineObject($om));
         $form->setObject(new Division());
 
-        $form->get('teamMemberships')->setHydrator($form->getHydrator());
-
         return $form;
     }
 }
