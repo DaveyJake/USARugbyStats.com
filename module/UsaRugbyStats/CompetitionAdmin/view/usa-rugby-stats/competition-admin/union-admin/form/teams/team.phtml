@@ -12,6 +12,7 @@
                 <?php echo $this->escapeHtml($fieldset->getTeam()->getName()); ?>
             </a>
         <?php endif; ?>
+        <?php echo $this->formElementErrors($elId); ?>
     </td>
     <td class="col-sm-2" style="text-align:right; padding-right: 15px;"><a class="btn btn-xs btn-danger dropteam" title="Remove Team"><i class="glyphicon glyphicon-trash"></i></a></td>
 </tr>
