@@ -96,7 +96,11 @@ class CompetitionService implements EventManagerAwareInterface
      */
     public function update(FormInterface $form, Competition $entity, array $data)
     {
-        $form->bind($entity);
+        // Only bind the entity if it's not already bound
+        if ( ! $form->getObject() === $entity ) {
+            $form->bind($entity);
+        }
+        
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
