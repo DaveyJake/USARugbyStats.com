@@ -27,7 +27,7 @@
         // Division Add/Remove
         $(document).on('click', '.competition-divisions .competition-divisions-add', function() {
             var html = managedDivisionsSelectorTemplate.replace(/__index__/g, managedDivisionIndex++);
-            $('.competition-divisions table tbody').append(html);
+            $('#CompetitionDivisionsContainer').append(html);
         }); 
         $(document).on('click', '.competition-divisions .competition-divisions-division-remove', function() {
             $(this).closest('*[data-divisionid]').remove();
