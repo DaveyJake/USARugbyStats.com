@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStatsTest\Entity;
+namespace UsaRugbyStatsTest\Account\Entity;
 
 use Mockery;
 use UsaRugbyStatsTest\Account\ServiceManagerTestCase;
@@ -15,10 +15,8 @@ class AccountTest extends ServiceManagerTestCase
         $collection = $obj->getRoleAssignments();
 
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
         $ra0->shouldReceive('setAccount')->once();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
         $ra1->shouldReceive('setAccount')->once();
 
         $newCollection = new ArrayCollection();
@@ -39,10 +37,8 @@ class AccountTest extends ServiceManagerTestCase
         $obj = new Account();
 
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
-        $ra0->shouldReceive('setAccount')->once();
+        $ra0->shouldReceive('setAccount')->never();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
         $ra1->shouldReceive('setAccount')->once();
 
         // Add one to the existing collection
@@ -63,13 +59,10 @@ class AccountTest extends ServiceManagerTestCase
         $obj = new Account();
 
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
-        $ra0->shouldReceive('setAccount')->once();
+        $ra0->shouldReceive('setAccount')->never();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
         $ra1->shouldReceive('setAccount')->once();
         $ra2 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra2->shouldReceive('getRole')->once()->andReturn(new Role('guest'));
         $ra2->shouldReceive('setAccount')->once();
 
         // Add one to the existing collection
@@ -93,9 +86,9 @@ class AccountTest extends ServiceManagerTestCase
         $obj = new Account();
 
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('getRole')->andReturn(new Role('super_admin'));
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
+        $ra1->shouldReceive('getRole')->andReturn(new Role('member'));
 
         // Add roles to the existing collection
         $collection = $obj->getRoleAssignments();
@@ -111,9 +104,7 @@ class AccountTest extends ServiceManagerTestCase
         $obj = new Account();
 
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
 
         // Add roles to the existing collection
         $collection = $obj->getRoleAssignments();
@@ -128,7 +119,6 @@ class AccountTest extends ServiceManagerTestCase
         $obj = new Account();
 
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra0->shouldReceive('baz')->once()->andReturn(null);
 
         $this->assertNull($obj->getRoleAssignment('baz'));
     }
@@ -138,9 +128,9 @@ class AccountTest extends ServiceManagerTestCase
         $obj = new Account();
 
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra0->shouldReceive('getRole')->andReturn(new Role('super_admin'));
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
+        $ra1->shouldReceive('getRole')->andReturn(new Role('super_admin'));
 
         // Add roles to the existing collection
         $collection = $obj->getRoleAssignments();
@@ -185,13 +175,11 @@ class AccountTest extends ServiceManagerTestCase
         $obj = new Account();
 
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
         $ra0->shouldReceive('setAccount')->once();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
-        $ra1->shouldReceive('setAccount')->once();
+        $ra1->shouldReceive('setAccount')->never();
 
-        // Add one to the existing collection
+        // Add two to the existing collection
         $collection = $obj->getRoleAssignments();
         $collection->add($ra0);
         $collection->add($ra1);
@@ -211,13 +199,10 @@ class AccountTest extends ServiceManagerTestCase
         $obj = new Account();
 
         $ra0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra0->shouldReceive('getRole')->once()->andReturn(new Role('super_admin'));
         $ra0->shouldReceive('setAccount')->once();
         $ra1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra1->shouldReceive('getRole')->once()->andReturn(new Role('member'));
-        $ra1->shouldReceive('setAccount')->once();
+        $ra1->shouldReceive('setAccount')->never();
         $ra2 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment');
-        $ra2->shouldReceive('getRole')->once()->andReturn(new Role('guest'));
         $ra2->shouldReceive('setAccount')->once();
 
         // Add one to the existing collection

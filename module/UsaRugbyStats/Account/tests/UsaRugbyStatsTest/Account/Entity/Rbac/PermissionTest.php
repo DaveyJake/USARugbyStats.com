@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStatsTest\Entity\Rbac;
+namespace UsaRugbyStatsTest\Account\Entity\Rbac;
 
 use UsaRugbyStatsTest\Account\ServiceManagerTestCase;
 use UsaRugbyStats\Account\Entity\Rbac\Permission;

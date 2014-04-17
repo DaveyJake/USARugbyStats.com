@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStatsTest\Service\Strategy;
+namespace UsaRugbyStatsTest\Account\Service\Strategy;
 
 use Mockery;
 use UsaRugbyStatsTest\Account\ServiceManagerTestCase;

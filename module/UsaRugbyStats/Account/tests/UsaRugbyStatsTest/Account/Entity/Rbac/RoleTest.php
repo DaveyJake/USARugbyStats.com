@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStatsTest\Entity\Rbac;
+namespace UsaRugbyStatsTest\Account\Entity\Rbac;
 
 use Mockery;
 use UsaRugbyStatsTest\Account\ServiceManagerTestCase;
@@ -37,16 +37,13 @@ class RoleTest extends ServiceManagerTestCase
     public function testAddChildren()
     {
         $c0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c0->shouldReceive('getRole')->once()->andReturn(new Role('child0'));
 
         $obj = new Role();
         $collection = $obj->getChildren();
         $collection->add($c0); // child0 is pre-existing
 
         $c1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c1->shouldReceive('getRole')->once()->andReturn(new Role('child1'));
         $c2 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c2->shouldReceive('getRole')->once()->andReturn(new Role('child2'));
 
         $newCollection = new ArrayCollection();
         $newCollection->add($c0);
@@ -67,9 +64,7 @@ class RoleTest extends ServiceManagerTestCase
         $obj = new Role();
 
         $c1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c1->shouldReceive('getRole')->once()->andReturn(new Role('child1'));
         $c2 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c2->shouldReceive('getRole')->once()->andReturn(new Role('child2'));
 
         // Add one to the existing collection
         $collection = $obj->getChildren();
@@ -88,11 +83,8 @@ class RoleTest extends ServiceManagerTestCase
     public function testRemoveChildren()
     {
         $c0 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c0->shouldReceive('getRole')->once()->andReturn(new Role('child0'));
         $c1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c1->shouldReceive('getRole')->once()->andReturn(new Role('child1'));
         $c2 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c2->shouldReceive('getRole')->once()->andReturn(new Role('child2'));
 
         $obj = new Role();
         $collection = $obj->getChildren();
@@ -122,9 +114,7 @@ class RoleTest extends ServiceManagerTestCase
         $obj = new Role();
 
         $c1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c1->shouldReceive('getRole')->once()->andReturn(new Role('child1'));
         $c2 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c2->shouldReceive('getRole')->once()->andReturn(new Role('child2'));
 
         // Add one to the existing collection
         $collection = $obj->getChildren();
@@ -150,7 +140,6 @@ class RoleTest extends ServiceManagerTestCase
         $this->assertFalse($obj->hasChildren());
 
         $c1 = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\Role');
-        $c1->shouldReceive('getRole')->once()->andReturn(new Role('child1'));
         $obj->addChild($c1);
 
         $this->assertTrue($obj->hasChildren());

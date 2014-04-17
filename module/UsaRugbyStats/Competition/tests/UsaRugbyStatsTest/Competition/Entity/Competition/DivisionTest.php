@@ -152,8 +152,8 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
         $team0->shouldReceive('setDivision')->withArgs([NULL])->once()->andReturnSelf();
         $team0->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
-        $team1->shouldReceive('setDivision')->withArgs([NULL])->once()->andReturnSelf();
-        $team1->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
+        $team1->shouldReceive('setDivision')->never();
+        $team1->shouldReceive('setCompetition')->never();
 
         // Add to the existing collection
         $collection = $obj->getTeamMemberships();

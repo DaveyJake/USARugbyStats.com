@@ -130,7 +130,7 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $div0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Division');
         $div0->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
         $div1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Division');
-        $div1->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
+        $div1->shouldReceive('setCompetition')->never();
 
         // Add one to the existing collection
         $collection = $obj->getDivisions();
@@ -206,7 +206,7 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $obj = new Competition();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
-        $team0->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
+        $team0->shouldReceive('setCompetition')->never();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
         $team1->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
 
@@ -290,13 +290,13 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $obj = new Competition();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldReceive('getId')->twice()->andReturn(42);
+        $team0->shouldReceive('getId')->andReturn(42);
 
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1->shouldReceive('getId')->twice()->andReturn(99);
+        $team1->shouldReceive('getId')->andReturn(99);
 
         $teamMembership = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
-        $teamMembership->shouldReceive('getTeam')->once()->andReturn($team0);
+        $teamMembership->shouldReceive('getTeam')->andReturn($team0);
 
         // Add roles to the existing collection
         $collection = $obj->getTeamMemberships();
@@ -389,7 +389,7 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $obj = new Competition();
 
         $game0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game0->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
+        $game0->shouldReceive('setCompetition')->never();
         $game1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
         $game1->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
 

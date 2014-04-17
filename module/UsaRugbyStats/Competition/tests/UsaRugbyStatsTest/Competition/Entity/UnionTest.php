@@ -42,7 +42,7 @@ class UnionTest extends \PHPUnit_Framework_TestCase
         $obj = new Union();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldReceive('setUnion')->withArgs([$obj])->once()->andReturnSelf();
+        $team0->shouldReceive('setUnion')->never();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
         $team1->shouldReceive('setUnion')->withArgs([$obj])->once()->andReturnSelf();
 
