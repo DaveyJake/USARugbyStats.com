@@ -8,7 +8,7 @@ php:
 
 install:
   - sudo apt-get update
-  - sudo apt-get install apache2 libapache2-mod-php5 php5-curl php5-mysql php5-json
+  - sudo apt-get install apache2 libapache2-mod-php5 php5-curl php5-mysql php5-json xvfb
   - sudo a2enmod rewrite;
   - echo "$(cat .travisci/apache2.txt)" | sed -e "s,PATH,`pwd`/app,g" | sudo tee /etc/apache2/sites-available/default
   - sudo service apache2 restart
@@ -24,7 +24,8 @@ before_script:
 script:
   - for DIR in module config; do bin/php-cs-fixer fix -v --dry-run --fixers=-psr0,psr4 $DIR; done;
   - find module -type d -name "tests" | while read DIR; do ./bin/phpunit -c $DIR/phpunit.xml || exit 1; done;
-  - #bin/behat --verbose
+  - sh .travisci/start_selenium2.sh
+  - find module -type d -wholename "*/tests/functional" | while read DIR; do ./bin/behat --config $DIR/behat.yml || exit 1; done;
 
 matrix:
   fast_finish: true
