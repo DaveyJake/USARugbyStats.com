@@ -16,7 +16,6 @@ install:
 
 before_script:
   - mysql -e 'create database usarugby'
-  - mv behat.yml.dist behat.yml
   - echo "$(cat .travisci/config.php)" | sudo tee app/config.php
   - cp .travisci/doctrine.local.php.dist config/autoload/doctrine.local.php
   - cp .travisci/testing.local.php.dist config/autoload/testing.local.php
@@ -25,7 +24,7 @@ script:
   - for DIR in module config; do bin/php-cs-fixer fix -v --dry-run --fixers=-psr0,psr4 $DIR; done;
   - find module -type d -name "tests" | while read DIR; do ./bin/phpunit -c $DIR/phpunit.xml || exit 1; done;
   - sh .travisci/start_selenium2.sh
-  - find module -type d -wholename "*/tests/functional" | while read DIR; do ./bin/behat --config $DIR/behat.yml || exit 1; done;
+  - find module -type f -name "behat.yml.dist" | while read FILE; do REALFILE=${FILE/.dist/}; if [ ! -f "$REALFILE" ]; then cp "$FILE" "$REALFILE"; fi; ./bin/behat --config $REALFILE || exit 1; done;
 
 matrix:
   fast_finish: true
