@@ -19,6 +19,8 @@ before_script:
   - echo "$(cat .travisci/config.php)" | sudo tee app/config.php
   - cp .travisci/doctrine.local.php.dist config/autoload/doctrine.local.php
   - cp .travisci/testing.local.php.dist config/autoload/testing.local.php
+  - ./bin/doctrine-module orm:schema-tool:create --force
+  - ./bin/doctrine-module data-fixture:import 
 
 script:
   - for DIR in module config; do bin/php-cs-fixer fix -v --dry-run --fixers=-psr0,psr4 $DIR; done;
