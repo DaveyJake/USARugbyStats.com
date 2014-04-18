@@ -1,9 +1,28 @@
-<?php
-$form->prepare();
-$form->setAttribute('action', $this->url('zfcadmin/usarugbystats_competitionadmin/edit', ['id' => $entity->getId()]));
-$form->setAttribute('method', 'post');
+<h1><?php echo $this->escapeHtml($entity->getName()); ?></h1>
+
+<?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/navigation', ['page' => 'details', 'entity' => $entity]); ?>
+
+<?php 
+$form->setAttribute('class', 'form-horizontal');
+
+echo $this->form()->openTag($form);
+
+$submitButton = $form->get('submit');
+$submitButton->setAttribute('class', 'btn btn-lg btn-success');
+
 ?>
 
-<h1>Update Competition</h1>
+<div class="row">
+    <div class="col-md-5">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form', $this->vars()); ?>
+    </div>
+    
+    <div class="col-md-7">
+    </div>
+    
+</div>
 
-<?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form', $this->vars()); ?>
+<div class="clearfix"></div>
+<div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>
+
+<?php echo $this->form()->closeTag() ?>

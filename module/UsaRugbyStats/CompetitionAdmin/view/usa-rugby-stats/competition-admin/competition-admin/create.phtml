@@ -6,4 +6,24 @@ $form->setAttribute('method', 'post');
 
 <h1>Create Competition</h1>
 
-<?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form', $this->vars()); ?>
+<?php $form->setAttribute('class', 'form-horizontal'); ?>
+<?php echo $this->form()->openTag($form) ?>
+
+<?php $submitButton = $form->get('submit'); ?>
+<?php $submitButton->setAttribute('class', 'btn btn-lg btn-success'); ?>
+
+<div class="row">
+    <div class="col-md-5">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form', $this->vars()); ?>
+    </div>
+    
+    <div class="col-md-7">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions', ['fieldset' => $form->get('competition')]); ?>    
+    </div>
+    
+</div>
+
+<div class="clearfix"></div>
+<div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>
+
+<?php echo $this->form()->closeTag() ?>

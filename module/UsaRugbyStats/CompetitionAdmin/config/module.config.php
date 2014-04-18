@@ -145,6 +145,18 @@ return array(
                                         'userId'     => 0
                                     ),
                                 ),
+                                'may_terminate' => true,
+                                'child_routes' =>array(
+                                    'divisions' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                            'route' => '/divisions',
+                                            'defaults' => array(
+                                                'action'     => 'divisions',
+                                            ),
+                                        ),
+                                    ),
+                                ),
                             ),
                             'remove' => array(
                                 'type' => 'Segment',
