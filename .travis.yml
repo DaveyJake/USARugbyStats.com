@@ -28,6 +28,10 @@ script:
   - sh .travisci/start_selenium2.sh
   - find module -type f -name "behat.yml.dist" | while read FILE; do REALFILE=${FILE/.dist/}; if [ ! -f "$REALFILE" ]; then cp "$FILE" "$REALFILE"; fi; ./bin/behat --config $REALFILE || exit 1; done;
 
+after_script:
+  - cat /tmp/webdriver_output.txt
+  - cat /tmp/xvfb_output.txt
+
 matrix:
   fast_finish: true
   allow_failures:
