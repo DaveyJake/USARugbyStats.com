@@ -9,4 +9,4 @@ sudo service hhvm stop
 sudo service apache2 restart
 
 # run HHVM in FastCGI mode
-hhvm --mode server -vServer.Type=fastcgi -vServer.Port=9000
+hhvm --mode server -vServer.Type=fastcgi -vServer.Port=9000 &
