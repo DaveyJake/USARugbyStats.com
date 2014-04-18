@@ -31,6 +31,8 @@ script:
 
 after_script:
   - curl http://localhost/account/login 
+  - cat /tmp/apache2_default_access.log
+  - cat /tmp/apache2_default_error.log
 
 matrix:
   fast_finish: true
