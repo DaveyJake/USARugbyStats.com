@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Start HHVM in FastCGI daemon mode
-hhvm --mode daemon -vServer.Type=fastcgi -vServer.Port=9000
+sudo apt-get install -y --force-yes hhvm-fastcgi
+sudo /usr/share/hhvm/install_fastcgi.sh
+sudo service hhvm restart
 
 # configure apache virtual hosts
 sudo cp -f .travisci/hhvm/apache22_vhost.txt /etc/apache2/sites-available/default
