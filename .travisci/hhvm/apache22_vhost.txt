@@ -14,10 +14,18 @@
 
   # Wire up Apache to use Travis CI's HHVM  
   <IfModule mod_fastcgi.c>
+    RemoveHandler application/x-httpd-php
+
     AddHandler hhvm-php-extension .php
     Action hhvm-php-extension /hhvm virtual
 
     Alias /hhvm-php-extension /usr/lib/cgi-bin/hhvm-php
+    <Directory "/usr/lib/cgi-bin">
+        <Files "hhvm-php">
+            Order deny,allow
+        </Files>
+    </Directory>
+
     FastCgiExternalServer /usr/lib/cgi-bin/hhvm-php -host 127.0.0.1:9000 -pass-header Authorization
   </IfModule>
 
