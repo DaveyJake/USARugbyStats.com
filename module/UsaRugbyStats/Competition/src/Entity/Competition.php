@@ -30,11 +30,11 @@ class Competition
     protected $divisions;
 
     /**
-     * Games which make up the competition
+     * Matches which make up the competition
      *
      * @var Collection
      */
-    protected $games;
+    protected $matches;
 
     /**
      * Team Memberships
@@ -47,7 +47,7 @@ class Competition
     {
         $this->divisions = new ArrayCollection();
         $this->teamMemberships = new ArrayCollection();
-        $this->games = new ArrayCollection();
+        $this->matches = new ArrayCollection();
     }
 
     /**
@@ -284,32 +284,32 @@ class Competition
     /**
      * @return Collection
      */
-    public function getGames()
+    public function getMatches()
     {
-        return $this->games;
+        return $this->matches;
     }
 
     /**
-     * @param  Collection $games
+     * @param  Collection $matches
      * @return self
      */
-    public function setGames(Collection $games)
+    public function setMatches(Collection $matches)
     {
-        $this->games->clear();
-        $this->addGames($games);
+        $this->matches->clear();
+        $this->addMatches($matches);
 
         return $this;
     }
 
     /**
-     * @param  Collection $games
+     * @param  Collection $matches
      * @return self
      */
-    public function addGames(Collection $games)
+    public function addMatches(Collection $matches)
     {
-        if (count($games)) {
-            foreach ($games as $ra) {
-                $this->addGame($ra);
+        if (count($matches)) {
+            foreach ($matches as $ra) {
+                $this->addMatch($ra);
             }
         }
 
@@ -317,28 +317,28 @@ class Competition
     }
 
     /**
-     * @param  Competition\Game $role
+     * @param  Competition\Match $role
      * @return self
      */
-    public function addGame(Competition\Game $ra)
+    public function addMatch(Competition\Match $ra)
     {
-        if ( ! $this->hasGame($ra) ) {
+        if ( ! $this->hasMatch($ra) ) {
             $ra->setCompetition($this);
-            $this->games->add($ra);
+            $this->matches->add($ra);
         }
 
         return $this;
     }
 
     /**
-     * @param  Collection $games
+     * @param  Collection $matches
      * @return self
      */
-    public function removeGames(Collection $games)
+    public function removeMatches(Collection $matches)
     {
-        if (count($games)) {
-            foreach ($games as $ra) {
-                $this->removeGame($ra);
+        if (count($matches)) {
+            foreach ($matches as $ra) {
+                $this->removeMatch($ra);
             }
         }
 
@@ -346,24 +346,24 @@ class Competition
     }
 
     /**
-     * @param  Competition\Game $role
+     * @param  Competition\Match $role
      * @return self
      */
-    public function removeGame(Competition\Game $ra)
+    public function removeMatch(Competition\Match $ra)
     {
         $ra->setCompetition(null);
-        $this->games->removeElement($ra);
+        $this->matches->removeElement($ra);
 
         return $this;
     }
 
     /**
-     * @param  Competition\Game $role
+     * @param  Competition\Match $role
      * @return bool
      */
-    public function hasGame(Competition\Game $ra)
+    public function hasMatch(Competition\Match $ra)
     {
-        return $this->games->contains($ra);
+        return $this->matches->contains($ra);
     }
 
     /**

@@ -13,7 +13,7 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $obj = new Competition();
         $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getDivisions());
         $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeamMemberships());
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getGames());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getMatches());
     }
 
     public function testSetDivisions()
@@ -361,165 +361,165 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($obj->getTeamMemberships()->contains($team2));
     }
 
-    public function testSetGames()
+    public function testSetMatches()
     {
         $obj = new Competition();
-        $collection = $obj->getGames();
+        $collection = $obj->getMatches();
 
-        $game0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game0->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
-        $game1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game1->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
+        $match0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match0->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
+        $match1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match1->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
 
         $newCollection = new ArrayCollection();
-        $newCollection->add($game0);
-        $newCollection->add($game1);
+        $newCollection->add($match0);
+        $newCollection->add($match1);
 
         // Do the add
-        $obj->setGames($newCollection);
+        $obj->setMatches($newCollection);
 
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getGames());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getMatches());
         // Ensure we didn't replace the collection object, a no-no in Doctrineland
-        $this->assertSame($collection, $obj->getGames());
-        $this->assertEquals(2, $obj->getGames()->count());
+        $this->assertSame($collection, $obj->getMatches());
+        $this->assertEquals(2, $obj->getMatches()->count());
     }
 
-    public function testAddGame()
+    public function testAddMatch()
     {
         $obj = new Competition();
 
-        $game0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game0->shouldReceive('setCompetition')->never();
-        $game1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game1->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
+        $match0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match0->shouldReceive('setCompetition')->never();
+        $match1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match1->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
 
         // Add one to the existing collection
-        $collection = $obj->getGames();
-        $collection->add($game0);
+        $collection = $obj->getMatches();
+        $collection->add($match0);
 
         // Do teh add
-        $obj->addGame($game1);
+        $obj->addMatch($match1);
 
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getGames());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getMatches());
         // Ensure we didn't replace the collection object, a no-no in Doctrineland
-        $this->assertSame($collection, $obj->getGames());
-        $this->assertEquals(2, $obj->getGames()->count());
+        $this->assertSame($collection, $obj->getMatches());
+        $this->assertEquals(2, $obj->getMatches()->count());
     }
 
-    public function testAddGameDoesNotAllowDuplicates()
+    public function testAddMatchDoesNotAllowDuplicates()
     {
         $obj = new Competition();
-        $collection = $obj->getGames();
+        $collection = $obj->getMatches();
 
-        $game0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game0->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
+        $match0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match0->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
 
-        // Add game0 twice
+        // Add match0 twice
         $coll = new ArrayCollection();
-        $coll->add($game0);
-        $coll->add($game0);
-        $obj->addGames($coll);
+        $coll->add($match0);
+        $coll->add($match0);
+        $obj->addMatches($coll);
 
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getGames());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getMatches());
         // Ensure we didn't replace the collection object, a no-no in Doctrineland
-        $this->assertSame($collection, $obj->getGames());
-        $this->assertEquals(1, $obj->getGames()->count());
+        $this->assertSame($collection, $obj->getMatches());
+        $this->assertEquals(1, $obj->getMatches()->count());
     }
 
-    public function testAddGames()
+    public function testAddMatches()
     {
         $obj = new Competition();
 
-        $game0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game0->shouldReceive('setCompetition')->never();
-        $game1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game1->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
-        $game2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game2->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
+        $match0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match0->shouldReceive('setCompetition')->never();
+        $match1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match1->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
+        $match2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match2->shouldReceive('setCompetition')->withArgs([$obj])->once()->andReturnSelf();
 
         // Add one to the existing collection
-        $collection = $obj->getGames();
-        $collection->add($game0);
+        $collection = $obj->getMatches();
+        $collection->add($match0);
 
         // Do teh add
         $coll = new ArrayCollection();
-        $coll->add($game1);
-        $coll->add($game2);
-        $obj->addGames($coll);
+        $coll->add($match1);
+        $coll->add($match2);
+        $obj->addMatches($coll);
 
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getGames());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getMatches());
         // Ensure we didn't replace the collection object, a no-no in Doctrineland
-        $this->assertSame($collection, $obj->getGames());
-        $this->assertEquals(3, $obj->getGames()->count());
+        $this->assertSame($collection, $obj->getMatches());
+        $this->assertEquals(3, $obj->getMatches()->count());
     }
 
-    public function testHasGame()
+    public function testHasMatch()
     {
         $obj = new Competition();
 
-        $game0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
+        $match0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
 
         // Add roles to the existing collection
-        $collection = $obj->getGames();
-        $collection->add($game0);
+        $collection = $obj->getMatches();
+        $collection->add($match0);
 
-        $this->assertTrue($obj->hasGame($game0));
-        $this->assertFalse($obj->hasGame($game1));
+        $this->assertTrue($obj->hasMatch($match0));
+        $this->assertFalse($obj->hasMatch($match1));
     }
 
-    public function testRemoveGame()
+    public function testRemoveMatch()
     {
         $obj = new Competition();
 
-        $game0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game0->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
-        $game1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game1->shouldReceive('setCompetition')->never();
+        $match0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match0->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
+        $match1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match1->shouldReceive('setCompetition')->never();
 
         // Add to the existing collection
-        $collection = $obj->getGames();
-        $collection->add($game0);
-        $collection->add($game1);
+        $collection = $obj->getMatches();
+        $collection->add($match0);
+        $collection->add($match1);
 
         // Do the remove
-        $obj->removeGame($game0);
+        $obj->removeMatch($match0);
 
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getGames());
-        $this->assertSame($collection, $obj->getGames());
-        $this->assertEquals(1, $obj->getGames()->count());
-        $this->assertFalse($obj->getGames()->contains($game0));
-        $this->assertTrue($obj->getGames()->contains($game1));
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getMatches());
+        $this->assertSame($collection, $obj->getMatches());
+        $this->assertEquals(1, $obj->getMatches()->count());
+        $this->assertFalse($obj->getMatches()->contains($match0));
+        $this->assertTrue($obj->getMatches()->contains($match1));
     }
 
-    public function testRemoveGames()
+    public function testRemoveMatches()
     {
         $obj = new Competition();
 
-        $game0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game0->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
-        $game1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game1->shouldReceive('setCompetition')->never();
-        $game2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Game');
-        $game2->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
+        $match0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match0->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
+        $match1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match1->shouldReceive('setCompetition')->never();
+        $match2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
+        $match2->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
 
         // Add one to the existing collection
-        $collection = $obj->getGames();
-        $collection->add($game0);
-        $collection->add($game1);
-        $collection->add($game2);
+        $collection = $obj->getMatches();
+        $collection->add($match0);
+        $collection->add($match1);
+        $collection->add($match2);
 
         // Do the remove
         $coll = new ArrayCollection();
-        $coll->add($game0);
-        $coll->add($game2);
-        $obj->removeGames($coll);
+        $coll->add($match0);
+        $coll->add($match2);
+        $obj->removeMatches($coll);
 
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getGames());
-        $this->assertSame($collection, $obj->getGames());
-        $this->assertEquals(1, $obj->getGames()->count());
-        $this->assertFalse($obj->getGames()->contains($game0));
-        $this->assertTrue($obj->getGames()->contains($game1));
-        $this->assertFalse($obj->getGames()->contains($game2));
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getMatches());
+        $this->assertSame($collection, $obj->getMatches());
+        $this->assertEquals(1, $obj->getMatches()->count());
+        $this->assertFalse($obj->getMatches()->contains($match0));
+        $this->assertTrue($obj->getMatches()->contains($match1));
+        $this->assertFalse($obj->getMatches()->contains($match2));
     }
 }

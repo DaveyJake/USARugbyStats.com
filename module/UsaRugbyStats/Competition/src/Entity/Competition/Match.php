@@ -5,11 +5,11 @@ use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Entity\Team;
 
 /**
- * Competition Game
+ * Competition Match
  *
  * @author Adam Lundrigan <adam@lundrigan.ca>
  */
-class Game
+class Match
 {
     /**
      * @var integer
@@ -19,10 +19,10 @@ class Game
     /**
      * @var string
      */
-    protected $name;
+    protected $description;
 
     /**
-     * The competition this game is part of
+     * The competition this match is part of
      *
      * @var Competition
      */
@@ -43,7 +43,7 @@ class Game
     protected $awayTeam;
 
     /**
-     * Game Identifier
+     * Match Identifier
      *
      * @return int
      */
@@ -53,7 +53,7 @@ class Game
     }
 
     /**
-     * Set Game Identifier
+     * Set Match Identifier
      *
      * @param  integer $id
      * @return self
@@ -66,24 +66,24 @@ class Game
     }
 
     /**
-     * Game Name
+     * Match Description
      *
      * @return string
      */
-    public function getName()
+    public function getDescription()
     {
-        return $this->name;
+        return $this->description;
     }
 
     /**
-     * Set Game Name
+     * Set Match Description
      *
-     * @param  string $name
+     * @param  string $desc
      * @return self
      */
-    public function setName($name)
+    public function setDescription($desc)
     {
-        $this->name = $name;
+        $this->description = $desc;
 
         return $this;
     }
@@ -112,7 +112,7 @@ class Game
     }
 
     /**
-     * Home team for this game
+     * Home team for this match
      *
      * @return HomeTeam
      */
@@ -122,7 +122,7 @@ class Game
     }
 
     /**
-     * Set the home team for this game
+     * Set the home team for this match
      *
      * @param  Team $u
      * @return self
@@ -135,7 +135,7 @@ class Game
     }
 
     /**
-     * Away team for this game
+     * Away team for this match
      *
      * @return AwayTeam
      */
@@ -145,7 +145,7 @@ class Game
     }
 
     /**
-     * Set the away team for this game
+     * Set the away team for this match
      *
      * @param  Team $u
      * @return self
@@ -158,13 +158,13 @@ class Game
     }
 
     /**
-     * String representation of this Game object
+     * String representation of this Match object
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->getName();
+        return $this->getHomeTeam()->getName() . ' v. ' . $this->getAwayTeam()->getName();
     }
 
 }

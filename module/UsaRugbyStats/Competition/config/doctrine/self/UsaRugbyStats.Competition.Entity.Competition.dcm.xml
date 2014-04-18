@@ -13,7 +13,7 @@
             </cascade>
         </one-to-many>
 
-        <one-to-many field="games" target-entity="UsaRugbyStats\Competition\Entity\Competition\Game" mapped-by="competition" orphan-removal="true" />
+        <one-to-many field="matches" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match" mapped-by="competition" orphan-removal="true" />
 
         <one-to-many field="teamMemberships" target-entity="UsaRugbyStats\Competition\Entity\Competition\TeamMembership" mapped-by="competition" orphan-removal="true">
             <cascade>
