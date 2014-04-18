@@ -11,6 +11,7 @@ install:
   - sudo apt-get install apache2 libapache2-mod-php5 php5-curl php5-mysql php5-json xvfb
   - sudo a2enmod rewrite;
   - echo "$(cat .travisci/apache2.txt)" | sed -e "s,PATH,`pwd`/public,g" | sudo tee /etc/apache2/sites-available/default
+  - sudo a2ensite default;
   - sudo service apache2 restart
   - composer install --dev
 
