@@ -8,3 +8,6 @@ sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-availa
 sudo service hhvm restart
 sudo service apache2 restart
 
+# run HHVM in FastCGI mode
+sudo service hhvm stop 
+hhvm --mode server -vServer.Type=fastcgi -vServer.Port=9000
