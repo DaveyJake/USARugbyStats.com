@@ -1,8 +1,6 @@
-ServerName localhost
-
 <VirtualHost *:80>
-  ServerName localhost 
-  DocumentRoot PATH 
+  ServerName localhost
+  DocumentRoot "PATH"
 
   <Directory "PATH">
     Options Indexes FollowSymLinks MultiViews
@@ -10,8 +8,10 @@ ServerName localhost
     Require all granted
   </Directory>
 
-  # http://serverfault.com/questions/155558/how-can-i-disable-transfer-encoding-chunked-in-apache-with-http-1-1-responses
-  SetEnv downgrade-1.0
+  ## Logging
+  ErrorLog "/tmp/apache2_default_error.log"
+  ServerSignature Off
+  CustomLog "/tmp/apache2_default_access.log" combined
 </VirtualHost>
 
 
