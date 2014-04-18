@@ -17,13 +17,13 @@ class FeatureContext extends MinkContext
      * Initializes context.
      * Every scenario gets it's own context object.
      *
-     * @param   array   $parameters     context parameters (set them up through behat.yml)
+     * @param array $parameters context parameters (set them up through behat.yml)
      */
     public function __construct(array $parameters)
     {
         // Initialize your context here
     }
-    
+
     /**
      * @Given /^I am on the login page$/
      */
@@ -41,7 +41,7 @@ class FeatureContext extends MinkContext
         //@TODO use route name instead
         $this->assertPageAddress('/account/login');
     }
-    
+
     /**
      * @Given /^I am on the registration page$/
      */
