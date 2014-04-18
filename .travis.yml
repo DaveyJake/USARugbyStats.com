@@ -21,16 +21,15 @@ before_script:
   - cp .travisci/testing.local.php.dist config/autoload/testing.local.php
   - ./bin/doctrine-module orm:schema-tool:create
   - ./bin/doctrine-module data-fixture:import 
+  - sh -e .travisci/start_selenium2.sh
 
 script:
   - for DIR in module config; do bin/php-cs-fixer fix -v --dry-run --fixers=-psr0,psr4 $DIR; done;
   - find module -type d -name "tests" | while read DIR; do ./bin/phpunit -c $DIR/phpunit.xml || exit 1; done;
-  - sh .travisci/start_selenium2.sh
   - find module -type f -name "behat.yml.dist" | while read FILE; do REALFILE=${FILE/.dist/}; if [ ! -f "$REALFILE" ]; then cp "$FILE" "$REALFILE"; fi; ./bin/behat --config $REALFILE || exit 1; done;
 
 after_script:
-  - cat /tmp/webdriver_output.txt
-  - cat /tmp/xvfb_output.txt
+  - curl http://localhost/account/login 
 
 matrix:
   fast_finish: true
