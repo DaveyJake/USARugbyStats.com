@@ -5,7 +5,11 @@
   <Directory "PATH">
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
+    
+    Order allow,deny
+    Allow from all
     Require all granted
+    Satisfy Any
   </Directory>
 
   ## Logging
