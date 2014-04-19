@@ -199,13 +199,27 @@ class Match
         return $this;
     }
 
+    /**
+     * Status of Match
+     *
+     * @return string
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
+    /**
+     * Set Status of Match
+     *
+     * @param  string $status
+     * @return self
+     */
     public function setStatus($status)
     {
+        if ( ! in_array($status, ['NS','S','F','HF','AF','C']) ) {
+            throw new \InvalidArgumentException('Invalid match status!');
+        }
         $this->status = $status;
 
         return $this;

@@ -83,4 +83,38 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $obj = new Match();
         $obj->setDate(NULL);
     }
+
+    /**
+     * @dataProvider providerGetSetStatus
+     */
+    public function testGetSetStatus($status, $valid)
+    {
+        if (! $valid) {
+            $this->setExpectedException('InvalidArgumentException');
+        }
+
+        $obj = new Match();
+        $obj->setStatus($status);
+        $this->assertEquals($status, $obj->getStatus());
+    }
+
+    /**
+     * Data Provider for testGetSetPosition (lists valid Match statuses)
+     *
+     * @return array
+     */
+    public function providerGetSetStatus()
+    {
+        return [
+            [ 'NS', true ],
+            [ 'S', true ],
+            [ 'F', true ],
+            [ 'HF', true ],
+            [ 'AF', true ],
+            [ 'C', true ],
+            [ 'XX', false ],
+            [ NULL, false ],
+        ];
+    }
+
 }
