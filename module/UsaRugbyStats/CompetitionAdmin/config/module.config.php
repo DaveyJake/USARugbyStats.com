@@ -156,6 +156,55 @@ return array(
                                             ),
                                         ),
                                     ),
+                                    'matches' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                            'route' => '/matches',
+                                            'defaults' => array(
+                                                'controller' => 'usarugbystats_competitionmatchadmin_controller',
+                                                'action'     => 'list',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' =>array(
+                                            'list' => array(
+                                                'type' => 'Segment',
+                                                'options' => array(
+                                                    'route' => '/list',
+                                                    'defaults' => array(
+                                                        'action'     => 'list',
+                                                    ),
+                                                ),
+                                            ),
+                                            'create' => array(
+                                                'type' => 'Literal',
+                                                'options' => array(
+                                                    'route' => '/create',
+                                                    'defaults' => array(
+                                                        'action'     => 'create'
+                                                    ),
+                                                ),
+                                            ),
+                                            'edit' => array(
+                                                'type' => 'Segment',
+                                                'options' => array(
+                                                    'route' => '/edit/:match',
+                                                    'defaults' => array(
+                                                        'action'     => 'edit',
+                                                    ),
+                                                ),
+                                            ),
+                                            'remove' => array(
+                                                'type' => 'Segment',
+                                                'options' => array(
+                                                    'route' => '/remove/:match',
+                                                    'defaults' => array(
+                                                        'action'     => 'remove',
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
                                 ),
                             ),
                             'remove' => array(
@@ -179,6 +228,7 @@ return array(
             'usarugbystats_teamadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\TeamAdminController',
             'usarugbystats_unionadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\UnionAdminController',
             'usarugbystats_competitionadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\CompetitionAdminController',
+            'usarugbystats_competitionmatchadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\CompetitionMatchAdminController',
         ),
     ),
     'navigation' => array(

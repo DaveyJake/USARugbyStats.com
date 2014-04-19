@@ -82,7 +82,6 @@ class CompetitionAdminController extends AbstractActionController
         return $vm;
     }
 
-
     public function divisionsAction()
     {
         $id = $this->params()->fromRoute('id');
@@ -101,6 +100,37 @@ class CompetitionAdminController extends AbstractActionController
             $result = $this->getCompetitionService()->update($form, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The division assignments were updated successfully!');
+
+                return $this->redirect()->toRoute('zfcadmin/usarugbystats_competitionadmin/edit/divisions', ['id' => $result->getId()]);
+            }
+        }
+
+        $vm = new ViewModel();
+        $vm->setVariable('entity', $entity);
+        $vm->setVariable('form', $form);
+        $vm->setTemplate('usa-rugby-stats/competition-admin/competition-admin/divisions');
+
+        return $vm;
+    }
+
+    public function matchesAction()
+    {
+        $id = $this->params()->fromRoute('id');
+        $entity = $this->getCompetitionService()->findByID($id);
+        if (! $entity instanceof Competition) {
+            throw new \RuntimeException('No competition with the specified identifier!');
+        }
+
+        $form = $this->getCompetitionService()->getUpdateForm();
+        $form->bind($entity);
+
+        // On this page we only want to edit the Division list
+        $form->setValidationGroup(['competition' => ['matches']]);
+
+        if ( $this->getRequest()->isPost() ) {
+            $result = $this->getCompetitionService()->update($form, $this->getRequest()->getPost()->toArray());
+            if ($result instanceof Competition) {
+                $this->flashMessenger()->addSuccessMessage('The competition matches were updated successfully!');
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_competitionadmin/edit/divisions', ['id' => $result->getId()]);
             }

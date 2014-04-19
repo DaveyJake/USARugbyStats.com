@@ -1,0 +1,54 @@
+<h1><?php echo $this->escapeHtml($entity->getName()); ?></h1>
+<?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/navigation', ['page' => 'matches', 'entity' => $entity]); ?>
+
+<div class="panel panel-default competition-divisions">
+    <div class="panel-heading">
+        Matches in this Competition
+        <div class="pull-right">
+            <a class="btn btn-xs btn-success competition-divisions-add" title="Add Match" href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/create', array('id' => $entity->getId())); ?>">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+            </a>
+        </div>
+    </div>
+
+<?php if ($this->paginator->count() > 0 ): ?>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><?php echo $this->translate('ID') ?></th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->paginator as $match): ?>
+        <tr>
+            <td class="cell cell-id" style="width:50px">
+                <?php echo $this->escapeHtml($match->getId()); ?>
+            </td>
+            <td class="col-sm-1 cell cell-ctrls">
+                <a href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/edit', array('id' => $entity->getId(), 'match' => $match->getId())); ?>">
+                    <?php echo $this->translate('Edit') ?>
+                </a>
+                |
+                <a href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/remove', array('id' => $entity->getId(), 'match' => $match->getId())); ?>">
+                    <?php echo $this->translate('Delete') ?>
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                <?php echo $this->paginationControl($paginator, 'Sliding', 'usa-rugby-stats/competition-admin/competition-admin/pagination'); ?>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<?php else: ?>
+  <div class="panel-body">
+    <div class="alert alert-warning" style="margin:0">There are no competitions!</div>
+  </div>
+<?php endif; ?>
+
+</div>
