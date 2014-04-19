@@ -2,7 +2,7 @@
 namespace UsaRugbyStats\Competition\Entity\Competition;
 
 use UsaRugbyStats\Competition\Entity\Competition;
-use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 
 /**
  * Competition Match
@@ -29,18 +29,32 @@ class Match
     protected $competition;
 
     /**
+     * The date and time of the match
+     *
+     * @var \DateTime
+     */
+    protected $date;
+
+    /**
      * Home Team
      *
-     * @var Team
+     * @var MatchTeam
      */
     protected $homeTeam;
 
     /**
      * Away Team
      *
-     * @var Team
+     * @var MatchTeam
      */
     protected $awayTeam;
+
+    /**
+     * Status of Match
+     *
+     * @var string
+     */
+    protected $status;
 
     /**
      * Match Identifier
@@ -114,7 +128,7 @@ class Match
     /**
      * Home team for this match
      *
-     * @return HomeTeam
+     * @return MatchTeam
      */
     public function getHomeTeam()
     {
@@ -124,11 +138,14 @@ class Match
     /**
      * Set the home team for this match
      *
-     * @param  Team $u
+     * @param  MatchTeam $u
      * @return self
      */
-    public function setHomeTeam(Team $u)
+    public function setHomeTeam(MatchTeam $u)
     {
+        $u->setType('H');
+        $u->setMatch($this);
+
         $this->homeTeam = $u;
 
         return $this;
@@ -137,7 +154,7 @@ class Match
     /**
      * Away team for this match
      *
-     * @return AwayTeam
+     * @return MatchTeam
      */
     public function getAwayTeam()
     {
@@ -147,12 +164,49 @@ class Match
     /**
      * Set the away team for this match
      *
-     * @param  Team $u
+     * @param  MatchTeam $u
      * @return self
      */
-    public function setAwayTeam(Team $u)
+    public function setAwayTeam(MatchTeam $u)
     {
+        $u->setType('A');
+        $u->setMatch($this);
+
         $this->awayTeam = $u;
+
+        return $this;
+    }
+
+    /**
+     * DateTime of Match
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set DateTime of Match
+     *
+     * @param \DateTime $date
+     */
+    public function setDate(\DateTime $date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
         return $this;
     }
@@ -164,7 +218,7 @@ class Match
      */
     public function __toString()
     {
-        return $this->getHomeTeam()->getName() . ' v. ' . $this->getAwayTeam()->getName();
+        return $this->getHomeTeam()->getTeam()->getName() . ' v. ' . $this->getAwayTeam()->getTeam()->getName();
     }
 
 }
