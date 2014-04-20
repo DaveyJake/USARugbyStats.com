@@ -1,0 +1,22 @@
+
+<?php echo $this->formHidden($fieldset->get('id')); ?>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><?= ($type == 'H') ? 'Home' : 'Away'; ?> Team</div>
+    <div class="panel-body">
+
+        <?php echo $this->formHidden($fieldset->get('type')); ?>    
+    
+        <div class="row form-group">
+            <?php $element = $fieldset->get('team'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-2 control-label')); ?>
+            <?php $element->setAttribute('class', 'form-control'); ?>
+            
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-10">
+                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+            </div>
+        </div>
+        
+    </div>
+</div>

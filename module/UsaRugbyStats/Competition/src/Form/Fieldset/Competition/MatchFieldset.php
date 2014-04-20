@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class MatchFieldset extends Fieldset
 {
 
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, Match\MatchTeamFieldset $fsHomeTeam, Match\MatchTeamFieldset $fsAwayTeam)
     {
         parent::__construct('match');
 
@@ -35,25 +35,13 @@ class MatchFieldset extends Fieldset
             ),
         ));
 
-        $this->add(array(
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'homeTeam',
-            'options' => array(
-                'label' => 'Home Team',
-                'object_manager' => $om,
-                'target_class'   => 'UsaRugbyStats\Competition\Entity\Team',
-            ),
-        ));
+        $fsHomeTeam->setName('homeTeam');
+        $fsHomeTeam->get('type')->setValue('H');
+        $this->add($fsHomeTeam);
 
-        $this->add(array(
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'awayTeam',
-            'options' => array(
-                'label' => 'Away Team',
-                'object_manager' => $om,
-                'target_class'   => 'UsaRugbyStats\Competition\Entity\Team',
-            ),
-        ));
+        $fsAwayTeam->setName('awayTeam');
+        $fsAwayTeam->get('type')->setValue('A');
+        $this->add($fsAwayTeam);
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
