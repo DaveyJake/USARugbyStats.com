@@ -8,7 +8,7 @@
         <field name="name" type="string" length="60" />
 
         <many-to-one field="competition" target-entity="UsaRugbyStats\Competition\Entity\Competition" inversed-by="divisions">
-        	<join-column name="competition" referenced-column-name="id" />
+        	<join-column name="competition_id" referenced-column-name="id" />
         </many-to-one>
 
         <one-to-many field="teamMemberships" target-entity="UsaRugbyStats\Competition\Entity\Competition\TeamMembership" mapped-by="division" orphan-removal="true">

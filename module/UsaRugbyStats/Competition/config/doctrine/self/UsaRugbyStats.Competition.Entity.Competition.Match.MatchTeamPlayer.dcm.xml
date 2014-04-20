@@ -7,13 +7,13 @@
         <id name="id" type="integer"><generator strategy="AUTO" /></id>
 
         <many-to-one field="team" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam" inversed-by="players">
-        	<join-column name="team" referenced-column-name="id" />
+        	<join-column name="team_id" referenced-column-name="id" />
         </many-to-one>
 
         <field name="number" type="string" length="2" />
 
         <many-to-one field="player" target-entity="UsaRugbyStats\Application\Entity\AccountInterface">
-        	<join-column name="player" referenced-column-name="user_id" />
+        	<join-column name="player_id" referenced-column-name="user_id" />
         </many-to-one>
 
         <!-- @TODO events -->

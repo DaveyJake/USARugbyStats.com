@@ -6,17 +6,17 @@
     <entity name="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam" table="competition_competition_match_team">
 
         <unique-constraints>
-            <unique-constraint columns="match,team,type" />
+            <unique-constraint columns="match_id,team_id,type" />
         </unique-constraints>
 
         <id name="id" type="integer"><generator strategy="AUTO" /></id>
 
         <many-to-one field="match" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match">
-        	<join-column name="match" referenced-column-name="id" />
+        	<join-column name="match_id" referenced-column-name="id" />
         </many-to-one>
 
         <many-to-one field="team" target-entity="UsaRugbyStats\Competition\Entity\Team">
-        	<join-column name="team" referenced-column-name="id" />
+        	<join-column name="team_id" referenced-column-name="id" />
         </many-to-one>
 
 		<field name="type" type="string" length="1" />
@@ -27,7 +27,7 @@
             </cascade>
         </one-to-many>
 
-        <field name="score" type="integer" />
+        <field name="score" type="integer" nullable="true" />
 
         <!-- @TODO events -->
 
