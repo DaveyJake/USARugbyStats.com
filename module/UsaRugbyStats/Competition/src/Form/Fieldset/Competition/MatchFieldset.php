@@ -20,6 +20,14 @@ class MatchFieldset extends Fieldset
         ));
 
         $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'competition',
+            'options' => array(
+                'label' => 'Competition',
+            ),
+        ));
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'description',
             'options' => array(
