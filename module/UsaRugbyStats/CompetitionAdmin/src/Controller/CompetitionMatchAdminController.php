@@ -60,6 +60,46 @@ class CompetitionMatchAdminController extends AbstractActionController
         return $vm;
     }
 
+    public function editAction()
+    {
+        $competition = $this->loadCompetitionEntity();
+
+        $id = $this->params()->fromRoute('match');
+        $entity = $this->getMatchService()->findByID($id);
+        if (! $entity instanceof Match) {
+            throw new \RuntimeException('No match found with the specified identifier!');
+        }
+        if ( $entity->getCompetition() != null && $entity->getCompetition()->getId() != $competition->getId()) {
+            throw new \RuntimeException('No match found with the specified identifier!');
+        }
+
+        $form = $this->getMatchService()->getUpdateForm();
+        $form->bind($entity);
+
+        if ( $this->getRequest()->isPost() ) {
+            $data = $this->getRequest()->getPost()->toArray();
+            $data['match']['competition'] = $competition->getId();
+
+            $result = $this->getMatchService()->update($form, $data);
+            if ($result instanceof Match) {
+                $this->flashMessenger()->addSuccessMessage('The match was updated successfully!');
+
+                return $this->redirect()->toRoute('zfcadmin/usarugbystats_competitionadmin/edit/matches/edit', [
+                    'id' => $competition->getId(),
+                    'match' => $result->getId(),
+                ]);
+            }
+        }
+
+        $vm = new ViewModel();
+        $vm->setVariable('competition', $competition);
+        $vm->setVariable('entity', $entity);
+        $vm->setVariable('form', $form);
+        $vm->setTemplate('usa-rugby-stats/competition-admin/competition-admin/matches/edit');
+
+        return $vm;
+    }
+
     protected function loadCompetitionEntity()
     {
         $id = $this->params()->fromRoute('id');

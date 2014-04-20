@@ -1,0 +1,44 @@
+<h1><?php echo $this->escapeHtml($competition->getName()); ?></h1>
+<?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/navigation', ['page' => 'matches', 'entity' => $competition]); ?>
+
+<?php
+$form->prepare();
+$form->setAttribute('action', $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/edit', ['id' => $competition->getId(), 'match' => $entity->getId()]));
+$form->setAttribute('method', 'post');
+?>
+
+<h2>Update Match <i><?php echo $this->escapeHtml($entity->getDescription()); ?></i></h2>
+
+<?php $form->setAttribute('class', 'form-horizontal'); ?>
+<?php echo $this->form()->openTag($form) ?>
+
+<?php $submitButton = $form->get('submit'); ?>
+<?php $submitButton->setAttribute('class', 'btn btn-lg btn-success'); ?>
+
+<div class="row">
+    <div class="col-md-6">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/form', $this->vars()); ?>
+    </div>
+    
+    <div class="col-md-6">
+   
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('homeTeam'), 'type' => 'H']); ?>
+    </div>
+    
+    <div class="col-md-6">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('awayTeam'), 'type' => 'A']); ?>
+    </div>
+    
+</div>
+
+
+<div class="clearfix"></div>
+<div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>
+
+<?php echo $this->form()->closeTag() ?>
