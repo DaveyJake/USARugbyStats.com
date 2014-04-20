@@ -54,7 +54,7 @@ class Match
      *
      * @var string
      */
-    protected $status;
+    protected $status = 'NS';
 
     /**
      * Match Identifier
