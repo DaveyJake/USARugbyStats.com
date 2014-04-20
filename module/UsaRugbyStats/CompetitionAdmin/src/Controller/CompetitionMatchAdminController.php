@@ -41,7 +41,7 @@ class CompetitionMatchAdminController extends AbstractActionController
             $data = $this->getRequest()->getPost()->toArray();
             $data['match']['competition'] = $entity->getId();
             
-            $result = $this->getMatchService()->create($form, $this->getRequest()->getPost()->toArray());
+            $result = $this->getMatchService()->create($form, $data);
             if ($result instanceof Match) {
                 $this->flashMessenger()->addSuccessMessage('The competition was created successfully!');
 
