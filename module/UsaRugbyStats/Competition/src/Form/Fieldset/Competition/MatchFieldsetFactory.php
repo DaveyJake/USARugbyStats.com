@@ -20,7 +20,7 @@ class MatchFieldsetFactory implements FactoryInterface
 
         $fsHomeTeam = $sm->get('usarugbystats_competition_competition_match_team_fieldset');
         $fsAwayTeam = $sm->get('usarugbystats_competition_competition_match_team_fieldset');
-        
+
         $form = new MatchFieldset($om, $fsHomeTeam, $fsAwayTeam);
 
         // Set the hydrator
