@@ -100,6 +100,37 @@ class CompetitionMatchAdminController extends AbstractActionController
         return $vm;
     }
 
+    public function removeAction()
+    {
+        $competition = $this->loadCompetitionEntity();
+
+        $id = $this->params()->fromRoute('match');
+        $entity = $this->getMatchService()->findByID($id);
+        if (! $entity instanceof Match) {
+            throw new \RuntimeException('No match found with the specified identifier!');
+        }
+        if ( $entity->getCompetition() != null && $entity->getCompetition()->getId() != $competition->getId()) {
+            throw new \RuntimeException('No match found with the specified identifier!');
+        }
+
+        if ( $this->getRequest()->isPost() && $this->params()->fromPost('confirmed') == 'Y' ) {
+            $this->getMatchService()->remove($entity);
+            $this->flashMessenger()->addSuccessMessage('The match was removed successfully!');
+
+            return $this->redirect()->toRoute('zfcadmin/usarugbystats_competitionadmin/edit/matches/list', [
+                'id' => $competition->getId(),
+                'match' => $entity->getId(),
+            ]);
+        }
+
+        $vm = new ViewModel();
+        $vm->setVariable('competition', $competition);
+        $vm->setVariable('entity', $entity);
+        $vm->setTemplate('usa-rugby-stats/competition-admin/competition-admin/matches/remove');
+
+        return $vm;
+    }
+
     protected function loadCompetitionEntity()
     {
         $id = $this->params()->fromRoute('id');
