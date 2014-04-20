@@ -40,13 +40,13 @@ class CompetitionMatchAdminController extends AbstractActionController
         if ( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost()->toArray();
             $data['match']['competition'] = $entity->getId();
-            
+
             $result = $this->getMatchService()->create($form, $data);
             if ($result instanceof Match) {
-                $this->flashMessenger()->addSuccessMessage('The competition was created successfully!');
+                $this->flashMessenger()->addSuccessMessage('The match was created successfully!');
 
-                return $this->redirect()->toRoute('zfcadmin/usarugbystats_competitionadmin/edit/matches', [
-                    'id' => $result->getId(),
+                return $this->redirect()->toRoute('zfcadmin/usarugbystats_competitionadmin/edit/matches/edit', [
+                    'id' => $entity->getId(),
                     'match' => $result->getId(),
                 ]);
             }
