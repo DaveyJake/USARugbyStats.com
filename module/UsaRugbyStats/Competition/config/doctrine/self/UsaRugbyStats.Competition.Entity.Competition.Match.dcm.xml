@@ -32,7 +32,7 @@
 
 		<!-- @TODO events -->
 
-		<field name="status" type="string" length="1" />
+		<field name="status" type="string" length="2" />
 
 		<!-- @TODO signatures -->
 
