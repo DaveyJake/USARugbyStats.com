@@ -15,17 +15,17 @@
         <field name="date" type="datetime" />
 
         <one-to-one field="homeTeam" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam" orphan-removal="true">
-        	<join-column name="home_team_id" referenced-column-name="id" />
             <cascade>
-                <cascade-persist />
+            	<cascade-all />
             </cascade>
+            <join-column name="home_team_id" referenced-column-name="id" />
         </one-to-one>
 
         <one-to-one field="awayTeam" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam" orphan-removal="true">
-        	<join-column name="away_team_id" referenced-column-name="id" />
             <cascade>
-                <cascade-persist />
-            </cascade>
+            	<cascade-all />
+           	</cascade>
+          	<join-column name="away_team_id" referenced-column-name="id" />
         </one-to-one>
 
         <!-- @TODO location -->

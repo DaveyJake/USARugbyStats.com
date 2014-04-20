@@ -23,7 +23,7 @@
 
         <one-to-many field="players" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer" mapped-by="team" orphan-removal="true">
             <cascade>
-                <cascade-persist />
+            	<cascade-all />
             </cascade>
         </one-to-many>
 
