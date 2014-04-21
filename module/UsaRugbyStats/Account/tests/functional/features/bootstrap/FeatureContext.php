@@ -59,4 +59,24 @@ class FeatureContext extends MinkContext
         //@TODO use route name instead
         $this->assertPageAddress('/account/register');
     }
+
+    /**
+     * @Then /^I navigate to the Account Profile page$/
+     */
+    public function iNavigateToTheAccountProfilePage()
+    {
+        //@TODO use route name instead
+        $this->visit('/account');
+        $this->assertPageAddress('/account');
+    }
+
+    /**
+     * @Given /^I should not receive an authorization error$/
+     */
+    public function iShouldNotReceiveAnAuthorizationError()
+    {
+        //@TODO would be nice to be able to check the status code instead
+        $this->assertPageNotContainsText('You are not allowed to access this resource');
+    }
+
 }

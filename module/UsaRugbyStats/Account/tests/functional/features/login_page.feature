@@ -9,6 +9,16 @@ Feature: Login Page
     Then I should see "Username"
     And I should see "Password"
     And I should see "Sign In"
+
+  @javascript
+  Scenario: Able to sign in with valid credentials
+    Given I am on the login page
+    When I fill in the following:
+       | identity | superadmin |
+       | credential | testtest |
+    And I press "Sign In"
+    Then I navigate to the Account Profile page
+    And I should not receive an authorization error
   
   @javascript
   Scenario: Unable to sign in with invalid credentials
