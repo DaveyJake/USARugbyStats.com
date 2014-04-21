@@ -1,12 +1,21 @@
-Feature: Account Registraiton Page
+Feature: Login Page
   In order to access the application
   As an anonymous user
-  I need to be able to create an account if I don't already have one
+  I need to be able to interact with the authentication service
   
   @javascript
-  Scenario: Able to access the registration page.
-    Given I am on the registration page
-    Then I should see "Account Registration"
-    And I should see "Username"
+  Scenario: Able to access the login page.
+    Given I am on the login page
+    Then I should see "Username"
     And I should see "Password"
-    And I should see "Password Verify"
+    And I should see "Sign In"
+  
+  @javascript
+  Scenario: Unable to sign in with invalid credentials
+    Given I am on the login page
+    When I fill in the following:
+       | identity | foobar |
+       | credential | dpfoasjfjfdd |
+    And I press "Sign In"
+    Then I should be on the login page
+    And I should see "Authentication failed. Please try again."
