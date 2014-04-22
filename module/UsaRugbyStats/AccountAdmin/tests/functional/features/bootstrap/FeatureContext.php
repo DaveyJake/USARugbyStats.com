@@ -79,7 +79,24 @@ class FeatureContext extends MinkContext
     {
         $this->assertPageAddress('/admin/user/edit/' . $arg1);
     }
-
+    
+    /**
+     * @Given /^I navigate to the Add New User page of the Account Administration Panel$/
+     */
+    public function iNavigateToTheAddNewUserPageOfTheAccountAdministrationPanel()
+    {
+        $this->visit('/admin/user/create');
+        $this->iShouldBeOnTheAddNewUserPageOfTheAccountAdministrationPanel();
+    }
+    
+    /**
+     * @Then /^I should be on the Add New User page of the Account Administration Panel$/
+     */
+    public function iShouldBeOnTheAddNewUserPageOfTheAccountAdministrationPanel()
+    {
+        $this->assertPageAddress('/admin/user/create');
+    }
+    
     /**
      * @Given /^I should see that "([^"]*)" field has value "([^"]*)"$/
      */

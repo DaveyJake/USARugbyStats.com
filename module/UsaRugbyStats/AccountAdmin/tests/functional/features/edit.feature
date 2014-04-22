@@ -96,3 +96,14 @@ Feature: Account Administration Panel - Edit User Account
     And I press "Save Changes"
     And I am on the edit page for user "3"
     And I should see "A record matching the input was found"
+      
+  @javascript
+  Scenario: Administrator can modify the display name of an existing user account
+    Given I am authenticated as a super administrator
+    And I navigate to the edit page for user "3"
+    When I fill in the following:
+       | display_name | Testy McTesterson |
+    And I press "Save Changes"
+    And I should see "The user was edited"
+    And I navigate to the edit page for user "3"
+    And I should see that "display_name" field has value "Testy McTesterson"
