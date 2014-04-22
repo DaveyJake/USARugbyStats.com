@@ -23,8 +23,7 @@ Feature: Account Administration Panel - Create User Account
        | passwordVerify | testtest123 |
     And I press "Register"
     Then I should see "The user was created"
-    And I navigate to the edit page for user "8"
-    And I should see that "username" field has value "testuser123"
+    And I should see "adam+testuser123@lundrigan.ca"
 
   @javascript
   Scenario: Username is a required field for creating a new account
