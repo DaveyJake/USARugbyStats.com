@@ -156,3 +156,8 @@ Feature: Account Administration Panel - Create User Account
     And I press "Register"
     Then I should see "The user was created"
     And I should see "adam+testuser456@lundrigan.ca"
+    Then navigate to the Edit User page of the Account Administration Panel for user with "email" "adam+testuser456@lundrigan.ca"
+    And I should see "Role-based Access Control"
+    And I should see "Team Administrator"
+    And I should see "Test Team #3"
+    And I should see "Test Team #5"

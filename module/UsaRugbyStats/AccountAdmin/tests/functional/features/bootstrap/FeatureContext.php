@@ -161,5 +161,17 @@ class FeatureContext extends MinkContext
         $select->selectOption($arg1);
     }
     
+    /**
+     * @Then /^navigate to the Edit User page of the Account Administration Panel for user with "([^"]*)" "([^"]*)"$/
+     */
+    public function navigateToTheEditUserPageOfTheAccountAdministrationPanelForUserWith($arg1, $arg2)
+    {
+        $session = $this->getSession();
+        $id = trim($session->evaluateScript("return $('td.cell-{$arg1}:contains(\"{$arg2}\")').closest('tr').find('td.cell-id').html();"));
+        if ( empty($id) ) {
+            throw new \RuntimeException('Could not locate ID of newly-created user');
+        }
+        $this->iNavigateToTheEditPageForUser($id);
+    }
     
 }
