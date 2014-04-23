@@ -136,3 +136,23 @@ Feature: Account Administration Panel - Create User Account
     And I press "Register"
     Then I should be on the Add New User page of the Account Administration Panel
     And I should see "The two given tokens do not match"
+      
+  @javascript
+  Scenario: Administrator can create a new user account with a single RBAC role
+    Given I am authenticated as a super administrator
+    And I navigate to the Add New User page of the Account Administration Panel	
+    When I fill in the following:
+       | username | testuser456 |
+       | email | adam+testuser456@lundrigan.ca |
+       | display_name | Test User 2 |
+       | password | testtest123 |
+       | passwordVerify | testtest123 |
+    Then I click the Add Role Assigment dropdown
+    And I click the "team-admin" type under the Add Role Assignment dropdown
+    And I click the add team button on the Team Administrator dialog
+    And I select team "3" from the "1" managedTeam field
+    And I click the add team button on the Team Administrator dialog
+    And I select team "5" from the "2" managedTeam field
+    And I press "Register"
+    Then I should see "The user was created"
+    And I should see "adam+testuser456@lundrigan.ca"

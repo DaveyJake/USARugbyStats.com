@@ -105,4 +105,61 @@ class FeatureContext extends MinkContext
         $this->assertFieldContains($arg1, $arg2);
     }
 
+    /**
+     * @Then /^I click the Add Role Assigment dropdown$/
+     */
+    public function iClickTheAddRoleAssigmentDropdown()
+    {
+        $session = $this->getSession();
+        $dropdown = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('css', '.useraccount-rbacrole-add')
+        );
+        $dropdown->click();
+    }
+    
+    /**
+     * @Given /^I click the "([^"]*)" type under the Add Role Assignment dropdown$/
+     */
+    public function iClickTheTypeUnderTheAddRoleAssignmentDropdown($arg1)
+    {
+        $session = $this->getSession();
+        $selection = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('css', '#AddRoleAssignmentButtonMenu a[data-key='.$arg1.']')
+        );
+        $selection->click();
+        
+        $session->wait(5000, "$('.rbac-assignment.rbac-assignment-".str_replace('-','',$arg1)."').length == 1   ");
+    }
+
+    /**
+     * @Given /^I click the add team button on the Team Administrator dialog$/
+     */
+    public function iClickTheAddTeamButtonOnTheTeamAdministratorDialog()
+    {
+        $session = $this->getSession();
+        $addbutton = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('css', '.rbac-assignment-teamadmin a.rbac-assignment-addteam')
+        );
+        $addbutton->click();
+        
+        $session->wait(5000, "$('.rbac-assignment-teamadmin select').length == 1");
+    }
+    
+    /**
+     * @Given /^I select team "([^"]*)" from the "([^"]*)" managedTeam field$/
+     */
+    public function iSelectTeamFromTheManagedteamField($arg1, $arg2)
+    {
+        $session = $this->getSession();
+        $select = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('css', '.rbac-assignment-teamadmin select[name*="[managedTeams][' . $arg2 . ']"]')
+        );
+        $select->selectOption($arg1);
+    }
+    
+    
 }
