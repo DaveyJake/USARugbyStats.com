@@ -48,7 +48,7 @@
             </table>
             
             <script type="text/template" class="team-selector-template" data-nextindex="<?php echo $this->escapeHtmlAttr(count($collTeam)); ?>" style="display:none">
-                <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['fieldset' => $collTeam->getTemplateElement(), 'isTemplate' => true]); ?>
+                <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['fieldset' => $fieldset->get('teamMemberships')->getTemplateElement(), 'isTemplate' => true]); ?>
             </script>
         
         </div>

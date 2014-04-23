@@ -33,6 +33,7 @@ class DivisionFieldset extends Fieldset
             'options' => array(
                 'target_element' => $fsTeamMembership,
                 'should_create_template' => true,
+                'template_placeholder' => '__teamindex__',
             )
         ));
 

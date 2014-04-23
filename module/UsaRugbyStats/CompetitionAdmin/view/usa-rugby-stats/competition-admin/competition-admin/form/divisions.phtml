@@ -37,7 +37,7 @@
         $(document).on('click', '.competition-divisions-division .competition-divisions-division-teams-add', function() {
         	var template = $(this).closest('.competition-divisions-division').find('.team-selector-template');
         	var index = parseInt(template.attr('data-nextindex'));
-            var html = template.html().replace(/__index__/g, index);
+            var html = template.html().replace(/__teamindex__/g, index);
             $(this).closest('.competition-divisions-division').find('.competition-divisions-division-teams table tbody').append(html);
             template.attr('data-nextindex', index+1);
         }); 
