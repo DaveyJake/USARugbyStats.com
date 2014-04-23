@@ -79,7 +79,7 @@ class FeatureContext extends MinkContext
     {
         $this->assertPageAddress('/admin/user/edit/' . $arg1);
     }
-    
+
     /**
      * @Given /^I navigate to the Add New User page of the Account Administration Panel$/
      */
@@ -88,7 +88,7 @@ class FeatureContext extends MinkContext
         $this->visit('/admin/user/create');
         $this->iShouldBeOnTheAddNewUserPageOfTheAccountAdministrationPanel();
     }
-    
+
     /**
      * @Then /^I should be on the Add New User page of the Account Administration Panel$/
      */
@@ -96,7 +96,7 @@ class FeatureContext extends MinkContext
     {
         $this->assertPageAddress('/admin/user/create');
     }
-    
+
     /**
      * @Given /^I should see that "([^"]*)" field has value "([^"]*)"$/
      */
@@ -117,7 +117,7 @@ class FeatureContext extends MinkContext
         );
         $dropdown->click();
     }
-    
+
     /**
      * @Given /^I click the "([^"]*)" type under the Add Role Assignment dropdown$/
      */
@@ -129,7 +129,7 @@ class FeatureContext extends MinkContext
             $session->getSelectorsHandler()->selectorToXpath('css', '#AddRoleAssignmentButtonMenu a[data-key='.$arg1.']')
         );
         $selection->click();
-        
+
         $session->wait(5000, "$('.rbac-assignment.rbac-assignment-".str_replace('-','',$arg1)."').length == 1   ");
     }
 
@@ -144,10 +144,10 @@ class FeatureContext extends MinkContext
             $session->getSelectorsHandler()->selectorToXpath('css', '.rbac-assignment-teamadmin a.rbac-assignment-addteam')
         );
         $addbutton->click();
-        
+
         $session->wait(5000, "$('.rbac-assignment-teamadmin select').length == 1");
     }
-    
+
     /**
      * @Given /^I select team "([^"]*)" from the "([^"]*)" managedTeam field$/
      */
@@ -160,7 +160,7 @@ class FeatureContext extends MinkContext
         );
         $select->selectOption($arg1);
     }
-    
+
     /**
      * @Then /^navigate to the Edit User page of the Account Administration Panel for user with "([^"]*)" "([^"]*)"$/
      */
@@ -173,5 +173,5 @@ class FeatureContext extends MinkContext
         }
         $this->iNavigateToTheEditPageForUser($id);
     }
-    
+
 }
