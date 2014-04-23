@@ -29,6 +29,11 @@ class Account extends BaseAccount implements UserInterface, AccountRbacInterface
         $this->roleAssignments = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->roleAssignments = new ArrayCollection();
+    }
+
     /**
      * @return Collection
      */

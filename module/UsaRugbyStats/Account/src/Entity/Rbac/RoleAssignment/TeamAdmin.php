@@ -18,6 +18,11 @@ class TeamAdmin extends BaseAssignment
         $this->managedTeams = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->managedTeams = new ArrayCollection();
+    }
+
     /**
      * @return Collection
      */

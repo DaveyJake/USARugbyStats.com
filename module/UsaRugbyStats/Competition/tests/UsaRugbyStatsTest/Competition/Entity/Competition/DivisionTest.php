@@ -14,6 +14,21 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeamMemberships());
     }
 
+    /**
+     * If the entity is to be used in a form collection it's internal Doctrine collections must
+     * be reinitialized on clone or else all the clones will share the same instance of each collection
+     *
+     * @group GH-20
+     */
+    public function testDoctrineCollectionsAreReplacedWhenObjectIsCloned()
+    {
+        $obj = new Division();
+        $coll = $obj->getTeamMemberships();
+
+        $newObj = clone $obj;
+        $this->assertNotSame($coll, $newObj->getTeamMemberships());
+    }
+
     public function testGetSetCompetition()
     {
         $comp = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');

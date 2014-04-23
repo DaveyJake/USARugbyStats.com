@@ -9,6 +9,24 @@ use UsaRugbyStats\Account\Entity\Rbac\Permission;
 
 class RoleTest extends ServiceManagerTestCase
 {
+
+    /**
+     * If the entity is to be used in a form collection it's internal Doctrine collections must
+     * be reinitialized on clone or else all the clones will share the same instance of each collection
+     *
+     * @group GH-20
+     */
+    public function testDoctrineCollectionsAreReplacedWhenObjectIsCloned()
+    {
+        $obj = new Role('foo');
+        $collChildren = $obj->getChildren();
+        $collPermissions = $obj->getPermissions();
+
+        $newObj = clone $obj;
+        $this->assertNotSame($collChildren, $newObj->getChildren());
+        $this->assertNotSame($collPermissions, $newObj->getPermissions());
+    }
+
     public function testConstructorSetsRoleName()
     {
         $obj = new Role('foo');

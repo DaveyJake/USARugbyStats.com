@@ -9,6 +9,22 @@ use UsaRugbyStats\Account\Entity\Rbac\Role;
 
 class AccountTest extends ServiceManagerTestCase
 {
+
+    /**
+     * If the entity is to be used in a form collection it's internal Doctrine collections must
+     * be reinitialized on clone or else all the clones will share the same instance of each collection
+     *
+     * @group GH-20
+     */
+    public function testDoctrineCollectionsAreReplacedWhenObjectIsCloned()
+    {
+        $obj = new Account();
+        $coll = $obj->getRoleAssignments();
+
+        $newObj = clone $obj;
+        $this->assertNotSame($coll, $newObj->getRoleAssignments());
+    }
+
     public function testSetRoleAssignments()
     {
         $obj = new Account();

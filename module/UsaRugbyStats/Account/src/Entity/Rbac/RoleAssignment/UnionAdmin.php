@@ -18,6 +18,11 @@ class UnionAdmin extends BaseAssignment
         $this->managedUnions = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->managedUnions = new ArrayCollection();
+    }
+
     /**
      * @return Collection
      */

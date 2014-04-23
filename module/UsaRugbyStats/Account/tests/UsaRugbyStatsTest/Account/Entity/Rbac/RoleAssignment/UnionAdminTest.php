@@ -8,6 +8,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class UnionAdminTest extends ServiceManagerTestCase
 {
+
+    /**
+     * If the entity is to be used in a form collection it's internal Doctrine collections must
+     * be reinitialized on clone or else all the clones will share the same instance of each collection
+     *
+     * @group GH-20
+     */
+    public function testDoctrineCollectionsAreReplacedWhenObjectIsCloned()
+    {
+        $obj = new UnionAdmin();
+        $coll = $obj->getManagedUnions();
+
+        $newObj = clone $obj;
+        $this->assertNotSame($coll, $newObj->getManagedUnions());
+    }
+
     public function testSetManagedUnions()
     {
         $obj = new UnionAdmin();

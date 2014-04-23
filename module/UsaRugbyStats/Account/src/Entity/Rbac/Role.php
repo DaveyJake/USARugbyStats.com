@@ -32,6 +32,12 @@ class Role implements HierarchicalRoleInterface
         $this->permissions = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->children = new ArrayCollection();
+        $this->permissions = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;

@@ -51,6 +51,11 @@ class MatchTeam
         $this->players = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->players = new ArrayCollection();
+    }
+
     /**
      * Match Identifier
      *

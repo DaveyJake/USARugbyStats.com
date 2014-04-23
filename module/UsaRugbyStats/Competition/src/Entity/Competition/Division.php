@@ -41,6 +41,11 @@ class Division
         $this->teamMemberships = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->teamMemberships = new ArrayCollection();
+    }
+
     /**
      * Division Identifier
      *
