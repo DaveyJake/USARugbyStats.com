@@ -81,6 +81,7 @@ class CompetitionMatchAdminController extends AbstractActionController
             $data['match']['competition'] = $competition->getId();
 
             $result = $this->getMatchService()->update($form, $data);
+            print_r($form->getMessages());
             if ($result instanceof Match) {
                 $this->flashMessenger()->addSuccessMessage('The match was updated successfully!');
 

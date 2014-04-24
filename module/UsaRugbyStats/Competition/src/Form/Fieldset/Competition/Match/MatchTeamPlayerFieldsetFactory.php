@@ -4,9 +4,9 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition\Match;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
-use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
+use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
 
-class MatchTeamFieldsetFactory implements FactoryInterface
+class MatchTeamPlayerFieldsetFactory implements FactoryInterface
 {
     /**
      * Create service
@@ -18,12 +18,11 @@ class MatchTeamFieldsetFactory implements FactoryInterface
     {
         $om = $sm->get('zfcuser_doctrine_em');
 
-        $fsMatchTeamPlayer = $sm->get('usarugbystats_competition_competition_match_teamplayer_fieldset');        
-        $form = new MatchTeamFieldset($om, $fsMatchTeamPlayer);
+        $form = new MatchTeamPlayerFieldset($om);
 
         // Set the hydrator
         $form->setHydrator(new DoctrineObject($om));
-        $form->setObject(new MatchTeam());
+        $form->setObject(new MatchTeamPlayer());
 
         return $form;
     }

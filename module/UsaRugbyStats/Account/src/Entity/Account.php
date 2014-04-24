@@ -153,4 +153,10 @@ class Account extends BaseAccount implements UserInterface, AccountRbacInterface
 
         return $this->roleCache;
     }
+   
+
+    public function __toString()
+    {
+        return $this->getDisplayName();
+    }
 }

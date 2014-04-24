@@ -253,4 +253,8 @@ class MatchTeam
         return $this->players->contains($p);
     }
 
+    public function __toString()
+    {
+        return $this->getTeam()->getName();
+    }
 }

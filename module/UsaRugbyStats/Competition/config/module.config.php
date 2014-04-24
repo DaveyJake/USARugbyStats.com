@@ -34,6 +34,7 @@ return array(
             'usarugbystats_competition_competition_match_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\Competition\MatchFilterFactory',
 
             'usarugbystats_competition_competition_match_team_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamFieldsetFactory',
+            'usarugbystats_competition_competition_match_teamplayer_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamPlayerFieldsetFactory',
 
         ),
         'shared' => array(
@@ -54,6 +55,7 @@ return array(
             'usarugbystats_competition_competition_match_updateform' => false,
 
             'usarugbystats_competition_competition_match_team_fieldset' => false,
+            'usarugbystats_competition_competition_match_teamplayer_fieldset' => false,
 
             'usarugbystats_competition_competition_division_fieldset' => false,
             'usarugbystats_competition_competition_teammembership_fieldset' => false,
