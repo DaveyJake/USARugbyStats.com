@@ -20,8 +20,9 @@ class MatchFieldsetFactory implements FactoryInterface
 
         $fsHomeTeam = $sm->get('usarugbystats_competition_competition_match_team_fieldset');
         $fsAwayTeam = $sm->get('usarugbystats_competition_competition_match_team_fieldset');
+        $fsSignature = $sm->get('usarugbystats_competition_competition_match_signature_fieldset');
 
-        $form = new MatchFieldset($om, $fsHomeTeam, $fsAwayTeam);
+        $form = new MatchFieldset($om, $fsHomeTeam, $fsAwayTeam, $fsSignature);
 
         // Set the hydrator
         $form->setHydrator(new DoctrineObject($om));

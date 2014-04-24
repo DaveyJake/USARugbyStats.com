@@ -1,8 +1,11 @@
 <?php
 namespace UsaRugbyStats\Competition\Entity\Competition;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
+use Doctrine\Common\Collections\Collection;
+use UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature;
 
 /**
  * Competition Match
@@ -55,6 +58,23 @@ class Match
      * @var string
      */
     protected $status = 'NS';
+
+    /**
+     * Match Signatures
+     *
+     * @var Collection
+     */
+    protected $signatures;
+
+    public function __construct()
+    {
+        $this->signatures = new ArrayCollection();
+    }
+
+    public function __clone()
+    {
+        $this->signatures = new ArrayCollection();
+    }
 
     /**
      * Match Identifier
@@ -223,6 +243,90 @@ class Match
         $this->status = $status;
 
         return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getSignatures()
+    {
+        return $this->signatures;
+    }
+
+    /**
+     * @param  Collection $signatures
+     * @return self
+     */
+    public function setSignatures(Collection $signatures)
+    {
+        $this->signatures->clear();
+        $this->addSignatures($signatures);
+
+        return $this;
+    }
+
+    /**
+     * @param  Collection $signatures
+     * @return self
+     */
+    public function addSignatures(Collection $signatures)
+    {
+        if (count($signatures)) {
+            foreach ($signatures as $ra) {
+                $this->addSignature($ra);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  Signature $obj
+     * @return self
+     */
+    public function addSignature(MatchSignature $obj)
+    {
+        $obj->setMatch($this);
+        $this->signatures->set($obj->getType(), $obj);
+
+        return $this;
+    }
+
+    /**
+     * @param  Collection $signatures
+     * @return self
+     */
+    public function removeSignatures(Collection $signatures)
+    {
+        if (count($signatures)) {
+            foreach ($signatures as $ra) {
+                $this->removeSignature($ra);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  MatchSignature $obj
+     * @return self
+     */
+    public function removeSignature(MatchSignature $obj)
+    {
+        $obj->setMatch(NULL);
+        $this->signatures->removeElement($obj);
+
+        return $this;
+    }
+
+    /**
+     * @param  MatchSignature $obj
+     * @return bool
+     */
+    public function hasSignature(MatchSignature $obj)
+    {
+        return $this->signatures->contains($obj)
+            || $this->signatures->containsKey($obj->getType());
     }
 
     /**

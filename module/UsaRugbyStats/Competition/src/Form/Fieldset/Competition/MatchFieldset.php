@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class MatchFieldset extends Fieldset
 {
 
-    public function __construct(ObjectManager $om, Match\MatchTeamFieldset $fsHomeTeam, Match\MatchTeamFieldset $fsAwayTeam)
+    public function __construct(ObjectManager $om, Match\MatchTeamFieldset $fsHomeTeam, Match\MatchTeamFieldset $fsAwayTeam, Match\MatchSignatureFieldset $fsSignature)
     {
         parent::__construct('match');
 
@@ -65,6 +65,16 @@ class MatchFieldset extends Fieldset
                     'C' => 'Cancelled',
                 ]
             ),
+        ));
+
+        $this->add(array(
+            'type'    => 'Zend\Form\Element\Collection',
+            'name'    => 'signatures',
+            'options' => array(
+                'target_element' => $fsSignature,
+                'should_create_template' => true,
+                'template_placeholder' => '__sigindex__',
+            )
         ));
     }
 
