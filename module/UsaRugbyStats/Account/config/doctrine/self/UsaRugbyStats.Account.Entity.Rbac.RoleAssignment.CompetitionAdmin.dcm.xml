@@ -5,6 +5,17 @@
 
     <entity name="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\CompetitionAdmin" table="accounts_rbac_roleassignment_competition_admin">
 
+        <many-to-many field="managedCompetitions" target-entity="UsaRugbyStats\Competition\Entity\Competition">
+            <join-table name="accounts_rbac_roleassignment_competition_admin_managedcomps">
+                <join-columns>
+                    <join-column name="ra_id" referenced-column-name="id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="competition_id" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
     </entity>
 
 </doctrine-mapping>

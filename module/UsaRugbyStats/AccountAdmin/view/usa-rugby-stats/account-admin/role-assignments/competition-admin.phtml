@@ -1,11 +1,68 @@
+<?php
+use UsaRugbyStats\Competition\Entity\Competition;
+
+foreach ( $this->fieldset as $item ) {
+    $item->setLabelAttributes(array('class' => 'col-md-2 control-label'));
+    $item->setAttributes(array('class' => 'form-control'));
+}
+
+function managedCompetitionTemplate($view, $element, $competition = null, $isTemplate = false)
+{
+    $competitionId = $view->escapeHtmlAttr($element->getValue());
+    $hiddenElement = $isTemplate ? $view->formSelect($element) : $view->formHidden($element);
+    $competitionName = $view->escapeHtml(( $competition instanceof Competition ) ? $competition->getName() : (string)$competition);
+
+    return <<<EOB
+            <tr data-competitionid="{$competitionId}">
+                <td>
+                    {$hiddenElement}
+                    {$competitionName}
+                </td>
+                <td class="col-sm-2" style="text-align:right"><a class="btn btn-xs btn-danger dropcompetition" title="Remove Competition"><i class="glyphicon glyphicon-trash"></i></a></td>
+            </tr>
+EOB;
+}
+
+?>
+
 <div class="rbac-assignment rbac-assignment-competitionadmin panel panel-default" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
     <div class="panel-heading">
         Competition Administrator
         <div class="pull-right">
-            <a class="btn btn-xs btn-danger rbac-assignment-delete"><i class="glyphicon glyphicon-trash"></i></a>
+            <a class="btn btn-xs btn-success rbac-assignment-addcompetition" title="Add Competition"><i class="glyphicon glyphicon-plus-sign"></i></a>
+            <a class="btn btn-xs btn-danger rbac-assignment-delete" title="Remove Role Assignment"><i class="glyphicon glyphicon-trash"></i></a>
         </div>
     </div>
 
     <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
+
+    <?php $element = $this->fieldset->get('managedCompetitions'); ?>
+    <table class="table table-striped">
+        <tbody style="border:0">
+
+    <?php if ( ! isset($isTemplate) || ! $isTemplate ): ?>
+    <?php foreach ( $element->getElements() as $competitionElement ): ?>
+    <?php   $competition = $fieldset->getCompetition($competitionElement->getValue()); ?>
+    <?php   if ( $competition instanceof Competition ): ?>
+    <?php     echo managedCompetitionTemplate($this, $competitionElement, $competition); ?>
+    <?php   endif; ?>
+    <?php endforeach; ?>
+    <?php endif; ?>
+
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        var managedCompetitionsSelectorTemplate = '<?php echo $this->escapeJs(managedCompetitionTemplate($this, $element->getTemplateElement(), null, true)); ?>';
+        var managedCompetitionIndex = <?php echo $this->escapeJs(count($element)); ?>;
+
+        $(document).on('click', '.rbac-assignment-competitionadmin .rbac-assignment-addcompetition', function() {
+            var html = managedCompetitionsSelectorTemplate.replace(/__index__/g, managedCompetitionIndex++);
+            $('.rbac-assignment-competitionadmin table tbody').append(html);
+        });
+        $(document).on('click', '.rbac-assignment-competitionadmin .dropcompetition', function() {
+            $(this).closest('*[data-competitionid]').remove();
+        });
+    </script>
 
 </div>
