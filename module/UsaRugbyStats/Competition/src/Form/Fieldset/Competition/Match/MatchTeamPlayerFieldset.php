@@ -28,7 +28,7 @@ class MatchTeamPlayerFieldset extends Fieldset
                 'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
             ),
         ));
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'number',

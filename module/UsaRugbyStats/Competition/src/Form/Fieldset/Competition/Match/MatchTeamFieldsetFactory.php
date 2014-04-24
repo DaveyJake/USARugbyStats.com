@@ -18,7 +18,7 @@ class MatchTeamFieldsetFactory implements FactoryInterface
     {
         $om = $sm->get('zfcuser_doctrine_em');
 
-        $fsMatchTeamPlayer = $sm->get('usarugbystats_competition_competition_match_teamplayer_fieldset');        
+        $fsMatchTeamPlayer = $sm->get('usarugbystats_competition_competition_match_teamplayer_fieldset');
         $form = new MatchTeamFieldset($om, $fsMatchTeamPlayer);
 
         // Set the hydrator
