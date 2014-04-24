@@ -32,7 +32,9 @@
         </thead>
         <tbody>
             <?php foreach ( $fieldset->get('players') as $fsPlayer ): ?>
-            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', ['fieldset' => $fsPlayer]); ?>
+            <?php   if ( !empty($fsPlayer->get('id')->getValue()) ): ?>
+            <?php     echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', ['fieldset' => $fsPlayer]); ?>
+            <?php   endif; ?>
             <?php endforeach; ?>
         </tbody>
         <tfoot>
