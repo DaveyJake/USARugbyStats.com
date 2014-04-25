@@ -76,6 +76,7 @@ class MatchFieldset extends Fieldset
                 'template_placeholder' => '__sigindex__',
             )
         ));
+
     }
 
 }

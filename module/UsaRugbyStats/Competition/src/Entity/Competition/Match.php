@@ -53,6 +53,13 @@ class Match
     protected $awayTeam;
 
     /**
+     * Match Events
+     *
+     * @var Collection
+     */
+    protected $events;
+
+    /**
      * Status of Match
      *
      * @var string

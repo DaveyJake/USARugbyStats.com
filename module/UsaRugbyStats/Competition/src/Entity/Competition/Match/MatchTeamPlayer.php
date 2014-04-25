@@ -196,4 +196,9 @@ class MatchTeamPlayer
         return $this;
     }
 
+    public function __toString()
+    {
+        return '#' . $this->getNumber() . ' - ' . $this->getPlayer()->getDisplayName();
+    }
+
 }

@@ -44,16 +44,21 @@ class MatchTeam
      */
     protected $score;
 
-    //@TODO events
+    /**
+     * @var Collection
+     */
+    protected $events;
 
     public function __construct()
     {
         $this->players = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function __clone()
     {
         $this->players = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     /**
@@ -251,6 +256,93 @@ class MatchTeam
         }
 
         return $this->players->contains($p);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param  Collection $events
+     * @return self
+     */
+    public function setEvents(Collection $events)
+    {
+        $this->events->clear();
+        $this->addEvents($events);
+
+        return $this;
+    }
+
+    /**
+     * @param  Collection $events
+     * @return self
+     */
+    public function addEvents(Collection $events)
+    {
+        if (count($events)) {
+            foreach ($events as $p) {
+                $this->addEvent($p);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  MatchTeamEvent $role
+     * @return self
+     */
+    public function addEvent(MatchTeamEvent $p)
+    {
+        if ( ! $this->hasEvent($p) ) {
+            $p->setMatch($this->getMatch());
+            $p->setTeam($this);
+            $this->events->add($p);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  Collection $events
+     * @return self
+     */
+    public function removeEvents(Collection $events)
+    {
+        if (count($events)) {
+            foreach ($events as $p) {
+                $this->removeEvent($p);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  MatchTeamEvent $role
+     * @return self
+     */
+    public function removeEvent(MatchTeamEvent $p)
+    {
+        $p->setMatch(NULL);
+        $p->setTeam(NULL);
+        $this->events->removeElement($p);
+
+        return $this;
+    }
+
+    /**
+     * @param  MatchTeamEvent $role
+     * @return bool
+     */
+    public function hasEvent($p)
+    {
+        return $this->events->contains($p);
     }
 
     public function __toString()

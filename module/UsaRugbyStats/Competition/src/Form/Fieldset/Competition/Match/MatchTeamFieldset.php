@@ -4,11 +4,12 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition\Match;
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
 use Zend\Form\FieldsetInterface;
+use Zend\Form\Element\Collection;
 
 class MatchTeamFieldset extends Fieldset
 {
 
-    public function __construct(ObjectManager $om, FieldsetInterface $fsMatchTeamPlayer)
+    public function __construct(ObjectManager $om, FieldsetInterface $fsMatchTeamPlayer, Collection $collEvents)
     {
         parent::__construct('match-team');
 
@@ -51,6 +52,9 @@ class MatchTeamFieldset extends Fieldset
                 'template_placeholder' => '__playerindex__',
             )
         ));
+
+        $this->add($collEvents);
+
     }
 
 }

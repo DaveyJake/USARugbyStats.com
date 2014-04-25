@@ -32,7 +32,11 @@
 
         <field name="score" type="integer" nullable="true" />
 
-        <!-- @TODO events -->
+        <one-to-many field="events" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent" mapped-by="team" orphan-removal="true">
+            <cascade>
+            	<cascade-all />
+            </cascade>
+        </one-to-many>
 
     </entity>
 
