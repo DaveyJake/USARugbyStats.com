@@ -14,7 +14,7 @@
         	<join-column name="team_id" referenced-column-name="id" />
         </many-to-one>
 
-        <field name="minute" type="string" length="3" />
+        <field name="minute" type="smallint" />
 
         <discriminator-column name="event" type="string" length="5" />
         <discriminator-map>
