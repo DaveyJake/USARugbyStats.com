@@ -67,15 +67,15 @@ class MatchFieldset extends Fieldset
             ),
         ));
 
-        $this->add(array(
-            'type'    => 'Zend\Form\Element\Collection',
-            'name'    => 'signatures',
-            'options' => array(
-                'target_element' => $fsSignature,
-                'should_create_template' => true,
-                'template_placeholder' => '__sigindex__',
-            )
-        ));
+//         $this->add(array(
+//             'type'    => 'Zend\Form\Element\Collection',
+//             'name'    => 'signatures',
+//             'options' => array(
+//                 'target_element' => $fsSignature,
+//                 'should_create_template' => true,
+//                 'template_placeholder' => '__sigindex__',
+//             )
+//         ));
 
     }
 
