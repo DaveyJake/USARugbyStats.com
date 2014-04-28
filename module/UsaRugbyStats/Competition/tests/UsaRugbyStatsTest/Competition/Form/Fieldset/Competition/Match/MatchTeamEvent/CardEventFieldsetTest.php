@@ -13,7 +13,7 @@ class CardEventFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $fieldset = new CardEventFieldset($om);
 
-        $this->assertEquals('match-team-event', $fieldset->getName());
+        $this->assertEquals('card', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('minute'));
         $this->assertTrue($fieldset->has('event'));

@@ -13,7 +13,7 @@ class ScoreEventFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $fieldset = new ScoreEventFieldset($om);
 
-        $this->assertEquals('match-team-event', $fieldset->getName());
+        $this->assertEquals('score', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('minute'));
         $this->assertTrue($fieldset->has('event'));

@@ -10,7 +10,7 @@ class MatchTeamEventFieldsetTest extends \PHPUnit_Framework_TestCase
     {
         $om = Mockery::mock('Doctrine\Common\Persistence\ObjectManager');
 
-        $fieldset = new LocalMatchTeamEventFieldset($om);
+        $fieldset = new LocalMatchTeamEventFieldset('local', $om);
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('minute'));
         $this->assertTrue($fieldset->has('event'));
