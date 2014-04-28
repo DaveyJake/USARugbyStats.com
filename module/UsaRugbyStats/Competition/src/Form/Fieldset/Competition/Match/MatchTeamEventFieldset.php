@@ -7,9 +7,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 class MatchTeamEventFieldset extends Fieldset
 {
 
-    public function __construct(ObjectManager $om)
+    public function __construct($name, ObjectManager $om)
     {
-        parent::__construct('match-team-event');
+        parent::__construct($name);
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',

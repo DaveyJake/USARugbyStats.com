@@ -9,7 +9,7 @@ class SubEventFieldset extends MatchTeamEventFieldset
 
     public function __construct(ObjectManager $om)
     {
-        parent::__construct($om);
+        parent::__construct('sub', $om);
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
