@@ -1,0 +1,28 @@
+<?php
+if ( ! preg_match('{^UsaRugbyStats\\\\Competition\\\\Form\\\\Fieldset\\\\Competition\\\\Match\\\\MatchTeamEvent\\\\(.*)EventFieldset$}is', get_class($fieldset), $matches) ) {
+    return;
+}
+$fieldset->get('event')->setValue(strtolower($matches[1]));
+?>
+<tr>
+    <td class="column column-minute">
+        <?php $element = $fieldset->get('minute'); ?>
+        <?php $element->setAttributes(['class' => 'input-sm', 'size' => '1']); ?>
+        <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+    </td>
+
+    <td class="column column-type">
+        <?php $element = $fieldset->get('event'); ?>
+        <?php echo $this->escapeHtml($element->getValue()); ?>
+        <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+    </td>
+
+    <td style="padding:0px" class="column column-data">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event/' . $fieldset->get('event')->getValue(), $this->vars()); ?>
+    </td>
+
+    <td>
+        <?php echo $this->formHidden($fieldset->get('id')); ?>
+        <a class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove competition-match-team-events-removeevent"></i></a>
+    </td>
+</tr>

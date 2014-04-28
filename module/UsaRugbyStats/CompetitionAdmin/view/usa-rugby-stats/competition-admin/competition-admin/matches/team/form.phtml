@@ -20,43 +20,8 @@
         </div>
     </div>
 
-    <table class="table table-striped table-bordered competition-match-team-roster">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Player</th>
-                <th>Position</th>
-                <th>FR?</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ( $fieldset->get('players') as $fsPlayer ): ?>
-            <?php   if ( !empty($fsPlayer->get('id')->getValue()) ): ?>
-            <?php     echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', ['fieldset' => $fsPlayer]); ?>
-            <?php   endif; ?>
-            <?php endforeach; ?>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5">
-                    <a class="btn btn-sm btn-primary competition-match-team-roster-addplayer" title="Add a Player"><i class="glyphicon glyphicon-plus-sign"></i> Add a Player</a>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-
-    <script type="text/javascript">
-        var rosterPlayerTemplate<?=$type?> = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', ['fieldset' => $fieldset->get('players')->getTemplateElement(), 'isTemplate' => true])); ?>';
-        var rosterPlayerIndex<?=$type?> = <?php echo $this->escapeJs(count($fieldset->get('players'))); ?>;
-
-        $(document).on('click', '.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster-addplayer', function() {
-            var html = rosterPlayerTemplate<?=$type?>.replace(/__playerindex__/g, rosterPlayerIndex<?=$type?>++);
-            $('.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster tbody').append(html);
-        });
-        $(document).on('click', '.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster-removeplayer', function() {
-            $(this).closest('tr').remove();
-        });
-    </script>
+    <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/players', $this->vars()); ?>
 
 </div>
+
+<?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/events', $this->vars()); ?>

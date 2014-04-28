@@ -1,0 +1,62 @@
+<div class="panel panel-default competition-match-team competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?>-events">
+    <div class="panel-heading">
+        <?= ($type == 'H') ? 'Home' : 'Away'; ?> Team Events
+    </div>
+
+    <table class="table table-striped table-bordered competition-match-team-events">
+        <thead>
+            <tr>
+                <th style="width:30px">Minute</th>
+                <th>Type</th>
+                <th>Data</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $elementCount = 0; ?>
+            <?php foreach ( $fieldset->get('events') as $fsEvent ): ?>
+            <?php   if ( !empty($fsEvent->get('id')->getValue()) ): ?>
+            <?php     echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['fieldset' => $fsEvent]); ?>
+            <?php     $elementCount++; ?>
+            <?php   endif; ?>
+            <?php endforeach; ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+
+                    <div class="btn-group competition-match-team-events-addevent">
+                        <a class="btn btn-sm btn-primary" title="Add an Event" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-plus-sign"></i> Add an Event&nbsp;&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <?php foreach ($fieldset->get('events')->getTargetElement() as $item): ?>
+                            <li><a href="javascript:;" data-key="<?php echo $this->escapeHtmlAttr($item->getName()); ?>"><?php echo $this->escapeHtml($item->getName()); ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script type="text/javascript">
+        var teamEventTemplate<?=$type?> = {};
+<?php foreach ( $fieldset->get('events')->getTemplateElement() as $fsTmpl ): ?>
+<?php   if ( preg_match('{^UsaRugbyStats\\\\Competition\\\\Form\\\\Fieldset\\\\Competition\\\\Match\\\\MatchTeamEvent\\\\(.*)EventFieldset$}is', get_class($fsTmpl), $matches) ): ?>
+        teamEventTemplate<?=$type?>['<?=strtolower($matches[1]);?>'] = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['fieldset' => $fsTmpl, 'isTemplate' => true])); ?>';
+<?php   endif; ?>
+<?php endforeach; ?>
+        var teamEventIndex<?=$type?> = <?php echo $this->escapeJs($elementCount); ?>;
+
+        $(document).on('click', '.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?>-events .competition-match-team-events-addevent .dropdown-menu li a', function() {
+            var html = teamEventTemplate<?=$type?>[$(this).attr('data-key')].replace(/__eventindex__/g, teamEventIndex<?=$type?>++);
+            $('.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?>-events .competition-match-team-events > tbody').append(html);
+        });
+        $(document).on('click', '.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?>-events .competition-match-team-events-removeevent', function() {
+            $(this).closest('tr').remove();
+        });
+    </script>
+
+</div>
