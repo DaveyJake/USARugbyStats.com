@@ -224,6 +224,7 @@ class NonuniformCollection extends Collection
                 $this->templateElement[$class]->setName($this->templatePlaceholder);
             }
         }
+
         return $this->templateElement;
     }
 }

@@ -43,6 +43,13 @@ class MatchService implements EventManagerAwareInterface
      */
     protected $updateForm;
 
+    /**
+     * List of available MatchTeamEvent types
+     *
+     * @var array
+     */
+    protected $availableMatchTeamEventTypes;
+
     public function findByID($id)
     {
         $id = StaticFilter::execute($id, 'Digits');
@@ -75,6 +82,7 @@ class MatchService implements EventManagerAwareInterface
         $entity = new $entityClass;
         $form->bind($entity);
 
+        $this->populateTeamEventDataInputDataWithEntityClassNames($data);
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
@@ -99,6 +107,7 @@ class MatchService implements EventManagerAwareInterface
      */
     public function update(FormInterface $form, array $data)
     {
+        $this->populateTeamEventDataInputDataWithEntityClassNames($data);
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
@@ -123,6 +132,39 @@ class MatchService implements EventManagerAwareInterface
     {
         $this->getMatchObjectManager()->remove($entity);
         $this->getMatchObjectManager()->flush();
+    }
+
+    protected function populateTeamEventDataInputDataWithEntityClassNames(&$data)
+    {
+        $types = $this->getAvailableMatchTeamEventTypes();
+
+        foreach (['homeTeam', 'awayTeam'] as $team) {
+            if ( ! isset($data['match'][$team]['events']) || count($data['match'][$team]['events']) == 0 ) {
+                $data['match'][$team]['events'] = array();
+            }
+            // Inject the entity class name into the POST request data
+            // so that NonuniformCollection knows what entity to create
+            foreach ($data['match'][$team]['events'] as $k=>$v) {
+                $key = strtolower($v['event']);
+                if ( ! isset($types[$key]) ) {
+                    unset($data['match'][$team]['events'][$k]);
+                    continue;
+                }
+                $data['match'][$team]['events'][$k]['__class__'] = $types[$key]['entity_class'];
+            }
+        }
+    }
+
+    public function setAvailableMatchTeamEventTypes($set)
+    {
+        $this->availableMatchTeamEventTypes = $set;
+
+        return $this;
+    }
+
+    public function getAvailableMatchTeamEventTypes()
+    {
+        return $this->availableMatchTeamEventTypes;
     }
 
     public function setCreateForm(FormInterface $f)
