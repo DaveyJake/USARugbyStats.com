@@ -43,13 +43,7 @@ class MatchSignatureFieldset extends Fieldset
             ),
         ));
 
-        $this->add(array(
-            'type' => 'Zend\Form\Element\DateTime',
-            'name' => 'datetime',
-            'options' => array(
-                'label' => 'Timestamp',
-            ),
-        ));
+        // timestamp field purposefully omitted (no modification allowed)
     }
 
 }
