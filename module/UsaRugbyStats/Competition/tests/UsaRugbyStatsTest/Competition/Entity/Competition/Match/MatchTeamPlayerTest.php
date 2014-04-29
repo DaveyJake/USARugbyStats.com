@@ -7,6 +7,25 @@ use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
 
 class MatchTeamPlayerTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetSetId()
+    {
+        $obj = new MatchTeamPlayer();
+        $this->assertNull($obj->getId());
+        $obj->setId(12345);
+        $this->assertEquals(12345, $obj->getId());
+    }
+
+    public function testCanBeConvertedToString()
+    {
+        $mockPlayer = Mockery::mock('UsaRugbyStats\Application\Entity\AccountInterface');
+        $mockPlayer->shouldReceive('getDisplayName')->andReturn('Foobar');
+
+        $obj = new MatchTeamPlayer();
+        $obj->setPlayer($mockPlayer);
+
+        $this->assertTrue(method_exists($obj, '__toString'));
+        (string) $obj;
+    }
 
     public function testGetSetTeam()
     {
@@ -26,6 +45,26 @@ class MatchTeamPlayerTest extends \PHPUnit_Framework_TestCase
         // Test setting to null (disassociate from MatchTeam)
         $obj->setTeam(NULL);
         $this->assertNull($obj->getTeam());
+    }
+
+    public function testGetSetPlayer()
+    {
+        $obj = new MatchTeamPlayer();
+
+        $player = Mockery::mock('UsaRugbyStats\Application\Entity\AccountInterface');
+
+        // Test setting to an instance of AccountInterface class
+        $obj->setPlayer($player);
+        $this->assertSame($player, $obj->getPlayer());
+    }
+
+    public function testSetPlayerAcceptsNull()
+    {
+        $obj = new MatchTeamPlayer();
+
+        // Test setting to null (disassociate from the account)
+        $obj->setPlayer(NULL);
+        $this->assertNull($obj->getPlayer());
     }
 
     /**

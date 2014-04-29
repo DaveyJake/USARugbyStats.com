@@ -8,6 +8,29 @@ use UsaRugbyStats\Competition\Entity\Competition;
 
 class CompetitionTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetSetId()
+    {
+        $obj = new Competition();
+        $this->assertNull($obj->getId());
+        $obj->setId(12345);
+        $this->assertEquals(12345, $obj->getId());
+    }
+
+    public function testGetSetName()
+    {
+        $obj = new Competition();
+        $this->assertNull($obj->getName());
+        $obj->setName('Testing 123');
+        $this->assertEquals('Testing 123', $obj->getName());
+    }
+
+    public function testCanBeConvertedToString()
+    {
+        $obj = new Competition();
+        $this->assertTrue(method_exists($obj, '__toString'));
+        (string) $obj;
+    }
+
     public function testConstructorInitializesCollections()
     {
         $obj = new Competition();

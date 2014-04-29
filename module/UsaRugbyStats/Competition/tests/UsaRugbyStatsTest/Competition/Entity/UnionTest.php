@@ -8,10 +8,41 @@ use UsaRugbyStats\Competition\Entity\Union;
 
 class UnionTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetSetId()
+    {
+        $obj = new Union();
+        $this->assertNull($obj->getId());
+        $obj->setId(12345);
+        $this->assertEquals(12345, $obj->getId());
+    }
+
+    public function testGetSetName()
+    {
+        $obj = new Union();
+        $this->assertNull($obj->getName());
+        $obj->setName('Testing 123');
+        $this->assertEquals('Testing 123', $obj->getName());
+    }
+
+    public function testCanBeConvertedToString()
+    {
+        $obj = new Union();
+        $this->assertTrue(method_exists($obj, '__toString'));
+        (string) $obj;
+    }
+
     public function testConstructorInitializesCollections()
     {
         $obj = new Union();
         $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getTeams());
+    }
+
+    public function testCollectionsAreReplacedOnObjectClone()
+    {
+        $obj = new Union();
+        $collection = $obj->getTeams();
+        $obj2 = clone $obj;
+        $this->assertNotSame($obj2->getTeams(), $collection);
     }
 
     public function testSetTeams()

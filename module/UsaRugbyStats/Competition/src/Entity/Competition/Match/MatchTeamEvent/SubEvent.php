@@ -35,6 +35,9 @@ class SubEvent extends MatchTeamEvent
 
     public function setType($type)
     {
+        if ( ! in_array($type, ['BL','IJ', 'FRC', 'TC'], true) ) {
+            throw new \InvalidArgumentException('Signature type must be BL, IJ, FRC or TC');
+        }
         $this->type = $type;
 
         return $this;

@@ -8,6 +8,12 @@ class CardEventTest extends MatchTeamEventTest
 {
     protected $entityClass = 'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\CardEvent';
 
+    public function testGetDiscriminator()
+    {
+        $obj = new $this->entityClass();
+        $this->assertEquals('card', $obj->getDiscriminator());
+    }
+
     public function testGetSetPlayer()
     {
         $obj = new $this->entityClass();
@@ -25,4 +31,27 @@ class CardEventTest extends MatchTeamEventTest
         $obj->setPlayer(NULL);
     }
 
+    /**
+     * @dataProvider providerGetSetType
+     */
+    public function testGetSetType($type, $valid)
+    {
+        if (! $valid) {
+            $this->setExpectedException('InvalidArgumentException');
+        }
+
+        $obj = new $this->entityClass();
+        $obj->setType($type);
+        $this->assertEquals($type, $obj->getType());
+    }
+
+    /**
+     * Data Provider for testGetSetType (lists valid Card types)
+     *
+     * @return array
+     */
+    public function providerGetSetType()
+    {
+        return [ ['R',true], ['Y',true], ['X',false], [NULL,false] ];
+    }
 }

@@ -33,6 +33,11 @@ class Union
         $this->teams = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->teams = new ArrayCollection();
+    }
+
     /**
      * Union Identifier
      *
@@ -171,7 +176,7 @@ class Union
      */
     public function __toString()
     {
-        return $this->getName();
+        return (string) $this->getName();
     }
 
 }

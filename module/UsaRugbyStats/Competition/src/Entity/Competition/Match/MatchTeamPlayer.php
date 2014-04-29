@@ -104,7 +104,7 @@ class MatchTeamPlayer
      * @param  AccountInterface $player
      * @return self
      */
-    public function setPlayer(AccountInterface $player)
+    public function setPlayer(AccountInterface $player = NULL)
     {
         $this->player = $player;
 

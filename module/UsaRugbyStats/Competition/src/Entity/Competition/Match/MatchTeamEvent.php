@@ -73,7 +73,7 @@ abstract class MatchTeamEvent
 
     public function setMinute($minute)
     {
-        $this->minute = $minute;
+        $this->minute = (int) $minute;
 
         return $this;
     }

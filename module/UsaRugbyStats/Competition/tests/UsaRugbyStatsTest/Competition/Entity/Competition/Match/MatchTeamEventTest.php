@@ -7,6 +7,30 @@ abstract class MatchTeamEventTest extends \PHPUnit_Framework_TestCase
 {
     protected $entityClass;
 
+    public function testGetSetId()
+    {
+        $obj = new $this->entityClass();
+        $this->assertNull($obj->getId());
+        $obj->setId(12345);
+        $this->assertEquals(12345, $obj->getId());
+    }
+
+    public function testGetSetMinute()
+    {
+        $obj = new $this->entityClass();
+        $this->assertNull($obj->getMinute());
+        $obj->setMinute(29);
+        $this->assertEquals(29, $obj->getMinute());
+    }
+
+    public function testGetSetMinuteAcceptsStringLiteral()
+    {
+        $obj = new $this->entityClass();
+        $this->assertNull($obj->getMinute());
+        $obj->setMinute('29');
+        $this->assertEquals(29, $obj->getMinute());
+    }
+
     public function testGetSetTeam()
     {
         $obj = new $this->entityClass();

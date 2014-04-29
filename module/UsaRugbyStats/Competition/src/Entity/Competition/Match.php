@@ -6,6 +6,7 @@ use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 use Doctrine\Common\Collections\Collection;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature;
+use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
 
 /**
  * Competition Match
@@ -76,11 +77,13 @@ class Match
     public function __construct()
     {
         $this->signatures = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function __clone()
     {
         $this->signatures = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     /**
@@ -334,6 +337,91 @@ class Match
     {
         return $this->signatures->contains($obj)
             || $this->signatures->containsKey($obj->getType());
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param  Collection $events
+     * @return self
+     */
+    public function setEvents(Collection $events)
+    {
+        $this->events->clear();
+        $this->addEvents($events);
+
+        return $this;
+    }
+
+    /**
+     * @param  Collection $events
+     * @return self
+     */
+    public function addEvents(Collection $events)
+    {
+        if (count($events)) {
+            foreach ($events as $ra) {
+                $this->addEvent($ra);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  MatchTeamEvent $role
+     * @return self
+     */
+    public function addEvent(MatchTeamEvent $ra)
+    {
+        if ( ! $this->hasEvent($ra) ) {
+            $ra->setMatch($this);
+            $this->events->add($ra);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  Collection $events
+     * @return self
+     */
+    public function removeEvents(Collection $events)
+    {
+        if (count($events)) {
+            foreach ($events as $ra) {
+                $this->removeEvent($ra);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  MatchTeamEvent $role
+     * @return self
+     */
+    public function removeEvent(MatchTeamEvent $ra)
+    {
+        $ra->setMatch(NULL);
+        $this->events->removeElement($ra);
+
+        return $this;
+    }
+
+    /**
+     * @param  Event $role
+     * @return bool
+     */
+    public function hasEvent(MatchTeamEvent $ra)
+    {
+        return $this->events->contains($ra);
     }
 
     /**

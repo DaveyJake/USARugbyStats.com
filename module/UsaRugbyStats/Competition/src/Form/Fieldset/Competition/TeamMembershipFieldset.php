@@ -10,7 +10,7 @@ class TeamMembershipFieldset extends Fieldset
 
     public function __construct(ObjectManager $om)
     {
-        parent::__construct('division');
+        parent::__construct('team-membership');
 
         $this->teamRepo = $om->getRepository('UsaRugbyStats\Competition\Entity\Team');
 

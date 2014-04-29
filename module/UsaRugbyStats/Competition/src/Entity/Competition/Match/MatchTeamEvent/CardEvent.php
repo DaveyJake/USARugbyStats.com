@@ -32,6 +32,9 @@ class CardEvent extends MatchTeamEvent
 
     public function setType($type)
     {
+        if ( ! in_array($type, ['R','Y'], true) ) {
+            throw new \InvalidArgumentException('Signature type must be (R)ed or (Y)ellow');
+        }
         $this->type = $type;
 
         return $this;

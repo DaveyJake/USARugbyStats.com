@@ -41,6 +41,11 @@ class Team
         $this->teamMemberships = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->teamMemberships = new ArrayCollection();
+    }
+
     /**
      * Team Identifier
      *
@@ -202,7 +207,7 @@ class Team
      */
     public function __toString()
     {
-        return $this->getName();
+        return (string) $this->getName();
     }
 
 }

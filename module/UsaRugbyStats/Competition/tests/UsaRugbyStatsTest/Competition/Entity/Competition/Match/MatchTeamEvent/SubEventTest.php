@@ -8,6 +8,12 @@ class SubEventTest extends MatchTeamEventTest
 {
     protected $entityClass = 'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\SubEvent';
 
+    public function testGetDiscriminator()
+    {
+        $obj = new $this->entityClass();
+        $this->assertEquals('sub', $obj->getDiscriminator());
+    }
+
     public function testGetSetPlayerOn()
     {
         $obj = new $this->entityClass();
@@ -40,5 +46,29 @@ class SubEventTest extends MatchTeamEventTest
         $this->setExpectedException('PHPUnit_Framework_Error');
         $obj = new $this->entityClass();
         $obj->setPlayerOff(NULL);
+    }
+
+    /**
+     * @dataProvider providerGetSetType
+     */
+    public function testGetSetType($type, $valid)
+    {
+        if (! $valid) {
+            $this->setExpectedException('InvalidArgumentException');
+        }
+
+        $obj = new $this->entityClass();
+        $obj->setType($type);
+        $this->assertEquals($type, $obj->getType());
+    }
+
+    /**
+     * Data Provider for testGetSetType (lists valid Sub types)
+     *
+     * @return array
+     */
+    public function providerGetSetType()
+    {
+        return [ ['BL',true], ['IJ',true], ['FRC',true], ['TC',true], ['X',false], [NULL,false] ];
     }
 }

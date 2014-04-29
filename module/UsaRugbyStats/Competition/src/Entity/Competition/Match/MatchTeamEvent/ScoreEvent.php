@@ -32,6 +32,9 @@ class ScoreEvent extends MatchTeamEvent
 
     public function setType($type)
     {
+        if ( ! in_array($type, ['CV','DG','PK','PT','TR'], true) ) {
+            throw new \InvalidArgumentException('Signature type must be CV, DG, PK, PT or TR');
+        }
         $this->type = $type;
 
         return $this;

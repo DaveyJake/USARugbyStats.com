@@ -9,7 +9,7 @@ class MatchTeamPlayerFieldset extends Fieldset
 
     public function __construct(ObjectManager $om)
     {
-        parent::__construct('match-team');
+        parent::__construct('team-player');
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',

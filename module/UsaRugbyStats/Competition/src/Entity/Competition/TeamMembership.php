@@ -137,7 +137,7 @@ class TeamMembership
      */
     public function __toString()
     {
-        return $this->getName();
+        return (string) $this->getTeam()->getName();
     }
 
 }

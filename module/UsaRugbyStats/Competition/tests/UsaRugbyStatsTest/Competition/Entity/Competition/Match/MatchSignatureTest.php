@@ -4,8 +4,46 @@ namespace UsaRugbyStatsTest\Competition\Entity\Competition;
 use Mockery;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature;
 
-class MatchSingatureTest extends \PHPUnit_Framework_TestCase
+class MatchSignatureTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetSetId()
+    {
+        $obj = new MatchSignature();
+        $this->assertNull($obj->getId());
+        $obj->setId(12345);
+        $this->assertEquals(12345, $obj->getId());
+    }
+
+    public function testGetSetTimestamp()
+    {
+        $dt = new \DateTime();
+
+        $obj = new MatchSignature();
+        $obj->setTimestamp($dt);
+        $this->assertSame($dt, $obj->getTimestamp());
+    }
+
+    public function testGetSetTimestampHasADefaultValue()
+    {
+        $obj = new MatchSignature();
+        $this->assertInstanceOf('DateTime', $obj->getTimestamp());
+    }
+
+    public function testGetSetTimestampOnlyAcceptsDateTimeObjects()
+    {
+        $this->setExpectedException('PHPUnit_Framework_Error');
+
+        $obj = new MatchSignature();
+        $obj->setTimestamp('now');
+    }
+
+    public function testSetTimestampDoesNotAcceptNull()
+    {
+        $this->setExpectedException('PHPUnit_Framework_Error');
+
+        $obj = new MatchSignature();
+        $obj->setTimestamp(NULL);
+    }
 
     public function testGetSetMatch()
     {

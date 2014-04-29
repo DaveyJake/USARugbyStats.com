@@ -42,7 +42,7 @@ class MatchTeam
     /**
      * @var integer
      */
-    protected $score;
+    protected $score = 0;
 
     /**
      * @var Collection
@@ -250,7 +250,7 @@ class MatchTeam
     public function hasPlayer($p)
     {
         if ($p instanceof AccountInterface) {
-            return $this->players->exists(function (MatchTeamPlayer $obj) use ($p) {
+            return $this->players->exists(function ($i, MatchTeamPlayer $obj) use ($p) {
                 return $obj->getPlayer()->getId() == $p->getId();
             });
         }
@@ -347,6 +347,6 @@ class MatchTeam
 
     public function __toString()
     {
-        return $this->getTeam()->getName();
+        return (string) $this->getTeam()->getName();
     }
 }
