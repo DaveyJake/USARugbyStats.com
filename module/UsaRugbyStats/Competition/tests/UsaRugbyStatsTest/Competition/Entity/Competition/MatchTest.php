@@ -239,7 +239,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
 
         $sig0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature');
         $sig0->shouldReceive('getType')->andReturn('HC');
-        $sig0->shouldReceive('setMatch')->withArgs([$obj])->twice()->andReturnSelf();
+        $sig0->shouldReceive('setMatch')->withArgs([$obj])->once()->andReturnSelf();
 
         // Add signature0 twice
         $coll = new ArrayCollection();

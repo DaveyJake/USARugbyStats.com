@@ -38,7 +38,7 @@
 
 		<field name="status" type="string" length="2" />
 
-        <one-to-many field="signatures" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature" indexed-by="type" mapped-by="match" orphan-removal="true">
+        <one-to-many field="signatures" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature" mapped-by="match" orphan-removal="true">
             <cascade>
             	<cascade-all />
             </cascade>

@@ -296,8 +296,10 @@ class Match
      */
     public function addSignature(MatchSignature $obj)
     {
-        $obj->setMatch($this);
-        $this->signatures->set($obj->getType(), $obj);
+        if ( ! $this->hasSignature($obj) ) {
+            $obj->setMatch($this);
+            $this->signatures->add($obj);
+        }
 
         return $this;
     }
@@ -335,8 +337,7 @@ class Match
      */
     public function hasSignature(MatchSignature $obj)
     {
-        return $this->signatures->contains($obj)
-            || $this->signatures->containsKey($obj->getType());
+        return $this->signatures->contains($obj);
     }
 
     /**
