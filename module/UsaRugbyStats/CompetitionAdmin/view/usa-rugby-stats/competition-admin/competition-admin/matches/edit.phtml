@@ -19,22 +19,22 @@ $form->setAttribute('method', 'post');
     <div class="col-md-6">
         <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/form', $this->vars()); ?>
     </div>
-    
+
     <div class="col-md-6">
-   
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/collection', ['collection' => $form->get('match')->get('signatures')]); ?>
     </div>
-    
+
 </div>
 
 <div class="row">
     <div class="col-md-6">
         <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('homeTeam'), 'type' => 'H']); ?>
     </div>
-    
+
     <div class="col-md-6">
         <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('awayTeam'), 'type' => 'A']); ?>
     </div>
-    
+
 </div>
 
 

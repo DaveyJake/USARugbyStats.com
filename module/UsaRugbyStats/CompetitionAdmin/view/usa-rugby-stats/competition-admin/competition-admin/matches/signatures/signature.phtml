@@ -1,0 +1,16 @@
+<tr>
+    <td class="column column-type">
+        <?php $element = $fieldset->get('type'); ?>
+        <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+    </td>
+
+    <td class="column signee">
+        <?php $element = $fieldset->get('account'); ?>
+        <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+    </td>
+
+    <td style="width:42px">
+        <?php echo $this->formHidden($fieldset->get('id')); ?>
+        <a class="btn btn-xs btn-danger competition-match-signatures-removesignature"><i class="glyphicon glyphicon-remove"></i></a>
+    </td>
+</tr>
