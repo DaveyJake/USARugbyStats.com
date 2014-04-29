@@ -36,8 +36,6 @@ class MatchFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($fieldset->has('awayTeam'));
         $this->assertSame($mockAwayTeam, $fieldset->get('awayTeam'));
 
-        //@TODO
-        $this->markTestIncomplete('match signatures not implemented');
         $this->assertInstanceOf('Zend\Form\Element\Collection', $fieldset->get('signatures'));
         $this->assertSame($mockSignatures, $fieldset->get('signatures')->getTargetElement());
     }
