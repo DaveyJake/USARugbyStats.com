@@ -97,8 +97,14 @@ class UnionService implements EventManagerAwareInterface
      * @param  array       $data
      * @return Union|false
      */
-    public function update(FormInterface $form, array $data)
+    public function update(FormInterface $form, array $data, Union $entity)
     {
+        // @HACK to fix GH-15 (Can't empty an existing Collection)
+        if ( !isset($data['union']['teams']) || empty($data['union']['teams']) ) {
+            $entity->removeTeams($entity->getTeams());
+        }
+
+        $form->bind($entity);
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;

@@ -54,15 +54,16 @@ class UnionAdminController extends AbstractActionController
         }
 
         $form = $this->getUnionService()->getUpdateForm();
-        $form->bind($entity);
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getUnionService()->update($form, $this->getRequest()->getPost()->toArray());
+            $result = $this->getUnionService()->update($form, $this->getRequest()->getPost()->toArray(), $entity);
             if ($result instanceof Union) {
                 $this->flashMessenger()->addSuccessMessage('The union was updated successfully!');
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_unionadmin/edit', ['id' => $result->getId()]);
             }
+        } else {
+            $form->bind($entity);
         }
 
         $vm = new ViewModel();
