@@ -107,3 +107,4 @@ Feature: Account Administration Panel - Edit User Account
     And I should see "The user was edited"
     And I navigate to the edit page for user "3"
     And I should see that "display_name" field has value "Testy McTesterson"
+    And I should see 0 "#RoleAssignmentContainer .rbac-assignment-unionadmin" elements

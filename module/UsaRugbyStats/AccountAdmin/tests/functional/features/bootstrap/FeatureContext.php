@@ -1,6 +1,7 @@
 <?php
 
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\Mink\Exception\ElementNotFoundException;
 
 /**
  * Features context.
@@ -176,4 +177,28 @@ class FeatureContext extends MinkContext
         $this->iNavigateToTheEditPageForUser($id);
     }
 
+    /**
+     * @Given /^I wait up to "([^"]*)" ms for "([^"]*)"$/
+     */
+    public function iWaitUpToMsFor($arg1, $arg2)
+    {
+        $session = $this->getSession();
+        $session->wait($arg1, $arg2);
+    }
+
+    /**
+     * @Given /^I click the "([^"]*)" element$/
+     */
+    public function iClickTheElement($arg1)
+    {
+        $session = $this->getSession();
+        $element = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('css', $arg1)
+        );
+        if ( is_null($element) ) {
+            throw new ElementNotFoundException($session, NULL, $arg1);
+        }
+        $element->click();
+    }
 }
