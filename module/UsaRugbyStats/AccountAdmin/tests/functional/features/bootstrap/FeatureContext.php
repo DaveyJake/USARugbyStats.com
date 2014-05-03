@@ -14,6 +14,7 @@ class FeatureContext extends MinkContext
     public function iAmAuthenticatedAsASuperAdministrator()
     {
         //@TODO use route name instead
+        $this->visit('/account/logout');
         $this->visit('/account/login');
         $this->fillField('identity', 'superadmin');
         $this->fillField('credential', 'testtest');
@@ -28,6 +29,7 @@ class FeatureContext extends MinkContext
     public function iAmAuthenticatedAsAMember()
     {
         //@TODO use route name instead
+        $this->visit('/account/logout');
         $this->visit('/account/login');
         $this->fillField('identity', 'memberone');
         $this->fillField('credential', 'testtest');
