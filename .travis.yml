@@ -24,7 +24,7 @@ before_script:
 
 script:
   - for DIR in module config; do bin/php-cs-fixer fix -v --dry-run --fixers=-psr0,psr4 $DIR; done;
-  - find module -type d -name "tests" | while read DIR; do ./bin/phpunit -c $DIR/phpunit.xml || exit 1; done;
+  - find module -type d -name "phpunit.xml" | while read FILE; do ./bin/phpunit -c $FILE || exit 1; done;
   - find module -type f -name "behat.yml.dist" | while read FILE; do REALFILE=${FILE/.dist/}; if [ ! -f "$REALFILE" ]; then cp "$FILE" "$REALFILE"; fi; ./bin/behat --config $REALFILE || exit 1; done;
 
 after_script:
