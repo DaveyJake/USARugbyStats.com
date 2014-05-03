@@ -49,7 +49,7 @@ class DefaultAccountsFixture implements FixtureInterface, DependentFixtureInterf
     }
 
     protected $accountData = array(
-        [ 'username' => 'administrator', 'email' => 'usarugbymedia@gmail.com', 'display_name' => 'Administrator', 'roleAssignments' => [[ 'type' => 'super-admin' ]] ],
+        [ 'username' => 'administrator', 'email' => 'usarugbymedia@gmail.com', 'display_name' => 'Administrator', 'roleAssignments' => [[ 'type' => 'super_admin' ]] ],
     );
 
 }

@@ -12,7 +12,7 @@ class TeamAdminFieldset extends RoleAssignmentFieldset
 
     public function __construct(ObjectManager $om, ObjectRepository $teamRepo)
     {
-        parent::__construct('team-admin');
+        parent::__construct('team_admin');
 
         $this->teamRepo = $teamRepo;
 

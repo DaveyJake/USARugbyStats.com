@@ -12,7 +12,7 @@ class UnionAdminFieldset extends RoleAssignmentFieldset
 
     public function __construct(ObjectManager $om, ObjectRepository $unionRepo)
     {
-        parent::__construct('union-admin');
+        parent::__construct('union_admin');
 
         $this->unionRepo = $unionRepo;
 

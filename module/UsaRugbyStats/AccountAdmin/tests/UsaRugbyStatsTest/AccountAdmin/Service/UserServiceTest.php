@@ -22,8 +22,8 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
                 'fieldset_class' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\MemberFieldset',
                 'entity_class' => 'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member',
             ),
-            'super-admin' => array(
-                'name' => 'super-admin',
+            'super_admin' => array(
+                'name' => 'super_admin',
                 'fieldset_class' => 'UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\SuperAdminFieldset',
                 'entity_class' => 'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin',
             ),
@@ -42,7 +42,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $formData = array(
             'roleAssignments' => array(
                 array('type' => 'member'),
-                array('type' => 'super-admin'),
+                array('type' => 'super_admin'),
             ),
         );
 
@@ -157,7 +157,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $formData = array(
             'roleAssignments' => array(
                 array('type' => 'member'),
-                array('type' => 'super-admin'),
+                array('type' => 'super_admin'),
             ),
         );
 

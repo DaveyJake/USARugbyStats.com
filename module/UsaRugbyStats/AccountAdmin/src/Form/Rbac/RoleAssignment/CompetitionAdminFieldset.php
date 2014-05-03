@@ -12,7 +12,7 @@ class CompetitionAdminFieldset extends RoleAssignmentFieldset
 
     public function __construct(ObjectManager $om, ObjectRepository $competitionRepo)
     {
-        parent::__construct('competition-admin');
+        parent::__construct('competition_admin');
 
         $this->competitionRepo = $competitionRepo;
 

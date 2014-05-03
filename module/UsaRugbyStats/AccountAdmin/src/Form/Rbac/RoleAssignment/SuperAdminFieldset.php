@@ -8,6 +8,6 @@ class SuperAdminFieldset extends RoleAssignmentFieldset
 {
     public function __construct(ObjectManager $om)
     {
-        parent::__construct('super-admin');
+        parent::__construct('super_admin');
     }
 }

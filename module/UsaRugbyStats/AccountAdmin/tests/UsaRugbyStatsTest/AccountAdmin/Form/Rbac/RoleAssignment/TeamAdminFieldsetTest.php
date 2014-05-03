@@ -14,7 +14,7 @@ class TeamAdminFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $fieldset = new TeamAdminFieldset($om, $or);
 
-        $this->assertEquals('team-admin', $fieldset->getName());
+        $this->assertEquals('team_admin', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('type'));
 

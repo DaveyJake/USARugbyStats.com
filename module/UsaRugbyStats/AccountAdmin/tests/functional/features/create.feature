@@ -148,7 +148,7 @@ Feature: Account Administration Panel - Create User Account
        | password | testtest123 |
        | passwordVerify | testtest123 |
     Then I click the Add Role Assigment dropdown
-    And I click the "team-admin" type under the Add Role Assignment dropdown
+    And I click the "team_admin" type under the Add Role Assignment dropdown
     And I click the add team button on the Team Administrator dialog
     And I select team "3" from the "1" managedTeam field
     And I click the add team button on the Team Administrator dialog

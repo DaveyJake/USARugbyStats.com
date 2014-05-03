@@ -14,7 +14,7 @@ class UnionAdminFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $fieldset = new UnionAdminFieldset($om, $or);
 
-        $this->assertEquals('union-admin', $fieldset->getName());
+        $this->assertEquals('union_admin', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('type'));
 

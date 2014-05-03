@@ -3,8 +3,9 @@ namespace UsaRugbyStats\AccountAdmin\Service;
 
 use ZfcUserAdmin\Service\User as ZfcUserAdminUserService;
 use Zend\Form\Form;
+use UsaRugbyStats\Account\Entity\Account as AccountEntity;
 use ZfcUser\Entity\UserInterface;
-use Zend\Filter\Word\CamelCaseToDash;
+use Zend\Filter\Word\CamelCaseToUnderscore;
 
 class UserService extends ZfcUserAdminUserService
 {
@@ -30,13 +31,13 @@ class UserService extends ZfcUserAdminUserService
             $data['roleAssignments'] = array();
         }
 
-        $filterCamelToDash = new CamelCaseToDash();
+        $filterCamelToUnderscore = new CamelCaseToUnderscore();
 
         // Inject the entity class name into the POST request data
         // so that NonuniformCollection knows what entity to create
         $types = $this->getAvailableRoleAssignments();
         foreach ($data['roleAssignments'] as $k=>$v) {
-            $key = strtolower($filterCamelToDash->filter($v['type']));
+            $key = strtolower($filterCamelToUnderscore->filter($v['type']));
             if ( ! isset($types[$key]) ) {
                 unset($data['roleAssignments'][$k]);
                 continue;

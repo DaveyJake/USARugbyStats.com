@@ -14,7 +14,7 @@ class CompetitionAdminFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $fieldset = new CompetitionAdminFieldset($om, $or);
 
-        $this->assertEquals('competition-admin', $fieldset->getName());
+        $this->assertEquals('competition_admin', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('type'));
 
