@@ -19,11 +19,10 @@ Feature: Team Administration Panel - Create Team
        | team[name] | Behat Team |
     And select "Test Union #2" from "team[union]"
     And I press "Create Team"
-    Then I should be on "/admin/team/edit/8"
+    Then I should be on "/admin/team/edit/9"
     And I should see "The team was created successfully!"
     And I should see "Update Team"
     And the "team[name]" field should contain "Behat Team"
-    And the "team[id]" field should contain "9"
       
   @javascript
   Scenario: Name is required when creating a new team
