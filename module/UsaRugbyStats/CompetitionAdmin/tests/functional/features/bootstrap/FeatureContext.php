@@ -1,6 +1,7 @@
 <?php
 
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\Mink\Exception\ElementNotFoundException;
 
 /**
  * Features context.
@@ -52,6 +53,22 @@ class FeatureContext extends MinkContext
     {
         //@TODO would be nice to be able to check the status code instead
         $this->assertPageNotContainsText('You are not allowed to access this resource');
+    }
+
+    /**
+     * @Given /^I click the "([^"]*)" element$/
+     */
+    public function iClickTheElement($arg1)
+    {
+        $session = $this->getSession();
+        $element = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('css', $arg1)
+        );
+        if ( is_null($element) ) {
+            throw new ElementNotFoundException($session, NULL, $arg1);
+        }
+        $element->click();
     }
 
 }
