@@ -4,6 +4,8 @@ namespace UsaRugbyStats\Competition\InputFilter;
 use Zend\InputFilter\InputFilter;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Zend\InputFilter\InputFilterInterface;
+use Zend\InputFilter\CollectionInputFilter;
 
 /**
  * Competition Input Filter
@@ -12,7 +14,7 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 class CompetitionFilter extends InputFilter
 {
-    public function __construct(ObjectManager $objectManager, ObjectRepository $objectRepository)
+    public function __construct(ObjectManager $objectManager, ObjectRepository $objectRepository, InputFilterInterface $ifDivision)
     {
 
         $this->add(array(
@@ -32,6 +34,11 @@ class CompetitionFilter extends InputFilter
                 array('name' => 'StringTrim'),
             ),
         ));
+
+        $cif = new CollectionInputFilter();
+        $cif->setInputFilter($ifDivision);
+
+        $this->add($cif, 'divisions');
 
     }
 }
