@@ -34,6 +34,7 @@ class DivisionFieldset extends Fieldset
                 'target_element' => $fsTeamMembership,
                 'should_create_template' => true,
                 'template_placeholder' => '__teamindex__',
+                'count' => 0,
             )
         ));
 

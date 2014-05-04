@@ -53,9 +53,9 @@ class CompetitionCreateForm extends Form
                 continue;
             }
             foreach ($arrDivision['teamMemberships'] as $teamKey => $arrTeamMembership) {
-                if ( in_array($arrTeamMembership['team'], $teams) ) {
-                    $fsCompetition->get('divisions')->get($divKey)->get('teamMemberships')->get($teamKey)->setMessages([
-                        "This team has already been added to another division!"
+                if ( in_array($arrTeamMembership['team'], $teams, true) ) {
+                    $fsCompetition->get('divisions')->get($divKey)->get('teamMemberships')->get($teamKey)->get('team')->setMessages([
+                        "This team has already been added once!"
                     ]);
                     $result = false;
                 }

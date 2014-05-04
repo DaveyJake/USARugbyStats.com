@@ -40,9 +40,7 @@
 
                 <?php $teamCount = 0; ?>
                 <?php foreach ( $collTeam->getFieldsets() as $fsTeam ): ?>
-                <?php   if ( $fsTeam->get('id')->getValue() > 0 ): ?>
-                <?php     echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['index' => $teamCount++, 'fieldset' => $fsTeam]); ?>
-                <?php   endif; ?>
+                <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['index' => $teamCount++, 'fieldset' => $fsTeam]); ?>
                 <?php endforeach; ?>
 
                 </tbody>
