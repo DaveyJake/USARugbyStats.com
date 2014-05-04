@@ -56,7 +56,24 @@ Feature: Competition Administration Panel - Create Competition
     Then I should see 2 ".competition-divisions-division" elements
     And the "competition[divisions][0][name]" field should contain "Test Division 1"
     And the "competition[divisions][1][name]" field should contain "Test Division 2"
-      
+            
+  @javascript
+  Scenario: Administrator cannot create a new competition with two divisions of the same name
+    Given I am authenticated as a super administrator
+    And I go to "/admin/competition/create"	
+    When I fill in the following:
+       | competition[name] | Competition with two empty divisions |
+    And I click the ".competition-divisions-add" element
+    Then I should see 1 ".competition-divisions-division" elements
+    And I click the ".competition-divisions-add" element
+    Then I should see 2 ".competition-divisions-division" elements
+    Then I fill in the following:
+       | competition[divisions][0][name] | Test Division 1 |
+       | competition[divisions][1][name] | Test Division 1 |
+    And I press "Create Competition"
+    Then I should be on "/admin/competition/create"
+    And I should see "There is already a division with this name!"
+
   @javascript
   Scenario: Administrator can create a new competition with two non-empty divisions
     Given I am authenticated as a super administrator
