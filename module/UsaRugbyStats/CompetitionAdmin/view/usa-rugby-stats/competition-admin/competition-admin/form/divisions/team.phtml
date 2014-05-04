@@ -2,10 +2,10 @@
 <?php $elId = $fieldset->get('id'); ?>
 <?php $elTeam = $fieldset->get('team'); ?>
 
-<tr data-teamid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>">
+<tr data-teamid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>"<?php if (isset($index)): ?> data-teamindex="<?php echo $this->escapeHtmlAttr($index); ?>"<?php endif;?>>
     <td>
         <?php echo $this->formHidden($elId); ?>
-        
+
         <?php if ($isTemplate): ?>
             <?php $elId->setAttribute('class', 'form-control input-sm'); ?>
             <?php echo $this->formSelect($elTeam); ?>

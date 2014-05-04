@@ -73,4 +73,12 @@ class FeatureContext extends MinkContext
         $element->click();
     }
 
+    /**
+     * @Given /^I wait up to "([^"]*)" ms for "([^"]*)"$/
+     */
+    public function iWaitUpToMsFor($arg1, $arg2)
+    {
+        $session = $this->getSession();
+        $session->wait($arg1, $arg2);
+    }
 }

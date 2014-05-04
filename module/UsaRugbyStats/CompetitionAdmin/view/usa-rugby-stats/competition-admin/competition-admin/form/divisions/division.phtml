@@ -2,7 +2,7 @@
 <?php $elId = $fieldset->get('id'); ?>
 <?php $elName = $fieldset->get('name'); ?>
 
-<div class="panel panel-default competition-divisions-division" data-divisionid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>">
+<div class="panel panel-default competition-divisions-division" data-divisionid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>"<?php if (isset($index)): ?> data-index="<?php echo $this->escapeHtmlAttr($index); ?>"<?php endif;?>>
     <div class="panel-heading">
         <?php if ($isTemplate): ?>New Division<?php else: ?><?php echo $this->escapeHtml($elName->getValue()); ?><?php endif; ?>
         <div class="pull-right">
@@ -10,21 +10,21 @@
         </div>
     </div>
     <div class="panel-body">
-        
-        <?php echo $this->formHidden($elId); ?>        
-        
+
+        <?php echo $this->formHidden($elId); ?>
+
         <div class="row form-group">
             <?php $elName->setLabelAttributes(array('class' => 'col-sm-2 control-label')); ?>
             <?php $elName->setAttribute('class', 'form-control'); ?>
             <?php if ( ! $isTemplate ) $elName->setOptions(['label' => 'New Name']); ?>
-            
+
             <?php echo $this->formLabel($elName) ?>
             <div class="col-sm-10">
                 <?php echo $this->formElement($elName) . $this->formElementErrors($elName) ?>
             </div>
         </div>
 
-        
+
         <div class="panel panel-default competition-divisions-division-teams">
             <div class="panel-heading">
                 Teams in this Division
@@ -32,25 +32,26 @@
                     <a class="btn btn-xs btn-success competition-divisions-division-teams-add" title="Add Team"><i class="glyphicon glyphicon-plus-sign"></i></a>
                 </div>
             </div>
-        
+
             <?php $collTeam = $fieldset->get('teamMemberships'); ?>
-            
+
             <table class="table table-striped">
                 <tbody style="border:0">
-                
+
+                <?php $teamCount = 0; ?>
                 <?php foreach ( $collTeam->getFieldsets() as $fsTeam ): ?>
                 <?php   if ( $fsTeam->get('id')->getValue() > 0 ): ?>
-                <?php     echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['fieldset' => $fsTeam]); ?>
+                <?php     echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['index' => $teamCount++, 'fieldset' => $fsTeam]); ?>
                 <?php   endif; ?>
                 <?php endforeach; ?>
-            
+
                 </tbody>
             </table>
-            
-            <script type="text/template" class="team-selector-template" data-nextindex="<?php echo $this->escapeHtmlAttr(count($collTeam)); ?>" style="display:none">
+
+            <script type="text/template" class="team-selector-template" data-nextindex="<?php echo $this->escapeHtmlAttr($teamCount); ?>" style="display:none">
                 <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['fieldset' => $fieldset->get('teamMemberships')->getTemplateElement(), 'isTemplate' => true]); ?>
             </script>
-        
+
         </div>
     </div>
 </div>
