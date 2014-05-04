@@ -62,7 +62,7 @@ Feature: Competition Administration Panel - Create Competition
     Given I am authenticated as a super administrator
     And I go to "/admin/competition/create"	
     When I fill in the following:
-       | competition[name] | Competition with two empty divisions |
+       | competition[name] | Competition with two divisions of the same name |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     And I click the ".competition-divisions-add" element
