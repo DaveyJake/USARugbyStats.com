@@ -17,15 +17,12 @@ class CompetitionCreateFormFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $form = new Form('create-competition');
+        $competitionFieldset = $sm->get('usarugbystats_competition_competition_fieldset');
+
+        $form = new CompetitionCreateForm($competitionFieldset);
 
         // Set the hydrator
         $form->setHydrator(new DoctrineObject($sm->get('zfcuser_doctrine_em')));
-
-        // Set the base fieldset (competition)
-        $competitionFieldset = $sm->get('usarugbystats_competition_competition_fieldset');
-        $competitionFieldset->setUseAsBaseFieldset(true);
-        $form->add($competitionFieldset);
 
         // Construct the input filter
         $teamInputFilter = $sm->get('usarugbystats_competition_competition_inputfilter');
@@ -33,15 +30,6 @@ class CompetitionCreateFormFactory implements FactoryInterface
         $if = new InputFilter();
         $if->add($teamInputFilter, 'competition');
         $form->setInputFilter($if);
-
-        // Add the submit button
-        $form->add(array(
-            'name' => 'submit',
-            'type' => 'Zend\Form\Element\Submit',
-            'options' => array(
-                'label' => 'Create Competition',
-            ),
-        ));
 
         return $form;
     }
