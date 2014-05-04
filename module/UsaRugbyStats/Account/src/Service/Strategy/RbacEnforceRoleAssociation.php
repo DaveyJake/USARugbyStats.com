@@ -11,7 +11,7 @@ use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment;
 class RbacEnforceRoleAssociation implements EventSubscriber
 {
     protected $objectManager;
-    
+
     public function __construct(ObjectManager $om)
     {
         $this->objectManager = $om;
@@ -21,21 +21,20 @@ class RbacEnforceRoleAssociation implements EventSubscriber
     {
         return array(Events::prePersist);
     }
-    
+
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getObject();
         $roleRepository = $this->objectManager->getRepository('UsaRugbyStats\Account\Entity\Rbac\Role');
-        
-        if ( $entity instanceof RoleAssignment ) {
+
+        if ($entity instanceof RoleAssignment) {
 
             $roleName = $entity->getDiscriminator();
             $roleObj = $roleRepository->findOneBy(array('name' => $roleName));
-            
-            if ( $roleObj instanceof Role) {
+
+            if ($roleObj instanceof Role) {
                 $entity->setRole($roleObj);
             }
         }
     }
 }
-

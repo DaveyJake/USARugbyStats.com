@@ -1,0 +1,49 @@
+<div class="pull-right" style="margin-top: 37px">
+    <a class="btn btn-large btn-primary" href="<?php echo $this->url('zfcadmin/usarugbystats_teamadmin/create'); ?>">Add New Team</a>
+</div>
+
+<h1>Teams</h1>
+
+<?php if ($this->paginator->count() == 0 ): ?>
+<div class="alert alert-warning">There are no teams!</div>
+<?php endif; ?>
+
+<?php if ($this->paginator->count() > 0 ): ?>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><?php echo $this->translate('ID') ?></th>
+            <th><?php echo $this->translate('Name') ?></th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->paginator as $entity): ?>
+        <tr>
+            <td class="cell cell-id" style="width:50px">
+                <?php echo $this->escapeHtml($entity->getId()); ?>
+            </td>
+            <td class="cell cell-name">
+                <?php echo $this->escapeHtml($entity->getName()); ?>
+            </td>
+            <td class="col-sm-1 cell cell-ctrls">
+                <a href="<?php echo $this->url('zfcadmin/usarugbystats_teamadmin/edit', array('id' => $entity->getId())); ?>">
+                    <?php echo $this->translate('Edit') ?>
+                </a>
+                |
+                <a href="<?php echo $this->url('zfcadmin/usarugbystats_teamadmin/remove', array('id' => $entity->getId())); ?>">
+                    <?php echo $this->translate('Delete') ?>
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                <?php echo $this->paginationControl($this->users, 'Sliding', 'usa-rugby-stats/competition-admin/team-admin/pagination'); ?>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<?php endif; ?>

@@ -1,0 +1,9 @@
+<?php
+return array(
+    'doctrine' => array(
+        'fixture' => array(
+            'UsaRugbyStats_Account_fixture_dev' => 'module/UsaRugbyStats/Account/src/Fixtures/Development',
+            'UsaRugbyStats_Competition_fixture_dev' => 'module/UsaRugbyStats/Competition/src/Fixtures/Development',
+        )
+    )
+);

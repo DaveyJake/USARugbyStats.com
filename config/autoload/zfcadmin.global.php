@@ -31,7 +31,7 @@ $settings = array(
     /**
      * End of ZfcAdmin configuration
      */
-    
+
 );
 
 /**
@@ -39,10 +39,10 @@ $settings = array(
  */
 return array(
     'zfcadmin' => $settings,
-   
+
     /**
      * Default BjyAuthorize configuration for ACL
-     */ 
+     */
     'bjyauthorize' => array(
         'guards' => array(
             'BjyAuthorize\Guard\Route' => array(

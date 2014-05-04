@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\SubEvent" table="competition_competition_match_team_event_sub">
+
+        <field name="type" type="string" length="3" />
+
+        <many-to-one field="playerOn" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer">
+        	<join-column name="player_on_id" referenced-column-name="id" />
+        </many-to-one>
+
+        <many-to-one field="playerOff" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer">
+        	<join-column name="player_off_id" referenced-column-name="id" />
+        </many-to-one>
+
+    </entity>
+
+</doctrine-mapping>

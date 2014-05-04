@@ -1,0 +1,12 @@
+<h1><?php echo $this->escapeHtml($competition->getName()); ?></h1>
+<?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/navigation', ['page' => 'matches', 'entity' => $competition]); ?>
+
+<h2>Are You Sure?</h2>
+
+<div class="alert alert-danger">Are you sure you want to remove the match <strong><?php echo $this->escapeHtml($entity); ?></strong>?  All rosters, scores and game events relating to it will also be removed.</div>
+
+<form action="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/remove', ['id' => $competition->getId(), 'match' => $entity->getId()]); ?>" method="POST">
+  <input type="hidden" name="confirmed" value="Y" />
+  <a class="btn btn-success" href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/list', ['id' => $competition->getId()]); ?>">No, Abort! Abort!</a>
+  <button type="submit" class="btn btn-danger">Yes, Remove It!</button>
+</form>

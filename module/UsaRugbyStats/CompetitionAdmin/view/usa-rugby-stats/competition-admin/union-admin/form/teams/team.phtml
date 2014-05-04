@@ -1,0 +1,18 @@
+<?php $isTemplate = @$isTemplate == true; ?>
+<?php $elId = $fieldset->get('id'); ?>
+
+<tr data-teamid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>">
+    <td class="column column-name">
+        <?php if ($isTemplate): ?>
+            <?php $elId->setAttribute('class', 'form-control input-sm'); ?>
+            <?php echo $this->formSelect($elId); ?>
+        <?php else: ?>
+            <?php echo $this->formHidden($elId); ?>
+            <a href="<?php echo $this->url('zfcadmin/usarugbystats_teamadmin/edit',['id'=>$elId->getValue()]); ?>" target="_blank">
+                <?php echo $this->escapeHtml($fieldset->getTeam()->getName()); ?>
+            </a>
+        <?php endif; ?>
+        <?php echo $this->formElementErrors($elId); ?>
+    </td>
+    <td class="col-sm-2 column column-actions" style="text-align:right; padding-right: 15px;"><a class="btn btn-xs btn-danger dropteam" title="Remove Team"><i class="glyphicon glyphicon-trash"></i></a></td>
+</tr>

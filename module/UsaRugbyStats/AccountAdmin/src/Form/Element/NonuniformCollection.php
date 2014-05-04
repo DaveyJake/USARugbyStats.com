@@ -18,14 +18,13 @@ class NonuniformCollection extends Collection
     /**
      * Set the target element
      *
-     * @param ElementInterface|array|Traversable $elementOrFieldset
+     * @param  ElementInterface|array|Traversable            $elementOrFieldset
      * @return Collection
      * @throws \Zend\Form\Exception\InvalidArgumentException
      */
     public function setTargetElement($set)
     {
-        foreach ( $set as $elementOrFieldset )
-        {
+        foreach ($set as $elementOrFieldset) {
             $discriminator = get_class($elementOrFieldset->getObject());
             if (is_array($elementOrFieldset)
                || ($elementOrFieldset instanceof Traversable && !$elementOrFieldset instanceof ElementInterface)
@@ -66,16 +65,22 @@ class NonuniformCollection extends Collection
      */
     public function prepareElement(FormInterface $form)
     {
+        $name = $this->getName();
+
         // Create a template that will also be prepared
         if ($this->shouldCreateTemplate) {
             $templateElement = $this->getTemplateElement();
-            foreach ( (array)$templateElement as $item ) {
-                $this->add($item);
+            foreach ( (array) $templateElement as $elementOrFieldset ) {
+                $elementOrFieldset->setName($name . '[' . $elementOrFieldset->getName() . ']');
+
+                // Recursively prepare elements
+                if ($elementOrFieldset instanceof ElementPrepareAwareInterface) {
+                    $elementOrFieldset->prepareElement($form);
+                }
             }
         }
 
         // Zend\Form\Fieldset::prepareElement
-        $name = $this->getName();
         foreach ($this->byName as $elementOrFieldset) {
             $elementOrFieldset->setName($name . '[' . $elementOrFieldset->getName() . ']');
 
@@ -87,7 +92,7 @@ class NonuniformCollection extends Collection
 
         // The template element has been prepared, but we don't want it to be rendered nor validated, so remove it from the list
         if ($this->shouldCreateTemplate) {
-            foreach ( (array)$this->templatePlaceholder as $item ) {
+            foreach ( (array) $this->templatePlaceholder as $item ) {
                 $this->remove($item);
             }
         }
@@ -96,7 +101,7 @@ class NonuniformCollection extends Collection
     /**
      * Populate values
      *
-     * @param array|Traversable $data
+     * @param  array|Traversable                             $data
      * @throws \Zend\Form\Exception\InvalidArgumentException
      * @throws \Zend\Form\Exception\DomainException
      * @return void
@@ -156,7 +161,7 @@ class NonuniformCollection extends Collection
             foreach ($data as $key => $value) {
                 $elementOrFieldset = clone $this->targetElement[$value['__class__']];
                 $elementOrFieldset->setName($key);
-                
+
                 if ($elementOrFieldset instanceof FieldsetInterface) {
                     $elementOrFieldset->populateValues($value);
                 } else {
@@ -214,12 +219,12 @@ class NonuniformCollection extends Collection
     {
         if (empty($this->templateElement)) {
             $this->templateElement = array();
-            foreach ( $this->targetElement as $class=>$fieldset )
-            {
+            foreach ($this->targetElement as $class=>$fieldset) {
                 $this->templateElement[$class] = clone $fieldset;
                 $this->templateElement[$class]->setName($this->templatePlaceholder);
             }
         }
+
         return $this->templateElement;
     }
 }

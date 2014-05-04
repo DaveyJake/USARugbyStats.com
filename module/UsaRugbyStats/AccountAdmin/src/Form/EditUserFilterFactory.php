@@ -12,14 +12,14 @@ class EditUserFilterFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return Authentication
      */
     public function createService(ServiceLocatorInterface $sm)
     {
         $zfcUserOptions = $sm->get('zfcuser_module_options');
         $zfcUserAdminOptions = $sm->get('zfcuseradmin_module_options');
-        
+
         $filter = new RegisterFilter(
             new NoRecordExistsEdit(array(
                 'mapper' => $sm->get('zfcuser_user_mapper'),
@@ -37,13 +37,13 @@ class EditUserFilterFactory implements FactoryInterface
             $filter->get('password')->setRequired(false);
             $filter->remove('passwordVerify');
         }
-        
+
         $filter->add(array(
             'name'       => 'roleAssignments',
             'required'   => false,
             'allow_emtpy' => true,
         ));
-        
+
         return $filter;
     }
 }

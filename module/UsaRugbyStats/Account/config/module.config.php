@@ -16,7 +16,7 @@ return array(
     'service_manager' => array(
         'aliases' => array(),
         'factories' => array(
-            'Zend\Authentication\AuthenticationService' => function($sm) { return $sm->get('doctrine.authenticationservice.orm_default'); },
+            'Zend\Authentication\AuthenticationService' => function ($sm) { return $sm->get('doctrine.authenticationservice.orm_default'); },
             'UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignup' => 'UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignupFactory',
             'UsaRugbyStats\Account\Service\Strategy\RbacEnforceRoleAssociation' => 'UsaRugbyStats\Account\Service\Strategy\RbacEnforceRoleAssociationFactory',
         ),
@@ -37,7 +37,7 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
-    
+
     'view_helpers' => array(
         'factories' => array(
             'user' => 'UsaRugbyStats\Account\View\Helper\UserHelperFactory',
@@ -55,7 +55,7 @@ return array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\XmlDriver',
                 'paths' => __DIR__ . '/doctrine/self'
             ),
-    
+
             'orm_default' => array(
                 'drivers' => array(
                     'UsaRugbyStats\Account\Entity'  => 'usarugbystats_account_entity'
@@ -81,14 +81,14 @@ return array(
             'UsaRugbyStats_Account_fixture_common' => __DIR__ . '/../src/Fixtures/Common',
         ),
     ),
-    
+
     'zfc_rbac' => array(
-    	'role_provider' => array(
-    	    'ZfcRbac\Role\ObjectRepositoryRoleProvider' => array(
-    	        'object_manager' 		=> 'zfcuser_doctrine_em',
-    	        'class_name'     		=> 'UsaRugbyStats\Account\Entity\Rbac\Role',
-    	        'role_name_property' 	=> 'name'
-    	    ),
+        'role_provider' => array(
+            'ZfcRbac\Role\ObjectRepositoryRoleProvider' => array(
+                'object_manager' 		=> 'zfcuser_doctrine_em',
+                'class_name'     		=> 'UsaRugbyStats\Account\Entity\Rbac\Role',
+                'role_name_property' 	=> 'name'
+            ),
         ),
     ),
 );

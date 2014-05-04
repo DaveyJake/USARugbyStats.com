@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="UsaRugbyStats\Competition\Entity\Competition\Division" table="competition_competition_divisions">
+        <id name="id" type="integer"><generator strategy="AUTO" /></id>
+        <field name="name" type="string" length="60" />
+
+        <many-to-one field="competition" target-entity="UsaRugbyStats\Competition\Entity\Competition" inversed-by="divisions">
+        	<join-column name="competition_id" referenced-column-name="id" />
+        </many-to-one>
+
+        <unique-constraints>
+            <unique-constraint columns="name,competition_id" />
+        </unique-constraints>
+
+        <one-to-many field="teamMemberships" target-entity="UsaRugbyStats\Competition\Entity\Competition\TeamMembership" mapped-by="division" orphan-removal="true">
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
+
+    </entity>
+
+</doctrine-mapping>

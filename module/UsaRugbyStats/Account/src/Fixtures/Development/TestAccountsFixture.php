@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace UsaRugbyStats\Account\Fixtures\Development;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -15,24 +15,23 @@ class TestAccountsFixture implements FixtureInterface, DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         echo "\nCreating Demo Accounts...\n";
-        
+
         $svc  = $this->getServiceLocator()->get('UsaRugbyStats\AccountAdmin\Service\UserService');
 
-        foreach ( $this->accountData as $acct )
-        {
+        foreach ($this->accountData as $acct) {
             echo " - {$acct['username']}";
-            
+
             if ( !isset($acct['password']) || empty($acct['password']) ) {
                 $acct['password'] = uniqid();
                 echo " (password = " . $acct['password'] . " )";
             }
             $acct['passwordVerify'] = $acct['password'];
-                        
+
             echo "\n";
-            
+
             $form = $this->getServiceLocator()->get('zfcuseradmin_createuser_form');
             $entity = $svc->create($form, $acct);
-            if ( ! $entity instanceof Account ) {
+            if (! $entity instanceof Account) {
                 echo "ERROR: Failed to create account: " . $acct['username'] . "\n";
                 continue;
             }
@@ -42,17 +41,17 @@ class TestAccountsFixture implements FixtureInterface, DependentFixtureInterface
 
         $manager->flush();
     }
-    
+
     public function getDependencies()
     {
         return [ 'UsaRugbyStats\Account\Fixtures\Common\RbacRoleFixture'];
     }
-    
+
     protected $accountData = array(
-        [ 'username' => 'superadmin', 'email' => 'adam+urssuperadmin@lundrigan.ca', 'display_name' => 'Super Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'super-admin' ]] ],
-        [ 'username' => 'teamadmin', 'email' => 'adam+ursteamadmin@lundrigan.ca', 'display_name' => 'Team Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'team-admin' ]] ],
-        [ 'username' => 'leagueadmin', 'email' => 'adam+ursleagueadmin@lundrigan.ca', 'display_name' => 'League Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'league-admin' ]] ],
-        [ 'username' => 'unionadmin', 'email' => 'adam+ursunionadmin@lundrigan.ca', 'display_name' => 'Union Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'union-admin' ]] ],
+        [ 'username' => 'superadmin', 'email' => 'adam+urssuperadmin@lundrigan.ca', 'display_name' => 'Super Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'super_admin' ]] ],
+        [ 'username' => 'teamadmin', 'email' => 'adam+ursteamadmin@lundrigan.ca', 'display_name' => 'Team Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'team_admin' ]] ],
+        [ 'username' => 'competitionadmin', 'email' => 'adam+urscompetitionadmin@lundrigan.ca', 'display_name' => 'Competition Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'competition_admin' ]] ],
+        [ 'username' => 'unionadmin', 'email' => 'adam+ursunionadmin@lundrigan.ca', 'display_name' => 'Union Administrator', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'union_admin' ]] ],
         [ 'username' => 'memberone', 'email' => 'adam+ursmemberone@lundrigan.ca', 'display_name' => 'Member One', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'member' ]] ],
         [ 'username' => 'membertwo', 'email' => 'adam+ursmembertwo@lundrigan.ca', 'display_name' => 'Member Two', 'password' => 'testtest', 'roleAssignments' => [[ 'type' => 'member' ]] ],
     );

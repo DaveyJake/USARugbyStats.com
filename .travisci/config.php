@@ -1,5 +1,4 @@
 <?php
-
 $config = array(
     'username' => 'root',
     'password' => '',
@@ -8,5 +7,5 @@ $config = array(
     'consumer_key' => '3Q88vpe2kjyyFJedJ9TNigKGZUtF5vCW',
     'consumer_secret' => 'QcZLNL4yik83h6PPycbpMwcU5UapChat',
     'auth_domain' => 'https://www.pdup.allplayers.com', // Optional
-    'timezone' => 'America/Chicago',
+    'timezone' => 'America/Chicago'
 );

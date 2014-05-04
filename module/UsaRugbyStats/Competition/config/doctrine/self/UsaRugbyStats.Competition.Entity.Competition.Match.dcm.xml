@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="UsaRugbyStats\Competition\Entity\Competition\Match" table="competition_competition_matches">
+        <id name="id" type="integer"><generator strategy="AUTO" /></id>
+
+        <field name="description" type="string" length="100" />
+
+        <many-to-one field="competition" target-entity="UsaRugbyStats\Competition\Entity\Competition" inversed-by="matches">
+        	<join-column name="competition_id" referenced-column-name="id" />
+        </many-to-one>
+
+        <field name="date" type="datetime" />
+
+        <one-to-one field="homeTeam" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam" orphan-removal="true">
+            <cascade>
+            	<cascade-all />
+            </cascade>
+            <join-column name="home_team_id" referenced-column-name="id" />
+        </one-to-one>
+
+        <one-to-one field="awayTeam" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam" orphan-removal="true">
+            <cascade>
+            	<cascade-all />
+           	</cascade>
+          	<join-column name="away_team_id" referenced-column-name="id" />
+        </one-to-one>
+
+        <!-- @TODO location -->
+
+        <one-to-many field="events" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent" mapped-by="match" orphan-removal="true">
+            <cascade>
+            	<cascade-all />
+            </cascade>
+        </one-to-many>
+
+		<field name="status" type="string" length="2" />
+
+        <one-to-many field="signatures" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature" mapped-by="match" orphan-removal="true">
+            <cascade>
+            	<cascade-all />
+            </cascade>
+        </one-to-many>
+
+    </entity>
+
+</doctrine-mapping>

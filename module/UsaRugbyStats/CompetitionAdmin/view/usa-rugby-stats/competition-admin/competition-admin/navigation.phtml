@@ -1,0 +1,7 @@
+<div style="margin-bottom: 20px">
+    <ul class="nav nav-pills">
+        <li<?=($page == 'details' ? ' class="active"' : ''); ?>><a href="<?=$this->url('zfcadmin/usarugbystats_competitionadmin/edit',['id' => $entity->getId()]) ?>">Details</a></li>
+        <li<?=($page == 'divisions' ? ' class="active"' : ''); ?>><a href="<?=$this->url('zfcadmin/usarugbystats_competitionadmin/edit/divisions',['id' => $entity->getId()]) ?>">Manage Divisions</a></li>
+        <li<?=($page == 'matches' ? ' class="active"' : ''); ?>><a href="<?=$this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches',['id' => $entity->getId()]) ?>">Manage Matches</a></li>
+    </ul>
+</div>

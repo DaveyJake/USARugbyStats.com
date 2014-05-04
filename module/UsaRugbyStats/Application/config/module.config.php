@@ -74,7 +74,7 @@ return array(
             ),
         ),
     ),
-    
+
     'doctrine' => array(
         'driver' => array(
             'usarugbystats_application_entity' => array(

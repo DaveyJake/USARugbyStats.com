@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="UsaRugbyStats\Account\Entity\Account" table="accounts">
-    
+
         <one-to-many field="roleAssignments" target-entity="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment" mapped-by="account" index-by="role" orphan-removal="true">
             <cascade>
-                <cascade-persist />
+                <cascade-all />
             </cascade>
         </one-to-many>
 

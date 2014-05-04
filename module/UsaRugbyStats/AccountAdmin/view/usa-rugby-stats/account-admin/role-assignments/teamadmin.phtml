@@ -1,5 +1,5 @@
 <?php
-use UsaRugbyStats\Application\Entity\Team;
+use UsaRugbyStats\Competition\Entity\Team;
 
 foreach ( $this->fieldset as $item ) {
     $item->setLabelAttributes(array('class' => 'col-md-2 control-label'));
@@ -9,7 +9,7 @@ foreach ( $this->fieldset as $item ) {
 function managedTeamTemplate($view, $element, $team = null, $isTemplate = false)
 {
     $teamId = $view->escapeHtmlAttr($element->getValue());
-    $hiddenElement = $isTemplate ? $view->formInput($element) : $view->formHidden($element);
+    $hiddenElement = $isTemplate ? $view->formSelect($element) : $view->formHidden($element);
     $teamName = $view->escapeHtml(( $team instanceof Team ) ? $team->getName() : (string)$team);
 
     return <<<EOB

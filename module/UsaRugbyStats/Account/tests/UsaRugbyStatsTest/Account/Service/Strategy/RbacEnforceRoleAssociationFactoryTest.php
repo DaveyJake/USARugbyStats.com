@@ -1,10 +1,9 @@
 <?php
-namespace UsaRugbyStatsTest\Account\Controller\Plugin;
+namespace UsaRugbyStatsTest\Account\Service\Strategy;
 
 use Mockery;
 use UsaRugbyStatsTest\Account\ServiceManagerTestCase;
 use UsaRugbyStats\Account\Service\Strategy\RbacEnforceRoleAssociationFactory;
-
 
 class RbacEnforceRoleAssociationFactoryTest extends ServiceManagerTestCase
 {
@@ -15,10 +14,10 @@ class RbacEnforceRoleAssociationFactoryTest extends ServiceManagerTestCase
 
         $mockObjectManager = Mockery::mock('Doctrine\Common\Persistence\ObjectManager');
         $sm->setService('zfcuser_doctrine_em', $mockObjectManager);
-        
+
         $factory = new RbacEnforceRoleAssociationFactory();
         $obj = $factory->createService($sm);
-        
+
         $this->assertInstanceOf('UsaRugbyStats\Account\Service\Strategy\RbacEnforceRoleAssociation', $obj);
     }
 }

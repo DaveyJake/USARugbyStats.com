@@ -7,7 +7,7 @@ use UsaRugbyStats\AccountAdmin\Form\CreateUserFactory;
 class CreateUserFactoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $serviceManager;
-    
+
     public function setUp()
     {
         $mockCollection = Mockery::mock('Zend\Form\Element\Collection');
@@ -18,9 +18,9 @@ class CreateUserFactoryTest extends \PHPUnit_Framework_TestCase
         $mockCollection->shouldReceive('getTargetElement')->andReturnNull();
         $mockCollection->shouldReceive('prepareFieldset')->andReturnNull();
         $mockCollection->shouldReceive('useAsBaseFieldset')->andReturnNull();
-        
+
         $mockOptions = Mockery::mock('ZfcUserAdmin\Options\ModuleOptions[getCreateUserAutoPassword]');
-        
+
         $this->serviceManager = new \Zend\ServiceManager\ServiceManager();
         $this->serviceManager->setService('zfcuser_module_options', new \ZfcUser\Options\ModuleOptions());
         $this->serviceManager->setService('zfcuser_doctrine_em', Mockery::mock('Doctrine\Common\Persistence\ObjectManager'));
@@ -28,15 +28,15 @@ class CreateUserFactoryTest extends \PHPUnit_Framework_TestCase
         $this->serviceManager->setService('zfcuseradmin_module_options', $mockOptions);
         $this->serviceManager->setService('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement', $mockCollection);
     }
-    
+
     public function testCreateService()
     {
         $mock = $this->serviceManager->get('zfcuseradmin_module_options');
         $mock->shouldReceive('getCreateUserAutoPassword')->andReturn(false);
-        
+
         $factory = new CreateUserFactory();
         $obj = $factory->createService($this->serviceManager);
-        
+
         $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Entity\AccountHydrator', $obj->getHydrator());
         $this->assertInstanceOf('Zend\InputFilter\InputFilterInterface', $obj->getInputFilter());
     }
@@ -45,40 +45,40 @@ class CreateUserFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $mock = $this->serviceManager->get('zfcuseradmin_module_options');
         $mock->shouldReceive('getCreateUserAutoPassword')->andReturn(true);
-    
+
         $factory = new CreateUserFactory();
         $obj = $factory->createService($this->serviceManager);
-        
+
         $this->assertFalse($obj->has('password'));
         $this->assertFalse($obj->has('passwordVerify'));
         $this->assertTrue($obj->has('roleAssignments'));
-        
-        $filter = $obj->getInputFilter();        
+
+        $filter = $obj->getInputFilter();
         $this->assertInstanceOf('ZfcUser\Form\RegisterFilter', $filter);
         $this->assertInstanceOf('Zend\Validator\ValidatorInterface', $filter->getEmailValidator());
         $this->assertInstanceOf('Zend\Validator\ValidatorInterface', $filter->getUsernameValidator());
-    
+
         $this->assertFalse($filter->has('password'));
         $this->assertFalse($filter->has('passwordVerify'));
         $this->assertTrue($filter->has('roleAssignments'));
     }
-    
+
     public function testFormAndFilterHavePasswordElementsWhenPasswordAutogenIsDisabled()
     {
         $mock = $this->serviceManager->get('zfcuseradmin_module_options');
         $mock->shouldReceive('getCreateUserAutoPassword')->andReturn(false);
-    
+
         $factory = new CreateUserFactory();
         $obj = $factory->createService($this->serviceManager);
 
         $this->assertTrue($obj->has('password'));
         $this->assertTrue($obj->has('passwordVerify'));
-        
-        $filter = $obj->getInputFilter();        
+
+        $filter = $obj->getInputFilter();
         $this->assertInstanceOf('ZfcUser\Form\RegisterFilter', $filter);
         $this->assertInstanceOf('Zend\Validator\ValidatorInterface', $filter->getEmailValidator());
         $this->assertInstanceOf('Zend\Validator\ValidatorInterface', $filter->getUsernameValidator());
-    
+
         $this->assertTrue($filter->has('password'));
         $this->assertTrue($filter->has('passwordVerify'));
         $this->assertTrue($filter->has('roleAssignments'));

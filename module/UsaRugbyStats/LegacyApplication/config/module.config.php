@@ -1,8 +1,8 @@
 <?php
 return array(
     'usarugbystats' => array(
-	    'legacy-application' => array(
-    	    'directory' => '/path/to/usarugbystats/app'
+        'legacy-application' => array(
+            'directory' => '/path/to/usarugbystats/app'
         ),
     ),
     'router' => array(
@@ -550,7 +550,7 @@ return array(
                 'urs-la/team_game_rosters' => array('team_admin'),
                 'urs-la/team_games' => array('team_admin'),
                 'urs-la/team' => array('team_admin'),
-                
+
                 'urs-la/silex-processqueue' => array('team_admin'),
                 'urs-la/silex-group-above' => array('team_admin'),
                 'urs-la/silex-sync' => array('team_admin'),
@@ -583,4 +583,4 @@ return array(
             'usa-rugby-stats/legacy-application/render' => __DIR__ . '/../view/render.phtml',
         ),
     ),
-);                
+);

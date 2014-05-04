@@ -10,13 +10,13 @@ class Role implements HierarchicalRoleInterface
 {
     protected $id;
     protected $name;
-    
+
     /**
-     * Child Roles 
+     * Child Roles
      * @var ArrayCollection
      */
     protected $children;
-    
+
     /**
      * Permissions associated with this role
      * @var ArrayCollection
@@ -27,47 +27,55 @@ class Role implements HierarchicalRoleInterface
     {
         if ( !empty($name) ) {
             $this->setName($name);
-        }        
+        }
         $this->children = new ArrayCollection();
         $this->permissions = new ArrayCollection();
     }
 
-	public function getId()
+    public function __clone()
+    {
+        $this->children = new ArrayCollection();
+        $this->permissions = new ArrayCollection();
+    }
+
+    public function getId()
     {
         return $this->id;
     }
 
-	public function setId($id)
+    public function setId($id)
     {
         $this->id = $id;
     }
 
-	public function getName()
+    public function getName()
     {
         return $this->name;
     }
 
-	public function setName($name)
+    public function setName($name)
     {
         $this->name = $name;
     }
 
-	public function getChildren()
+    public function getChildren()
     {
         return $this->children;
     }
 
-	public function addChildren(Collection $children)
+    public function addChildren(Collection $children)
     {
         foreach ($children as $child) {
             $this->addChild($child);
         }
+
         return $this;
     }
-    
+
     public function addChild(RoleInterface $child)
     {
         $this->children->add($child);
+
         return $this;
     }
 
@@ -76,15 +84,17 @@ class Role implements HierarchicalRoleInterface
         foreach ($children as $child) {
             $this->removeChild($child);
         }
+
         return $this;
     }
-    
+
     public function removeChild(RoleInterface $child)
     {
         $this->children->removeElement($child);
+
         return $this;
     }
-    
+
     public function hasChildren()
     {
         return $this->children->count() > 0;
@@ -94,38 +104,42 @@ class Role implements HierarchicalRoleInterface
     {
         return $this->permissions;
     }
-    
+
     public function addPermissions(Collection $perms)
     {
         foreach ($perms as $p) {
             $this->addPermission($p);
         }
+
         return $this;
     }
-    
+
     public function addPermission(Permission $perm)
     {
-        $this->permissions->set((string)$perm, $perm);
+        $this->permissions->set((string) $perm, $perm);
+
         return $this;
     }
-    
+
     public function removePermissions(Collection $perms)
     {
         foreach ($perms as $p) {
             $this->removePermission($p);
         }
+
         return $this;
     }
-    
+
     public function removePermission(Permission $perm)
     {
         $this->permissions->removeElement($perm);
+
         return $this;
     }
-    
-	public function hasPermission($permission)
+
+    public function hasPermission($permission)
     {
-        return $this->permissions->containsKey((string)$permission);
+        return $this->permissions->containsKey((string) $permission);
     }
 
     public function __toString()

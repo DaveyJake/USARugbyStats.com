@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin" table="accounts_rbac_roleassignment_team_admin">
 
-        <many-to-many field="managedTeams" target-entity="UsaRugbyStats\Application\Entity\Team">
+        <many-to-many field="managedTeams" target-entity="UsaRugbyStats\Competition\Entity\Team">
             <join-table name="accounts_rbac_roleassignment_team_admin_managedteams">
                 <join-columns>
                     <join-column name="ra_id" referenced-column-name="id" />
@@ -16,7 +15,7 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
-        
+
     </entity>
 
 </doctrine-mapping>

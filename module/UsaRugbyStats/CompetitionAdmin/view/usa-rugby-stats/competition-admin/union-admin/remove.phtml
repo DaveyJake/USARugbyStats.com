@@ -1,0 +1,9 @@
+<h1>Are You Sure?</h1>
+
+<div class="alert alert-danger">Are you sure you want to remove <strong><?php echo $this->escapeHtml($entity->getName()); ?></strong>?  All competitions and games associated with this union will also be removed.</div>
+
+<form action="<?php echo $this->url('zfcadmin/usarugbystats_unionadmin/remove', ['id' => $entity->getId()]); ?>" method="POST">
+  <input type="hidden" name="confirmed" value="Y" />
+  <a class="btn btn-success" href="<?php echo $this->url('zfcadmin/usarugbystats_unionadmin/list'); ?>">No, Abort! Abort!</a>
+  <button type="submit" class="btn btn-danger">Yes, Remove It!</button>
+</form>

@@ -1,0 +1,20 @@
+<table class="table" style="margin-bottom: 0;">
+    <tbody style="border: 0;">
+        <tr>
+            <td>Type:</td>
+            <td>
+                <?php $element = $fieldset->get('type'); ?>
+                <?php $element->setAttributes(['class' => 'input-sm']); ?>
+                <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+            </td>
+        </tr>
+        <tr>
+            <td>By:</td>
+            <td>
+                <?php $element = $fieldset->get('player'); ?>
+                <?php $element->setAttributes(['class' => 'input-sm']); ?>
+                <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+            </td>
+        </tr>
+    </tbody>
+</table>
