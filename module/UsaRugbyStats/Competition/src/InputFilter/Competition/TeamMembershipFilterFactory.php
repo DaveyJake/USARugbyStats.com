@@ -4,13 +4,13 @@ namespace UsaRugbyStats\Competition\InputFilter\Competition;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class DivisionFilterFactory implements FactoryInterface
+class TeamMembershipFilterFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $manager)
     {
-        $ifTeamMembership = $manager->get('usarugbystats_competition_competition_teammembership_inputfilter');
+        $em = $manager->get('zfcuser_doctrine_em');
 
-        $filter = new DivisionFilter($ifTeamMembership);
+        $filter = new TeamMembershipFilter($em->getRepository('UsaRugbyStats\Competition\Entity\Team'));
 
         return $filter;
     }

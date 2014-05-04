@@ -37,7 +37,7 @@ class CompetitionFilter extends InputFilter
 
         $cif = new CollectionInputFilter();
         $cif->setInputFilter($ifDivision);
-
+        $cif->setIsRequired(false);
         $this->add($cif, 'divisions');
 
     }

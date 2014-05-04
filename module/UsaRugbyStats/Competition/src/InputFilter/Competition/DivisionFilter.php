@@ -2,8 +2,8 @@
 namespace UsaRugbyStats\Competition\InputFilter\Competition;
 
 use Zend\InputFilter\InputFilter;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Zend\InputFilter\CollectionInputFilter;
+use Zend\InputFilter\InputFilterInterface;
 
 /**
  * Competition Division Input Filter
@@ -12,7 +12,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
  */
 class DivisionFilter extends InputFilter
 {
-    public function __construct(ObjectManager $objectManager, ObjectRepository $objectRepository)
+    public function __construct(InputFilterInterface $ifTeamMembership)
     {
 
         $this->add(array(
@@ -33,5 +33,9 @@ class DivisionFilter extends InputFilter
             ),
         ));
 
+        $cif = new CollectionInputFilter();
+        $cif->setInputFilter($ifTeamMembership);
+        $cif->setIsRequired(false);
+        $this->add($cif, 'teamMemberships');
     }
 }
