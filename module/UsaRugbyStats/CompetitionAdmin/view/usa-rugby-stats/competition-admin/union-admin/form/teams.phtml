@@ -12,9 +12,7 @@
         <tbody style="border:0">
 
         <?php foreach ( $collTeam->getFieldsets() as $fsTeam ): ?>
-        <?php   if ( $fsTeam->get('id')->getValue() > 0 ): ?>
-        <?php     echo $this->render('usa-rugby-stats/competition-admin/union-admin/form/teams/team', ['fieldset' => $fsTeam]); ?>
-        <?php   endif; ?>
+        <?php   echo $this->render('usa-rugby-stats/competition-admin/union-admin/form/teams/team', ['fieldset' => $fsTeam]); ?>
         <?php endforeach; ?>
 
         </tbody>

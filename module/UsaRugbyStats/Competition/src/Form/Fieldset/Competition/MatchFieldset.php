@@ -74,6 +74,7 @@ class MatchFieldset extends Fieldset
                 'target_element' => $fsSignature,
                 'should_create_template' => true,
                 'template_placeholder' => '__sigindex__',
+                'count' => 0,
             )
         ));
 

@@ -21,7 +21,7 @@ $form->setAttribute('method', 'post');
     </div>
 
     <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/collection', ['collection' => $form->get('signatures')]); ?>
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/collection', ['collection' => $form->get('match')->get('signatures')]); ?>
     </div>
 
 </div>

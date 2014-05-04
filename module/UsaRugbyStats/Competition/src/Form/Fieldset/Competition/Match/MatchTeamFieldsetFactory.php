@@ -25,6 +25,7 @@ class MatchTeamFieldsetFactory implements FactoryInterface
         $collEvents->setName('events');
         $collEvents->setShouldCreateTemplate(true);
         $collEvents->setTemplatePlaceholder('__eventindex__');
+        $collEvents->setCount(0);
         $collEvents->setTargetElement(array(
             'UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEvent\CardEvent' => $sm->get('usarugbystats_competition_competition_match_teamevent_cardfieldset'),
             'UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEvent\SubEvent' => $sm->get('usarugbystats_competition_competition_match_teamevent_subfieldset'),

@@ -34,6 +34,7 @@ class UnionFieldset extends Fieldset
             'options' => array(
                 'target_element' => $fsTeam,
                 'should_create_template' => true,
+                'count' => 0,
             )
         ));
     }

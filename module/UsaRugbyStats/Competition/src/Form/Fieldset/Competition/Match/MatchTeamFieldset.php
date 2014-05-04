@@ -50,6 +50,7 @@ class MatchTeamFieldset extends Fieldset
                 'target_element' => $fsMatchTeamPlayer,
                 'should_create_template' => true,
                 'template_placeholder' => '__playerindex__',
+                'count' => 0,
             )
         ));
 

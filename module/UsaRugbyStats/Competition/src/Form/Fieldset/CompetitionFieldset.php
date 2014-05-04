@@ -34,6 +34,7 @@ class CompetitionFieldset extends Fieldset
             'options' => array(
                 'target_element' => $fsDivision,
                 'should_create_template' => true,
+                'count' => 0,
             )
         ));
 

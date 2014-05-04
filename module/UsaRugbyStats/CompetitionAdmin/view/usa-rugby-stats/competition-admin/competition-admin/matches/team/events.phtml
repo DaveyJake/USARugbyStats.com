@@ -13,12 +13,8 @@
             </tr>
         </thead>
         <tbody>
-            <?php $elementCount = 0; ?>
             <?php foreach ( $fieldset->get('events') as $fsEvent ): ?>
-            <?php   if ( !empty($fsEvent->get('id')->getValue()) ): ?>
-            <?php     echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['fieldset' => $fsEvent]); ?>
-            <?php     $elementCount++; ?>
-            <?php   endif; ?>
+            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['fieldset' => $fsEvent]); ?>
             <?php endforeach; ?>
         </tbody>
         <tfoot>
@@ -48,7 +44,7 @@
         teamEventTemplate<?=$type?>['<?=strtolower($matches[1]);?>'] = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['fieldset' => $fsTmpl, 'isTemplate' => true])); ?>';
 <?php   endif; ?>
 <?php endforeach; ?>
-        var teamEventIndex<?=$type?> = <?php echo $this->escapeJs($elementCount); ?>;
+        var teamEventIndex<?=$type?> = <?php echo $this->escapeJs(count($fieldset->get('events'))); ?>;
 
         $(document).on('click', '.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?>-events .competition-match-team-events-addevent .dropdown-menu li a', function() {
             var html = teamEventTemplate<?=$type?>[$(this).attr('data-key')].replace(/__eventindex__/g, teamEventIndex<?=$type?>++);

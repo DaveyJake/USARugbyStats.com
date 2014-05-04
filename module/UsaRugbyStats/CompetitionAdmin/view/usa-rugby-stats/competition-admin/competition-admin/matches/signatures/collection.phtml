@@ -10,12 +10,8 @@
             </tr>
         </thead>
         <tbody>
-            <?php $elementCount = 0; ?>
             <?php foreach ( $collection as $fsSignature ): ?>
-            <?php   if ( !empty($fsSignature->get('id')->getValue()) ): ?>
-            <?php     echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', ['fieldset' => $fsSignature]); ?>
-            <?php     $elementCount++; ?>
-            <?php   endif; ?>
+            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', ['fieldset' => $fsSignature]); ?>
             <?php endforeach; ?>
         </tbody>
         <tfoot>
@@ -29,7 +25,7 @@
 
     <script type="text/javascript">
         matchSignatureTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', ['fieldset' => $collection->getTemplateElement(), 'isTemplate' => true])); ?>';
-        var matchSignatureIndex = <?php echo $this->escapeJs($elementCount); ?>;
+        var matchSignatureIndex = <?php echo $this->escapeJs(count($collection)); ?>;
 
         $(document).on('click', '.competition-match-signatures .competition-match-signatures-addsignature', function() {
             var html = matchSignatureTemplate.replace(/__sigindex__/g, matchSignatureIndex++);
