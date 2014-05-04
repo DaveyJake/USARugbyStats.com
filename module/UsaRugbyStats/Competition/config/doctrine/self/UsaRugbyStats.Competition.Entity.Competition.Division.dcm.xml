@@ -11,6 +11,10 @@
         	<join-column name="competition_id" referenced-column-name="id" />
         </many-to-one>
 
+        <unique-constraints>
+            <unique-constraint columns="name,competition_id" />
+        </unique-constraints>
+
         <one-to-many field="teamMemberships" target-entity="UsaRugbyStats\Competition\Entity\Competition\TeamMembership" mapped-by="division" orphan-removal="true">
             <cascade>
                 <cascade-all />
