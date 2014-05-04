@@ -54,13 +54,13 @@ class UserService extends ZfcUserAdminUserService
             }
 
             // @HACK to fix GH-15 (Can't empty an existing Collection)
-            if ( $user instanceof AccountEntity ) {
+            if ($user instanceof AccountEntity) {
                 switch ($key) {
                     case 'competition_admin':
                     {
                         if ( ! isset($data['roleAssignments'][$k]['managedCompetitions']) || count($data['roleAssignments'][$k]['managedCompetitions']) == 0 ) {
                             $obj = $user->getRoleAssignment($types[$key]['name']);
-                            if ( $obj instanceof CompetitionAdmin ) {
+                            if ($obj instanceof CompetitionAdmin) {
                                 $obj->removeManagedCompetitions($obj->getManagedCompetitions());
                             }
                         }
@@ -70,7 +70,7 @@ class UserService extends ZfcUserAdminUserService
                     {
                         if ( ! isset($data['roleAssignments'][$k]['managedTeams']) || count($data['roleAssignments'][$k]['managedTeams']) == 0 ) {
                             $obj = $user->getRoleAssignment($types[$key]['name']);
-                            if ( $obj instanceof TeamAdmin ) {
+                            if ($obj instanceof TeamAdmin) {
                                 $obj->removeManagedTeams($obj->getManagedTeams());
                             }
                         }
@@ -80,7 +80,7 @@ class UserService extends ZfcUserAdminUserService
                     {
                         if ( ! isset($data['roleAssignments'][$k]['managedUnions']) || count($data['roleAssignments'][$k]['managedUnions']) == 0 ) {
                             $obj = $user->getRoleAssignment($types[$key]['name']);
-                            if ( $obj instanceof UnionAdmin ) {
+                            if ($obj instanceof UnionAdmin) {
                                 $obj->removeManagedUnions($obj->getManagedUnions());
                             }
                         }
