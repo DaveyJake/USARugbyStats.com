@@ -22,7 +22,17 @@ Feature: Competition Administration Panel - Create Competition
     And I should see "The competition was created successfully!"
     And I should see "Behat Competition"
     And the "name" field should contain "Behat Competition"
-      
+            
+  @javascript
+  Scenario: Administrator cannot create a new competition with same name as an existing competition
+    Given I am authenticated as a super administrator
+    And I go to "/admin/competition/create"	
+    When I fill in the following:
+       | competition[name] | Behat Competition |
+    And I press "Create Competition"
+    Then I should be on "/admin/competition/create"
+    And I should see "There is already another object matching"
+
   @javascript
   Scenario: Name is required when creating a new competition
     Given I am authenticated as a super administrator
