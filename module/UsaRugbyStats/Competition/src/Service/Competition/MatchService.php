@@ -105,9 +105,28 @@ class MatchService implements EventManagerAwareInterface
      * @param  array       $data
      * @return Match|false
      */
-    public function update(FormInterface $form, array $data)
+    public function update(FormInterface $form, array $data, Match $entity)
     {
         $this->populateTeamEventDataInputDataWithEntityClassNames($data);
+
+        // @HACK to fix GH-15 (Can't empty an existing Collection)
+        if ( !isset($data['match']['homeTeam']['players']) || empty($data['match']['homeTeam']['players']) ) {
+            $entity->getHomeTeam()->removePlayers($entity->getHomeTeam()->getPlayers());
+        }
+        if ( !isset($data['match']['homeTeam']['events']) || empty($data['match']['homeTeam']['events']) ) {
+            $entity->getHomeTeam()->removeEvents($entity->getHomeTeam()->getEvents());
+        }
+        if ( !isset($data['match']['awayTeam']['players']) || empty($data['match']['awayTeam']['players']) ) {
+            $entity->getAwayTeam()->removePlayers($entity->getAwayTeam()->getPlayers());
+        }
+        if ( !isset($data['match']['awayTeam']['events']) || empty($data['match']['awayTeam']['events']) ) {
+            $entity->getAwayTeam()->removeEvents($entity->getAwayTeam()->getEvents());
+        }
+        if ( !isset($data['match']['signatures']) || empty($data['match']['signatures']) ) {
+            $entity->removeSignatures($entity->getSignatures());
+        }
+
+        $form->bind($entity);
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
@@ -140,7 +159,7 @@ class MatchService implements EventManagerAwareInterface
 
         foreach (['homeTeam', 'awayTeam'] as $team) {
             if ( ! isset($data['match'][$team]['events']) || count($data['match'][$team]['events']) == 0 ) {
-                $data['match'][$team]['events'] = array();
+                continue;
             }
             // Inject the entity class name into the POST request data
             // so that NonuniformCollection knows what entity to create

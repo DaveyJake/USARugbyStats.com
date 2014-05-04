@@ -97,8 +97,23 @@ class CompetitionService implements EventManagerAwareInterface
      * @param  array             $data
      * @return Competition|false
      */
-    public function update(FormInterface $form, array $data)
+    public function update(FormInterface $form, array $data, Competition $entity)
     {
+        // @HACK to fix GH-15 (Can't empty an existing Collection)
+        if ( isset($data['competition']['divisions']) && count($data['competition']['divisions']) ) {
+            $mapping = array_column($data['competition']['divisions'], 'id');
+            foreach ( $entity->getDivisions() as $division ) {
+                $index = array_search($division->getId(), $mapping);
+                if ( $index === false ) {
+                    continue;
+                }
+                if ( ! isset($data['competition']['divisions'][$index]['teamMemberships']) || empty($data['competition']['divisions'][$index]['teamMemberships']) ) {
+                    $division->removeTeamMemberships($division->getTeamMemberships());
+                }
+            }
+        }
+
+        $form->bind($entity);
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;

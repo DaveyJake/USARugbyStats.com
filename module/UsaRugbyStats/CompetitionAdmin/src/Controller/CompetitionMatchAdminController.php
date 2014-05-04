@@ -74,13 +74,12 @@ class CompetitionMatchAdminController extends AbstractActionController
         }
 
         $form = $this->getMatchService()->getUpdateForm();
-        $form->bind($entity);
 
         if ( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost()->toArray();
             $data['match']['competition'] = $competition->getId();
 
-            $result = $this->getMatchService()->update($form, $data);
+            $result = $this->getMatchService()->update($form, $data, $entity);
             if ($result instanceof Match) {
                 $this->flashMessenger()->addSuccessMessage('The match was updated successfully!');
 
@@ -89,6 +88,8 @@ class CompetitionMatchAdminController extends AbstractActionController
                     'match' => $result->getId(),
                 ]);
             }
+        } else {
+            $form->bind($entity);
         }
 
         $vm = new ViewModel();

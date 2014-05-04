@@ -54,7 +54,6 @@ class CompetitionAdminController extends AbstractActionController
         }
 
         $form = $this->getCompetitionService()->getUpdateForm();
-        $form->bind($entity);
 
         // On this page we only want to edit the Competition details,
         // not any of it's associations (Divisions, Games, etc)
@@ -66,12 +65,14 @@ class CompetitionAdminController extends AbstractActionController
         ));
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getCompetitionService()->update($form, $this->getRequest()->getPost()->toArray());
+            $result = $this->getCompetitionService()->update($form, $this->getRequest()->getPost()->toArray(), $entity);
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The competition was updated successfully!');
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_competitionadmin/edit', ['id' => $result->getId()]);
             }
+        } else {
+            $form->bind($entity);
         }
 
         $vm = new ViewModel();
@@ -91,18 +92,19 @@ class CompetitionAdminController extends AbstractActionController
         }
 
         $form = $this->getCompetitionService()->getUpdateForm();
-        $form->bind($entity);
 
         // On this page we only want to edit the Division list
         $form->setValidationGroup(['competition' => ['divisions']]);
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getCompetitionService()->update($form, $this->getRequest()->getPost()->toArray());
+            $result = $this->getCompetitionService()->update($form, $this->getRequest()->getPost()->toArray(), $entity);
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The division assignments were updated successfully!');
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_competitionadmin/edit/divisions', ['id' => $result->getId()]);
             }
+        } else {
+            $form->bind($entity);
         }
 
         $vm = new ViewModel();
