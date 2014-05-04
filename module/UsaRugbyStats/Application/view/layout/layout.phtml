@@ -14,13 +14,21 @@
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
                         ->appendStylesheet($this->basePath() . '/assets/css/bootstrap.min.css')
                         ->appendStylesheet($this->basePath() . '/assets/css/bootstrap-theme.min.css')
-                        ->appendStylesheet($this->basePath() . '/assets/css/style.css')
-                        ->appendStylesheet($this->basePath() . '/assets/css/vendor/datepicker.css')
-                        ->appendStylesheet($this->basePath() . '/assets/css/vendor/chosen.css')
-                        ->appendStylesheet($this->basePath() . '/assets/css/app.css')
-                        ->appendStylesheet($this->basePath() . '/assets/css/style.css') 
-                        ->appendStylesheet($this->basePath() . '/assets/css/print.css', 'print')
+//                         ->appendStylesheet($this->basePath() . '/assets/css/style.css')
+//                         ->appendStylesheet($this->basePath() . '/assets/css/vendor/datepicker.css')
+//                         ->appendStylesheet($this->basePath() . '/assets/css/vendor/chosen.css')
+//                         ->appendStylesheet($this->basePath() . '/assets/css/app.css')
+//                         ->appendStylesheet($this->basePath() . '/assets/css/style.css')
+//                         ->appendStylesheet($this->basePath() . '/assets/css/print.css', 'print')
         ; ?>
+        <style type="text/css">
+            body { padding: 60px 0 40px 0; }
+            a.navbar-brand { padding: 8px 0 4px 8px; }
+            a.navbar-brand img { height: 33px; }
+            @media all and (max-width: 530px) {
+                body { padding-top: 110px; }
+            }
+        </style>
 
         <!-- Fonts -->
         <script type="text/javascript" src="//use.typekit.net/dqm3mdr.js"></script>
@@ -29,7 +37,7 @@
         <?php if (!empty($this->iframe)) {
                 $this->headScript()->appendFile($this->basePath() . 'https://www.allplayers.com/iframe.js?usar_stats');
         } ?>
-        
+
         <!-- Scripts -->
         <?php echo $this->headScript()
             ->appendFile($this->basePath() . '/assets/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
@@ -43,22 +51,24 @@
             ->appendFile($this->basePath() . '/assets/js/vendor/jquery.dataTables.yadcf.js')
             ->appendFile($this->basePath() . '/assets/js/vendor/intro.js')
             ->appendFile('http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places')
-            ->appendFile($this->basePath() . '/assets/js/vendor/jquery.geocomplete.js')        
+            ->appendFile($this->basePath() . '/assets/js/vendor/jquery.geocomplete.js')
             ->appendFile($this->basePath() . '/assets/js/jquery_funcs.js')
         ; ?>
-                
+
     </head>
     <body<?php echo empty($this->iframe) ? '' : ' class="app"'; ?>>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="http://usarugby.org/images/usarugby-2x-logo-beta.png" /></a>
+                    <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="http://usarugby.org/images/usarugby-2x-logo-beta.png" /></a>
                 </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                 <ul class="nav navbar-nav navbar-right">
                   <?php if ( $this->plugin('user')->isAuthenticated() ): ?>
@@ -75,13 +85,13 @@
                     <li><a href="<?php echo $this->url('zfcuser/login'); ?>">Sign In</a></li>
                   <?php endif; ?>
                 </ul>
-                
+
                 <?php echo $this->navigation('default')
                                 ->menu()
                                 ->setUlClass('nav navbar-nav navbar-right')
                                 ->setMaxDepth(0)
                                 ->setRenderInvisible(false)?>
-                
+
                 <ul class="nav navbar-nav navbar-right">
 
 <?php //@TODO All this should be added to the navigation container above ?>
@@ -95,7 +105,7 @@
 <?php endforeach; ?>
                     </ul>
                   </li>
-                  
+
 <?php elseif ($this->user()->hasRole('league_admin') || $this->user()->hasRole('union_admin') || $this->user()->hasRole('super_admin')): ?>
                   <li><a href="/">Competitions</a></li>
 <?php endif; ?>
@@ -108,9 +118,9 @@
                   	  <li><a href="https://usarugby.zendesk.com/anonymous_requests/new" target="_blank">Contact</a></li>
                     </ul>
                   </li>
-                  
+
                 <?php if ($this->user()->hasRole('super_admin')): ?>
-                
+
                   <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Panel <b class = "caret"></b></a>
                       <?php echo $this->navigation('admin_navigation')
@@ -121,11 +131,13 @@
                   </li>
                 <?php endif; ?>
                 </ul>
+
+                </div>
             </div>
         </nav>
         <div class="container">
-        
-<?php 
+
+<?php
 // Render different levels of FlashMessenger messages in a Bootstrap3-friendly way
 $flash = $this->flashMessenger();
 $flash->setMessageOpenFormat('<div%s>
@@ -141,7 +153,7 @@ echo $flash->render('info',    array('alert', 'alert-dismissable', 'alert-info')
 echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
 echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
 ?>
-        
+
 <?php
 if (isset($_SESSION['alert_message'])) {
 	$alert = $_SESSION['alert_message'];
@@ -149,8 +161,8 @@ if (isset($_SESSION['alert_message'])) {
     // @TODO: support alert types {info, success, error}.
     echo '<div class="alert alert-info">' . $alert . '</div>';
 }
-?>        
-        
+?>
+
             <?php echo $this->content; ?>
 
         </div> <!-- /container -->
