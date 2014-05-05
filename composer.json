@@ -38,15 +38,15 @@
         "symfony/yaml": "2.1.*",
         "twig/twig": ">=1.8,<2.0-dev",
         "chrisboulton/php-resque": "*",
-        "hounddog/doctrine-data-fixture-module" : "dev-master",
 
         "zendframework/zendframework": "dev-master",
         "zf-commons/zfc-user": "1.*",
         "zf-commons/zfc-user-doctrine-orm": "0.*",
         "zf-commons/zfc-rbac": "2.*",
         "ocramius/proxy-manager": "0.5.*",
-
-        "danielss89/zfc-user-admin": "dev-rewrite as dev-master@dev"
+        "hounddog/doctrine-data-fixture-module" : "dev-master",
+        "danielss89/zfc-user-admin": "dev-rewrite as dev-master@dev",
+        "rhumsaa/array_column": "~1.1"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master",
