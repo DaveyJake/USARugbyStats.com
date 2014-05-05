@@ -125,7 +125,7 @@ class CompetitionServiceTest extends \PHPUnit_Framework_TestCase
         $entity->setId($data['id'])->setName($data['name']);
 
         // Mock the form actions
-        $this->mockCreateForm->shouldReceive('bind')->never();
+        $this->mockCreateForm->shouldReceive('bind')->withArgs([$entity])->once();
         $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([$data]);
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(true);
         $this->mockCreateForm->shouldReceive('getData')->once()->andReturn($entity);
@@ -133,7 +133,7 @@ class CompetitionServiceTest extends \PHPUnit_Framework_TestCase
         // Ensure the event manager is triggered
         $this->mockEventManager->shouldReceive('trigger')->twice();
 
-        $result = $service->update($this->mockCreateForm, $data);
+        $result = $service->update($this->mockCreateForm, $data, $entity);
         $this->assertSame($entity, $result);
     }
 
@@ -145,7 +145,7 @@ class CompetitionServiceTest extends \PHPUnit_Framework_TestCase
         $entity->setId($data['id'])->setName($data['name']);
 
         // Mock the form actions
-        $this->mockCreateForm->shouldReceive('bind')->never();
+        $this->mockCreateForm->shouldReceive('bind')->withArgs([$entity])->once();
         $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([$data]);
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(false);
         $this->mockCreateForm->shouldReceive('getData')->never();
@@ -153,7 +153,7 @@ class CompetitionServiceTest extends \PHPUnit_Framework_TestCase
         // Ensure the event manager is not triggered
         $this->mockEventManager->shouldReceive('trigger')->never();
 
-        $this->assertFalse($this->service->update($this->mockCreateForm, $data));
+        $this->assertFalse($this->service->update($this->mockCreateForm, $data, $entity));
     }
 
     public function testSaveProxiesToObjectManager()
