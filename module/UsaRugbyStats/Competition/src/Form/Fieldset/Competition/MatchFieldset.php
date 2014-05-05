@@ -43,13 +43,24 @@ class MatchFieldset extends Fieldset
             ),
         ));
 
-        $fsHomeTeam->setName('homeTeam');
-        $fsHomeTeam->get('type')->setValue('H');
-        $this->add($fsHomeTeam);
+        $this->add(array(
+            'type'    => 'Zend\Form\Element\Collection',
+            'name'    => 'teams',
+            'options' => array(
+                'target_element' => $fsHomeTeam,
+                'should_create_template' => true,
+                'template_placeholder' => '__sigindex__',
+                'count' => 2,
+            )
+        ));
 
-        $fsAwayTeam->setName('awayTeam');
+        $fsHomeTeam->setName('H');
+        $fsHomeTeam->get('type')->setValue('H');
+        $this->get('teams')->add($fsHomeTeam);
+
+        $fsAwayTeam->setName('A');
         $fsAwayTeam->get('type')->setValue('A');
-        $this->add($fsAwayTeam);
+        $this->get('teams')->add($fsAwayTeam);
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',

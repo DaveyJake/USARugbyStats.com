@@ -115,12 +115,12 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         $suite = $this;
         $this->mockCreateForm->shouldReceive('setData')->once()->with(Mockery::on(function ($a) use ($suite) {
             // Ensure that Form::setData gets the preprocessed array
-            $this->assertInternalType('array', @$a['match']['homeTeam']['events']);
-            $this->assertCount(1, $a['match']['homeTeam']['events']);
-            $this->assertEquals('Foo\Bar\BarEntity', $a['match']['homeTeam']['events'][0]['__class__']);
-            $this->assertInternalType('array', @$a['match']['awayTeam']['events']);
-            $this->assertCount(1, $a['match']['awayTeam']['events']);
-            $this->assertEquals('Foo\Bar\BazEntity', $a['match']['awayTeam']['events'][0]['__class__']);
+            $this->assertInternalType('array', @$a['match']['teams']['H']['events']);
+            $this->assertCount(1, $a['match']['teams']['H']['events']);
+            $this->assertEquals('Foo\Bar\BarEntity', $a['match']['teams']['H']['events'][0]['__class__']);
+            $this->assertInternalType('array', @$a['match']['teams']['A']['events']);
+            $this->assertCount(1, $a['match']['teams']['A']['events']);
+            $this->assertEquals('Foo\Bar\BazEntity', $a['match']['teams']['A']['events'][0]['__class__']);
 
             return true;
         }));
@@ -142,19 +142,21 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->service->create($this->mockCreateForm, [
             'match' => [
-                'homeTeam' => [
-                    'events' => [
-                        [
-                            'id' => '',
-                            'event' => 'testone',
+                'teams' => [
+                    'H' => [
+                        'events' => [
+                            [
+                                'id' => '',
+                                'event' => 'testone',
+                            ],
                         ],
                     ],
-                ],
-                'awayTeam' => [
-                    'events' => [
-                        [
-                            'id' => '',
-                            'event' => 'testtwo',
+                    'A' => [
+                        'events' => [
+                            [
+                                'id' => '',
+                                'event' => 'testtwo',
+                            ],
                         ],
                     ],
                 ],
@@ -175,10 +177,10 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         $suite = $this;
         $this->mockCreateForm->shouldReceive('setData')->once()->with(Mockery::on(function ($a) use ($suite) {
             // Ensure that Form::setData gets the preprocessed array
-            $this->assertInternalType('array', @$a['match']['homeTeam']['events']);
-            $this->assertCount(0, $a['match']['homeTeam']['events']);
-            $this->assertInternalType('array', @$a['match']['awayTeam']['events']);
-            $this->assertCount(0, $a['match']['awayTeam']['events']);
+            $this->assertInternalType('array', @$a['match']['teams']['H']['events']);
+            $this->assertCount(0, $a['match']['teams']['H']['events']);
+            $this->assertInternalType('array', @$a['match']['teams']['A']['events']);
+            $this->assertCount(0, $a['match']['teams']['A']['events']);
 
             return true;
         }));
@@ -189,19 +191,21 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->service->create($this->mockCreateForm, [
             'match' => [
-                'homeTeam' => [
-                    'events' => [
-                        [
-                            'id' => '',
-                            'event' => 'test',
+                'teams' => [
+                    'H' => [
+                        'events' => [
+                            [
+                                'id' => '',
+                                'event' => 'test',
+                            ],
                         ],
                     ],
-                ],
-                'awayTeam' => [
-                    'events' => [
-                        [
-                            'id' => '',
-                            'event' => 'test',
+                    'A' => [
+                        'events' => [
+                            [
+                                'id' => '',
+                                'event' => 'test',
+                            ],
                         ],
                     ],
                 ],
@@ -226,6 +230,7 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         $entity = new Match();
 
         // Mock the form actions
+        $this->mockCreateForm->shouldReceive('bind')->withArgs([$entity])->once();
         $this->mockCreateForm->shouldReceive('setData')->once();
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(true);
         $this->mockCreateForm->shouldReceive('getData')->once()->andReturn($entity);
@@ -233,7 +238,7 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         // Ensure the event manager is triggered
         $this->mockEventManager->shouldReceive('trigger')->twice();
 
-        $result = $service->update($this->mockCreateForm, []);
+        $result = $service->update($this->mockCreateForm, [], $entity);
         $this->assertSame($entity, $result);
     }
 
@@ -243,7 +248,7 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         $entity = new Match();
 
         // Mock the form actions
-        $this->mockCreateForm->shouldReceive('bind')->never();
+        $this->mockCreateForm->shouldReceive('bind')->withArgs([$entity])->once();
         $this->mockCreateForm->shouldReceive('setData')->once();
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(false);
         $this->mockCreateForm->shouldReceive('getData')->never();
@@ -251,7 +256,7 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         // Ensure the event manager is not triggered
         $this->mockEventManager->shouldReceive('trigger')->never();
 
-        $this->assertFalse($this->service->update($this->mockCreateForm, []));
+        $this->assertFalse($this->service->update($this->mockCreateForm, [], $entity));
     }
 
     public function testUpdateMethodPreprocessesFormInputDataForClassTableInheritance()
@@ -261,14 +266,15 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
 
         // Mock the form actions
         $suite = $this;
+        $this->mockCreateForm->shouldReceive('bind')->withArgs([$entity])->once();
         $this->mockCreateForm->shouldReceive('setData')->once()->with(Mockery::on(function ($a) use ($suite) {
             // Ensure that Form::setData gets the preprocessed array
-            $this->assertInternalType('array', @$a['match']['homeTeam']['events']);
-            $this->assertCount(1, $a['match']['homeTeam']['events']);
-            $this->assertEquals('Foo\Bar\BarEntity', $a['match']['homeTeam']['events'][0]['__class__']);
-            $this->assertInternalType('array', @$a['match']['awayTeam']['events']);
-            $this->assertCount(1, $a['match']['awayTeam']['events']);
-            $this->assertEquals('Foo\Bar\BazEntity', $a['match']['awayTeam']['events'][0]['__class__']);
+            $this->assertInternalType('array', @$a['match']['teams']['H']['events']);
+            $this->assertCount(1, $a['match']['teams']['H']['events']);
+            $this->assertEquals('Foo\Bar\BarEntity', $a['match']['teams']['H']['events'][0]['__class__']);
+            $this->assertInternalType('array', @$a['match']['teams']['A']['events']);
+            $this->assertCount(1, $a['match']['teams']['A']['events']);
+            $this->assertEquals('Foo\Bar\BazEntity', $a['match']['teams']['A']['events'][0]['__class__']);
 
             return true;
         }));
@@ -290,24 +296,26 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->service->update($this->mockCreateForm, [
             'match' => [
-                'homeTeam' => [
-                    'events' => [
-                        [
-                            'id' => '',
-                            'event' => 'testone',
+                'teams' => [
+                    'H' => [
+                        'events' => [
+                            [
+                                'id' => '',
+                                'event' => 'testone',
+                            ],
                         ],
                     ],
-                ],
-                'awayTeam' => [
-                    'events' => [
-                        [
-                            'id' => '',
-                            'event' => 'testtwo',
+                    'A' => [
+                        'events' => [
+                            [
+                                'id' => '',
+                                'event' => 'testtwo',
+                            ],
                         ],
                     ],
                 ],
             ],
-        ]);
+        ], $entity);
     }
 
     public function testUpdateMethodPreprocessesFormInputDataForClassTableInheritanceWithNonexistentEventsOnly()
@@ -317,12 +325,13 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
 
         // Mock the form actions
         $suite = $this;
+        $this->mockCreateForm->shouldReceive('bind')->withArgs([$entity])->once();
         $this->mockCreateForm->shouldReceive('setData')->once()->with(Mockery::on(function ($a) use ($suite) {
             // Ensure that Form::setData gets the preprocessed array
-            $this->assertInternalType('array', @$a['match']['homeTeam']['events']);
-            $this->assertCount(0, $a['match']['homeTeam']['events']);
-            $this->assertInternalType('array', @$a['match']['awayTeam']['events']);
-            $this->assertCount(0, $a['match']['awayTeam']['events']);
+            $this->assertInternalType('array', @$a['match']['teams']['H']['events']);
+            $this->assertCount(0, $a['match']['teams']['H']['events']);
+            $this->assertInternalType('array', @$a['match']['teams']['A']['events']);
+            $this->assertCount(0, $a['match']['teams']['A']['events']);
 
             return true;
         }));
@@ -333,24 +342,26 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->service->update($this->mockCreateForm, [
             'match' => [
-                'homeTeam' => [
-                    'events' => [
-                        [
-                            'id' => '',
-                            'event' => 'test',
+                'teams' => [
+                    'H' => [
+                        'events' => [
+                            [
+                                'id' => '',
+                                'event' => 'test',
+                            ],
                         ],
                     ],
-                ],
-                'awayTeam' => [
-                    'events' => [
-                        [
-                            'id' => '',
-                            'event' => 'test',
+                    'A' => [
+                        'events' => [
+                            [
+                                'id' => '',
+                                'event' => 'test',
+                            ],
                         ],
                     ],
                 ],
             ],
-        ]);
+        ], $entity);
     }
 
     public function testSaveProxiesToObjectManager()

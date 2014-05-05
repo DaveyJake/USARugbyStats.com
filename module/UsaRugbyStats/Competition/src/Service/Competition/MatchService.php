@@ -110,16 +110,16 @@ class MatchService implements EventManagerAwareInterface
         $this->populateTeamEventDataInputDataWithEntityClassNames($data);
 
         // @HACK to fix GH-15 (Can't empty an existing Collection)
-        if ( !isset($data['match']['homeTeam']['players']) || empty($data['match']['homeTeam']['players']) ) {
+        if ( !isset($data['match']['teams']['H']['players']) || empty($data['match']['teams']['H']['players']) ) {
             $entity->getHomeTeam()->removePlayers($entity->getHomeTeam()->getPlayers());
         }
-        if ( !isset($data['match']['homeTeam']['events']) || empty($data['match']['homeTeam']['events']) ) {
+        if ( !isset($data['match']['teams']['H']['events']) || empty($data['match']['teams']['H']['events']) ) {
             $entity->getHomeTeam()->removeEvents($entity->getHomeTeam()->getEvents());
         }
-        if ( !isset($data['match']['awayTeam']['players']) || empty($data['match']['awayTeam']['players']) ) {
+        if ( !isset($data['match']['teams']['A']['players']) || empty($data['match']['teams']['A']['players']) ) {
             $entity->getAwayTeam()->removePlayers($entity->getAwayTeam()->getPlayers());
         }
-        if ( !isset($data['match']['awayTeam']['events']) || empty($data['match']['awayTeam']['events']) ) {
+        if ( !isset($data['match']['teams']['A']['events']) || empty($data['match']['teams']['A']['events']) ) {
             $entity->getAwayTeam()->removeEvents($entity->getAwayTeam()->getEvents());
         }
         if ( !isset($data['match']['signatures']) || empty($data['match']['signatures']) ) {
@@ -157,19 +157,19 @@ class MatchService implements EventManagerAwareInterface
     {
         $types = $this->getAvailableMatchTeamEventTypes();
 
-        foreach (['homeTeam', 'awayTeam'] as $team) {
-            if ( ! isset($data['match'][$team]['events']) || count($data['match'][$team]['events']) == 0 ) {
+        foreach (['H', 'A'] as $type) {
+            if ( ! isset($data['match']['teams'][$type]['events']) || count($data['match']['teams'][$type]['events']) == 0 ) {
                 continue;
             }
             // Inject the entity class name into the POST request data
             // so that NonuniformCollection knows what entity to create
-            foreach ($data['match'][$team]['events'] as $k=>$v) {
+            foreach ($data['match']['teams'][$type]['events'] as $k=>$v) {
                 $key = strtolower($v['event']);
                 if ( ! isset($types[$key]) ) {
-                    unset($data['match'][$team]['events'][$k]);
+                    unset($data['match']['teams'][$type]['events'][$k]);
                     continue;
                 }
-                $data['match'][$team]['events'][$k]['__class__'] = $types[$key]['entity_class'];
+                $data['match']['teams'][$type]['events'][$k]['__class__'] = $types[$key]['entity_class'];
             }
         }
     }

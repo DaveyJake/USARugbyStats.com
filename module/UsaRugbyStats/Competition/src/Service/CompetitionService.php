@@ -104,7 +104,7 @@ class CompetitionService implements EventManagerAwareInterface
             $mapping = array_column($data['competition']['divisions'], 'id');
             foreach ( $entity->getDivisions() as $division ) {
                 $index = array_search($division->getId(), $mapping);
-                if ( $index === false ) {
+                if ($index === false) {
                     continue;
                 }
                 if ( ! isset($data['competition']['divisions'][$index]['teamMemberships']) || empty($data['competition']['divisions'][$index]['teamMemberships']) ) {

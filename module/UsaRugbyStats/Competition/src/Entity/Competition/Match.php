@@ -53,6 +53,8 @@ class Match
      */
     protected $awayTeam;
 
+    protected $teams;
+
     /**
      * Match Events
      *
@@ -78,12 +80,14 @@ class Match
     {
         $this->signatures = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
     public function __clone()
     {
         $this->signatures = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
     /**
@@ -162,7 +166,7 @@ class Match
      */
     public function getHomeTeam()
     {
-        return $this->homeTeam;
+        return $this->getTeam('H');
     }
 
     /**
@@ -174,9 +178,7 @@ class Match
     public function setHomeTeam(MatchTeam $u)
     {
         $u->setType('H');
-        $u->setMatch($this);
-
-        $this->homeTeam = $u;
+        $this->addTeam($u);
 
         return $this;
     }
@@ -188,7 +190,7 @@ class Match
      */
     public function getAwayTeam()
     {
-        return $this->awayTeam;
+        return $this->getTeam('A');
     }
 
     /**
@@ -200,11 +202,108 @@ class Match
     public function setAwayTeam(MatchTeam $u)
     {
         $u->setType('A');
-        $u->setMatch($this);
-
-        $this->awayTeam = $u;
+        $this->addTeam($u);
 
         return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTeams()
+    {
+        return $this->teams;
+    }
+
+    /**
+     * @param  string         $type
+     * @return MatchTeam|null
+     */
+    public function getTeam($type)
+    {
+        if ( ! $this->teams->containsKey($type) ) {
+            $obj = new MatchTeam();
+            $obj->setType($type);
+            $this->addTeam($obj);
+        }
+
+        return $this->teams->get($type);
+    }
+
+    /**
+     * @param  Collection $teams
+     * @return self
+     */
+    public function setTeams(Collection $teams)
+    {
+        $this->teams->clear();
+        $this->addTeams($teams);
+
+        return $this;
+    }
+
+    /**
+     * @param  Collection $teams
+     * @return self
+     */
+    public function addTeams(Collection $teams)
+    {
+        if (count($teams)) {
+            foreach ($teams as $ra) {
+                $this->addTeam($ra);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  Team $obj
+     * @return self
+     */
+    public function addTeam(MatchTeam $obj)
+    {
+        $obj->setMatch($this);
+        $this->teams->set($obj->getType(), $obj);
+
+        return $this;
+    }
+
+    /**
+     * @param  Collection $teams
+     * @return self
+     */
+    public function removeTeams(Collection $teams)
+    {
+        if (count($teams)) {
+            foreach ($teams as $ra) {
+                $this->removeTeam($ra);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  MatchTeam $obj
+     * @return self
+     */
+    public function removeTeam(MatchTeam $obj)
+    {
+        $obj->setMatch(NULL);
+        $this->teams->remove($obj->getType());
+
+        return $this;
+    }
+
+    /**
+     * @param  MatchTeam $obj
+     * @return bool
+     */
+    public function hasTeam(MatchTeam $obj)
+    {
+        return $this->teams->containsKey($obj->getType())
+            || $this->teams->contains($obj);
     }
 
     /**

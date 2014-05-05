@@ -28,11 +28,11 @@ $form->setAttribute('method', 'post');
 
 <div class="row">
     <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('homeTeam'), 'type' => 'H']); ?>
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('teams')->get('H'), 'type' => 'H']); ?>
     </div>
 
     <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('awayTeam'), 'type' => 'A']); ?>
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('teams')->get('A'), 'type' => 'A']); ?>
     </div>
 
 </div>

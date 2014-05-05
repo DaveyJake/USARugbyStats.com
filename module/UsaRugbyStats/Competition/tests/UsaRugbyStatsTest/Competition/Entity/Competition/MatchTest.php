@@ -28,11 +28,13 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $homeTeam = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam');
         $homeTeam->shouldReceive('getTeam->getName')->andReturn('Home');
         $homeTeam->shouldReceive('setType')->andReturnSelf();
+        $homeTeam->shouldReceive('getType')->andReturn('H');
         $homeTeam->shouldReceive('setMatch')->andReturnSelf();
 
         $awayTeam = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam');
         $awayTeam->shouldReceive('getTeam->getName')->andReturn('Away');
         $awayTeam->shouldReceive('setType')->andReturnSelf();
+        $awayTeam->shouldReceive('getType')->andReturn('A');
         $awayTeam->shouldReceive('setMatch')->andReturnSelf();
 
         $obj = new Match();
@@ -83,6 +85,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam');
         $team0->shouldReceive('setMatch')->withArgs([$obj])->once()->andReturnSelf();
         $team0->shouldReceive('setType')->withArgs(['H'])->once()->andReturnSelf();
+        $team0->shouldReceive('getType')->andReturn('H');
 
         $obj->setHomeTeam($team0);
 
@@ -104,6 +107,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam');
         $team0->shouldReceive('setMatch')->withArgs([$obj])->once()->andReturnSelf();
         $team0->shouldReceive('setType')->withArgs(['A'])->once()->andReturnSelf();
+        $team0->shouldReceive('getType')->andReturn('A');
 
         $obj->setAwayTeam($team0);
 
