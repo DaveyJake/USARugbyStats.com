@@ -36,6 +36,8 @@ class CompetitionCreateForm extends Form
         $validData = $validInput['competition'];
         $fsCompetition = $this->get('competition');
 
+        // @TODO there really must be a better way to do this
+
         // Ensure that each division of the competition has a unique name
         $divisionNames = array();
         $teams = array();
@@ -55,7 +57,7 @@ class CompetitionCreateForm extends Form
             foreach ($arrDivision['teamMemberships'] as $teamKey => $arrTeamMembership) {
                 if ( in_array($arrTeamMembership['team'], $teams, true) ) {
                     $fsCompetition->get('divisions')->get($divKey)->get('teamMemberships')->get($teamKey)->get('team')->setMessages([
-                        "This team has already been added once!"
+                        "This team has already been added to another division!"
                     ]);
                     $result = false;
                 }

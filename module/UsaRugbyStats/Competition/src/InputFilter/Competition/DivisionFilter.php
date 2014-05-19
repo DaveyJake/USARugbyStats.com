@@ -2,7 +2,6 @@
 namespace UsaRugbyStats\Competition\InputFilter\Competition;
 
 use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\CollectionInputFilter;
 use Zend\InputFilter\InputFilterInterface;
 
 /**
@@ -33,9 +32,7 @@ class DivisionFilter extends InputFilter
             ),
         ));
 
-        $cif = new CollectionInputFilter();
-        $cif->setInputFilter($ifTeamMembership);
-        $cif->setIsRequired(false);
+        $cif = new TeamMembershipCollectionFilter($ifTeamMembership);
         $this->add($cif, 'teamMemberships');
     }
 }

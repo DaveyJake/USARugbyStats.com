@@ -118,7 +118,7 @@ Feature: Competition Administration Panel - Create Competition
     And I should see 2 ".competition-divisions-division[data-index=1] table tr[data-teamid]" elements
 
   @javascript
-  Scenario: Administrator cannot add the same team more than once
+  Scenario: Administrator cannot add the same team to a division more than once
     Given I am authenticated as a super administrator
     And I go to "/admin/competition/create"	
     When I fill in the following:
@@ -133,5 +133,28 @@ Feature: Competition Administration Panel - Create Competition
     And select "Test Team #1" from "competition[divisions][0][teamMemberships][1][team]"
     Then I press "Create Competition"
     Then I should be on "/admin/competition/create"
-    And I should see "This team has already been added once!"
-    And I should see "This team has already been added once!" in the ".competition-divisions-division-teams tr[data-teamindex=1]" element
+    And I should see "This team has already been added!"
+    And I should see "This team has already been added!" in the ".competition-divisions-division-teams tr[data-teamindex=1]" element
+    
+  @javascript
+  Scenario: Administrator cannot add the same team to more than one division
+    Given I am authenticated as a super administrator
+    And I go to "/admin/competition/create"	
+    When I fill in the following:
+       | competition[name] | Competition with team added to multiple divisions |
+    And I click the ".competition-divisions-add" element
+    Then I should see 1 ".competition-divisions-division" elements
+    Then I fill in the following:
+       | competition[divisions][0][name] | Test Division 1 |
+    Then I click the ".competition-divisions-division[data-index=0] .competition-divisions-division-teams-add" element
+    And select "Test Team #1" from "competition[divisions][0][teamMemberships][0][team]"
+    Then I click the ".competition-divisions-add" element
+    Then I should see 2 ".competition-divisions-division" elements
+    Then I fill in the following:
+       | competition[divisions][1][name] | Test Division 2 |
+    Then I click the ".competition-divisions-division[data-index=1] .competition-divisions-division-teams-add" element
+    And select "Test Team #1" from "competition[divisions][1][teamMemberships][0][team]"
+    Then I press "Create Competition"
+    Then I should be on "/admin/competition/create"
+    And I should see "This team has already been added to another division!"
+    And I should see "This team has already been added to another division!" in the ".competition-divisions-division[data-index=1] .competition-divisions-division-teams tr[data-teamindex=0]" element
