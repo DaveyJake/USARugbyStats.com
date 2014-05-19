@@ -2,7 +2,6 @@
 namespace UsaRugbyStats\Competition\InputFilter\Competition;
 
 use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\CollectionInputFilter;
 use UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamCollectionFilter;
 
 /**

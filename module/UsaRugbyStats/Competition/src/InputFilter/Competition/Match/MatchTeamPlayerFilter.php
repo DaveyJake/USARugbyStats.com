@@ -9,9 +9,9 @@ use Doctrine\Common\Persistence\ObjectRepository;
  *
  * @author Adam Lundrigan <adam@lundrigan.ca>
  */
-class MatchTeamFilter extends InputFilter
+class MatchTeamPlayerFilter extends InputFilter
 {
-    public function __construct(MatchTeamPlayerFilter $ifMatchTeamPlayer, ObjectRepository $teamRepository)
+    public function __construct(ObjectRepository $playerRepository)
     {
 
         $this->add(array(
@@ -24,13 +24,31 @@ class MatchTeamFilter extends InputFilter
         ));
 
         $this->add(array(
-            'name'       => 'team',
+            'name'       => 'number',
+            'required'   => false,
+            'validators' => array(),
+            'filters'   => array(
+                array('name' => 'Digits'),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'position',
+            'required'   => false,
+            'validators' => array(),
+            'filters'   => array(
+                array('name' => 'Digits'),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'player',
             'required'   => true,
             'validators' => array(
                 array(
                     'name' => 'DoctrineModule\Validator\ObjectExists',
                     'options' => array(
-                        'object_repository' => $teamRepository,
+                        'object_repository' => $playerRepository,
                         'fields' => 'id'
                     )
                 )
@@ -39,9 +57,6 @@ class MatchTeamFilter extends InputFilter
                 array('name' => 'Digits'),
             ),
         ));
-
-        $collPlayers = new MatchTeamPlayerCollectionFilter($ifMatchTeamPlayer);
-        $this->add($collPlayers, 'players');
 
     }
 }

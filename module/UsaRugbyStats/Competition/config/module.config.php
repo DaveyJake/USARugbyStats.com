@@ -37,6 +37,7 @@ return array(
             'usarugbystats_competition_competition_match_team_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamFieldsetFactory',
             'usarugbystats_competition_competition_match_team_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamFilterFactory',
             'usarugbystats_competition_competition_match_teamplayer_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamPlayerFieldsetFactory',
+            'usarugbystats_competition_competition_match_teamplayer_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamPlayerFilterFactory',
             'usarugbystats_competition_competition_match_signature_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchSignatureFieldsetFactory',
 
             'usarugbystats_competition_competition_match_teamevent_cardfieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEvent\CardEventFieldsetFactory',
@@ -65,6 +66,8 @@ return array(
             'usarugbystats_competition_competition_match_team_inputfilter' => false,
 
             'usarugbystats_competition_competition_match_teamplayer_fieldset' => false,
+            'usarugbystats_competition_competition_match_teamplayer_inputfilter' => false,
+
             'usarugbystats_competition_competition_match_signature_fieldset' => false,
 
             'usarugbystats_competition_competition_match_teamevent_cardfieldset' => false,
