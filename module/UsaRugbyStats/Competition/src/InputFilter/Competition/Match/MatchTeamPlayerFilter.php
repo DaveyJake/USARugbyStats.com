@@ -37,7 +37,7 @@ class MatchTeamPlayerFilter extends InputFilter
             'required'   => false,
             'validators' => array(),
             'filters'   => array(
-                array('name' => 'Digits'),
+                array('name' => 'Alpha'),
             ),
         ));
 
