@@ -2,6 +2,8 @@
 namespace UsaRugbyStats\Competition\InputFilter\Competition;
 
 use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\CollectionInputFilter;
+use UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamCollectionFilter;
 
 /**
  * Competition Input Filter
@@ -10,7 +12,7 @@ use Zend\InputFilter\InputFilter;
  */
 class MatchFilter extends InputFilter
 {
-    public function __construct()
+    public function __construct(Match\MatchTeamFilter $ifMatchTeam)
     {
 
         $this->add(array(
@@ -31,5 +33,8 @@ class MatchFilter extends InputFilter
             ),
         ));
 
+        $cif = new MatchTeamCollectionFilter($ifMatchTeam);
+        $cif->setInputFilter($ifMatchTeam);
+        $this->add($cif, 'teams');
     }
 }

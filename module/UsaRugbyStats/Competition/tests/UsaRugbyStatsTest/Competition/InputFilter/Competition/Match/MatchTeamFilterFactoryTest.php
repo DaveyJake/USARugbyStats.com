@@ -1,10 +1,10 @@
 <?php
-namespace UsaRugbyStatsTest\Competition\InputFilter\Competition;
+namespace UsaRugbyStatsTest\Competition\InputFilter\Competition\Match;
 
 use Mockery;
-use UsaRugbyStats\Competition\InputFilter\Competition\MatchFilterFactory;
+use UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamFilterFactory;
 
-class MatchFilterFactoryTest extends \PHPUnit_Framework_TestCase
+class MatchTeamFilterFactoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $serviceManager;
 
@@ -14,17 +14,14 @@ class MatchFilterFactoryTest extends \PHPUnit_Framework_TestCase
         $mockObjectManager = Mockery::mock('Doctrine\Common\Persistence\ObjectManager');
         $mockObjectManager->shouldReceive('getRepository')->andReturn($mockRepository);
 
-        $mockInputFilter = Mockery::mock('UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamFilter');
-
         $this->serviceManager = new \Zend\ServiceManager\ServiceManager();
         $this->serviceManager->setService('zfcuser_doctrine_em', $mockObjectManager);
-        $this->serviceManager->setService('usarugbystats_competition_competition_match_team_inputfilter', $mockInputFilter);
     }
 
     public function testCreateService()
     {
-        $factory = new MatchFilterFactory();
+        $factory = new MatchTeamFilterFactory();
         $object = $factory->createService($this->serviceManager);
-        $this->assertInstanceOf('UsaRugbyStats\Competition\InputFilter\Competition\MatchFilter', $object);
+        $this->assertInstanceOf('UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamFilter', $object);
     }
 }

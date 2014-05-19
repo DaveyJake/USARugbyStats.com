@@ -48,8 +48,6 @@ class MatchFieldset extends Fieldset
             'name'    => 'teams',
             'options' => array(
                 'target_element' => $fsHomeTeam,
-                'should_create_template' => true,
-                'template_placeholder' => '__sigindex__',
                 'count' => 2,
             )
         ));

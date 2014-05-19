@@ -8,7 +8,9 @@ class MatchFilterFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $manager)
     {
-        $filter = new MatchFilter();
+        $fs = $manager->get('usarugbystats_competition_competition_match_team_inputfilter');
+
+        $filter = new MatchFilter($fs);
 
         return $filter;
     }
