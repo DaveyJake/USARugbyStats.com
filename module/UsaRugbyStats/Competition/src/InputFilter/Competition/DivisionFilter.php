@@ -35,4 +35,15 @@ class DivisionFilter extends InputFilter
         $cif = new TeamMembershipCollectionFilter($ifTeamMembership);
         $this->add($cif, 'teamMemberships');
     }
+
+    /**
+     * Necessary so that workaround for ZF2-6304 works properly
+     * @see UsaRugbyStats\Application\Common\NestedCollectionInputFilter
+     */
+    public function __clone()
+    {
+        $obj = clone $this->get('teamMemberships');
+        $this->remove('teamMemberships');
+        $this->add($obj, 'teamMemberships');
+    }
 }

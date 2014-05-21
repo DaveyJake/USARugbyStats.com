@@ -5,8 +5,7 @@ use Zend\InputFilter\InputFilter;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Zend\InputFilter\InputFilterInterface;
-use Zend\InputFilter\CollectionInputFilter;
-
+use UsaRugbyStats\Application\Common\NestedCollectionInputFilter;
 /**
  * Competition Input Filter
  *
@@ -35,7 +34,7 @@ class CompetitionFilter extends InputFilter
             ),
         ));
 
-        $cif = new CollectionInputFilter();
+        $cif = new NestedCollectionInputFilter();
         $cif->setInputFilter($ifDivision);
         $cif->setIsRequired(false);
         $this->add($cif, 'divisions');
