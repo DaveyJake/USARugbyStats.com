@@ -44,4 +44,15 @@ class MatchTeamFilter extends InputFilter
         $this->add($collPlayers, 'players');
 
     }
+
+    /**
+     * Necessary so that workaround for ZF2-6304 works properly
+     * @see UsaRugbyStats\Application\Common\NestedCollectionInputFilter
+     */
+    public function __clone()
+    {
+        $obj = clone $this->get('players');
+        $this->remove('players');
+        $this->add($obj, 'players');
+    }
 }

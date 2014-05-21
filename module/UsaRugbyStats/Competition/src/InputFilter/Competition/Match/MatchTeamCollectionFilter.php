@@ -1,15 +1,15 @@
 <?php
 namespace UsaRugbyStats\Competition\InputFilter\Competition\Match;
 
-use Zend\InputFilter\CollectionInputFilter;
 use Zend\InputFilter\InputFilterInterface;
+use UsaRugbyStats\Application\Common\NestedCollectionInputFilter;
 
 /**
  * Match Team Collection Filter
  *
  * @author Adam Lundrigan <adam@lundrigan.ca>
  */
-class MatchTeamCollectionFilter extends CollectionInputFilter
+class MatchTeamCollectionFilter extends NestedCollectionInputFilter
 {
     public function __construct(InputFilterInterface $ifMatchTeam)
     {
