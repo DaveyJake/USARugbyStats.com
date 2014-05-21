@@ -16,7 +16,8 @@ class TeamRepository extends EntityRepository
         $qb = $this->createQueryBuilder('Team');
         $qb->distinct(true);
         $qb->leftJoin('UsaRugbyStats\Competition\Entity\Competition\TeamMembership', 'TeamMembership', 'WITH', 'Team.id = TeamMembership.team');
-        $qb->where($qb->expr()->eq('TeamMembership.competition', $competition));
+        $qb->leftJoin('UsaRugbyStats\Competition\Entity\Competition\Division', 'Division', 'WITH', 'TeamMembership.division = Division.id');
+        $qb->where($qb->expr()->eq('Division.competition', $competition));
 
         return new ArrayCollection($qb->getQuery()->getResult());
     }
