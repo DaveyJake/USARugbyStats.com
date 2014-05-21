@@ -55,4 +55,5 @@ class MatchTeamFilter extends InputFilter
         $this->remove('players');
         $this->add($obj, 'players');
     }
+
 }

@@ -83,6 +83,8 @@ class MatchService implements EventManagerAwareInterface
         $form->bind($entity);
 
         $this->populateTeamEventDataInputDataWithEntityClassNames($data);
+        $this->removeUnusedRosterSlots($data);
+
         $form->setData($data);
         if ( ! $form->isValid() ) {
             return false;
@@ -108,6 +110,7 @@ class MatchService implements EventManagerAwareInterface
     public function update(FormInterface $form, array $data, Match $entity)
     {
         $this->populateTeamEventDataInputDataWithEntityClassNames($data);
+        $this->removeUnusedRosterSlots($data);
 
         // @HACK to fix GH-15 (Can't empty an existing Collection)
         if ( !isset($data['match']['teams']['H']['players']) || empty($data['match']['teams']['H']['players']) ) {
@@ -170,6 +173,23 @@ class MatchService implements EventManagerAwareInterface
                     continue;
                 }
                 $data['match']['teams'][$type]['events'][$k]['__class__'] = $types[$key]['entity_class'];
+            }
+        }
+    }
+
+    protected function removeUnusedRosterSlots(&$data)
+    {
+        if ( !isset($data['match']['teams']) || empty($data['match']['teams']) ) {
+            return;
+        }
+        foreach ($data['match']['teams'] as $team=>&$fsTeam) {
+            if ( !isset($fsTeam['players']) || empty($fsTeam['players']) ) {
+                continue;
+            }
+            foreach ($fsTeam['players'] as $pkey=>$pdata) {
+                if ( empty($pdata['player']) ) {
+                    unset($fsTeam['players'][$pkey]);
+                }
             }
         }
     }

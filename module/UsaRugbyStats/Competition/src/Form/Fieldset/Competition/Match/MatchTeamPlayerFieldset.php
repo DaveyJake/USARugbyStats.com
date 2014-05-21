@@ -26,6 +26,8 @@ class MatchTeamPlayerFieldset extends Fieldset
                 'label' => 'Player',
                 'object_manager' => $om,
                 'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
+                'display_empty_item' => true,
+                'empty_item_label'   => 'Select a Player',
             ),
         ));
 

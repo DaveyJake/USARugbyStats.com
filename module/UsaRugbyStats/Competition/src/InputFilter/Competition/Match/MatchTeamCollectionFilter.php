@@ -41,6 +41,9 @@ class MatchTeamCollectionFilter extends NestedCollectionInputFilter
 
             // Player must be unique per match
             foreach ($membership['players'] as $pkey=>$player) {
+                if ( empty($player['player']) ) {
+                    continue;
+                }
                 if ( in_array($player['player'], $players) ) {
                     $this->collectionMessages[$key]['players'][$pkey] = ['player' => ['This player has already been added!']];
                     $result = false;

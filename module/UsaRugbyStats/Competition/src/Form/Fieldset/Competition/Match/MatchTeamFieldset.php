@@ -5,6 +5,7 @@ use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
 use Zend\Form\FieldsetInterface;
 use Zend\Form\Element\Collection;
+use Zend\Form\FormInterface;
 
 class MatchTeamFieldset extends Fieldset
 {
@@ -56,6 +57,51 @@ class MatchTeamFieldset extends Fieldset
 
         $this->add($collEvents);
 
+    }
+
+    public function prepareElement(FormInterface $form)
+    {
+        $players = $this->get('players');
+
+        // Pop off any existing entries and store them temporarily
+        // (prevents manual change in number from ruining sort order on form render)
+        $tempStorage = [];
+        foreach ($players as $item) {
+            $players->remove($item->getName());
+            $item->setName($item->get('number')->getValue());
+            $tempStorage[$item->get('number')->getValue()] = $item;
+        }
+
+        // Pre-fill the first 23 roster slots with appropriate number and position
+        for ($key = 1; $key <= 23; $key++) {
+
+            if ( isset($tempStorage[$key]) ) {
+                $players->add($tempStorage[$key]);
+                unset($tempStorage[$key]);
+                continue;
+            }
+
+            $item = clone $players->getTargetElement();
+            $item->setName($key);
+            $players->add($item);
+
+            $valueOptions = $item->get('position')->getValueOptions();
+            $thisPosition = array_slice($valueOptions, $key-1, 1, true);
+            if ( count($thisPosition) == 1 ) {
+                $thisPositionKey = array_keys($thisPosition);
+                $item->get('position')->setValue(array_pop($thisPositionKey));
+                $item->get('number')->setValue($key);
+            }
+        }
+
+        // Re-add any extra records (>23) to the bottom
+        if (count($tempStorage)) {
+            foreach ($tempStorage as $item) {
+                $players->add($item);
+            }
+        }
+
+        return parent::prepareElement($form);
     }
 
 }
