@@ -40,7 +40,7 @@ class MatchTeamPlayer
     /**
      * @var bool
      */
-    protected $isFrontRow;
+    protected $isFrontRow = false;
 
     /**
      * Match Identifier

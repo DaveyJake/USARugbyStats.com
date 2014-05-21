@@ -37,7 +37,16 @@ class MatchTeamPlayerFilter extends InputFilter
             'required'   => false,
             'validators' => array(),
             'filters'   => array(
-                array('name' => 'Alpha'),
+                array('name' => 'Alnum'),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'isFrontRow',
+            'required'   => false,
+            'validators' => array(),
+            'filters'   => array(
+                array('name' => 'Boolean'),
             ),
         ));
 
