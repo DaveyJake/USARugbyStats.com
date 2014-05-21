@@ -37,6 +37,8 @@ class CompetitionMatchAdminController extends AbstractActionController
         $entity = $this->loadCompetitionEntity();
 
         $form = $this->getMatchService()->getCreateForm();
+        $form->get('match')->get('competition')->setValue($entity->getId());
+
         if ( $this->getRequest()->isPost() ) {
             $data = $this->getRequest()->getPost()->toArray();
             $data['match']['competition'] = $entity->getId();

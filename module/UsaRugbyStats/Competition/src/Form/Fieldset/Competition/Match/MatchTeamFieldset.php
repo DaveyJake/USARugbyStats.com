@@ -9,10 +9,13 @@ use Zend\Form\FormInterface;
 
 class MatchTeamFieldset extends Fieldset
 {
+    protected $objectManager;
 
     public function __construct(ObjectManager $om, FieldsetInterface $fsMatchTeamPlayer, Collection $collEvents)
     {
         parent::__construct('match-team');
+
+        $this->objectManager = $om;
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
@@ -41,6 +44,13 @@ class MatchTeamFieldset extends Fieldset
                 'label' => 'Team',
                 'object_manager' => $om,
                 'target_class'   => 'UsaRugbyStats\Competition\Entity\Team',
+                'is_method'      => true,
+                'find_method'    => array(
+                    'name'   => 'findAllTeamsInCompetition',
+                    'params' => array(
+                        'competition' => NULL,
+                    ),
+                ),
             ),
         ));
 
@@ -61,6 +71,30 @@ class MatchTeamFieldset extends Fieldset
 
     public function prepareElement(FormInterface $form)
     {
+        // If a competition ID is provided, filter list of teams by it
+        if ($form->has('match') && $form->get('match')->has('competition')) {
+            $competition = $form->get('match')->get('competition')->getValue();
+            if ( !empty($competition) ) {
+                $this->remove('team');
+                $this->add(array(
+                    'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                    'name' => 'team',
+                    'options' => array(
+                        'label' => 'Team',
+                        'object_manager' => $this->objectManager,
+                        'target_class'   => 'UsaRugbyStats\Competition\Entity\Team',
+                        'is_method'      => true,
+                        'find_method'    => array(
+                            'name'   => 'findAllTeamsInCompetition',
+                            'params' => array(
+                                'competition' => $competition,
+                            ),
+                        ),
+                    ),
+                ));
+            }
+        }
+
         $players = $this->get('players');
 
         // Pop off any existing entries and store them temporarily
