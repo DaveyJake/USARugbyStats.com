@@ -3,6 +3,7 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEve
 
 use Doctrine\Common\Persistence\ObjectManager;
 use UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEventFieldset;
+use Zend\Form\FormInterface;
 
 class CardEventFieldset extends MatchTeamEventFieldset
 {
@@ -23,16 +24,37 @@ class CardEventFieldset extends MatchTeamEventFieldset
             ),
         ));
 
+        $this->addPlayerElements();
+    }
+
+    public function prepareElement(FormInterface $form)
+    {
+        if ($this->getTeam()) {
+            $this->remove('player');
+            $this->addPlayerElements();
+        }
+
+        return parent::prepareElement($form);
+    }
+
+    protected function addPlayerElements()
+    {
         $this->add(array(
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'player',
             'options' => array(
                 'label' => 'Player',
-                'object_manager' => $om,
+                'object_manager' => $this->getObjectManager(),
                 'target_class'   => 'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer',
+                'is_method'      => true,
+                'find_method'    => array(
+                    'name'   => 'findAllPlayersForMatchTeam',
+                    'params' => array(
+                        'matchTeam' => $this->getTeam() ? $this->getTeam()->getId() : NULL,
+                    ),
+                ),
             ),
         ));
-
     }
 
 }

@@ -87,11 +87,18 @@ class MatchTeamFieldset extends Fieldset
                         'find_method'    => array(
                             'name'   => 'findAllTeamsInCompetition',
                             'params' => array(
-                                'competition' => is_object($competition) ? $competition->getId() : (int)$competition,
+                                'competition' => is_object($competition) ? $competition->getId() : (int) $competition,
                             ),
                         ),
                     ),
                 ));
+            }
+        }
+
+        if ( $this->get('id')->getValue() ) {
+            $types = $this->get('events')->getTargetElement();
+            foreach ($types as $type) {
+                $type->setTeam($this->getObject());
             }
         }
 
