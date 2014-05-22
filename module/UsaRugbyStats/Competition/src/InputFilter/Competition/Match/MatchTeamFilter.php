@@ -3,6 +3,8 @@ namespace UsaRugbyStats\Competition\InputFilter\Competition\Match;
 
 use Zend\InputFilter\InputFilter;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Zend\InputFilter\CollectionInputFilter;
+use UsaRugbyStats\Application\Common\NestedCollectionInputFilter;
 
 /**
  * Match Team Input Filter
@@ -11,7 +13,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
  */
 class MatchTeamFilter extends InputFilter
 {
-    public function __construct(MatchTeamPlayerFilter $ifMatchTeamPlayer, ObjectRepository $teamRepository)
+    public function __construct(CollectionInputFilter $collPlayers, CollectionInputFilter $collEvents, ObjectRepository $teamRepository)
     {
 
         $this->add(array(
@@ -40,9 +42,8 @@ class MatchTeamFilter extends InputFilter
             ),
         ));
 
-        $collPlayers = new MatchTeamPlayerCollectionFilter($ifMatchTeamPlayer);
         $this->add($collPlayers, 'players');
-
+        $this->add($collEvents, 'events');
     }
 
     /**
@@ -54,6 +55,10 @@ class MatchTeamFilter extends InputFilter
         $obj = clone $this->get('players');
         $this->remove('players');
         $this->add($obj, 'players');
+
+        $obj = clone $this->get('events');
+        $this->remove('events');
+        $this->add($obj, 'events');
     }
 
 }

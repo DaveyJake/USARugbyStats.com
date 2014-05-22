@@ -14,11 +14,13 @@ class MatchTeamFilterFactoryTest extends \PHPUnit_Framework_TestCase
         $mockObjectManager = Mockery::mock('Doctrine\Common\Persistence\ObjectManager');
         $mockObjectManager->shouldReceive('getRepository')->andReturn($mockRepository);
 
-        $mockInputFilter = Mockery::mock('UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamPlayerFilter');
+        $mockPlayerCollection = Mockery::mock('Zend\InputFilter\CollectionInputFilter');
+        $mockEventsCollection = Mockery::mock('Zend\InputFilter\CollectionInputFilter');
 
         $this->serviceManager = new \Zend\ServiceManager\ServiceManager();
         $this->serviceManager->setService('zfcuser_doctrine_em', $mockObjectManager);
-        $this->serviceManager->setService('usarugbystats_competition_competition_match_teamplayer_inputfilter', $mockInputFilter);
+        $this->serviceManager->setService('usarugbystats_competition_competition_match_teamplayer_collectionfilter', $mockPlayerCollection);
+        $this->serviceManager->setService('usarugbystats_competition_competition_match_teamevent_collectionfilter', $mockEventsCollection);
     }
 
     public function testCreateService()
