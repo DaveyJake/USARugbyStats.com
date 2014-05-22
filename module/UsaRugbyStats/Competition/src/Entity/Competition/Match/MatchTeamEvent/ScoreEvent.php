@@ -56,4 +56,36 @@ class ScoreEvent extends MatchTeamEvent
     {
         return 'score';
     }
+
+    public function onAdd()
+    {
+        $this->getTeam()->setScore(
+            $this->getTeam()->getScore()
+            + $this->getPoints()
+        );
+    }
+
+    public function onRemove()
+    {
+        $this->getTeam()->setScore(
+            $this->getTeam()->getScore()
+            - $this->getPoints()
+        );
+    }
+
+    protected function getPoints()
+    {
+        switch ( $this->getType() ) {
+            case 'CV':
+                return 2;
+            case 'DG':
+            case 'PK':
+                return 3;
+            case 'PT':
+            case 'TR':
+                return 5;
+        }
+
+        return 0;
+    }
 }
