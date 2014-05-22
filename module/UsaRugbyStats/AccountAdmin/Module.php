@@ -9,9 +9,16 @@ class Module
     {
         $sl = $e->getApplication()->getServiceManager();
 
+        $userService = $sl->get('UsaRugbyStats\AccountAdmin\Service\UserService');
+
         // Override the AdminUserService with our own extension
         $zfcUserAdminController = $sl->get('ControllerLoader')->get('zfcuseradmin');
-        $zfcUserAdminController->setAdminUserService($sl->get('UsaRugbyStats\AccountAdmin\Service\UserService'));
+        $zfcUserAdminController->setAdminUserService($userService);
+
+        // Automatically attach Member role to new users
+        $listener = $sl->get('UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignup');
+        $listener->setGroups(['member']);
+        $userService->getEventManager()->attach($listener);
     }
 
     public function getConfig()

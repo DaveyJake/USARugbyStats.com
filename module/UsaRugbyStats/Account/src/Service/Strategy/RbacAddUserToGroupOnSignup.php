@@ -36,6 +36,10 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
             'register.post',
             [$this, 'addUserToGroup']
         );
+        $this->listeners[] = $events->attach(
+            'create.post',
+            [$this, 'addUserToGroup']
+        );
     }
 
     /**
@@ -55,6 +59,10 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
             if (! $role instanceof Role) {
                 continue;
             }
+            if ( $user->hasRole($role) ) {
+                continue;
+            }
+
             $className = 'UsaRugbyStats\\Account\\Entity\\Rbac\\RoleAssignment\\' . $filter->filter($roleName);
             if ( ! class_exists($className) ) {
                 continue;
