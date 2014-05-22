@@ -4,7 +4,7 @@
         <div class="pull-right">
             <div class="btn-group">
                 <a class="btn btn-primary btn-xs dropdown-toggle useraccount-rbacrole-add" data-toggle="dropdown">
-                  <span class="glyphicon glyphicon-plus"></span> Add Role Assignment&nbsp;&nbsp;<span class="caret"></span> 
+                  <span class="glyphicon glyphicon-plus"></span> Add Role Assignment&nbsp;&nbsp;<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu" id="AddRoleAssignmentButtonMenu">
 <?php foreach ($collection->getTargetElement() as $item): ?>
@@ -22,13 +22,13 @@
                 if ( ! preg_match('{^UsaRugbyStats\\\\AccountAdmin\\\\Form\\\\Rbac\\\\RoleAssignment\\\\(.*)Fieldset$}is', get_class($item), $matches) ) {
                     continue;
                 }
-                
+
                 $item->get('type')->setValue($matches[1]);
-                
+
                 echo $this->render('usa-rugby-stats/account-admin/role-assignments/' . strtolower(str_replace('\\', DIRECTORY_SEPARATOR, $matches[1])), array(
                     'type' => $matches[1],
                     'fieldset' => $item,
-                    'index' => $index++, 
+                    'index' => $index++,
                     'isTemplate' => false,
                 ));
             }
@@ -50,25 +50,47 @@ function downloadAndRenderTemplate(params, cb) {
         data: (params)
     }).done(function(data) {
         typeof data.error == 'undefined' ? cb.success(data) : cb.failure(data);
+        cb.completed(data);
     });
 }
 
 
 $(document).ready(function() {
+
+    var popover = $('.useraccount-rbacrole-add').popover({
+        content: '<i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;Working...',
+        placement: 'bottom',
+        trigger: 'manual',
+        html: true
+    });
+    var isWorking = false;
+
     $('#AddRoleAssignmentButtonMenu li > a').click(function() {
+        if ( isWorking ) {
+        	return;
+        }
+
         var searchTerm = {
             template: $(this).attr('data-key'),
             namePrefix: 'roleAssignments[' + payloadIndex + ']',
             index: payloadIndex
         }
+
+        isWorking = true;
+        popover.popover('show');
+
         downloadAndRenderTemplate(searchTerm, {
-            success: function(resp) {    
+            success: function(resp) {
                 $('#RoleAssignmentContainer').append(resp.template);
                 payloadIndex++;
             },
             failure: function(resp) {
                 alert('ERROR! ' + resp.error);
             },
+            completed: function(resp) {
+                isWorking = false;
+            	popover.popover('hide');
+            }
         });
     });
 
