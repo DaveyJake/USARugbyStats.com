@@ -75,6 +75,8 @@ class MatchTeamFieldset extends Fieldset
         if ($form->has('match') && $form->get('match')->has('competition')) {
             $competition = $form->get('match')->get('competition')->getValue();
             if ( !empty($competition) ) {
+                $selectedTeam = $this->get('team')->getValue();
+
                 $this->remove('team');
                 $this->add(array(
                     'type' => 'DoctrineModule\Form\Element\ObjectSelect',
@@ -92,6 +94,7 @@ class MatchTeamFieldset extends Fieldset
                         ),
                     ),
                 ));
+                $this->get('team')->setValue($selectedTeam);
             }
         }
 
