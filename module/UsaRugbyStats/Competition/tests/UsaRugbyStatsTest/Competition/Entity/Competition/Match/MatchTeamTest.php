@@ -332,9 +332,11 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
         $event0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event0->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
         $event0->shouldReceive('setMatch')->once()->andReturnSelf();
+        $event0->shouldReceive('onAdd')->once()->andReturnNull();
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
         $event1->shouldReceive('setMatch')->once()->andReturnSelf();
+        $event1->shouldReceive('onAdd')->once()->andReturnNull();
 
         $newCollection = new ArrayCollection();
         $newCollection->add($event0);
@@ -359,6 +361,7 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
         $event1->shouldReceive('setMatch')->once()->andReturnSelf();
+        $event1->shouldReceive('onAdd')->once()->andReturnNull();
 
         // Add one to the existing collection
         $collection = $obj->getEvents();
@@ -381,6 +384,7 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
         $event0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event0->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
         $event0->shouldReceive('setMatch')->once()->andReturnSelf();
+        $event0->shouldReceive('onAdd')->once()->andReturnNull();
 
         // Add event0 twice
         $coll = new ArrayCollection();
@@ -404,9 +408,11 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setMatch')->once()->andReturnSelf();
         $event1->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
+        $event1->shouldReceive('onAdd')->once()->andReturnNull();
         $event2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event2->shouldReceive('setMatch')->once()->andReturnSelf();
         $event2->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
+        $event2->shouldReceive('onAdd')->once()->andReturnNull();
 
         // Add one to the existing collection
         $collection = $obj->getEvents();
@@ -446,6 +452,7 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
         $event0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event0->shouldReceive('setTeam')->withArgs([NULL])->once()->andReturnSelf();
         $event0->shouldReceive('setMatch')->once()->andReturnSelf();
+        $event0->shouldReceive('onRemove')->once()->andReturnNull();
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setTeam')->never();
         $event1->shouldReceive('setMatch')->never();
@@ -472,12 +479,14 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
         $event0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event0->shouldReceive('setTeam')->withArgs([NULL])->once()->andReturnSelf();
         $event0->shouldReceive('setMatch')->once()->andReturnSelf();
+        $event0->shouldReceive('onRemove')->once()->andReturnNull();
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setTeam')->never();
         $event1->shouldReceive('setMatch')->never();
         $event2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event2->shouldReceive('setTeam')->withArgs([NULL])->once()->andReturnSelf();
         $event2->shouldReceive('setMatch')->once()->andReturnSelf();
+        $event2->shouldReceive('onRemove')->once()->andReturnNull();
 
         // Add one to the existing collection
         $collection = $obj->getEvents();

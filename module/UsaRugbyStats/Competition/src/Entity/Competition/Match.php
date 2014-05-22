@@ -483,6 +483,7 @@ class Match
         if ( ! $this->hasEvent($ra) ) {
             $ra->setMatch($this);
             $this->events->add($ra);
+            $ra->onAdd();
         }
 
         return $this;
@@ -511,6 +512,7 @@ class Match
     {
         $ra->setMatch(NULL);
         $this->events->removeElement($ra);
+        $ra->onRemove();
 
         return $this;
     }

@@ -303,6 +303,7 @@ class MatchTeam
             $p->setMatch($this->getMatch());
             $p->setTeam($this);
             $this->events->add($p);
+            $p->onAdd();
         }
 
         return $this;
@@ -332,6 +333,7 @@ class MatchTeam
         $p->setMatch(NULL);
         $p->setTeam(NULL);
         $this->events->removeElement($p);
+        $p->onRemove();
 
         return $this;
     }
