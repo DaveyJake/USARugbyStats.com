@@ -32,9 +32,13 @@ class SubEventFieldset extends MatchTeamEventFieldset
     public function prepareElement(FormInterface $form)
     {
         if ($this->getTeam()) {
+            $pon = $this->get('playerOn')->getValue();
+            $poff = $this->get('playerOff')->getValue();
             $this->remove('playerOn');
             $this->remove('playerOff');
             $this->addPlayerElements();
+            $this->get('playerOn')->setValue($pon);
+            $this->get('playerOff')->setValue($poff);
         }
 
         return parent::prepareElement($form);

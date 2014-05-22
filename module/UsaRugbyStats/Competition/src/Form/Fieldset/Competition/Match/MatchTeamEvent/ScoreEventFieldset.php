@@ -33,8 +33,10 @@ class ScoreEventFieldset extends MatchTeamEventFieldset
     public function prepareElement(FormInterface $form)
     {
         if ($this->getTeam()) {
+            $value = $this->get('player')->getValue();
             $this->remove('player');
             $this->addPlayerElements();
+            $this->get('player')->setValue($value);
         }
 
         return parent::prepareElement($form);

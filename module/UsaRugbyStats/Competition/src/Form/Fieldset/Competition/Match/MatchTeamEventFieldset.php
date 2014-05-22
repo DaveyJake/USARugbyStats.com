@@ -35,6 +35,15 @@ class MatchTeamEventFieldset extends Fieldset
         ));
     }
 
+    public function populateValues($data)
+    {
+        if (isset($data['team'])) {
+            $this->setTeam($data['team']);
+        }
+
+        return parent::populateValues($data);
+    }
+
     public function setTeam($obj)
     {
         $this->team = $obj;
