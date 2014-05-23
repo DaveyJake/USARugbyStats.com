@@ -26,6 +26,20 @@ class MatchTeamFilter extends InputFilter
         ));
 
         $this->add(array(
+            'name'       => 'type',
+            'required'   => true,
+            'validators' => array(
+        	    array('name' => 'InArray', 'options' => array(
+        	        'haystack' => array('H','A'),
+                    'strict'   => \Zend\Validator\InArray::COMPARE_STRICT
+        	   ))
+            ),
+            'filters'   => array(
+                array('name' => 'Alpha'),
+            ),
+        ));
+
+        $this->add(array(
             'name'       => 'team',
             'required'   => true,
             'validators' => array(
