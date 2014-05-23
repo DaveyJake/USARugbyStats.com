@@ -67,6 +67,26 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($obj->getCompetition());
     }
 
+    public function testGetSetCompetitionUpdatesCompetitionAssociationOfContainedTeamMemberships()
+    {
+        $comp = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+
+        $team = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team->shouldReceive('setCompetition')->once()->withArgs([$comp]);
+        $team->shouldReceive('setCompetition')->once()->withArgs([NULL]);
+
+        $obj = new Division();
+        $obj->getTeamMemberships()->add($team);
+
+        // Test setting to an instance of Competition class
+        $obj->setCompetition($comp);
+        $this->assertSame($comp, $obj->getCompetition());
+
+        // Test setting to null (disassociate from competition)
+        $obj->setCompetition(NULL);
+        $this->assertNull($obj->getCompetition());
+    }
+
     public function testSetTeamMemberships()
     {
         $obj = new Division();

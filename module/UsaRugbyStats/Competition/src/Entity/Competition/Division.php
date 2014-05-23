@@ -112,6 +112,11 @@ class Division
     {
         $this->competition = $u;
 
+        // Ensure all contained TeamMemberships have the same Competition
+        foreach ( $this->getTeamMemberships() as $item ) {
+            $item->setCompetition($u);
+        }
+
         return $this;
     }
 
