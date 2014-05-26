@@ -111,6 +111,7 @@ class MatchService implements EventManagerAwareInterface
     {
         $this->populateTeamEventDataInputDataWithEntityClassNames($data);
         $this->removeUnusedRosterSlots($data);
+        $this->removeExistingSignatures($data);
 
         // @HACK to fix GH-15 (Can't empty an existing Collection)
         if ( !isset($data['match']['teams']['H']['players']) || empty($data['match']['teams']['H']['players']) ) {
@@ -192,6 +193,18 @@ class MatchService implements EventManagerAwareInterface
                 if ( empty($pdata['player']) ) {
                     unset($fsTeam['players'][$pkey]);
                 }
+            }
+        }
+    }
+
+    protected function removeExistingSignatures(&$data)
+    {
+        if ( !isset($data['match']['signatures']) || empty($data['match']['signatures']) ) {
+            return;
+        }
+        foreach ($data['match']['signatures'] as $key => $signature) {
+            if ( isset($signature['id']) && !empty($signature['id']) ) {
+                unset($data['match']['signatures'][$key]);
             }
         }
     }

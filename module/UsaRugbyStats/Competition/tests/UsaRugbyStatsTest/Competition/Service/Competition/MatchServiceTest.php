@@ -364,6 +364,48 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         ], $entity);
     }
 
+    public function testUpdateMethodRemovesAnyPreexistingSignaturesWhenMatchIsModified()
+    {
+        // Build the test data
+        $entity = new Match();
+
+        // Mock the form actions
+        $suite = $this;
+        $this->mockCreateForm->shouldReceive('bind')->withArgs([$entity])->once();
+        $this->mockCreateForm->shouldReceive('setData')->once()->with(Mockery::on(function ($a) use ($suite) {
+            // Ensure that Form::setData gets the preprocessed array
+            $this->assertInternalType('array', @$a['match']['signatures']);
+            $this->assertCount(1, $a['match']['signatures']);
+            $sigKeys = array_keys($a['match']['signatures']);
+            $sig = $a['match']['signatures'][array_pop($sigKeys)];
+            $this->assertNull($sig['id']);
+            $this->assertEquals('AC', $sig['type']);
+
+            return true;
+        }));
+        $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(false);
+
+        // Ensure the event manager is not triggered
+        $this->mockEventManager->shouldReceive('trigger')->never();
+
+        $this->service->update($this->mockCreateForm, [
+            'match' => [
+                'signatures' => [
+                    [
+                        'id' => 123,
+                        'type' => 'HC',
+                        'account' => 1,
+                    ],
+                    [
+                        'id' => NULL,
+                        'type' => 'AC',
+                        'account' => 5,
+                    ],
+                ],
+            ],
+        ], $entity);
+    }
+
     public function testSaveProxiesToObjectManager()
     {
         $entity = new Match();
