@@ -127,8 +127,10 @@ class UnionService implements EventManagerAwareInterface
 
     public function remove(Union $entity)
     {
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['entity' => $entity]);
         $this->getUnionObjectManager()->remove($entity);
         $this->getUnionObjectManager()->flush();
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['entity' => $entity]);
     }
 
     public function setCreateForm(FormInterface $f)

@@ -75,13 +75,13 @@ class CompetitionServiceTest extends \PHPUnit_Framework_TestCase
 
         // Mock the form actions
         $this->mockCreateForm->shouldReceive('bind')->once();
-        $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([$data]);
+        $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([['competition' => $data]]);
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(true);
 
         // Ensure the event manager is triggered
         $this->mockEventManager->shouldReceive('trigger')->twice();
 
-        $result = $service->create($this->mockCreateForm, $data);
+        $result = $service->create($this->mockCreateForm, ['competition' => $data]);
         $this->assertInstanceOf(get_class($entity), $result);
     }
 
@@ -97,13 +97,13 @@ class CompetitionServiceTest extends \PHPUnit_Framework_TestCase
 
         // Mock the form actions
         $this->mockCreateForm->shouldReceive('bind')->once();
-        $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([$data]);
+        $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([['competition' => $data]]);
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(false);
 
         // Ensure the event manager is not triggered
         $this->mockEventManager->shouldReceive('trigger')->never();
 
-        $this->assertFalse($this->service->create($this->mockCreateForm, $data));
+        $this->assertFalse($this->service->create($this->mockCreateForm, ['competition' => $data]));
     }
 
     public function testUpdateMethod()
@@ -120,40 +120,40 @@ class CompetitionServiceTest extends \PHPUnit_Framework_TestCase
         $service->setEventManager($this->mockEventManager);
 
         // Build the test data
-        $data = ['id' => 42, 'name' => 'Test Competition'];
+        $data = ['id' => 42, 'name' => 'Test Competition', 'divisions' => []];
         $entity = new Competition();
         $entity->setId($data['id'])->setName($data['name']);
 
         // Mock the form actions
         $this->mockCreateForm->shouldReceive('bind')->withArgs([$entity])->once();
-        $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([$data]);
+        $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([['competition' => $data]]);
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(true);
         $this->mockCreateForm->shouldReceive('getData')->once()->andReturn($entity);
 
         // Ensure the event manager is triggered
         $this->mockEventManager->shouldReceive('trigger')->twice();
 
-        $result = $service->update($this->mockCreateForm, $data, $entity);
+        $result = $service->update($this->mockCreateForm, ['competition' => $data], $entity);
         $this->assertSame($entity, $result);
     }
 
     public function testUpdateMethodShortCircuitsOnFailedValidation()
     {
         // Build the test data
-        $data = ['id' => 42, 'name' => 'Test Competition'];
+        $data = ['id' => 42, 'name' => 'Test Competition', 'divisions' => []];
         $entity = new Competition();
         $entity->setId($data['id'])->setName($data['name']);
 
         // Mock the form actions
         $this->mockCreateForm->shouldReceive('bind')->withArgs([$entity])->once();
-        $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([$data]);
+        $this->mockCreateForm->shouldReceive('setData')->once()->withArgs([['competition' => $data]]);
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(false);
         $this->mockCreateForm->shouldReceive('getData')->never();
 
         // Ensure the event manager is not triggered
         $this->mockEventManager->shouldReceive('trigger')->never();
 
-        $this->assertFalse($this->service->update($this->mockCreateForm, $data, $entity));
+        $this->assertFalse($this->service->update($this->mockCreateForm, ['competition' => $data], $entity));
     }
 
     public function testSaveProxiesToObjectManager()
@@ -172,6 +172,8 @@ class CompetitionServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->mockObjectManager->shouldReceive('remove')->with($entity)->once();
         $this->mockObjectManager->shouldReceive('flush')->once();
+
+        $this->mockEventManager->shouldReceive('trigger')->twice();
 
         $this->service->remove($entity);
     }

@@ -121,8 +121,10 @@ class TeamService implements EventManagerAwareInterface
 
     public function remove(Team $entity)
     {
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['entity' => $entity]);
         $this->getTeamObjectManager()->remove($entity);
         $this->getTeamObjectManager()->flush();
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['entity' => $entity]);
     }
 
     public function setCreateForm(FormInterface $f)

@@ -29,10 +29,10 @@ class MatchTeamFilter extends InputFilter
             'name'       => 'type',
             'required'   => true,
             'validators' => array(
-        	    array('name' => 'InArray', 'options' => array(
-        	        'haystack' => array('H','A'),
+                array('name' => 'InArray', 'options' => array(
+                    'haystack' => array('H','A'),
                     'strict'   => \Zend\Validator\InArray::COMPARE_STRICT
-        	   ))
+               ))
             ),
             'filters'   => array(
                 array('name' => 'Alpha'),

@@ -139,8 +139,10 @@ class CompetitionService implements EventManagerAwareInterface
 
     public function remove(Competition $entity)
     {
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['entity' => $entity]);
         $this->getCompetitionObjectManager()->remove($entity);
         $this->getCompetitionObjectManager()->flush();
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['entity' => $entity]);
     }
 
     public function setCreateForm(FormInterface $f)

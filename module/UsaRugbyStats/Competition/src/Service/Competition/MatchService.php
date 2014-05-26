@@ -152,8 +152,10 @@ class MatchService implements EventManagerAwareInterface
 
     public function remove(Match $entity)
     {
+        $this->getEventManager()->trigger(__FUNCTION__, $this, ['entity' => $entity]);
         $this->getMatchObjectManager()->remove($entity);
         $this->getMatchObjectManager()->flush();
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['entity' => $entity]);
     }
 
     protected function populateTeamEventDataInputDataWithEntityClassNames(&$data)

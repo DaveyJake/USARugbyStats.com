@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b192a8fef887300fb86ad7db01525016",
+    "hash": "2533c515d2ccc7198b37f1f36bb13a0b",
     "packages": [
         {
             "name": "allplayers/allplayers",
@@ -1611,6 +1611,63 @@
                 "microframework"
             ],
             "time": "2014-04-15 20:51:52"
+        },
+        {
+            "name": "soliantconsulting/entity-audit",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/soliantconsulting/SoliantEntityAudit.git",
+                "reference": "aa4e1e0055daaf091fedd29316fc5ddf9820dcc3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/soliantconsulting/SoliantEntityAudit/zipball/aa4e1e0055daaf091fedd29316fc5ddf9820dcc3",
+                "reference": "aa4e1e0055daaf091fedd29316fc5ddf9820dcc3",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-module": "0.8.*@dev",
+                "doctrine/doctrine-orm-module": "0.8.x@dev",
+                "php": ">=5.3.0",
+                "zendframework/zendframework": ">=2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.14",
+                "zf-commons/zfc-user": "0.1.1",
+                "zf-commons/zfc-user-doctrine-orm": "dev-master"
+            },
+            "type": "zf-module",
+            "autoload": {
+                "psr-0": {
+                    "SoliantEntityAudit": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tawfek Daghistani",
+                    "email": "tawfekov@gmail.com",
+                    "homepage": "http://www.dagho.com"
+                },
+                {
+                    "name": "Tom Anderson",
+                    "email": "tanderson@soliantconsulting.com",
+                    "homepage": "http://www.soliantconsulting.com"
+                }
+            ],
+            "description": "Doctrine 2 Entity Auditing",
+            "keywords": [
+                "Audit",
+                "doctrine"
+            ],
+            "time": "2014-02-13 17:40:30"
         },
         {
             "name": "symfony/console",
@@ -4063,6 +4120,7 @@
         "zendframework/zendframework": 20,
         "hounddog/doctrine-data-fixture-module": 20,
         "danielss89/zfc-user-admin": 20,
+        "soliantconsulting/entity-audit": 20,
         "fabpot/goutte": 20,
         "behat/behat": 0,
         "fabpot/php-cs-fixer": 20

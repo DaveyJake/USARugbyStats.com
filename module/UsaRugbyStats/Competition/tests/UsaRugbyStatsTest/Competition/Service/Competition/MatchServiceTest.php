@@ -381,6 +381,8 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         $this->mockObjectManager->shouldReceive('remove')->with($entity)->once();
         $this->mockObjectManager->shouldReceive('flush')->once();
 
+        $this->mockEventManager->shouldReceive('trigger')->twice();
+
         $this->service->remove($entity);
     }
 }

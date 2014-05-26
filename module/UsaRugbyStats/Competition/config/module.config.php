@@ -120,4 +120,23 @@ return array(
 //            'UsaRugbyStats_Competition_fixture_common' => __DIR__ . '/../src/Fixtures/Common',
         ),
     ),
+    'audit' => array(
+        'entities' => array(
+            'UsaRugbyStats\Competition\Entity\Team' => [],
+            'UsaRugbyStats\Competition\Entity\Union' => [],
+
+            'UsaRugbyStats\Competition\Entity\Competition' => [],
+            'UsaRugbyStats\Competition\Entity\Competition\Division' => [],
+            'UsaRugbyStats\Competition\Entity\Competition\TeamMembership' => [],
+
+            'UsaRugbyStats\Competition\Entity\Competition\Match' => [],
+            'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam' => [],
+            'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer' => [],
+            'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent' => [],
+            'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\CardEvent' => [],
+            'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\ScoreEvent' => [],
+            'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\SubEvent' => [],
+            'UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature' => [],
+        ),
+    ),
 );

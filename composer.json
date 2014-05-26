@@ -5,10 +5,10 @@
             "url": "https://github.com/christianchristensen/Goutte"
         },
         {
-        	"type": "vcs",
-        	"url": "https://github.com/adamlundrigan/ZfcUserAdmin.git"
+            "type": "vcs",
+            "url": "https://github.com/adamlundrigan/ZfcUserAdmin.git"
         },
-	{
+        {
             "type": "package",
             "package": {
                 "name": "sebastianbergmann/phpcov",
@@ -38,29 +38,30 @@
         "symfony/yaml": "2.1.*",
         "twig/twig": ">=1.8,<2.0-dev",
         "chrisboulton/php-resque": "*",
-
         "zendframework/zendframework": "dev-master",
         "zf-commons/zfc-user": "1.*",
         "zf-commons/zfc-user-doctrine-orm": "0.*",
         "zf-commons/zfc-rbac": "2.*",
         "ocramius/proxy-manager": "0.5.*",
-        "hounddog/doctrine-data-fixture-module" : "dev-master",
+        "hounddog/doctrine-data-fixture-module": "dev-master",
         "danielss89/zfc-user-admin": "dev-rewrite as dev-master@dev",
-        "rhumsaa/array_column": "~1.1"
+        "rhumsaa/array_column": "~1.1",
+        "soliantconsulting/entity-audit": "dev-master"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master",
         "behat/behat": "2.4@stable",
-        "behat/mink-extension":  "*",
-        "behat/mink-goutte-driver":     "*",
-        "behat/mink-selenium2-driver":  "*",
-
+        "behat/mink-extension": "*",
+        "behat/mink-goutte-driver": "*",
+        "behat/mink-selenium2-driver": "*",
         "phpunit/phpunit": "3.*",
         "mockery/mockery": "0.*",
         "fabpot/php-cs-fixer": "*@dev"
     },
     "autoload": {
-        "psr-0": { "Source": "lib/" }
+        "psr-0": {
+            "Source": "lib/"
+        }
     },
     "minimum-stability": "dev",
     "config": {
