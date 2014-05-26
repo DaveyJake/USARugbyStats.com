@@ -87,6 +87,17 @@ class MatchFieldset extends Fieldset
             )
         ));
 
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Radio',
+            'name' => 'isLocked',
+            'options' => array(
+                'label' => 'Is Locked?',
+                'value_options' => array(
+                    '1' => 'Yes',
+                    '0' => 'No',
+                ),
+            ),
+        ));
     }
 
 }

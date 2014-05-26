@@ -32,6 +32,21 @@ class MatchFilter extends InputFilter
             ),
         ));
 
+        $this->add(array(
+            'name'       => 'isLocked',
+            'required'   => false,
+            'validators' => array(
+               array(
+                   'name' => 'InArray',
+                   'haystack' => array(0,1),
+                   'strict'   => true
+                ),
+            ),
+            'filters'   => array(
+                array('name' => 'Digits'),
+            ),
+        ));
+
         $cif = new MatchTeamCollectionFilter($ifMatchTeam);
         $cif->setInputFilter($ifMatchTeam);
         $this->add($cif, 'teams');

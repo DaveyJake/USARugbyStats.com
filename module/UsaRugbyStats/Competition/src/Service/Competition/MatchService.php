@@ -90,6 +90,8 @@ class MatchService implements EventManagerAwareInterface
             return false;
         }
 
+        $this->lockMatchIfCompleted($entity);
+
         $argv = array('entity' => $entity, 'form' => $form, 'data' => $data);
         $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
         $this->save($entity);
@@ -136,6 +138,8 @@ class MatchService implements EventManagerAwareInterface
             return false;
         }
         $entity = $form->getData();
+
+        $this->lockMatchIfCompleted($entity);
 
         $argv = array('entity' => $entity, 'form' => $form, 'data' => $data);
         $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
@@ -206,6 +210,13 @@ class MatchService implements EventManagerAwareInterface
             if ( isset($signature['id']) && !empty($signature['id']) ) {
                 unset($data['match']['signatures'][$key]);
             }
+        }
+    }
+
+    protected function lockMatchIfCompleted(Match $entity)
+    {
+        if ( $entity->getStatus() == 'F' && $entity->hasSignature('HC') && $entity->hasSignature('AC') && $entity->hasSignature('REF') && $entity->hasSignature('NR4') ) {
+            $entity->setIsLocked(true);
         }
     }
 

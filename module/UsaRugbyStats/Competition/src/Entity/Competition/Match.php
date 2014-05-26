@@ -70,6 +70,13 @@ class Match
     protected $status = 'NS';
 
     /**
+     * Is Match Locked?
+     *
+     * @var bool
+     */
+    protected $isLocked = false;
+
+    /**
      * Match Signatures
      *
      * @var Collection
@@ -355,6 +362,39 @@ class Match
     }
 
     /**
+     * Is Match Locked?
+     *
+     * @return boolean
+     */
+    public function getIsLocked()
+    {
+        return $this->isLocked;
+    }
+
+    /**
+     * Is Match Locked?
+     *
+     * @return boolean
+     */
+    public function isLocked()
+    {
+        return $this->getIsLocked() === true;
+    }
+
+    /**
+     * Set "Match Locked" flag
+     *
+     * @param  bool $tf
+     * @return self
+     */
+    public function setIsLocked($tf)
+    {
+        $this->isLocked = ($tf == true);
+
+        return $this;
+    }
+
+    /**
      * @return Collection
      */
     public function getSignatures()
@@ -431,12 +471,18 @@ class Match
     }
 
     /**
-     * @param  MatchSignature $obj
+     * @param  MatchSignature|string $obj
      * @return bool
      */
-    public function hasSignature(MatchSignature $obj)
+    public function hasSignature($obj)
     {
-        return $this->signatures->contains($obj);
+        if ($obj instanceof MatchSignature) {
+            return $this->signatures->contains($obj);
+        }
+
+        return $this->signatures->filter(function (MatchSignature $item) use ($obj) {
+            return $item->getType() == $obj;
+        })->count() > 0;
     }
 
     /**

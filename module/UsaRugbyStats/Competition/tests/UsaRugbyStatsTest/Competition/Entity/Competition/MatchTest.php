@@ -304,6 +304,21 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($obj->hasSignature($sig1));
     }
 
+    public function testHasSignatureAcceptsStringArgument()
+    {
+        $obj = new Match();
+
+        $sig0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature');
+        $sig0->shouldReceive('getType')->andReturn('HC');
+
+        // Add roles to the existing collection
+        $collection = $obj->getSignatures();
+        $collection->add($sig0);
+
+        $this->assertTrue($obj->hasSignature('HC'));
+        $this->assertFalse($obj->hasSignature('AC'));
+    }
+
     public function testRemoveSignature()
     {
         $obj = new Match();

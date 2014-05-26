@@ -10,7 +10,7 @@
             <?php $element = $fieldset->get('description'); ?>
             <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
             <?php $element->setAttribute('class', 'form-control'); ?>
-            
+
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
                 <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
@@ -21,7 +21,7 @@
             <?php $element = $fieldset->get('date'); ?>
             <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
             <?php $element->setAttribute('class', 'form-control'); ?>
-            
+
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
                 <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
@@ -32,12 +32,21 @@
             <?php $element = $fieldset->get('status'); ?>
             <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
             <?php $element->setAttribute('class', 'form-control'); ?>
-            
+
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
                 <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
             </div>
         </div>
-        
+
+        <div class="row form-group">
+            <?php $element = $fieldset->get('isLocked'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+            </div>
+        </div>
     </div>
 </div>
