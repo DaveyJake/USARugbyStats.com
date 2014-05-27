@@ -6,7 +6,7 @@
     <entity name="UsaRugbyStats\Competition\Entity\Competition\Match" table="competition_competition_matches">
         <id name="id" type="integer"><generator strategy="AUTO" /></id>
 
-        <field name="description" type="string" length="100" />
+        <field name="description" type="string" length="100" nullable="true" />
 
         <many-to-one field="competition" target-entity="UsaRugbyStats\Competition\Entity\Competition" inversed-by="matches">
         	<join-column name="competition_id" referenced-column-name="id" />

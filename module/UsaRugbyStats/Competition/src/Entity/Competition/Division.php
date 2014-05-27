@@ -4,6 +4,7 @@ namespace UsaRugbyStats\Competition\Entity\Competition;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use UsaRugbyStats\Competition\Entity\Competition;
+use UsaRugbyStats\Competition\Entity\Team;
 
 /**
  * Competition Division
@@ -165,6 +166,11 @@ class Division
             $obj->setDivision($this);
             $obj->setCompetition($this->getCompetition());
             $this->teamMemberships->add($obj);
+
+            if ( $this->getCompetition() ) {
+                $this->getCompetition()->addTeamMembership($obj);
+            }
+
         }
 
         return $this;
@@ -195,6 +201,10 @@ class Division
         $obj->setCompetition(NULL);
         $this->teamMemberships->removeElement($obj);
 
+        if ( $this->getCompetition() ) {
+            $this->getCompetition()->removeTeamMembership($obj);
+        }
+
         return $this;
     }
 
@@ -205,6 +215,27 @@ class Division
     public function hasTeamMembership(TeamMembership $obj)
     {
         return $this->teamMemberships->contains($obj);
+    }
+
+    public function addTeam(Team $t)
+    {
+//         if ( $this->hasTeam($t) ) {
+//             return $this;
+//         }
+
+        $obj = new TeamMembership();
+        $obj->setDivision($this);
+        $obj->setTeam($t);
+        $this->addTeamMembership($obj);
+
+        return $this;
+    }
+
+    public function hasTeam(Team $t)
+    {
+        return $this->teamMemberships->filter(function(TeamMembership $tm) use ($t) {
+            return $tm->getTeam()->getId() == $t->getId();
+        })->count() > 0;
     }
 
     /**

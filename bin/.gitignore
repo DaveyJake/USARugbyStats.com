@@ -4,3 +4,4 @@
 !console
 !doctrine
 !resque
+!stresstest

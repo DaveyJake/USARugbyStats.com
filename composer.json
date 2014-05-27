@@ -56,7 +56,8 @@
         "behat/mink-selenium2-driver": "*",
         "phpunit/phpunit": "3.*",
         "mockery/mockery": "0.*",
-        "fabpot/php-cs-fixer": "*@dev"
+        "fabpot/php-cs-fixer": "*@dev",
+        "nelmio/alice": "@stable"
     },
     "autoload": {
         "psr-0": {
