@@ -1,0 +1,44 @@
+UsaRugbyStats\Account\Entity\Account:
+    account{2..500}:
+        id: <current()>
+        username (unique): <username()>
+        email (unique): <($username)>@usarugbystats.dev
+        displayName: <lastName()>, <firstName()>
+        password: testtest
+
+UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member:
+    accountMemberRole{2..500}:
+        account: @account<current()>
+        
+UsaRugbyStats\Competition\Entity\Union:
+    union{1..10}:
+        name (unique): <city()> <colorName()>
+        
+UsaRugbyStats\Competition\Entity\Team:
+    team{1..1000}:
+        name (unique): <company()>
+        union: @union*
+        
+UsaRugbyStats\Competition\Entity\Competition:
+    competition{1..150}:
+        name: <streetName()>
+        
+UsaRugbyStats\Competition\Entity\Competition\Division:
+    compDivision{1..300}:
+        name (unique): <colorName()> <streetSuffix()> Division
+        competition: @competition*
+        team: <numberBetween(10, 20)>x @team*        
+
+UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam:
+    compMatchHomeTeam{1..1000}:
+        type: H
+    compMatchAwayTeam{1..1000}:
+        type: A
+
+UsaRugbyStats\Competition\Entity\Competition\Match:
+    compMatch{1..1000}:
+        competition: @competition*
+        date: <dateTimeBetween('-60 days', '+60 days')>
+        homeTeam: @compMatchHomeTeam<current()>
+        awayTeam: @compMatchAwayTeam<current()>
+        teams: <addRandomTeamsToMatch(@self)>
