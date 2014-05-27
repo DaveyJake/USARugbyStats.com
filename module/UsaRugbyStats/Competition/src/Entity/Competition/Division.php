@@ -233,7 +233,7 @@ class Division
 
     public function hasTeam(Team $t)
     {
-        return $this->teamMemberships->filter(function(TeamMembership $tm) use ($t) {
+        return $this->teamMemberships->filter(function (TeamMembership $tm) use ($t) {
             return $tm->getTeam()->getId() == $t->getId();
         })->count() > 0;
     }
