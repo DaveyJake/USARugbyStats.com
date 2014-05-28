@@ -113,13 +113,13 @@ class CustomAliceProvider
             $posHome = new MatchTeamPlayer();
             $posHome->setPlayer($loader->getReference($homePlayers[$index]));
             $posHome->setPosition($positionKey);
-            $posHome->setNumber($index);
+            $posHome->setNumber($index+1);
             $match->getHomeTeam()->addPlayer($posHome);
 
             $posAway = new MatchTeamPlayer();
             $posAway->setPlayer($loader->getReference($awayPlayers[$index]));
             $posAway->setPosition($positionKey);
-            $posAway->setNumber($index);
+            $posAway->setNumber($index+1);
             $match->getAwayTeam()->addPlayer($posAway);
         }
     }
