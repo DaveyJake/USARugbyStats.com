@@ -28,8 +28,8 @@ class Module
             $em->attach('remove', function ($e) use ($auditService) { $auditService->setComment('COMPETITION_COMP_DELETE'); });
 
             $em = $sm->get('usarugbystats_competition_competition_match_service')->getEventManager();
-            $em->attach('create', function ($e) use ($auditService) { $auditService->setComment('COMPETITION_COMPMATCH_CREATE'); });
-            $em->attach('update', function ($e) use ($auditService) { $auditService->setComment('COMPETITION_COMPMATCH_UPDATE'); });
+            $em->attach('create.save', function ($e) use ($auditService) { $auditService->setComment('COMPETITION_COMPMATCH_CREATE'); }, 2);
+            $em->attach('update.save', function ($e) use ($auditService) { $auditService->setComment('COMPETITION_COMPMATCH_UPDATE'); }, 2);
             $em->attach('remove', function ($e) use ($auditService) { $auditService->setComment('COMPETITION_COMPMATCH_DELETE'); });
         }
 
