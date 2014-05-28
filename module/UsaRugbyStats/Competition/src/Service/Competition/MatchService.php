@@ -10,6 +10,7 @@ use Zend\EventManager\EventManagerAwareTrait;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\Filter\StaticFilter;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
+use Zend\EventManager\EventInterface;
 
 class MatchService implements EventManagerAwareInterface
 {
@@ -79,25 +80,12 @@ class MatchService implements EventManagerAwareInterface
     {
         $entityClass = $this->getMatchRepository()->getClassName();
 
-        $entity = new $entityClass;
-        $form->bind($entity);
+        $argv = new \ArrayObject;
+        $argv['entity'] = new $entityClass;
+        $argv['form'] = $form;
+        $argv['data'] = $data;
 
-        $this->populateTeamEventDataInputDataWithEntityClassNames($data);
-        $this->removeUnusedRosterSlots($data);
-
-        $form->setData($data);
-        if ( ! $form->isValid() ) {
-            return false;
-        }
-
-        $this->lockMatchIfCompleted($entity);
-
-        $argv = array('entity' => $entity, 'form' => $form, 'data' => $data);
-        $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
-        $this->save($entity);
-        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
-
-        return $entity;
+        return $this->processRequest('create', $argv);
     }
 
     /**
@@ -111,40 +99,48 @@ class MatchService implements EventManagerAwareInterface
      */
     public function update(FormInterface $form, array $data, Match $entity)
     {
-        $this->populateTeamEventDataInputDataWithEntityClassNames($data);
-        $this->removeUnusedRosterSlots($data);
-        $this->removeExistingSignatures($data);
+        $argv = new \ArrayObject;
+        $argv['entity'] = $entity;
+        $argv['form'] = $form;
+        $argv['data'] = $data;
 
-        // @HACK to fix GH-15 (Can't empty an existing Collection)
-        if ( !isset($data['match']['teams']['H']['players']) || empty($data['match']['teams']['H']['players']) ) {
-            $entity->getHomeTeam()->removePlayers($entity->getHomeTeam()->getPlayers());
-        }
-        if ( !isset($data['match']['teams']['H']['events']) || empty($data['match']['teams']['H']['events']) ) {
-            $entity->getHomeTeam()->removeEvents($entity->getHomeTeam()->getEvents());
-        }
-        if ( !isset($data['match']['teams']['A']['players']) || empty($data['match']['teams']['A']['players']) ) {
-            $entity->getAwayTeam()->removePlayers($entity->getAwayTeam()->getPlayers());
-        }
-        if ( !isset($data['match']['teams']['A']['events']) || empty($data['match']['teams']['A']['events']) ) {
-            $entity->getAwayTeam()->removeEvents($entity->getAwayTeam()->getEvents());
-        }
-        if ( !isset($data['match']['signatures']) || empty($data['match']['signatures']) ) {
-            $entity->removeSignatures($entity->getSignatures());
-        }
+        return $this->processRequest('update', $argv);
+    }
 
-        $form->bind($entity);
-        $form->setData($data);
-        if ( ! $form->isValid() ) {
+    protected function processRequest($action, \ArrayAccess $argv)
+    {
+        $em = $this->getEventManager();
+
+        // Bind the entity to the form
+        $em->attach("{$action}.bind", function (EventInterface $e) {
+            $e->getParam('form')->bind($e->getParam('entity'));
+        });
+        $em->trigger("{$action}.bind", $this, $argv);
+
+        // Populate the form with supplied data
+        $em->attach("{$action}.populate", function (EventInterface $e) {
+            $e->getParam('form')->setData($e->getParam('data'));
+        });
+        $em->trigger("{$action}.populate", $this, $argv);
+
+        // Validate the form
+        $em->attach("{$action}.validate", function (EventInterface $e) {
+            $result = $e->getParam('form')->isValid();
+            $e->setParam('result', ($result == true));
+        });
+        $em->trigger("{$action}.validate", $this, $argv);
+
+        // Extract the validation result
+        if ( ! isset($argv['result']) || ! $argv['result'] ) {
             return false;
         }
-        $entity = $form->getData();
+        $entity = $argv['entity'] = $argv['form']->getData();
 
-        $this->lockMatchIfCompleted($entity);
-
-        $argv = array('entity' => $entity, 'form' => $form, 'data' => $data);
-        $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
-        $this->save($entity);
-        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
+        // Persist the new entity
+        $em->attach("{$action}.save", function (EventInterface $e) {
+            $e->getTarget()->save($e->getParam('entity'));
+        });
+        $em->trigger("{$action}.save", $this, $argv);
 
         return $entity;
     }

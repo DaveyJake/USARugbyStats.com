@@ -20,8 +20,8 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         $this->mockObjectManager = Mockery::mock('Doctrine\Common\Persistence\ObjectManager');
         $this->mockCreateForm = Mockery::mock('Zend\Form\FormInterface');
         $this->mockUpdateForm = Mockery::mock('Zend\Form\FormInterface');
-        $this->mockEventManager = Mockery::mock('Zend\EventManager\EventManagerInterface');
-        $this->mockEventManager->shouldReceive('setIdentifiers')->zeroOrMoreTimes();
+
+        $this->mockEventManager = new \Zend\EventManager\EventManager();
 
         $this->service = new MatchService();
         $this->service->setMatchRepository($this->mockRepository);
@@ -75,9 +75,7 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         $this->mockCreateForm->shouldReceive('bind')->once();
         $this->mockCreateForm->shouldReceive('setData')->once();
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(true);
-
-        // Ensure the event manager is triggered
-        $this->mockEventManager->shouldReceive('trigger')->twice();
+        $this->mockCreateForm->shouldReceive('getData')->once()->andReturn($entity);
 
         $result = $service->create($this->mockCreateForm, []);
         $this->assertInstanceOf(get_class($entity), $result);
@@ -234,9 +232,6 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
         $this->mockCreateForm->shouldReceive('setData')->once();
         $this->mockCreateForm->shouldReceive('isValid')->once()->andReturn(true);
         $this->mockCreateForm->shouldReceive('getData')->once()->andReturn($entity);
-
-        // Ensure the event manager is triggered
-        $this->mockEventManager->shouldReceive('trigger')->twice();
 
         $result = $service->update($this->mockCreateForm, [], $entity);
         $this->assertSame($entity, $result);
@@ -422,8 +417,6 @@ class MatchServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->mockObjectManager->shouldReceive('remove')->with($entity)->once();
         $this->mockObjectManager->shouldReceive('flush')->once();
-
-        $this->mockEventManager->shouldReceive('trigger')->twice();
 
         $this->service->remove($entity);
     }
