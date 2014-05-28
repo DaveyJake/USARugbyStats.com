@@ -2,6 +2,13 @@
 return array(
     'service_manager' => array(
         'aliases' => array(),
+        'invokables' => array(
+            'usarugbystats_competition_listener_lockcompetitionmatchwhencompleted' => 'UsaRugbyStats\Competition\Listeners\LockCompetitionMatchWhenCompletedListener',
+            'usarugbystats_competition_listener_populatecompetitionmatchnonuniformcollection' => 'UsaRugbyStats\Competition\Listeners\PopulateCompetitionMatchNonuniformCollectionListener',
+            'usarugbystats_competition_listener_emptycompetitionmatchcollections' => 'UsaRugbyStats\Competition\Listeners\EmptyCompetitionMatchCollectionsListener',
+            'usarugbystats_competition_listener_removeunusedrosterslotsfromcompetitionmatch' => 'UsaRugbyStats\Competition\Listeners\RemoveUnusedRosterSlotsFromCompetitionMatchListener',
+            'usarugbystats_competition_listener_removeexistingsignaturesfromcompetitionmatch' => 'UsaRugbyStats\Competition\Listeners\RemoveExistingSignaturesFromCompetitionMatchListener',
+        ),
         'factories' => array(
             'usarugbystats_competition_team_service' => 'UsaRugbyStats\Competition\Service\TeamServiceFactory',
             'usarugbystats_competition_team_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\TeamFieldsetFactory',
@@ -48,7 +55,6 @@ return array(
             'usarugbystats_competition_competition_match_teamevent_subfieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEvent\SubEventFieldsetFactory',
             'usarugbystats_competition_competition_match_teamevent_subinputfilter' => 'UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamEvent\SubEventFilterFactory',
             'usarugbystats_competition_competition_match_teamevent_collectionfilter' => 'UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamEventCollectionFilterFactory',
-
         ),
         'shared' => array(
             'usarugbystats_competition_team_fieldset' => false,

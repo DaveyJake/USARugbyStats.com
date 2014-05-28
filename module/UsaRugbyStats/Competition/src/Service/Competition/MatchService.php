@@ -159,63 +159,6 @@ class MatchService implements EventManagerAwareInterface
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['entity' => $entity]);
     }
 
-    protected function populateTeamEventDataInputDataWithEntityClassNames(&$data)
-    {
-        $types = $this->getAvailableMatchTeamEventTypes();
-
-        foreach (['H', 'A'] as $type) {
-            if ( ! isset($data['match']['teams'][$type]['events']) || count($data['match']['teams'][$type]['events']) == 0 ) {
-                continue;
-            }
-            // Inject the entity class name into the POST request data
-            // so that NonuniformCollection knows what entity to create
-            foreach ($data['match']['teams'][$type]['events'] as $k=>$v) {
-                $key = strtolower($v['event']);
-                if ( ! isset($types[$key]) ) {
-                    unset($data['match']['teams'][$type]['events'][$k]);
-                    continue;
-                }
-                $data['match']['teams'][$type]['events'][$k]['__class__'] = $types[$key]['entity_class'];
-            }
-        }
-    }
-
-    protected function removeUnusedRosterSlots(&$data)
-    {
-        if ( !isset($data['match']['teams']) || empty($data['match']['teams']) ) {
-            return;
-        }
-        foreach ($data['match']['teams'] as $team=>&$fsTeam) {
-            if ( !isset($fsTeam['players']) || empty($fsTeam['players']) ) {
-                continue;
-            }
-            foreach ($fsTeam['players'] as $pkey=>$pdata) {
-                if ( empty($pdata['player']) ) {
-                    unset($fsTeam['players'][$pkey]);
-                }
-            }
-        }
-    }
-
-    protected function removeExistingSignatures(&$data)
-    {
-        if ( !isset($data['match']['signatures']) || empty($data['match']['signatures']) ) {
-            return;
-        }
-        foreach ($data['match']['signatures'] as $key => $signature) {
-            if ( isset($signature['id']) && !empty($signature['id']) ) {
-                unset($data['match']['signatures'][$key]);
-            }
-        }
-    }
-
-    protected function lockMatchIfCompleted(Match $entity)
-    {
-        if ( $entity->getStatus() == 'F' && $entity->hasSignature('HC') && $entity->hasSignature('AC') && $entity->hasSignature('REF') && $entity->hasSignature('NR4') ) {
-            $entity->setIsLocked(true);
-        }
-    }
-
     public function setAvailableMatchTeamEventTypes($set)
     {
         $this->availableMatchTeamEventTypes = $set;

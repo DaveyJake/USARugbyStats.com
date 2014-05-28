@@ -32,6 +32,13 @@ class Module
             $em->attach('update', function ($e) use ($auditService) { $auditService->setComment('COMPETITION_COMPMATCH_UPDATE'); });
             $em->attach('remove', function ($e) use ($auditService) { $auditService->setComment('COMPETITION_COMPMATCH_DELETE'); });
         }
+
+        $em = $sm->get('usarugbystats_competition_competition_match_service')->getEventManager();
+        $em->attachAggregate($sm->get('usarugbystats_competition_listener_lockcompetitionmatchwhencompleted'));
+        $em->attachAggregate($sm->get('usarugbystats_competition_listener_populatecompetitionmatchnonuniformcollection'));
+        $em->attachAggregate($sm->get('usarugbystats_competition_listener_emptycompetitionmatchcollections'));
+        $em->attachAggregate($sm->get('usarugbystats_competition_listener_removeunusedrosterslotsfromcompetitionmatch'));
+        $em->attachAggregate($sm->get('usarugbystats_competition_listener_removeexistingsignaturesfromcompetitionmatch'));
     }
 
     public function getConfig()
