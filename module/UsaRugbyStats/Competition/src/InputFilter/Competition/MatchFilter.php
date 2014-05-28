@@ -38,8 +38,10 @@ class MatchFilter extends InputFilter
             'validators' => array(
                array(
                    'name' => 'InArray',
-                   'haystack' => array(0,1),
-                   'strict'   => true
+                   'options' => array(
+                       'haystack' => array('0','1'),
+                       'strict'   => true
+                   ),
                 ),
             ),
             'filters'   => array(
