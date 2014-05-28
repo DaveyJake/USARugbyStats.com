@@ -556,9 +556,10 @@ class Match
      */
     public function removeEvent(MatchTeamEvent $ra)
     {
+        $ra->onRemove();
+
         $ra->setMatch(NULL);
         $this->events->removeElement($ra);
-        $ra->onRemove();
 
         return $this;
     }

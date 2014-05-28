@@ -330,10 +330,11 @@ class MatchTeam
      */
     public function removeEvent(MatchTeamEvent $p)
     {
+        $p->onRemove();
+
         $p->setMatch(NULL);
         $p->setTeam(NULL);
         $this->events->removeElement($p);
-        $p->onRemove();
 
         return $this;
     }
