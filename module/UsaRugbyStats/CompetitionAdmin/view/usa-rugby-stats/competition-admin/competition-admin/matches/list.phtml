@@ -18,7 +18,10 @@
             <th style="with:25px"><?php echo $this->translate('ID') ?></th>
             <th><?php echo $this->translate('Details') ?></th>
             <th><?php echo $this->translate('Date/Time') ?></th>
-            <th><?php echo $this->translate('Description') ?></th>
+            <th style="text-align:center"><?php echo $this->translate('Status') ?></th>
+            <th style="text-align:center"><?php echo $this->translate('Score') ?></th>
+            <th style="text-align:center"><?php echo $this->translate('Sigs') ?></th>
+            <th style="text-align:center"><?php echo $this->translate('Locked') ?></th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -29,14 +32,28 @@
                 <?php echo $this->escapeHtml($match->getId()); ?>
             </td>
             <td class="cell cell-details">
-                <?php echo $this->escapeHtml($match); ?>
+                <?php echo $this->escapeHtml($match); ?><br />
+                <i><?php echo $this->escapeHtml($match->getDescription() ?: ''); ?></i>
             </td>
             <td class="cell cell-date">
                 <?php echo $this->escapeHtml($match->getDate()->format('Y-m-d @ H:i')); ?>
             </td>
-            <td class="cell cell-description">
-                <?php echo $this->escapeHtml($match->getDescription() ?: '< Not Specified >'); ?>
+            <td class="cell cell-status" style="text-align:center">
+                <?php echo $this->escapeHtml($match->getStatus()); ?>
             </td>
+            <td class="cell cell-score" style="text-align:center">
+                <?php if ( in_array($match->getStatus(), ['F', 'HF', 'AF']) ): ?>
+                <?php   echo $this->escapeHtml($match->getHomeTeam()->getScore()); ?> -
+                <?php   echo $this->escapeHtml($match->getAwayTeam()->getScore()); ?>
+                <?php endif; ?>
+            </td>
+            <td class="cell cell-signatures" style="text-align:center">
+                <?php echo $this->escapeHtml($match->getSignatures()->count()); ?>
+            </td>
+            <td class="cell cell-signatures" style="text-align:center">
+                <?php echo $this->escapeHtml($match->isLocked() ? 'Y' : 'N'); ?>
+            </td>
+
             <td class="col-sm-1 cell cell-ctrls">
                 <a href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/edit', array('id' => $entity->getId(), 'match' => $match->getId())); ?>">
                     <?php echo $this->translate('Edit') ?>
@@ -51,7 +68,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="5">
+            <td colspan="8">
                 <?php echo $this->paginationControl($paginator, 'Sliding', 'usa-rugby-stats/competition-admin/competition-admin/matches/pagination', ['entity' => $entity]); ?>
             </td>
         </tr>
