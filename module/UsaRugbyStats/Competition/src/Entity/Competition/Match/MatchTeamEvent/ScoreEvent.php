@@ -31,6 +31,12 @@ class ScoreEvent extends MatchTeamEvent
         return $this->type;
     }
 
+    public function isTry() { return $this->getType() == 'TR'; }
+    public function isConversion() { return $this->getType() == 'CV'; }
+    public function isDropGoal() { return $this->getType() == 'DG'; }
+    public function isPenaltyKick() { return $this->getType() == 'PK'; }
+    public function isPenaltyTry() { return $this->getType() == 'PT'; }
+
     public function setType($type)
     {
         if ( ! in_array($type, ['CV','DG','PK','PT','TR'], true) ) {
