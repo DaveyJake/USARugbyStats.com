@@ -361,6 +361,15 @@ class Match
         return $this;
     }
 
+    public function isNotStarted() { return $this->getStatus() == 'NS'; }
+    public function isStarted() { return $this->getStatus() == 'S'; }
+    public function isFinished() { return $this->getStatus() == 'F'; }
+    public function isHomeForfeit() { return $this->getStatus() == 'HF'; }
+    public function isAwayForfeit() { return $this->getStatus() == 'AF'; }
+    public function isCancelled() { return $this->getStatus() == 'C'; }
+
+    public function isComplete() { return in_array($this->getStatus(), ['F','HF','AF']); }
+
     /**
      * Is Match Locked?
      *
