@@ -19,7 +19,8 @@
         </many-to-one>
 
         <unique-constraints>
-            <unique-constraint columns="competition_id,team_id,division_id" />
+            <unique-constraint name="team_nodup" columns="competition_id,team_id" />
+            <unique-constraint name="divteam_nodup" columns="division_id,team_id" />
         </unique-constraints>
 
     </entity>
