@@ -1019,12 +1019,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "b421d03f69049e1f6037756f1093707bf443a52f"
+                "reference": "5ee286e7e0e1f2364f21d18f725d735ffa5e1870"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/b421d03f69049e1f6037756f1093707bf443a52f",
-                "reference": "b421d03f69049e1f6037756f1093707bf443a52f",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/5ee286e7e0e1f2364f21d18f725d735ffa5e1870",
+                "reference": "5ee286e7e0e1f2364f21d18f725d735ffa5e1870",
                 "shasum": ""
             },
             "require": {
@@ -1088,7 +1088,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-05-21 22:15:22"
+            "time": "2014-05-28 12:40:22"
         },
         {
             "name": "evenement/evenement",
@@ -1720,12 +1720,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Debug.git",
-                "reference": "4f8214a60993984f7c89b1d1a44e9a3358878dd5"
+                "reference": "8c3626a4acd2daee0e6d93af9c5dbc42960d477e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/4f8214a60993984f7c89b1d1a44e9a3358878dd5",
-                "reference": "4f8214a60993984f7c89b1d1a44e9a3358878dd5",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/8c3626a4acd2daee0e6d93af9c5dbc42960d477e",
+                "reference": "8c3626a4acd2daee0e6d93af9c5dbc42960d477e",
                 "shasum": ""
             },
             "require": {
@@ -1768,7 +1768,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-23 14:36:49"
+            "time": "2014-05-26 15:36:48"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1880,12 +1880,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "72d4c367febf0e4819dc12c99dcddc17660ac02f"
+                "reference": "e8b31eaced978a5f8d881ebb96c349fa6babd1d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/72d4c367febf0e4819dc12c99dcddc17660ac02f",
-                "reference": "72d4c367febf0e4819dc12c99dcddc17660ac02f",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/e8b31eaced978a5f8d881ebb96c349fa6babd1d8",
+                "reference": "e8b31eaced978a5f8d881ebb96c349fa6babd1d8",
                 "shasum": ""
             },
             "require": {
@@ -1901,7 +1901,6 @@
                 "symfony/config": "~2.0",
                 "symfony/console": "~2.2",
                 "symfony/dependency-injection": "~2.0",
-                "symfony/filesystem": "~2.4",
                 "symfony/finder": "~2.0",
                 "symfony/process": "~2.0",
                 "symfony/routing": "~2.2",
@@ -1914,7 +1913,6 @@
                 "symfony/config": "",
                 "symfony/console": "",
                 "symfony/dependency-injection": "",
-                "symfony/filesystem": "",
                 "symfony/finder": ""
             },
             "type": "library",
@@ -1946,7 +1944,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-22 20:22:30"
+            "time": "2014-05-26 16:42:04"
         },
         {
             "name": "symfony/routing",
@@ -2058,12 +2056,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "c2ae310203e65987a26d57b87a173b15747a3412"
+                "reference": "1c0bec2814a078a81fb86dbc38798bf73418f839"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/c2ae310203e65987a26d57b87a173b15747a3412",
-                "reference": "c2ae310203e65987a26d57b87a173b15747a3412",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/1c0bec2814a078a81fb86dbc38798bf73418f839",
+                "reference": "1c0bec2814a078a81fb86dbc38798bf73418f839",
                 "shasum": ""
             },
             "require": {
@@ -2072,7 +2070,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.16-dev"
                 }
             },
             "autoload": {
@@ -2107,7 +2105,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-05-21 01:15:25"
+            "time": "2014-05-26 15:15:28"
         },
         {
             "name": "zendframework/zendframework",
@@ -2115,12 +2113,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "a0200fb4a7342f33b046577930336243c46fdd16"
+                "reference": "c128a6db676df0f3de166431664d8ad09edf27b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/a0200fb4a7342f33b046577930336243c46fdd16",
-                "reference": "a0200fb4a7342f33b046577930336243c46fdd16",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/c128a6db676df0f3de166431664d8ad09edf27b3",
+                "reference": "c128a6db676df0f3de166431664d8ad09edf27b3",
                 "shasum": ""
             },
             "require": {
@@ -2225,7 +2223,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2014-05-20 23:28:59"
+            "time": "2014-05-28 10:21:34"
         },
         {
             "name": "zendframework/zendxml",
