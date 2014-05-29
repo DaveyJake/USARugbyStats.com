@@ -3,7 +3,6 @@ namespace UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
 
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
-use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 
 /**
  * "Score" match event type
@@ -64,29 +63,7 @@ class ScoreEvent extends MatchTeamEvent
         return 'score';
     }
 
-    public function onAdd()
-    {
-        if ( ! $this->getTeam() instanceof MatchTeam ) {
-            return;
-        }
-        $this->getTeam()->setScore(
-            $this->getTeam()->getScore()
-            + $this->getPoints()
-        );
-    }
-
-    public function onRemove()
-    {
-        if ( ! $this->getTeam() instanceof MatchTeam ) {
-            return;
-        }
-        $this->getTeam()->setScore(
-            $this->getTeam()->getScore()
-            - $this->getPoints()
-        );
-    }
-
-    protected function getPoints()
+    public function getPoints()
     {
         switch ( $this->getType() ) {
             case 'CV':

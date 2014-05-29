@@ -552,7 +552,6 @@ class Match
         if ( ! $this->hasEvent($ra) ) {
             $ra->setMatch($this);
             $this->events->add($ra);
-            $ra->onAdd();
         }
 
         return $this;
@@ -579,8 +578,6 @@ class Match
      */
     public function removeEvent(MatchTeamEvent $ra)
     {
-        $ra->onRemove();
-
         $ra->setMatch(NULL);
         $this->events->removeElement($ra);
 
@@ -594,6 +591,14 @@ class Match
     public function hasEvent(MatchTeamEvent $ra)
     {
         return $this->events->contains($ra);
+    }
+
+    public function recalculateScore()
+    {
+        $this->getHomeTeam()->recalculateScore();
+        $this->getAwayTeam()->recalculateScore();
+
+        return $this;
     }
 
     /**

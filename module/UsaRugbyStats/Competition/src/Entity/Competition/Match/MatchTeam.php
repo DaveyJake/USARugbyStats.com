@@ -303,7 +303,6 @@ class MatchTeam
             $p->setMatch($this->getMatch());
             $p->setTeam($this);
             $this->events->add($p);
-            $p->onAdd();
         }
 
         return $this;
@@ -330,8 +329,6 @@ class MatchTeam
      */
     public function removeEvent(MatchTeamEvent $p)
     {
-        $p->onRemove();
-
         $p->setMatch(NULL);
         $p->setTeam(NULL);
         $this->events->removeElement($p);
@@ -346,6 +343,20 @@ class MatchTeam
     public function hasEvent($p)
     {
         return $this->events->contains($p);
+    }
+
+    public function recalculateScore()
+    {
+        $score = 0;
+        foreach ( $this->getEvents() as $event ) {
+            if ( ! $event->getDiscriminator() == 'score' ) {
+                continue;
+            }
+            $score += $event->getPoints();
+        }
+        $this->setScore($score);
+
+        return $this;
     }
 
     public function __toString()

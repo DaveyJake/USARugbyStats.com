@@ -38,6 +38,10 @@
             </cascade>
         </one-to-many>
 
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="recalculateScore"/>
+        </lifecycle-callbacks>
+
     </entity>
 
 </doctrine-mapping>
