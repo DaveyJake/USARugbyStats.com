@@ -29,6 +29,34 @@ class CompetitionFieldset extends Fieldset
         ));
 
         $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'variant',
+            'options' => array(
+                'label' => 'Variant',
+                'value_options' => [
+                    '7s' => 'Rugby 7s',
+                    '15s' => 'Rugby 15s',
+                ]
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\DateTime',
+            'name' => 'startDate',
+            'options' => array(
+                'label' => 'Start Date',
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\DateTime',
+            'name' => 'endDate',
+            'options' => array(
+                'label' => 'End Date',
+            ),
+        ));
+
+        $this->add(array(
             'type'    => 'Zend\Form\Element\Collection',
             'name'    => 'divisions',
             'options' => array(

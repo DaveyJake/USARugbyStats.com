@@ -24,6 +24,63 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Testing 123', $obj->getName());
     }
 
+    public function testGetSetStartDate()
+    {
+        $now = new \DateTime();
+
+        $obj = new Competition();
+        $this->assertNull($obj->getStartDate());
+        $obj->setStartDate($now);
+        $this->assertSame($now, $obj->getStartDate());
+    }
+
+    public function testSetStartDateDoesNotAcceptNull()
+    {
+        $this->setExpectedException('PHPUnit_Framework_Error');
+
+        $obj = new Competition();
+        $obj->setStartDate(NULL);
+    }
+
+    public function testGetSetEndDate()
+    {
+        $now = new \DateTime();
+
+        $obj = new Competition();
+        $this->assertNull($obj->getEndDate());
+        $obj->setEndDate($now);
+        $this->assertSame($now, $obj->getEndDate());
+    }
+
+    public function testSetEndDateDoesNotAcceptNull()
+    {
+        $this->setExpectedException('PHPUnit_Framework_Error');
+
+        $obj = new Competition();
+        $obj->setEndDate(NULL);
+    }
+
+    public function testGetSetVariant()
+    {
+        $obj = new Competition();
+        $this->assertNull($obj->getVariant());
+        $obj->setVariant('7s');
+        $this->assertEquals('7s', $obj->getVariant());
+
+        $obj = new Competition();
+        $this->assertNull($obj->getVariant());
+        $obj->setVariant('15s');
+        $this->assertEquals('15s', $obj->getVariant());
+    }
+
+    public function testSetVariantDoesNotAcceptInvalidVariant()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $obj = new Competition();
+        $obj->setVariant('football');
+    }
+
     public function testCanBeConvertedToString()
     {
         $obj = new Competition();

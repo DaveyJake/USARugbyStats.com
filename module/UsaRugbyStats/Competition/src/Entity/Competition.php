@@ -23,6 +23,21 @@ class Competition
     protected $name;
 
     /**
+     * @var \DateTime
+     */
+    protected $startDate;
+
+    /**
+     * @var \DateTime
+     */
+    protected $endDate;
+
+    /**
+     * @var string
+     */
+    protected $variant;
+
+    /**
      * Divisions in this competition
      *
      * @var Collection
@@ -92,6 +107,79 @@ class Competition
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Competition Start Date
+     *
+     * @return \DateTime
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * Set Competition Start Date
+     *
+     * @param  \DateTime $startDate
+     * @return self
+     */
+    public function setStartDate(\DateTime $startDate)
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    /**
+     * Competition End Date
+     *
+     * @return \DateTime
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * Set Competition End Date
+     *
+     * @param  \DateTime $endDate
+     * @return self
+     */
+    public function setEndDate(\DateTime $endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Rugby Variant (7s, 15s)
+     *
+     * @return string
+     */
+    public function getVariant()
+    {
+        return $this->variant;
+    }
+
+    /**
+     * Specify Rugby Variant being played
+     *
+     * @param  string                    $variant
+     * @return self
+     * @throws \InvalidArgumentException
+     */
+    public function setVariant($variant)
+    {
+        if ( ! in_array($variant, ['7s', '15s']) ) {
+            throw new \InvalidARgumentException('Invalid variant');
+        }
+        $this->variant = $variant;
 
         return $this;
     }
