@@ -45,6 +45,7 @@ $form->setAttribute('method', 'post');
                 
                 <?php if ($this->enableRegistration) : ?>
                 <div style="margin-top: 15px; text-align: center">
+                <p><a href="<?php echo $this->url('zfcuser/forgotpassword') ?>"><?php echo $this->translate("Forgot your password?"); ?></a></p>
                 <?php echo $this->translate('Not registered?'); ?> <a href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
                 </div>
                 <?php endif; ?>

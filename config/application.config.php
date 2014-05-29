@@ -3,6 +3,7 @@ return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
         'ZfcBase',
+        'GoalioMailService',
 
         'DoctrineModule',
         'DoctrineORMModule',
@@ -10,6 +11,8 @@ return array(
 
         'ZfcUser',
         'ZfcUserDoctrineORM',
+        'GoalioForgotPassword',
+        'GoalioForgotPasswordDoctrineORM',
 
         'ZfcAdmin',
         'ZfcUserAdmin',
