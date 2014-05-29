@@ -370,6 +370,20 @@ class Match
 
     public function isComplete() { return in_array($this->getStatus(), ['F','HF','AF']); }
 
+    public function getWinningSide()
+    {
+        $hs = $this->getHomeTeam()->getScore();
+        $as = $this->getAwayTeam()->getScore();
+        if ($this->isAwayForfeit() || $hs > $as) {
+            return 'H';
+        }
+        if ($this->isHomeForfeit() || $hs < $as) {
+            return 'A';
+        }
+
+        return 'D';
+    }
+
     /**
      * Is Match Locked?
      *

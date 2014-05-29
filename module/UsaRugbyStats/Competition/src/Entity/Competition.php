@@ -454,6 +454,27 @@ class Competition
         return $this->matches->contains($ra);
     }
 
+    public function getPointStructure()
+    {
+        $points = [
+            'win'          => 4,
+            'loss'         => 0,
+            'tie'          => 2,
+            'forfeit'      => -1,
+            'try_bonus'    => 1,
+            'loss_bonus'   => 1,
+        ];
+
+        if ( $this->getVariant() == '7s') {
+            $points['win'] = 3;
+            $points['loss'] = 1;
+            $points['try_bonus'] = 0;
+            $points['loss_bonus'] = 0;
+        }
+
+        return $points;
+    }
+
     /**
      * String representation of this Competition object
      *

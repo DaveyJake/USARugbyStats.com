@@ -6,10 +6,12 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use UsaRugbyStats\Competition\Service\CompetitionService;
 use UsaRugbyStats\Competition\Entity\Competition;
+use UsaRugbyStats\Competition\Service\Competition\StandingsService;
 
 class CompetitionAdminController extends AbstractActionController
 {
     protected $competitionService;
+    protected $competitionStandingsService;
 
     public function listAction()
     {
@@ -146,6 +148,23 @@ class CompetitionAdminController extends AbstractActionController
         return $vm;
     }
 
+    public function viewStandingsAction()
+    {
+        $id = $this->params()->fromRoute('id');
+        $entity = $this->getCompetitionService()->findByID($id);
+        if (! $entity instanceof Competition) {
+            throw new \RuntimeException('No competition with the specified identifier!');
+        }
+
+        $vm = new ViewModel();
+        $vm->setVariable('entity', $entity);
+        $vm->setVariable('page', 'standings');
+        $vm->setVariable('standings', $this->getCompetitionStandingsService()->getStandingsFor($entity));
+        $vm->setTemplate('usa-rugby-stats/competition-admin/competition-admin/view/standings');
+
+        return $vm;
+    }
+
     public function removeAction()
     {
         $id = $this->params()->fromRoute('id');
@@ -182,6 +201,24 @@ class CompetitionAdminController extends AbstractActionController
     public function setCompetitionService(CompetitionService $s)
     {
         $this->competitionService = $s;
+
+        return $this;
+    }
+
+    public function getCompetitionStandingsService()
+    {
+        if (! $this->competitionStandingsService instanceof StandingsService) {
+            $this->setCompetitionStandingsService($this->getServiceLocator()->get(
+                'usarugbystats_competition_competition_standings_service'
+            ));
+        }
+
+        return $this->competitionStandingsService;
+    }
+
+    public function setCompetitionStandingsService(StandingsService $s)
+    {
+        $this->competitionStandingsService = $s;
 
         return $this;
     }

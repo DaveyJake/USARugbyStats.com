@@ -207,6 +207,27 @@ return array(
                                     ),
                                 ),
                             ),
+                            'view' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/view/:id',
+                                    'defaults' => array(
+                                        'action'     => 'view',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                                'child_routes' =>array(
+                                    'standings' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                            'route' => '/standings',
+                                            'defaults' => array(
+                                                'action'     => 'view-standings',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
                             'remove' => array(
                                 'type' => 'Segment',
                                 'options' => array(
