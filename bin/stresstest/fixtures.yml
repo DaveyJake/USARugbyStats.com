@@ -20,25 +20,29 @@ UsaRugbyStats\Competition\Entity\Team:
         union: @union*
         
 UsaRugbyStats\Competition\Entity\Competition:
-    competition{1..150}:
+    competition{1..50}:
         name: <streetName()>
+        startDate: <dateTimeBetween('-60 days', '+50 days')>
+        endDate: <dateTimeBetween($startDate, '+60 days')>
+        variant: 60%? 15s : 7s
         
 UsaRugbyStats\Competition\Entity\Competition\Division:
-    compDivision{1..300}:
+    compDivision{1..150}:
         name (unique): <colorName()> <streetSuffix()> Division
         competition: @competition*
-        team: <numberBetween(10, 20)>x @team*        
+        teamMemberships: <addRandomTeamsToDivision(@self)>
 
 UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam:
-    compMatchHomeTeam{1..1000}:
+    compMatchHomeTeam{1..500}:
         type: H
-    compMatchAwayTeam{1..1000}:
+    compMatchAwayTeam{1..500}:
         type: A
 
 UsaRugbyStats\Competition\Entity\Competition\Match:
-    compMatch{1..1000}:
+    compMatch{1..500}:
         competition: @competition*
-        date: <dateTimeBetween('-60 days', '+60 days')>
+        date: <dateTimeBetween($competition->getStartDate(), $competition->getEndDate())>
         homeTeam: @compMatchHomeTeam<current()>
         awayTeam: @compMatchAwayTeam<current()>
         teams: <addRandomTeamsToMatch(@self)>
+        status: F

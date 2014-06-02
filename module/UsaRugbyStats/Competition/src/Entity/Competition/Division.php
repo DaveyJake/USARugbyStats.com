@@ -219,9 +219,9 @@ class Division
 
     public function addTeam(Team $t)
     {
-//         if ( $this->hasTeam($t) ) {
-//             return $this;
-//         }
+        if ( $this->hasTeam($t) ) {
+            return $this;
+        }
 
         $obj = new TeamMembership();
         $obj->setDivision($this);
@@ -233,8 +233,11 @@ class Division
 
     public function hasTeam(Team $t)
     {
-        return $this->teamMemberships->filter(function (TeamMembership $tm) use ($t) {
-            return $tm->getTeam()->getId() == $t->getId();
+        return $this->teamMemberships->filter(function (TeamMembership $i) use ($t) {
+            return is_null($i->getTeam()->getId())
+                ? $i->getTeam() === $t
+                : $i->getTeam()->getId() === $t->getId();
+
         })->count() > 0;
     }
 

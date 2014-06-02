@@ -26,6 +26,14 @@ class MatchTeamFieldset extends Fieldset
         ));
 
         $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'score',
+            'options' => array(
+                'label' => 'Score',
+            ),
+        ));
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'type',
             'options' => array(

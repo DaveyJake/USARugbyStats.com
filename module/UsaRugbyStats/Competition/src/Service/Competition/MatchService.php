@@ -147,6 +147,8 @@ class MatchService implements EventManagerAwareInterface
 
     public function save(Match $entity)
     {
+        $entity->recalculateScore();
+
         $this->getMatchObjectManager()->persist($entity);
         $this->getMatchObjectManager()->flush();
     }

@@ -349,7 +349,7 @@ class MatchTeam
     {
         $score = 0;
         foreach ( $this->getEvents() as $event ) {
-            if ( ! $event->getDiscriminator() == 'score' ) {
+            if ( $event->getDiscriminator() != 'score' ) {
                 continue;
             }
             $score += $event->getPoints();

@@ -41,9 +41,9 @@ class TeamRecord
 
         //@TODO
         return array_sum([
-            $this->getHomeWins() * $amounts['win'],
-            $this->getHomeLosses() * $amounts['loss'],
-            $this->getHomeTies() * $amounts['tie'],
+            $this->getTotalWins() * $amounts['win'],
+            $this->getTotalLosses() * $amounts['loss'],
+            $this->getTotalTies() * $amounts['tie'],
             $this->getForfeits() * $amounts['forfeit'],
             $this->getTryBonuses() * $amounts['try_bonus'],
             $this->getLossBonuses() * $amounts['loss_bonus'],

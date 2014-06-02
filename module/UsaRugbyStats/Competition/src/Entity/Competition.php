@@ -363,7 +363,9 @@ class Competition
     public function hasTeam(Team $t)
     {
         $result = $this->teamMemberships->filter(function ($i) use ($t) {
-            return $i->getTeam()->getId() == $t->getId();
+            return is_null($i->getTeam()->getId())
+                ? $i->getTeam() === $t
+                : $i->getTeam()->getId() === $t->getId();
         });
 
         return $result->count() > 0;

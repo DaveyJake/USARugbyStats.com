@@ -42,12 +42,14 @@ class StandingsService implements EventManagerAwareInterface
             $sortData['scoreDiff'][$key] = $item->getScoreDifferential();
             $sortData['totalGames'][$key] = $item->getTotalGames();
         }
-        array_multisort(
-            $sortData['points'], SORT_DESC,
-            $sortData['scoreDiff'], SORT_DESC,
-            $sortData['totalGames'], SORT_ASC,
-            $teamRecords
-        );
+        if (count($sortData) > 0) {
+            array_multisort(
+                $sortData['points'], SORT_DESC,
+                $sortData['scoreDiff'], SORT_DESC,
+                $sortData['totalGames'], SORT_ASC,
+                $teamRecords
+            );
+        }
 
         $params['result'] = new ArrayCollection($teamRecords);
         $results = $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $params);
