@@ -88,13 +88,11 @@ class StandingsService implements EventManagerAwareInterface
             // Home Side
             //=======================================================
 
-            $homeTeamRecord->addScoreInFavor($homeSide->getScore());
+            $homeTeamRecord->addScoreInFavor($match->isHomeForfeit() ? 0 : $homeSide->getScore());
             $homeTeamRecord->addScoreAgainst($awaySide->getScore());
 
              // If we forfeited, erase the accumulated score in favor
             if ( $match->isHomeForfeit() ) {
-                // @TODO -- BUG? Should we be resetting entirely? or just adding zero above
-                $homeTeamRecord->setScoreInFavor(0);
                 $homeTeamRecord->addForfeit();
             }
 
@@ -127,13 +125,11 @@ class StandingsService implements EventManagerAwareInterface
             // Away Side
             //=======================================================
 
-            $awayTeamRecord->addScoreInFavor($awaySide->getScore());
+            $awayTeamRecord->addScoreInFavor($match->isAwayForfeit() ? 0 : $awaySide->getScore());
             $awayTeamRecord->addScoreAgainst($homeSide->getScore());
 
             // If we forfeited, erase the accumulated score in favor
             if ( $match->isAwayForfeit() ) {
-                // @TODO -- BUG? Should we be resetting entirely? or just adding zero above
-                $awayTeamRecord->setScoreInFavor(0);
                 $awayTeamRecord->addForfeit();
             }
 
