@@ -11,6 +11,11 @@ use UsaRugbyStats\Account\Entity\Account;
  */
 class MatchSignature
 {
+    const TYPE_HOMECOACH = 'HC';
+    const TYPE_AWAYCOACH = 'AC';
+    const TYPE_REFEREE   = 'REF';
+    const TYPE_NUMBER4   = 'NR4';
+
     /**
      * @var integer
      */

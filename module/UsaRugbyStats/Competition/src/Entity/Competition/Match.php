@@ -15,6 +15,13 @@ use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
  */
 class Match
 {
+    const STATUS_NOTSTARTED = 'NS';
+    const STATUS_STARTED = 'S';
+    const STATUS_FINISHED = 'F';
+    const STATUS_HOMEFORFEIT = 'HF';
+    const STATUS_AWAYFORFEIT = 'AF';
+    const STATUS_CANCELLED = 'C';
+
     /**
      * @var integer
      */

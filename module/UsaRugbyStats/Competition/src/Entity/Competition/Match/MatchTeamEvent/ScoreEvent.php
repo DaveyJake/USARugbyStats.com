@@ -11,6 +11,12 @@ use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
  */
 class ScoreEvent extends MatchTeamEvent
 {
+    const TYPE_CONVERSION   = 'CV';
+    const TYPE_DROPGOAL     = 'DG';
+    const TYPE_PENALTYKICK  = 'PK';
+    const TYPE_PENALTYTRY   = 'PT';
+    const TYPE_TRY          = 'TR';
+
     /**
      * Card Type
      *

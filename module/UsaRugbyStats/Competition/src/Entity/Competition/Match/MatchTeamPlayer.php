@@ -10,6 +10,30 @@ use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
  */
 class MatchTeamPlayer
 {
+    const POSITION_LHP  = 'LHP';
+    const POSITION_H    = 'H';
+    const POSITION_THP  = 'THP';
+    const POSITION_L1   = 'L1';
+    const POSITION_L2   = 'L2';
+    const POSITION_OSF  = 'OSF';
+    const POSITION_BSF  = 'BSF';
+    const POSITION_N8   = 'N8';
+    const POSITION_SH   = 'SH';
+    const POSITION_FH   = 'FH';
+    const POSITION_IC   = 'IC';
+    const POSITION_OC   = 'OC';
+    const POSITION_W1   = 'W1';
+    const POSITION_W2   = 'W2';
+    const POSITION_FB   = 'FB';
+    const POSITION_R1   = 'R1';
+    const POSITION_R2   = 'R2';
+    const POSITION_R3   = 'R3';
+    const POSITION_R4   = 'R4';
+    const POSITION_R5   = 'R5';
+    const POSITION_R6   = 'R6';
+    const POSITION_R7   = 'R7';
+    const POSITION_R8   = 'R8';
+
     /**
      * @var integer
      */

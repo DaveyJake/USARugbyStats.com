@@ -12,6 +12,9 @@ use UsaRugbyStats\Competition\Entity\Competition\TeamMembership;
  */
 class Competition
 {
+    const VARIANT_SEVENS = '7s';
+    const VARIANT_FIFTEENS = '15s';
+
     /**
      * @var integer
      */

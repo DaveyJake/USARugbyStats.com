@@ -11,6 +11,11 @@ use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
  */
 class SubEvent extends MatchTeamEvent
 {
+    const TYPE_BLOOD         = 'BL';
+    const TYPE_INJURY        = 'IJ';
+    const TYPE_FRONTROWCARD  = 'FRC';
+    const TYPE_TACTICAL      = 'TC';
+
     /**
      * Card Type
      *

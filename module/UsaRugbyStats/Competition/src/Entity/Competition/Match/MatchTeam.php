@@ -14,6 +14,9 @@ use UsaRugbyStats\Application\Entity\AccountInterface;
  */
 class MatchTeam
 {
+    const TYPE_HOME = 'H';
+    const TYPE_AWAY = 'A';
+
     /**
      * @var integer
      */

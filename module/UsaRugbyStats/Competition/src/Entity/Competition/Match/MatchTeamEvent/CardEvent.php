@@ -11,6 +11,9 @@ use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
  */
 class CardEvent extends MatchTeamEvent
 {
+    const TYPE_RED    = 'R';
+    const TYPE_YELLOW = 'Y';
+
     /**
      * Card Type
      *
