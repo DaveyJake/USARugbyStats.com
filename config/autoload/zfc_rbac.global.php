@@ -94,10 +94,7 @@ return [
          * unauthorized
          */
         'redirect_strategy' => [
-            /**
-             * Set the route to redirect when user is connected (of course, it must exist!)
-             */
-            'redirect_to_route_connected' => 'home',
+            'redirect_when_connected' => false,
 
             /**
              * Set the route to redirect when user is disconnected (of course, it must exist!)
@@ -114,7 +111,7 @@ return [
              * If append_previous_uri option is set to true, this option set the query key to use when
              * the previous uri is appended
              */
-            'previous_uri_query_key' => 'return'
+            'previous_uri_query_key' => 'redirect'
         ],
 
         /**

@@ -7,6 +7,10 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
+        $eventManager   = $e->getApplication()->getEventManager();
+        $serviceManager = $e->getApplication()->getServiceManager();
+
+        $eventManager->attach($serviceManager->get('ZfcRbac\View\Strategy\RedirectStrategy'));
     }
 
     public function getConfig()
