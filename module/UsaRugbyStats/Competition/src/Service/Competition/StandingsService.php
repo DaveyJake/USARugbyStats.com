@@ -89,7 +89,7 @@ class StandingsService implements EventManagerAwareInterface
                 case 'A':
                     $homeTeamRecord->addHomeLoss();
                     // If score was within 7 we get a loss bonus
-                    if ( $homeSide->getScore() + 7 >= $awaySide->getScore() ) {
+                    if ( ! $match->isHomeForfeit() && $homeSide->getScore() + 7 >= $awaySide->getScore() ) {
                         $homeTeamRecord->addLossBonus();
                     }
                     break;
@@ -131,7 +131,7 @@ class StandingsService implements EventManagerAwareInterface
                 case 'H':
                     $awayTeamRecord->addAwayLoss();
                     // If score was within 7 we get a loss bonus
-                    if ( $awaySide->getScore() + 7 >= $homeSide->getScore() ) {
+                    if ( ! $match->isAwayForfeit() && $awaySide->getScore() + 7 >= $homeSide->getScore() ) {
                         $awayTeamRecord->addLossBonus();
                     }
                     break;
