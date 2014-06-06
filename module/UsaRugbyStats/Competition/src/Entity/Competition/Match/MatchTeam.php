@@ -275,6 +275,12 @@ class MatchTeam
      */
     public function setEvents(Collection $events)
     {
+        // Keep the MatchTeamEvent collections in
+        // both Match and MatchTeam in sync
+        if ( $this->getMatch() ) {
+            $this->getMatch()->setEvents(new ArrayCollection());
+        }
+
         $this->events->clear();
         $this->addEvents($events);
 
@@ -302,10 +308,18 @@ class MatchTeam
      */
     public function addEvent(MatchTeamEvent $p)
     {
-        if ( ! $this->hasEvent($p) ) {
-            $p->setMatch($this->getMatch());
-            $p->setTeam($this);
-            $this->events->add($p);
+        if ( $this->hasEvent($p) ) {
+            return $this;
+        }
+
+        $p->setMatch($this->getMatch());
+        $p->setTeam($this);
+        $this->events->add($p);
+
+        // Keep the MatchTeamEvent collections in
+        // both Match and MatchTeam in sync
+        if ( $this->getMatch() ) {
+            $this->getMatch()->addEvent($p);
         }
 
         return $this;
@@ -332,9 +346,19 @@ class MatchTeam
      */
     public function removeEvent(MatchTeamEvent $p)
     {
+        if ( ! $this->hasEvent($p) ) {
+            return $this;
+        }
+
         $p->setMatch(NULL);
         $p->setTeam(NULL);
         $this->events->removeElement($p);
+
+        // Keep the MatchTeamEvent collections in
+        // both Match and MatchTeam in sync
+        if ( $this->getMatch() ) {
+            $this->getMatch()->removeEvent($p);
+        }
 
         return $this;
     }

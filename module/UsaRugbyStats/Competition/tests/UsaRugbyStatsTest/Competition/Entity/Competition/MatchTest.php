@@ -381,8 +381,10 @@ class MatchTest extends \PHPUnit_Framework_TestCase
 
         $event0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event0->shouldReceive('setMatch')->withArgs([$obj])->once()->andReturnSelf();
+        $event0->shouldReceive('getTeam')->andReturnNull();
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setMatch')->withArgs([$obj])->once()->andReturnSelf();
+        $event1->shouldReceive('getTeam')->andReturnNull();
 
         $newCollection = new ArrayCollection();
         $newCollection->add($event0);
@@ -405,6 +407,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $event0->shouldReceive('setMatch')->never();
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setMatch')->withArgs([$obj])->once()->andReturnSelf();
+        $event1->shouldReceive('getTeam')->andReturnNull();
 
         // Add one to the existing collection
         $collection = $obj->getEvents();
@@ -427,6 +430,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $event0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event0->shouldReceive('getType')->andReturn('HC');
         $event0->shouldReceive('setMatch')->withArgs([$obj])->once()->andReturnSelf();
+        $event0->shouldReceive('getTeam')->andReturnNull();
 
         // Add event0 twice
         $coll = new ArrayCollection();
@@ -450,9 +454,11 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('getType')->andReturn('AC');
         $event1->shouldReceive('setMatch')->withArgs([$obj])->once()->andReturnSelf();
+        $event1->shouldReceive('getTeam')->andReturnNull();
         $event2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event2->shouldReceive('getType')->andReturn('REF');
         $event2->shouldReceive('setMatch')->withArgs([$obj])->once()->andReturnSelf();
+        $event2->shouldReceive('getTeam')->andReturnNull();
 
         // Add one to the existing collection
         $collection = $obj->getEvents();
@@ -493,6 +499,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
 
         $event0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event0->shouldReceive('setMatch')->withArgs([NULL])->once()->andReturnSelf();
+        $event0->shouldReceive('getTeam')->andReturnNull();
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setMatch')->never();
 
@@ -517,10 +524,12 @@ class MatchTest extends \PHPUnit_Framework_TestCase
 
         $event0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event0->shouldReceive('setMatch')->withArgs([NULL])->once()->andReturnSelf();
+        $event0->shouldReceive('getTeam')->andReturnNull();
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setMatch')->never();
         $event2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event2->shouldReceive('setMatch')->withArgs([NULL])->once()->andReturnSelf();
+        $event2->shouldReceive('getTeam')->andReturnNull();
 
         // Add one to the existing collection
         $collection = $obj->getEvents();
