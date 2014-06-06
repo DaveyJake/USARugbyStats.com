@@ -55,6 +55,8 @@ class StandingsService implements EventManagerAwareInterface
                 continue;
             }
 
+            $match->recalculateScore();
+
             // Load the home team's record object
             $homeSide = $match->getHomeTeam();
             $homeTeam = $homeSide->getTeam()->getId();
