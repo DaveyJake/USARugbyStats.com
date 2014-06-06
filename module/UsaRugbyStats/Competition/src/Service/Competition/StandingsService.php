@@ -4,27 +4,12 @@ namespace UsaRugbyStats\Competition\Service\Competition;
 use Zend\EventManager\EventManagerAwareTrait;
 use Zend\EventManager\EventManagerAwareInterface;
 use UsaRugbyStats\Competition\Entity\Competition;
-use UsaRugbyStats\Competition\Service\CompetitionService;
 use UsaRugbyStats\Competition\Entity\Competition\TeamRecord;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class StandingsService implements EventManagerAwareInterface
 {
     use EventManagerAwareTrait;
-
-    /**
-     * Competition Service
-     *
-     * @var CompetitionService
-     */
-    protected $competitionService;
-
-    /**
-     * Match Service
-     *
-     * @var MatchService
-     */
-    protected $matchService;
 
     public function getStandingsFor(Competition $competition)
     {
@@ -167,27 +152,4 @@ class StandingsService implements EventManagerAwareInterface
         return $coll;
     }
 
-    public function setMatchService(MatchService $svc)
-    {
-        $this->matchService = $svc;
-
-        return $this;
-    }
-
-    public function getMatchService()
-    {
-        return $this->matchService;
-    }
-
-    public function setCompetitionService(CompetitionService $svc)
-    {
-        $this->competitionService = $svc;
-
-        return $this;
-    }
-
-    public function getCompetitionService()
-    {
-        return $this->competitionService;
-    }
 }
