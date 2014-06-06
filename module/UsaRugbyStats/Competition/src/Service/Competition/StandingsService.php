@@ -98,10 +98,15 @@ class StandingsService implements EventManagerAwareInterface
                     break;
             }
 
-            // If the opposite team forfeits or we get 4 or more tries in the game we get a bonus
+            // Count the number of tries recorded
             $triesInGame = $homeSide->getEvents()->filter(function ($e) {
                 return $e->getDiscriminator() == 'score' && $e->isTry();
             })->count();
+
+            // Add the number of tries to the team's record (if AF then min. # of tries we have is 4)
+            $homeTeamRecord->addTries(max($triesInGame, $match->getStatus() == 'AF' ? 4 : 0));
+
+            // If the opposite team forfeits or we get 4 or more tries in the game we get a bonus
             if ( $triesInGame >= 4 || ( $match->getStatus() == 'AF' && $triesInGame < 4) ) {
                 $homeTeamRecord->addTryBonus();
             }
@@ -135,10 +140,15 @@ class StandingsService implements EventManagerAwareInterface
                     break;
             }
 
-            // If the opposite team forfeits or we get 4 or more tries in the game we get a bonus
+            // Count the number of tries recorded
             $triesInGame = $awaySide->getEvents()->filter(function ($e) {
                 return $e->getDiscriminator() == 'score' && $e->isTry();
             })->count();
+
+            // Add the number of tries to the team's record (if HF then min. # of tries we have is 4)
+            $awayTeamRecord->addTries(max($triesInGame, $match->getStatus() == 'HF' ? 4 : 0));
+
+            // If the opposite team forfeits or we get 4 or more tries in the game we get a bonus
             if ( $triesInGame >= 4 || ( $match->getStatus() == 'HF' && $triesInGame < 4) ) {
                 $awayTeamRecord->addTryBonus();
             }

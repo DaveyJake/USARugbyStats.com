@@ -34,6 +34,7 @@ class TeamRecord
     protected $scoreInFavor = 0;
     protected $scoreAgainst = 0;
     protected $tryBonuses = 0;
+    protected $totalTries = 0;
 
     public function getTotalPoints()
     {
@@ -140,6 +141,11 @@ class TeamRecord
         return $this->tryBonuses;
     }
 
+    public function getTotalTries()
+    {
+        return $this->totalTries;
+    }
+
     public function addHomeWin()
     {
         $this->homeWins++;
@@ -227,6 +233,13 @@ class TeamRecord
     public function addTryBonus()
     {
         $this->tryBonuses++;
+
+        return $this;
+    }
+
+    public function addTries($count)
+    {
+        $this->totalTries += $count;
 
         return $this;
     }
