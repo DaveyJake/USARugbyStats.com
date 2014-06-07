@@ -4,6 +4,7 @@ namespace UsaRugbyStatsTest\Competition\Entity\Competition;
 use Mockery;
 use Doctrine\Common\Collections\ArrayCollection;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
+use UsaRugbyStats\Competition\Entity\Location;
 
 class MatchTest extends \PHPUnit_Framework_TestCase
 {
@@ -76,6 +77,23 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         // Test setting to null (disassociate from competition)
         $obj->setCompetition(NULL);
         $this->assertNull($obj->getCompetition());
+    }
+
+    public function testGetSetLocation()
+    {
+        $location = new Location();
+        $obj = new Match();
+        $obj->setLocation($location);
+
+        $this->assertSame($location, $obj->getLocation());
+    }
+
+    public function testLocationIsNullable()
+    {
+        $obj = new Match();
+        $obj->setLocation(NULL);
+
+        $this->assertNull($obj->getLocation());
     }
 
     public function testGetSetHomeTeam()

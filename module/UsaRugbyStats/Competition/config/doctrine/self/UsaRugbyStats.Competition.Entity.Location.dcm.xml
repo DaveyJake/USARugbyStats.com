@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="UsaRugbyStats\Competition\Entity\Location" table="competition_locations">
+
+        <id name="id" type="integer"><generator strategy="AUTO" /></id>
+
+        <field name="name" type="string" length="60" unique="true" />
+
+        <field name="address" type="text" />
+
+        <field name="coordinates" type="string" length="60" />
+
+        <one-to-many field="matches" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match" mapped-by="location">
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </one-to-many>
+
+    </entity>
+
+</doctrine-mapping>

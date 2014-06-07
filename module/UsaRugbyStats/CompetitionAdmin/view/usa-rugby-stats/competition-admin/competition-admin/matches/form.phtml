@@ -29,6 +29,29 @@
         </div>
 
         <div class="row form-group">
+            <?php $element = $fieldset->get('location'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+            <?php $element->setAttribute('class', 'form-control'); ?>
+
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <?php $element = $fieldset->get('locationDetails'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+            <?php $element->setAttribute('class', 'form-control'); ?>
+            <?php $element->setAttribute('rows', '3'); ?>
+
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+            </div>
+        </div>
+
+        <div class="row form-group">
             <?php $element = $fieldset->get('status'); ?>
             <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
             <?php $element->setAttribute('class', 'form-control'); ?>

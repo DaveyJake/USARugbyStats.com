@@ -1,0 +1,58 @@
+<?php $form->setAttribute('class', 'form-horizontal'); ?>
+<?php echo $this->form()->openTag($form) ?>
+
+<?php $submitButton = $form->get('submit'); ?>
+<?php $submitButton->setAttribute('class', 'btn btn-lg btn-success'); ?>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <?php $fieldset = $form->get('location'); ?>
+
+        <?php echo $this->formHidden($fieldset->get('id')); ?>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Location Details</div>
+            <div class="panel-body">
+
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('name'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('address'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+                    <?php $element->setAttribute('rows', '4'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('coordinates'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+<div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>

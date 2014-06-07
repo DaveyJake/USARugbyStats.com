@@ -10,6 +10,12 @@ return array(
             'usarugbystats_competition_listener_removeexistingsignaturesfromcompetitionmatch' => 'UsaRugbyStats\Competition\Listeners\RemoveExistingSignaturesFromCompetitionMatchListener',
         ),
         'factories' => array(
+            'usarugbystats_competition_location_service' => 'UsaRugbyStats\Competition\Service\LocationServiceFactory',
+            'usarugbystats_competition_location_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\LocationFieldsetFactory',
+            'usarugbystats_competition_location_createform' => 'UsaRugbyStats\Competition\Form\LocationCreateFormFactory',
+            'usarugbystats_competition_location_updateform' => 'UsaRugbyStats\Competition\Form\LocationUpdateFormFactory',
+            'usarugbystats_competition_location_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\LocationFilterFactory',
+
             'usarugbystats_competition_team_service' => 'UsaRugbyStats\Competition\Service\TeamServiceFactory',
             'usarugbystats_competition_team_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\TeamFieldsetFactory',
             'usarugbystats_competition_team_createform' => 'UsaRugbyStats\Competition\Form\TeamCreateFormFactory',
@@ -59,6 +65,10 @@ return array(
             'usarugbystats_competition_competition_match_teamevent_collectionfilter' => 'UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamEventCollectionFilterFactory',
         ),
         'shared' => array(
+            'usarugbystats_competition_location_fieldset' => false,
+            'usarugbystats_competition_location_createform' => false,
+            'usarugbystats_competition_location_updateform' => false,
+
             'usarugbystats_competition_team_fieldset' => false,
             'usarugbystats_competition_team_createform' => false,
             'usarugbystats_competition_team_updateform' => false,
@@ -130,6 +140,8 @@ return array(
     ),
     'audit' => array(
         'entities' => array(
+            'UsaRugbyStats\Competition\Entity\Location' => [],
+
             'UsaRugbyStats\Competition\Entity\Team' => [],
             'UsaRugbyStats\Competition\Entity\Union' => [],
 

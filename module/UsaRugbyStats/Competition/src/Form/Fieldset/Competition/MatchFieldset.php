@@ -44,6 +44,26 @@ class MatchFieldset extends Fieldset
         ));
 
         $this->add(array(
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'location',
+            'options' => array(
+                'label' => 'Location',
+                'object_manager' => $om,
+                'target_class'   => 'UsaRugbyStats\Competition\Entity\Location',
+                'display_empty_item' => true,
+                'empty_item_label'   => 'No Location Specified',
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Textarea',
+            'name' => 'locationDetails',
+            'options' => array(
+                'label' => 'Location Details',
+            ),
+        ));
+
+        $this->add(array(
             'type'    => 'Zend\Form\Element\Collection',
             'name'    => 'teams',
             'options' => array(

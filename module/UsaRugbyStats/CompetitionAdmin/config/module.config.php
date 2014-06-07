@@ -240,6 +240,57 @@ return array(
                             ),
                         ),
                     ),
+                    'usarugbystats_locationadmin' => array(
+                        'type' => 'Literal',
+                        'priority' => 1000,
+                        'options' => array(
+                            'route' => '/locations',
+                            'defaults' => array(
+                                'controller' => 'usarugbystats_locationadmin_controller',
+                                'action'     => 'index',
+                            ),
+                        ),
+                        'child_routes' =>array(
+                            'list' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/list',
+                                    'defaults' => array(
+                                        'action'     => 'list',
+                                    ),
+                                ),
+                            ),
+                            'create' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '/create',
+                                    'defaults' => array(
+                                        'action'     => 'create'
+                                    ),
+                                ),
+                            ),
+                            'edit' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/edit/:id',
+                                    'defaults' => array(
+                                        'action'     => 'edit',
+                                        'userId'     => 0
+                                    ),
+                                ),
+                            ),
+                            'remove' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/remove/:id',
+                                    'defaults' => array(
+                                        'action'     => 'remove',
+                                        'userId'     => 0
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),
@@ -248,6 +299,7 @@ return array(
         'invokables' => array(
             'usarugbystats_teamadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\TeamAdminController',
             'usarugbystats_unionadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\UnionAdminController',
+            'usarugbystats_locationadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\LocationAdminController',
             'usarugbystats_competitionadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\CompetitionAdminController',
             'usarugbystats_competitionmatchadmin_controller' => 'UsaRugbyStats\CompetitionAdmin\Controller\CompetitionMatchAdminController',
         ),
@@ -283,6 +335,11 @@ return array(
                         'route' => 'zfcadmin/usarugbystats_competitionadmin/create',
                     ),
                 ),
+            ),
+            'usarugbystats_locationadmin' => array(
+                'label' => 'Locations / Venues',
+                'route' => 'zfcadmin/usarugbystats_locationadmin/list',
+                'pages' => array(),
             ),
         ),
     ),

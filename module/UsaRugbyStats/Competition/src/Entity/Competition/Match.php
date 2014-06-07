@@ -7,6 +7,7 @@ use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 use Doctrine\Common\Collections\Collection;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
+use UsaRugbyStats\Competition\Entity\Location;
 
 /**
  * Competition Match
@@ -45,6 +46,20 @@ class Match
      * @var \DateTime
      */
     protected $date;
+
+    /**
+     * Location (venue) for the match
+     *
+     * @var Location|null
+     */
+    protected $location;
+
+    /**
+     * Extra location-related detail for this match
+     *
+     * @var string
+     */
+    protected $locationDetails = '';
 
     /**
      * Home Team
@@ -169,6 +184,52 @@ class Match
     public function setCompetition(Competition $u = NULL)
     {
         $this->competition = $u;
+
+        return $this;
+    }
+
+    /**
+     * Location/venue of the match
+     *
+     * @return Location|null
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Set the location/venue for this match
+     *
+     * @param  Location $obj
+     * @return self
+     */
+    public function setLocation(Location $obj = NULL)
+    {
+        $this->location = $obj;
+
+        return $this;
+    }
+
+    /**
+     * Extra location-related details for this match
+     *
+     * @return string
+     */
+    public function getLocationDetails()
+    {
+        return $this->locationDetails;
+    }
+
+    /**
+     * Set extra location related-details
+     *
+     * @param  string $obj
+     * @return self
+     */
+    public function setLocationDetails($text)
+    {
+        $this->locationDetails = $text;
 
         return $this;
     }
