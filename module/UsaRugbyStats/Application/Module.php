@@ -11,6 +11,7 @@ class Module
         $serviceManager = $e->getApplication()->getServiceManager();
 
         $eventManager->attach($serviceManager->get('ZfcRbac\View\Strategy\RedirectStrategy'));
+        $eventManager->attach($serviceManager->get('ZfcRbac\View\Strategy\UnauthorizedStrategy'));
     }
 
     public function getConfig()

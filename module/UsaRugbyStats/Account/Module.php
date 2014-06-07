@@ -7,12 +7,6 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        // Register the 403 view renderer
-        $t = $e->getTarget();
-        $t->getEventManager()->attach(
-            $t->getServiceManager()->get('ZfcRbac\View\Strategy\UnauthorizedStrategy')
-        );
-
         $app = $e->getApplication();
 
         // Automatically attach Member role to new users
