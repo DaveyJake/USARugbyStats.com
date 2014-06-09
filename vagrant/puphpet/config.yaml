@@ -1,32 +1,38 @@
 ---
 vagrantfile-local:
     vm:
-        box: ubuntu-precise12042-x64-vbox43
-        box_url: 'http://box.puphpet.com/ubuntu-precise12042-x64-vbox43.box'
+        box: puphpet/ubuntu1404-x64
+        box_url: puphpet/ubuntu1404-x64
         hostname: null
+        memory: '512'
+        chosen_provider: virtualbox
         network:
             private_network: 192.168.56.101
             forwarded_port:
-                bWPK7WicxQx0:
+                Bs4ns7rkPM1y:
                     host: '5377'
                     guest: '22'
         provider:
             virtualbox:
                 modifyvm:
                     natdnshostresolver1: on
-                    memory: '512'
                 setextradata:
                     VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
+            vmware:
+                numvcpus: 1
+            parallels:
+                cpus: 1
         provision:
             puppet:
                 manifests_path: puphpet/puppet
                 manifest_file: manifest.pp
+                module_path: puphpet/puppet/modules
                 options:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            2Xzr6bV6TIHX:
+            oQUn9u559eNn:
                 source: ../
                 target: /project
                 nfs: 'false'
@@ -60,11 +66,19 @@ mailcatcher:
         http_port: '1080'
         mailcatcher_path: /usr/local/bin
         log_path: /var/log/mailcatcher/mailcatcher.log
+firewall:
+    install: '1'
+    rules:
+        zNNRpj3eBgcI:
+            port: '80'
+            priority: '100'
+            proto: tcp
+            action: accept
 apache:
     install: '1'
     settings:
-        user: vagrant
-        group: vagrant
+        user: www-data
+        group: www-data
         default_vhost: true
         manage_user: false
         manage_group: false
@@ -73,7 +87,7 @@ apache:
         - php
         - rewrite
     vhosts:
-        iM4l5DYhlc1X:
+        QjQW5DWoaSHL:
             servername: usarugbystats.dev
             docroot: /project/public
             port: '80'
@@ -86,10 +100,28 @@ apache:
             ssl_certs_dir: ''
     mod_pagespeed: 0
     mod_spdy: 0
+nginx:
+    install: 0
+    vhosts:
+        MNdGCo0aMAJl:
+            server_name: awesome.dev
+            server_aliases:
+                - www.awesome.dev
+            www_root: /var/www/awesome.dev
+            listen_port: '80'
+            index_files:
+                - index.html
+                - index.htm
+                - index.php
+            envvars:
+                - 'APP_ENV dev'
+            ssl_cert: ''
+            ssl_key: ''
 php:
     install: '1'
     version: '55'
     composer: '1'
+    composer_home: ''
     modules:
         php:
             - cli
@@ -119,16 +151,56 @@ drush:
         drush.tag_branch: 6.x
 mysql:
     install: '1'
-    root_password: oIlFar0IbwYYb601Q5MN
-    phpmyadmin: '1'
-    adminer: 0
+    root_password: rootroot
+    adminer: '1'
     databases:
-        4XDtIukMxuJJ:
+        fKh2NgY21bsV:
             grant:
                 - ALL
             name: usarugbystats
             host: localhost
             user: usarugbystats
-            password: RKYaQcVO85iWRStblmaY
-            sql_file: 
+            password: rugbyrugbyrugby
+            sql_file: ''
+postgresql:
+    install: 0
+    settings:
+        root_password: '123'
+        user_group: postgres
+        encoding: UTF8
+        version: '9.3'
+    databases: {  }
+    adminer: 0
+mariadb:
+    install: 0
+    root_password: '123'
+    adminer: 0
+    databases: {  }
+    version: '10.0'
+mongodb:
+    install: 0
+    settings:
+        auth: 1
+        port: '27017'
+    databases: {  }
+redis:
+    install: 0
+    settings:
+        conf_port: '6379'
+beanstalkd:
+    install: '1'
+    settings:
+        listenaddress: 0.0.0.0
+        listenport: '13000'
+        maxjobsize: '65535'
+        maxconnections: '1024'
+        binlogdir: /var/lib/beanstalkd/binlog
+        binlogfsync: null
+        binlogsize: '10485760'
+    beanstalk_console: '1'
+    binlogdir: /var/lib/beanstalkd/binlog
+rabbitmq:
+    install: 0
+    settings:
+        port: '5672'
 
