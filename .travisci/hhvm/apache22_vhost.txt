@@ -12,21 +12,23 @@
     Satisfy Any
   </Directory>
 
-  # Wire up Apache to use Travis CI's HHVM  
+
+  # Configure Apache for HHVM FastCGI.
+  # See https://github.com/facebook/hhvm/wiki/fastcgi.
   <IfModule mod_fastcgi.c>
-    RemoveHandler application/x-httpd-php
+      <FilesMatch \.php$>
+          SetHandler hhvm-php-extension
+      </FilesMatch>
 
-    AddHandler hhvm-php-extension .php
-    Action hhvm-php-extension /hhvm virtual
+      <FilesMatch \.hh$>
+          SetHandler hhvm-hack-extension
+      </FilesMatch>
 
-    Alias /hhvm-php-extension /usr/lib/cgi-bin/hhvm-php
-    <Directory "/usr/lib/cgi-bin">
-        <Files "hhvm-php">
-            Order deny,allow
-        </Files>
-    </Directory>
+      Alias /hhvm /hhvm
+      Action hhvm-php-extension /hhvm virtual
+      Action hhvm-hack-extension /hhvm virtual
 
-    FastCgiExternalServer /usr/lib/cgi-bin/hhvm-php -host 127.0.0.1:9000 -pass-header Authorization
+      FastCgiExternalServer /hhvm -host 127.0.0.1:9000 -pass-header Authorization -idle-timeout 300
   </IfModule>
 
   ## Logging

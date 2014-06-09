@@ -57,7 +57,7 @@
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master",
-        "behat/behat": "2.4@stable",
+        "behat/behat": "2.*@stable",
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",

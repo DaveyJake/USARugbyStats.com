@@ -16,9 +16,12 @@ Feature: Competition Administration Panel - Create Competition
     Given I am authenticated as a super administrator
     And I go to "/admin/competition/create"	
     When I fill in the following:
-       | competition[name] | Behat Competition |
+       | competition[name]      | Behat Competition |
+       | competition[variant]   | 15s |
+       | competition[startDate] | 2014-07-01T08:00-06:00 |
+       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I press "Create Competition"
-    Then I should be on "/admin/competition/edit/1" 
+    Then I should be on "/admin/competition/edit/3" 
     And I should see "The competition was created successfully!"
     And I should see "Behat Competition"
     And the "name" field should contain "Behat Competition"
@@ -28,7 +31,10 @@ Feature: Competition Administration Panel - Create Competition
     Given I am authenticated as a super administrator
     And I go to "/admin/competition/create"	
     When I fill in the following:
-       | competition[name] | Behat Competition |
+       | competition[name]      | Behat Competition |
+       | competition[variant]   | 15s |
+       | competition[startDate] | 2014-07-01T08:00-06:00 |
+       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I press "Create Competition"
     Then I should be on "/admin/competition/create"
     And I should see "There is already another object matching"
@@ -49,7 +55,10 @@ Feature: Competition Administration Panel - Create Competition
     Given I am authenticated as a super administrator
     And I go to "/admin/competition/create"	
     When I fill in the following:
-       | competition[name] | Competition with two empty divisions |
+       | competition[name]      | Competition with two empty divisions |
+       | competition[variant]   | 15s |
+       | competition[startDate] | 2014-07-01T08:00-06:00 |
+       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     And I click the ".competition-divisions-add" element
@@ -58,11 +67,11 @@ Feature: Competition Administration Panel - Create Competition
        | competition[divisions][0][name] | Test Division 1 |
        | competition[divisions][1][name] | Test Division 2 |
     And I press "Create Competition"
-    Then I should be on "/admin/competition/edit/2" 
+    Then I should be on "/admin/competition/edit/4" 
     And I should see "The competition was created successfully!"
     And I should see "Competition with two empty divisions"
     And the "name" field should contain "Competition with two empty divisions"
-    Then I go to "/admin/competition/edit/2/divisions"
+    Then I go to "/admin/competition/edit/4/divisions"
     Then I should see 2 ".competition-divisions-division" elements
     And the "competition[divisions][0][name]" field should contain "Test Division 1"
     And the "competition[divisions][1][name]" field should contain "Test Division 2"
@@ -72,7 +81,10 @@ Feature: Competition Administration Panel - Create Competition
     Given I am authenticated as a super administrator
     And I go to "/admin/competition/create"	
     When I fill in the following:
-       | competition[name] | Competition with two divisions of the same name |
+       | competition[name]      | Competition with two divisions of the same name |
+       | competition[variant]   | 15s |
+       | competition[startDate] | 2014-07-01T08:00-06:00 |
+       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     And I click the ".competition-divisions-add" element
@@ -89,7 +101,10 @@ Feature: Competition Administration Panel - Create Competition
     Given I am authenticated as a super administrator
     And I go to "/admin/competition/create"	
     When I fill in the following:
-       | competition[name] | Competition with two non-empty divisions |
+       | competition[name]      | Competition with two non-empty divisions |
+       | competition[variant]   | 15s |
+       | competition[startDate] | 2014-07-01T08:00-06:00 |
+       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     And I click the ".competition-divisions-add" element
@@ -106,11 +121,11 @@ Feature: Competition Administration Panel - Create Competition
     Then I click the ".competition-divisions-division[data-index=1] .competition-divisions-division-teams-add" element
     And select "Test Team #8" from "competition[divisions][1][teamMemberships][1][team]"
     Then I press "Create Competition"
-    Then I should be on "/admin/competition/edit/3" 
+    Then I should be on "/admin/competition/edit/5" 
     And I should see "The competition was created successfully!"
     And I should see "Competition with two non-empty divisions"
     And the "name" field should contain "Competition with two non-empty divisions"
-    Then I go to "/admin/competition/edit/3/divisions"
+    Then I go to "/admin/competition/edit/5/divisions"
     Then I should see 2 ".competition-divisions-division" elements
     And the "competition[divisions][0][name]" field should contain "Test Division 1"
     And the "competition[divisions][1][name]" field should contain "Test Division 2"
@@ -122,7 +137,10 @@ Feature: Competition Administration Panel - Create Competition
     Given I am authenticated as a super administrator
     And I go to "/admin/competition/create"	
     When I fill in the following:
-       | competition[name] | Competition with team added more than once |
+       | competition[name]      | Competition with team added more than once |
+       | competition[variant]   | 15s |
+       | competition[startDate] | 2014-07-01T08:00-06:00 |
+       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     Then I fill in the following:
@@ -141,7 +159,10 @@ Feature: Competition Administration Panel - Create Competition
     Given I am authenticated as a super administrator
     And I go to "/admin/competition/create"	
     When I fill in the following:
-       | competition[name] | Competition with team added to multiple divisions |
+       | competition[name]      | Competition with team added to multiple divisions |
+       | competition[variant]   | 15s |
+       | competition[startDate] | 2014-07-01T08:00-06:00 |
+       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     Then I fill in the following:

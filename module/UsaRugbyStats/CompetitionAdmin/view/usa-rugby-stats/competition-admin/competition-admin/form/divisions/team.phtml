@@ -1,12 +1,13 @@
 <?php $isTemplate = @$isTemplate == true; ?>
 <?php $elId = $fieldset->get('id'); ?>
+<?php $elIdValue = $elId->getValue();?>
 <?php $elTeam = $fieldset->get('team'); ?>
 
 <tr data-teamid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>"<?php if (isset($index)): ?> data-teamindex="<?php echo $this->escapeHtmlAttr($index); ?>"<?php endif;?>>
     <td>
         <?php echo $this->formHidden($elId); ?>
 
-        <?php if ($isTemplate || empty($elId->getValue())): ?>
+        <?php if ($isTemplate || empty($elIdValue)): ?>
             <?php $elId->setAttribute('class', 'form-control input-sm'); ?>
             <?php echo $this->formSelect($elTeam); ?>
         <?php else: ?>
