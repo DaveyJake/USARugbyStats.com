@@ -20,7 +20,7 @@ class Module
         $dem = $app->getServiceManager()->get('doctrine.eventmanager.orm_default');
         $dem->addEventSubscriber($app->getServiceManager()->get('UsaRugbyStats\Account\Service\Strategy\RbacEnforceRoleAssociation'));
 
-        $app->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, function(MvcEvent $e) {
+        $app->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, function (MvcEvent $e) {
             if ( ! $e->getRouteMatch()->getMatchedRouteName() == 'zfcuser/login' ) {
                 return;
             }
