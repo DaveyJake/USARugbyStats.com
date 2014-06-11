@@ -14,22 +14,21 @@ include 'puphpet::params'
 
 Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
 group { 'puppet':   ensure => present }
-group { 'www-data': ensure => present }
-group { 'www-user': ensure => present }
+group { 'vagrant': ensure => present }
 
 user { $::ssh_username:
   shell   => '/bin/bash',
   home    => "/home/${::ssh_username}",
   ensure  => present,
-  groups  => ['www-data', 'www-user'],
-  require => [Group['www-data'], Group['www-user']]
+  groups  => ['vagrant', 'vagrant'],
+  require => [Group['vagrant'], Group['vagrant']]
 }
 
-user { ['apache', 'nginx', 'httpd', 'www-data']:
+user { ['apache', 'nginx', 'httpd']:
   shell  => '/bin/bash',
   ensure => present,
-  groups => 'www-data',
-  require => Group['www-data']
+  groups => 'vagrant',
+  require => Group['vagrant']
 }
 
 file { "/home/${::ssh_username}":
@@ -388,7 +387,7 @@ if hash_key_equals($apache_values, 'install', 1) {
       mode    => 0775,
       require => [
         Exec["exec mkdir -p ${webroot_location}"],
-        Group['www-data']
+        Group['vagrant']
       ]
     }
   }
@@ -398,11 +397,11 @@ if hash_key_equals($apache_values, 'install', 1) {
   {
     file { $webroot_location:
       ensure  => directory,
-      group   => 'www-data',
+      group   => 'vagrant',
       mode    => 0775,
       require => [
         Exec["exec mkdir -p ${webroot_location}"],
-        Group['www-data']
+        Group['vagrant']
       ]
     }
   }
@@ -474,11 +473,11 @@ if hash_key_equals($apache_values, 'install', 1) {
       {
         file { $vhost['docroot']:
           ensure  => directory,
-          group   => 'www-user',
+          group   => 'vagrant',
           mode    => 0765,
           require => [
             Exec["exec mkdir -p ${vhost['docroot']} @ key ${key}"],
-            Group['www-user']
+            Group['vagrant']
           ]
         }
       }
@@ -563,7 +562,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
       mode    => 0775,
       require => [
         Exec["exec mkdir -p ${webroot_location}"],
-        Group['www-data']
+        Group['vagrant']
       ]
     }
   }
@@ -573,11 +572,11 @@ if hash_key_equals($nginx_values, 'install', 1) {
   {
     file { $webroot_location:
       ensure  => directory,
-      group   => 'www-data',
+      group   => 'vagrant',
       mode    => 0775,
       require => [
         Exec["exec mkdir -p ${webroot_location}"],
-        Group['www-data']
+        Group['vagrant']
       ]
     }
   }
@@ -586,9 +585,9 @@ if hash_key_equals($nginx_values, 'install', 1) {
       file { '/usr/share/nginx':
         ensure  => directory,
         mode    => 0775,
-        owner   => 'www-data',
-        group   => 'www-data',
-        require => Group['www-data'],
+        owner   => 'vagrant',
+        group   => 'vagrant',
+        require => Group['vagrant'],
         before  => Package['nginx']
       }
   }
@@ -789,7 +788,7 @@ define nginx_vhost (
 
 define set_php5_fpm_sock_group_and_user (){
   exec { 'set php5_fpm_sock group and user':
-    command => "chmod 660 ${php5_fpm_sock} && chown www-data ${php5_fpm_sock} && chgrp www-data ${php5_fpm_sock} && touch /.puphpet-stuff/php5_fpm_sock",
+    command => "chmod 660 ${php5_fpm_sock} && chown vagrant ${php5_fpm_sock} && chgrp vagrant ${php5_fpm_sock} && touch /.puphpet-stuff/php5_fpm_sock",
     creates => '/.puphpet-stuff/php5_fpm_sock',
   }
 }
@@ -912,7 +911,7 @@ if hash_key_equals($php_values, 'install', 1) {
         onlyif => "test ! -d ${php_sess_save_path}",
         before => Class['php']
       }
-      exec {"chmod 775 ${php_sess_save_path} && chown www-data ${php_sess_save_path} && chgrp www-data ${php_sess_save_path}":
+      exec {"chmod 775 ${php_sess_save_path} && chown vagrant ${php_sess_save_path} && chgrp vagrant ${php_sess_save_path}":
         require => Class['php']
       }
     }
@@ -936,10 +935,10 @@ if hash_key_equals($php_values, 'install', 1) {
     if $php_composer_home {
       file { $php_composer_home:
         ensure  => directory,
-        owner   => 'www-data',
-        group   => 'www-data',
+        owner   => 'vagrant',
+        group   => 'vagrant',
         mode    => 0775,
-        require => [Group['www-data'], Group['www-user']]
+        require => [Group['vagrant'], Group['vagrant']]
       }
 
       file_line { "COMPOSER_HOME=${php_composer_home}":
@@ -1148,7 +1147,7 @@ if hash_key_equals($mysql_values, 'install', 1) {
 
     class { 'puphpet::adminer':
       location    => "${mysql_adminer_webroot_location}/adminer",
-      owner       => 'www-data',
+      owner       => 'vagrant',
       php_package => $mysql_php_package
     }
   }
@@ -1261,7 +1260,7 @@ if hash_key_equals($postgresql_values, 'install', 1) {
 
     class { 'puphpet::adminer':
       location    => "${postgresql_adminer_webroot_location}/adminer",
-      owner       => 'www-data',
+      owner       => 'vagrant',
       php_package => $postgresql_php_package
     }
   }
@@ -1423,7 +1422,7 @@ if hash_key_equals($mariadb_values, 'install', 1) {
 
     class { 'puphpet::adminer':
       location    => "${mariadb_adminer_webroot_location}/adminer",
-      owner       => 'www-data',
+      owner       => 'vagrant',
       php_package => $mariadb_php_package
     }
   }
@@ -1619,7 +1618,7 @@ if hash_key_equals($beanstalkd_values, 'install', 1) {
 
     file { "${beanstalk_console_webroot_location}/storage.json":
       ensure  => present,
-      group   => 'www-data',
+      group   => 'vagrant',
       mode    => 0775,
       require => Vcsrepo[$beanstalk_console_webroot_location]
     }
