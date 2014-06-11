@@ -3,7 +3,7 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="UsaRugbyStats\Competition\Entity\Competition\Match" table="competition_competition_matches">
+    <entity name="UsaRugbyStats\Competition\Entity\Competition\Match" table="competition_competition_matches" repository-class="UsaRugbyStats\Competition\Repository\Competition\MatchRepository">
         <id name="id" type="integer"><generator strategy="AUTO" /></id>
 
         <field name="description" type="string" length="100" nullable="true" />

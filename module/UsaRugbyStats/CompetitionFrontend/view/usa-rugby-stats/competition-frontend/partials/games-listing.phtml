@@ -1,0 +1,48 @@
+<?php $now = new DateTime(); ?>
+
+<table class="table table-striped" id="sort">
+  <thead>
+    <tr>
+      <th width="100">Date</th>
+      <th>Home</th>
+      <?php if ( $showScore ): ?><th>Score</th><?php endif;?>
+      <th>Opponent</th>
+      <th>Location</th>
+      <th>Status</th>
+      <th width="40"></th>
+     </tr>
+   </thead>
+   <tbody>
+     <?php foreach ( $matches as $key => $match ): ?>
+     <?php   $matchUrl = $this->url('usarugbystats_frontend_competition_match', ['cid' => $match->getCompetition()->getId(), 'mid' => $match->getId()]); ?>
+     <?php   $compUrl  = $this->url('usarugbystats_frontend_competition', ['id' => $match->getCompetition()->getId()]); ?>
+     <tr>
+       <td><?=$this->escapeHtml($match->getDate()->format('m/d/Y g:ia')); ?></td>
+       <td><?=$this->ursTeamLink($match->getHomeTeam()); ?></td>
+       <?php if ( $showScore ): ?><td><?=$this->escapeHtml($match->getHomeTeam()->getScore()); ?> - <?=$this->escapeHtml($match->getAwayTeam()->getScore()); ?></td><?php endif;?>
+       <td><?=$this->ursTeamLink($match->getAwayTeam()); ?></td>
+       <td>
+         <?php if ( $match->getLocation() != null ): ?>
+           <?= $this->escapeHtml($match->getLocation()->getName()); ?>
+           <?php if ( !empty($match->getLocationDetails()) ): ?>
+             &nbsp;&dash;&nbsp;
+           <?php endif; ?>
+         <?php endif; ?>
+         <?= $this->escapeHtml($match->getLocationDetails()); ?>
+       </td>
+       <td style="text-align: center"><?=$match->getStatus(); ?></td>
+       <td>
+         <div class="btn-group pull-right">
+           <a class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphglyphicon glyphicon-cog"></i>&nbsp;<span class="caret"></span>
+           </a>
+           <ul class="dropdown-menu">
+             <li><a href="<?=$this->escapeHtmlAttr($matchUrl); ?>"><i class="glyphicon glyphicon-share"></i> Go to Game</a></li>
+             <li><a href="<?=$this->escapeHtmlAttr($compUrl); ?>"><i class="glyphicon glyphicon-share"></i> Go to Competition</a></li>
+           </ul>
+        </div>
+       </td>
+
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>

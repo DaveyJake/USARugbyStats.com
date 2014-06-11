@@ -1,0 +1,52 @@
+<?php
+$me = $this->zfcUserIdentity();
+$role = $me->getRoleAssignment('competition_admin');
+?>
+
+<div class="page-header">
+  <div style="float:left; padding-right:12px;"><?=$this->gravatar($me->getEmail(), ['img_size' => '42']) ?></div>
+  <h1><?= $this->escapeHtml($me->getDisplayName()); ?></h1>
+</div>
+
+<div class="row">
+  <div class="col-md-7">
+    <div class="panel panel-default">
+      <div class="panel-heading">Upcoming Games</div>
+      <?php if (count($upcomingMatches)): ?>
+      <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $upcomingMatches, 'showScore' => false]); ?>
+      <?php else: ?>
+      <div class="panel-body">
+        <div class="pull-center">Your competitions have no upcoming matches.</div>
+      </div>
+      <?php endif; ?>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Past Games</div>
+      <?php if (count($pastMatches)): ?>
+      <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $pastMatches, 'showScore' => true]); ?>
+      <?php else: ?>
+      <div class="panel-body">
+        <div class="pull-center">Your competitions have no past matches.</div>
+      </div>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">Your Competitions</div>
+
+      <ul class="list-group">
+        <?php foreach ( $role->getManagedCompetitions() as $comp ): ?>
+        <li class="list-group-item">
+          <h4 class="list-group-item-heading"><?=$this->ursCompetitionLink($comp); ?></h4>
+          <p class="list-group-item-text">
+            <?=$comp->getStartDate()->format('F jS, Y')?>&nbsp;&mdash;
+            <?=$comp->getEndDate()->format('F jS, Y')?>
+          </p>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+
+    </div>
+  </div>
+</div>
