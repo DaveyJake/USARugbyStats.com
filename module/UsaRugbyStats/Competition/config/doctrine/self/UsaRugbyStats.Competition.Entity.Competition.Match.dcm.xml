@@ -30,6 +30,9 @@
             <cascade>
             	<cascade-all />
             </cascade>
+            <order-by>
+                <order-by-field name="minute" direction="ASC" />
+            </order-by>
         </one-to-many>
 
 		<field name="status" type="string" length="2" />
