@@ -33,15 +33,6 @@
         }
     ],
     "require": {
-        "allplayers/allplayers": "dev-master",
-        "CHH/kue": "*",
-        "doctrine/migrations": "*",
-        "rybakit/phive-queue": "*",
-        "silex/silex": "1.0.*",
-        "symfony/console": "2.1.*",
-        "symfony/yaml": "2.1.*",
-        "twig/twig": ">=1.8,<2.0-dev",
-        "chrisboulton/php-resque": "*",
         "zendframework/zendframework": "dev-master",
         "zf-commons/zfc-user": "1.*",
         "zf-commons/zfc-user-doctrine-orm": "0.*",
@@ -65,11 +56,6 @@
         "mockery/mockery": "0.*",
         "fabpot/php-cs-fixer": "*@dev",
         "nelmio/alice": "@stable"
-    },
-    "autoload": {
-        "psr-0": {
-            "Source": "lib/"
-        }
     },
     "minimum-stability": "dev",
     "config": {
