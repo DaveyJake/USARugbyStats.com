@@ -2,6 +2,7 @@
 namespace UsaRugbyStats\Competition\Entity\Competition\Match;
 
 use UsaRugbyStats\Competition\Entity\Competition\Match;
+use UsaRugbyStats\Application\Entity\AccountInterface;
 
 /**
  * Match <-> Match Event Association Entity
@@ -82,6 +83,8 @@ abstract class MatchTeamEvent
     {
         return $this->getDiscriminator();
     }
+
+    abstract public function hasPlayer(AccountInterface $player);
 
     abstract public function getDiscriminator();
 }
