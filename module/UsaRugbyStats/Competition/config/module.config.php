@@ -29,6 +29,8 @@ return array(
             'usarugbystats_competition_union_updateform' => 'UsaRugbyStats\Competition\Form\UnionUpdateFormFactory',
             'usarugbystats_competition_union_inputfilter' => 'UsaRugbyStats\Competition\InputFilter\UnionFilterFactory',
 
+            'usarugbystats_competition_playerstatistics_service' => 'UsaRugbyStats\Competition\Service\PlayerStatisticsServiceFactory',
+
             'usarugbystats_competition_competition_service' => 'UsaRugbyStats\Competition\Service\CompetitionServiceFactory',
             'usarugbystats_competition_competition_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\CompetitionFieldsetFactory',
             'usarugbystats_competition_competition_createform' => 'UsaRugbyStats\Competition\Form\CompetitionCreateFormFactory',
