@@ -2,7 +2,6 @@
 namespace UsaRugbyStats\CompetitionFrontend\Controller\Dashboard;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 
 class RouterController extends AbstractActionController
 {
@@ -19,8 +18,7 @@ class RouterController extends AbstractActionController
         // Display the correct dashboard based on user's role
         // @TODO Users with multiple roles should be able to choose which one is active
         $role = array_pop($userRoles);
-        switch ( $role->getName() )
-        {
+        switch ( $role->getName() ) {
             case 'super_admin':
                 return $this->redirect()->toRoute('zfcadmin');
             case 'union_admin':
@@ -32,9 +30,9 @@ class RouterController extends AbstractActionController
             case 'team_admin':
                 $controllerName = sprintf($controllerPattern, 'team-admin');
                 break;
-        	case 'member':
-        	default:
-        	    return $this->redirect()->toRoute('usarugbystats_frontend_player', ['id' => $user->getId()]);
+            case 'member':
+            default:
+                return $this->redirect()->toRoute('usarugbystats_frontend_player', ['id' => $user->getId()]);
         }
 
         return $this->forward()->dispatch($controllerName);

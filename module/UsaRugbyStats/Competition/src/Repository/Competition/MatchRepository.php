@@ -16,11 +16,11 @@ class MatchRepository extends EntityRepository
     {
         // Extract the list of teams to query for
         $teamids = [];
-        if ( $teams instanceof Team ) {
+        if ($teams instanceof Team) {
             $teamids[] = $teams->getId();
-        } elseif ( $teams instanceof Collection || $teams instanceof \Traversable ) {
-            foreach ( $teams as $team ) {
-                if ( ! $team instanceof Team ) {
+        } elseif ($teams instanceof Collection || $teams instanceof \Traversable) {
+            foreach ($teams as $team) {
+                if (! $team instanceof Team) {
                     continue;
                 }
                 $teamids[] = $team->getId();
@@ -52,11 +52,11 @@ DQL;
     {
         // Extract the list of competitions to query for
         $compids = [];
-        if ( $comps instanceof Competition ) {
+        if ($comps instanceof Competition) {
             $compids[] = $comps->getId();
-        } elseif ( $comps instanceof Collection || $comps instanceof \Traversable ) {
-            foreach ( $comps as $comp ) {
-                if ( ! $comp instanceof Competition ) {
+        } elseif ($comps instanceof Collection || $comps instanceof \Traversable) {
+            foreach ($comps as $comp) {
+                if (! $comp instanceof Competition) {
                     continue;
                 }
                 $compids[] = $comp->getId();
@@ -88,11 +88,11 @@ DQL;
     {
         // Extract the list of unions to query for
         $unionids = [];
-        if ( $unions instanceof Union ) {
+        if ($unions instanceof Union) {
             $unionids[] = $unions->getId();
-        } elseif ( $unions instanceof Collection || $unions instanceof \Traversable ) {
-            foreach ( $unions as $union ) {
-                if ( ! $union instanceof Union ) {
+        } elseif ($unions instanceof Collection || $unions instanceof \Traversable) {
+            foreach ($unions as $union) {
+                if (! $union instanceof Union) {
                     continue;
                 }
                 $unionids[] = $union->getId();
@@ -126,11 +126,11 @@ DQL;
     {
         // Extract the list of players to query for
         $playerids = [];
-        if ( $players instanceof AccountInterface ) {
+        if ($players instanceof AccountInterface) {
             $playerids[] = $players->getId();
-        } elseif ( $players instanceof Collection || $players instanceof \Traversable ) {
-            foreach ( $players as $player ) {
-                if ( ! $player instanceof AccountInterface ) {
+        } elseif ($players instanceof Collection || $players instanceof \Traversable) {
+            foreach ($players as $player) {
+                if (! $player instanceof AccountInterface) {
                     continue;
                 }
                 $playerids[] = $player->getId();

@@ -22,14 +22,14 @@ class UnionController extends AbstractActionController
         }
 
         $union = $this->getUnionService()->findByID($id);
-        if ( ! $union instanceof Union ) {
+        if (! $union instanceof Union) {
             throw new \InvalidArgumentException('Invalid Union ID specified!');
         }
 
         $repository = $this->getCompetitionMatchService()->getMatchRepository();
 
         $now = new \DateTime();
-        list($upcomingMatches, $pastMatches) = $repository->findAllForUnion($union)->partition(function($key, Match $m) use ($now) {
+        list($upcomingMatches, $pastMatches) = $repository->findAllForUnion($union)->partition(function ($key, Match $m) use ($now) {
             return $m->getDate() >= $now;
         });
 

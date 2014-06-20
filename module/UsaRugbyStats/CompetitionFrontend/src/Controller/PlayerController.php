@@ -22,7 +22,7 @@ class PlayerController extends AbstractActionController
         }
 
         $player = $this->getUserService()->getUserMapper()->findById($id);
-        if ( ! $player instanceof AccountInterface ) {
+        if (! $player instanceof AccountInterface) {
             throw new \InvalidArgumentException('Invalid Player ID specified!');
         }
 

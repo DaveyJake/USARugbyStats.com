@@ -18,7 +18,7 @@ class CompetitionController extends AbstractActionController
         }
 
         $competition = $this->getCompetitionService()->findByID($id);
-        if ( ! $competition instanceof Competition ) {
+        if (! $competition instanceof Competition) {
             throw new \InvalidArgumentException('Invalid Competition ID specified!');
         }
 

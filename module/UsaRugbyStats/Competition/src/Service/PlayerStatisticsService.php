@@ -27,27 +27,27 @@ class PlayerStatisticsService implements EventManagerAwareInterface
 
         $params['result'] = [
             'career'   => $entryTemplate,
-        	'season'   => [],
-        	'team'     => [],
-        	'opponent' => [],
+            'season'   => [],
+            'team'     => [],
+            'opponent' => [],
         ];
 
         // Fetch a list of all the matches this player has participated in
         $matches = $this->getCompetitionMatchService()->getMatchRepository()->findAllForPlayer($account);
-        foreach ( $matches as $match ) {
+        foreach ($matches as $match) {
             $match instanceof Match;
 
             $matchYear = $match->getDate()->format('Y') . '-' . ($match->getDate()->format('Y')+1);
 
             // Fetch all the game events involving this player
-            $gameEvents = $match->getEvents()->filter(function(MatchTeamEvent $event) use ($account) {
+            $gameEvents = $match->getEvents()->filter(function (MatchTeamEvent $event) use ($account) {
                 return $event->hasPlayer($account);
             });
             if ( count($gameEvents) == 0 ) {
                 continue;
             }
 
-            foreach ( $gameEvents as $event ) {
+            foreach ($gameEvents as $event) {
                 $event instanceof MatchTeamEvent;
 
                 $result = $this->processEvent($event);
@@ -102,18 +102,19 @@ class PlayerStatisticsService implements EventManagerAwareInterface
 
     protected function processEvent(MatchTeamEvent $e)
     {
-        switch ( $e->getDiscriminator() )
-        {
-        	case 'score':
-    	    {
+        switch ( $e->getDiscriminator() ) {
+            case 'score':
+            {
                 $e instanceof ScoreEvent;
+
                 return [ 'type' => $e->getType(), 'value' => $e->getPoints() ];
-        	}
-        	case 'card':
-    	    {
-    	        $e instanceof CardEvent;
-    	        return [ 'type' => $e->getType() . 'C', 'value' => 0 ];
-    	    }
+            }
+            case 'card':
+            {
+                $e instanceof CardEvent;
+
+                return [ 'type' => $e->getType() . 'C', 'value' => 0 ];
+            }
         }
     }
 

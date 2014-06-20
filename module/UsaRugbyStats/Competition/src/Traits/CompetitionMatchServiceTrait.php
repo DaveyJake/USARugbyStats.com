@@ -18,15 +18,17 @@ trait CompetitionMatchServiceTrait
                 return NULL;
             }
             $this->competitionMatchService = $this->getServiceLocator()->get(
-	            'usarugbystats_competition_competition_match_service'
+                'usarugbystats_competition_competition_match_service'
             );
         }
+
         return $this->competitionMatchService;
     }
 
     public function setCompetitionMatchService(MatchService $svc)
     {
         $this->competitionMatchService = $svc;
+
         return $this;
     }
 }

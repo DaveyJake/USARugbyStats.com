@@ -22,13 +22,13 @@ class TeamController extends AbstractActionController
         }
 
         $team = $this->getTeamService()->findByID($id);
-        if ( ! $team instanceof Team ) {
+        if (! $team instanceof Team) {
             throw new \InvalidArgumentException('Invalid Team ID specified!');
         }
 
         $repository = $this->getCompetitionMatchService()->getMatchRepository();
         $now = new \DateTime();
-        list($upcomingMatches, $pastMatches) = $repository->findAllForTeam($team)->partition(function($key, Match $m) use ($now) {
+        list($upcomingMatches, $pastMatches) = $repository->findAllForTeam($team)->partition(function ($key, Match $m) use ($now) {
             return $m->getDate() >= $now;
         });
 

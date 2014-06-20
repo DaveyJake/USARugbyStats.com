@@ -17,15 +17,17 @@ trait PlayerStatisticsServiceTrait
                 return NULL;
             }
             $this->playerStatisticsService = $this->getServiceLocator()->get(
-	            'usarugbystats_competition_playerStatistics_service'
+                'usarugbystats_competition_playerStatistics_service'
             );
         }
+
         return $this->playerStatisticsService;
     }
 
     public function setPlayerStatisticsService(PlayerStatisticsService $svc)
     {
         $this->playerStatisticsService = $svc;
+
         return $this;
     }
 }

@@ -18,7 +18,7 @@ class MatchController extends AbstractActionController
         }
 
         $match = $this->getMatchService()->findByID($id);
-        if ( ! $match instanceof Match ) {
+        if (! $match instanceof Match) {
             throw new \InvalidArgumentException('Invalid Match ID specified!');
         }
 

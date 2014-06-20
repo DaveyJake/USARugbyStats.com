@@ -50,9 +50,10 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testEventManagerCanShortCircuitCalculation()
     {
-        $this->service->getEventManager()->attach('getStatisticsFor.pre', function(EventInterface $e) {
-        	$e->stopPropagation(true);
-        	return 'foobar';
+        $this->service->getEventManager()->attach('getStatisticsFor.pre', function (EventInterface $e) {
+            $e->stopPropagation(true);
+
+            return 'foobar';
         });
         $this->assertEquals('foobar', $this->service->getStatisticsFor($this->mockPlayer));
     }

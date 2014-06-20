@@ -138,5 +138,5 @@ return array(
             'ursCompetitionName' => 'UsaRugbyStats\CompetitionFrontend\View\Helper\CompetitionNameFactory',
             'ursCompetitionLink' => 'UsaRugbyStats\CompetitionFrontend\View\Helper\CompetitionLinkFactory',
         ),
-	),
+    ),
 );

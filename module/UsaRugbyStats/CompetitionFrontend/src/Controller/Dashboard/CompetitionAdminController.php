@@ -17,7 +17,7 @@ class CompetitionAdminController extends AbstractActionController
         $role = $user->getRoleAssignment('competition_admin');
 
         $now = new \DateTime();
-        list($upcomingMatches, $pastMatches) = $repository->findAllForCompetition($role->getManagedCompetitions())->partition(function($key, Match $m) use ($now) {
+        list($upcomingMatches, $pastMatches) = $repository->findAllForCompetition($role->getManagedCompetitions())->partition(function ($key, Match $m) use ($now) {
             return $m->getDate() >= $now;
         });
 

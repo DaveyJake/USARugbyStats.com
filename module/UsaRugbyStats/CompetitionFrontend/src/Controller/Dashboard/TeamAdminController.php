@@ -17,7 +17,7 @@ class TeamAdminController extends AbstractActionController
         $role = $user->getRoleAssignment('team_admin');
 
         $now = new \DateTime();
-        list($upcomingMatches, $pastMatches) = $repository->findAllForTeam($role->getManagedTeams())->partition(function($key, Match $m) use ($now) {
+        list($upcomingMatches, $pastMatches) = $repository->findAllForTeam($role->getManagedTeams())->partition(function ($key, Match $m) use ($now) {
             return $m->getDate() >= $now;
         });
 

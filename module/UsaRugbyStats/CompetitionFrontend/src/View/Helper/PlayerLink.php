@@ -10,9 +10,9 @@ class PlayerLink extends AbstractHelper
     public function __invoke($obj)
     {
         $player = NULL;
-        if ( $obj instanceof AccountInterface ) {
+        if ($obj instanceof AccountInterface) {
             $player = $obj;
-        } elseif ( $obj instanceof MatchTeamPlayer ) {
+        } elseif ($obj instanceof MatchTeamPlayer) {
             $player = $obj->getPlayer();
         }
         if ( is_null($player) ) {

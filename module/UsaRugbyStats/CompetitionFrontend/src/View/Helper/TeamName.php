@@ -13,14 +13,14 @@ class TeamName extends AbstractHelper
     public function __invoke($obj)
     {
         $team = NULL;
-        if ( $obj instanceof Team ) {
+        if ($obj instanceof Team) {
             $team = $obj;
-        } elseif ( $obj instanceof MatchTeam ) {
+        } elseif ($obj instanceof MatchTeam) {
             $team = $obj->getTeam();
         } elseif ( ctype_digit(trim($obj)) ) {
             $team = $this->getTeamService()->findByID($obj);
         }
-        if ( ! $team instanceof Team ) {
+        if (! $team instanceof Team) {
             return;
         }
 

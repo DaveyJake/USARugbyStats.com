@@ -17,15 +17,17 @@ trait UserServiceTrait
                 return NULL;
             }
             $this->userService = $this->getServiceLocator()->get(
-	            'zfcuser_user_service'
+                'zfcuser_user_service'
             );
         }
+
         return $this->userService;
     }
 
     public function setUserService(UserService $svc)
     {
         $this->userService = $svc;
+
         return $this;
     }
 }

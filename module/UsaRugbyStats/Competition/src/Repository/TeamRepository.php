@@ -28,11 +28,11 @@ class TeamRepository extends EntityRepository
     {
         // Extract the list of players to query for
         $playerids = [];
-        if ( $players instanceof AccountInterface ) {
+        if ($players instanceof AccountInterface) {
             $playerids[] = $players->getId();
-        } elseif ( $players instanceof Collection || $players instanceof \Traversable ) {
-            foreach ( $players as $player ) {
-                if ( ! $player instanceof AccountInterface ) {
+        } elseif ($players instanceof Collection || $players instanceof \Traversable) {
+            foreach ($players as $player) {
+                if (! $player instanceof AccountInterface) {
                     continue;
                 }
                 $playerids[] = $player->getId();
