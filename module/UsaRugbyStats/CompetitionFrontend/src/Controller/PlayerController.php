@@ -3,12 +3,16 @@ namespace UsaRugbyStats\CompetitionFrontend\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use ZfcUser\Service\User as UserService;
 use UsaRugbyStats\Application\Entity\AccountInterface;
+use UsaRugbyStats\Account\Traits\UserServiceTrait;
+use UsaRugbyStats\Competition\Traits\TeamServiceTrait;
+use UsaRugbyStats\Competition\Traits\PlayerStatisticsServiceTrait;
 
 class PlayerController extends AbstractActionController
 {
-    protected $userService;
+    use UserServiceTrait;
+    use TeamServiceTrait;
+    use PlayerStatisticsServiceTrait;
 
     public function indexAction()
     {
@@ -22,26 +26,16 @@ class PlayerController extends AbstractActionController
             throw new \InvalidArgumentException('Invalid Player ID specified!');
         }
 
+        $teams = $this->getTeamService()->getTeamRepository()->findAllForPlayer($player);
+        $statistics = $this->getPlayerStatisticsService()->getStatisticsFor($player);
+
         $vm = new ViewModel();
         $vm->setVariable('player', $player);
+        $vm->setVariable('teams', $teams);
+        $vm->setVariable('statistics', $statistics);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/player/index');
 
         return $vm;
     }
 
-    public function getUserService()
-    {
-        if (! $this->userService instanceof UserService) {
-            $this->setUserService($this->getServiceLocator()->get('zfcuser_user_service'));
-        }
-
-        return $this->userService;
-    }
-
-    public function setUserService(UserService $s)
-    {
-        $this->userService = $s;
-
-        return $this;
-    }
 }
