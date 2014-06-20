@@ -7,6 +7,7 @@ use UsaRugbyStats\Competition\Entity\Team;
 use Doctrine\Common\Collections\Collection;
 use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Entity\Union;
+use UsaRugbyStats\Application\Entity\AccountInterface;
 
 class MatchRepository extends EntityRepository
 {
@@ -116,6 +117,44 @@ DQL;
 DQL;
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setParameter('unions', $unionids);
+        $result = $query->getResult();
+
+        return new ArrayCollection($result);
+    }
+
+    public function findAllForPlayer($players)
+    {
+        // Extract the list of players to query for
+        $playerids = [];
+        if ( $players instanceof AccountInterface ) {
+            $playerids[] = $players->getId();
+        } elseif ( $players instanceof Collection || $players instanceof \Traversable ) {
+            foreach ( $players as $player ) {
+                if ( ! $player instanceof AccountInterface ) {
+                    continue;
+                }
+                $playerids[] = $player->getId();
+            }
+        } else {
+            return new ArrayCollection();
+        }
+
+        $dql = <<<DQL
+            SELECT
+                DISTINCT cm
+            FROM
+                UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer cmtp
+                LEFT JOIN UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam cmt
+                    WITH cmt.id = cmtp.team
+                LEFT JOIN UsaRugbyStats\Competition\Entity\Competition\Match cm
+                    WITH cm.id = cmt.match
+            WHERE
+                cmtp.player IN (:players)
+            ORDER BY
+                cm.date ASC
+DQL;
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter('players', $playerids);
         $result = $query->getResult();
 
         return new ArrayCollection($result);
