@@ -89,7 +89,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -203,16 +203,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "77bc8cc35b33a2bcdaf5bc2c99fdcab8773f02a0"
+                "reference": "bbe35735af4a826c1f86b04f2fd885ff5fc0f82b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/77bc8cc35b33a2bcdaf5bc2c99fdcab8773f02a0",
-                "reference": "77bc8cc35b33a2bcdaf5bc2c99fdcab8773f02a0",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/bbe35735af4a826c1f86b04f2fd885ff5fc0f82b",
+                "reference": "bbe35735af4a826c1f86b04f2fd885ff5fc0f82b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "extra": {
@@ -263,7 +266,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2014-06-05 18:37:07"
+            "time": "2014-06-17 17:31:49"
         },
         {
             "name": "doctrine/common",
@@ -1124,7 +1127,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.com/",
+                    "homepage": "http://ocramius.github.io/",
                     "role": "Developer"
                 }
             ],
@@ -1243,12 +1246,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "f41913cde27de7073e78d9a41c1299c0315dfe64"
+                "reference": "9a491e7983209bf320d40917291c03e856eee947"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/f41913cde27de7073e78d9a41c1299c0315dfe64",
-                "reference": "f41913cde27de7073e78d9a41c1299c0315dfe64",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/9a491e7983209bf320d40917291c03e856eee947",
+                "reference": "9a491e7983209bf320d40917291c03e856eee947",
                 "shasum": ""
             },
             "require": {
@@ -1293,7 +1296,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-06-11 06:54:52"
+            "time": "2014-06-20 17:41:51"
         },
         {
             "name": "zendframework/zendframework",
@@ -1301,12 +1304,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "ccda480e82680e1857f49dd659fc9cd656c7ff10"
+                "reference": "7688fab93de0b94c3469c798cbb2d36d301bfce3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/ccda480e82680e1857f49dd659fc9cd656c7ff10",
-                "reference": "ccda480e82680e1857f49dd659fc9cd656c7ff10",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/7688fab93de0b94c3469c798cbb2d36d301bfce3",
+                "reference": "7688fab93de0b94c3469c798cbb2d36d301bfce3",
                 "shasum": ""
             },
             "require": {
@@ -1411,7 +1414,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2014-06-12 16:08:05"
+            "time": "2014-06-17 13:54:47"
         },
         {
             "name": "zendframework/zendxml",
@@ -1566,16 +1569,16 @@
         },
         {
             "name": "zf-commons/zfc-rbac",
-            "version": "2.3.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZF-Commons/zfc-rbac.git",
-                "reference": "f17bf0fcf006565a8fc1c8407688f9d14faed2c1"
+                "reference": "f279e0f11ae2702978a41c72d9159adcd435fbd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ZF-Commons/zfc-rbac/zipball/f17bf0fcf006565a8fc1c8407688f9d14faed2c1",
-                "reference": "f17bf0fcf006565a8fc1c8407688f9d14faed2c1",
+                "url": "https://api.github.com/repos/ZF-Commons/zfc-rbac/zipball/f279e0f11ae2702978a41c72d9159adcd435fbd6",
+                "reference": "f279e0f11ae2702978a41c72d9159adcd435fbd6",
                 "shasum": ""
             },
             "require": {
@@ -1599,6 +1602,12 @@
                 "zendframework/zend-developer-tools": "if you want to show information about the roles"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev",
+                    "dev-develop": "3.0-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "ZfcRbac\\": "src/"
@@ -1618,6 +1627,10 @@
                     "name": "Michaël Gallego",
                     "email": "mic.gallego@gmail.com",
                     "homepage": "http://www.michaelgallego.fr"
+                },
+                {
+                    "name": "Jean-Marie Leroux",
+                    "email": "jmleroux.pro@gmail.com"
                 }
             ],
             "description": "Zend Framework 2 Module that provides a layer of features of Zend\\Permissions\\Rbac",
@@ -1628,7 +1641,7 @@
                 "rbac",
                 "zf2"
             ],
-            "time": "2014-06-01 16:24:24"
+            "time": "2014-06-22 11:55:21"
         },
         {
             "name": "zf-commons/zfc-user",
@@ -2269,12 +2282,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/PHP-CS-Fixer.git",
-                "reference": "ef26ea9a069068b2687bc830c55e12fdde693541"
+                "reference": "1fb00de8b165ddb521af842f90154aaf77fd58e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/PHP-CS-Fixer/zipball/ef26ea9a069068b2687bc830c55e12fdde693541",
-                "reference": "ef26ea9a069068b2687bc830c55e12fdde693541",
+                "url": "https://api.github.com/repos/fabpot/PHP-CS-Fixer/zipball/1fb00de8b165ddb521af842f90154aaf77fd58e7",
+                "reference": "1fb00de8b165ddb521af842f90154aaf77fd58e7",
                 "shasum": ""
             },
             "require": {
@@ -2290,7 +2303,7 @@
             "type": "application",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.4.x-dev"
+                    "dev-master": "0.5.x-dev"
                 }
             },
             "autoload": {
@@ -2311,7 +2324,7 @@
                 }
             ],
             "description": "A script to automatically fix Symfony Coding Standard",
-            "time": "2014-04-30 07:13:38"
+            "time": "2014-06-21 08:22:48"
         },
         {
             "name": "fzaninotto/faker",
@@ -2319,12 +2332,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "0b903eaff5da0a5043e2769c5ec1f50620652812"
+                "reference": "7ae7fbe87088fcc4cc6b8610fcc62463c84ab632"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/0b903eaff5da0a5043e2769c5ec1f50620652812",
-                "reference": "0b903eaff5da0a5043e2769c5ec1f50620652812",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/7ae7fbe87088fcc4cc6b8610fcc62463c84ab632",
+                "reference": "7ae7fbe87088fcc4cc6b8610fcc62463c84ab632",
                 "shasum": ""
             },
             "require": {
@@ -2361,20 +2374,20 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2014-06-04 14:44:10"
+            "time": "2014-06-19 08:47:08"
         },
         {
             "name": "guzzle/guzzle",
             "version": "v3.0.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/guzzle/guzzle",
-                "reference": "v3.0.7"
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "f31f35d1669382936861533bd0217fcf830dc9a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/guzzle/guzzle/archive/v3.0.7.zip",
-                "reference": "v3.0.7",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f31f35d1669382936861533bd0217fcf830dc9a9",
+                "reference": "f31f35d1669382936861533bd0217fcf830dc9a9",
                 "shasum": ""
             },
             "require": {
@@ -2519,12 +2532,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "096a36f21e7ff0768a8a42d524964f3896acd1c6"
+                "reference": "76212f1e56646f972618fa359bee68b9c2feb57a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/096a36f21e7ff0768a8a42d524964f3896acd1c6",
-                "reference": "096a36f21e7ff0768a8a42d524964f3896acd1c6",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/76212f1e56646f972618fa359bee68b9c2feb57a",
+                "reference": "76212f1e56646f972618fa359bee68b9c2feb57a",
                 "shasum": ""
             },
             "require": {
@@ -2577,7 +2590,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2014-06-10 19:25:07"
+            "time": "2014-06-17 10:46:23"
         },
         {
             "name": "nelmio/alice",
@@ -3378,12 +3391,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "8ec53ca0a09cf07b58a62590b67166f4a39af81b"
+                "reference": "c5535943b0d48e5cc54f5bc8088bfc0aefda7f39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/8ec53ca0a09cf07b58a62590b67166f4a39af81b",
-                "reference": "8ec53ca0a09cf07b58a62590b67166f4a39af81b",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/c5535943b0d48e5cc54f5bc8088bfc0aefda7f39",
+                "reference": "c5535943b0d48e5cc54f5bc8088bfc0aefda7f39",
                 "shasum": ""
             },
             "require": {
@@ -3418,7 +3431,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-23 14:36:49"
+            "time": "2014-06-20 17:41:51"
         },
         {
             "name": "symfony/finder",
@@ -3515,12 +3528,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "eb94a43aeaa1ccacbd4690f1cd08c008c96b0886"
+                "reference": "648fe60e8921358aadb0d50b74339c52691a1763"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/eb94a43aeaa1ccacbd4690f1cd08c008c96b0886",
-                "reference": "eb94a43aeaa1ccacbd4690f1cd08c008c96b0886",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/648fe60e8921358aadb0d50b74339c52691a1763",
+                "reference": "648fe60e8921358aadb0d50b74339c52691a1763",
                 "shasum": ""
             },
             "require": {
@@ -3563,7 +3576,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-23 14:36:49"
+            "time": "2014-06-17 05:29:56"
         },
         {
             "name": "symfony/yaml",
