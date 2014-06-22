@@ -2,7 +2,6 @@
 if ( ! preg_match('{^UsaRugbyStats\\\\Competition\\\\Form\\\\Fieldset\\\\Competition\\\\Match\\\\MatchTeamEvent\\\\(.*)EventFieldset$}is', get_class($fieldset), $matches) ) {
     return;
 }
-$fieldset->get('event')->setValue(strtolower($matches[1]));
 ?>
 <tr>
     <td class="column column-minute">

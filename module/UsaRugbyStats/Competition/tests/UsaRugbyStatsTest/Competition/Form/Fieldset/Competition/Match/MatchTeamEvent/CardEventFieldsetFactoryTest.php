@@ -22,7 +22,7 @@ class CardEventFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
         $object = $factory->createService($this->serviceManager);
 
         $this->assertInstanceOf('UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEvent\CardEventFieldset', $object);
-        $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollectionHydrator', $object->getHydrator());
+        $this->assertInstanceOf('Zend\Stdlib\Hydrator\HydratorInterface', $object->getHydrator());
         $this->assertInstanceOf('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\CardEvent', $object->getObject());
     }
 }

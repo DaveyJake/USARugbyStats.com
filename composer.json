@@ -44,7 +44,8 @@
         "soliantconsulting/entity-audit": "dev-master",
         "goalio/goalio-forgotpassword": "dev-master",
         "goalio/goalio-forgotpassword-doctrine-orm": "dev-master#15fc8d969f51871001be29d1d9ec50dd30d3f3ef",
-        "goalio/goalio-passwordmanagement": "dev-master"
+        "goalio/goalio-passwordmanagement": "dev-master",
+        "adamlundrigan/ldc-zend-form-cti": "dev-master"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master",

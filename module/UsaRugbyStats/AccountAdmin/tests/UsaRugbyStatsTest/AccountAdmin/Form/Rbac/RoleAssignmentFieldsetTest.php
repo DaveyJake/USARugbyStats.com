@@ -19,4 +19,10 @@ class RoleAssignmentFieldsetTest extends \PHPUnit_Framework_TestCase
 
 }
 
-class LocalRoleAssignmentFieldset extends RoleAssignmentFieldset {}
+class LocalRoleAssignmentFieldset extends RoleAssignmentFieldset
+{
+    public function getDisplayName()
+    {
+        return 'Foo Role';
+    }
+}

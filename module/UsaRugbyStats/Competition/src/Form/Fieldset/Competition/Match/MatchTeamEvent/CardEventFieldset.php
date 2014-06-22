@@ -27,6 +27,14 @@ class CardEventFieldset extends MatchTeamEventFieldset
         $this->addPlayerElements();
     }
 
+    public function __clone()
+    {
+        parent::__clone();
+
+        $this->remove('player');
+        $this->addPlayerElements();
+    }
+
     public function prepareElement(FormInterface $form)
     {
         if ($this->getTeam()) {

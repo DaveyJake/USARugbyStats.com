@@ -35,6 +35,8 @@ class UnionAdminFieldset extends RoleAssignmentFieldset
         ));
     }
 
+    public function getDisplayName() { return 'Union Administrator'; }
+
     public function getUnion($unionid)
     {
         if (empty($unionid)) {

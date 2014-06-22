@@ -6,7 +6,7 @@ foreach ( $this->fieldset as $item ) {
     $item->setAttributes(array('class' => 'form-control'));
 }
 
-function managedUnionTemplate($view, $element, $union = null, $isTemplate = false)
+$managedUnionTemplate = function($view, $element, $union = null, $isTemplate = false)
 {
     $unionId = $view->escapeHtmlAttr($element->getValue());
     $hiddenElement = $isTemplate ? $view->formSelect($element) : $view->formHidden($element);
@@ -35,34 +35,34 @@ EOB;
     </div>
 
     <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
-    
-    <?php $element = $this->fieldset->get('managedUnions'); ?>    
+
+    <?php $element = $this->fieldset->get('managedUnions'); ?>
     <table class="table table-striped">
         <tbody style="border:0">
-    
+
     <?php if ( ! isset($isTemplate) || ! $isTemplate ): ?>
     <?php foreach ( $element->getElements() as $unionElement ): ?>
     <?php   $union = $fieldset->getUnion($unionElement->getValue()); ?>
     <?php   if ( $union instanceof Union ): ?>
-    <?php     echo managedUnionTemplate($this, $unionElement, $union); ?>
+    <?php     echo $managedUnionTemplate($this, $unionElement, $union); ?>
     <?php   endif; ?>
     <?php endforeach; ?>
     <?php endif; ?>
-    
+
         </tbody>
     </table>
-    
+
     <script type="text/javascript">
-        var managedUnionsSelectorTemplate = '<?php echo $this->escapeJs(managedUnionTemplate($this, $element->getTemplateElement(), null, true)); ?>';
+        var managedUnionsSelectorTemplate = '<?php echo $this->escapeJs($managedUnionTemplate($this, $element->getTemplateElement(), null, true)); ?>';
         var managedUnionIndex = <?php echo $this->escapeJs(count($element)); ?>;
-    
+
         $(document).on('click', '.rbac-assignment-unionadmin .rbac-assignment-addunion', function() {
             var html = managedUnionsSelectorTemplate.replace(/__index__/g, managedUnionIndex++);
             $('.rbac-assignment-unionadmin table tbody').append(html);
-        }); 
+        });
         $(document).on('click', '.rbac-assignment-unionadmin .dropunion', function() {
             $(this).closest('*[data-unionid]').remove();
         });
     </script>
-    
+
 </div>

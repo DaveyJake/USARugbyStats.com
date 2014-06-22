@@ -35,6 +35,8 @@ class TeamAdminFieldset extends RoleAssignmentFieldset
         ));
     }
 
+    public function getDisplayName() { return 'Team Administrator'; }
+
     public function getTeam($teamid)
     {
         if (empty($teamid)) {

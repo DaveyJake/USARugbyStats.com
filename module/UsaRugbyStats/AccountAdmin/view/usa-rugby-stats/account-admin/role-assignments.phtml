@@ -8,7 +8,7 @@
                 </a>
                 <ul class="dropdown-menu" role="menu" id="AddRoleAssignmentButtonMenu">
 <?php foreach ($collection->getTargetElement() as $item): ?>
-                    <li><a href="javascript:;" data-key="<?php echo $this->escapeHtmlAttr($item->getName()); ?>"><?php echo $this->escapeHtml($item->getName()); ?></a></li>
+                    <li><a href="javascript:;" data-key="<?php echo $this->escapeHtmlAttr($item->getName()); ?>"><?php echo $this->escapeHtml($item->getDisplayName()); ?></a></li>
 <?php endforeach; ?>
                 </ul>
             </div>
@@ -23,10 +23,8 @@
                     continue;
                 }
 
-                $item->get('type')->setValue($matches[1]);
-
-                echo $this->render('usa-rugby-stats/account-admin/role-assignments/' . strtolower(str_replace('\\', DIRECTORY_SEPARATOR, $matches[1])), array(
-                    'type' => $matches[1],
+                echo $this->render('usa-rugby-stats/account-admin/role-assignments/' . $item->get('type')->getValue(), array(
+                    'type' => $item->get('type')->getValue(),
                     'fieldset' => $item,
                     'index' => $index++,
                     'isTemplate' => false,
@@ -38,65 +36,20 @@
 </div>
 
 <script type="text/javascript">
+    var roleAssignmentTemplate = {};
+<?php foreach ( $collection->getTemplateElement() as $fsTmpl ): ?>
+<?php   if ( preg_match('{^UsaRugbyStats\\\\AccountAdmin\\\\Form\\\\Rbac\\\\RoleAssignment\\\\(.*)Fieldset$}is', get_class($fsTmpl), $matches) ): ?>
+<?php     $viewName = strtolower($fsTmpl->get('type')->getValue()); ?>
+        roleAssignmentTemplate['<?=$viewName;?>'] = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/account-admin/role-assignments/' . $viewName, ['fieldset' => $fsTmpl, 'isTemplate' => true, 'type' => $viewName, 'index' => '__index__'])); ?>';
+<?php   endif; ?>
+<?php endforeach; ?>
+    var roleAssignmentIndex = <?php echo $this->escapeJs(count($collection)); // Not sure if this works ?>
 
-var getTemplateUrl = '<?php echo $this->escapeJs($this->url('zfcadmin/zfcuseradmin/template/role-assignment')); ?>';
-var payloadIndex = <?php echo $this->escapeJs(count($collection)); // Not sure if this works ?>
-
-
-function downloadAndRenderTemplate(params, cb) {
-    $.ajax({
-        type: 'POST',
-        url: getTemplateUrl,
-        data: (params)
-    }).done(function(data) {
-        typeof data.error == 'undefined' ? cb.success(data) : cb.failure(data);
-        cb.completed(data);
+    $(document).on('click', '#AddRoleAssignmentButtonMenu a[data-key]', function() {
+        var html = roleAssignmentTemplate[$(this).attr('data-key')].replace(/__index__/g, roleAssignmentIndex++);
+        $('#RoleAssignmentContainer').append(html);
     });
-}
-
-
-$(document).ready(function() {
-
-    var popover = $('.useraccount-rbacrole-add').popover({
-        content: '<i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;Working...',
-        placement: 'bottom',
-        trigger: 'manual',
-        html: true
-    });
-    var isWorking = false;
-
-    $('#AddRoleAssignmentButtonMenu li > a').click(function() {
-        if ( isWorking ) {
-        	return;
-        }
-
-        var searchTerm = {
-            template: $(this).attr('data-key'),
-            namePrefix: 'roleAssignments[' + payloadIndex + ']',
-            index: payloadIndex
-        }
-
-        isWorking = true;
-        popover.popover('show');
-
-        downloadAndRenderTemplate(searchTerm, {
-            success: function(resp) {
-                $('#RoleAssignmentContainer').append(resp.template);
-                payloadIndex++;
-            },
-            failure: function(resp) {
-                alert('ERROR! ' + resp.error);
-            },
-            completed: function(resp) {
-                isWorking = false;
-            	popover.popover('hide');
-            }
-        });
-    });
-
-    $(document).on('click', 'a.rbac-assignment-delete', function() {
+    $(document).on('click', '#RoleAssignmentContainer .rbac-assignment-delete', function() {
         $(this).closest('.rbac-assignment').remove();
     });
-});
-
 </script>

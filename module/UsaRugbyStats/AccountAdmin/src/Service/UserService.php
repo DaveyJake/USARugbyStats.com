@@ -43,8 +43,6 @@ class UserService extends ZfcUserAdminUserService
 
         $filterCamelToUnderscore = new CamelCaseToUnderscore();
 
-        // Inject the entity class name into the POST request data
-        // so that NonuniformCollection knows what entity to create
         $types = $this->getAvailableRoleAssignments();
         foreach ($data['roleAssignments'] as $k=>$v) {
             $key = strtolower($filterCamelToUnderscore->filter($v['type']));
@@ -88,9 +86,6 @@ class UserService extends ZfcUserAdminUserService
                     }
                 }
             }
-
-            $data['roleAssignments'][$k]['__class__'] = $types[$key]['entity_class'];
-            unset($data['roleAssignments'][$k]['type']);
         }
     }
 

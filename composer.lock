@@ -4,8 +4,50 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6cf28efa7fe8293126924bb6bef4f6f4",
+    "hash": "d0a2a7144847a684b33bd1d85dc14b8a",
     "packages": [
+        {
+            "name": "adamlundrigan/ldc-zend-form-cti",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adamlundrigan/LdcZendFormCTI.git",
+                "reference": "1a7f2a84b43ba159e7af5d3104dfd4915079f9f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adamlundrigan/LdcZendFormCTI/zipball/1a7f2a84b43ba159e7af5d3104dfd4915079f9f3",
+                "reference": "1a7f2a84b43ba159e7af5d3104dfd4915079f9f3",
+                "shasum": ""
+            },
+            "require": {
+                "zendframework/zend-form": ">=2.2.6"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "@stable",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0",
+                "zendframework/zend-servicemanager": ">=2.2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LdcZendFormCTI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Lundrigan",
+                    "email": "adam@lundrigan.ca"
+                }
+            ],
+            "description": "Zend\\Form\\Collection meets Class Table Inheritance",
+            "time": "2014-06-22 23:03:29"
+        },
         {
             "name": "danielss89/zfc-user-admin",
             "version": "dev-rewrite",
@@ -1573,12 +1615,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZF-Commons/zfc-rbac.git",
-                "reference": "f279e0f11ae2702978a41c72d9159adcd435fbd6"
+                "reference": "e4a646cde5fb4771767e25fe687104437f76d75a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ZF-Commons/zfc-rbac/zipball/f279e0f11ae2702978a41c72d9159adcd435fbd6",
-                "reference": "f279e0f11ae2702978a41c72d9159adcd435fbd6",
+                "url": "https://api.github.com/repos/ZF-Commons/zfc-rbac/zipball/e4a646cde5fb4771767e25fe687104437f76d75a",
+                "reference": "e4a646cde5fb4771767e25fe687104437f76d75a",
                 "shasum": ""
             },
             "require": {
@@ -1641,7 +1683,7 @@
                 "rbac",
                 "zf2"
             ],
-            "time": "2014-06-22 11:55:21"
+            "time": "2014-06-22 22:17:38"
         },
         {
             "name": "zf-commons/zfc-user",
@@ -3645,6 +3687,7 @@
         "goalio/goalio-forgotpassword": 20,
         "goalio/goalio-forgotpassword-doctrine-orm": 20,
         "goalio/goalio-passwordmanagement": 20,
+        "adamlundrigan/ldc-zend-form-cti": 20,
         "fabpot/goutte": 20,
         "behat/behat": 0,
         "fabpot/php-cs-fixer": 20,

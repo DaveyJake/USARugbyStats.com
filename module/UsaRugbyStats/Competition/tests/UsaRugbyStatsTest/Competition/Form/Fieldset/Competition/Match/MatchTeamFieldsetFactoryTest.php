@@ -44,6 +44,6 @@ class MatchTeamFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam', $object->getObject());
 
         $this->assertInstanceOf('Zend\Form\Element\Collection', $object->get('players'));
-        $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollection', $object->get('events'));
+        $this->assertInstanceOf('LdcZendFormCTI\Form\Element\NonuniformCollection', $object->get('events'));
     }
 }

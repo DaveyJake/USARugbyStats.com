@@ -35,6 +35,8 @@ class CompetitionAdminFieldset extends RoleAssignmentFieldset
         ));
     }
 
+    public function getDisplayName() { return 'Competition Administrator'; }
+
     public function getCompetition($id)
     {
         if (empty($id)) {

@@ -25,7 +25,7 @@ class TeamAdminFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
         $object = $factory->createService($this->serviceManager);
 
         $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment\TeamAdminFieldset', $object);
-        $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollectionHydrator', $object->getHydrator());
+        $this->assertInstanceOf('Zend\Stdlib\Hydrator\HydratorInterface', $object->getHydrator());
         $this->assertInstanceOf('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin', $object->getObject());
     }
 }

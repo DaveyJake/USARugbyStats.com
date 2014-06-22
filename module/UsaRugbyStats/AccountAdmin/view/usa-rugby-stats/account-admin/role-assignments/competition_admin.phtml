@@ -6,7 +6,7 @@ foreach ( $this->fieldset as $item ) {
     $item->setAttributes(array('class' => 'form-control'));
 }
 
-function managedCompetitionTemplate($view, $element, $competition = null, $isTemplate = false)
+$managedCompetitionTemplate = function($view, $element, $competition = null, $isTemplate = false)
 {
     $competitionId = $view->escapeHtmlAttr($element->getValue());
     $hiddenElement = $isTemplate ? $view->formSelect($element) : $view->formHidden($element);
@@ -44,7 +44,7 @@ EOB;
     <?php foreach ( $element->getElements() as $competitionElement ): ?>
     <?php   $competition = $fieldset->getCompetition($competitionElement->getValue()); ?>
     <?php   if ( $competition instanceof Competition ): ?>
-    <?php     echo managedCompetitionTemplate($this, $competitionElement, $competition); ?>
+    <?php     echo $managedCompetitionTemplate($this, $competitionElement, $competition); ?>
     <?php   endif; ?>
     <?php endforeach; ?>
     <?php endif; ?>
@@ -53,7 +53,7 @@ EOB;
     </table>
 
     <script type="text/javascript">
-        var managedCompetitionsSelectorTemplate = '<?php echo $this->escapeJs(managedCompetitionTemplate($this, $element->getTemplateElement(), null, true)); ?>';
+        var managedCompetitionsSelectorTemplate = '<?php echo $this->escapeJs($managedCompetitionTemplate($this, $element->getTemplateElement(), null, true)); ?>';
         var managedCompetitionIndex = <?php echo $this->escapeJs(count($element)); ?>;
 
         $(document).on('click', '.rbac-assignment-competitionadmin .rbac-assignment-addcompetition', function() {
