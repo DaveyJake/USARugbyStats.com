@@ -41,11 +41,15 @@ class UserService extends ZfcUserAdminUserService
             return;
         }
 
-        $filterCamelToUnderscore = new CamelCaseToUnderscore();
-
         $types = $this->getAvailableRoleAssignments();
         foreach ($data['roleAssignments'] as $k=>$v) {
-            $key = strtolower($filterCamelToUnderscore->filter($v['type']));
+
+            if ( !isset($v['type']) || empty($v['type']) ) {
+                unset($data['roleAssignments'][$k]);
+                continue;
+            }
+
+            $key = $v['type'];
             if ( ! isset($types[$key]) ) {
                 unset($data['roleAssignments'][$k]);
                 continue;
