@@ -6,7 +6,7 @@ foreach ( $this->fieldset as $item ) {
     $item->setAttributes(array('class' => 'form-control'));
 }
 
-function managedTeamTemplate($view, $element, $team = null, $isTemplate = false)
+$managedTeamTemplate = function($view, $element, $team = null, $isTemplate = false)
 {
     $teamId = $view->escapeHtmlAttr($element->getValue());
     $hiddenElement = $isTemplate ? $view->formSelect($element) : $view->formHidden($element);
@@ -25,7 +25,7 @@ EOB;
 
 ?>
 
-<div class="rbac-assignment rbac-assignment-teamadmin panel panel-default" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
+<div class="rbac-assignment rbac-assignment-teamadmin panel panel-default" data-type="team_admin" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
     <div class="panel-heading">
         Team Administrator
         <div class="pull-right">
@@ -35,34 +35,34 @@ EOB;
     </div>
 
     <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
-    
-    <?php $element = $this->fieldset->get('managedTeams'); ?>    
+
+    <?php $element = $this->fieldset->get('managedTeams'); ?>
     <table class="table table-striped">
         <tbody style="border:0">
-    
+
     <?php if ( ! isset($isTemplate) || ! $isTemplate ): ?>
     <?php foreach ( $element->getElements() as $teamElement ): ?>
     <?php   $team = $fieldset->getTeam($teamElement->getValue()); ?>
     <?php   if ( $team instanceof Team ): ?>
-    <?php     echo managedTeamTemplate($this, $teamElement, $team); ?>
+    <?php     echo $managedTeamTemplate($this, $teamElement, $team); ?>
     <?php   endif; ?>
     <?php endforeach; ?>
     <?php endif; ?>
-    
+
         </tbody>
     </table>
-    
+
     <script type="text/javascript">
-        var managedTeamsSelectorTemplate = '<?php echo $this->escapeJs(managedTeamTemplate($this, $element->getTemplateElement(), null, true)); ?>';
+        var managedTeamsSelectorTemplate = '<?php echo $this->escapeJs($managedTeamTemplate($this, $element->getTemplateElement(), null, true)); ?>';
         var managedTeamIndex = <?php echo $this->escapeJs(count($element)); ?>;
-    
-        $(document).on('click', '.rbac-assignment-teamadmin .rbac-assignment-addteam', function() {
-            var html = managedTeamsSelectorTemplate.replace(/__index__/g, managedTeamIndex++);
-            $('.rbac-assignment-teamadmin table tbody').append(html);
-        }); 
-        $(document).on('click', '.rbac-assignment-teamadmin .dropteam', function() {
+
+        $('.rbac-assignment-teamadmin[data-index=<?php echo $this->escapeHtmlAttr($index); ?>] .rbac-assignment-addteam').click(function() {
+            var html = managedTeamsSelectorTemplate.replace(/__teamindex__/g, managedTeamIndex++);
+            $(this).closest('.rbac-assignment-teamadmin').find('table tbody').append(html);
+        });
+        $(document).on('click', '.rbac-assignment-teamadmin[data-index=<?php echo $this->escapeHtmlAttr($index); ?>] .dropteam', function() {
             $(this).closest('*[data-teamid]').remove();
         });
     </script>
-    
+
 </div>

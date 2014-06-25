@@ -31,9 +31,12 @@ class UnionAdminFieldset extends RoleAssignmentFieldset
                 'label' => 'Managed Unions',
                 'target_element' => $union,
                 'should_create_template' => true,
+                'template_placeholder' => '__unionindex__',
             )
         ));
     }
+
+    public function getDisplayName() { return 'Union Administrator'; }
 
     public function getUnion($unionid)
     {

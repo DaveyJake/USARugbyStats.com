@@ -18,7 +18,11 @@ abstract class RoleAssignmentFieldset extends Fieldset
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'type',
         ));
+
+        $this->get('type')->setValue($name);
     }
+
+    abstract public function getDisplayName();
 
     public function getInputFilterSpecification()
     {

@@ -4,7 +4,6 @@ return array(
         'aliases' => array(),
         'invokables' => array(
             'usarugbystats_competition_listener_lockcompetitionmatchwhencompleted' => 'UsaRugbyStats\Competition\Listeners\LockCompetitionMatchWhenCompletedListener',
-            'usarugbystats_competition_listener_populatecompetitionmatchnonuniformcollection' => 'UsaRugbyStats\Competition\Listeners\PopulateCompetitionMatchNonuniformCollectionListener',
             'usarugbystats_competition_listener_emptycompetitionmatchcollections' => 'UsaRugbyStats\Competition\Listeners\EmptyCompetitionMatchCollectionsListener',
             'usarugbystats_competition_listener_removeunusedrosterslotsfromcompetitionmatch' => 'UsaRugbyStats\Competition\Listeners\RemoveUnusedRosterSlotsFromCompetitionMatchListener',
             'usarugbystats_competition_listener_removeexistingsignaturesfromcompetitionmatch' => 'UsaRugbyStats\Competition\Listeners\RemoveExistingSignaturesFromCompetitionMatchListener',

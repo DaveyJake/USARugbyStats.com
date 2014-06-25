@@ -10,4 +10,6 @@ class MemberFieldset extends RoleAssignmentFieldset
     {
         parent::__construct('member');
     }
+
+    public function getDisplayName() { return 'Member'; }
 }

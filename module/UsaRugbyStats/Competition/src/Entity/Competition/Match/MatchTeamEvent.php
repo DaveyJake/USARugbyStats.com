@@ -78,5 +78,10 @@ abstract class MatchTeamEvent
         return $this;
     }
 
+    public function getEvent()
+    {
+        return $this->getDiscriminator();
+    }
+
     abstract public function getDiscriminator();
 }

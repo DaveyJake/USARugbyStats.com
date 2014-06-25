@@ -3,7 +3,7 @@ namespace UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollectionHydrator;
+use UsaRugbyStats\Account\Entity\Rbac\RoleAssignmentHydrator;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin;
 
 class TeamAdminFieldsetFactory implements FactoryInterface
@@ -20,7 +20,7 @@ class TeamAdminFieldsetFactory implements FactoryInterface
         $mapper = $om->getRepository('UsaRugbyStats\Competition\Entity\Team');
 
         $fieldset = new TeamAdminFieldset($om, $mapper);
-        $fieldset->setHydrator(new NonuniformCollectionHydrator($om));
+        $fieldset->setHydrator(new RoleAssignmentHydrator($om));
         $fieldset->setObject(new TeamAdmin());
 
         return $fieldset;

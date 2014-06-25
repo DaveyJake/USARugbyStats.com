@@ -10,4 +10,6 @@ class SuperAdminFieldset extends RoleAssignmentFieldset
     {
         parent::__construct('super_admin');
     }
+
+    public function getDisplayName() { return 'Super Administrator'; }
 }

@@ -53,13 +53,9 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $form->shouldReceive('setData')->with(Mockery::on(function ($data) use ($test) {
             $test->assertArrayHasKey('roleAssignments', $data);
             $test->assertTrue(isset($data['roleAssignments'][0]));
-            $test->assertArrayNotHasKey('type', $data['roleAssignments'][0]);
-            $test->assertArrayHasKey('__class__', $data['roleAssignments'][0]);
-            $test->assertEquals('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member', $data['roleAssignments'][0]['__class__']);
+            $test->assertArrayHasKey('type', $data['roleAssignments'][0]);
             $test->assertTrue(isset($data['roleAssignments'][1]));
-            $test->assertArrayNotHasKey('type', $data['roleAssignments'][1]);
-            $test->assertArrayHasKey('__class__', $data['roleAssignments'][1]);
-            $test->assertEquals('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin', $data['roleAssignments'][1]['__class__']);
+            $test->assertArrayHasKey('type', $data['roleAssignments'][1]);
 
             return true;
         }));
@@ -71,7 +67,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $this->service->create($form, $formData);
     }
 
-    public function testCreateDoesPopulateTheRoleAssignmentsInTheFormDataBeforeFormHydratesItWhenTypeFieldIsInCamelCaseFormat()
+    public function testCreateRejectsTheRoleAssignmentsInTheFormDataWhenTypeFieldIsInCamelCaseFormat()
     {
         $test = $this;
         $formData = array(
@@ -86,10 +82,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $form->shouldReceive('bind')->andReturnNull();
         $form->shouldReceive('setData')->with(Mockery::on(function ($data) use ($test) {
             $test->assertArrayHasKey('roleAssignments', $data);
-            $test->assertTrue(isset($data['roleAssignments'][0]));
-            $test->assertArrayNotHasKey('type', $data['roleAssignments'][0]);
-            $test->assertArrayHasKey('__class__', $data['roleAssignments'][0]);
-            $test->assertEquals('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin', $data['roleAssignments'][0]['__class__']);
+            $test->assertEmpty($data['roleAssignments']);
 
             return true;
         }));
@@ -168,42 +161,9 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $form->shouldReceive('setData')->with(Mockery::on(function ($data) use ($test) {
             $test->assertArrayHasKey('roleAssignments', $data);
             $test->assertTrue(isset($data['roleAssignments'][0]));
-            $test->assertArrayNotHasKey('type', $data['roleAssignments'][0]);
-            $test->assertArrayHasKey('__class__', $data['roleAssignments'][0]);
-            $test->assertEquals('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member', $data['roleAssignments'][0]['__class__']);
+            $test->assertArrayHasKey('type', $data['roleAssignments'][0]);
             $test->assertTrue(isset($data['roleAssignments'][1]));
-            $test->assertArrayNotHasKey('type', $data['roleAssignments'][1]);
-            $test->assertArrayHasKey('__class__', $data['roleAssignments'][1]);
-            $test->assertEquals('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin', $data['roleAssignments'][1]['__class__']);
-
-            return true;
-        }));
-        $form->shouldReceive('isValid')->andReturn(true);
-
-        $this->userMapper->shouldReceive('update')->andReturnNull();
-
-        $this->service->edit($form, $formData, $entity);
-    }
-
-    public function testEditDoesPopulateTheRoleAssignmentsInTheFormDataBeforeFormHydratesItWhenTypeFieldIsInCamelCaseFormat()
-    {
-        $test = $this;
-        $formData = array(
-            'roleAssignments' => array(
-                array('type' => 'SuperAdmin'),
-            ),
-        );
-
-        $entity = new \UsaRugbyStats\Account\Entity\Account();
-
-        $form = Mockery::mock('Zend\Form\Form');
-        $form->shouldReceive('setUser')->andReturnNull();
-        $form->shouldReceive('setData')->with(Mockery::on(function ($data) use ($test) {
-            $test->assertArrayHasKey('roleAssignments', $data);
-            $test->assertTrue(isset($data['roleAssignments'][0]));
-            $test->assertArrayNotHasKey('type', $data['roleAssignments'][0]);
-            $test->assertArrayHasKey('__class__', $data['roleAssignments'][0]);
-            $test->assertEquals('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin', $data['roleAssignments'][0]['__class__']);
+            $test->assertArrayHasKey('type', $data['roleAssignments'][1]);
 
             return true;
         }));

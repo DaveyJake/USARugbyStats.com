@@ -33,6 +33,8 @@ class MatchTeamEventFieldset extends Fieldset
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'event',
         ));
+
+        $this->get('event')->setValue($name);
     }
 
     public function populateValues($data)

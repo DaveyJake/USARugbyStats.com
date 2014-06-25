@@ -229,7 +229,7 @@ class FeatureContext extends MinkContext
             curl_close($ch);
 
             $imageData = json_decode($result);
-            if ( $imageData instanceof \stdClass && $imageData->success ) {
+            if ($imageData instanceof \stdClass && $imageData->success) {
                 $this->printDebug('Screenshot uploaded to imgur: ' . $imageData->data->link . ' (deletehash = ' . $imageData->data->deletehash . ')');
             } else {
                 $this->printDebug($result);

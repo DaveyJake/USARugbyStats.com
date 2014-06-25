@@ -4,7 +4,7 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEve
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\SubEvent;
-use UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollectionHydrator;
+use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEventHydrator;
 
 class SubEventFieldsetFactory implements FactoryInterface
 {
@@ -21,7 +21,7 @@ class SubEventFieldsetFactory implements FactoryInterface
         $form = new SubEventFieldset($om);
 
         // Set the hydrator
-        $form->setHydrator(new NonuniformCollectionHydrator($om));
+        $form->setHydrator(new MatchTeamEventHydrator($om));
         $form->setObject(new SubEvent());
 
         return $form;

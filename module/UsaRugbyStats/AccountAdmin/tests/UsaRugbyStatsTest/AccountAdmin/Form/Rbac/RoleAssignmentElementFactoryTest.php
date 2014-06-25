@@ -22,7 +22,7 @@ class RoleAssignmentElementFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new RoleAssignmentElementFactory();
         $obj = $factory->createService($sl);
 
-        $this->assertInstanceOf('UsaRugbyStats\AccountAdmin\Form\Element\NonuniformCollection', $obj);
+        $this->assertInstanceOf('LdcZendFormCTI\Form\Element\NonuniformCollection', $obj);
         $this->assertContainsOnlyInstancesOf('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentFieldset', $obj->getTargetElement());
     }
 

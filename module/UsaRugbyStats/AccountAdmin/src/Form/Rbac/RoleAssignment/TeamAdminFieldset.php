@@ -31,9 +31,12 @@ class TeamAdminFieldset extends RoleAssignmentFieldset
                 'label' => 'Managed Teams',
                 'target_element' => $team,
                 'should_create_template' => true,
+                'template_placeholder' => '__teamindex__',
             )
         ));
     }
+
+    public function getDisplayName() { return 'Team Administrator'; }
 
     public function getTeam($teamid)
     {

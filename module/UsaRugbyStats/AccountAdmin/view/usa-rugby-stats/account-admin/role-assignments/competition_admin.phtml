@@ -6,7 +6,7 @@ foreach ( $this->fieldset as $item ) {
     $item->setAttributes(array('class' => 'form-control'));
 }
 
-function managedCompetitionTemplate($view, $element, $competition = null, $isTemplate = false)
+$managedCompetitionTemplate = function($view, $element, $competition = null, $isTemplate = false)
 {
     $competitionId = $view->escapeHtmlAttr($element->getValue());
     $hiddenElement = $isTemplate ? $view->formSelect($element) : $view->formHidden($element);
@@ -25,7 +25,7 @@ EOB;
 
 ?>
 
-<div class="rbac-assignment rbac-assignment-competitionadmin panel panel-default" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
+<div class="rbac-assignment rbac-assignment-competitionadmin panel panel-default" data-type="competition_admin" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
     <div class="panel-heading">
         Competition Administrator
         <div class="pull-right">
@@ -44,7 +44,7 @@ EOB;
     <?php foreach ( $element->getElements() as $competitionElement ): ?>
     <?php   $competition = $fieldset->getCompetition($competitionElement->getValue()); ?>
     <?php   if ( $competition instanceof Competition ): ?>
-    <?php     echo managedCompetitionTemplate($this, $competitionElement, $competition); ?>
+    <?php     echo $managedCompetitionTemplate($this, $competitionElement, $competition); ?>
     <?php   endif; ?>
     <?php endforeach; ?>
     <?php endif; ?>
@@ -53,14 +53,14 @@ EOB;
     </table>
 
     <script type="text/javascript">
-        var managedCompetitionsSelectorTemplate = '<?php echo $this->escapeJs(managedCompetitionTemplate($this, $element->getTemplateElement(), null, true)); ?>';
+        var managedCompetitionsSelectorTemplate = '<?php echo $this->escapeJs($managedCompetitionTemplate($this, $element->getTemplateElement(), null, true)); ?>';
         var managedCompetitionIndex = <?php echo $this->escapeJs(count($element)); ?>;
 
-        $(document).on('click', '.rbac-assignment-competitionadmin .rbac-assignment-addcompetition', function() {
-            var html = managedCompetitionsSelectorTemplate.replace(/__index__/g, managedCompetitionIndex++);
-            $('.rbac-assignment-competitionadmin table tbody').append(html);
+        $('.rbac-assignment-competitionadmin[data-index=<?php echo $this->escapeHtmlAttr($index); ?>] .rbac-assignment-addcompetition').click(function() {
+            var html = managedCompetitionsSelectorTemplate.replace(/__compindex__/g, managedCompetitionIndex++);
+            $(this).closest('.rbac-assignment-competitionadmin').find('table tbody').append(html);
         });
-        $(document).on('click', '.rbac-assignment-competitionadmin .dropcompetition', function() {
+        $(document).on('click', '.rbac-assignment-competitionadmin[data-index=<?php echo $this->escapeHtmlAttr($index); ?>] .dropcompetition', function() {
             $(this).closest('*[data-competitionid]').remove();
         });
     </script>
