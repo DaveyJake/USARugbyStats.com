@@ -5,7 +5,6 @@ use ZfcUserAdmin\Service\User as ZfcUserAdminUserService;
 use Zend\Form\Form;
 use UsaRugbyStats\Account\Entity\Account as AccountEntity;
 use ZfcUser\Entity\UserInterface;
-use Zend\Filter\Word\CamelCaseToUnderscore;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\UnionAdmin;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\CompetitionAdmin;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin;
