@@ -25,7 +25,7 @@ EOB;
 
 ?>
 
-<div class="rbac-assignment rbac-assignment-teamadmin panel panel-default" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
+<div class="rbac-assignment rbac-assignment-teamadmin panel panel-default" data-type="team_admin" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
     <div class="panel-heading">
         Team Administrator
         <div class="pull-right">
@@ -56,11 +56,11 @@ EOB;
         var managedTeamsSelectorTemplate = '<?php echo $this->escapeJs($managedTeamTemplate($this, $element->getTemplateElement(), null, true)); ?>';
         var managedTeamIndex = <?php echo $this->escapeJs(count($element)); ?>;
 
-        $(document).on('click', '.rbac-assignment-teamadmin .rbac-assignment-addteam', function() {
+        $('.rbac-assignment-teamadmin[data-index=<?php echo $this->escapeHtmlAttr($index); ?>] .rbac-assignment-addteam').click(function() {
             var html = managedTeamsSelectorTemplate.replace(/__teamindex__/g, managedTeamIndex++);
-            $('.rbac-assignment-teamadmin table tbody').append(html);
+            $(this).closest('.rbac-assignment-teamadmin').find('table tbody').append(html);
         });
-        $(document).on('click', '.rbac-assignment-teamadmin .dropteam', function() {
+        $(document).on('click', '.rbac-assignment-teamadmin[data-index=<?php echo $this->escapeHtmlAttr($index); ?>] .dropteam', function() {
             $(this).closest('*[data-teamid]').remove();
         });
     </script>

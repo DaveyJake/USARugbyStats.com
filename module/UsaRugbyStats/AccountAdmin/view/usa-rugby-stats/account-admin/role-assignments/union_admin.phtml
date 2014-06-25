@@ -25,7 +25,7 @@ EOB;
 
 ?>
 
-<div class="rbac-assignment rbac-assignment-unionadmin panel panel-default" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
+<div class="rbac-assignment rbac-assignment-unionadmin panel panel-default" data-type="union_admin" data-index="<?php echo $this->escapeHtmlAttr($index); ?>">
     <div class="panel-heading">
         Union Administrator
         <div class="pull-right">
@@ -56,11 +56,11 @@ EOB;
         var managedUnionsSelectorTemplate = '<?php echo $this->escapeJs($managedUnionTemplate($this, $element->getTemplateElement(), null, true)); ?>';
         var managedUnionIndex = <?php echo $this->escapeJs(count($element)); ?>;
 
-        $(document).on('click', '.rbac-assignment-unionadmin .rbac-assignment-addunion', function() {
+        $('.rbac-assignment-unionadmin[data-index=<?php echo $this->escapeHtmlAttr($index); ?>] .rbac-assignment-addunion').click(function() {
             var html = managedUnionsSelectorTemplate.replace(/__unionindex__/g, managedUnionIndex++);
-            $('.rbac-assignment-unionadmin table tbody').append(html);
+            $(this).closest('.rbac-assignment-unionadmin').find('table tbody').append(html);
         });
-        $(document).on('click', '.rbac-assignment-unionadmin .dropunion', function() {
+        $(document).on('click', '.rbac-assignment-unionadmin[data-index=<?php echo $this->escapeHtmlAttr($index); ?>] .dropunion', function() {
             $(this).closest('*[data-unionid]').remove();
         });
     </script>

@@ -39,6 +39,10 @@
     var roleAssignmentIndex = <?php echo $this->escapeJs(count($collection)); // Not sure if this works ?>
 
     $(document).on('click', '#AddRoleAssignmentButtonMenu a[data-key]', function() {
+        if ( $('#RoleAssignmentContainer').find('.rbac-assignment[data-type=' + $(this).attr('data-key') + ']').length > 0 ) {
+            alert($(this).text() + ' already exists!');
+            return;
+        }
         var html = roleAssignmentTemplate[$(this).attr('data-key')].replace(/__index__/g, roleAssignmentIndex++);
         $('#RoleAssignmentContainer').append(html);
     });
