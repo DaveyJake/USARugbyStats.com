@@ -67,7 +67,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $this->service->create($form, $formData);
     }
 
-    public function testCreateDoesPopulateTheRoleAssignmentsInTheFormDataBeforeFormHydratesItWhenTypeFieldIsInCamelCaseFormat()
+    public function testCreateRejectsTheRoleAssignmentsInTheFormDataWhenTypeFieldIsInCamelCaseFormat()
     {
         $test = $this;
         $formData = array(
@@ -82,8 +82,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $form->shouldReceive('bind')->andReturnNull();
         $form->shouldReceive('setData')->with(Mockery::on(function ($data) use ($test) {
             $test->assertArrayHasKey('roleAssignments', $data);
-            $test->assertTrue(isset($data['roleAssignments'][0]));
-            $test->assertArrayHasKey('type', $data['roleAssignments'][0]);
+            $test->assertEmpty($data['roleAssignments']);
 
             return true;
         }));
