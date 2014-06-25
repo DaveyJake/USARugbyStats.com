@@ -57,7 +57,7 @@ EOB;
         var managedTeamIndex = <?php echo $this->escapeJs(count($element)); ?>;
 
         $(document).on('click', '.rbac-assignment-teamadmin .rbac-assignment-addteam', function() {
-            var html = managedTeamsSelectorTemplate.replace(/__index__/g, managedTeamIndex++);
+            var html = managedTeamsSelectorTemplate.replace(/__teamindex__/g, managedTeamIndex++);
             $('.rbac-assignment-teamadmin table tbody').append(html);
         });
         $(document).on('click', '.rbac-assignment-teamadmin .dropteam', function() {

@@ -31,6 +31,7 @@ class CompetitionAdminFieldset extends RoleAssignmentFieldset
                 'label' => 'Managed Competitions',
                 'target_element' => $competition,
                 'should_create_template' => true,
+                'template_placeholder' => '__compindex__',
             )
         ));
     }

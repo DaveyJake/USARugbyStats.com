@@ -31,6 +31,7 @@ class UnionAdminFieldset extends RoleAssignmentFieldset
                 'label' => 'Managed Unions',
                 'target_element' => $union,
                 'should_create_template' => true,
+                'template_placeholder' => '__unionindex__',
             )
         ));
     }

@@ -57,7 +57,7 @@ EOB;
         var managedUnionIndex = <?php echo $this->escapeJs(count($element)); ?>;
 
         $(document).on('click', '.rbac-assignment-unionadmin .rbac-assignment-addunion', function() {
-            var html = managedUnionsSelectorTemplate.replace(/__index__/g, managedUnionIndex++);
+            var html = managedUnionsSelectorTemplate.replace(/__unionindex__/g, managedUnionIndex++);
             $('.rbac-assignment-unionadmin table tbody').append(html);
         });
         $(document).on('click', '.rbac-assignment-unionadmin .dropunion', function() {
