@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/adamlundrigan/LdcZendFormCTI.git",
-                "reference": "1a7f2a84b43ba159e7af5d3104dfd4915079f9f3"
+                "reference": "022bcf75d434a34396491dce63e7f0ca1c88fe29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adamlundrigan/LdcZendFormCTI/zipball/1a7f2a84b43ba159e7af5d3104dfd4915079f9f3",
-                "reference": "1a7f2a84b43ba159e7af5d3104dfd4915079f9f3",
+                "url": "https://api.github.com/repos/adamlundrigan/LdcZendFormCTI/zipball/022bcf75d434a34396491dce63e7f0ca1c88fe29",
+                "reference": "022bcf75d434a34396491dce63e7f0ca1c88fe29",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +46,7 @@
                 }
             ],
             "description": "Zend\\Form\\Collection meets Class Table Inheritance",
-            "time": "2014-06-22 23:03:29"
+            "time": "2014-06-25 02:28:19"
         },
         {
             "name": "danielss89/zfc-user-admin",
@@ -1615,12 +1615,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZF-Commons/zfc-rbac.git",
-                "reference": "e4a646cde5fb4771767e25fe687104437f76d75a"
+                "reference": "f6356a6c523d086144ebe97c2bd1131a41e93113"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ZF-Commons/zfc-rbac/zipball/e4a646cde5fb4771767e25fe687104437f76d75a",
-                "reference": "e4a646cde5fb4771767e25fe687104437f76d75a",
+                "url": "https://api.github.com/repos/ZF-Commons/zfc-rbac/zipball/f6356a6c523d086144ebe97c2bd1131a41e93113",
+                "reference": "f6356a6c523d086144ebe97c2bd1131a41e93113",
                 "shasum": ""
             },
             "require": {
@@ -1683,7 +1683,7 @@
                 "rbac",
                 "zf2"
             ],
-            "time": "2014-06-22 22:17:38"
+            "time": "2014-06-24 19:51:27"
         },
         {
             "name": "zf-commons/zfc-user",
