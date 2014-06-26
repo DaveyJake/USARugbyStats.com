@@ -60,7 +60,7 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testHandlesCaseWhereThereAreNoMatchesToProcess()
     {
-        $this->mockMatchService->shouldReceive('getMatchRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection());
+        $this->mockMatchService->shouldReceive('getRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection());
 
         $result = $this->service->getStatisticsFor($this->mockPlayer);
         $this->assertEquals($this->getEmptyResult(), $result);
@@ -71,7 +71,7 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
         $mockMatch = new Match();
         $mockMatch->setDate(new \DateTime('2014-06-06'));
 
-        $this->mockMatchService->shouldReceive('getMatchRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
+        $this->mockMatchService->shouldReceive('getRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
         $result = $this->service->getStatisticsFor($this->mockPlayer);
         $this->assertEquals($this->getEmptyResult(), $result);
     }
@@ -97,7 +97,7 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
 
         $mockMatch->addEvent($event);
 
-        $this->mockMatchService->shouldReceive('getMatchRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
+        $this->mockMatchService->shouldReceive('getRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
         $result = $this->service->getStatisticsFor($this->mockPlayer);
         $this->assertEquals($this->getEmptyResult(), $result);
     }
@@ -125,7 +125,7 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
 
         $mockMatch->addEvent($event);
 
-        $this->mockMatchService->shouldReceive('getMatchRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
+        $this->mockMatchService->shouldReceive('getRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
 
         $expected = $this->getEmptyResult();
         $expected['career'][$type] = 1;
@@ -178,7 +178,7 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
 
         $mockMatch->addEvent($event);
 
-        $this->mockMatchService->shouldReceive('getMatchRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
+        $this->mockMatchService->shouldReceive('getRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
 
         $type = "{$card}C";
 
@@ -233,7 +233,7 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
         $mockMatch->addEvent($event);
         $totalPoints += $event->getPoints();
 
-        $this->mockMatchService->shouldReceive('getMatchRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
+        $this->mockMatchService->shouldReceive('getRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
 
         $expected = $this->getEmptyResult();
         $expected['career']['TR'] = 1;
