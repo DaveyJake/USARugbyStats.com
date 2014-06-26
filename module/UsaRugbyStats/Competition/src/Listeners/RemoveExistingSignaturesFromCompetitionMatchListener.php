@@ -28,7 +28,8 @@ class RemoveExistingSignaturesFromCompetitionMatchListener implements ListenerAg
         }
 
         foreach ( $entity->getSignatures() as $sig ) {
-            if ( empty($sig->getId()) ) {
+            $signatureId = $sig->getId();
+            if ( empty($signatureId) ) {
                 continue;
             }
             $entity->removeSignature($sig);
