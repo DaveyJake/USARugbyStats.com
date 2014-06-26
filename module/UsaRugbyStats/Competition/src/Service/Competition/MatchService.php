@@ -2,6 +2,7 @@
 namespace UsaRugbyStats\Competition\Service\Competition;
 
 use UsaRugbyStats\Competition\Service\AbstractService;
+use UsaRugbyStats\Competition\Entity\Competition\Match;
 
 class MatchService extends AbstractService
 {
@@ -12,6 +13,15 @@ class MatchService extends AbstractService
      * @var array
      */
     protected $availableMatchTeamEventTypes;
+
+    public function save($entity)
+    {
+        if ( $entity instanceof Match ) {
+            $entity->recalculateScore();
+        }
+
+        return parent::save($entity);
+    }
 
     public function setAvailableMatchTeamEventTypes($set)
     {
