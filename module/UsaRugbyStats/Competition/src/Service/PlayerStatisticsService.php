@@ -33,7 +33,7 @@ class PlayerStatisticsService implements EventManagerAwareInterface
         ];
 
         // Fetch a list of all the matches this player has participated in
-        $matches = $this->getCompetitionMatchService()->getMatchRepository()->findAllForPlayer($account);
+        $matches = $this->getCompetitionMatchService()->getRepository()->findAllForPlayer($account);
         foreach ($matches as $match) {
             $match instanceof Match;
 
