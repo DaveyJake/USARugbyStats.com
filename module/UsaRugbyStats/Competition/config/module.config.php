@@ -7,6 +7,7 @@ return array(
             'usarugbystats_competition_listener_emptycompetitionmatchcollections' => 'UsaRugbyStats\Competition\Listeners\EmptyCompetitionMatchCollectionsListener',
             'usarugbystats_competition_listener_removeunusedrosterslotsfromcompetitionmatch' => 'UsaRugbyStats\Competition\Listeners\RemoveUnusedRosterSlotsFromCompetitionMatchListener',
             'usarugbystats_competition_listener_removeexistingsignaturesfromcompetitionmatch' => 'UsaRugbyStats\Competition\Listeners\RemoveExistingSignaturesFromCompetitionMatchListener',
+            'usarugbystats_competition_listener_emptyunionteamcollection' => 'UsaRugbyStats\Competition\Listeners\EmptyUnionTeamCollectionListener',
         ),
         'factories' => array(
             'usarugbystats_competition_location_service' => 'UsaRugbyStats\Competition\Service\LocationServiceFactory',
