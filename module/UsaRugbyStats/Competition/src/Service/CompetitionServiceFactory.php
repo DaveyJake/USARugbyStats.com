@@ -17,8 +17,8 @@ class CompetitionServiceFactory implements FactoryInterface
         $em = $sm->get('zfcuser_doctrine_em');
 
         $service = new CompetitionService();
-        $service->setCompetitionObjectManager($em);
-        $service->setCompetitionRepository($em->getRepository('UsaRugbyStats\Competition\Entity\Competition'));
+        $service->setObjectManager($em);
+        $service->setRepository($em->getRepository('UsaRugbyStats\Competition\Entity\Competition'));
         $service->setCreateForm($sm->get('usarugbystats_competition_competition_createform'));
         $service->setUpdateForm($sm->get('usarugbystats_competition_competition_updateform'));
 

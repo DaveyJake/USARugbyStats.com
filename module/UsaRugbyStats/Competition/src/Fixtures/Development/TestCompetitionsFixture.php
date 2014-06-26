@@ -21,14 +21,13 @@ class TestCompetitionsFixture implements FixtureInterface, DependentFixtureInter
         foreach ($this->competitionData as $competition) {
             echo " - {$competition['name']}\n";
 
-            $form = $svc->getCreateForm();
-            $entity = $svc->create($form, ['competition' => $competition]);
+            $entity = $svc->create(['competition' => $competition]);
             if (! $entity instanceof Competition) {
                 echo "ERROR: Failed to create competition: " . $competition['name'] . "\n";
                 continue;
             }
             $manager->persist($entity);
-            unset($form, $entity);
+            unset($entity);
         }
 
         $manager->flush();

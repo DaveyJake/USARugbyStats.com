@@ -17,8 +17,8 @@ class MatchServiceFactory implements FactoryInterface
         $em = $sm->get('zfcuser_doctrine_em');
 
         $service = new MatchService();
-        $service->setMatchObjectManager($em);
-        $service->setMatchRepository($em->getRepository('UsaRugbyStats\Competition\Entity\Competition\Match'));
+        $service->setObjectManager($em);
+        $service->setRepository($em->getRepository('UsaRugbyStats\Competition\Entity\Competition\Match'));
         $service->setCreateForm($sm->get('usarugbystats_competition_competition_match_createform'));
         $service->setUpdateForm($sm->get('usarugbystats_competition_competition_match_updateform'));
 

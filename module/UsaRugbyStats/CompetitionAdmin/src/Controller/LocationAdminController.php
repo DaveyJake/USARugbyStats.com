@@ -29,7 +29,7 @@ class LocationAdminController extends AbstractActionController
     {
         $form = $this->getLocationService()->getCreateForm();
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getLocationService()->create($form, $this->getRequest()->getPost()->toArray());
+            $result = $this->getLocationService()->create($this->getRequest()->getPost()->toArray());
             if ($result instanceof Location) {
                 $this->flashMessenger()->addSuccessMessage('The location was created successfully!');
 
@@ -53,15 +53,16 @@ class LocationAdminController extends AbstractActionController
         }
 
         $form = $this->getLocationService()->getUpdateForm();
-        $form->bind($entity);
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getLocationService()->update($form, $this->getRequest()->getPost()->toArray());
+            $result = $this->getLocationService()->update($entity, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Location) {
                 $this->flashMessenger()->addSuccessMessage('The location was updated successfully!');
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_locationadmin/edit', ['id' => $result->getId()]);
             }
+        } else {
+            $form->bind($entity);
         }
 
         $vm = new ViewModel();

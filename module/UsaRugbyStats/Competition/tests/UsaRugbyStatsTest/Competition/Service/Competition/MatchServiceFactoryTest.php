@@ -43,8 +43,8 @@ class MatchServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $obj = $factory->createService($sl);
 
         $this->assertInstanceOf('UsaRugbyStats\Competition\Service\Competition\MatchService', $obj);
-        $this->assertSame($mockObjectManager, $obj->getMatchObjectManager());
-        $this->assertSame($mockObjectRepository, $obj->getMatchRepository());
+        $this->assertSame($mockObjectManager, $obj->getObjectManager());
+        $this->assertSame($mockObjectRepository, $obj->getRepository());
         $this->assertSame($mockCreateForm, $obj->getCreateForm());
         $this->assertSame($mockUpdateForm, $obj->getUpdateForm());
         $this->assertEquals($resultingEventTypes, $obj->getAvailableMatchTeamEventTypes());

@@ -32,7 +32,7 @@ class CompetitionAdminController extends AbstractActionController
     {
         $form = $this->getCompetitionService()->getCreateForm();
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getCompetitionService()->create($form, $this->getRequest()->getPost()->toArray());
+            $result = $this->getCompetitionService()->create($this->getRequest()->getPost()->toArray());
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The competition was created successfully!');
 
@@ -67,7 +67,7 @@ class CompetitionAdminController extends AbstractActionController
         ));
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getCompetitionService()->update($form, $this->getRequest()->getPost()->toArray(), $entity);
+            $result = $this->getCompetitionService()->update($entity, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The competition was updated successfully!');
 
@@ -99,7 +99,7 @@ class CompetitionAdminController extends AbstractActionController
         $form->setValidationGroup(['competition' => ['divisions']]);
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getCompetitionService()->update($form, $this->getRequest()->getPost()->toArray(), $entity);
+            $result = $this->getCompetitionService()->update($entity, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The division assignments were updated successfully!');
 
@@ -126,18 +126,19 @@ class CompetitionAdminController extends AbstractActionController
         }
 
         $form = $this->getCompetitionService()->getUpdateForm();
-        $form->bind($entity);
 
         // On this page we only want to edit the Division list
         $form->setValidationGroup(['competition' => ['matches']]);
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getCompetitionService()->update($form, $this->getRequest()->getPost()->toArray());
+            $result = $this->getCompetitionService()->update($entity, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The competition matches were updated successfully!');
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_competitionadmin/edit/divisions', ['id' => $result->getId()]);
             }
+        } else {
+            $form->bind($entity);
         }
 
         $vm = new ViewModel();

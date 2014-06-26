@@ -43,7 +43,7 @@ class CompetitionMatchAdminController extends AbstractActionController
             $data = $this->getRequest()->getPost()->toArray();
             $data['match']['competition'] = $entity->getId();
 
-            $result = $this->getMatchService()->create($form, $data);
+            $result = $this->getMatchService()->create($data);
             if ($result instanceof Match) {
                 $this->flashMessenger()->addSuccessMessage('The match was created successfully!');
 
@@ -81,7 +81,7 @@ class CompetitionMatchAdminController extends AbstractActionController
             $data = $this->getRequest()->getPost()->toArray();
             $data['match']['competition'] = $competition->getId();
 
-            $result = $this->getMatchService()->update($form, $data, $entity);
+            $result = $this->getMatchService()->update($entity, $data);
             if ($result instanceof Match) {
                 $this->flashMessenger()->addSuccessMessage('The match was updated successfully!');
 
