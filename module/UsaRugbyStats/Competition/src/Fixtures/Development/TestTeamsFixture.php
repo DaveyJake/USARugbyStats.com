@@ -21,13 +21,13 @@ class TestTeamsFixture implements FixtureInterface, DependentFixtureInterface,  
         foreach ($this->teamData as $team) {
             echo " - {$team['name']}\n";
 
-            $entity = $svc->create($svc->getCreateForm(), ['team' => $team]);
+            $entity = $svc->create(['team' => $team]);
             if (! $entity instanceof Team) {
                 echo "ERROR: Failed to create team: " . $team['name'] . "\n";
                 continue;
             }
             $manager->persist($entity);
-            unset($form, $entity);
+            unset($entity);
         }
 
         $manager->flush();

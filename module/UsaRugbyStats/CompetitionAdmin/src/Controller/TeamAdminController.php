@@ -29,7 +29,7 @@ class TeamAdminController extends AbstractActionController
     {
         $form = $this->getTeamService()->getCreateForm();
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getTeamService()->create($form, $this->getRequest()->getPost()->toArray());
+            $result = $this->getTeamService()->create($this->getRequest()->getPost()->toArray());
             if ($result instanceof Team) {
                 $this->flashMessenger()->addSuccessMessage('The team was created successfully!');
 
@@ -53,15 +53,16 @@ class TeamAdminController extends AbstractActionController
         }
 
         $form = $this->getTeamService()->getUpdateForm();
-        $form->bind($entity);
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getTeamService()->update($form, $this->getRequest()->getPost()->toArray());
+            $result = $this->getTeamService()->update($entity, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Team) {
                 $this->flashMessenger()->addSuccessMessage('The team was updated successfully!');
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_teamadmin/edit', ['id' => $result->getId()]);
             }
+        } else {
+            $form->bind($entity);
         }
 
         $vm = new ViewModel();

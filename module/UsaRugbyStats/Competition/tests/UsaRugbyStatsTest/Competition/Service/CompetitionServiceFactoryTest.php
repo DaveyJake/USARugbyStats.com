@@ -27,8 +27,8 @@ class CompetitionServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $obj = $factory->createService($sl);
 
         $this->assertInstanceOf('UsaRugbyStats\Competition\Service\CompetitionService', $obj);
-        $this->assertSame($mockObjectManager, $obj->getCompetitionObjectManager());
-        $this->assertSame($mockObjectRepository, $obj->getCompetitionRepository());
+        $this->assertSame($mockObjectManager, $obj->getObjectManager());
+        $this->assertSame($mockObjectRepository, $obj->getRepository());
         $this->assertSame($mockCreateForm, $obj->getCreateForm());
         $this->assertSame($mockUpdateForm, $obj->getUpdateForm());
     }

@@ -17,8 +17,8 @@ class LocationServiceFactory implements FactoryInterface
         $em = $sm->get('zfcuser_doctrine_em');
 
         $service = new LocationService();
-        $service->setLocationObjectManager($em);
-        $service->setLocationRepository($em->getRepository('UsaRugbyStats\Competition\Entity\Location'));
+        $service->setObjectManager($em);
+        $service->setRepository($em->getRepository('UsaRugbyStats\Competition\Entity\Location'));
         $service->setCreateForm($sm->get('usarugbystats_competition_location_createform'));
         $service->setUpdateForm($sm->get('usarugbystats_competition_location_updateform'));
 

@@ -27,8 +27,8 @@ class TeamServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $obj = $factory->createService($sl);
 
         $this->assertInstanceOf('UsaRugbyStats\Competition\Service\TeamService', $obj);
-        $this->assertSame($mockObjectManager, $obj->getTeamObjectManager());
-        $this->assertSame($mockObjectRepository, $obj->getTeamRepository());
+        $this->assertSame($mockObjectManager, $obj->getObjectManager());
+        $this->assertSame($mockObjectRepository, $obj->getRepository());
         $this->assertSame($mockCreateForm, $obj->getCreateForm());
         $this->assertSame($mockUpdateForm, $obj->getUpdateForm());
     }

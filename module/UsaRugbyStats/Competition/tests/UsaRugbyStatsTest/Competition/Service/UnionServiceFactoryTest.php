@@ -27,8 +27,8 @@ class UnionServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $obj = $factory->createService($sl);
 
         $this->assertInstanceOf('UsaRugbyStats\Competition\Service\UnionService', $obj);
-        $this->assertSame($mockObjectManager, $obj->getUnionObjectManager());
-        $this->assertSame($mockObjectRepository, $obj->getUnionRepository());
+        $this->assertSame($mockObjectManager, $obj->getObjectManager());
+        $this->assertSame($mockObjectRepository, $obj->getRepository());
         $this->assertSame($mockCreateForm, $obj->getCreateForm());
         $this->assertSame($mockUpdateForm, $obj->getUpdateForm());
     }

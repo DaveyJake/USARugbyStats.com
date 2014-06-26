@@ -12,13 +12,12 @@ class RemoveUnusedRosterSlotsFromCompetitionMatchListener implements ListenerAgg
 
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach('create.bind', array($this, 'run'), 80); // pre
-        $this->listeners[] = $events->attach('update.bind', array($this, 'run'), 80); // pre
+        $this->listeners[] = $events->attach('form.bind', array($this, 'run'), 80); // pre
     }
 
     public function run(EventInterface $e)
     {
-        $data = $e->getParam('data');
+        $data = $e->getParams()->data;
 
         if ( !isset($data['match']['teams']) || empty($data['match']['teams']) ) {
             return;
@@ -34,6 +33,6 @@ class RemoveUnusedRosterSlotsFromCompetitionMatchListener implements ListenerAgg
             }
         }
 
-        $e->setParam('data', $data);
+        $e->getParams()->data = $data;
     }
 }

@@ -12,12 +12,13 @@ class LockCompetitionMatchWhenCompletedListener implements ListenerAggregateInte
 
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach('update.save', array($this, 'run'), 100); // pre
+        $this->listeners[] = $events->attach('form.save', array($this, 'run'), 100); // pre
     }
 
     public function run(EventInterface $e)
     {
         $entity = $e->getParam('entity');
+
         $isFinished = $entity->getStatus() == 'F'
             && $entity->hasSignature('HC')
             && $entity->hasSignature('AC')

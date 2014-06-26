@@ -5,6 +5,7 @@ use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventInterface;
 use Zend\EventManager\ListenerAggregateTrait;
+use UsaRugbyStats\Competition\Entity\Competition\Match;
 
 class RemoveExistingSignaturesFromCompetitionMatchListener implements ListenerAggregateInterface
 {
@@ -12,22 +13,26 @@ class RemoveExistingSignaturesFromCompetitionMatchListener implements ListenerAg
 
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach('update.save', array($this, 'run'), 70); // pre
+        $this->listeners[] = $events->attach('save', array($this, 'run'), 70); // pre
     }
 
     public function run(EventInterface $e)
     {
-        $data = $e->getParam('data');
+        $entity = $e->getParam('entity');
 
-        if ( !isset($data['match']['signatures']) || empty($data['match']['signatures']) ) {
+        if (! $entity instanceof Match) {
             return;
         }
-        foreach ($data['match']['signatures'] as $key => $signature) {
-            if ( isset($signature['id']) && !empty($signature['id']) ) {
-                unset($data['match']['signatures'][$key]);
-            }
+        if ( is_null($entity->getId()) ) {
+            return;
         }
 
-        $e->setParam('data', $data);
+        foreach ( $entity->getSignatures() as $sig ) {
+            $signatureId = $sig->getId();
+            if ( empty($signatureId) ) {
+                continue;
+            }
+            $entity->removeSignature($sig);
+        }
     }
 }

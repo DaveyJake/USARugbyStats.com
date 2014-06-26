@@ -12,14 +12,13 @@ class EmptyCompetitionMatchCollectionsListener implements ListenerAggregateInter
 
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach('create.bind', array($this, 'run'), 10); // pre
-        $this->listeners[] = $events->attach('update.bind', array($this, 'run'), 10); // pre
+        $this->listeners[] = $events->attach('form.bind', array($this, 'run'), 10); // pre
     }
 
     public function run(EventInterface $e)
     {
-        $entity = $e->getParam('entity');
-        $data = $e->getParam('data');
+        $entity = $e->getParams()->entity;
+        $data = $e->getParams()->data;
 
         // @HACK to fix GH-15 (Can't empty an existing Collection)
         if ( !isset($data['match']['teams']['H']['players']) || empty($data['match']['teams']['H']['players']) ) {

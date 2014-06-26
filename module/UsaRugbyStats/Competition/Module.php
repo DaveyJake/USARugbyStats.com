@@ -38,6 +38,9 @@ class Module
         $em->attachAggregate($sm->get('usarugbystats_competition_listener_emptycompetitionmatchcollections'));
         $em->attachAggregate($sm->get('usarugbystats_competition_listener_removeunusedrosterslotsfromcompetitionmatch'));
         $em->attachAggregate($sm->get('usarugbystats_competition_listener_removeexistingsignaturesfromcompetitionmatch'));
+
+        $em = $sm->get('usarugbystats_competition_union_service')->getEventManager();
+        $em->attachAggregate($sm->get('usarugbystats_competition_listener_emptyunionteamcollection'));
     }
 
     public function getConfig()

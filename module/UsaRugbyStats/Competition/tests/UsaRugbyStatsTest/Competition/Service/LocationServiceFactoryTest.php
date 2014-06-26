@@ -27,8 +27,8 @@ class LocationServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $obj = $factory->createService($sl);
 
         $this->assertInstanceOf('UsaRugbyStats\Competition\Service\LocationService', $obj);
-        $this->assertSame($mockObjectManager, $obj->getLocationObjectManager());
-        $this->assertSame($mockObjectRepository, $obj->getLocationRepository());
+        $this->assertSame($mockObjectManager, $obj->getObjectManager());
+        $this->assertSame($mockObjectRepository, $obj->getRepository());
         $this->assertSame($mockCreateForm, $obj->getCreateForm());
         $this->assertSame($mockUpdateForm, $obj->getUpdateForm());
     }
