@@ -72,7 +72,7 @@ $settings = array(
      * Default value: array containing 'email'
      * Accepted values: array containing one or more of: email, username
      */
-    'auth_identity_fields' => array( 'username' ),
+    'auth_identity_fields' => array( 'username', 'email' ),
 
     /**
      * Login form timeout
