@@ -1,5 +1,14 @@
 <?php
 return array(
+    'usarugbystats' => array(
+        'application' => array(
+            'iframeable' => array(
+                'routes' => array(),
+                'layout' => 'layout/iframe',
+            ),
+        ),
+    ),
+
     'router' => array(
         'routes' => array(
             'home' => array(
@@ -37,6 +46,7 @@ return array(
         ),
         'factories' => array(
             'default' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'usarugbystats_application_listener_iframeablepage' => 'UsaRugbyStats\Application\Listener\IframeablePageListenerFactory',
         ),
         'aliases' => array(
             'translator' => 'MvcTranslator',

@@ -3,6 +3,7 @@ namespace UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
 
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
+use UsaRugbyStats\Application\Entity\AccountInterface;
 
 /**
  * "Score" match event type
@@ -62,6 +63,13 @@ class ScoreEvent extends MatchTeamEvent
         $this->player = $player;
 
         return $this;
+    }
+
+    public function hasPlayer(AccountInterface $player)
+    {
+        return $this->getPlayer()
+            && $this->getPlayer()->getPlayer()
+            && $this->getPlayer()->getPlayer()->getId() == $player->getId();
     }
 
     public function getDiscriminator()

@@ -1,0 +1,67 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle($this->translate('USA Rugby Stats'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
+                        ->appendStylesheet($this->basePath() . '/assets/css/bootstrap.min.css')
+                        ->appendStylesheet($this->basePath() . '/assets/css/bootstrap-theme.min.css')
+        ; ?>
+
+        <!-- Fonts -->
+        <script type="text/javascript" src="//use.typekit.net/dqm3mdr.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->appendFile($this->basePath() . '/assets/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+            ->appendFile($this->basePath() . '/assets/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->appendFile($this->basePath() . '/assets/js/jquery.min.js')
+            ->appendFile($this->basePath() . '/assets/js/bootstrap.min.js')
+        ; ?>
+
+    </head>
+    <body>
+
+        <div class="container">
+
+<?php
+// Render different levels of FlashMessenger messages in a Bootstrap3-friendly way
+$flash = $this->flashMessenger();
+$flash->setMessageOpenFormat('<div%s>
+     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+         &times;
+     </button>
+     <ul><li>')
+     ->setMessageSeparatorString('</li><li>')
+     ->setMessageCloseString('</li></ul></div>');
+
+echo $flash->render('error',   array('alert', 'alert-dismissable', 'alert-danger'));
+echo $flash->render('info',    array('alert', 'alert-dismissable', 'alert-info'));
+echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
+echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
+?>
+
+<?php
+if (isset($_SESSION['alert_message'])) {
+	$alert = $_SESSION['alert_message'];
+    unset($_SESSION['alert_message']);
+    // @TODO: support alert types {info, success, error}.
+    echo '<div class="alert alert-info">' . $alert . '</div>';
+}
+?>
+
+            <?php echo $this->content; ?>
+
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>
