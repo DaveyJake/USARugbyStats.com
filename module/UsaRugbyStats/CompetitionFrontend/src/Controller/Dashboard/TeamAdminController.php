@@ -12,7 +12,7 @@ class TeamAdminController extends AbstractActionController
 
     public function indexAction()
     {
-        $repository = $this->getCompetitionMatchService()->getMatchRepository();
+        $repository = $this->getCompetitionMatchService()->getRepository();
         $user = $this->zfcUserAuthentication()->getIdentity();
         $role = $user->getRoleAssignment('team_admin');
 

@@ -26,7 +26,7 @@ class UnionController extends AbstractActionController
             throw new \InvalidArgumentException('Invalid Union ID specified!');
         }
 
-        $repository = $this->getCompetitionMatchService()->getMatchRepository();
+        $repository = $this->getCompetitionMatchService()->getRepository();
 
         $now = new \DateTime();
         list($upcomingMatches, $pastMatches) = $repository->findAllForUnion($union)->partition(function ($key, Match $m) use ($now) {

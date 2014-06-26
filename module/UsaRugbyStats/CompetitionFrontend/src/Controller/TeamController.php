@@ -26,7 +26,7 @@ class TeamController extends AbstractActionController
             throw new \InvalidArgumentException('Invalid Team ID specified!');
         }
 
-        $repository = $this->getCompetitionMatchService()->getMatchRepository();
+        $repository = $this->getCompetitionMatchService()->getRepository();
         $now = new \DateTime();
         list($upcomingMatches, $pastMatches) = $repository->findAllForTeam($team)->partition(function ($key, Match $m) use ($now) {
             return $m->getDate() >= $now;

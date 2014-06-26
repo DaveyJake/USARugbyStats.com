@@ -26,7 +26,7 @@ class PlayerController extends AbstractActionController
             throw new \InvalidArgumentException('Invalid Player ID specified!');
         }
 
-        $teams = $this->getTeamService()->getTeamRepository()->findAllForPlayer($player);
+        $teams = $this->getTeamService()->getRepository()->findAllForPlayer($player);
         $statistics = $this->getPlayerStatisticsService()->getStatisticsFor($player);
 
         $vm = new ViewModel();
