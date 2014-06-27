@@ -13,6 +13,7 @@ return array(
         'ZfcUserDoctrineORM',
         'GoalioForgotPassword',
         'GoalioForgotPasswordDoctrineORM',
+        'LdcUserProfile',
 
         'ZfcAdmin',
         'ZfcUserAdmin',

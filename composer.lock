@@ -4,20 +4,67 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d0a2a7144847a684b33bd1d85dc14b8a",
+    "hash": "989a363b7102f627df1ca933a051f7aa",
     "packages": [
         {
-            "name": "adamlundrigan/ldc-zend-form-cti",
-            "version": "dev-master",
+            "name": "adamlundrigan/ldc-user-profile",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/adamlundrigan/LdcZendFormCTI.git",
-                "reference": "022bcf75d434a34396491dce63e7f0ca1c88fe29"
+                "url": "https://github.com/adamlundrigan/LdcUserProfile.git",
+                "reference": "5b042242bf750fb81610498a428adcb6eb860726"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adamlundrigan/LdcZendFormCTI/zipball/022bcf75d434a34396491dce63e7f0ca1c88fe29",
-                "reference": "022bcf75d434a34396491dce63e7f0ca1c88fe29",
+                "url": "https://api.github.com/repos/adamlundrigan/LdcUserProfile/zipball/5b042242bf750fb81610498a428adcb6eb860726",
+                "reference": "5b042242bf750fb81610498a428adcb6eb860726",
+                "shasum": ""
+            },
+            "require": {
+                "zf-commons/zfc-user": "1.*"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "@stable",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Module.php"
+                ],
+                "psr-0": {
+                    "LdcUserProfile\\": "src/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Lundrigan",
+                    "email": "adam@lundrigan.ca"
+                }
+            ],
+            "description": "User profile extension for ZfcUser",
+            "support": {
+                "source": "https://github.com/adamlundrigan/LdcUserProfile/tree/1.0.1",
+                "issues": "https://github.com/adamlundrigan/LdcUserProfile/issues"
+            },
+            "time": "2014-06-27 15:04:23"
+        },
+        {
+            "name": "adamlundrigan/ldc-zend-form-cti",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adamlundrigan/LdcZendFormCTI.git",
+                "reference": "a25a774b355030d0a78a968dbb43025175b78f2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adamlundrigan/LdcZendFormCTI/zipball/a25a774b355030d0a78a968dbb43025175b78f2d",
+                "reference": "a25a774b355030d0a78a968dbb43025175b78f2d",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +93,7 @@
                 }
             ],
             "description": "Zend\\Form\\Collection meets Class Table Inheritance",
-            "time": "2014-06-25 02:28:19"
+            "time": "2014-06-25 02:05:04"
         },
         {
             "name": "danielss89/zfc-user-admin",
@@ -2324,12 +2371,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/PHP-CS-Fixer.git",
-                "reference": "1fb00de8b165ddb521af842f90154aaf77fd58e7"
+                "reference": "8da853c1d763c259992fc035cd0d4965ffdc54c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/PHP-CS-Fixer/zipball/1fb00de8b165ddb521af842f90154aaf77fd58e7",
-                "reference": "1fb00de8b165ddb521af842f90154aaf77fd58e7",
+                "url": "https://api.github.com/repos/fabpot/PHP-CS-Fixer/zipball/8da853c1d763c259992fc035cd0d4965ffdc54c8",
+                "reference": "8da853c1d763c259992fc035cd0d4965ffdc54c8",
                 "shasum": ""
             },
             "require": {
@@ -2366,7 +2413,7 @@
                 }
             ],
             "description": "A script to automatically fix Symfony Coding Standard",
-            "time": "2014-06-21 08:22:48"
+            "time": "2014-06-27 09:43:20"
         },
         {
             "name": "fzaninotto/faker",
@@ -2374,12 +2421,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "7ae7fbe87088fcc4cc6b8610fcc62463c84ab632"
+                "reference": "51bd895bbe83b91545f56bd99dcc95c0843aa6e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/7ae7fbe87088fcc4cc6b8610fcc62463c84ab632",
-                "reference": "7ae7fbe87088fcc4cc6b8610fcc62463c84ab632",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/51bd895bbe83b91545f56bd99dcc95c0843aa6e9",
+                "reference": "51bd895bbe83b91545f56bd99dcc95c0843aa6e9",
                 "shasum": ""
             },
             "require": {
@@ -2416,7 +2463,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2014-06-19 08:47:08"
+            "time": "2014-06-27 09:03:16"
         },
         {
             "name": "guzzle/guzzle",
@@ -2574,12 +2621,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "76212f1e56646f972618fa359bee68b9c2feb57a"
+                "reference": "33b01619721a925db8b61e8623fa8acf2c2be496"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/76212f1e56646f972618fa359bee68b9c2feb57a",
-                "reference": "76212f1e56646f972618fa359bee68b9c2feb57a",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/33b01619721a925db8b61e8623fa8acf2c2be496",
+                "reference": "33b01619721a925db8b61e8623fa8acf2c2be496",
                 "shasum": ""
             },
             "require": {
@@ -2632,7 +2679,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2014-06-17 10:46:23"
+            "time": "2014-06-27 12:23:08"
         },
         {
             "name": "nelmio/alice",
@@ -2888,12 +2935,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "955c24b708f8bfd6a05f303217a8dac3a443d531"
+                "reference": "a0802561692c3b2bb0ed972f7ffafbfab068e580"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/955c24b708f8bfd6a05f303217a8dac3a443d531",
-                "reference": "955c24b708f8bfd6a05f303217a8dac3a443d531",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/a0802561692c3b2bb0ed972f7ffafbfab068e580",
+                "reference": "a0802561692c3b2bb0ed972f7ffafbfab068e580",
                 "shasum": ""
             },
             "require": {
@@ -2930,7 +2977,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-05-12 05:34:42"
+            "time": "2014-06-26 07:15:38"
         },
         {
             "name": "phpunit/phpunit",
@@ -3687,7 +3734,8 @@
         "goalio/goalio-forgotpassword": 20,
         "goalio/goalio-forgotpassword-doctrine-orm": 20,
         "goalio/goalio-passwordmanagement": 20,
-        "adamlundrigan/ldc-zend-form-cti": 20,
+        "adamlundrigan/ldc-zend-form-cti": 0,
+        "adamlundrigan/ldc-user-profile": 0,
         "fabpot/goutte": 20,
         "behat/behat": 0,
         "fabpot/php-cs-fixer": 20,

@@ -35,7 +35,7 @@ return array(
             'zfc-user/user/login' => __DIR__ . '/../view/zfc-user/user/login.phtml',
         ),
         'template_path_stack' => array(
-            __DIR__ . '/../view',
+            'UsaRugbyStats\Account' => __DIR__ . '/../view',
         ),
     ),
 
