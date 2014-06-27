@@ -1,9 +1,9 @@
 <?php
-namespace UsaRugbyStatsTest\Competition\Service;
+namespace UsaRugbyStats\Application\Service;
 
 use Mockery;
 use UsaRugbyStats\Competition\Entity\Location;
-use UsaRugbyStats\Competition\Service\AbstractService;
+use UsaRugbyStats\Application\Service\AbstractService;
 
 class AbstractServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +55,7 @@ class AbstractServiceTest extends \PHPUnit_Framework_TestCase
     public function testCreateMethod()
     {
         // Partial-mock the service class to isolate create() from save()
-        $service = Mockery::mock('UsaRugbyStats\Competition\Service\AbstractService[save]');
+        $service = Mockery::mock('UsaRugbyStats\Application\Service\AbstractService[save]');
         $service->shouldReceive('save')->once()->andReturnNull();
 
         // Inject the rest of the dependencies
@@ -95,7 +95,7 @@ class AbstractServiceTest extends \PHPUnit_Framework_TestCase
     public function testUpdateMethod()
     {
         // Partial-mock the service class to isolate update() from save()
-        $service = Mockery::mock('UsaRugbyStats\Competition\Service\AbstractService[save]');
+        $service = Mockery::mock('UsaRugbyStats\Application\Service\AbstractService[save]');
         $service->shouldReceive('save')->once()->andReturnNull();
 
         // Inject the rest of the dependencies

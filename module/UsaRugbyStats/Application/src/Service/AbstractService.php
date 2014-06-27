@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\Competition\Service;
+namespace UsaRugbyStats\Application\Service;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\Common\Persistence\ObjectManager;

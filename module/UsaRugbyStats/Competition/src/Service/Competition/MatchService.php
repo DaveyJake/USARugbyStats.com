@@ -1,7 +1,7 @@
 <?php
 namespace UsaRugbyStats\Competition\Service\Competition;
 
-use UsaRugbyStats\Competition\Service\AbstractService;
+use UsaRugbyStats\Application\Service\AbstractService;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 
 class MatchService extends AbstractService
@@ -16,7 +16,7 @@ class MatchService extends AbstractService
 
     public function save($entity)
     {
-        if ( $entity instanceof Match ) {
+        if ($entity instanceof Match) {
             $entity->recalculateScore();
         }
 
