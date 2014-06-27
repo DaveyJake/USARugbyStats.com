@@ -92,4 +92,18 @@ return array(
             ),
         ),
     ),
+
+    'audit' => array(
+        'entities' => array(
+            'UsaRugbyStats\Account\Entity\Account' => [],
+            'UsaRugbyStats\Account\Entity\Rbac\Permission' => [],
+            'UsaRugbyStats\Account\Entity\Rbac\Role' => [],
+            'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment' => [],
+            'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member' => [],
+            'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin' => [],
+            'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin' => [],
+            'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\UnionAdmin' => [],
+            'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\CompetitionAdmin' => [],
+        ),
+    ),
 );
