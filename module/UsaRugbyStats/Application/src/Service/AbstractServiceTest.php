@@ -3,7 +3,6 @@ namespace UsaRugbyStats\Application\Service;
 
 use Mockery;
 use UsaRugbyStats\Competition\Entity\Location;
-use UsaRugbyStats\Application\Service\AbstractService;
 
 class AbstractServiceTest extends \PHPUnit_Framework_TestCase
 {

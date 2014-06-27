@@ -19,7 +19,7 @@ $count = count($form->getFieldsets());
 
 <div class="row">
   <?php foreach ( $form->getFieldsets() as $fieldset ): ?>
-  <div class="col-md-<?=floor($count/12);?>">
+  <div class="col-md-<?=floor(12/$count);?>">
     <?php echo $this->render('ldc-user-profile/profile/extension/' . $fieldset->getName(), array('fieldset' => $fieldset)); ?>
   </div>
   <?php endforeach;?>

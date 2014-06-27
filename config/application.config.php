@@ -24,6 +24,7 @@ return array(
 
         'UsaRugbyStats\Application',
         'UsaRugbyStats\Account',
+        'UsaRugbyStats\AccountProfile',
         'UsaRugbyStats\AccountAdmin',
         'UsaRugbyStats\Competition',
         'UsaRugbyStats\CompetitionFrontend',

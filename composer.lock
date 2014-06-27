@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "adamlundrigan/ldc-user-profile",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adamlundrigan/LdcUserProfile.git",
-                "reference": "5b042242bf750fb81610498a428adcb6eb860726"
+                "reference": "76a15caf8459e5ed70dfd9169e4fd475cc4d456d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adamlundrigan/LdcUserProfile/zipball/5b042242bf750fb81610498a428adcb6eb860726",
-                "reference": "5b042242bf750fb81610498a428adcb6eb860726",
+                "url": "https://api.github.com/repos/adamlundrigan/LdcUserProfile/zipball/76a15caf8459e5ed70dfd9169e4fd475cc4d456d",
+                "reference": "76a15caf8459e5ed70dfd9169e4fd475cc4d456d",
                 "shasum": ""
             },
             "require": {
@@ -48,10 +48,10 @@
             ],
             "description": "User profile extension for ZfcUser",
             "support": {
-                "source": "https://github.com/adamlundrigan/LdcUserProfile/tree/1.0.1",
+                "source": "https://github.com/adamlundrigan/LdcUserProfile/tree/1.0.2",
                 "issues": "https://github.com/adamlundrigan/LdcUserProfile/issues"
             },
-            "time": "2014-06-27 15:04:23"
+            "time": "2014-06-27 18:15:31"
         },
         {
             "name": "adamlundrigan/ldc-zend-form-cti",

@@ -18,7 +18,7 @@ $settings = array(
     'validation_group_overrides' => array(
         'zfcuser' => array(
             // User can change on their password
-    	    'password',
+            'password',
             'passwordVerify',
         ),
     ),

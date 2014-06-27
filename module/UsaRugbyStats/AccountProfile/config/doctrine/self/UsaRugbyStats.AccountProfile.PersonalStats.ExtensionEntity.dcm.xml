@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="UsaRugbyStats\AccountProfile\PersonalStats\ExtensionEntity" table="account_personalstats">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <unique-constraints>
+            <unique-constraint columns="account_id" name="one_record_per_user" />
+        </unique-constraints>
+
+        <many-to-one field="account" target-entity="UsaRugbyStats\Application\Entity\AccountInterface">
+            <join-column name="account_id" referenced-column-name="user_id" />
+        </many-to-one>
+
+        <field name="height" type="integer" />
+        <field name="weight" type="integer" />
+        <field name="benchPress" type="float" />
+        <field name="sprintTime" type="float" />
+
+    </entity>
+
+</doctrine-mapping>

@@ -1,0 +1,102 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Personal Stats</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row form-group">
+        <?php $height_ft = $fieldset->get('height_ft'); ?>
+        <?php $height_ft->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+        <?php $height_ft->setAttribute('class', 'form-control'); ?>
+
+        <?php $height_in = $fieldset->get('height_in'); ?>
+        <?php $height_in->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($height_ft) ?>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-xs-5" style="margin-right: -20px">
+                    <div class="input-group">
+                        <?php echo $this->formElement($height_ft); ?>
+                        <span class="input-group-addon">ft</span>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <?php echo $this->formElement($height_in); ?>
+                        <span class="input-group-addon">in</span>
+                    </div>
+                </div>
+            </div>
+            <?php echo $this->formElementErrors($height_ft) ?>
+            <?php echo $this->formElementErrors($height_in) ?>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <?php $weight_lbs = $fieldset->get('weight_lbs'); ?>
+        <?php $weight_lbs->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+        <?php $weight_lbs->setAttribute('class', 'form-control'); ?>
+
+        <?php $weight_oz = $fieldset->get('weight_oz'); ?>
+        <?php $weight_oz->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($weight_lbs) ?>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-xs-5" style="margin-right: -20px">
+                    <div class="input-group">
+                        <?php echo $this->formElement($weight_lbs); ?>
+                        <span class="input-group-addon">lbs</span>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <?php echo $this->formElement($weight_oz); ?>
+                        <span class="input-group-addon">oz</span>
+                    </div>
+                </div>
+            </div>
+            <?php echo $this->formElementErrors($weight_lbs) ?>
+            <?php echo $this->formElementErrors($weight_oz) ?>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <?php $element = $fieldset->get('benchPress'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+        <?php $element->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($element) ?>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-xs-5" style="margin-right: -20px">
+                    <div class="input-group">
+                        <?php echo $this->formElement($element); ?>
+                        <span class="input-group-addon">lbs</span>
+                    </div>
+                </div>
+            </div>
+            <?php echo $this->formElementErrors($element) ?>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <?php $element = $fieldset->get('sprintTime'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+        <?php $element->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($element) ?>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-xs-5" style="margin-right: -20px">
+                    <div class="input-group">
+                        <?php echo $this->formElement($element); ?>
+                        <span class="input-group-addon">sec</span>
+                    </div>
+                </div>
+            </div>
+            <?php echo $this->formElementErrors($element) ?>
+        </div>
+    </div>
+  </div>
+</div>
