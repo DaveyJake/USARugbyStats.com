@@ -2,6 +2,7 @@
 namespace UsaRugbyStats\AccountAdmin;
 
 use Zend\Mvc\MvcEvent;
+use UsaRugbyStats\AccountAdmin\Listeners\AuditLogCommentSetterListener;
 
 class Module
 {
@@ -19,6 +20,14 @@ class Module
         $listener = $sl->get('UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignup');
         $listener->setGroups(['member']);
         $userService->getEventManager()->attach($listener);
+
+        // Automatically set audit log entry comments
+        if ( $sl->has('auditService') ) {
+            $auditService = $sl->get('auditService');
+
+            $listener = new AuditLogCommentSetterListener($auditService);
+            $listener->attach($userService->getEventManager());
+        }
     }
 
     public function getConfig()
