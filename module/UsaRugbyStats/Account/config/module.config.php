@@ -19,6 +19,9 @@ return array(
             'Zend\Authentication\AuthenticationService' => function ($sm) { return $sm->get('doctrine.authenticationservice.orm_default'); },
             'UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignup' => 'UsaRugbyStats\Account\Service\Strategy\RbacAddUserToGroupOnSignupFactory',
             'UsaRugbyStats\Account\Service\Strategy\RbacEnforceRoleAssociation' => 'UsaRugbyStats\Account\Service\Strategy\RbacEnforceRoleAssociationFactory',
+
+            // Override ZfcUser mapper from ZfcUserDoctrineORM with one that triggers events on insert and update
+            'zfcuser_user_mapper' => 'UsaRugbyStats\Account\ZfcUser\UserMapperFactory',
         ),
     ),
     'translator' => array(
