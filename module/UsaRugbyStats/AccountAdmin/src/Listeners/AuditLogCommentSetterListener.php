@@ -28,13 +28,14 @@ class AuditLogCommentSetterListener implements ListenerAggregateInterface
     public function setCommentForEvent(EventInterface $e)
     {
         $entity = $e->getParam('user');
+        $entityId = $entity->getId();
         $entityClassSlug = trim(strtoupper(str_replace('\\', '_', preg_replace('{^UsaRugbyStats\\\\Account\\\Entity\\\\}is', '', get_class($entity)))), ' _');
 
         $this->auditService->setComment(
             implode('_', array(
                'ACCOUNTADMIN',
                 $entityClassSlug,
-                $e->getName() == 'remove' ? 'DELETE' : (empty($entity->getId()) ? 'CREATE' : 'UPDATE')
+                $e->getName() == 'remove' ? 'DELETE' : (empty($entityId) ? 'CREATE' : 'UPDATE')
             ))
         );
     }
