@@ -32,7 +32,7 @@ class AuditLogCommentSetterListener implements ListenerAggregateInterface
 
         $this->auditService->setComment(
             implode('_', array(
-        	   'ACCOUNTADMIN',
+               'ACCOUNTADMIN',
                 $entityClassSlug,
                 $e->getName() == 'remove' ? 'DELETE' : (empty($entity->getId()) ? 'CREATE' : 'UPDATE')
             ))

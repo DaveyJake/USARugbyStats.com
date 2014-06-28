@@ -29,10 +29,9 @@ class AuditLogCommentSetterListener implements ListenerAggregateInterface
         $entity = $e->getParam('entity');
         $entityClassSlug = trim(strtoupper(str_replace('\\', '_', preg_replace('{^UsaRugbyStats\\\\Competition\\\Entity\\\\}is', '', get_class($entity)))), ' _');
 
-        switch ( $entityClassSlug )
-        {
-        	case 'COMPETITION':
-        	    $entityClassSlug = 'COMP';
+        switch ($entityClassSlug) {
+            case 'COMPETITION':
+                $entityClassSlug = 'COMP';
                 break;
             case 'COMPETITION_MATCH':
                 $entityClassSlug = 'COMPMATCH';
@@ -41,7 +40,7 @@ class AuditLogCommentSetterListener implements ListenerAggregateInterface
 
         $this->auditService->setComment(
             implode('_', array(
-        	   'COMPETITION',
+               'COMPETITION',
                 $entityClassSlug,
                 $e->getName() == 'remove' ? 'DELETE' : (empty($entity->getId()) ? 'CREATE' : 'UPDATE')
             ))
