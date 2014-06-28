@@ -5,6 +5,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\RouteInterface;
+use UsaRugbyStats\Account\Listeners\AuditLogCommentSetterListener;
 
 class Module
 {
@@ -76,6 +77,14 @@ class Module
             }
 
         }, 1000);
+
+        // Automatically set audit log entry comments
+        if ( $app->getServiceManager()->has('auditService') ) {
+            $listener = new AuditLogCommentSetterListener(
+                $app->getServiceManager()->get('auditService')
+            );
+            $listener->attach($userService->getUserMapper()->getEventManager());
+        }
     }
 
     public function getConfig()
