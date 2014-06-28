@@ -53,7 +53,7 @@ class ExtensionInputFilter extends InputFilter
             'filters'    => array(array('name' => 'StringTrim')),
             'validators' => array(
                 array('name' => 'Float'),
-                array('name' => 'Between', 'options' => array('min' => 1, 'max' => '500'))
+                array('name' => 'Between', 'options' => array('min' => 1, 'max' => '1500'))
             ),
         ));
 
