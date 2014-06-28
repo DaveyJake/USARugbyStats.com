@@ -27,4 +27,10 @@ return array(
             )
         ),
     ),
+
+    'audit' => array(
+        'entities' => array(
+            'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionEntity' => [],
+        ),
+    ),
 );
