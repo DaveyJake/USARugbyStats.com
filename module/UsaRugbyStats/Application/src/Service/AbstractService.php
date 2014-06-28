@@ -42,6 +42,11 @@ abstract class AbstractService implements EventManagerAwareInterface
      */
     protected $updateForm;
 
+    public function __construct()
+    {
+        $this->eventIdentifier = get_called_class();
+    }
+
     public function findByID($id)
     {
         $id = StaticFilter::execute($id, 'Digits');
