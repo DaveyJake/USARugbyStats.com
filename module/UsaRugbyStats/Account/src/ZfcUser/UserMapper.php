@@ -11,6 +11,7 @@ class UserMapper extends ZfcUserDoctrineORMMapper
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('entity' => $entity));
         $result = parent::insert($entity, $tableName, $hydrator);
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('entity' => $entity));
+
         return $result;
     }
 
@@ -19,6 +20,7 @@ class UserMapper extends ZfcUserDoctrineORMMapper
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('entity' => $entity));
         $result = parent::update($entity, $tableName, $hydrator);
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('entity' => $entity));
+
         return $result;
     }
 }
