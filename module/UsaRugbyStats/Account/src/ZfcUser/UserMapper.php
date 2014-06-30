@@ -6,6 +6,15 @@ use Zend\Stdlib\Hydrator\HydratorInterface;
 
 class UserMapper extends ZfcUserDoctrineORMMapper
 {
+    public function findAll()
+    {
+        $er = $this->em->getRepository($this->options->getUserEntityClass());
+        $this->getEventManager()->trigger(__FUNCTION__, $this, array('repository' => $er));
+        $resultset = $er->findAll();
+        $this->getEventManager()->trigger(__FUNCTION__, $this, array('resultset' => &$resultset));
+        return $resultset;
+    }
+
     public function insert($entity, $tableName = null, HydratorInterface $hydrator = null)
     {
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('entity' => $entity));
@@ -23,4 +32,13 @@ class UserMapper extends ZfcUserDoctrineORMMapper
 
         return $result;
     }
+
+    public function remove($entity)
+    {
+        $this->getEventManager()->trigger(__FUNCTION__, $this, array('entity' => $entity));
+        $this->em->remove($entity);
+        $this->em->flush();
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('entity' => $entity));
+    }
+
 }
