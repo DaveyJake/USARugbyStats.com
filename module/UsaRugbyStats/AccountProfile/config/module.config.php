@@ -9,7 +9,13 @@ return array(
     ),
     'view_manager' => array(
         'template_map' => array(
-            'ldc-user-profile/profile/extension/personalstats' => __DIR__ . '/../view/ldc-user-profile/profile/extension/personalstats.phtml'
+            'ldc-user-profile/profile/extension/personalstats' => __DIR__ . '/../view/ldc-user-profile/profile/extension/personalstats.phtml',
+            'usa-rugby-stats/account-profile/personal-stats/user-timeseries-chart' => __DIR__ . '/../view/usa-rugby-stats/account-profile/personal-stats/user-timeseries-chart.phtml',
+        ),
+    ),
+    'view_helpers' => array(
+    	'factories' => array(
+    	    'ursProfilePersonalStatsGraph' => 'UsaRugbyStats\AccountProfile\PersonalStats\ViewHelper\UserTimeseriesChartFactory',
         ),
     ),
 

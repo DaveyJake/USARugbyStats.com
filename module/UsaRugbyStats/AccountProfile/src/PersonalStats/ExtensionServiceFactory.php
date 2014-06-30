@@ -19,6 +19,7 @@ class ExtensionServiceFactory implements FactoryInterface
         $service = new ExtensionService();
         $service->setObjectManager($em);
         $service->setRepository($em->getRepository('UsaRugbyStats\AccountProfile\PersonalStats\ExtensionEntity'));
+        $service->setEntityAuditService($sm->get('auditService'));
 
         return $service;
     }

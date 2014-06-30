@@ -1,0 +1,86 @@
+
+<?php $this->headScript()->appendFile('https://www.google.com/jsapi'); ?>
+
+<!-- Modal -->
+<div class="modal fade" id="ursProfilePersonalStatsGraph" tabindex="-1" role="dialog" aria-labelledby="ursProfilePersonalStatsGraphLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width:750px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="ursProfilePersonalStatsGraphLabel">Historical Values of <span>Field</span></h4>
+      </div>
+      <div class="modal-body">
+        <div id="ursProfilePersonalStatsGraphHopper"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php
+$timeseries = array();
+
+foreach ( $this->timeseries as $item ) {
+    foreach ( array('weight', 'benchPress', 'sprintTime') as $key ) {
+        if ( ! isset($timeseries[$key]) ) {
+            $timeseries[$key] = [];
+        }
+
+        $statValue = $item['stats'][$key];
+        switch ( $key ) {
+            case 'weight':
+                $statValue = $statValue / 16;
+                break;
+        }
+
+        $timeseries[$key][$item['modified_on']->format('m/d/Y H:i:s')] = $statValue;
+    }
+}
+?>
+
+<script type="text/javascript">
+
+var chartData = <?php echo json_encode($timeseries); ?>;
+var chartDataTypes = { weight: 'Weight (lbs)', benchPress: 'Bench Press (lbs)', sprintTime: 'Sprint Time (s)' };
+
+google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+    var varChart = {};
+    var objChart = {};
+    $.each(chartData, function(k,v) {
+        var kData = [['Date', k]];
+        console.log(Object.keys(v).length);
+        if ( Object.keys(v).length < 3 ) {
+            return;
+        }
+        $.each(v, function(dk,dv) {
+            kData.push([dk,dv]);
+        });
+        varChart[k] = google.visualization.arrayToDataTable(kData);
+
+        $('#ursProfilePersonalStatsGraphHopper').append('<div class="ursProfilePersonalStatsGraphHopperItem" id="ursProfilePersonalStatsGraphHopper_'+k+'" style="display:none;"></div>')
+
+        objChart[k] = new google.visualization.LineChart(document.getElementById('ursProfilePersonalStatsGraphHopper_'+k));
+        objChart[k].draw(varChart[k], {
+            theme: 'maximized',
+            legend: { position: 'none' },
+            height: 250,
+            width: 700
+        });
+    });
+}
+
+function ursProfilePersonalStatsGraph(field) {
+    $('#ursProfilePersonalStatsGraphLabel span').text(chartDataTypes[field]);
+    $('.ursProfilePersonalStatsGraphHopperItem').hide();
+    if ( $('#ursProfilePersonalStatsGraphHopper_' + field).length == 0 ) {
+        $('#ursProfilePersonalStatsGraphHopper').append('<div class="ursProfilePersonalStatsGraphHopperItem" id="ursProfilePersonalStatsGraphHopper_'+field+'" style="display:none;">There is insuffient data to display this graph</div>')
+    }
+    $('#ursProfilePersonalStatsGraphHopper_' + field).show();
+    $('#ursProfilePersonalStatsGraph').modal('show');
+}
+</script>
