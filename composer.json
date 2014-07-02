@@ -22,7 +22,8 @@
         "goalio/goalio-forgotpassword": "1.*@stable",
         "goalio/goalio-forgotpassword-doctrine-orm": "1.*@stable",
         "adamlundrigan/ldc-zend-form-cti": "0.*@stable",
-        "adamlundrigan/ldc-user-profile": "1.*@stable"
+        "adamlundrigan/ldc-user-profile": "1.*@stable",
+        "chrisboulton/php-resque": "@stable"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master@dev",
