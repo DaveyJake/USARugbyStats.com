@@ -11,6 +11,12 @@ use ZfcRbac\Identity\IdentityInterface;
 
 class Account extends BaseAccount implements UserInterface, AccountRbacInterface, IdentityInterface
 {
+
+    /**
+     * @var string
+     */
+    protected $remoteId;
+
     /**
      * @var Collection
      */
@@ -32,6 +38,24 @@ class Account extends BaseAccount implements UserInterface, AccountRbacInterface
     public function __clone()
     {
         $this->roleAssignments = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getRemoteId()
+    {
+        return $this->remoteId;
+    }
+
+    /**
+     * @param string $remoteId
+     */
+    public function setRemoteId($remoteId)
+    {
+        $this->remoteId = $remoteId;
+
+        return $this;
     }
 
     /**

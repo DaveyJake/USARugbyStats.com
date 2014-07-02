@@ -13,6 +13,14 @@ class EditUser extends ZfcUserAdminEditUserForm
     {
         parent::__construct($name, $createOptions, $registerOptions, $serviceManager);
 
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'remoteId',
+            'options' => array(
+                'label' => 'Remote ID',
+            ),
+        ));
+
         $rbacFieldset = $serviceManager->get('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement');
         $this->add($rbacFieldset);
 

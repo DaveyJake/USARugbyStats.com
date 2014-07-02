@@ -10,6 +10,14 @@ use UsaRugbyStats\Account\Entity\Rbac\Role;
 class AccountTest extends ServiceManagerTestCase
 {
 
+    public function testGetSetRemoteId()
+    {
+        $obj = new Account();
+        $this->assertNull($obj->getRemoteId());
+        $obj->setRemoteId(12345);
+        $this->assertEquals(12345, $obj->getRemoteId());
+    }
+
     /**
      * If the entity is to be used in a form collection it's internal Doctrine collections must
      * be reinitialized on clone or else all the clones will share the same instance of each collection
