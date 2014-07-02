@@ -16,6 +16,14 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(12345, $obj->getId());
     }
 
+    public function testGetSetRemoteId()
+    {
+        $obj = new Team();
+        $this->assertNull($obj->getRemoteId());
+        $obj->setRemoteId(12345);
+        $this->assertEquals(12345, $obj->getRemoteId());
+    }
+
     public function testGetSetName()
     {
         $obj = new Team();

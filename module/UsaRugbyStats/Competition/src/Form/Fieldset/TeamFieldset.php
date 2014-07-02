@@ -21,6 +21,14 @@ class TeamFieldset extends Fieldset
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
+            'name' => 'remoteId',
+            'options' => array(
+                'label' => 'Remote ID',
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
             'name' => 'name',
             'options' => array(
                 'label' => 'Team Name',

@@ -14,6 +14,30 @@
         <div class="panel panel-default">
             <div class="panel-heading">Team Details</div>
             <div class="panel-body">
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('id'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <div class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></div>
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('remoteId'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php echo $this->formElement($element); ?>
+                        <p class="help-block">Used to associate this team with a record at the remote membership provider</p>
+                        <?php echo $this->formElementErrors($element) ?>
+                    </div>
+                </div>
 
                 <div class="row form-group">
                     <?php $element = $fieldset->get('name'); ?>
@@ -82,6 +106,7 @@
                         <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

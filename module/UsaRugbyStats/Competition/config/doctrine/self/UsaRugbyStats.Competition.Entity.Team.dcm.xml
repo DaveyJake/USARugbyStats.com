@@ -7,6 +7,8 @@
 
         <id name="id" type="integer"><generator strategy="AUTO" /></id>
 
+        <field name="remoteId" type="string" length="255" unique="true" nullable="true" />
+
         <field name="name" type="string" length="60" unique="true" />
 
         <many-to-one field="union" target-entity="UsaRugbyStats\Competition\Entity\Union" inversed-by="teams">
