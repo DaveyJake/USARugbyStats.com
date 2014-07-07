@@ -48,7 +48,7 @@ abstract class MatchTeamEvent
         return $this->match;
     }
 
-    public function setMatch(Match $match = NULL)
+    public function setMatch(Match $match = null)
     {
         $this->match = $match;
 
@@ -60,7 +60,7 @@ abstract class MatchTeamEvent
         return $this->team;
     }
 
-    public function setTeam(MatchTeam $team = NULL)
+    public function setTeam(MatchTeam $team = null)
     {
         $this->team = $team;
 

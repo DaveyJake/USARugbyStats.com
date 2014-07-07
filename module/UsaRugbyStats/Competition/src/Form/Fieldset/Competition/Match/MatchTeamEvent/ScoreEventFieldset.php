@@ -63,7 +63,7 @@ class ScoreEventFieldset extends MatchTeamEventFieldset
                 'find_method'    => array(
                     'name'   => 'findAllPlayersForMatchTeam',
                     'params' => array(
-                        'matchTeam' => $this->getTeam() ? $this->getTeam()->getId() : NULL,
+                        'matchTeam' => $this->getTeam() ? $this->getTeam()->getId() : null,
                     ),
                 ),
             ),

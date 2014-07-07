@@ -27,7 +27,7 @@ class UserService extends ZfcUserAdminUserService
         return parent::edit($form, $data, $user);
     }
 
-    protected function populateRoleAssignmentInputDataWithEntityClassNames(&$data, UserInterface $user = NULL)
+    protected function populateRoleAssignmentInputDataWithEntityClassNames(&$data, UserInterface $user = null)
     {
         if ( ! isset($data['roleAssignments']) || count($data['roleAssignments']) == 0 ) {
             // @HACK to fix GH-15 (Can't empty an existing Collection)

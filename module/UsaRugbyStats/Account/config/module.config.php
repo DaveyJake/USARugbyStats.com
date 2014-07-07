@@ -89,9 +89,9 @@ return array(
     'zfc_rbac' => array(
         'role_provider' => array(
             'ZfcRbac\Role\ObjectRepositoryRoleProvider' => array(
-                'object_manager' 		=> 'zfcuser_doctrine_em',
-                'class_name'     		=> 'UsaRugbyStats\Account\Entity\Rbac\Role',
-                'role_name_property' 	=> 'name'
+                'object_manager'        => 'zfcuser_doctrine_em',
+                'class_name'             => 'UsaRugbyStats\Account\Entity\Rbac\Role',
+                'role_name_property'    => 'name'
             ),
         ),
     ),

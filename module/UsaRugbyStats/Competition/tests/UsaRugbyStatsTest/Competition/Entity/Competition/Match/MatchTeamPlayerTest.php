@@ -43,7 +43,7 @@ class MatchTeamPlayerTest extends \PHPUnit_Framework_TestCase
         $obj = new MatchTeamPlayer();
 
         // Test setting to null (disassociate from MatchTeam)
-        $obj->setTeam(NULL);
+        $obj->setTeam(null);
         $this->assertNull($obj->getTeam());
     }
 
@@ -63,7 +63,7 @@ class MatchTeamPlayerTest extends \PHPUnit_Framework_TestCase
         $obj = new MatchTeamPlayer();
 
         // Test setting to null (disassociate from the account)
-        $obj->setPlayer(NULL);
+        $obj->setPlayer(null);
         $this->assertNull($obj->getPlayer());
     }
 
@@ -146,7 +146,7 @@ class MatchTeamPlayerTest extends \PHPUnit_Framework_TestCase
             [ 'R7', true ],
             [ 'R8', true ],
             [ 'XX', false ],
-            [ NULL, false ],
+            [ null, false ],
         ];
     }
 
@@ -173,7 +173,7 @@ class MatchTeamPlayerTest extends \PHPUnit_Framework_TestCase
             [ false, false ],
             [ 1, true ],
             [ 0, false ],
-            [ NULL, false ],
+            [ null, false ],
         ];
     }
 }

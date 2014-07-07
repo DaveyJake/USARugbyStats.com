@@ -42,7 +42,7 @@ class MatchSignatureTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('PHPUnit_Framework_Error');
 
         $obj = new MatchSignature();
-        $obj->setTimestamp(NULL);
+        $obj->setTimestamp(null);
     }
 
     public function testGetSetMatch()
@@ -61,7 +61,7 @@ class MatchSignatureTest extends \PHPUnit_Framework_TestCase
         $obj = new MatchSignature();
 
         // Test setting to null (disassociate from match)
-        $obj->setMatch(NULL);
+        $obj->setMatch(null);
         $this->assertNull($obj->getMatch());
     }
 
@@ -81,7 +81,7 @@ class MatchSignatureTest extends \PHPUnit_Framework_TestCase
         $obj = new MatchSignature();
 
         // Test setting to null (disassociate from team)
-        $obj->setAccount(NULL);
+        $obj->setAccount(null);
         $this->assertNull($obj->getAccount());
     }
 
@@ -106,7 +106,7 @@ class MatchSignatureTest extends \PHPUnit_Framework_TestCase
      */
     public function providerGetSetType()
     {
-        return [ ['HC',true], ['AC',true], ['REF',true], ['NR4',true], ['X',false], [NULL,false] ];
+        return [ ['HC',true], ['AC',true], ['REF',true], ['NR4',true], ['X',false], [null,false] ];
     }
 
 }

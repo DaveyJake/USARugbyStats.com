@@ -28,7 +28,7 @@ class SubEventTest extends MatchTeamEventTest
     {
         $this->setExpectedException('PHPUnit_Framework_Error');
         $obj = new $this->entityClass();
-        $obj->setPlayerOn(NULL);
+        $obj->setPlayerOn(null);
     }
 
     public function testGetSetPlayerOff()
@@ -45,7 +45,7 @@ class SubEventTest extends MatchTeamEventTest
     {
         $this->setExpectedException('PHPUnit_Framework_Error');
         $obj = new $this->entityClass();
-        $obj->setPlayerOff(NULL);
+        $obj->setPlayerOff(null);
     }
 
     /**
@@ -69,6 +69,6 @@ class SubEventTest extends MatchTeamEventTest
      */
     public function providerGetSetType()
     {
-        return [ ['BL',true], ['IJ',true], ['FRC',true], ['TC',true], ['X',false], [NULL,false] ];
+        return [ ['BL',true], ['IJ',true], ['FRC',true], ['TC',true], ['X',false], [null,false] ];
     }
 }

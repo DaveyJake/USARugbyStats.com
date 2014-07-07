@@ -76,7 +76,7 @@ class TeamMembership
      * @param  Team $u
      * @return self
      */
-    public function setTeam(Team $u = NULL)
+    public function setTeam(Team $u = null)
     {
         $this->team = $u;
 
@@ -99,7 +99,7 @@ class TeamMembership
      * @param  Competition $u
      * @return self
      */
-    public function setCompetition(Competition $u = NULL)
+    public function setCompetition(Competition $u = null)
     {
         $this->competition = $u;
 
@@ -122,10 +122,10 @@ class TeamMembership
      * @param  Division $u
      * @return self
      */
-    public function setDivision(Division $u = NULL)
+    public function setDivision(Division $u = null)
     {
         $this->division = $u;
-        $this->setCompetition(is_null($u) ? NULL : $u->getCompetition());
+        $this->setCompetition(is_null($u) ? null : $u->getCompetition());
 
         return $this;
     }

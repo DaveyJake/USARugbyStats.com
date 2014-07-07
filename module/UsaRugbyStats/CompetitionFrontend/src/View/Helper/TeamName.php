@@ -12,7 +12,7 @@ class TeamName extends AbstractHelper
 
     public function __invoke($obj)
     {
-        $team = NULL;
+        $team = null;
         if ($obj instanceof Team) {
             $team = $obj;
         } elseif ($obj instanceof MatchTeam) {

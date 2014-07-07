@@ -215,7 +215,7 @@ class Location
      */
     public function removeMatch(Match $match)
     {
-        $match->setLocation(NULL);
+        $match->setLocation(null);
         $this->matches->removeElement($match);
 
         return $this;

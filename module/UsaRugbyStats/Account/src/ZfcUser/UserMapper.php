@@ -12,6 +12,7 @@ class UserMapper extends ZfcUserDoctrineORMMapper
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('repository' => $er));
         $resultset = $er->findAll();
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('resultset' => &$resultset));
+
         return $resultset;
     }
 

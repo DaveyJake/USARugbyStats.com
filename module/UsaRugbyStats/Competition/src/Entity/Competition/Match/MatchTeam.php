@@ -103,7 +103,7 @@ class MatchTeam
      * @param  Team $u
      * @return self
      */
-    public function setTeam(Team $u = NULL)
+    public function setTeam(Team $u = null)
     {
         $this->team = $u;
 
@@ -126,7 +126,7 @@ class MatchTeam
      * @param  Match $m
      * @return self
      */
-    public function setMatch(Match $m = NULL)
+    public function setMatch(Match $m = null)
     {
         $this->match = $m;
 
@@ -240,7 +240,7 @@ class MatchTeam
      */
     public function removePlayer(MatchTeamPlayer $p)
     {
-        $p->setTeam(NULL);
+        $p->setTeam(null);
         $this->players->removeElement($p);
 
         return $this;
@@ -350,8 +350,8 @@ class MatchTeam
             return $this;
         }
 
-        $p->setMatch(NULL);
-        $p->setTeam(NULL);
+        $p->setMatch(null);
+        $p->setTeam(null);
         $this->events->removeElement($p);
 
         // Keep the MatchTeamEvent collections in

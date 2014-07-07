@@ -14,8 +14,8 @@ return array(
         ),
     ),
     'view_helpers' => array(
-    	'factories' => array(
-    	    'ursProfilePersonalStatsGraph' => 'UsaRugbyStats\AccountProfile\PersonalStats\ViewHelper\UserTimeseriesChartFactory',
+        'factories' => array(
+            'ursProfilePersonalStatsGraph' => 'UsaRugbyStats\AccountProfile\PersonalStats\ViewHelper\UserTimeseriesChartFactory',
         ),
     ),
 

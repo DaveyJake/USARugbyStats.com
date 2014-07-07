@@ -157,7 +157,7 @@ class UnionTest extends \PHPUnit_Framework_TestCase
         $obj = new Union();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldReceive('setUnion')->withArgs([NULL])->once()->andReturnSelf();
+        $team0->shouldReceive('setUnion')->withArgs([null])->once()->andReturnSelf();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
         $team1->shouldReceive('setUnion')->never();
 
@@ -181,11 +181,11 @@ class UnionTest extends \PHPUnit_Framework_TestCase
         $obj = new Union();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldReceive('setUnion')->withArgs([NULL])->once()->andReturnSelf();
+        $team0->shouldReceive('setUnion')->withArgs([null])->once()->andReturnSelf();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
         $team1->shouldReceive('setUnion')->never();
         $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team2->shouldReceive('setUnion')->withArgs([NULL])->once()->andReturnSelf();
+        $team2->shouldReceive('setUnion')->withArgs([null])->once()->andReturnSelf();
 
         // Add one to the existing collection
         $collection = $obj->getTeams();

@@ -14,7 +14,7 @@ class RoleAssignmentTest extends ServiceManagerTestCase
         $obj->setId(12345);
         $this->assertEquals(12345, $obj->getId());
 
-        $obj->setId(NULL);
+        $obj->setId(null);
         $this->assertNull($obj->getId());
     }
 
@@ -32,7 +32,7 @@ class RoleAssignmentTest extends ServiceManagerTestCase
     public function testAccountCanBeSetToNull()
     {
         $obj = new RoleAssignmentTestEntity();
-        $obj->setAccount(NULL);
+        $obj->setAccount(null);
         $this->assertNull($obj->getAccount());
     }
 
@@ -50,7 +50,7 @@ class RoleAssignmentTest extends ServiceManagerTestCase
     public function testRoleCanBeSetToNull()
     {
         $obj = new RoleAssignmentTestEntity();
-        $obj->setRole(NULL);
+        $obj->setRole(null);
         $this->assertNull($obj->getRole());
     }
 }

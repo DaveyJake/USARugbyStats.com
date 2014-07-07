@@ -20,7 +20,7 @@ class UserTimeseriesChart extends AbstractHelper
     public function __invoke(AccountInterface $acct)
     {
         return $this->getView()->render('usa-rugby-stats/account-profile/personal-stats/user-timeseries-chart', [
-	        'timeseries' => $this->extensionService->getTimeseriesForUser($acct),
+            'timeseries' => $this->extensionService->getTimeseriesForUser($acct),
         ]);
     }
 

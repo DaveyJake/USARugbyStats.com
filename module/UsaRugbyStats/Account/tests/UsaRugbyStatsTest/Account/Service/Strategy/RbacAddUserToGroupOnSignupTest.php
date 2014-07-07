@@ -24,7 +24,7 @@ class RbacAddUserToGroupOnSignupTest extends ServiceManagerTestCase
         $target = Mockery::mock('ZfcUser\Service\User');
         $target->shouldReceive('getUserMapper->update')->withArgs([$user])->once()->andReturnNull();
 
-        $e = new Event(NULL, $target, ['user' => $user]);
+        $e = new Event(null, $target, ['user' => $user]);
 
         $obj = new RbacAddUserToGroupOnSignup($om);
         $obj->setGroups(['member', 'super_admin']);
@@ -52,7 +52,7 @@ class RbacAddUserToGroupOnSignupTest extends ServiceManagerTestCase
         $target = Mockery::mock('ZfcUser\Service\User');
         $target->shouldReceive(Mockery::any())->never();
 
-        $e = new Event(NULL, $target, ['user' => $user]);
+        $e = new Event(null, $target, ['user' => $user]);
 
         $obj = new RbacAddUserToGroupOnSignup($om);
         $obj->setGroups(['foo']);

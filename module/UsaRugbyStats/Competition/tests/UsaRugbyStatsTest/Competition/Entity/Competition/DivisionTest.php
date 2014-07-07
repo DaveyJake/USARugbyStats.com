@@ -63,7 +63,7 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($comp, $obj->getCompetition());
 
         // Test setting to null (disassociate from competition)
-        $obj->setCompetition(NULL);
+        $obj->setCompetition(null);
         $this->assertNull($obj->getCompetition());
     }
 
@@ -73,7 +73,7 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
 
         $team = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
         $team->shouldReceive('setCompetition')->once()->withArgs([$comp]);
-        $team->shouldReceive('setCompetition')->once()->withArgs([NULL]);
+        $team->shouldReceive('setCompetition')->once()->withArgs([null]);
 
         $obj = new Division();
         $obj->getTeamMemberships()->add($team);
@@ -83,7 +83,7 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($comp, $obj->getCompetition());
 
         // Test setting to null (disassociate from competition)
-        $obj->setCompetition(NULL);
+        $obj->setCompetition(null);
         $this->assertNull($obj->getCompetition());
     }
 
@@ -207,8 +207,8 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
         $obj = new Division();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
-        $team0->shouldReceive('setDivision')->withArgs([NULL])->once()->andReturnSelf();
-        $team0->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
+        $team0->shouldReceive('setDivision')->withArgs([null])->once()->andReturnSelf();
+        $team0->shouldReceive('setCompetition')->withArgs([null])->once()->andReturnSelf();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
         $team1->shouldReceive('setDivision')->never();
         $team1->shouldReceive('setCompetition')->never();
@@ -233,14 +233,14 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
         $obj = new Division();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
-        $team0->shouldReceive('setDivision')->withArgs([NULL])->once()->andReturnSelf();
-        $team0->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
+        $team0->shouldReceive('setDivision')->withArgs([null])->once()->andReturnSelf();
+        $team0->shouldReceive('setCompetition')->withArgs([null])->once()->andReturnSelf();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
         $team1->shouldReceive('setDivision')->never();
         $team1->shouldReceive('setCompetition')->never();
         $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
-        $team2->shouldReceive('setDivision')->withArgs([NULL])->once()->andReturnSelf();
-        $team2->shouldReceive('setCompetition')->withArgs([NULL])->once()->andReturnSelf();
+        $team2->shouldReceive('setDivision')->withArgs([null])->once()->andReturnSelf();
+        $team2->shouldReceive('setCompetition')->withArgs([null])->once()->andReturnSelf();
 
         // Add one to the existing collection
         $collection = $obj->getTeamMemberships();

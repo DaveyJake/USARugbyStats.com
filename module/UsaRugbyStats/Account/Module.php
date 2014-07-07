@@ -55,7 +55,7 @@ class Module
             $router = $e->getRouter();
             foreach ($parts as $part) {
                 if ( ! $router->hasRoute($part) ) {
-                    $router = NULL;
+                    $router = null;
                     break;
                 }
                 $router = $router->getRoute($part);

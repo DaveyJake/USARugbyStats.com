@@ -154,7 +154,7 @@ class Union
      */
     public function removeTeam(Team $ra)
     {
-        $ra->setUnion(NULL);
+        $ra->setUnion(null);
         $this->teams->removeElement($ra);
 
         return $this;

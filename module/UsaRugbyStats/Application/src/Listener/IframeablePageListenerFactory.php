@@ -20,7 +20,7 @@ class IframeablePageListenerFactory implements FactoryInterface
             : array();
         $iframeLayout = isset($config['usarugbystats']['application']['iframeable']['layout'])
             ? $config['usarugbystats']['application']['iframeable']['layout']
-            : NULL;
+            : null;
 
         return new IframeablePageListener($iframeablePages, $iframeLayout);
     }

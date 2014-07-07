@@ -85,7 +85,7 @@ class MatchSignature
      * @param  Account $u
      * @return self
      */
-    public function setAccount(Account $u = NULL)
+    public function setAccount(Account $u = null)
     {
         $this->account = $u;
 
@@ -108,7 +108,7 @@ class MatchSignature
      * @param  Match $m
      * @return self
      */
-    public function setMatch(Match $m = NULL)
+    public function setMatch(Match $m = null)
     {
         $this->match = $m;
 

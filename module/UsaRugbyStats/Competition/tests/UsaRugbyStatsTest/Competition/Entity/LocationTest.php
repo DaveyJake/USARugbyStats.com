@@ -174,7 +174,7 @@ class LocationTest extends \PHPUnit_Framework_TestCase
         $obj = new Location();
 
         $comp0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
-        $comp0->shouldReceive('setLocation')->withArgs([NULL])->andReturnSelf();
+        $comp0->shouldReceive('setLocation')->withArgs([null])->andReturnSelf();
         $comp1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
         $comp1->shouldReceive('setLocation')->never();
 
@@ -198,11 +198,11 @@ class LocationTest extends \PHPUnit_Framework_TestCase
         $obj = new Location();
 
         $comp0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
-        $comp0->shouldReceive('setLocation')->withArgs([NULL])->andReturnSelf();
+        $comp0->shouldReceive('setLocation')->withArgs([null])->andReturnSelf();
         $comp1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
         $comp1->shouldReceive('setLocation')->never();
         $comp2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match');
-        $comp2->shouldReceive('setLocation')->withArgs([NULL])->andReturnSelf();
+        $comp2->shouldReceive('setLocation')->withArgs([null])->andReturnSelf();
 
         // Add one to the existing collection
         $collection = $obj->getMatches();

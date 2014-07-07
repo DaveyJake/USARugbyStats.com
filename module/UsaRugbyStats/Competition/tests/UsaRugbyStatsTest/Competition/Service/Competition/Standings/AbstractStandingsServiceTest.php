@@ -34,7 +34,7 @@ abstract class AbstractStandingsServiceTest extends \PHPUnit_Framework_TestCase
         $this->competition = new Competition();
     }
 
-    public function generateRandomTeam($id, $name = NULL)
+    public function generateRandomTeam($id, $name = null)
     {
         $t = new Team();
         $t->setId($id);

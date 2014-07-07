@@ -28,7 +28,7 @@ class CardEventTest extends MatchTeamEventTest
     {
         $this->setExpectedException('PHPUnit_Framework_Error');
         $obj = new $this->entityClass();
-        $obj->setPlayer(NULL);
+        $obj->setPlayer(null);
     }
 
     /**
@@ -52,6 +52,6 @@ class CardEventTest extends MatchTeamEventTest
      */
     public function providerGetSetType()
     {
-        return [ ['R',true], ['Y',true], ['X',false], [NULL,false] ];
+        return [ ['R',true], ['Y',true], ['X',false], [null,false] ];
     }
 }

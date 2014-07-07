@@ -26,7 +26,7 @@ class PermissionTest extends ServiceManagerTestCase
         $obj->setId(12345);
         $this->assertEquals(12345, $obj->getId());
 
-        $obj->setId(NULL);
+        $obj->setId(null);
         $this->assertNull($obj->getId());
     }
 
@@ -38,7 +38,7 @@ class PermissionTest extends ServiceManagerTestCase
         $obj->setName('foobar');
         $this->assertEquals('foobar', $obj->getName());
 
-        $obj->setName(NULL);
+        $obj->setName(null);
         $this->assertNull($obj->getName());
     }
 

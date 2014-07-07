@@ -38,7 +38,7 @@ class TeamMembershipTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($comp, $obj->getCompetition());
 
         // Test setting to null (disassociate from competition)
-        $obj->setCompetition(NULL);
+        $obj->setCompetition(null);
         $this->assertNull($obj->getCompetition());
     }
 
@@ -53,7 +53,7 @@ class TeamMembershipTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($comp, $obj->getTeam());
 
         // Test setting to null (disassociate from team)
-        $obj->setTeam(NULL);
+        $obj->setTeam(null);
         $this->assertNull($obj->getTeam());
     }
 
@@ -69,7 +69,7 @@ class TeamMembershipTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($div, $obj->getDivision());
 
         // Test setting to null (disassociate from division)
-        $obj->setDivision(NULL);
+        $obj->setDivision(null);
         $this->assertNull($obj->getDivision());
     }
 }

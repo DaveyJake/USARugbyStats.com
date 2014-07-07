@@ -8,7 +8,7 @@ class Permission implements PermissionInterface
     protected $id;
     protected $name;
 
-    public function __construct($name = NULL)
+    public function __construct($name = null)
     {
         $this->setName($name);
     }

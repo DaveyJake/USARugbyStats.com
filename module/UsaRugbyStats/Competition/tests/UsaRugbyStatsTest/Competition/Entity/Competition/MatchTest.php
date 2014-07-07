@@ -75,7 +75,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($comp, $obj->getCompetition());
 
         // Test setting to null (disassociate from competition)
-        $obj->setCompetition(NULL);
+        $obj->setCompetition(null);
         $this->assertNull($obj->getCompetition());
     }
 
@@ -91,7 +91,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
     public function testLocationIsNullable()
     {
         $obj = new Match();
-        $obj->setLocation(NULL);
+        $obj->setLocation(null);
 
         $this->assertNull($obj->getLocation());
     }
@@ -115,7 +115,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('PHPUnit_Framework_Error');
 
         $obj = new Match();
-        $obj->setHomeTeam(NULL);
+        $obj->setHomeTeam(null);
     }
 
     public function testGetSetAwayTeam()
@@ -137,7 +137,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('PHPUnit_Framework_Error');
 
         $obj = new Match();
-        $obj->setAwayTeam(NULL);
+        $obj->setAwayTeam(null);
     }
 
     public function testGetSetDate()
@@ -163,7 +163,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('PHPUnit_Framework_Error');
 
         $obj = new Match();
-        $obj->setDate(NULL);
+        $obj->setDate(null);
     }
 
     /**
@@ -195,7 +195,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
             [ 'AF', true ],
             [ 'C', true ],
             [ 'XX', false ],
-            [ NULL, false ],
+            [ null, false ],
         ];
     }
 
@@ -342,7 +342,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $obj = new Match();
 
         $sig0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature');
-        $sig0->shouldReceive('setMatch')->withArgs([NULL])->once()->andReturnSelf();
+        $sig0->shouldReceive('setMatch')->withArgs([null])->once()->andReturnSelf();
         $sig1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature');
         $sig1->shouldReceive('setMatch')->never();
 
@@ -366,11 +366,11 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $obj = new Match();
 
         $sig0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature');
-        $sig0->shouldReceive('setMatch')->withArgs([NULL])->once()->andReturnSelf();
+        $sig0->shouldReceive('setMatch')->withArgs([null])->once()->andReturnSelf();
         $sig1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature');
         $sig1->shouldReceive('setMatch')->never();
         $sig2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature');
-        $sig2->shouldReceive('setMatch')->withArgs([NULL])->once()->andReturnSelf();
+        $sig2->shouldReceive('setMatch')->withArgs([null])->once()->andReturnSelf();
 
         // Add one to the existing collection
         $collection = $obj->getSignatures();
@@ -516,7 +516,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $obj = new Match();
 
         $event0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
-        $event0->shouldReceive('setMatch')->withArgs([NULL])->once()->andReturnSelf();
+        $event0->shouldReceive('setMatch')->withArgs([null])->once()->andReturnSelf();
         $event0->shouldReceive('getTeam')->andReturnNull();
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setMatch')->never();
@@ -541,12 +541,12 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $obj = new Match();
 
         $event0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
-        $event0->shouldReceive('setMatch')->withArgs([NULL])->once()->andReturnSelf();
+        $event0->shouldReceive('setMatch')->withArgs([null])->once()->andReturnSelf();
         $event0->shouldReceive('getTeam')->andReturnNull();
         $event1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
         $event1->shouldReceive('setMatch')->never();
         $event2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent');
-        $event2->shouldReceive('setMatch')->withArgs([NULL])->once()->andReturnSelf();
+        $event2->shouldReceive('setMatch')->withArgs([null])->once()->andReturnSelf();
         $event2->shouldReceive('getTeam')->andReturnNull();
 
         // Add one to the existing collection

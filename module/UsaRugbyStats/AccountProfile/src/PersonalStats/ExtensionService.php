@@ -29,7 +29,7 @@ class ExtensionService extends AbstractService
 
         array_filter(
             $svc->getRevisionEntities($class),
-            function ( RevisionEntity $re ) use ($user, $svc, &$entries) {
+            function (RevisionEntity $re) use ($user, $svc, &$entries) {
                 $entity = $re->getAuditEntity();
                 $entityValues = $svc->getEntityValues($entity);
                 if ( $entityValues['account'] != $user->getId() ) {
@@ -45,11 +45,12 @@ class ExtensionService extends AbstractService
             }
         );
 
-        uasort($entries, function($a,$b) {
+        uasort($entries, function ($a,$b) {
             return $a['modified_on'] > $b['modified_on'] ? 1 : -1;
         });
 
         $this->temporaryCache[$user->getId()] = $entries;
+
         return $entries;
     }
 

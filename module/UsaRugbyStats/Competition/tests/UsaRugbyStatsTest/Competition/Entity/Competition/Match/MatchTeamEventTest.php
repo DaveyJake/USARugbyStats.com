@@ -47,7 +47,7 @@ abstract class MatchTeamEventTest extends \PHPUnit_Framework_TestCase
         $obj = new $this->entityClass();
 
         // Test setting to null (disassociate from MatchTeam)
-        $obj->setTeam(NULL);
+        $obj->setTeam(null);
         $this->assertNull($obj->getTeam());
     }
 
@@ -67,7 +67,7 @@ abstract class MatchTeamEventTest extends \PHPUnit_Framework_TestCase
         $obj = new $this->entityClass();
 
         // Test setting to null (disassociate from Match)
-        $obj->setMatch(NULL);
+        $obj->setMatch(null);
         $this->assertNull($obj->getMatch());
     }
 }

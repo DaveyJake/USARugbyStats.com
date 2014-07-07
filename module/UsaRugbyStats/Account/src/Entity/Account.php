@@ -115,7 +115,7 @@ class Account extends BaseAccount implements UserInterface, AccountRbacInterface
     public function removeRoleAssignment(RoleAssignment $ra)
     {
         $this->roleCache = array();
-        $ra->setAccount(NULL);
+        $ra->setAccount(null);
         $this->roleAssignments->removeElement($ra);
 
         return $this;

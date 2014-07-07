@@ -108,7 +108,7 @@ class Team
      * @param  Union $u
      * @return self
      */
-    public function setUnion(Union $u = NULL)
+    public function setUnion(Union $u = null)
     {
         $this->union = $u;
 
@@ -185,7 +185,7 @@ class Team
      */
     public function removeTeamMembership(TeamMembership $comp)
     {
-        $comp->setTeam(NULL);
+        $comp->setTeam(null);
         $this->teamMemberships->removeElement($comp);
 
         return $this;

@@ -56,7 +56,7 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($union, $obj->getUnion());
 
         // Test setting to null (disassociate from union)
-        $obj->setUnion(NULL);
+        $obj->setUnion(null);
         $this->assertNull($obj->getUnion());
     }
 
@@ -152,7 +152,7 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $obj = new Team();
 
         $comp0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
-        $comp0->shouldReceive('setTeam')->withArgs([NULL])->andReturnSelf();
+        $comp0->shouldReceive('setTeam')->withArgs([null])->andReturnSelf();
         $comp1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
         $comp1->shouldReceive('setTeam')->never();
 
@@ -176,11 +176,11 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $obj = new Team();
 
         $comp0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
-        $comp0->shouldReceive('setTeam')->withArgs([NULL])->andReturnSelf();
+        $comp0->shouldReceive('setTeam')->withArgs([null])->andReturnSelf();
         $comp1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
         $comp1->shouldReceive('setTeam')->never();
         $comp2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
-        $comp2->shouldReceive('setTeam')->withArgs([NULL])->andReturnSelf();
+        $comp2->shouldReceive('setTeam')->withArgs([null])->andReturnSelf();
 
         // Add one to the existing collection
         $collection = $obj->getTeamMemberships();

@@ -32,7 +32,7 @@ class ExtensionEntity
         return $this->account;
     }
 
-    public function setAccount($account = NULL)
+    public function setAccount($account = null)
     {
         $this->account = $account;
 

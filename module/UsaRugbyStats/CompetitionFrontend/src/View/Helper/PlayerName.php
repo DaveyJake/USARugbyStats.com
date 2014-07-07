@@ -9,7 +9,7 @@ class PlayerName extends AbstractHelper
 {
     public function __invoke($obj)
     {
-        $player = NULL;
+        $player = null;
         if ($obj instanceof AccountInterface) {
             $player = $obj;
         } elseif ($obj instanceof MatchTeamPlayer) {

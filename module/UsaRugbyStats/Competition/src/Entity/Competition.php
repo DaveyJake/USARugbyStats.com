@@ -342,7 +342,7 @@ class Competition
      */
     public function removeTeamMembership(TeamMembership $obj)
     {
-        $obj->setCompetition(NULL);
+        $obj->setCompetition(null);
         $this->teamMemberships->removeElement($obj);
 
         return $this;

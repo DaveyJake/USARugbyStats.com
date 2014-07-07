@@ -198,7 +198,7 @@ class FeatureContext extends MinkContext
             $session->getSelectorsHandler()->selectorToXpath('css', $arg1)
         );
         if ( is_null($element) ) {
-            throw new ElementNotFoundException($session, NULL, $arg1);
+            throw new ElementNotFoundException($session, null, $arg1);
         }
         $element->click();
     }
@@ -222,7 +222,7 @@ class FeatureContext extends MinkContext
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, 'https://api.imgur.com/3/upload');
             curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, array('image' => base64_encode($this->getSession()->getDriver()->getScreenshot())));
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Client-ID ' . getenv('IMGUR_CLIENT_ID')));
             $result = curl_exec($ch);

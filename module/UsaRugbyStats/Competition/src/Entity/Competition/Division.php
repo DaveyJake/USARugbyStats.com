@@ -109,7 +109,7 @@ class Division
      * @param  Competition $u
      * @return self
      */
-    public function setCompetition(Competition $u = NULL)
+    public function setCompetition(Competition $u = null)
     {
         $this->competition = $u;
 
@@ -197,8 +197,8 @@ class Division
      */
     public function removeTeamMembership(TeamMembership $obj)
     {
-        $obj->setDivision(NULL);
-        $obj->setCompetition(NULL);
+        $obj->setDivision(null);
+        $obj->setCompetition(null);
         $this->teamMemberships->removeElement($obj);
 
         if ( $this->getCompetition() ) {

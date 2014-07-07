@@ -181,7 +181,7 @@ class Match
      * @param  Competition $u
      * @return self
      */
-    public function setCompetition(Competition $u = NULL)
+    public function setCompetition(Competition $u = null)
     {
         $this->competition = $u;
 
@@ -204,7 +204,7 @@ class Match
      * @param  Location $obj
      * @return self
      */
-    public function setLocation(Location $obj = NULL)
+    public function setLocation(Location $obj = null)
     {
         $this->location = $obj;
 
@@ -365,7 +365,7 @@ class Match
      */
     public function removeTeam(MatchTeam $obj)
     {
-        $obj->setMatch(NULL);
+        $obj->setMatch(null);
         $this->teams->remove($obj->getType());
 
         return $this;
@@ -555,7 +555,7 @@ class Match
      */
     public function removeSignature(MatchSignature $obj)
     {
-        $obj->setMatch(NULL);
+        $obj->setMatch(null);
         $this->signatures->removeElement($obj);
 
         return $this;
@@ -668,7 +668,7 @@ class Match
             return $this;
         }
 
-        $ra->setMatch(NULL);
+        $ra->setMatch(null);
         $this->events->removeElement($ra);
 
         // Keep the MatchTeamEvent collections in

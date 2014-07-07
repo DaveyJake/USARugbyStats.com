@@ -34,7 +34,7 @@ class TeamMembershipFieldset extends Fieldset
 
     }
 
-    public function getTeam($teamid = NULL)
+    public function getTeam($teamid = null)
     {
         if (empty($teamid)) {
             $teamid = $this->get('team')->getValue();
