@@ -7,63 +7,34 @@
         {
             "type": "vcs",
             "url": "https://github.com/adamlundrigan/ZfcUserAdmin.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/adamlundrigan/LdcUserProfile.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/Gounlaf/GoalioForgotPasswordDoctrineORM.git"
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "sebastianbergmann/phpcov",
-                "version": "1.1.0",
-                "dist": {
-                    "url": "https://github.com/sebastianbergmann/phpcov/archive/1.1.0.zip",
-                    "type": "zip"
-                },
-                "source": {
-                    "url": "https://github.com/sebastianbergmann/phpcov.git",
-                    "type": "git",
-                    "reference": "1.1.0"
-                },
-                "bin": [
-                    "phpcov.php"
-                ]
-            }
         }
     ],
     "require": {
-        "zendframework/zendframework": "dev-master",
+        "zendframework/zendframework": "2.3.*",
         "zf-commons/zfc-user": "1.*",
-        "zf-commons/zfc-user-doctrine-orm": "0.*",
+        "zf-commons/zfc-user-doctrine-orm": "1.*",
         "zf-commons/zfc-rbac": "2.*",
-        "ocramius/proxy-manager": "0.5.*",
-        "hounddog/doctrine-data-fixture-module": "dev-master",
+        "ocramius/proxy-manager": "0.*",
+        "hounddog/doctrine-data-fixture-module": "0.*",
         "danielss89/zfc-user-admin": "dev-rewrite as dev-master@dev",
         "rhumsaa/array_column": "~1.1",
-        "soliantconsulting/entity-audit": "dev-master",
-        "goalio/goalio-forgotpassword": "dev-master",
-        "goalio/goalio-forgotpassword-doctrine-orm": "dev-master#15fc8d969f51871001be29d1d9ec50dd30d3f3ef",
-        "goalio/goalio-passwordmanagement": "dev-master",
+        "soliantconsulting/entity-audit": "dev-master@dev",
+        "goalio/goalio-forgotpassword": "1.*@stable",
+        "goalio/goalio-forgotpassword-doctrine-orm": "1.*@stable",
         "adamlundrigan/ldc-zend-form-cti": "0.*@stable",
         "adamlundrigan/ldc-user-profile": "1.*@stable"
     },
     "require-dev": {
-        "fabpot/Goutte": "dev-master",
+        "fabpot/Goutte": "dev-master@dev",
         "behat/behat": "2.*@stable",
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
-        "phpunit/phpunit": "3.*",
+        "phpunit/phpunit": "4.*",
         "mockery/mockery": "0.*",
         "fabpot/php-cs-fixer": "*@dev",
         "nelmio/alice": "@stable"
     },
-    "minimum-stability": "dev",
     "config": {
         "bin-dir": "bin"
     }
