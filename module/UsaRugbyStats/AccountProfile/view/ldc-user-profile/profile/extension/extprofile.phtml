@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Membership Details</h3>
+  </div>
+  <div class="panel-body">
+
+    <div class="row form-group">
+        <?php $element = $fieldset->get('firstName'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+        <?php $element->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($element) ?>
+        <div class="col-sm-8">
+            <?php echo $this->formElement($element); ?>
+            <?php echo $this->formElementErrors($element) ?>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <?php $element = $fieldset->get('lastName'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+        <?php $element->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($element) ?>
+        <div class="col-sm-8">
+            <?php echo $this->formElement($element); ?>
+            <?php echo $this->formElementErrors($element) ?>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <?php $element = $fieldset->get('telephoneNumber'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+        <?php $element->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($element) ?>
+        <div class="col-sm-8">
+            <?php echo $this->formElement($element); ?>
+            <?php echo $this->formElementErrors($element) ?>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <?php $element = $fieldset->get('membershipStatus'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+
+        <?php echo $this->formLabel($element) ?>
+        <div class="col-sm-8">
+            <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue() == '1' ? 'Current' : ( $element->getValue() == '0' ? 'Not Current' : 'Unknown')); ?></p>
+            <?php echo $this->formElementErrors($element) ?>
+        </div>
+    </div>
+
+  </div>
+</div>

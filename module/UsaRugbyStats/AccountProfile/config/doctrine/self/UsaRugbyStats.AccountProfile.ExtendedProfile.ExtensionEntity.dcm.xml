@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionEntity" table="account_extprofile">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <unique-constraints>
+            <unique-constraint columns="account_id" name="one_record_per_user" />
+        </unique-constraints>
+
+        <many-to-one field="account" target-entity="UsaRugbyStats\Application\Entity\AccountInterface">
+            <join-column name="account_id" referenced-column-name="user_id" />
+        </many-to-one>
+
+        <field name="firstName" column="first_name" type="string" length="128" />
+        <field name="lastName" column="last_name" type="string" length="128" />
+        <field name="telephoneNumber" column="telephone" type="string" length="25" />
+        <field name="membershipStatus" column="membership_status" type="boolean" nullable="true" />
+
+    </entity>
+
+</doctrine-mapping>

@@ -8,9 +8,9 @@ class Module
     public function onBootstrap(MvcEvent $e)
     {
         $sm = $e->getApplication()->getServiceManager();
-        $sm->get('ldc-user-profile_service')->registerExtension(
-            $sm->get('usarugbystats-accountprofile_personalstats_extension')
-        );
+        $sm->get('ldc-user-profile_service')
+            ->registerExtension($sm->get('usarugbystats-accountprofile_personalstats_extension'))
+            ->registerExtension($sm->get('usarugbystats-accountprofile_extprofile_extension'));
     }
 
     public function getConfig()

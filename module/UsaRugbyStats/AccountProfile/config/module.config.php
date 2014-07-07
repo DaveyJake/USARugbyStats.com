@@ -5,12 +5,19 @@ return array(
         'factories' => array(
             'usarugbystats-accountprofile_personalstats_extension' => 'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionFactory',
             'usarugbystats-accountprofile_personalstats_extension_service' => 'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionServiceFactory',
+
+            'usarugbystats-accountprofile_extprofile_extension' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionFactory',
+            'usarugbystats-accountprofile_extprofile_extension_service' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionServiceFactory',
         ),
     ),
     'view_manager' => array(
         'template_map' => array(
+            'ldc-user-profile/profile/index' => __DIR__ . '/../view/ldc-user-profile/profile/index.phtml',
+
             'ldc-user-profile/profile/extension/personalstats' => __DIR__ . '/../view/ldc-user-profile/profile/extension/personalstats.phtml',
             'usa-rugby-stats/account-profile/personal-stats/user-timeseries-chart' => __DIR__ . '/../view/usa-rugby-stats/account-profile/personal-stats/user-timeseries-chart.phtml',
+
+            'ldc-user-profile/profile/extension/extprofile' => __DIR__ . '/../view/ldc-user-profile/profile/extension/extprofile.phtml',
         ),
     ),
     'view_helpers' => array(
@@ -37,6 +44,7 @@ return array(
     'audit' => array(
         'entities' => array(
             'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionEntity' => [],
+            'UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionEntity' => [],
         ),
     ),
 );
