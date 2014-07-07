@@ -33,13 +33,13 @@
                 </div>
             </div>
 
-            <?php $collTeam = $fieldset->get('teamMemberships'); ?>
+            <?php $collAdmins = $fieldset->get('teamMemberships'); ?>
 
             <table class="table table-striped">
                 <tbody style="border:0">
 
                 <?php $teamCount = 0; ?>
-                <?php foreach ( $collTeam->getFieldsets() as $fsTeam ): ?>
+                <?php foreach ( $collAdmins->getFieldsets() as $fsTeam ): ?>
                 <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['index' => $teamCount++, 'fieldset' => $fsTeam]); ?>
                 <?php endforeach; ?>
 

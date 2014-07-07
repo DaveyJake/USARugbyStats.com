@@ -47,16 +47,24 @@ class TeamAdminController extends AbstractActionController
     public function editAction()
     {
         $id = $this->params()->fromRoute('id');
-        $entity = $this->getTeamService()->findByID($id);
-        if (! $entity instanceof Team) {
+        $team = $this->getTeamService()->findByID($id);
+        if (! $team instanceof Team) {
             throw new \RuntimeException('No team with the specified identifier!');
         }
+
+        $entity = new \stdClass();
+        $entity->team = $team;
+        $entity->administrators = $this->getTeamService()->getAdministratorsForTeam($team);
 
         $form = $this->getTeamService()->getUpdateForm();
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getTeamService()->update($entity, $this->getRequest()->getPost()->toArray());
+            $formData = $this->getRequest()->getPost()->toArray();
+            $result = $this->getTeamService()->update($entity->team, $formData);
             if ($result instanceof Team) {
+
+                $this->getTeamService()->processTeamAdministratorsChange($team, $formData['administrators']);
+
                 $this->flashMessenger()->addSuccessMessage('The team was updated successfully!');
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_teamadmin/edit', ['id' => $result->getId()]);
@@ -66,7 +74,7 @@ class TeamAdminController extends AbstractActionController
         }
 
         $vm = new ViewModel();
-        $vm->setVariable('entity', $entity);
+        $vm->setVariable('entity', $team);
         $vm->setVariable('form', $form);
         $vm->setTemplate('usa-rugby-stats/competition-admin/team-admin/edit');
 

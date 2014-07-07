@@ -3,7 +3,7 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin" table="accounts_rbac_roleassignment_team_admin">
+    <entity name="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin" table="accounts_rbac_roleassignment_team_admin" repository-class="UsaRugbyStats\Account\Repository\Rbac\RoleAssignment\TeamAdminRepository">
 
         <many-to-many field="managedTeams" target-entity="UsaRugbyStats\Competition\Entity\Team">
             <join-table name="accounts_rbac_roleassignment_team_admin_managedteams">

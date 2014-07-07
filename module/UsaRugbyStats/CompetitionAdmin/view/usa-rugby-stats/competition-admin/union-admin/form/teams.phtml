@@ -6,12 +6,12 @@
         </div>
     </div>
 
-    <?php $collTeam = $fieldset->get('teams'); ?>
+    <?php $collAdmins = $fieldset->get('teams'); ?>
 
     <table class="table table-striped">
         <tbody style="border:0">
 
-        <?php foreach ( $collTeam->getFieldsets() as $fsTeam ): ?>
+        <?php foreach ( $collAdmins->getFieldsets() as $fsTeam ): ?>
         <?php   echo $this->render('usa-rugby-stats/competition-admin/union-admin/form/teams/team', ['fieldset' => $fsTeam]); ?>
         <?php endforeach; ?>
 
@@ -19,8 +19,8 @@
     </table>
 
     <script type="text/javascript">
-        var managedTeamsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/union-admin/form/teams/team', ['fieldset' => $collTeam->getTemplateElement(), 'isTemplate' => true])); ?>';
-        var managedTeamIndex = <?php echo $this->escapeJs(count($collTeam)); ?>;
+        var managedTeamsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/union-admin/form/teams/team', ['fieldset' => $collAdmins->getTemplateElement(), 'isTemplate' => true])); ?>';
+        var managedTeamIndex = <?php echo $this->escapeJs(count($collAdmins)); ?>;
 
         $(document).on('click', '.union-teams .union-teams-add', function() {
             var html = managedTeamsSelectorTemplate.replace(/__index__/g, managedTeamIndex++);
