@@ -15,8 +15,8 @@ describe 'apache', :type => :class do
       'ensure' => 'installed'
       )
     }
-    it { should contain_user("www-data") }
-    it { should contain_group("www-data") }
+    it { should contain_user("vagrant") }
+    it { should contain_group("vagrant") }
     it { should contain_class("apache::service") }
     it { should contain_file("/etc/apache2/sites-enabled").with(
       'ensure'  => 'directory',
@@ -126,8 +126,8 @@ describe 'apache', :type => :class do
           { :manage_user => false }
         end
 
-        it { should_not contain_user('www-data') }
-        it { should contain_file("/etc/apache2/apache2.conf").with_content %r{^User www-data\n} }
+        it { should_not contain_user('vagrant') }
+        it { should contain_file("/etc/apache2/apache2.conf").with_content %r{^User vagrant\n} }
       end
     end
     describe "Don't create group resource" do
@@ -136,8 +136,8 @@ describe 'apache', :type => :class do
           { :manage_group => false }
         end
 
-        it { should_not contain_group('www-data') }
-        it { should contain_file("/etc/apache2/apache2.conf").with_content %r{^Group www-data\n} }
+        it { should_not contain_group('vagrant') }
+        it { should contain_file("/etc/apache2/apache2.conf").with_content %r{^Group vagrant\n} }
       end
     end
   end

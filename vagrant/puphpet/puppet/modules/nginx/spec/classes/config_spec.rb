@@ -108,9 +108,9 @@ describe 'nginx::config' do
             :operatingsystem => facts[:operatingsystem],
           }
         end
-        it { should contain_file("/var/nginx/client_body_temp").with(:owner => 'www-data')}
-        it { should contain_file("/var/nginx/proxy_temp").with(:owner => 'www-data')}
-        it { should contain_file("/etc/nginx/nginx.conf").with_content %r{^user www-data;}}
+        it { should contain_file("/var/nginx/client_body_temp").with(:owner => 'vagrant')}
+        it { should contain_file("/var/nginx/proxy_temp").with(:owner => 'vagrant')}
+        it { should contain_file("/etc/nginx/nginx.conf").with_content %r{^user vagrant;}}
       end
     end
   end

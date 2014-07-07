@@ -1,6 +1,6 @@
 class puphpet::adminer(
   $location,
-  $owner       = 'www-data',
+  $owner       = 'vagrant',
   $php_package = 'php'
 ) {
 

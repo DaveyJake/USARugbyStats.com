@@ -86,14 +86,14 @@ class nginx::params {
     }
     $nx_daemon_user = $::osfamily ? {
       /(?i-mx:redhat|suse|gentoo|linux)/ => 'nginx',
-      /(?i-mx:debian)/                   => 'www-data',
+      /(?i-mx:debian)/                   => 'vagrant',
       /(?i-mx:solaris)/                  => $solaris_nx_daemon_user,
     }
   } else {
     warning('$::osfamily not defined. Support for $::operatingsystem is deprecated')
     warning("Please upgrade from factor ${::facterversion} to >= 1.7.2")
     $nx_daemon_user = $::operatingsystem ? {
-      /(?i-mx:debian|ubuntu)/                                                                => 'www-data',
+      /(?i-mx:debian|ubuntu)/                                                                => 'vagrant',
       /(?i-mx:fedora|rhel|redhat|centos|scientific|suse|opensuse|amazon|gentoo|oraclelinux)/ => 'nginx',
       /(?i-mx:solaris)/                                                                      => 'webservd',
     }

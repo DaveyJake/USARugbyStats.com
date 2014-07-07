@@ -95,8 +95,8 @@ class apache::params inherits ::apache::version {
     $mime_support_package = 'mailcap'
     $mime_types_config    = '/etc/mime.types'
   } elsif $::osfamily == 'Debian' {
-    $user             = 'www-data'
-    $group            = 'www-data'
+    $user             = 'vagrant'
+    $group            = 'vagrant'
     $root_group       = 'root'
     $apache_name      = 'apache2'
     $service_name     = 'apache2'

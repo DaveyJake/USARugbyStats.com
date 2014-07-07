@@ -115,7 +115,7 @@
 #   source_type              => "zip",
 #   user                     => "root",
 #   deploy_root              => "/var/www",
-#   postdeploy_customcommand => "chown -R www-data /var/www/files",
+#   postdeploy_customcommand => "chown -R vagrant /var/www/files",
 #   postdeploy_user          => "root",
 #   postdeploy_priority      => "41",
 #   report_email             => "sysadmins@example42.com",
