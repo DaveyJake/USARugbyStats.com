@@ -80,11 +80,23 @@ class ExtensionEntity
         return $this->membershipStatus;
     }
 
-    public function setMembershipStatus($tf)
+    public function setMembershipStatus($status)
     {
-        $this->membershipStatus = ($tf == true);
+        if ( ! in_array($status, self::getMembershipStatusValues(), true) ) {
+            throw new \InvalidArgumentException('Invalid membership status!');
+        }
+        $this->membershipStatus = ($status == true);
 
         return $this;
     }
 
+    public static function getMembershipStatusValues()
+    {
+        return array(
+            'C' => 'Current',
+            'NC' => 'Not Current',
+            'P' => 'Pending',
+            'D' => 'Deceased',
+        );
+    }
 }

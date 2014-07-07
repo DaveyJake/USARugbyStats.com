@@ -33,7 +33,7 @@ class ExtensionInputFilter extends InputFilter
         $this->add(array(
             'name'       => 'membershipStatus',
             'required'   => false,
-            'filters'    => array(array('name' => 'Boolean')),
+            'filters'    => array(array('name' => 'Alpha')),
         ));
     }
 }

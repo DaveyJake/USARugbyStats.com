@@ -35,13 +35,10 @@ class ExtensionFieldset extends Fieldset
 
         $this->add(array(
             'name' => 'membershipStatus',
-            'type' => 'Radio',
+            'type' => 'Select',
             'options' => array(
                 'label' => 'Membership Status',
-                'value_options' => array(
-            	    '0' => 'Not Current',
-                    '1' => 'Current',
-                ),
+                'value_options' => ExtensionEntity::getMembershipStatusValues(),
             )
         ));
 

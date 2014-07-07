@@ -46,7 +46,8 @@
 
         <?php echo $this->formLabel($element) ?>
         <div class="col-sm-8">
-            <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue() == '1' ? 'Current' : ( $element->getValue() == '0' ? 'Not Current' : 'Unknown')); ?></p>
+            <?php $acceptableValues = \UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionEntity::getMembershipStatusValues(); ?>
+            <p class="form-control-static"><?php echo $this->escapeHtml(isset($acceptableValues[$element->getValue()]) ? $acceptableValues[$element->getValue()] : 'Unknown'); ?></p>
             <?php echo $this->formElementErrors($element) ?>
         </div>
     </div>
