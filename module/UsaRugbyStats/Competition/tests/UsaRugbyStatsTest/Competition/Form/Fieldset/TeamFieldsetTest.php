@@ -19,6 +19,10 @@ class TeamFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('name'));
         $this->assertTrue($fieldset->has('union'));
+        $this->assertTrue($fieldset->has('website'));
+        $this->assertTrue($fieldset->has('email'));
+        $this->assertTrue($fieldset->has('facebookHandle'));
+        $this->assertTrue($fieldset->has('twitterHandle'));
         $this->assertInstanceOf('DoctrineModule\Form\Element\ObjectSelect', $fieldset->get('union'));
         $this->assertEquals('UsaRugbyStats\Competition\Entity\Union', $fieldset->get('union')->getOption('target_class'));
     }

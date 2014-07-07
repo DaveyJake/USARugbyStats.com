@@ -41,6 +41,37 @@ class TeamFieldset extends Fieldset
             )
         );
 
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'email',
+            'options' => array(
+                'label' => 'Email Address',
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'website',
+            'options' => array(
+                'label' => 'Team Website',
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'facebookHandle',
+            'options' => array(
+                'label' => 'Facebook Handle',
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'twitterHandle',
+            'options' => array(
+                'label' => 'Twitter Handle',
+            ),
+        ));
     }
 
 }

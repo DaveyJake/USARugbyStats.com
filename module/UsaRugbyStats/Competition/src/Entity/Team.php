@@ -30,6 +30,34 @@ class Team
     protected $union;
 
     /**
+     * Email Address of the team
+     *
+     * @var string
+     */
+    protected $email;
+
+    /**
+     * Website Address of the team
+     *
+     * @var string
+     */
+    protected $website;
+
+    /**
+     * Facebook handle of the team
+     *
+     * @var string
+     */
+    protected $facebookHandle;
+
+    /**
+     * Twitter handle of the team
+     *
+     * @var string
+     */
+    protected $twitterHandle;
+
+    /**
      * Team Memberships
      *
      * @var Collection
@@ -111,6 +139,78 @@ class Team
     public function setUnion(Union $u = null)
     {
         $this->union = $u;
+
+        return $this;
+    }
+
+    /**
+     * @return the $email
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return the $website
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setWebsite($url)
+    {
+        $this->website = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return the $facebookHandle
+     */
+    public function getFacebookHandle()
+    {
+        return $this->facebookHandle;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setFacebookHandle($username)
+    {
+        $this->facebookHandle = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return the $twitterHandle
+     */
+    public function getTwitterHandle()
+    {
+        return $this->twitterHandle;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setTwitterHandle($username)
+    {
+        $this->twitterHandle = $username;
 
         return $this;
     }

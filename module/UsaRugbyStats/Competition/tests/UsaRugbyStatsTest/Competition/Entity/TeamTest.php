@@ -24,6 +24,38 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Testing 123', $obj->getName());
     }
 
+    public function testGetSetEmail()
+    {
+        $obj = new Team();
+        $this->assertNull($obj->getEmail());
+        $obj->setEmail('test@test.com');
+        $this->assertEquals('test@test.com', $obj->getEmail());
+    }
+
+    public function testGetSetWebsite()
+    {
+        $obj = new Team();
+        $this->assertNull($obj->getWebsite());
+        $obj->setWebsite('http://www.test.com');
+        $this->assertEquals('http://www.test.com', $obj->getWebsite());
+    }
+
+    public function testGetSetFacebookHandle()
+    {
+        $obj = new Team();
+        $this->assertNull($obj->getFacebookHandle());
+        $obj->setFacebookHandle('testtest');
+        $this->assertEquals('testtest', $obj->getFacebookHandle());
+    }
+
+    public function testGetSetTwitterHandle()
+    {
+        $obj = new Team();
+        $this->assertNull($obj->getTwitterHandle());
+        $obj->setTwitterHandle('testtesttest');
+        $this->assertEquals('testtesttest', $obj->getTwitterHandle());
+    }
+
     public function testCanBeConvertedToString()
     {
         $obj = new Team();

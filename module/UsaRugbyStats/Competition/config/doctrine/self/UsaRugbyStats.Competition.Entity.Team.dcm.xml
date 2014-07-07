@@ -13,6 +13,11 @@
             <join-column name="union_id" referenced-column-name="id" />
         </many-to-one>
 
+        <field name="email" type="string" length="255" nullable="true" />
+        <field name="website" type="string" length="255" nullable="true" />
+        <field name="facebookHandle" type="string" length="100" nullable="true" />
+        <field name="twitterHandle" type="string" length="100" nullable="true" />
+
         <one-to-many field="teamMemberships" target-entity="UsaRugbyStats\Competition\Entity\Competition\TeamMembership" mapped-by="team" orphan-removal="true">
             <cascade>
                 <cascade-all />

@@ -33,5 +33,44 @@ class TeamFilter extends InputFilter
             ),
         ));
 
+        $this->add(array(
+            'name'       => 'email',
+            'required'   => false,
+            'validators' => array(
+                array( 'name' => 'EmailAddress' ),
+            ),
+            'filters'   => array(
+                array('name' => 'StringTrim'),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'website',
+            'required'   => false,
+            'validators' => array(
+                array( 'name' => 'Uri' ),
+            ),
+            'filters'   => array(
+                array('name' => 'StringTrim'),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'facebookHandle',
+            'required'   => false,
+            'validators' => array(),
+            'filters'   => array(
+                array('name' => 'StringTrim'),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'twitterHandle',
+            'required'   => false,
+            'validators' => array(),
+            'filters'   => array(
+                array('name' => 'StringTrim'),
+            ),
+        ));
     }
 }
