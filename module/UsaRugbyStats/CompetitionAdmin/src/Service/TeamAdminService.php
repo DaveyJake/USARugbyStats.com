@@ -54,6 +54,9 @@ class TeamAdminService extends TeamService
             return $entity;
         }
 
+        if ( !isset($data['administrators']) ) {
+            $data['administrators'] = array();
+        }
         $this->processTeamAdministratorsChange($entity->team, $data['administrators']);
 
         return $entity;
@@ -82,6 +85,9 @@ class TeamAdminService extends TeamService
             return $result;
         }
 
+        if ( !isset($data['administrators']) ) {
+            $data['administrators'] = array();
+        }
         $this->processTeamAdministratorsChange($result->team, $data['administrators']);
 
         return $result;
