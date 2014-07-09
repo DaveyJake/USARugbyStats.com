@@ -3,16 +3,19 @@ namespace UsaRugbyStats\CompetitionAdmin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use UsaRugbyStats\Competition\Service\TeamService;
+use UsaRugbyStats\CompetitionAdmin\Service\TeamAdminService;
 use UsaRugbyStats\Competition\Entity\Team;
 
 class TeamAdminController extends AbstractActionController
 {
-    protected $teamService;
+    /**
+     * @var TeamAdminService
+     */
+    protected $teamAdminService;
 
     public function listAction()
     {
-        $svc = $this->getTeamService();
+        $svc = $this->getTeamAdminService();
 
         $paginator = $svc->fetchAll();
         $paginator->setItemCountPerPage(100);
@@ -27,13 +30,13 @@ class TeamAdminController extends AbstractActionController
 
     public function createAction()
     {
-        $form = $this->getTeamService()->getCreateForm();
+        $form = $this->getTeamAdminService()->getCreateForm();
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getTeamService()->create($this->getRequest()->getPost()->toArray());
-            if ($result instanceof Team) {
+            $result = $this->getTeamAdminService()->create($this->getRequest()->getPost()->toArray());
+            if ( isset($result->team) && $result->team instanceof Team) {
                 $this->flashMessenger()->addSuccessMessage('The team was created successfully!');
 
-                return $this->redirect()->toRoute('zfcadmin/usarugbystats_teamadmin/edit', ['id' => $result->getId()]);
+                return $this->redirect()->toRoute('zfcadmin/usarugbystats_teamadmin/edit', ['id' => $result->team->getId()]);
             }
         }
 
@@ -47,27 +50,24 @@ class TeamAdminController extends AbstractActionController
     public function editAction()
     {
         $id = $this->params()->fromRoute('id');
-        $team = $this->getTeamService()->findByID($id);
+        $team = $this->getTeamAdminService()->findByID($id);
         if (! $team instanceof Team) {
             throw new \RuntimeException('No team with the specified identifier!');
         }
 
         $entity = new \stdClass();
         $entity->team = $team;
-        $entity->administrators = $this->getTeamService()->getAdministratorsForTeam($team);
+        $entity->administrators = $this->getTeamAdminService()->getAdministratorsForTeam($team);
 
-        $form = $this->getTeamService()->getUpdateForm();
+        $form = $this->getTeamAdminService()->getUpdateForm();
 
         if ( $this->getRequest()->isPost() ) {
             $formData = $this->getRequest()->getPost()->toArray();
-            $result = $this->getTeamService()->update($entity->team, $formData);
-            if ($result instanceof Team) {
-
-                $this->getTeamService()->processTeamAdministratorsChange($team, $formData['administrators']);
-
+            $result = $this->getTeamAdminService()->update($entity, $formData);
+            if ( isset($result->team) && $result->team instanceof Team) {
                 $this->flashMessenger()->addSuccessMessage('The team was updated successfully!');
 
-                return $this->redirect()->toRoute('zfcadmin/usarugbystats_teamadmin/edit', ['id' => $result->getId()]);
+                return $this->redirect()->toRoute('zfcadmin/usarugbystats_teamadmin/edit', ['id' => $result->team->getId()]);
             }
         } else {
             $form->bind($entity);
@@ -84,13 +84,13 @@ class TeamAdminController extends AbstractActionController
     public function removeAction()
     {
         $id = $this->params()->fromRoute('id');
-        $entity = $this->getTeamService()->findByID($id);
+        $entity = $this->getTeamAdminService()->findByID($id);
         if (! $entity instanceof Team) {
             throw new \RuntimeException('No team with the specified identifier!');
         }
 
         if ( $this->getRequest()->isPost() && $this->params()->fromPost('confirmed') == 'Y' ) {
-            $this->getTeamService()->remove($entity);
+            $this->getTeamAdminService()->remove($entity);
             $this->flashMessenger()->addSuccessMessage('The team was removed successfully!');
 
             return $this->redirect()->toRoute('zfcadmin/usarugbystats_teamadmin/list');
@@ -103,20 +103,20 @@ class TeamAdminController extends AbstractActionController
         return $vm;
     }
 
-    public function getTeamService()
+    public function getTeamAdminService()
     {
-        if (! $this->teamService instanceof TeamService) {
-            $this->setTeamService($this->getServiceLocator()->get(
-                'usarugbystats_competition_team_service'
+        if (! $this->teamAdminService instanceof TeamAdminService) {
+            $this->setTeamAdminService($this->getServiceLocator()->get(
+                'usarugbystats_competition-admin_team_service'
             ));
         }
 
-        return $this->teamService;
+        return $this->teamAdminService;
     }
 
-    public function setTeamService(TeamService $s)
+    public function setTeamAdminService(TeamAdminService $s)
     {
-        $this->teamService = $s;
+        $this->teamAdminService = $s;
 
         return $this;
     }

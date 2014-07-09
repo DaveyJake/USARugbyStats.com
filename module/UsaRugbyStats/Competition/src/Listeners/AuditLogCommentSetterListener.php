@@ -27,6 +27,11 @@ class AuditLogCommentSetterListener implements ListenerAggregateInterface
     public function setCommentForEvent(EventInterface $e)
     {
         $entity = $e->getParam('entity');
+
+        if ( ! method_exists($entity, 'getId') ) {
+            return;
+        }
+
         $entityId = $entity->getId();
         $entityClassSlug = trim(strtoupper(str_replace('\\', '_', preg_replace('{^UsaRugbyStats\\\\Competition\\\Entity\\\\}is', '', get_class($entity)))), ' _');
 

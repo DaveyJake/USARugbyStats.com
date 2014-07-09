@@ -18,11 +18,15 @@ class TeamCreateFormFactoryTest extends \PHPUnit_Framework_TestCase
         $mockFieldset->shouldReceive('getElements')->andReturn(array());
         $mockFieldset->shouldReceive('getFieldsets')->andReturn(array());
 
+        $mockAdministratorFieldset = Mockery::mock('Zend\Form\FieldsetInterface');
+        $mockAdministratorFieldset->shouldReceive('getElements')->andReturn(array());
+
         $mockInputFilter = Mockery::mock('Zend\InputFilter\InputFilter');
 
         $this->serviceManager = new \Zend\ServiceManager\ServiceManager();
         $this->serviceManager->setService('zfcuser_doctrine_em', Mockery::mock('Doctrine\Common\Persistence\ObjectManager'));
         $this->serviceManager->setService('usarugbystats_competition_team_fieldset', $mockFieldset);
+        $this->serviceManager->setService('usarugbystats_competition-admin_team_administrator_fieldset', $mockAdministratorFieldset);
         $this->serviceManager->setService('usarugbystats_competition_team_inputfilter', $mockInputFilter);
     }
 

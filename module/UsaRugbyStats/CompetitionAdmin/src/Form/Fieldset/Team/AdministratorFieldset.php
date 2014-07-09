@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\Competition\Form\Fieldset\Team;
+namespace UsaRugbyStats\CompetitionAdmin\Form\Fieldset\Team;
 
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;

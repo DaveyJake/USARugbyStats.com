@@ -346,7 +346,12 @@ return array(
 
     'service_manager' => array(
         'aliases' => array(),
-        'factories' => array(),
+        'factories' => array(
+            'usarugbystats_competition-admin_team_service' => 'UsaRugbyStats\CompetitionAdmin\Service\TeamAdminServiceFactory',
+            'usarugbystats_competition-admin_team_administrator_fieldset' => 'UsaRugbyStats\CompetitionAdmin\Form\Fieldset\Team\AdministratorFieldsetFactory',
+            'usarugbystats_competition-admin_team_createform' => 'UsaRugbyStats\CompetitionAdmin\Form\TeamCreateFormFactory',
+            'usarugbystats_competition-admin_team_updateform' => 'UsaRugbyStats\CompetitionAdmin\Form\TeamUpdateFormFactory',
+        ),
     ),
     'translator' => array(
         'translation_file_patterns' => array(

@@ -1,10 +1,11 @@
 <?php
-namespace UsaRugbyStats\Competition\Form;
+namespace UsaRugbyStats\CompetitionAdmin\Form;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
+use Zend\Stdlib\Hydrator\ObjectProperty;
 
 class TeamCreateFormFactory implements FactoryInterface
 {
@@ -18,9 +19,12 @@ class TeamCreateFormFactory implements FactoryInterface
     {
         $form = new Form('create-team');
 
+        $form->setHydrator(new ObjectProperty());
+        $form->setObject(new \stdClass());
+
         // Add the team fieldset
         $teamFieldset = $sm->get('usarugbystats_competition_team_fieldset');
-        $teamFieldset->setUseAsBaseFieldset(true);
+        $teamFieldset->setUseAsBaseFieldset(false);
         $form->add($teamFieldset);
 
         $form->add(array(
@@ -29,6 +33,17 @@ class TeamCreateFormFactory implements FactoryInterface
             'options' => array(
                 'label' => 'Create Team',
             ),
+        ));
+
+        // Add the team administrator management element
+        $form->add(array(
+            'type'    => 'Zend\Form\Element\Collection',
+            'name'    => 'administrators',
+            'options' => array(
+                'target_element' => $sm->get('usarugbystats_competition-admin_team_administrator_fieldset'),
+                'should_create_template' => true,
+                'count' => 0,
+            )
         ));
 
         // Construct the input filter

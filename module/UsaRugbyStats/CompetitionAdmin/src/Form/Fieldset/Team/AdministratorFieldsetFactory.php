@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\Competition\Form\Fieldset\Team;
+namespace UsaRugbyStats\CompetitionAdmin\Form\Fieldset\Team;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;

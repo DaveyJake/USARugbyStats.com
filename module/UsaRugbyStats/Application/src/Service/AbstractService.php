@@ -42,6 +42,13 @@ abstract class AbstractService implements EventManagerAwareInterface
      */
     protected $updateForm;
 
+    /**
+     * FQCN of the entity class
+     *
+     * @var string
+     */
+    protected $entityClassName;
+
     public function __construct()
     {
         $this->eventIdentifier = get_called_class();
@@ -73,7 +80,7 @@ abstract class AbstractService implements EventManagerAwareInterface
      */
     public function create(array $data)
     {
-        $entityClass = $this->getRepository()->getClassName();
+        $entityClass = $this->getEntityClassName();
 
         $argv = new \ArrayObject();
         $argv->entity = new $entityClass;
@@ -93,7 +100,7 @@ abstract class AbstractService implements EventManagerAwareInterface
      */
     public function update($entity, array $data)
     {
-        $entityClass = $this->getRepository()->getClassName();
+        $entityClass = $this->getEntityClassName();
         if (! $entity instanceof $entityClass) {
             throw new \InvalidArgumentException(sprintf(
                 "Expected entity of class '%s'; received '%s'",
@@ -201,6 +208,28 @@ abstract class AbstractService implements EventManagerAwareInterface
     public function getObjectManager()
     {
         return $this->objectManager;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityClassName()
+    {
+        if ( empty($this->entityClassName) ) {
+            $this->entityClassName = $this->getRepository()->getClassName();
+        }
+
+        return $this->entityClassName;
+    }
+
+    /**
+     * @param string $fqcn
+     */
+    public function setEntityClassName($fqcn)
+    {
+        $this->entityClassName = $fqcn;
+
+        return $this;
     }
 
 }

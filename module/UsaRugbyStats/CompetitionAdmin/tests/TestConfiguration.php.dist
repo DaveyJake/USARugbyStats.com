@@ -1,0 +1,16 @@
+<?php
+return array(
+    'modules' => array(
+        'UsaRugbyStats\Application',
+        'UsaRugbyStats\Competition',
+        'UsaRugbyStats\CompetitionAdmin',
+    ),
+    'module_listener_options' => array(
+        'config_glob_paths' => array(),
+        'module_paths' => array(
+            'UsaRugbyStats\Application'  => realpath(__DIR__ . '/../../Application'),
+            'UsaRugbyStats\Competition'  => realpath(__DIR__ . '/../../Competition'),
+            'UsaRugbyStats\CompetitionAdmin'  => realpath(__DIR__ . '/../../CompetitionAdmin'),
+        ),
+    ),
+);
