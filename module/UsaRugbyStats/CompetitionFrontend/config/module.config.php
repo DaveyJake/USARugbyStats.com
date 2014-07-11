@@ -80,7 +80,18 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
-                'child_routes' =>array(),
+                'child_routes' =>array(
+                    'update' => array(
+                        'type' => 'Literal',
+                        'priority' => 1000,
+                        'options' => array(
+                            'route' => '/update',
+                            'defaults' => array(
+                                'action'     => 'update',
+                            ),
+                        ),
+                    ),
+                ),
             ),
             'usarugbystats_frontend_competition_match' => array(
                 'type' => 'Segment',
@@ -120,6 +131,7 @@ return array(
                 'usarugbystats_frontend_team' => array('member'),
                 'usarugbystats_frontend_union' => array('member'),
                 'usarugbystats_frontend_competition' => array('member'),
+                'usarugbystats_frontend_competition/update' => array('competition_admin'),
                 'usarugbystats_frontend_competition_match' => array('member'),
             ),
         ),
