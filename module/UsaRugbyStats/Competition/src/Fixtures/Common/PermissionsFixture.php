@@ -19,17 +19,17 @@ class PermissionsFixture implements FixtureInterface, DependentFixtureInterface
         $repoPermission = $manager->getRepository('UsaRugbyStats\Account\Entity\Rbac\Permission');
         $repoRole = $manager->getRepository('UsaRugbyStats\Account\Entity\Rbac\Role');
 
-        foreach ( $this->permissions as $perm => $roles ) {
+        foreach ($this->permissions as $perm => $roles) {
             echo "Creating permission '" . $perm . "'\n";
 
             $objPermission = $repoPermission->findOneByName($perm) ?: new Permission();
             $objPermission->setName($perm);
             $manager->persist($objPermission);
 
-            foreach ( $roles as $role ) {
+            foreach ($roles as $role) {
                 echo " - Adding to role '" . $role . "'...";
                 $objRole = $repoRole->findOneByName($role);
-                if ( ! $objRole instanceof Role ) {
+                if (! $objRole instanceof Role) {
                     echo "NOT FOUND!\n";
                     continue;
                 }
