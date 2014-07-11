@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 use UsaRugbyStats\Competition\Service\CompetitionService;
 use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Service\Competition\StandingsService;
+use ZfcRbac\Exception\UnauthorizedException;
 
 class CompetitionAdminController extends AbstractActionController
 {
@@ -15,6 +16,10 @@ class CompetitionAdminController extends AbstractActionController
 
     public function listAction()
     {
+        if ( ! $this->isGranted('competition.competition.list') ) {
+            throw new UnauthorizedException();
+        }
+
         $svc = $this->getCompetitionService();
 
         $paginator = $svc->fetchAll();
@@ -30,6 +35,10 @@ class CompetitionAdminController extends AbstractActionController
 
     public function createAction()
     {
+        if ( ! $this->isGranted('competition.competition.create') ) {
+            throw new UnauthorizedException();
+        }
+
         $form = $this->getCompetitionService()->getCreateForm();
         if ( $this->getRequest()->isPost() ) {
             $result = $this->getCompetitionService()->create($this->getRequest()->getPost()->toArray());
@@ -50,6 +59,10 @@ class CompetitionAdminController extends AbstractActionController
     public function editAction()
     {
         $entity = $this->getCompetitionEntityFromRoute();
+
+        if ( ! $this->isGranted('competition.competition.update', $entity) ) {
+            throw new UnauthorizedException();
+        }
 
         $form = $this->getCompetitionService()->getUpdateForm();
 
@@ -84,6 +97,10 @@ class CompetitionAdminController extends AbstractActionController
     public function divisionsAction()
     {
         $entity = $this->getCompetitionEntityFromRoute();
+
+        if ( ! $this->isGranted('competition.competition.division.list', $entity) ) {
+            throw new UnauthorizedException();
+        }
 
         $form = $this->getCompetitionService()->getUpdateForm();
 
@@ -128,6 +145,10 @@ class CompetitionAdminController extends AbstractActionController
     public function removeAction()
     {
         $entity = $this->getCompetitionEntityFromRoute();
+
+        if ( ! $this->isGranted('competition.competition.delete', $entity) ) {
+            throw new UnauthorizedException();
+        }
 
         if ( $this->getRequest()->isPost() && $this->params()->fromPost('confirmed') == 'Y' ) {
             $this->getCompetitionService()->remove($entity);
