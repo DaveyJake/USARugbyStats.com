@@ -18,7 +18,7 @@ class CompetitionMatchAdminController extends AbstractActionController
 
     public function listAction()
     {
-        $entity = $this->loadCompetitionEntity();
+        $entity = $this->getCompetitionEntityFromRoute();
 
         $paginator = new Paginator(new CollectionAdapter($entity->getMatches()));
         $paginator->setItemCountPerPage(100);
@@ -34,7 +34,7 @@ class CompetitionMatchAdminController extends AbstractActionController
 
     public function createAction()
     {
-        $entity = $this->loadCompetitionEntity();
+        $entity = $this->getCompetitionEntityFromRoute();
 
         $form = $this->getMatchService()->getCreateForm();
         $form->get('match')->get('competition')->setValue($entity->getId());
@@ -64,7 +64,7 @@ class CompetitionMatchAdminController extends AbstractActionController
 
     public function editAction()
     {
-        $competition = $this->loadCompetitionEntity();
+        $competition = $this->getCompetitionEntityFromRoute();
 
         $id = $this->params()->fromRoute('match');
         $entity = $this->getMatchService()->findByID($id);
@@ -105,7 +105,7 @@ class CompetitionMatchAdminController extends AbstractActionController
 
     public function removeAction()
     {
-        $competition = $this->loadCompetitionEntity();
+        $competition = $this->getCompetitionEntityFromRoute();
 
         $id = $this->params()->fromRoute('match');
         $entity = $this->getMatchService()->findByID($id);
@@ -134,7 +134,7 @@ class CompetitionMatchAdminController extends AbstractActionController
         return $vm;
     }
 
-    protected function loadCompetitionEntity()
+    protected function getCompetitionEntityFromRoute()
     {
         $id = $this->params()->fromRoute('id');
         $svc = $this->getCompetitionService();
