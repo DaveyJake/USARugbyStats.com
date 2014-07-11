@@ -49,11 +49,7 @@ class CompetitionAdminController extends AbstractActionController
 
     public function editAction()
     {
-        $id = $this->params()->fromRoute('id');
-        $entity = $this->getCompetitionService()->findByID($id);
-        if (! $entity instanceof Competition) {
-            throw new \RuntimeException('No competition with the specified identifier!');
-        }
+        $entity = $this->getCompetitionEntityFromRoute();
 
         $form = $this->getCompetitionService()->getUpdateForm();
 
@@ -87,11 +83,7 @@ class CompetitionAdminController extends AbstractActionController
 
     public function divisionsAction()
     {
-        $id = $this->params()->fromRoute('id');
-        $entity = $this->getCompetitionService()->findByID($id);
-        if (! $entity instanceof Competition) {
-            throw new \RuntimeException('No competition with the specified identifier!');
-        }
+        $entity = $this->getCompetitionEntityFromRoute();
 
         $form = $this->getCompetitionService()->getUpdateForm();
 
@@ -99,6 +91,9 @@ class CompetitionAdminController extends AbstractActionController
         $form->setValidationGroup(['competition' => ['divisions']]);
 
         if ( $this->getRequest()->isPost() ) {
+
+            //@TODO how to disallow create/update/delete separately here?
+
             $result = $this->getCompetitionService()->update($entity, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The division assignments were updated successfully!');
@@ -117,45 +112,9 @@ class CompetitionAdminController extends AbstractActionController
         return $vm;
     }
 
-    public function matchesAction()
-    {
-        $id = $this->params()->fromRoute('id');
-        $entity = $this->getCompetitionService()->findByID($id);
-        if (! $entity instanceof Competition) {
-            throw new \RuntimeException('No competition with the specified identifier!');
-        }
-
-        $form = $this->getCompetitionService()->getUpdateForm();
-
-        // On this page we only want to edit the Division list
-        $form->setValidationGroup(['competition' => ['matches']]);
-
-        if ( $this->getRequest()->isPost() ) {
-            $result = $this->getCompetitionService()->update($entity, $this->getRequest()->getPost()->toArray());
-            if ($result instanceof Competition) {
-                $this->flashMessenger()->addSuccessMessage('The competition matches were updated successfully!');
-
-                return $this->redirect()->toRoute('zfcadmin/usarugbystats_competitionadmin/edit/divisions', ['id' => $result->getId()]);
-            }
-        } else {
-            $form->bind($entity);
-        }
-
-        $vm = new ViewModel();
-        $vm->setVariable('entity', $entity);
-        $vm->setVariable('form', $form);
-        $vm->setTemplate('usa-rugby-stats/competition-admin/competition-admin/divisions');
-
-        return $vm;
-    }
-
     public function viewStandingsAction()
     {
-        $id = $this->params()->fromRoute('id');
-        $entity = $this->getCompetitionService()->findByID($id);
-        if (! $entity instanceof Competition) {
-            throw new \RuntimeException('No competition with the specified identifier!');
-        }
+        $entity = $this->getCompetitionEntityFromRoute();
 
         $vm = new ViewModel();
         $vm->setVariable('entity', $entity);
@@ -168,11 +127,7 @@ class CompetitionAdminController extends AbstractActionController
 
     public function removeAction()
     {
-        $id = $this->params()->fromRoute('id');
-        $entity = $this->getCompetitionService()->findByID($id);
-        if (! $entity instanceof Competition) {
-            throw new \RuntimeException('No competition with the specified identifier!');
-        }
+        $entity = $this->getCompetitionEntityFromRoute();
 
         if ( $this->getRequest()->isPost() && $this->params()->fromPost('confirmed') == 'Y' ) {
             $this->getCompetitionService()->remove($entity);
@@ -186,6 +141,21 @@ class CompetitionAdminController extends AbstractActionController
         $vm->setTemplate('usa-rugby-stats/competition-admin/competition-admin/remove');
 
         return $vm;
+    }
+
+    public function getCompetitionEntityFromRoute()
+    {
+        $id = $this->params()->fromRoute('id');
+        if ( ! \Zend\Validator\StaticValidator::execute($id, 'Zend\Validator\Digits') ) {
+            throw new \InvalidArgumentException('Invalid Competition ID specified!');
+        }
+
+        $competition = $this->getCompetitionService()->findByID($id);
+        if (! $competition instanceof Competition) {
+            throw new \InvalidArgumentException('Invalid Competition ID specified!');
+        }
+
+        return $competition;
     }
 
     public function getCompetitionService()
