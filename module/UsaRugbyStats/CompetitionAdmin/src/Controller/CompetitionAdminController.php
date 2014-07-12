@@ -109,6 +109,13 @@ class CompetitionAdminController extends AbstractActionController
 
         if ( $this->getRequest()->isPost() ) {
 
+            // If they don't have the Division update permission short-circuit
+            // (having create or delete without update is mostly futile anyway)
+            if ( ! $this->isGranted('competition.competition.division.update', $entity) ) {
+                throw new UnauthorizedException();
+                continue;
+            }
+
             //@TODO how to disallow create/update/delete separately here?
 
             $result = $this->getCompetitionService()->update($entity, $this->getRequest()->getPost()->toArray());
