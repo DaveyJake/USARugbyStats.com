@@ -5,9 +5,11 @@
 <div class="panel panel-default competition-divisions-division" data-divisionid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>"<?php if (isset($index)): ?> data-index="<?php echo $this->escapeHtmlAttr($index); ?>"<?php endif;?>>
     <div class="panel-heading">
         <?php if ($isTemplate): ?>New Division<?php else: ?><?php echo $this->escapeHtml($elName->getValue()); ?><?php endif; ?>
+        <?php if ( $this->isGranted('competition.competition.division.delete')  ): ?>
         <div class="pull-right">
             <a class="btn btn-xs btn-danger competition-divisions-division-remove" title="Remove Division"><i class="glyphicon glyphicon-trash"></i></a>
         </div>
+        <?php endif; ?>
     </div>
     <div class="panel-body">
 
@@ -28,9 +30,11 @@
         <div class="panel panel-default competition-divisions-division-teams">
             <div class="panel-heading">
                 Teams in this Division
+                <?php if ( $this->isGranted('competition.competition.division.team.add')  ): ?>
                 <div class="pull-right">
                     <a class="btn btn-xs btn-success competition-divisions-division-teams-add" title="Add Team"><i class="glyphicon glyphicon-plus-sign"></i></a>
                 </div>
+                <?php endif; ?>
             </div>
 
             <?php $collAdmins = $fieldset->get('teamMemberships'); ?>

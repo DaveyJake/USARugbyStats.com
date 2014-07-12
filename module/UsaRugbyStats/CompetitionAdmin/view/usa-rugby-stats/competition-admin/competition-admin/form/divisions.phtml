@@ -34,10 +34,13 @@
             managedDivisionIndex++;
         });
         <?php endif; ?>
+        <?php if ( $this->isGranted('competition.competition.division.delete')  ): ?>
         $(document).on('click', '.competition-divisions .competition-divisions-division-remove', function() {
             $(this).closest('*[data-divisionid]').remove();
         });
+        <?php endif; ?>
 
+        <?php if ( $this->isGranted('competition.competition.division.team.add')  ): ?>
         // Division Team Add/Remove
         $(document).on('click', '.competition-divisions-division .competition-divisions-division-teams-add', function() {
         	var template = $(this).closest('.competition-divisions-division').find('.team-selector-template');
@@ -46,9 +49,12 @@
             $(this).closest('.competition-divisions-division').find('.competition-divisions-division-teams table tbody').append(html);
             template.attr('data-nextindex', index+1);
         });
+        <?php endif;?>
+        <?php if ( $this->isGranted('competition.competition.division.team.remove')  ): ?>
         $(document).on('click', '.competition-divisions-division .dropteam', function() {
             $(this).closest('*[data-teamid]').remove();
         });
+        <?php endif; ?>
     </script>
 
 </div>
