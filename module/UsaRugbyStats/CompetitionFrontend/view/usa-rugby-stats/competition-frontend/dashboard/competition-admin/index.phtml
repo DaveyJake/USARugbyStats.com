@@ -38,7 +38,7 @@ $role = $me->getRoleAssignment('competition_admin');
       <ul class="list-group">
         <?php foreach ( $role->getManagedCompetitions() as $comp ): ?>
         <?php   $compUrl  = $this->url('usarugbystats_frontend_competition', ['id' => $comp->getId()]); ?>
-        <?php   $compManageUrl  = $this->url('usarugbystats_frontend_competition/manage', ['id' => $comp->getId()]); ?>
+        <?php   $compManageUrl  = $this->url('usarugbystats_frontend_competition/update', ['id' => $comp->getId()]); ?>
         <li class="list-group-item">
 
         <div class="pull-right">
