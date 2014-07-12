@@ -166,14 +166,6 @@ return array(
         'assertion_map' => [
             'competition.competition.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
             'competition.competition.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-
-            'competition.competition.division.create' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.division.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.division.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-
-            'competition.competition.match.create' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.match.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.match.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
         ]
     ),
 );
