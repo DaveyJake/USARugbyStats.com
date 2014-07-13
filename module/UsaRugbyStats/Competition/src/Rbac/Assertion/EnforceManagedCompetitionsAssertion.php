@@ -18,8 +18,10 @@ class EnforceManagedCompetitionsAssertion implements AssertionInterface
      */
     public function assert(AuthorizationService $authorization, $context = null)
     {
+        // If there is no context we assume we're in create mode
+        // (anything goes in create mode!)
         if (! $context instanceof Competition) {
-            return false;
+            return true;
         }
 
         $person = $authorization->getIdentity();

@@ -8,7 +8,7 @@ $form->setAttribute('method', 'post');
 
 <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/navigation', ['page' => 'divisions', 'entity' => $entity]); ?>
 
-<?php 
+<?php
 $form->setAttribute('class', 'form-horizontal');
 
 echo $this->form()->openTag($form);
@@ -16,7 +16,7 @@ echo $this->form()->openTag($form);
 $submitButton = $form->get('submit');
 $submitButton->setAttribute('class', 'btn btn-lg btn-success');
 
-echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions', ['fieldset' => $form->get('competition')]);
+echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions', ['competition' => $entity, 'fieldset' => $form->get('competition')]);
 ?>
 
 <div class="clearfix"></div>

@@ -38,6 +38,9 @@
            <ul class="dropdown-menu">
              <li><a href="<?=$this->escapeHtmlAttr($matchUrl); ?>"><i class="glyphicon glyphicon-share"></i> Go to Game</a></li>
              <li><a href="<?=$this->escapeHtmlAttr($compUrl); ?>"><i class="glyphicon glyphicon-share"></i> Go to Competition</a></li>
+             <?php if ( $this->isGranted('competition.competition.match.update', $match->getCompetition()) ): ?>
+             <li><a href="<?=$this->escapeHtmlAttr($matchUrl); ?>"><i class="glyphicon glyphicon-pencil"></i> Manage Game</a></li>
+             <?php endif; ?>
            </ul>
         </div>
        </td>

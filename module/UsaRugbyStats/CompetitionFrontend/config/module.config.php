@@ -81,13 +81,33 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' =>array(
-                    'update' => array(
+                    'update-details' => array(
                         'type' => 'Literal',
                         'priority' => 1000,
                         'options' => array(
-                            'route' => '/update',
+                            'route' => '/update/details',
                             'defaults' => array(
                                 'action'     => 'update',
+                            ),
+                        ),
+                    ),
+                    'update-matches' => array(
+                        'type' => 'Literal',
+                        'priority' => 1000,
+                        'options' => array(
+                            'route' => '/update/matches',
+                            'defaults' => array(
+                                'action'     => 'update-matches',
+                            ),
+                        ),
+                    ),
+                    'create-match' => array(
+                        'type' => 'Literal',
+                        'priority' => 1000,
+                        'options' => array(
+                            'route' => '/new-match',
+                            'defaults' => array(
+                                'action'     => 'new-matche',
                             ),
                         ),
                     ),
@@ -104,7 +124,28 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
-                'child_routes' =>array(),
+                'child_routes' =>array(
+                    'update-details' => array(
+                        'type' => 'Literal',
+                        'priority' => 1000,
+                        'options' => array(
+                            'route' => '/update/details',
+                            'defaults' => array(
+                                'action'     => 'update',
+                            ),
+                        ),
+                    ),
+                    'remove' => array(
+                        'type' => 'Literal',
+                        'priority' => 1000,
+                        'options' => array(
+                            'route' => '/remove',
+                            'defaults' => array(
+                                'action'     => 'remove',
+                            ),
+                        ),
+                    ),
+                ),
             ),
         ),
     ),
@@ -131,7 +172,8 @@ return array(
                 'usarugbystats_frontend_team' => array('member'),
                 'usarugbystats_frontend_union' => array('member'),
                 'usarugbystats_frontend_competition' => array('member'),
-                'usarugbystats_frontend_competition/update' => array('competition_admin'),
+                'usarugbystats_frontend_competition/update-details' => array('competition_admin'),
+                'usarugbystats_frontend_competition/update-matches' => array('competition_admin'),
                 'usarugbystats_frontend_competition_match' => array('member'),
             ),
         ),

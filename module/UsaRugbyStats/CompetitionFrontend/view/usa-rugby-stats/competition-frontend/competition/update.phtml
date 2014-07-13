@@ -1,6 +1,6 @@
-<a class="btn btn-default" href="<?=$this->url('usarugbystats_frontend_competition', ['id' => $entity->getId()]); ?>"><i class="glyphicon glyphicon-arrow-left"></i> Back to Competition Page</a>
-
 <h1><?php echo $this->escapeHtml($entity->getName()); ?></h1>
+
+<?php echo $this->render('usa-rugby-stats/competition-frontend/competition/navigation', ['page' => 'update', 'entity' => $entity]); ?>
 
 <?php
 $form->setAttribute('class', 'form-horizontal');
