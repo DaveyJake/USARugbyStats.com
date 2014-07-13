@@ -107,6 +107,24 @@ class UnionAdmin extends BaseAssignment
         return $this;
     }
 
+    public function getManagedTeams()
+    {
+        $collection = new ArrayCollection();
+        foreach ( $this->managedUnions as $union ) {
+            if ( ! $union instanceof Union ) {
+                continue;
+            }
+            foreach ( $union->getTeams() as $team ) {
+                if ( $collection->contains($team) ) {
+                    continue;
+                }
+                $collection->add($team);
+            }
+        }
+
+        return $collection;
+    }
+
     public function getDiscriminator()
     {
         return 'union_admin';

@@ -1,5 +1,14 @@
 <?php
 return array(
+
+    'usarugbystats' => array(
+	   'application' => array(
+        	'event_listeners' => array(
+		        'usarugbystats_competition_rbac_listener_teamadmincannotmodifyteamunion',
+	        ),
+        ),
+    ),
+
     'service_manager' => array(
         'aliases' => array(),
         'invokables' => array(
@@ -10,6 +19,8 @@ return array(
             'usarugbystats_competition_listener_emptyunionteamcollection' => 'UsaRugbyStats\Competition\Listeners\EmptyUnionTeamCollectionListener',
         ),
         'factories' => array(
+            'usarugbystats_competition_rbac_listener_teamadmincannotmodifyteamunion' => 'UsaRugbyStats\Competition\Rbac\Listener\TeamAdminCannotModifyTeamUnionFactory',
+
             'usarugbystats_competition_location_service' => 'UsaRugbyStats\Competition\Service\LocationServiceFactory',
             'usarugbystats_competition_location_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\LocationFieldsetFactory',
             'usarugbystats_competition_location_createform' => 'UsaRugbyStats\Competition\Form\LocationCreateFormFactory',
@@ -164,6 +175,10 @@ return array(
 
     'zfc_rbac' => array(
         'assertion_map' => [
+            'competition.team.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedTeamsAssertion',
+            'competition.team.update.union' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedTeamsAssertion',
+            'competition.team.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedTeamsAssertion',
+
             'competition.competition.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
             'competition.competition.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
 

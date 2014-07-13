@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use UsaRugbyStats\CompetitionAdmin\Service\TeamAdminService;
 use UsaRugbyStats\Competition\Entity\Team;
+use ZfcRbac\Exception\UnauthorizedException;
 
 class TeamAdminController extends AbstractActionController
 {
@@ -15,6 +16,10 @@ class TeamAdminController extends AbstractActionController
 
     public function listAction()
     {
+        if ( ! $this->isGranted('competition.team.list') ) {
+            throw new UnauthorizedException();
+        }
+
         $svc = $this->getTeamAdminService();
 
         $paginator = $svc->fetchAll();
@@ -30,6 +35,10 @@ class TeamAdminController extends AbstractActionController
 
     public function createAction()
     {
+        if ( ! $this->isGranted('competition.team.create') ) {
+            throw new UnauthorizedException();
+        }
+
         $form = $this->getTeamAdminService()->getCreateForm();
         if ( $this->getRequest()->isPost() ) {
             $result = $this->getTeamAdminService()->create($this->getRequest()->getPost()->toArray());
@@ -53,6 +62,10 @@ class TeamAdminController extends AbstractActionController
         $team = $this->getTeamAdminService()->findByID($id);
         if (! $team instanceof Team) {
             throw new \RuntimeException('No team with the specified identifier!');
+        }
+
+        if ( ! $this->isGranted('competition.team.update', $team) ) {
+            throw new UnauthorizedException();
         }
 
         $entity = new \stdClass();
@@ -87,6 +100,10 @@ class TeamAdminController extends AbstractActionController
         $entity = $this->getTeamAdminService()->findByID($id);
         if (! $entity instanceof Team) {
             throw new \RuntimeException('No team with the specified identifier!');
+        }
+
+        if ( ! $this->isGranted('competition.team.delete', $entity) ) {
+            throw new UnauthorizedException();
         }
 
         if ( $this->getRequest()->isPost() && $this->params()->fromPost('confirmed') == 'Y' ) {

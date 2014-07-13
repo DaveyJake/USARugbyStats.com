@@ -6,7 +6,6 @@ use Zend\View\Model\ViewModel;
 use UsaRugbyStats\Competition\Service\CompetitionService;
 use UsaRugbyStats\Competition\Entity\Competition;
 use ZfcRbac\Exception\UnauthorizedException;
-use Zend\Paginator\Paginator;
 
 class CompetitionController extends AbstractActionController
 {
