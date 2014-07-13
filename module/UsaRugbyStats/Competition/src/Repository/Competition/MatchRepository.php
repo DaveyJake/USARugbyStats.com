@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Entity\Union;
 use UsaRugbyStats\Application\Entity\AccountInterface;
+use UsaRugbyStats\Competition\Entity\Competition\Match;
 
 class MatchRepository extends EntityRepository
 {
@@ -45,7 +46,9 @@ DQL;
         $query->setParameter('teams', $teamids);
         $result = $query->getResult();
 
-        return new ArrayCollection($result);
+        return (new ArrayCollection($result))->filter(function($i) {
+            return $i instanceof Match;
+        });
     }
 
     public function findAllForCompetition($comps)
@@ -81,7 +84,9 @@ DQL;
         $query->setParameter('comps', $compids);
         $result = $query->getResult();
 
-        return new ArrayCollection($result);
+        return (new ArrayCollection($result))->filter(function($i) {
+            return $i instanceof Match;
+        });
     }
 
     public function findAllForUnion($unions)
@@ -119,7 +124,9 @@ DQL;
         $query->setParameter('unions', $unionids);
         $result = $query->getResult();
 
-        return new ArrayCollection($result);
+        return (new ArrayCollection($result))->filter(function($i) {
+            return $i instanceof Match;
+        });
     }
 
     public function findAllForPlayer($players)
@@ -157,6 +164,8 @@ DQL;
         $query->setParameter('players', $playerids);
         $result = $query->getResult();
 
-        return new ArrayCollection($result);
+        return (new ArrayCollection($result))->filter(function($i) {
+            return $i instanceof Match;
+        });
     }
 }
