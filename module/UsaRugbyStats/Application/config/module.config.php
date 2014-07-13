@@ -6,6 +6,8 @@ return array(
                 'routes' => array(),
                 'layout' => 'layout/iframe',
             ),
+            'event_listeners' => array(
+            )
         ),
     ),
 

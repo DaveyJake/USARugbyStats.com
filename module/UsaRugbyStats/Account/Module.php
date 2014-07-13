@@ -6,12 +6,15 @@ use Zend\Http\PhpEnvironment\Request;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\RouteInterface;
 use UsaRugbyStats\Account\Listeners\AuditLogCommentSetterListener;
+use UsaRugbyStats\Application\Service\StaticEventManagerListenerService;
 
 class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
         $app = $e->getApplication();
+
+        StaticEventManagerListenerService::registerListeners($app->getServiceManager());
 
         // Automatically attach Member role to new users
         $userService = $app->getServiceManager()->get('zfcuser_user_service');
