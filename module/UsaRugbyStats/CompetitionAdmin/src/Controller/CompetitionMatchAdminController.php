@@ -23,7 +23,7 @@ class CompetitionMatchAdminController extends AbstractActionController
         if ( ! $this->isGranted('competition.competition.match.list', $entity) ) {
             throw new UnauthorizedException();
         }
-        
+
         $paginator = new Paginator(new CollectionAdapter($entity->getMatches()));
         $paginator->setItemCountPerPage(100);
         $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1));
@@ -75,7 +75,7 @@ class CompetitionMatchAdminController extends AbstractActionController
         if ( ! $this->isGranted('competition.competition.match.update', $competition) ) {
             throw new UnauthorizedException();
         }
-        
+
         $id = $this->params()->fromRoute('match');
         $entity = $this->getMatchService()->findByID($id);
         if (! $entity instanceof Match) {
@@ -119,7 +119,7 @@ class CompetitionMatchAdminController extends AbstractActionController
         if ( ! $this->isGranted('competition.competition.match.delete', $competition) ) {
             throw new UnauthorizedException();
         }
-        
+
         $id = $this->params()->fromRoute('match');
         $entity = $this->getMatchService()->findByID($id);
         if (! $entity instanceof Match) {

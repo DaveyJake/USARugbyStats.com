@@ -76,7 +76,6 @@ class MatchController extends AbstractActionController
         return $vm;
     }
 
-
     public function updateAction()
     {
         $competition = $this->getCompetitionEntityFromRoute();

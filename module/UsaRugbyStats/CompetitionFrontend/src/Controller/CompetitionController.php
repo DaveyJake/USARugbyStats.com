@@ -7,9 +7,6 @@ use UsaRugbyStats\Competition\Service\CompetitionService;
 use UsaRugbyStats\Competition\Entity\Competition;
 use ZfcRbac\Exception\UnauthorizedException;
 use Zend\Paginator\Paginator;
-use DoctrineModule\Paginator\Adapter\Collection as CollectionAdapter;
-use UsaRugbyStats\Competition\Entity\Competition\Match;
-use UsaRugbyStats\Competition\Service\Competition\MatchService;
 
 class CompetitionController extends AbstractActionController
 {
