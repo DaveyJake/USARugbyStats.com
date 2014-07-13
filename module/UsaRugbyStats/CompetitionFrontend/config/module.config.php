@@ -105,9 +105,9 @@ return array(
                         'type' => 'Literal',
                         'priority' => 1000,
                         'options' => array(
-                            'route' => '/new-match',
+                            'route' => '/update/matches/create',
                             'defaults' => array(
-                                'action'     => 'new-matche',
+                                'action'     => 'new-match',
                             ),
                         ),
                     ),
@@ -174,6 +174,7 @@ return array(
                 'usarugbystats_frontend_competition' => array('member'),
                 'usarugbystats_frontend_competition/update-details' => array('competition_admin'),
                 'usarugbystats_frontend_competition/update-matches' => array('competition_admin'),
+                'usarugbystats_frontend_competition/create-match' => array('competition_admin'),
                 'usarugbystats_frontend_competition_match' => array('member'),
             ),
         ),
