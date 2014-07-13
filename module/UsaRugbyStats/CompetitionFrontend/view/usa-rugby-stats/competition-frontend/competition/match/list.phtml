@@ -33,10 +33,12 @@
     <?php foreach ($this->paginator as $match): ?>
         <tr>
             <td class="cell cell-id">
-                <?php echo $this->escapeHtml($match->getId()); ?>
+                <a href="<?php echo $this->url('usarugbystats_frontend_competition_match/view', array('cid' => $entity->getId(), 'mid' => $match->getId())); ?>">
+                  <?php echo $this->escapeHtml($match->getId()); ?>
+                </a>
             </td>
             <td class="cell cell-details">
-                <?php echo $this->escapeHtml($match); ?><br />
+                <?php echo $this->ursCompetitionMatchLink($match, 'linked-team-names'); ?><br />
                 <i><?php echo $this->escapeHtml($match->getDescription() ?: ''); ?></i>
             </td>
             <td class="cell cell-date">
