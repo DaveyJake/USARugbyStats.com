@@ -5,6 +5,7 @@ use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventInterface;
 use Zend\EventManager\ListenerAggregateTrait;
+use Zend\Form\FormInterface;
 
 class EmptyCompetitionMatchCollectionsListener implements ListenerAggregateInterface
 {
@@ -20,21 +21,33 @@ class EmptyCompetitionMatchCollectionsListener implements ListenerAggregateInter
         $entity = $e->getParams()->entity;
         $data = $e->getParams()->data;
 
+        $vg = $e->getParams()->form->getValidationGroup();
+
         // @HACK to fix GH-15 (Can't empty an existing Collection)
         if ( !isset($data['match']['teams']['H']['players']) || empty($data['match']['teams']['H']['players']) ) {
-            $entity->getHomeTeam()->removePlayers($entity->getHomeTeam()->getPlayers());
+            if ( $vg == FormInterface::VALIDATE_ALL || isset($vg['match']['teams']['H']['players']) ) {
+                $entity->getHomeTeam()->removePlayers($entity->getHomeTeam()->getPlayers());
+            }
         }
         if ( !isset($data['match']['teams']['H']['events']) || empty($data['match']['teams']['H']['events']) ) {
-            $entity->getHomeTeam()->removeEvents($entity->getHomeTeam()->getEvents());
+            if ( $vg == FormInterface::VALIDATE_ALL || isset($vg['match']['teams']['H']['events']) ) {
+                $entity->getHomeTeam()->removeEvents($entity->getHomeTeam()->getEvents());
+            }
         }
         if ( !isset($data['match']['teams']['A']['players']) || empty($data['match']['teams']['A']['players']) ) {
-            $entity->getAwayTeam()->removePlayers($entity->getAwayTeam()->getPlayers());
+            if ( $vg == FormInterface::VALIDATE_ALL || isset($vg['match']['teams']['A']['players']) ) {
+                $entity->getAwayTeam()->removePlayers($entity->getAwayTeam()->getPlayers());
+            }
         }
         if ( !isset($data['match']['teams']['A']['events']) || empty($data['match']['teams']['A']['events']) ) {
-            $entity->getAwayTeam()->removeEvents($entity->getAwayTeam()->getEvents());
+            if ( $vg == FormInterface::VALIDATE_ALL || isset($vg['match']['teams']['A']['events']) ) {
+                $entity->getAwayTeam()->removeEvents($entity->getAwayTeam()->getEvents());
+            }
         }
         if ( !isset($data['match']['signatures']) || empty($data['match']['signatures']) ) {
-            $entity->removeSignatures($entity->getSignatures());
+            if ( $vg == FormInterface::VALIDATE_ALL || isset($vg['match']['signatures']) ) {
+                $entity->removeSignatures($entity->getSignatures());
+            }
         }
     }
 }
