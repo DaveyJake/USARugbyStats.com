@@ -3,12 +3,11 @@ namespace UsaRugbyStats\Competition\Rbac\Assertion;
 
 use ZfcRbac\Assertion\AssertionInterface;
 use ZfcRbac\Service\AuthorizationService;
-use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Competition\Entity\Union;
 use UsaRugbyStats\Account\Entity\Account;
-use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\UnionAdmin;
 
-class EnforceManagedTeamsAssertion implements AssertionInterface
+class EnforceManagedUnionsAssertion implements AssertionInterface
 {
     /**
      * Check if this assertion is true
@@ -21,7 +20,7 @@ class EnforceManagedTeamsAssertion implements AssertionInterface
     {
         // If there is no context we assume we're in create mode
         // (anything goes in create mode!)
-        if (! $context instanceof Team) {
+        if (! $context instanceof Union) {
             return true;
         }
 
@@ -33,20 +32,11 @@ class EnforceManagedTeamsAssertion implements AssertionInterface
             return true;
         }
 
-        $isAllowed = false;
-
-        // Check their TeamAdmin role for this team
-        $role = $person->getRoleAssignment('team_admin');
-        if ($role instanceof TeamAdmin) {
-            $isAllowed = $isAllowed || $role->getManagedTeams()->contains($context);
-        }
-
-        // Check the unions of their UnionAdmin role for this team
         $role = $person->getRoleAssignment('union_admin');
-        if ($role instanceof UnionAdmin) {
-            $isAllowed = $isAllowed || $role->getManagedTeams()->contains($context);
+        if (! $role instanceof UnionAdmin) {
+            return false;
         }
 
-        return $isAllowed;
+        return $role->getManagedUnions()->contains($context);
     }
 }

@@ -110,8 +110,8 @@ class UnionAdmin extends BaseAssignment
     public function getManagedTeams()
     {
         $collection = new ArrayCollection();
-        foreach ( $this->managedUnions as $union ) {
-            if ( ! $union instanceof Union ) {
+        foreach ($this->managedUnions as $union) {
+            if (! $union instanceof Union) {
                 continue;
             }
             foreach ( $union->getTeams() as $team ) {

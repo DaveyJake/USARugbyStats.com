@@ -49,6 +49,12 @@ class PermissionsFixture implements FixtureInterface, DependentFixtureInterface
     }
 
     protected $permissions = [
+        'competition.union.list' => ['member'],
+        'competition.union.create' => ['super_admin'],
+        'competition.union.update' => ['union_admin'],
+        'competition.union.update.teams' => ['super_admin'],
+        'competition.union.delete' => ['super_admin'],
+
         'competition.team.list' => ['member'],
         'competition.team.create' => ['super_admin'],
         'competition.team.update' => ['team_admin'],

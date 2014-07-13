@@ -1,3 +1,11 @@
+<?php
+$form->prepare();
+$form->setAttribute('action', $this->url('usarugbystats_frontend_union/update', ['id' => $entity->getId()]));
+$form->setAttribute('method', 'post');
+?>
+
+<h1>Update Union</h1>
+
 <?php $form->setAttribute('class', 'form-horizontal'); ?>
 <?php echo $this->form()->openTag($form) ?>
 
@@ -37,7 +45,4 @@
 <div class="clearfix"></div>
 <div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>
 
-<?php if ($this->redirect): ?>
-    <input type="hidden" name="redirect" value="<?php echo $this->redirect ?>">
-<?php endif ?>
 <?php echo $this->form()->closeTag() ?>

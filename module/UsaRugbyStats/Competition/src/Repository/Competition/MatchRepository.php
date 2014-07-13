@@ -46,7 +46,7 @@ DQL;
         $query->setParameter('teams', $teamids);
         $result = $query->getResult();
 
-        return (new ArrayCollection($result))->filter(function($i) {
+        return (new ArrayCollection($result))->filter(function ($i) {
             return $i instanceof Match;
         });
     }
@@ -84,7 +84,7 @@ DQL;
         $query->setParameter('comps', $compids);
         $result = $query->getResult();
 
-        return (new ArrayCollection($result))->filter(function($i) {
+        return (new ArrayCollection($result))->filter(function ($i) {
             return $i instanceof Match;
         });
     }
@@ -124,7 +124,7 @@ DQL;
         $query->setParameter('unions', $unionids);
         $result = $query->getResult();
 
-        return (new ArrayCollection($result))->filter(function($i) {
+        return (new ArrayCollection($result))->filter(function ($i) {
             return $i instanceof Match;
         });
     }
@@ -164,7 +164,7 @@ DQL;
         $query->setParameter('players', $playerids);
         $result = $query->getResult();
 
-        return (new ArrayCollection($result))->filter(function($i) {
+        return (new ArrayCollection($result))->filter(function ($i) {
             return $i instanceof Match;
         });
     }

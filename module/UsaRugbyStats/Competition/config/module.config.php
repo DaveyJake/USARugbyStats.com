@@ -2,10 +2,11 @@
 return array(
 
     'usarugbystats' => array(
-	   'application' => array(
-        	'event_listeners' => array(
-		        'usarugbystats_competition_rbac_listener_teamadmincannotmodifyteamunion',
-	        ),
+       'application' => array(
+            'event_listeners' => array(
+                'usarugbystats_competition_rbac_listener_teamadmincannotmodifyteamunion',
+                'usarugbystats_competition_rbac_listener_competitionunionupdateteams',
+            ),
         ),
     ),
 
@@ -20,6 +21,7 @@ return array(
         ),
         'factories' => array(
             'usarugbystats_competition_rbac_listener_teamadmincannotmodifyteamunion' => 'UsaRugbyStats\Competition\Rbac\Listener\TeamAdminCannotModifyTeamUnionFactory',
+            'usarugbystats_competition_rbac_listener_competitionunionupdateteams' => 'UsaRugbyStats\Competition\Rbac\Listener\CompetitionUnionUpdateTeamsFactory',
 
             'usarugbystats_competition_location_service' => 'UsaRugbyStats\Competition\Service\LocationServiceFactory',
             'usarugbystats_competition_location_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\LocationFieldsetFactory',
@@ -178,6 +180,10 @@ return array(
             'competition.team.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedTeamsAssertion',
             'competition.team.update.union' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedTeamsAssertion',
             'competition.team.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedTeamsAssertion',
+
+            'competition.union.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedUnionsAssertion',
+            'competition.union.update.teams' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedUnionsAssertion',
+            'competition.union.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedUnionsAssertion',
 
             'competition.competition.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
             'competition.competition.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
