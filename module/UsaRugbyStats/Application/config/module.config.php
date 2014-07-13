@@ -7,6 +7,7 @@ return array(
                 'layout' => 'layout/iframe',
             ),
             'event_listeners' => array(
+                'usarugbystats_application_listener_constructcompletevalidationgroupforform'
             )
         ),
     ),
@@ -45,6 +46,9 @@ return array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory',
+        ),
+        'invokables' => array(
+            'usarugbystats_application_listener_constructcompletevalidationgroupforform' => 'UsaRugbyStats\Application\Listener\ConstructCompleteValidationGroupForForm',
         ),
         'factories' => array(
             'default' => 'Zend\Navigation\Service\DefaultNavigationFactory',
