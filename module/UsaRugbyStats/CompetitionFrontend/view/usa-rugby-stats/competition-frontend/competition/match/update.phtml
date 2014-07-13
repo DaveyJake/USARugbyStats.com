@@ -1,9 +1,9 @@
 <h1><?php echo $this->escapeHtml($competition->getName()); ?></h1>
-<?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/navigation', ['page' => 'matches', 'entity' => $competition]); ?>
+<?php echo $this->render('usa-rugby-stats/competition-frontend/competition/navigation', ['page' => 'matches', 'entity' => $competition]); ?>
 
 <?php
 $form->prepare();
-$form->setAttribute('action', $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/edit', ['id' => $competition->getId(), 'match' => $entity->getId()]));
+$form->setAttribute('action', $this->url('usarugbystats_frontend_competition_match/update', array('cid' => $competition->getId(), 'mid' => $entity->getId())));
 $form->setAttribute('method', 'post');
 ?>
 

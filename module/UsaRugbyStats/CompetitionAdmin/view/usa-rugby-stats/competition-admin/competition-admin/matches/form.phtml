@@ -1,6 +1,7 @@
 <?php $fieldset = $form->get('match'); ?>
 
 <?php echo $this->formHidden($fieldset->get('id')); ?>
+<?php $canEdit = $this->isGranted('competition.competition.match.details.change', @$this->entity); ?>
 
 <div class="panel panel-default">
     <div class="panel-heading">Match Details</div>
@@ -13,7 +14,12 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
-                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                <?php if ( $canEdit ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
             </div>
         </div>
 
@@ -24,7 +30,12 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
-                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                <?php if ( $canEdit ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
             </div>
         </div>
 
@@ -35,7 +46,12 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
-                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                <?php if ( $canEdit ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
             </div>
         </div>
 
@@ -47,7 +63,12 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
-                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                <?php if ( $canEdit ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
             </div>
         </div>
 
@@ -58,7 +79,11 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
-                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                <?php if ( $canEdit ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
             </div>
         </div>
 
@@ -68,7 +93,12 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
-                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                <?php if ( $canEdit ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
             </div>
         </div>
     </div>

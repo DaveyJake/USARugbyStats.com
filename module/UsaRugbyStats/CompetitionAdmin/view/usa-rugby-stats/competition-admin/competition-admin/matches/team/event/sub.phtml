@@ -1,3 +1,4 @@
+<?php $canEdit = $this->isGranted('competition.competition.match.team.events.change', @$this->match); ?>
 <table class="table" style="margin-bottom: 0;">
     <tbody style="border: 0;">
         <tr>
@@ -5,7 +6,12 @@
             <td>
                 <?php $element = $fieldset->get('type'); ?>
                 <?php $element->setAttributes(['class' => 'input-sm']); ?>
-                <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+                <?php if ( $canEdit ): ?>
+                <?php   echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
             </td>
         </tr>
         <tr>
@@ -13,7 +19,12 @@
             <td>
                 <?php $element = $fieldset->get('playerOn'); ?>
                 <?php $element->setAttributes(['class' => 'input-sm']); ?>
-                <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+                <?php if ( $canEdit ): ?>
+                <?php   echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
             </td>
         </tr>
         <tr>
@@ -21,7 +32,12 @@
             <td>
                 <?php $element = $fieldset->get('playerOff'); ?>
                 <?php $element->setAttributes(['class' => 'input-sm']); ?>
-                <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+                <?php if ( $canEdit ): ?>
+                <?php   echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
             </td>
         </tr>
     </tbody>

@@ -15,7 +15,12 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-10">
-                <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                <?php if ( $this->isGranted('competition.competition.match.team.change', @$this->match) ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
             </div>
         </div>
 
@@ -26,7 +31,7 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-10">
-                <?php echo $this->escapeHtml($element->getValue()); ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
             </div>
         </div>
     </div>

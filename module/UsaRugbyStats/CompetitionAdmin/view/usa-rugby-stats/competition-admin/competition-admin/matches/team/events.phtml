@@ -1,3 +1,5 @@
+<?php $canEdit = $this->isGranted('competition.competition.match.team.events.change', @$this->match); ?>
+
 <div class="panel panel-default competition-match-team competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?>-events">
     <div class="panel-heading">
         <?= ($type == 'H') ? 'Home' : 'Away'; ?> Team Events
@@ -17,6 +19,7 @@
             <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['fieldset' => $fsEvent]); ?>
             <?php endforeach; ?>
         </tbody>
+        <?php if ($canEdit): ?>
         <tfoot>
             <tr>
                 <td colspan="5">
@@ -35,8 +38,10 @@
                 </td>
             </tr>
         </tfoot>
+        <?php endif; ?>
     </table>
 
+    <?php if ($canEdit): ?>
     <script type="text/javascript">
         var teamEventTemplate<?=$type?> = {};
 <?php foreach ( $fieldset->get('events')->getTemplateElement() as $fsTmpl ): ?>
@@ -54,5 +59,6 @@
             $(this).closest('tr').remove();
         });
     </script>
+    <?php endif; ?>
 
 </div>

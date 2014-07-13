@@ -1,7 +1,11 @@
 <div style="margin-bottom: 20px">
     <ul class="nav nav-pills">
         <li<?=($page == 'details' ? ' class="active"' : ''); ?>><a href="<?=$this->url('usarugbystats_frontend_competition',['id' => $entity->getId()]) ?>">Competition</a></li>
+        <?php if ($this->isGranted('competition.competition.update', $entity) ): ?>
         <li<?=($page == 'update' ? ' class="active"' : ''); ?>><a href="<?=$this->url('usarugbystats_frontend_competition/update-details',['id' => $entity->getId()]) ?>">Edit Details</a></li>
-        <li<?=($page == 'matches' ? ' class="active"' : ''); ?>><a href="<?=$this->url('usarugbystats_frontend_competition/update-matches',['id' => $entity->getId()]) ?>">Manage Matches</a></li>
+        <?php endif;?>
+        <?php if ($this->isGranted('competition.competition.match.update', $entity) ): ?>
+        <li<?=($page == 'matches' ? ' class="active"' : ''); ?>><a href="<?=$this->url('usarugbystats_frontend_competition_match',['cid' => $entity->getId()]) ?>">Manage Matches</a></li>
+        <?php endif;?>
     </ul>
 </div>

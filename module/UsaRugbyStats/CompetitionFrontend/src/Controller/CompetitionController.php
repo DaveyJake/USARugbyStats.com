@@ -8,6 +8,8 @@ use UsaRugbyStats\Competition\Entity\Competition;
 use ZfcRbac\Exception\UnauthorizedException;
 use Zend\Paginator\Paginator;
 use DoctrineModule\Paginator\Adapter\Collection as CollectionAdapter;
+use UsaRugbyStats\Competition\Entity\Competition\Match;
+use UsaRugbyStats\Competition\Service\Competition\MatchService;
 
 class CompetitionController extends AbstractActionController
 {
@@ -53,27 +55,6 @@ class CompetitionController extends AbstractActionController
         return $vm;
     }
 
-    public function updateMatchesAction()
-    {
-        $competition = $this->getCompetition();
-
-        if ( ! $this->isGranted('competition.competition.match.list', $competition) ) {
-            throw new UnauthorizedException();
-        }
-
-        $paginator = new Paginator(new CollectionAdapter($competition->getMatches()));
-        $paginator->setItemCountPerPage(100);
-        $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1));
-
-        $vm = new ViewModel();
-        $vm->setVariable('entity', $competition);
-        $vm->setVariable('paginator', $paginator);
-        $vm->setTemplate('usa-rugby-stats/competition-frontend/competition/update-matches');
-
-        return $vm;
-    }
-
-
     protected function getCompetition()
     {
         $id = $this->params()->fromRoute('id');
@@ -106,5 +87,4 @@ class CompetitionController extends AbstractActionController
 
         return $this;
     }
-
 }

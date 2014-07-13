@@ -1,3 +1,4 @@
+<?php $canEdit = $this->isGranted('competition.competition.match.team.roster.change', @$this->match); ?>
 <tr>
     <td class="column column-number">
         <?php $element = $fieldset->get('number'); ?>
@@ -8,19 +9,26 @@
         <?php $element = $fieldset->get('player'); ?>
         <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
     </td>
-    
+
     <td class="column column-position">
         <?php $element = $fieldset->get('position'); ?>
         <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
     </td>
-    
+
     <td class="column column-isfrontrow">
         <?php $element = $fieldset->get('isFrontRow'); ?>
-        <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+        <?php if ( $canEdit ): ?>
+        <?php echo $this->formElement($element) ?>
+        <?php else: ?>
+        <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+        <?php endif;?>
+        <?php echo $this->formElementErrors($element); ?>
     </td>
-    
+
+    <?php if ( $canEdit ): ?>
     <td>
         <?php echo $this->formHidden($fieldset->get('id')); ?>
         <a class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove competition-match-team-roster-removeplayer"></i></a>
     </td>
+    <?php endif; ?>
 </tr>
