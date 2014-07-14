@@ -207,4 +207,19 @@ return array(
 
         ]
     ),
+
+    'view_helpers' => array(
+        'factories' => array(
+            'ursPlayerName'           => 'UsaRugbyStats\Competition\View\Helper\PlayerNameFactory',
+            'ursPlayerLink'           => 'UsaRugbyStats\Competition\View\Helper\PlayerLinkFactory',
+            'ursTeamName'             => 'UsaRugbyStats\Competition\View\Helper\TeamNameFactory',
+            'ursTeamLink'             => 'UsaRugbyStats\Competition\View\Helper\TeamLinkFactory',
+            'ursUnionName'            => 'UsaRugbyStats\Competition\View\Helper\UnionNameFactory',
+            'ursUnionLink'            => 'UsaRugbyStats\Competition\View\Helper\UnionLinkFactory',
+            'ursCompetitionName'      => 'UsaRugbyStats\Competition\View\Helper\CompetitionNameFactory',
+            'ursCompetitionLink'      => 'UsaRugbyStats\Competition\View\Helper\CompetitionLinkFactory',
+            'ursCompetitionMatchName' => 'UsaRugbyStats\Competition\View\Helper\CompetitionMatchNameFactory',
+            'ursCompetitionMatchLink' => 'UsaRugbyStats\Competition\View\Helper\CompetitionMatchLinkFactory',
+        ),
+    ),
 );

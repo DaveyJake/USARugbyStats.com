@@ -1,11 +1,11 @@
 <?php
-namespace UsaRugbyStats\CompetitionFrontend\View\Helper;
+namespace UsaRugbyStats\Competition\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use UsaRugbyStats\Competition\Entity\Union;
 use UsaRugbyStats\Competition\Traits\UnionServiceTrait;
 
-class UnionLink extends AbstractHelper
+class UnionName extends AbstractHelper
 {
     use UnionServiceTrait;
 
@@ -21,9 +21,6 @@ class UnionLink extends AbstractHelper
             return "&gt; Not Found &lt;!";
         }
 
-        return $this->getView()->render(
-            'usa-rugby-stats/competition-frontend/partials/union-link/default',
-            [ 'union' => $union ]
-        );
+        return $union->getName();
     }
 }

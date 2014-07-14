@@ -1,11 +1,11 @@
 <?php
-namespace UsaRugbyStats\CompetitionFrontend\View\Helper;
+namespace UsaRugbyStats\Competition\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
 use UsaRugbyStats\Application\Entity\AccountInterface;
 
-class PlayerLink extends AbstractHelper
+class PlayerName extends AbstractHelper
 {
     public function __invoke($obj)
     {
@@ -19,9 +19,6 @@ class PlayerLink extends AbstractHelper
             return;
         }
 
-        return $this->getView()->render(
-            'usa-rugby-stats/competition-frontend/partials/player-link/default',
-            [ 'player' => $player ]
-        );
+        return $player->getDisplayName();
     }
 }

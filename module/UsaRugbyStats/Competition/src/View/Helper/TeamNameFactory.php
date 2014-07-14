@@ -1,11 +1,11 @@
 <?php
-namespace UsaRugbyStats\CompetitionFrontend\View\Helper;
+namespace UsaRugbyStats\Competition\View\Helper;
 
 use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class UnionLinkFactory implements FactoryInterface
+class TeamNameFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
@@ -16,8 +16,8 @@ class UnionLinkFactory implements FactoryInterface
             ? $pluginManager->getServiceLocator()
             : $pluginManager;
 
-        $viewHelper = new UnionLink();
-        $viewHelper->setUnionService($sl->get('usarugbystats_competition_union_service'));
+        $viewHelper = new TeamName();
+        $viewHelper->setTeamService($sl->get('usarugbystats_competition_team_service'));
 
         return $viewHelper;
     }

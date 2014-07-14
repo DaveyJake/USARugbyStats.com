@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\CompetitionFrontend\View\Helper;
+namespace UsaRugbyStats\Competition\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use UsaRugbyStats\Competition\Entity\Competition;

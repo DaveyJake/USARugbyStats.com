@@ -212,18 +212,4 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
-    'view_helpers' => array(
-        'factories' => array(
-            'ursPlayerName'           => 'UsaRugbyStats\CompetitionFrontend\View\Helper\PlayerNameFactory',
-            'ursPlayerLink'           => 'UsaRugbyStats\CompetitionFrontend\View\Helper\PlayerLinkFactory',
-            'ursTeamName'             => 'UsaRugbyStats\CompetitionFrontend\View\Helper\TeamNameFactory',
-            'ursTeamLink'             => 'UsaRugbyStats\CompetitionFrontend\View\Helper\TeamLinkFactory',
-            'ursUnionName'            => 'UsaRugbyStats\CompetitionFrontend\View\Helper\UnionNameFactory',
-            'ursUnionLink'            => 'UsaRugbyStats\CompetitionFrontend\View\Helper\UnionLinkFactory',
-            'ursCompetitionName'      => 'UsaRugbyStats\CompetitionFrontend\View\Helper\CompetitionNameFactory',
-            'ursCompetitionLink'      => 'UsaRugbyStats\CompetitionFrontend\View\Helper\CompetitionLinkFactory',
-            'ursCompetitionMatchName' => 'UsaRugbyStats\CompetitionFrontend\View\Helper\CompetitionMatchNameFactory',
-            'ursCompetitionMatchLink' => 'UsaRugbyStats\CompetitionFrontend\View\Helper\CompetitionMatchLinkFactory',
-        ),
-    ),
 );

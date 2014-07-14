@@ -1,17 +1,17 @@
 <?php
-namespace UsaRugbyStats\CompetitionFrontend\View\Helper;
+namespace UsaRugbyStats\Competition\View\Helper;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class CompetitionNameFactory implements FactoryInterface
+class CompetitionLinkFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
      */
     public function createService(ServiceLocatorInterface $pluginManager)
     {
-        $viewHelper = new CompetitionName();
+        $viewHelper = new CompetitionLink();
 
         return $viewHelper;
     }

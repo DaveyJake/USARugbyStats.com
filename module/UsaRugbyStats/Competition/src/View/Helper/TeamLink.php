@@ -1,12 +1,12 @@
 <?php
-namespace UsaRugbyStats\CompetitionFrontend\View\Helper;
+namespace UsaRugbyStats\Competition\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 use UsaRugbyStats\Competition\Traits\TeamServiceTrait;
 
-class TeamName extends AbstractHelper
+class TeamLink extends AbstractHelper
 {
     use TeamServiceTrait;
 
@@ -21,9 +21,12 @@ class TeamName extends AbstractHelper
             $team = $this->getTeamService()->findByID($obj);
         }
         if (! $team instanceof Team) {
-            return;
+            return "No Team!";
         }
 
-        return $team->getName();
+        return $this->getView()->render(
+            'usa-rugby-stats/competition-frontend/partials/team-link/default',
+            [ 'team' => $team ]
+        );
     }
 }
