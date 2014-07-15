@@ -1,8 +1,10 @@
+<?php $canEdit = $this->isGranted('competition.competition.match.signatures.change', @$this->match); ?>
+
 <div class="panel panel-default">
     <div class="panel-heading">Match Signatures</div>
 
     <table class="table table-striped table-bordered competition-match-signatures">
-        <thead>
+        <thead<?php if (count($collection) == 0) echo ' style="display:none"'; ?>>
             <tr>
                 <th>Type</th>
                 <th>Signee</th>
@@ -11,9 +13,10 @@
         </thead>
         <tbody>
             <?php foreach ( $collection as $fsSignature ): ?>
-            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', ['fieldset' => $fsSignature]); ?>
+            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', ['match' => @$this->match, 'fieldset' => $fsSignature]); ?>
             <?php endforeach; ?>
         </tbody>
+        <?php if ( $canEdit ): ?>
         <tfoot>
             <tr>
                 <td colspan="5">
@@ -21,19 +24,26 @@
                 </td>
             </tr>
         </tfoot>
+        <?php endif; ?>
     </table>
 
+    <?php if ( $canEdit ): ?>
     <script type="text/javascript">
-        matchSignatureTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', ['fieldset' => $collection->getTemplateElement(), 'isTemplate' => true])); ?>';
+        matchSignatureTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', ['match' => $this->match, 'fieldset' => $collection->getTemplateElement(), 'isTemplate' => true])); ?>';
         var matchSignatureIndex = <?php echo $this->escapeJs(count($collection)); ?>;
 
         $(document).on('click', '.competition-match-signatures .competition-match-signatures-addsignature', function() {
+            $('.competition-match-signatures > thead').show();
             var html = matchSignatureTemplate.replace(/__sigindex__/g, matchSignatureIndex++);
             $('.competition-match-signatures > tbody').append(html);
         });
         $(document).on('click', '.competition-match-signatures .competition-match-signatures-removesignature', function() {
+            if ( $(this).closest('tbody').find('tr').length < 2 ) {
+                $('.competition-match-signatures > thead').hide();
+            }
             $(this).closest('tr').remove();
         });
     </script>
+    <?php endif; ?>
 
 </div>

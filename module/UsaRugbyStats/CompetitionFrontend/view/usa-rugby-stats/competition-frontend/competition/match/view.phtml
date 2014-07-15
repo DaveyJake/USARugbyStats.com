@@ -20,7 +20,7 @@
 <?=$this->escapeHtml($match->getDate()->format('F j, Y')); ?>&nbsp;&mdash;&nbsp;
 Kickoff @ <?=$this->escapeHtml($match->getDate()->format('H:i')); ?>&nbsp;&mdash;&nbsp;
 Game iFrame
-<?php if ( $this->isGranted('competition.competition.match.update') ): ?>
+<?php if ( $this->isGranted('competition.competition.match.update', $match) ): ?>
 &nbsp;&mdash;&nbsp;
 <a href="<?php echo $this->url('usarugbystats_frontend_competition_match/update', array('cid' => $match->getCompetition()->getId(), 'mid' => $match->getId())); ?>"><?php echo $this->translate('Edit Match') ?></a>
 <?php endif;?>

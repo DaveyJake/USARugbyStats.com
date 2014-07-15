@@ -64,12 +64,12 @@
                 <a href="<?php echo $this->url('usarugbystats_frontend_competition_match/view', array('cid' => $entity->getId(), 'mid' => $match->getId())); ?>">
                     <?php echo $this->translate('View') ?>
                 </a>
-                <?php if ( $this->isGranted('competition.competition.match.update', $entity) ): ?>
+                <?php if ( $this->isGranted('competition.competition.match.update', $match) ): ?>
                  | <a href="<?php echo $this->url('usarugbystats_frontend_competition_match/update', array('cid' => $entity->getId(), 'mid' => $match->getId())); ?>">
                     <?php echo $this->translate('Edit') ?>
                 </a>
                 <?php endif; ?>
-                <?php if ( $this->isGranted('competition.competition.match.delete', $entity) ): ?>
+                <?php if ( $this->isGranted('competition.competition.match.delete', $match) ): ?>
                  | <a href="<?php echo $this->url('usarugbystats_frontend_competition_match/delete', array('cid' => $entity->getId(), 'mid' => $match->getId())); ?>">
                     <?php echo $this->translate('Delete') ?>
                 </a>

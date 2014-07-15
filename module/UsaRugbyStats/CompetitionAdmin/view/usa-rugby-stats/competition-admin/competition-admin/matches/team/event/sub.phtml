@@ -1,4 +1,4 @@
-<?php $canEdit = $this->isGranted('competition.competition.match.team.events.change', @$this->match); ?>
+<?php $canEdit = $this->isGranted('competition.competition.match.team.events.change', @$this->matchTeam); ?>
 <table class="table" style="margin-bottom: 0;">
     <tbody style="border: 0;">
         <tr>
@@ -9,7 +9,7 @@
                 <?php if ( $canEdit ): ?>
                 <?php   echo $this->formElement($element) ?>
                 <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php echo $this->escapeHtml($element->getValue()); ?>
                 <?php endif;?>
                 <?php echo $this->formElementErrors($element); ?>
             </td>
@@ -22,7 +22,7 @@
                 <?php if ( $canEdit ): ?>
                 <?php   echo $this->formElement($element) ?>
                 <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php echo $this->escapeHtml($element->getValue()); ?>
                 <?php endif;?>
                 <?php echo $this->formElementErrors($element); ?>
             </td>
@@ -35,7 +35,7 @@
                 <?php if ( $canEdit ): ?>
                 <?php   echo $this->formElement($element) ?>
                 <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php echo $this->escapeHtml($element->getValue()); ?>
                 <?php endif;?>
                 <?php echo $this->formElementErrors($element); ?>
             </td>

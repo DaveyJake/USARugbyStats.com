@@ -5,9 +5,9 @@ use Zend\EventManager\EventInterface;
 use Zend\EventManager\SharedListenerAggregateInterface;
 use Zend\EventManager\SharedEventManagerInterface;
 use ZfcRbac\Service\AuthorizationService;
-use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Competition\Entity\Competition;
 
-class CompetitionUnionUpdateTeams implements SharedListenerAggregateInterface
+class CompetitionUpdateDivisions implements SharedListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
@@ -22,7 +22,7 @@ class CompetitionUnionUpdateTeams implements SharedListenerAggregateInterface
     public function attachShared(SharedEventManagerInterface $events)
     {
         $this->listeners[] = $events->attach(
-            'UsaRugbyStats\Competition\Form\UnionCreateForm',
+            'UsaRugbyStats\Competition\Form\CompetitionCreateForm',
             'getValidationGroup.post',
             [$this, 'getValidationGroup']
         );
@@ -43,13 +43,13 @@ class CompetitionUnionUpdateTeams implements SharedListenerAggregateInterface
     public function getValidationGroup(EventInterface $e)
     {
         $context = $e->getTarget()->getObject();
-        if ( ! $context instanceof Team || $context->getId() == NULL ) {
+        if ( ! $context instanceof Competition || $context->getId() == NULL ) {
             $context = null;
         }
 
         // Ditch union.teams from the form if we don't have permission to change it
-        if ( ! $this->getAuthorizationService()->isGranted('competition.union.update.teams', $context) ) {
-            unset($e->getParams()->validationGroup['union']['teams']);
+        if ( ! $this->getAuthorizationService()->isGranted('competition.competition.update.divisions', $context) ) {
+            unset($e->getParams()->validationGroup['competition']['divisions']);
         }
     }
 

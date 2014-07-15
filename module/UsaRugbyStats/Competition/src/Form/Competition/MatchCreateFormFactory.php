@@ -17,7 +17,7 @@ class MatchCreateFormFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $form = new Form('create-competition-match');
+        $form = new MatchCreateForm('create-competition-match');
 
         // Set the hydrator
         $form->setHydrator(new DoctrineObject($sm->get('zfcuser_doctrine_em')));

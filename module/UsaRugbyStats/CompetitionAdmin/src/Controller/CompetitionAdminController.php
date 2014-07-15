@@ -98,10 +98,6 @@ class CompetitionAdminController extends AbstractActionController
     {
         $entity = $this->getCompetitionEntityFromRoute();
 
-        if ( ! $this->isGranted('competition.competition.division.list', $entity) ) {
-            throw new UnauthorizedException();
-        }
-
         $form = $this->getCompetitionService()->getUpdateForm();
 
         // On this page we only want to edit the Division list
@@ -110,13 +106,10 @@ class CompetitionAdminController extends AbstractActionController
         if ( $this->getRequest()->isPost() ) {
 
             // If they don't have the Division update permission short-circuit
-            // (having create or delete without update is mostly futile anyway)
-            if ( ! $this->isGranted('competition.competition.division.update', $entity) ) {
+            if ( ! $this->isGranted('competition.competition.update.divisions', $entity) ) {
                 throw new UnauthorizedException();
                 continue;
             }
-
-            //@TODO how to disallow create/update/delete separately here?
 
             $result = $this->getCompetitionService()->update($entity, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Competition) {

@@ -38,13 +38,13 @@ class EnforceManagedTeamsAssertion implements AssertionInterface
         // Check their TeamAdmin role for this team
         $role = $person->getRoleAssignment('team_admin');
         if ($role instanceof TeamAdmin) {
-            $isAllowed = $isAllowed || $role->getManagedTeams()->contains($context);
+            $isAllowed = $isAllowed || $role->hasManagedTeam($context);
         }
 
         // Check the unions of their UnionAdmin role for this team
         $role = $person->getRoleAssignment('union_admin');
         if ($role instanceof UnionAdmin) {
-            $isAllowed = $isAllowed || $role->getManagedTeams()->contains($context);
+            $isAllowed = $isAllowed || $role->hasManagedTeam($context);
         }
 
         return $isAllowed;

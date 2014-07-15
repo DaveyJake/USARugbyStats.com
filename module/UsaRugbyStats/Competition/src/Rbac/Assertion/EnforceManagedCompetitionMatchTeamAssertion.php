@@ -7,9 +7,11 @@ use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Account\Entity\Account;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\CompetitionAdmin;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\UnionAdmin;
+use UsaRugbyStats\Competition\Entity\Competition\Match;
+use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin;
 
-class EnforceManagedCompetitionsAssertion implements AssertionInterface
+class EnforceManagedCompetitionMatchTeamAssertion implements AssertionInterface
 {
     /**
      * Check if this assertion is true
@@ -22,8 +24,15 @@ class EnforceManagedCompetitionsAssertion implements AssertionInterface
     {
         // If there is no context we assume we're in create mode
         // (anything goes in create mode!)
-        if (! $context instanceof Competition) {
+        if (! $context instanceof MatchTeam) {
             return true;
+        }
+
+        $match = $context->getMatch();
+
+        // They must be allowed to edit this match
+        if ( ! $authorization->isGranted('competition.competition.match.update', $match) ) {
+            return false;
         }
 
         $person = $authorization->getIdentity();
@@ -37,16 +46,16 @@ class EnforceManagedCompetitionsAssertion implements AssertionInterface
         $isAllowed = false;
 
         $role = $person->getRoleAssignment('team_admin');
-        if ($role instanceof TeamAdmin && $context instanceof Competition) {
-            $isAllowed = $isAllowed || ( count(array_intersect($context->getTeamMemberships()->toArray(), $role->getManagedTeams()->toArray())) > 0 );
+        if ($role instanceof TeamAdmin) {
+            $isAllowed = $isAllowed || $role->hasManagedTeam($context->getTeam());
         }
         if ($isAllowed) {
             return true;
         }
 
         $role = $person->getRoleAssignment('union_admin');
-        if ($role instanceof UnionAdmin && $context instanceof Competition) {
-            $isAllowed = $isAllowed || ( count(array_intersect($context->getTeamMemberships()->toArray(), $role->getManagedTeams()->toArray())) > 0 );
+        if ($role instanceof UnionAdmin) {
+            $isAllowed = $isAllowed || $role->hasManagedTeam($context->getTeam());
         }
         if ($isAllowed) {
             return true;
@@ -54,7 +63,7 @@ class EnforceManagedCompetitionsAssertion implements AssertionInterface
 
         $role = $person->getRoleAssignment('competition_admin');
         if ($role instanceof CompetitionAdmin) {
-            $isAllowed = $isAllowed || ( $context instanceof Competition && $role->hasManagedCompetition($context) );
+            $isAllowed = $isAllowed || $role->hasManagedCompetition($match->getCompetition());
         }
 
         return $isAllowed;

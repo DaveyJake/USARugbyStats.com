@@ -1,3 +1,5 @@
+<?php $this->matchTeam = $this->match instanceof UsaRugbyStats\Competition\Entity\Competition\Match ? $this->match->getTeam($type) : NULL; ?>
+
 <?php echo $this->formHidden($fieldset->get('id')); ?>
 
 <div class="panel panel-default competition-match-team competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?>">
@@ -15,7 +17,7 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-10">
-                <?php if ( $this->isGranted('competition.competition.match.team.change', @$this->match) ): ?>
+                <?php if ( $this->isGranted('competition.competition.match.team.change', $this->matchTeam) ): ?>
                 <?php echo $this->formElement($element) ?>
                 <?php else: ?>
                 <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>

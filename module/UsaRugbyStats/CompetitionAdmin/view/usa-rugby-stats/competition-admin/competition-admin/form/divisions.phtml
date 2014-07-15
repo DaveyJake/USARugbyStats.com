@@ -1,7 +1,8 @@
+<?php $canEdit = $this->isGranted('competition.competition.update.divisions', @$competition); ?>
 <div class="panel panel-default competition-divisions">
     <div class="panel-heading">
         Competition Divisions
-        <?php if ( $this->isGranted('competition.competition.division.create', @$competition)  ): ?>
+        <?php if ( $canEdit ): ?>
         <div class="pull-right">
             <a class="btn btn-xs btn-success competition-divisions-add" title="Add Division"><i class="glyphicon glyphicon-plus-sign"></i></a>
         </div>
@@ -22,7 +23,7 @@
     </div>
 
     <script type="text/javascript">
-        <?php if ( $this->isGranted('competition.competition.division.create', @$competition)  ): ?>
+        <?php if ( $canEdit  ): ?>
         var managedDivisionsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['competition' => @$competition, 'fieldset' => $collDivision->getTemplateElement(), 'isTemplate' => true])); ?>';
         var managedDivisionIndex = <?php echo $this->escapeJs($fsCount); ?>;
 
@@ -33,8 +34,7 @@
             $('#CompetitionDivisionsContainer').append(html);
             managedDivisionIndex++;
         });
-        <?php endif; ?>
-        <?php if ( $this->isGranted('competition.competition.division.delete', @$competition)  ): ?>
+
         $(document).on('click', '.competition-divisions .competition-divisions-division-remove', function() {
             $(this).closest('*[data-divisionid]').remove();
         });

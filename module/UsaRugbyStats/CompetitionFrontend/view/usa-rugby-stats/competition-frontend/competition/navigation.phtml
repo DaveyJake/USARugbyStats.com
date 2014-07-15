@@ -4,7 +4,7 @@
         <?php if ($this->isGranted('competition.competition.update', $entity) ): ?>
         <li<?=($page == 'update' ? ' class="active"' : ''); ?>><a href="<?=$this->url('usarugbystats_frontend_competition/update-details',['id' => $entity->getId()]) ?>">Edit Details</a></li>
         <?php endif;?>
-        <?php if ($this->isGranted('competition.competition.match.update', $entity) ): ?>
+        <?php if ($this->isGranted('competition.competition.update.matches', $entity) ): ?>
         <li<?=($page == 'matches' ? ' class="active"' : ''); ?>><a href="<?=$this->url('usarugbystats_frontend_competition_match',['cid' => $entity->getId()]) ?>">Manage Matches</a></li>
         <?php endif;?>
     </ul>

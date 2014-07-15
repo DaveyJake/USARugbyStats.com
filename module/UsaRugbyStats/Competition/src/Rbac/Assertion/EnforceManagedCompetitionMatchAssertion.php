@@ -7,9 +7,10 @@ use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Account\Entity\Account;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\CompetitionAdmin;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\UnionAdmin;
+use UsaRugbyStats\Competition\Entity\Competition\Match;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin;
 
-class EnforceManagedCompetitionsAssertion implements AssertionInterface
+class EnforceManagedCompetitionMatchAssertion implements AssertionInterface
 {
     /**
      * Check if this assertion is true
@@ -22,7 +23,7 @@ class EnforceManagedCompetitionsAssertion implements AssertionInterface
     {
         // If there is no context we assume we're in create mode
         // (anything goes in create mode!)
-        if (! $context instanceof Competition) {
+        if (! $context instanceof Match) {
             return true;
         }
 
@@ -37,24 +38,24 @@ class EnforceManagedCompetitionsAssertion implements AssertionInterface
         $isAllowed = false;
 
         $role = $person->getRoleAssignment('team_admin');
-        if ($role instanceof TeamAdmin && $context instanceof Competition) {
-            $isAllowed = $isAllowed || ( count(array_intersect($context->getTeamMemberships()->toArray(), $role->getManagedTeams()->toArray())) > 0 );
+        if ($role instanceof TeamAdmin && $context instanceof Match) {
+            $isAllowed = $isAllowed || $role->hasManagedTeam($context->getHomeTeam()->getTeam()) || $role->hasManagedTeam($context->getAwayTeam()->getTeam());
         }
         if ($isAllowed) {
             return true;
         }
 
         $role = $person->getRoleAssignment('union_admin');
-        if ($role instanceof UnionAdmin && $context instanceof Competition) {
-            $isAllowed = $isAllowed || ( count(array_intersect($context->getTeamMemberships()->toArray(), $role->getManagedTeams()->toArray())) > 0 );
+        if ($role instanceof UnionAdmin && $context instanceof Match) {
+            $isAllowed = $isAllowed || $role->hasManagedTeam($context->getHomeTeam()->getTeam()) || $role->hasManagedTeam($context->getAwayTeam()->getTeam());
         }
         if ($isAllowed) {
             return true;
         }
 
         $role = $person->getRoleAssignment('competition_admin');
-        if ($role instanceof CompetitionAdmin) {
-            $isAllowed = $isAllowed || ( $context instanceof Competition && $role->hasManagedCompetition($context) );
+        if ($role instanceof CompetitionAdmin && $context instanceof Match) {
+            $isAllowed = $isAllowed || $role->hasManagedCompetition($context->getCompetition());
         }
 
         return $isAllowed;

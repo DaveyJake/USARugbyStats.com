@@ -1,4 +1,4 @@
-<?php $canEdit = $this->isGranted('competition.competition.match.team.events.change', @$this->match); ?>
+<?php $canEdit = $this->isGranted('competition.competition.match.team.events.change', @$this->matchTeam); ?>
 
 <div class="panel panel-default competition-match-team competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?>-events">
     <div class="panel-heading">
@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             <?php foreach ( $fieldset->get('events') as $fsEvent ): ?>
-            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['fieldset' => $fsEvent]); ?>
+            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['matchTeam' => $this->matchTeam, 'fieldset' => $fsEvent]); ?>
             <?php endforeach; ?>
         </tbody>
         <?php if ($canEdit): ?>
@@ -46,7 +46,7 @@
         var teamEventTemplate<?=$type?> = {};
 <?php foreach ( $fieldset->get('events')->getTemplateElement() as $fsTmpl ): ?>
 <?php   if ( preg_match('{^UsaRugbyStats\\\\Competition\\\\Form\\\\Fieldset\\\\Competition\\\\Match\\\\MatchTeamEvent\\\\(.*)EventFieldset$}is', get_class($fsTmpl), $matches) ): ?>
-        teamEventTemplate<?=$type?>['<?=strtolower($matches[1]);?>'] = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['fieldset' => $fsTmpl, 'isTemplate' => true])); ?>';
+        teamEventTemplate<?=$type?>['<?=strtolower($matches[1]);?>'] = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['matchTeam' => $this->matchTeam, 'fieldset' => $fsTmpl, 'isTemplate' => true])); ?>';
 <?php   endif; ?>
 <?php endforeach; ?>
         var teamEventIndex<?=$type?> = <?php echo $this->escapeJs(count($fieldset->get('events'))); ?>;

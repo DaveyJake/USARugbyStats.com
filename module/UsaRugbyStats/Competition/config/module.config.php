@@ -5,7 +5,10 @@ return array(
        'application' => array(
             'event_listeners' => array(
                 'usarugbystats_competition_rbac_listener_teamadmincannotmodifyteamunion',
-                'usarugbystats_competition_rbac_listener_competitionunionupdateteams',
+                'usarugbystats_competition_rbac_listener_unionupdateteams',
+                'usarugbystats_competition_rbac_listener_competitionupdatedivisions',
+                'usarugbystats_competition_rbac_listener_competitionmatchdetailschange',
+                'usarugbystats_competition_rbac_listener_competitionmatchsignatureschange',
             ),
         ),
     ),
@@ -21,7 +24,10 @@ return array(
         ),
         'factories' => array(
             'usarugbystats_competition_rbac_listener_teamadmincannotmodifyteamunion' => 'UsaRugbyStats\Competition\Rbac\Listener\TeamAdminCannotModifyTeamUnionFactory',
-            'usarugbystats_competition_rbac_listener_competitionunionupdateteams' => 'UsaRugbyStats\Competition\Rbac\Listener\CompetitionUnionUpdateTeamsFactory',
+            'usarugbystats_competition_rbac_listener_unionupdateteams' => 'UsaRugbyStats\Competition\Rbac\Listener\UnionUpdateTeamsFactory',
+            'usarugbystats_competition_rbac_listener_competitionupdatedivisions' => 'UsaRugbyStats\Competition\Rbac\Listener\CompetitionUpdateDivisionsFactory',
+            'usarugbystats_competition_rbac_listener_competitionmatchdetailschange' => 'UsaRugbyStats\Competition\Rbac\Listener\CompetitionMatchDetailsChangeFactory',
+            'usarugbystats_competition_rbac_listener_competitionmatchsignatureschange' => 'UsaRugbyStats\Competition\Rbac\Listener\CompetitionMatchSignaturesChangeFactory',
 
             'usarugbystats_competition_location_service' => 'UsaRugbyStats\Competition\Service\LocationServiceFactory',
             'usarugbystats_competition_location_fieldset' => 'UsaRugbyStats\Competition\Form\Fieldset\LocationFieldsetFactory',
@@ -186,24 +192,24 @@ return array(
             'competition.union.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedUnionsAssertion',
 
             'competition.competition.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
+            'competition.competition.update.details' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
+            'competition.competition.update.matches' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
+            'competition.competition.update.divisions' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
             'competition.competition.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-
-            'competition.competition.division.create' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.division.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.division.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
 
             'competition.competition.division.team.add' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
             'competition.competition.division.team.remove' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
 
             'competition.competition.match.create' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.match.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.match.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
+            'competition.competition.match.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionMatchAssertion',
+            'competition.competition.match.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionMatchAssertion',
 
-            'competition.competition.match.details.change' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.match.team.change' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.match.team.roster.change' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.match.team.events.change' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.match.team.signatures.change' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
+            'competition.competition.match.details.change' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionMatchAssertion',
+            'competition.competition.match.signatures.change' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionMatchAssertion',
+
+            'competition.competition.match.team.change' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionMatchTeamAssertion',
+            'competition.competition.match.team.roster.change' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionMatchTeamAssertion',
+            'competition.competition.match.team.events.change' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionMatchTeamAssertion',
 
         ]
     ),

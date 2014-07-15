@@ -63,13 +63,11 @@ class PermissionsFixture implements FixtureInterface, DependentFixtureInterface
 
         'competition.competition.list' => ['member'],
         'competition.competition.create' => ['super_admin'],
-        'competition.competition.update' => ['competition_admin'],
+        'competition.competition.update' => ['union_admin', 'competition_admin'],
+        'competition.competition.update.details' => ['competition_admin'],
+        'competition.competition.update.divisions' => ['competition_admin'],
+        'competition.competition.update.matches' => ['union_admin', 'competition_admin'],
         'competition.competition.delete' => ['super_admin'],
-
-        'competition.competition.division.list' => ['member'],
-        'competition.competition.division.create' => ['competition_admin'],
-        'competition.competition.division.update' => ['competition_admin'],
-        'competition.competition.division.delete' => ['competition_admin'],
 
         'competition.competition.division.team.add' => ['competition_admin'],
         'competition.competition.division.team.remove' => ['competition_admin'],
@@ -79,6 +77,7 @@ class PermissionsFixture implements FixtureInterface, DependentFixtureInterface
         'competition.competition.match.update' => ['competition_admin'],
         'competition.competition.match.delete' => ['competition_admin'],
 
+        //@TODO change to ...match.update.<item>
         'competition.competition.match.details.change' => ['competition_admin'],
         'competition.competition.match.team.change' => ['competition_admin'],
         'competition.competition.match.team.roster.change' => ['competition_admin'],

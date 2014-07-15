@@ -1,4 +1,4 @@
-<?php $canEdit = $this->isGranted('competition.competition.match.team.roster.change', @$this->match); ?>
+<?php $canEdit = $this->isGranted('competition.competition.match.team.roster.change', @$this->matchTeam); ?>
 
 <table class="table table-striped table-bordered competition-match-team-roster">
     <thead>
@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         <?php foreach ( $fieldset->get('players') as $fsPlayer ): ?>
-        <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', ['fieldset' => $fsPlayer]); ?>
+        <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', ['matchTeam' => @$this->matchTeam, 'fieldset' => $fsPlayer]); ?>
         <?php endforeach; ?>
     </tbody>
     <?php if ($canEdit): ?>

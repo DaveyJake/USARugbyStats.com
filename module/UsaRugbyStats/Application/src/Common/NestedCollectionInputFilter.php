@@ -62,4 +62,5 @@ class NestedCollectionInputFilter extends CollectionInputFilter
 
         return $valid;
     }
+
 }

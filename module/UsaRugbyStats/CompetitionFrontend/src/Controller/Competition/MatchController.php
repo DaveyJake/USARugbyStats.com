@@ -79,10 +79,10 @@ class MatchController extends AbstractActionController
     public function updateAction()
     {
         $competition = $this->getCompetitionEntityFromRoute();
-        if ( ! $this->isGranted('competition.competition.match.update', $competition) ) {
+        $entity = $this->getMatchEntityFromRoute();
+        if ( ! $this->isGranted('competition.competition.match.update', $entity) ) {
             throw new UnauthorizedException();
         }
-        $entity = $this->getMatchEntityFromRoute();
 
         $form = $this->getMatchService()->getUpdateForm();
 
@@ -115,10 +115,10 @@ class MatchController extends AbstractActionController
     public function deleteAction()
     {
         $competition = $this->getCompetitionEntityFromRoute();
-        if ( ! $this->isGranted('competition.competition.match.delete', $competition) ) {
+        $entity = $this->getMatchEntityFromRoute();
+        if ( ! $this->isGranted('competition.competition.match.delete', $entity) ) {
             throw new UnauthorizedException();
         }
-        $entity = $this->getMatchEntityFromRoute();
 
         if ( $this->getRequest()->isPost() && $this->params()->fromPost('confirmed') == 'Y' ) {
             $this->getMatchService()->remove($entity);

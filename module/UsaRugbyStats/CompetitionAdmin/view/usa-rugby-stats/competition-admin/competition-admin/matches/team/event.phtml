@@ -2,7 +2,7 @@
 if ( ! preg_match('{^UsaRugbyStats\\\\Competition\\\\Form\\\\Fieldset\\\\Competition\\\\Match\\\\MatchTeamEvent\\\\(.*)EventFieldset$}is', get_class($fieldset), $matches) ) {
     return;
 }
-$canEdit = $this->isGranted('competition.competition.match.team.events.change', @$this->match);
+$canEdit = $this->isGranted('competition.competition.match.team.events.change', @$this->matchTeam);
 
 ?>
 <tr>
@@ -12,14 +12,14 @@ $canEdit = $this->isGranted('competition.competition.match.team.events.change', 
         <?php if ( $canEdit ): ?>
         <?php   echo $this->formElement($element) ?>
         <?php else: ?>
-        <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+        <?php echo $this->escapeHtml($element->getValue()); ?>
         <?php endif;?>
         <?php echo $this->formElementErrors($element); ?>
     </td>
 
     <td class="column column-type">
         <?php $element = $fieldset->get('event'); ?>
-        <p class="form-control-static"><?php echo $this->formHidden($element) ?><?php echo $this->escapeHtml($element->getValue()); ?></p>
+        <?php echo $this->formHidden($element) ?><?php echo $this->escapeHtml($element->getValue()); ?>
         <?php echo $this->formElementErrors($element); ?>
     </td>
 
@@ -28,7 +28,9 @@ $canEdit = $this->isGranted('competition.competition.match.team.events.change', 
     </td>
 
     <td>
+        <?php if ( $canEdit ): ?>
         <?php echo $this->formHidden($fieldset->get('id')); ?>
         <a class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove competition-match-team-events-removeevent"></i></a>
+        <?php endif; ?>
     </td>
 </tr>

@@ -42,6 +42,7 @@ class MatchRepository extends EntityRepository
             ORDER BY
                 cm.date ASC
 DQL;
+
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setParameter('teams', $teamids);
         $result = $query->getResult();

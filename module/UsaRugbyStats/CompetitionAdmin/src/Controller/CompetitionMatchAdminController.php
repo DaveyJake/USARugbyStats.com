@@ -72,9 +72,6 @@ class CompetitionMatchAdminController extends AbstractActionController
     public function editAction()
     {
         $competition = $this->getCompetitionEntityFromRoute();
-        if ( ! $this->isGranted('competition.competition.match.update', $competition) ) {
-            throw new UnauthorizedException();
-        }
 
         $id = $this->params()->fromRoute('match');
         $entity = $this->getMatchService()->findByID($id);
@@ -83,6 +80,10 @@ class CompetitionMatchAdminController extends AbstractActionController
         }
         if ( $entity->getCompetition() != null && $entity->getCompetition()->getId() != $competition->getId()) {
             throw new \RuntimeException('No match found with the specified identifier!');
+        }
+
+        if ( ! $this->isGranted('competition.competition.match.update', $entity) ) {
+            throw new UnauthorizedException();
         }
 
         $form = $this->getMatchService()->getUpdateForm();
@@ -116,9 +117,6 @@ class CompetitionMatchAdminController extends AbstractActionController
     public function removeAction()
     {
         $competition = $this->getCompetitionEntityFromRoute();
-        if ( ! $this->isGranted('competition.competition.match.delete', $competition) ) {
-            throw new UnauthorizedException();
-        }
 
         $id = $this->params()->fromRoute('match');
         $entity = $this->getMatchService()->findByID($id);
@@ -127,6 +125,10 @@ class CompetitionMatchAdminController extends AbstractActionController
         }
         if ( $entity->getCompetition() != null && $entity->getCompetition()->getId() != $competition->getId()) {
             throw new \RuntimeException('No match found with the specified identifier!');
+        }
+
+        if ( ! $this->isGranted('competition.competition.match.delete', $entity) ) {
+            throw new UnauthorizedException();
         }
 
         if ( $this->getRequest()->isPost() && $this->params()->fromPost('confirmed') == 'Y' ) {
