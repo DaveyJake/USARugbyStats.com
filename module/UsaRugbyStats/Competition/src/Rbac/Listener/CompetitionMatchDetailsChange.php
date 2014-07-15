@@ -23,8 +23,8 @@ class CompetitionMatchDetailsChange implements SharedListenerAggregateInterface
     {
         $this->listeners[] = $events->attach(
             'UsaRugbyStats\Competition\Form\Competition\MatchCreateForm',
-            'getValidationGroup.post',
-            [$this, 'getValidationGroup']
+            'prepareValidationGroup.post',
+            [$this, 'prepareValidationGroup']
         );
     }
 
@@ -40,7 +40,7 @@ class CompetitionMatchDetailsChange implements SharedListenerAggregateInterface
         }
     }
 
-    public function getValidationGroup(EventInterface $e)
+    public function prepareValidationGroup(EventInterface $e)
     {
         $context = $e->getTarget()->getObject();
         if ( ! $context instanceof Match || $context->getId() == NULL ) {
@@ -50,10 +50,9 @@ class CompetitionMatchDetailsChange implements SharedListenerAggregateInterface
         // Ditch match details fields from the form if we don't have permission to change them
         if ( ! $this->getAuthorizationService()->isGranted('competition.competition.match.details.change', $context) ) {
             $fieldset = $e->getTarget()->get('match');
-            foreach ( $fieldset->getElements() as $element ) {
-                $index = array_search($element->getName(), $e->getParams()->validationGroup['match']);
-                if ($index !== false) {
-                    unset($e->getParams()->validationGroup['match'][$index]);
+            foreach ( $e->getParams()->validationGroup['match'] as $key => $element ) {
+                if ( is_numeric($key) && !is_array($element) ) {
+                    unset($e->getParams()->validationGroup['match'][$key]);
                 }
             }
         }

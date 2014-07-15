@@ -7,7 +7,7 @@ use Zend\EventManager\SharedEventManagerInterface;
 use ZfcRbac\Service\AuthorizationService;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 
-class CompetitionMatchSignaturesChange implements SharedListenerAggregateInterface
+class CompetitionMatchTeamRosterChange implements SharedListenerAggregateInterface
 {
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
@@ -47,9 +47,11 @@ class CompetitionMatchSignaturesChange implements SharedListenerAggregateInterfa
             $context = null;
         }
 
-        // Ditch match signatures collection from the form if we don't have permission to change them
-        if ( ! $this->getAuthorizationService()->isGranted('competition.competition.match.signatures.change', $context) ) {
-            unset($e->getParams()->validationGroup['match']['signatures']);
+        foreach ( $context->getTeams() as $matchTeam ) {
+            // Ditch the players collection from the team form if we don't have permission to alter the roster
+            if ( ! $this->getAuthorizationService()->isGranted('competition.competition.match.team.roster.change', $matchTeam) ) {
+                unset($e->getParams()->validationGroup['match']['teams'][$matchTeam->getType()]['players']);
+            }
         }
     }
 

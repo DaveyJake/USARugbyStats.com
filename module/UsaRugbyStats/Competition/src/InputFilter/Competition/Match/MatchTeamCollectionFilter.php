@@ -21,6 +21,11 @@ class MatchTeamCollectionFilter extends NestedCollectionInputFilter
     {
         $result = parent::isValid();
 
+        // Check is futile if we aren't validating the whole collection
+        if ( !is_null($this->validationGroup) && ( !isset($this->validationGroup['H']) || !in_array('team', $this->validationGroup['H']) || !isset($this->validationGroup['A']) || !in_array('team', $this->validationGroup['A']) ) ) {
+            return true;
+        }
+
         // Ensure we have a complete set of teams
         $values = $this->getValues();
         if ( !isset($values['H']) || !isset($values['A']) ) {
@@ -31,7 +36,6 @@ class MatchTeamCollectionFilter extends NestedCollectionInputFilter
         $teams = [];
         $players = [];
         foreach ($values as $key=>$membership) {
-
             // Team must be unique per match
             if ( in_array($membership['team'], $teams) ) {
                 $this->collectionMessages[$key] = ['team' => ['A team cannot play against itself!']];
