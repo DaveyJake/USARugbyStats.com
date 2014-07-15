@@ -2,9 +2,9 @@
 namespace UsaRugbyStats\Competition\Form;
 
 use Zend\Form\FieldsetInterface;
-use UsaRugbyStats\Application\Common\EventedForm;
+use Zend\Form\Form;
 
-class CompetitionCreateForm extends EventedForm
+class CompetitionCreateForm extends Form
 {
     public function __construct(FieldsetInterface $competitionFieldset)
     {

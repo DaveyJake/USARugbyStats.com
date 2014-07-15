@@ -1,8 +1,8 @@
 <?php
 namespace UsaRugbyStats\Competition\Form;
 
-use UsaRugbyStats\Application\Common\EventedForm;
+use Zend\Form\Form;
 
-class TeamCreateForm extends EventedForm
+class TeamCreateForm extends Form
 {
 }
