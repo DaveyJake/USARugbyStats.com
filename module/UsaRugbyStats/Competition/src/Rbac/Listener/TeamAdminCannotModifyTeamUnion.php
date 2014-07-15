@@ -23,8 +23,8 @@ class TeamAdminCannotModifyTeamUnion implements SharedListenerAggregateInterface
     {
         $this->listeners[] = $events->attach(
             'UsaRugbyStats\Competition\Form\TeamCreateForm',
-            'getValidationGroup.post',
-            [$this, 'getValidationGroup']
+            'prepareValidationGroup.post',
+            [$this, 'prepareValidationGroup']
         );
     }
 
@@ -40,7 +40,7 @@ class TeamAdminCannotModifyTeamUnion implements SharedListenerAggregateInterface
         }
     }
 
-    public function getValidationGroup(EventInterface $e)
+    public function prepareValidationGroup(EventInterface $e)
     {
         $context = $e->getTarget()->getObject();
         if ( ! $context instanceof Team || $context->getId() == NULL ) {

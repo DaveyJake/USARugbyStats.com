@@ -3,8 +3,9 @@ namespace UsaRugbyStats\Competition\Form;
 
 use Zend\Form\FieldsetInterface;
 use Zend\Form\Form;
+use UsaRugbyStats\Application\Common\ExtendedValidationGroupForm;
 
-class CompetitionCreateForm extends Form
+class CompetitionCreateForm extends ExtendedValidationGroupForm
 {
     public function __construct(FieldsetInterface $competitionFieldset)
     {

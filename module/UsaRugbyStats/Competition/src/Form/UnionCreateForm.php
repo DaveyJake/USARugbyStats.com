@@ -1,8 +1,8 @@
 <?php
 namespace UsaRugbyStats\Competition\Form;
 
-use Zend\Form\Form;
+use UsaRugbyStats\Application\Common\ExtendedValidationGroupForm;
 
-class UnionCreateForm extends Form
+class UnionCreateForm extends ExtendedValidationGroupForm
 {
 }

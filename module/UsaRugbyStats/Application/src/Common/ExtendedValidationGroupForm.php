@@ -11,6 +11,7 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerAwareTrait;
 use Zend\Form\FormInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Zend\InputFilter\CollectionInputFilter;
 
 class ExtendedValidationGroupForm extends Form implements EventManagerAwareInterface
 {
@@ -92,7 +93,7 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
                     continue;
                 }
                 $discr = $data[$collKey][$formOrFieldset->getDiscriminatorFieldName()];
-                $this->recursivelyStripOutMissingFields($collElement, $filters[$discr], $data[$collElement->getName()], $validationGroup[$collElement->getName()]);
+                $this->recursivelyStripOutMissingFields($collElement, $filters[$discr], @$data[$collElement->getName()] ?: array(), $validationGroup[$collElement->getName()]);
             }
 
             return;
@@ -103,7 +104,7 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
                 if ( !isset($validationGroup[$collElement->getName()]) ) {
                     continue;
                 }
-                $this->recursivelyStripOutMissingFields($collElement, $inputFilter->getInputFilter(), $data[$collElement->getName()], $validationGroup[$collElement->getName()]);
+                $this->recursivelyStripOutMissingFields($collElement, $inputFilter instanceof CollectionInputFilter ? $inputFilter->getInputFilter() : $inputFilter, @$data[$collElement->getName()] ?: array(), $validationGroup[$collElement->getName()]);
             }
 
             return;
@@ -119,7 +120,7 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
                     unset($validationGroup[$fieldset->getName()]);
                     continue;
                 }
-                $this->recursivelyStripOutMissingFields($fieldset, $inputFilter->get($fieldset->getName()), $data[$fieldset->getName()], $validationGroup[$fieldset->getName()]);
+                $this->recursivelyStripOutMissingFields($fieldset, $inputFilter->get($fieldset->getName()), @$data[$fieldset->getName()] ?: array(), $validationGroup[$fieldset->getName()]);
             }
             foreach ( $formOrFieldset->getElements() as $element ) {
                 $this->recursivelyStripOutMissingFields($element, $inputFilter, $data, $validationGroup);
