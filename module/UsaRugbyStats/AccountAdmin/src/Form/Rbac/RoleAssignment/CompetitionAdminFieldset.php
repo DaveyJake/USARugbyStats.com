@@ -5,6 +5,7 @@ use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentFieldset;
 use Doctrine\Common\Persistence\ObjectManager;
 use DoctrineModule\Form\Element\ObjectSelect;
 use Doctrine\Common\Persistence\ObjectRepository;
+use UsaRugbyStats\Application\Common\ElementCollectionHydrator;
 
 class CompetitionAdminFieldset extends RoleAssignmentFieldset
 {
@@ -34,6 +35,7 @@ class CompetitionAdminFieldset extends RoleAssignmentFieldset
                 'template_placeholder' => '__compindex__',
             )
         ));
+        $this->get('managedCompetitions')->setHydrator(new ElementCollectionHydrator($competitionRepo));
     }
 
     public function getDisplayName() { return 'Competition Administrator'; }

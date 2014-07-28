@@ -5,6 +5,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentFieldset;
 use DoctrineModule\Form\Element\ObjectSelect;
 use Doctrine\Common\Persistence\ObjectRepository;
+use UsaRugbyStats\Application\Common\ElementCollectionHydrator;
 
 class UnionAdminFieldset extends RoleAssignmentFieldset
 {
@@ -34,6 +35,7 @@ class UnionAdminFieldset extends RoleAssignmentFieldset
                 'template_placeholder' => '__unionindex__',
             )
         ));
+        $this->get('managedUnions')->setHydrator(new ElementCollectionHydrator($unionRepo));
     }
 
     public function getDisplayName() { return 'Union Administrator'; }
