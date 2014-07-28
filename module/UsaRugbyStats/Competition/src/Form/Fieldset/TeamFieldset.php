@@ -72,6 +72,7 @@ class TeamFieldset extends Fieldset
                 'label' => 'Twitter Handle',
             ),
         ));
+
     }
 
 }

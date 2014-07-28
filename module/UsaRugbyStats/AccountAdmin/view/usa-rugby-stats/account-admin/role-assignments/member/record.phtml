@@ -1,0 +1,31 @@
+<div class="rbac-assignment-member-membership" data-index="<?php echo $this->escapeHtmlAttr(@$index ?: '__memberindex__'); ?>" style="border-bottom: 1px solid #ddd; margin-bottom: 15px;">
+
+    <div class="row form-group">
+        <?php $element = $fieldset->get('team'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'col-sm-3 control-label')); ?>
+        <?php $element->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($element) ?>
+        <div class="col-sm-9">
+            <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <?php $element = $fieldset->get('membershipStatus'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'col-sm-3 control-label')); ?>
+        <?php $element->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($element) ?>
+        <div class="col-sm-9">
+            <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+            <a class="btn btn-xs btn-danger rbac-assignment-member-membership-remove" title="Remove Membership"><i class="glyphicon glyphicon-trash"></i> Remove Membership Record</a>
+        </div>
+    </div>
+
+</div>

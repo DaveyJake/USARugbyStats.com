@@ -4,6 +4,7 @@ namespace UsaRugbyStats\Competition\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use UsaRugbyStats\Competition\Entity\Competition\TeamMembership;
+use UsaRugbyStats\Application\Entity\AccountInterface;
 
 /**
  * Team
@@ -58,20 +59,29 @@ class Team
     protected $twitterHandle;
 
     /**
-     * Team Memberships
+     * Team's Competition Memberships
      *
      * @var Collection
      */
     protected $teamMemberships;
 
+    /**
+     * Team Members
+     *
+     * @var Collection
+     */
+    protected $members;
+
     public function __construct()
     {
         $this->teamMemberships = new ArrayCollection();
+        $this->members = new ArrayCollection();
     }
 
     public function __clone()
     {
         $this->teamMemberships = new ArrayCollection();
+        $this->members = new ArrayCollection();
     }
 
     /**
@@ -298,6 +308,107 @@ class Team
     public function hasTeamMembership(TeamMembership $comp)
     {
         return $this->teamMemberships->contains($comp);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMembers()
+    {
+        return $this->members;
+    }
+
+    /**
+     * @param  Collection $mbrs
+     * @return self
+     */
+    public function setMembers(Collection $mbrs)
+    {
+        $this->members->clear();
+        $this->addMembers($mbrs);
+
+        return $this;
+    }
+
+    /**
+     * @param  Collection $mbrs
+     * @return self
+     */
+    public function addMembers(Collection $mbrs)
+    {
+        if (count($mbrs)) {
+            foreach ($mbrs as $mbr) {
+                $this->addMember($mbr);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  Team\Member $mbr
+     * @return self
+     */
+    public function addMember(Team\Member $mbr)
+    {
+        if ( ! $this->hasMember($mbr) ) {
+            $mbr->setTeam($this);
+            $this->members->add($mbr);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  Collection $teams
+     * @return self
+     */
+    public function removeMembers(Collection $mbrs)
+    {
+        if (count($mbrs)) {
+            foreach ($mbrs as $mbr) {
+                $this->removeMember($mbr);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  Team\Member $mbr
+     * @return self
+     */
+    public function removeMember(Team\Member $mbr)
+    {
+        $mbr->setTeam(null);
+        $this->members->removeElement($mbr);
+
+        return $this;
+    }
+
+    /**
+     * @param  Team\Member|AccountInterface $memberOrAccount
+     * @return bool
+     */
+    public function hasMember($memberOrAccount)
+    {
+        if ($memberOrAccount instanceof Team\Member) {
+            return $this->members->contains($memberOrAccount);
+        }
+        if ($memberOrAccount instanceof AccountInterface) {
+            return $this->members->filter(function (Team\Member $obj) use ($memberOrAccount) {
+                if ( is_null($obj->getRole()) ) {
+                    return false;
+                }
+                if ( ! $obj->getRole()->getAccount() instanceof AccountInterface ) {
+                    return false;
+                }
+
+                return $obj->getRole()->getAccount()->getId() == $memberOrAccount->getId();
+            })->count() > 0;
+        }
+
+        return false;
     }
 
     /**

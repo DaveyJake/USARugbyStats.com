@@ -12,6 +12,10 @@ class MemberFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->serviceManager = new \Zend\ServiceManager\ServiceManager();
         $this->serviceManager->setService('zfcuser_doctrine_em', Mockery::mock('Doctrine\Common\Persistence\ObjectManager'));
+        $this->serviceManager->setService(
+            'usarugbystats_competition_team_member_fieldset',
+            Mockery::mock('UsaRugbyStats\Competition\Form\Fieldset\Team\MemberFieldset')
+        );
     }
 
     public function testCreateService()

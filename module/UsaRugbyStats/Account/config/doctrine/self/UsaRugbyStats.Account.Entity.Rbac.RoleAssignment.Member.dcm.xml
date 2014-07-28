@@ -5,6 +5,12 @@
 
     <entity name="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member" table="accounts_rbac_roleassignment_member">
 
+        <one-to-many field="memberships" target-entity="UsaRugbyStats\Competition\Entity\Team\Member" mapped-by="role" orphan-removal="true">
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
+
     </entity>
 
 </doctrine-mapping>

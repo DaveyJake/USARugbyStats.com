@@ -9,8 +9,7 @@ class MemberFieldsetTest extends \PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
-        $om = Mockery::mock('Doctrine\Common\Persistence\ObjectManager');
-        $fieldset = new MemberFieldset($om);
+        $fieldset = new MemberFieldset(Mockery::mock('UsaRugbyStats\Competition\Form\Fieldset\Team\MemberFieldset'));
 
         $this->assertEquals('member', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));

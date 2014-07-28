@@ -38,6 +38,7 @@ return array(
             'usa-rugby-stats/account-admin/role-assignments' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments.phtml',
             'usa-rugby-stats/account-admin/role-assignments/common' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/common.phtml',
             'usa-rugby-stats/account-admin/role-assignments/member' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/member.phtml',
+            'usa-rugby-stats/account-admin/role-assignments/member/record' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/member/record.phtml',
             'usa-rugby-stats/account-admin/role-assignments/team_admin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/team_admin.phtml',
             'usa-rugby-stats/account-admin/role-assignments/competition_admin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/competition_admin.phtml',
             'usa-rugby-stats/account-admin/role-assignments/union_admin' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/union_admin.phtml',

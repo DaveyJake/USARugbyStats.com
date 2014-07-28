@@ -4,6 +4,7 @@ return array(
         'UsaRugbyStats\Application',
         'UsaRugbyStats\Account',
         'UsaRugbyStats\AccountAdmin',
+        'UsaRugbyStats\Competition',
     ),
     'module_listener_options' => array(
         'config_glob_paths' => array(),
@@ -11,6 +12,7 @@ return array(
             'UsaRugbyStats\Application'  => realpath(__DIR__ . '/../../Application'),
             'UsaRugbyStats\Account'  => realpath(__DIR__ . '/../../Account'),
             'UsaRugbyStats\AccountAdmin'  => realpath(__DIR__ . '/../../AccountAdmin'),
+            'UsaRugbyStats\Competition'  => realpath(__DIR__ . '/../../Competition'),
         ),
     ),
 );

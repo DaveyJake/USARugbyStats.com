@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="UsaRugbyStats\Competition\Entity\Team\Member" table="competition_team_members" repository-class="UsaRugbyStats\Competition\Repository\Team\MemberRepository">
+
+        <id name="id" type="integer"><generator strategy="AUTO" /></id>
+
+        <many-to-one field="role" target-entity="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member" inversed-by="memberships">
+            <join-column name="role_id" referenced-column-name="id" />
+        </many-to-one>
+
+        <many-to-one field="team" target-entity="UsaRugbyStats\Competition\Entity\Team" inversed-by="members">
+            <join-column name="team_id" referenced-column-name="id" />
+        </many-to-one>
+
+        <field name="membershipStatus" type="integer" nullable="true" />
+
+    </entity>
+
+</doctrine-mapping>

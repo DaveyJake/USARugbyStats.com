@@ -24,6 +24,11 @@
             </cascade>
         </one-to-many>
 
+        <one-to-many field="members" target-entity="UsaRugbyStats\Competition\Entity\Team\Member" mapped-by="team" orphan-removal="true">
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
     </entity>
 
 </doctrine-mapping>

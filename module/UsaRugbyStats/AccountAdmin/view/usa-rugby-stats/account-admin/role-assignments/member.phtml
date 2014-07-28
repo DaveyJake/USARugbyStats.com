@@ -2,10 +2,40 @@
     <div class="panel-heading">
         Member
         <div class="pull-right">
+            <a class="btn btn-xs btn-success rbac-assignment-member-membership-add" title="Add Membership"><i class="glyphicon glyphicon-plus-sign"></i></a>
             <a class="btn btn-xs btn-danger rbac-assignment-delete"><i class="glyphicon glyphicon-trash"></i></a>
         </div>
     </div>
 
-    <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
+    <?php $collMemberships = $fieldset->get('memberships'); ?>
 
+    <div class="panel-body">
+        <div id="RbacRoleMembershipsContainer">
+            <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
+
+            <?php $fsCount = 0; ?>
+            <?php if ( ! isset($isTemplate) || ! $isTemplate ): ?>
+            <?php   foreach ( $collMemberships->getFieldsets() as $fsMember ): ?>
+            <?php     if ( empty($fsMember->get('id')->getValue()) ) continue; ?>
+            <?php     echo $this->render('usa-rugby-stats/account-admin/role-assignments/member/record', ['index' => $fsCount++, 'fieldset' => $fsMember]); ?>
+            <?php   endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var managedMembershipsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/account-admin/role-assignments/member/record', ['fieldset' => $collMemberships->getTemplateElement(), 'isTemplate' => true])); ?>';
+        var managedMembershipIndex = <?php echo $this->escapeJs($fsCount); ?>;
+
+        // Membership Add/Remove
+        $('.rbac-assignment-member[data-index=<?php echo $this->escapeHtmlAttr($index); ?>] .rbac-assignment-member-membership-add').click(function() {
+            var html = $(managedMembershipsSelectorTemplate.replace(/__memberindex__/g, managedMembershipIndex));
+            html.attr('data-index', managedMembershipIndex);
+            $('#RbacRoleMembershipsContainer').append(html);
+            managedMembershipIndex++;
+        });
+        $(document).on('click', '.rbac-assignment-member-membership-remove', function() {
+            $(this).closest('.rbac-assignment-member-membership[data-index]').remove();
+        });
+    </script>
 </div>

@@ -8,6 +8,7 @@ use ZfcUser\Entity\UserInterface;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\UnionAdmin;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\CompetitionAdmin;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin;
+use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member;
 
 class UserService extends ZfcUserAdminUserService
 {
@@ -29,6 +30,10 @@ class UserService extends ZfcUserAdminUserService
 
     protected function populateRoleAssignmentInputDataWithEntityClassNames(&$data, UserInterface $user = null)
     {
+        if ( empty($data['remoteId']) ) {
+            $data['remoteId'] = null;
+        }
+
         if ( ! isset($data['roleAssignments']) || count($data['roleAssignments']) == 0 ) {
             // @HACK to fix GH-15 (Can't empty an existing Collection)
             if ($user instanceof AccountEntity) {
@@ -57,6 +62,16 @@ class UserService extends ZfcUserAdminUserService
             // @HACK to fix GH-15 (Can't empty an existing Collection)
             if ($user instanceof AccountEntity) {
                 switch ($key) {
+                    case 'member':
+                    {
+                        if ( ! isset($data['roleAssignments'][$k]['memberships']) || count($data['roleAssignments'][$k]['memberships']) == 0 ) {
+                            $obj = $user->getRoleAssignment($types[$key]['name']);
+                            if ($obj instanceof Member) {
+                                $obj->removeMemberships($obj->getMemberships());
+                            }
+                        }
+                        break;
+                    }
                     case 'competition_admin':
                     {
                         if ( ! isset($data['roleAssignments'][$k]['managedCompetitions']) || count($data['roleAssignments'][$k]['managedCompetitions']) == 0 ) {
