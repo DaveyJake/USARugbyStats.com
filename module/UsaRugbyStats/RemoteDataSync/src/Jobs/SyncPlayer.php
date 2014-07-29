@@ -101,7 +101,8 @@ class SyncPlayer extends AbstractJob
         }
         $teamMembership->setTeam($team);
         $teamMembership->setMembershipStatus($data['Membership_Status']);
-        if ( empty($teamMembership->getId()) ) {
+        $teamMembershipId = $teamMembership->getId();
+        if ( empty($teamMembershipId) ) {
             $membershipRole->addMembership($teamMembership);
         }
     }
