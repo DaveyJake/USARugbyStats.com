@@ -46,6 +46,17 @@ class TeamCreateFormFactory implements FactoryInterface
             )
         ));
 
+        // Add the team membership management element
+        $form->add(array(
+            'type'    => 'Zend\Form\Element\Collection',
+            'name'    => 'members',
+            'options' => array(
+                'target_element' => $sm->get('usarugbystats_competition-admin_team_member_fieldset'),
+                'should_create_template' => true,
+                'count' => 0,
+            )
+        ));
+
         // Construct the input filter
 
         $teamInputFilter = $sm->get('usarugbystats_competition_team_inputfilter');

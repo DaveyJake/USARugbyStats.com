@@ -6,6 +6,9 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin;
 use UsaRugbyStats\Account\Entity\Account;
+use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member;
+use UsaRugbyStats\Competition\Entity\Team\Member as TeamMembership;
+use UsaRugbyStats\Account\Entity\Rbac\Role;
 
 class TeamAdminService extends TeamService
 {
@@ -49,6 +52,36 @@ class TeamAdminService extends TeamService
         return $resultset;
     }
 
+    public function getMembersForTeam(Team $t)
+    {
+        $rawData = $this->getAccountRepository()->findAllMembersForTeam($t);
+        $resultset = array();
+
+        foreach ($rawData as $account) {
+            if (! $account instanceof Account) {
+                continue;
+            }
+
+            $role = $account->getRoleAssignment('member');
+            if ( ! $role instanceof Member ) {
+                continue;
+            }
+
+            $membership = $role->getMembershipForTeam($t);
+            if ( ! $membership instanceof TeamMembership ) {
+                continue;
+            }
+
+            $obj = new \stdClass();
+            $obj->id = $membership->getId();
+            $obj->account = $account->getId();
+            $obj->membershipStatus = $membership->getMembershipStatus();
+            array_push($resultset, $obj);
+        }
+
+        return $resultset;
+    }
+
     /**
      * Create new entity from form data
      *
@@ -67,6 +100,11 @@ class TeamAdminService extends TeamService
             $data['administrators'] = array();
         }
         $this->processTeamAdministratorsChange($entity->team, $data['administrators']);
+
+        if ( !isset($data['members']) ) {
+            $data['members'] = array();
+        }
+        $this->processTeamMembersChange($entity->team, $data['members']);
 
         return $entity;
     }
@@ -88,6 +126,13 @@ class TeamAdminService extends TeamService
             $entity->administrators = array();
         }
 
+        // If we're deleting all the member records, empty before form bind
+        // to suppress input validator failures on missing records (@see GH-15)
+        if ( !isset($data['members']) || empty($data['members']) ) {
+            $data['members'] = array();
+            $entity->members = array();
+        }
+
         // Run the embedded Team entity through the normal, Doctrine-linked process
         $result = parent::update($entity, $data);
         if (! $result instanceof $this->entityClassName) {
@@ -98,6 +143,11 @@ class TeamAdminService extends TeamService
             $data['administrators'] = array();
         }
         $this->processTeamAdministratorsChange($result->team, $data['administrators']);
+
+        if ( !isset($data['members']) ) {
+            $data['members'] = array();
+        }
+        $this->processTeamMembersChange($entity->team, $data['members']);
 
         return $result;
     }
@@ -198,6 +248,87 @@ class TeamAdminService extends TeamService
             }
         }
 
+        $this->getObjectManager()->flush();
+
+        return true;
+    }
+
+
+    /**
+     * Process the supplied Team Members account selections and
+     * create/update Member RBAC role objects where appropriate
+     *
+     * @param  Team    $t
+     * @param  array   $selections
+     * @return boolean
+     */
+    public function processTeamMembersChange(Team $t, array $selections)
+    {
+        $currentSet = $this->getMembersForTeam($t);
+
+        // Process add/change
+        $processed = [];
+        foreach ($selections as $selection) {
+            if ( !isset($selection['id']) ) {
+                continue;
+            }
+            if ( empty($selection['id']) ) {
+                // This is a new association...
+
+                // Fetch the account
+                $account = $this->getAccountRepository()->find($selection['account']);
+                if (! $account instanceof Account) {
+                    continue;
+                }
+
+                // Load any existing Member record (or create a new one)
+                $roleAssignment = $account->getRoleAssignment('member');
+                if (! $roleAssignment instanceof Member) {
+                    $roleAssignment = new Member();
+                    $roleAssignment->setAccount($account);
+                    $roleAssignment->setRole(new Role('member'));
+                }
+
+                // Load any existing membership record for this player and team
+                $teamMembership = $roleAssignment->getMembershipForTeam($t);
+                if ( ! $teamMembership instanceof TeamMembership ) {
+                    $teamMembership = new TeamMembership();
+                    $teamMembership->setTeam($t);
+                    $roleAssignment->addMembership($teamMembership);
+                }
+                $teamMembership->setMembershipStatus(@$selection['membershipStatus']);
+
+                $this->getObjectManager()->persist($roleAssignment);
+                continue;
+            }
+
+            $record = $t->getMemberById($selection['id']);
+            if (! $record instanceof TeamMembership) {
+                continue;
+            }
+
+            if ( $record->getMembershipStatus() != @$selection['membershipStatus'] ) {
+                $record->setMembershipStatus(@$selection['membershipStatus']);
+                $this->getObjectManager()->persist($record);
+            }
+
+            array_push($processed, $selection['id']);
+        }
+
+        foreach ($currentSet as $currentItem) {
+            if ( in_array($currentItem->id, $processed) ) {
+                continue;
+            }
+
+            $record = $t->getMemberById($currentItem->id);
+            if (! $record instanceof TeamMembership) {
+                continue;
+            }
+
+            $t->removeMember($record);
+        }
+
+        $this->getObjectManager()->persist($t);
         $this->getObjectManager()->flush();
 
         return true;

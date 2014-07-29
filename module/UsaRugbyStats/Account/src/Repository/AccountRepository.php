@@ -7,7 +7,17 @@ use UsaRugbyStats\Competition\Entity\Team;
 
 class AccountRepository extends EntityRepository
 {
+    public function findAllMembersForTeam($team)
+    {
+        return $this->findAllMembersForTeamWithStatus($team);
+    }
+
     public function findAllCurrentMembersForTeam($team)
+    {
+        return $this->findAllMembersForTeamWithStatus($team, 2);
+    }
+
+    public function findAllMembersForTeamWithStatus($team, $status = NULL)
     {
         $team_id = $team instanceof Team ? $team->getID() : (int) $team;
 
@@ -26,11 +36,18 @@ class AccountRepository extends EntityRepository
                     WITH aa.id = arram.account
             WHERE
                 ctm.team = :team_id
-                AND ctm.membershipStatus = '2'
 DQL;
+
+        if ( !empty($status) ) {
+            $dql .= "AND ctm.membershipStatus IN :statuses";
+        }
 
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setParameter('team_id', $team_id);
+
+        if ( !empty($status) ) {
+            $query->setParameter('statuses', (array)$status);
+        }
 
         return new ArrayCollection($query->getResult());
     }

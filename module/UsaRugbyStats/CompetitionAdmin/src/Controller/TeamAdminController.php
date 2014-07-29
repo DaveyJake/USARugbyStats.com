@@ -71,6 +71,7 @@ class TeamAdminController extends AbstractActionController
         $entity = new \stdClass();
         $entity->team = $team;
         $entity->administrators = $this->getTeamAdminService()->getAdministratorsForTeam($team);
+        $entity->members = $this->getTeamAdminService()->getMembersForTeam($team);
 
         $form = $this->getTeamAdminService()->getUpdateForm();
 

@@ -1,0 +1,34 @@
+<div class="panel panel-default team-members">
+    <div class="panel-heading">
+        Team Members
+        <div class="pull-right">
+            <a class="btn btn-xs btn-success team-members-add" title="Add Member"><i class="glyphicon glyphicon-plus-sign"></i></a>
+        </div>
+    </div>
+
+    <?php $collMembers = $form->get('members'); ?>
+
+    <table class="table table-striped">
+        <tbody style="border:0">
+
+        <?php foreach ( $collMembers->getFieldsets() as $fsTeam ): ?>
+        <?php   echo $this->render('usa-rugby-stats/competition-admin/team-admin/form/members/member', ['fieldset' => $fsTeam]); ?>
+        <?php endforeach; ?>
+
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        var membersSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/team-admin/form/members/member', ['fieldset' => $collMembers->getTemplateElement(), 'isTemplate' => true])); ?>';
+        var membersIndex = <?php echo $this->escapeJs(count($collMembers)); ?>;
+
+        $(document).on('click', '.team-members .team-members-add', function() {
+            var html = membersSelectorTemplate.replace(/__index__/g, membersIndex++);
+            $('.team-members > table > tbody').append(html);
+        });
+        $(document).on('click', '.team-members .dropmember', function() {
+            $(this).closest('*[data-recordid]').remove();
+        });
+    </script>
+
+</div>

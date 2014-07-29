@@ -348,6 +348,16 @@ class Team
         return $this->members;
     }
 
+    public function getMemberById($id)
+    {
+        foreach ( $this->members as $member ) {
+            if ( $member->getId() == $id ) {
+                return $member;
+            }
+        }
+        return NULL;
+    }
+
     /**
      * @param  Collection $mbrs
      * @return self
