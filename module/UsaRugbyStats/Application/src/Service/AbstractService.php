@@ -49,9 +49,16 @@ abstract class AbstractService implements EventManagerAwareInterface
      */
     protected $entityClassName;
 
+    /**
+     * Additional EventManager identifiers
+     *
+     * @var array
+     */
+    protected $eventIdentifier = array();
+
     public function __construct()
     {
-        $this->eventIdentifier = get_called_class();
+        array_push($this->eventIdentifier, get_called_class());
     }
 
     public function findByID($id)

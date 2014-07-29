@@ -21,6 +21,15 @@ class TeamAdminService extends TeamService
      */
     protected $accountRepository;
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Ensure that events for TeamService still get triggered
+        // @TODO there has to be a nicer way to do this
+        array_push($this->eventIdentifier, 'UsaRugbyStats\Competition\Service\TeamService');
+    }
+
     public function getAdministratorsForTeam(Team $t)
     {
         $rawData = $this->getTeamAdministratorRepository()->findByTeam($t->getId());
