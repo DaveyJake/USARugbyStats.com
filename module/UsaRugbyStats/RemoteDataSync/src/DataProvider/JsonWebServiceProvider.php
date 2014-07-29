@@ -16,7 +16,7 @@ class JsonWebServiceProvider implements DataProviderInterface
     public function syncTeam(Team $t)
     {
         $request = new Request();
-        $request->setUri($this->getWebServiceEndpoint());
+        $request->setUri(str_replace(':remoteId', $t->getRemoteId(), $this->getWebServiceEndpoint()));
         $request->setMethod(Request::METHOD_GET);
 
         $response = $this->getHttpClient()->send($request);
