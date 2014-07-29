@@ -350,11 +350,12 @@ class Team
 
     public function getMemberById($id)
     {
-        foreach ( $this->members as $member ) {
+        foreach ($this->members as $member) {
             if ( $member->getId() == $id ) {
                 return $member;
             }
         }
+
         return NULL;
     }
 

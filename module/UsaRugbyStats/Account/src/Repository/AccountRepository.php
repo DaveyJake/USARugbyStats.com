@@ -17,7 +17,7 @@ class AccountRepository extends EntityRepository
         return $this->findAllMembersForTeamWithStatus($team, 2);
     }
 
-    public function findAllMembersForTeamWithStatus($team, $status = NULL)
+    public function findAllMembersForTeamWithStatus($team, $status = null)
     {
         $team_id = $team instanceof Team ? $team->getID() : (int) $team;
 
@@ -47,7 +47,7 @@ DQL;
         $query->setParameter('team_id', $team_id);
 
         if ( !empty($status) ) {
-            $query->setParameter('statuses', (array)$status);
+            $query->setParameter('statuses', (array) $status);
         }
 
         return new ArrayCollection($query->getResult());

@@ -32,6 +32,7 @@ function ursRemoteDataSyncWatchJobStatus(data, completedCallback)
               $('#{$id} .urs-remote-data-sync-3').show();
               clearInterval(runner);
               completedCallback({token: null, status: 0});
+
               return;
             }
 

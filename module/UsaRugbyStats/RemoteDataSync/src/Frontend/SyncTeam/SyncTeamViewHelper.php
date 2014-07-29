@@ -34,13 +34,14 @@ $(document).ready(function () {
                 setTimeout(function () {  $('#{$id}').modal('hide'); }, 5000);
             }
             if (data.status == 3 || data.status == 4) {
-                setTimeout(function() { document.location.reload(true); }, 5000);
+                setTimeout(function () { document.location.reload(true); }, 5000);
+
                 return;
             }
 
-            ursRemoteDataSyncWatchJobStatus(data, function(data) {
+            ursRemoteDataSyncWatchJobStatus(data, function (data) {
                 if (data.status == 3 || data.status == 4) {
-                    setTimeout(function() { document.location.reload(true); }, 5000);
+                    setTimeout(function () { document.location.reload(true); }, 5000);
                 }
             });
 

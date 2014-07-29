@@ -63,12 +63,12 @@ class TeamAdminService extends TeamService
             }
 
             $role = $account->getRoleAssignment('member');
-            if ( ! $role instanceof Member ) {
+            if (! $role instanceof Member) {
                 continue;
             }
 
             $membership = $role->getMembershipForTeam($t);
-            if ( ! $membership instanceof TeamMembership ) {
+            if (! $membership instanceof TeamMembership) {
                 continue;
             }
 
@@ -291,7 +291,7 @@ class TeamAdminService extends TeamService
 
                 // Load any existing membership record for this player and team
                 $teamMembership = $roleAssignment->getMembershipForTeam($t);
-                if ( ! $teamMembership instanceof TeamMembership ) {
+                if (! $teamMembership instanceof TeamMembership) {
                     $teamMembership = new TeamMembership();
                     $teamMembership->setTeam($t);
                     $roleAssignment->addMembership($teamMembership);
