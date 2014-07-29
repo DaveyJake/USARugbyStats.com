@@ -14,6 +14,7 @@ class MatchTeamPlayerFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
 
         $mockObjectManager = Mockery::mock('Doctrine\Common\Persistence\ObjectManager');
         $mockObjectManager->shouldReceive('getRepository')->andReturn($mockRepository);
+        $mockObjectManager->shouldIgnoreMissing();
 
         $this->serviceManager = new \Zend\ServiceManager\ServiceManager();
         $this->serviceManager->setService('zfcuser_doctrine_em', $mockObjectManager);

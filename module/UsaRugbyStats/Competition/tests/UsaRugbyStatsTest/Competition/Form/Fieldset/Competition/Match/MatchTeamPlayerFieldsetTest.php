@@ -11,6 +11,7 @@ class MatchTeamPlayerFieldsetTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $mockObjectManager = Mockery::mock('Doctrine\Common\Persistence\ObjectManager');
+        $mockObjectManager->shouldIgnoreMissing();
 
         $fieldset = new MatchTeamPlayerFieldset($mockObjectManager);
 

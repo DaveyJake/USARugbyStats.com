@@ -3,7 +3,7 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="UsaRugbyStats\Account\Entity\Account" table="accounts">
+    <entity name="UsaRugbyStats\Account\Entity\Account" table="accounts" repository-class="UsaRugbyStats\Account\Repository\AccountRepository">
 
         <field name="remoteId" type="string" length="255" unique="true" nullable="true" />
 

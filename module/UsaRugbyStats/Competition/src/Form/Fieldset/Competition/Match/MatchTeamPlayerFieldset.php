@@ -3,31 +3,23 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition\Match;
 
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
+use UsaRugbyStats\Competition\Entity\Team;
 
 class MatchTeamPlayerFieldset extends Fieldset
 {
+    protected $objectManager;
 
     public function __construct(ObjectManager $om)
     {
         parent::__construct('team-player');
+
+        $this->objectManager = $om;
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
             'options' => array(
                 'label' => 'Identifier',
-            ),
-        ));
-
-        $this->add(array(
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'player',
-            'options' => array(
-                'label' => 'Player',
-                'object_manager' => $om,
-                'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
-                'display_empty_item' => true,
-                'empty_item_label'   => 'Select a Player',
             ),
         ));
 
@@ -84,6 +76,36 @@ class MatchTeamPlayerFieldset extends Fieldset
             ),
         ));
 
+        $this->addPlayerSelect(null);
     }
 
+    public function addPlayerSelect($t = null)
+    {
+        $selectedValue = null;
+
+        if ( $this->has('player') ) {
+            $selectedValue = $this->get('player')->getValue();
+            $this->remove('player');
+        }
+
+        $this->add(array(
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'player',
+            'options' => array(
+                'label' => 'Player',
+                'object_manager' => $this->objectManager,
+                'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
+                'is_method'      => true,
+                'find_method'    => array(
+                    'name'   => 'findAllCurrentMembersForTeam',
+                    'params' => array(
+                        'team' => $t,
+                    ),
+                ),
+                'display_empty_item' => true,
+                'empty_item_label'   => 'Select a Player',
+            ),
+        ));
+        $this->get('player')->setValue($selectedValue);
+    }
 }

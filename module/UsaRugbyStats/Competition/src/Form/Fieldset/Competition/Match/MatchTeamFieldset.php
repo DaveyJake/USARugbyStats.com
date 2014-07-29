@@ -79,6 +79,8 @@ class MatchTeamFieldset extends Fieldset
 
     public function prepareElement(FormInterface $form)
     {
+        $selectedTeam = null;
+
         // If a competition ID is provided, filter list of teams by it
         if ($form->has('match') && $form->get('match')->has('competition')) {
             $competition = $form->get('match')->get('competition')->getValue();
@@ -103,6 +105,9 @@ class MatchTeamFieldset extends Fieldset
                     ),
                 ));
                 $this->get('team')->setValue($selectedTeam);
+
+                $fsTeamPlayers = $this->get('players')->getTargetElement();
+                $fsTeamPlayers->addPlayerSelect($selectedTeam);
             }
         }
 
@@ -121,6 +126,7 @@ class MatchTeamFieldset extends Fieldset
         foreach ($players as $item) {
             $players->remove($item->getName());
             $item->setName($item->get('number')->getValue());
+            $item->addPlayerSelect($selectedTeam);
             $tempStorage[$item->get('number')->getValue()] = $item;
         }
 
@@ -135,6 +141,7 @@ class MatchTeamFieldset extends Fieldset
 
             $item = clone $players->getTargetElement();
             $item->setName($key);
+            $item->addPlayerSelect($selectedTeam);
             $players->add($item);
 
             $valueOptions = $item->get('position')->getValueOptions();
