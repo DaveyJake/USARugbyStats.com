@@ -4,7 +4,6 @@ namespace UsaRugbyStats\RemoteDataSync\Jobs;
 use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Service\TeamService;
 use UsaRugbyStats\RemoteDataSync\DataProvider\DataProviderInterface;
-use UsaRugbyStats\RemoteDataSync\Queue\Resque;
 use UsaRugbyStats\RemoteDataSync\Queue\QueueInterface;
 
 class SyncTeam extends AbstractJob
@@ -171,7 +170,9 @@ class SyncTeam extends AbstractJob
     public function getQueueAdapter()
     {
         if ( empty($this->queueAdapter) ) {
-            $this->queueAdapter = new Resque();
+            $this->queueAdapter = $this->getServiceLocator()->get(
+                'usa-rugby-stats_remote-data-sync_queueprovider'
+            );
         }
 
         return $this->queueAdapter;

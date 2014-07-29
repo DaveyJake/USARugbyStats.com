@@ -7,6 +7,9 @@ return array(
     ),
 
     'service_manager' => array(
+        'invokables' => array(
+            'usa-rugby-stats_remote-data-sync_queueprovider' => 'UsaRugbyStats\RemoteDataSync\Queue\Resque',
+        ),
         'factories' => array(
             'usa-rugby-stats_remote-data-sync_provider_dummy' => 'UsaRugbyStats\RemoteDataSync\DataProvider\DummyDataProviderFactory',
             'usa-rugby-stats_remote-data-sync_provider_jsonwebservice' => 'UsaRugbyStats\RemoteDataSync\DataProvider\JsonWebServiceProviderFactory',
