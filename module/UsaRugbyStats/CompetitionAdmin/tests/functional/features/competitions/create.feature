@@ -24,7 +24,7 @@ Feature: Competition Administration Panel - Create Competition
     Then I should be on "/admin/competition/edit/3" 
     And I should see "The competition was created successfully!"
     And I should see "Behat Competition"
-    And the "name" field should contain "Behat Competition"
+    And the "competition[name]" field should contain "Behat Competition"
             
   @javascript
   Scenario: Administrator cannot create a new competition with same name as an existing competition
@@ -70,7 +70,7 @@ Feature: Competition Administration Panel - Create Competition
     Then I should be on "/admin/competition/edit/4" 
     And I should see "The competition was created successfully!"
     And I should see "Competition with two empty divisions"
-    And the "name" field should contain "Competition with two empty divisions"
+    And the "competition[name]" field should contain "Competition with two empty divisions"
     Then I go to "/admin/competition/edit/4/divisions"
     Then I should see 2 ".competition-divisions-division" elements
     And the "competition[divisions][0][name]" field should contain "Test Division 1"
@@ -124,7 +124,7 @@ Feature: Competition Administration Panel - Create Competition
     Then I should be on "/admin/competition/edit/5" 
     And I should see "The competition was created successfully!"
     And I should see "Competition with two non-empty divisions"
-    And the "name" field should contain "Competition with two non-empty divisions"
+    And the "competition[name]" field should contain "Competition with two non-empty divisions"
     Then I go to "/admin/competition/edit/5/divisions"
     Then I should see 2 ".competition-divisions-division" elements
     And the "competition[divisions][0][name]" field should contain "Test Division 1"
