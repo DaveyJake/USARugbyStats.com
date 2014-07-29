@@ -16,8 +16,6 @@
             <?php $fsCount = 0; ?>
             <?php if ( ! isset($isTemplate) || ! $isTemplate ): ?>
             <?php   foreach ( $collMemberships->getFieldsets() as $fsMember ): ?>
-            <?php     $fsMemberId = $fsMember->get('id')->getValue(); ?>
-            <?php     if ( empty($fsMemberId) ) continue; ?>
             <?php     echo $this->render('usa-rugby-stats/account-admin/role-assignments/member/record', ['index' => $fsCount++, 'fieldset' => $fsMember]); ?>
             <?php   endforeach; ?>
             <?php endif; ?>

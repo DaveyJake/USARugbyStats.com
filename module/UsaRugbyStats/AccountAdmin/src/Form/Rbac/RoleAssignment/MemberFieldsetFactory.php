@@ -16,8 +16,11 @@ class MemberFieldsetFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
+        $teamMemberFieldset = $sm->get('usarugbystats_competition_team_member_fieldset');
+        $teamMemberFieldset->remove('role');
+
         $om = $sm->get('zfcuser_doctrine_em');
-        $fieldset = new MemberFieldset($sm->get('usarugbystats_competition_team_member_fieldset'));
+        $fieldset = new MemberFieldset($teamMemberFieldset);
         $fieldset->setHydrator(new RoleAssignmentHydrator($om));
         $fieldset->setObject(new Member());
 

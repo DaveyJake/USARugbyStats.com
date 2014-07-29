@@ -134,4 +134,9 @@ class Member extends BaseAssignment
     {
         return 'member';
     }
+
+    public function __toString()
+    {
+        return 'User #' . $this->getAccount()->getId() . ' ' . $this->getDiscriminator();
+    }
 }
