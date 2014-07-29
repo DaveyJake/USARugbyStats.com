@@ -34,6 +34,8 @@ class SyncTeamTest extends AbstractJobTest
 
     public function testGetTeamServiceProxiesToServiceLocatorForLoad()
     {
+        $this->job->setTeamService(null);
+
         $service = \Mockery::mock('UsaRugbyStats\Competition\Service\TeamService');
         $this->mockServiceLocator->shouldReceive('get')->withArgs(['usarugbystats_competition_team_service'])->once()->andReturn($service);
         $this->assertSame($service, $this->job->getTeamService());
@@ -41,15 +43,20 @@ class SyncTeamTest extends AbstractJobTest
 
     public function testGetDataProviderProxiesToServiceLocatorForLoad()
     {
+        $this->job->setDataProvider(null);
+
         $service = \Mockery::mock('UsaRugbyStats\RemoteDataSync\DataProvider\DataProviderInterface');
         $this->mockServiceLocator->shouldReceive('get')->withArgs(['usa-rugby-stats_remote-data-sync_provider'])->once()->andReturn($service);
         $this->assertSame($service, $this->job->getDataProvider());
     }
 
-    public function testGetQueueProviderInstantiatesResqueWrapperByDefault()
+    public function testGetQueueProviderProxiesToServiceLocatorForLoad()
     {
         $this->job->setQueueAdapter(null);
-        $this->assertInstanceOf('UsaRugbyStats\RemoteDataSync\Queue\Resque', $this->job->getQueueAdapter());
+
+        $service = \Mockery::mock('UsaRugbyStats\RemoteDataSync\Queue\QueueInterface');
+        $this->mockServiceLocator->shouldReceive('get')->withArgs(['usa-rugby-stats_remote-data-sync_queueprovider'])->once()->andReturn($service);
+        $this->assertSame($service, $this->job->getQueueAdapter());
     }
 
     public function testExecuteFailsWhenNoTeamIdSpecified()
