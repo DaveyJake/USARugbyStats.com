@@ -6,6 +6,7 @@ use Zend\EventManager\EventManagerAwareInterface;
 use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Entity\Competition\TeamRecord;
 use Doctrine\Common\Collections\ArrayCollection;
+use UsaRugbyStats\Competition\Entity\Competition\Division;
 
 class StandingsService implements EventManagerAwareInterface
 {
@@ -17,6 +18,11 @@ class StandingsService implements EventManagerAwareInterface
         $results = $this->getEventManager()->trigger(__FUNCTION__ . '.pre', $this, $params);
         if ( $results->stopped() ) {
             return $results->last();
+        }
+
+        $teamToDivision = array();
+        foreach ( $competition->getTeamMemberships() as $mbr ) {
+            $teamToDivision[$mbr->getTeam()->getId()] = $mbr->getDivision();
         }
 
         $teamRecords = $this->getTeamRecordsFor($competition)->toArray();
@@ -36,7 +42,29 @@ class StandingsService implements EventManagerAwareInterface
             );
         }
 
-        $params['result'] = new ArrayCollection($teamRecords);
+        $teamRecordsByDivisionCollection = array();
+        foreach ($teamRecords as $key=>$item) {
+            if ( !isset($teamToDivision[$item->getTeam()->getId()]) ) {
+                continue;
+            }
+            $division = $teamToDivision[$item->getTeam()->getId()];
+            if (! $division instanceof Division) {
+                continue;
+            }
+
+            if ( !isset($teamRecordsByDivisionCollection[$division->getId()]) ) {
+                $teamRecordsByDivisionCollection[$division->getId()] = array(
+                    'division' => $division,
+                    'standings' => new ArrayCollection(),
+                );
+            }
+            $teamRecordsByDivisionCollection[$division->getId()]['standings']->add($item);
+        }
+
+        $params['result'] = [
+            'overall' => new ArrayCollection($teamRecords),
+            'by-division' => $teamRecordsByDivisionCollection,
+        ];
         $results = $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $params);
 
         return $params['result'];
