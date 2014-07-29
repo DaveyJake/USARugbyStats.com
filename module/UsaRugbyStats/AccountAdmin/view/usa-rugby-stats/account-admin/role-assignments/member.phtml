@@ -9,18 +9,20 @@
 
     <?php $collMemberships = $fieldset->get('memberships'); ?>
 
-    <div class="panel-body">
-        <div id="RbacRoleMembershipsContainer">
-            <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
+    <table class="table table-striped">
+        <tbody style="border:0" id="RbacRoleMembershipsContainer">
 
-            <?php $fsCount = 0; ?>
-            <?php if ( ! isset($isTemplate) || ! $isTemplate ): ?>
-            <?php   foreach ( $collMemberships->getFieldsets() as $fsMember ): ?>
-            <?php     echo $this->render('usa-rugby-stats/account-admin/role-assignments/member/record', ['index' => $fsCount++, 'fieldset' => $fsMember]); ?>
-            <?php   endforeach; ?>
-            <?php endif; ?>
-        </div>
-    </div>
+        <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments/common', array('fieldset' => $fieldset)); ?>
+
+        <?php $fsCount = 0; ?>
+        <?php if ( ! isset($isTemplate) || ! $isTemplate ): ?>
+        <?php   foreach ( $collMemberships->getFieldsets() as $fsMember ): ?>
+        <?php     echo $this->render('usa-rugby-stats/account-admin/role-assignments/member/record', ['index' => $fsCount++, 'fieldset' => $fsMember]); ?>
+        <?php   endforeach; ?>
+        <?php endif; ?>
+
+        </tbody>
+    </table>
 
     <script type="text/javascript">
         var managedMembershipsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/account-admin/role-assignments/member/record', ['fieldset' => $collMemberships->getTemplateElement(), 'isTemplate' => true])); ?>';

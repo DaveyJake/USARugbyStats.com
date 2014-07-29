@@ -1,31 +1,30 @@
-<div class="rbac-assignment-member-membership" data-index="<?php echo $this->escapeHtmlAttr(@$index ?: '__memberindex__'); ?>" style="border-bottom: 1px solid #ddd; margin-bottom: 15px;">
+<tr class="rbac-assignment-member-membership" data-index="<?php echo $this->escapeHtmlAttr(@$index ?: '__memberindex__'); ?>" style="border-bottom: 1px solid #ddd; margin-bottom: 15px;">
+    <?php $element = $fieldset->get('id'); ?>
+    <?php echo $this->formElement($element); ?>
+    <?php echo $this->formElementErrors($element); ?>
 
-    <div class="row form-group">
-        <?php $element = $fieldset->get('team'); ?>
-        <?php $element->setLabelAttributes(array('class' => 'col-sm-3 control-label')); ?>
-        <?php $element->setAttribute('class', 'form-control'); ?>
+    <td class="column column-name">
+        <table style="width:100%">
+            <tr>
+                <td width="100">Team:</td>
+                <td>
+                    <?php $element = $fieldset->get('team'); ?>
+                    <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+                    <?php echo $this->formElement($element); ?>
+                    <?php echo $this->formElementErrors($element); ?>
+                </td>
+            </tr>
+            <tr>
+                <td width="100">Status:</td>
+                <td>
+                    <?php $element = $fieldset->get('membershipStatus'); ?>
+                    <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+                    <?php echo $this->formElement($element); ?>
+                    <?php echo $this->formElementErrors($element); ?>
+                </td>
+            </tr>
+        </table>
+    </td>
 
-        <?php echo $this->formLabel($element) ?>
-        <div class="col-sm-9">
-            <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
-        </div>
-    </div>
-
-    <div class="row form-group">
-        <?php $element = $fieldset->get('membershipStatus'); ?>
-        <?php $element->setLabelAttributes(array('class' => 'col-sm-3 control-label')); ?>
-        <?php $element->setAttribute('class', 'form-control'); ?>
-
-        <?php echo $this->formLabel($element) ?>
-        <div class="col-sm-9">
-            <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
-        </div>
-    </div>
-
-    <div class="row form-group">
-        <div class="col-sm-9 col-sm-offset-3">
-            <a class="btn btn-xs btn-danger rbac-assignment-member-membership-remove" title="Remove Membership"><i class="glyphicon glyphicon-trash"></i> Remove Membership Record</a>
-        </div>
-    </div>
-
-</div>
+    <td class="col-sm-2 column column-actions" style="text-align:right; padding-right: 15px;"><a class="btn btn-xs btn-danger rbac-assignment-member-membership-remove" title="Remove Member"><i class="glyphicon glyphicon-trash"></i></a></td>
+</tr>
