@@ -26,23 +26,16 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
     protected $validationGroup = array();
 
     /**
-     * Set the validation group (set of values to validate)
+     * Override getValidationGroup to autogen the full VG if none is provided
      *
-     * We've overridden it to not allow setting validationGroup to non-Array
-     * (empty array triggers autogeneration of full validation group)
-     *
-     * @throws Exception\InvalidArgumentException
-     * @return Form|FormInterface
+     * @see \Zend\Form\Form::getValidationGroup()
      */
-    public function setValidationGroup()
+    public function getValidationGroup()
     {
-        parent::setValidationGroup();
-
-        if ( ! is_array($this->validationGroup) ) {
-            $this->validationGroup = array();
+        if ( empty($this->validationGroup) ) {
+            $this->validationGroup = $this->autogenerateValidationGroupForForm($this);
         }
-
-        return $this;
+        return $this->validationGroup;
     }
 
     /**
