@@ -4,7 +4,7 @@
 <?php $submitButton = $form->get('submit'); ?>
 <?php $submitButton->setAttribute('class', 'btn btn-lg btn-success'); ?>
 
-<?php echo $this->formHidden($form->get('userId')); ?>
+<?php if ( $form->has('userId') ) echo $this->formHidden($form->get('userId')); ?>
 
 <div class="row">
     <div class="col-md-6">
@@ -81,10 +81,26 @@
                 <?php echo $this->formLabel($element) ?>
                 <div class="col-sm-8">
                     <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
-                    <span class="help-block">Leave field blank to keep current password.</span>
                 </div>
             </div>
 
+            <?php if ( $form->has('passwordVerify') ): ?>
+            <div class="row form-group">
+                <?php $element = $form->get('passwordVerify'); ?>
+                <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                <?php $element->setAttribute('class', 'form-control'); ?>
+
+                <?php echo $this->formLabel($element) ?>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    <?php if ( $form->has('reset_password') ): ?>
+                    <span class="help-block">Leave both fields blank to keep current password.</span>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <?php if ( $form->has('reset_password') ): ?>
             <div class="row form-group">
                 <?php $element = $form->get('reset_password'); ?>
                 <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -94,6 +110,7 @@
                     <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
                 </div>
             </div>
+            <?php endif; ?>
           </div>
         </div>
     </div>
