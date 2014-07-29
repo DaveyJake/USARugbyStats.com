@@ -44,7 +44,7 @@ class CompetitionMatchTeamChange implements SharedListenerAggregateInterface
     {
         $context = $e->getTarget()->getObject();
         if ( ! $context instanceof Match || $context->getId() == NULL ) {
-            $context = null;
+            return;
         }
 
         foreach ( $context->getTeams() as $matchTeam ) {
