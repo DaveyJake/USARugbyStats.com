@@ -4,8 +4,9 @@ namespace UsaRugbyStats\Account\Fixtures\Common;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use UsaRugbyStats\Account\Entity\Rbac\Role;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class RbacRoleFixture implements FixtureInterface
+class RbacRoleFixture implements FixtureInterface, OrderedFixtureInterface
 {
     /**
      * {@inheritDoc}
@@ -40,4 +41,10 @@ class RbacRoleFixture implements FixtureInterface
 
         $manager->flush();
     }
+
+    public function getOrder()
+    {
+        return 0;
+    }
+
 }
