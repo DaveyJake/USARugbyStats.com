@@ -130,7 +130,9 @@ class Team
      */
     public function setRemoteId($rid)
     {
-        $this->remoteId = $rid;
+        $this->remoteId = empty($rid)
+            ? null :
+            $rid;
 
         return $this;
     }

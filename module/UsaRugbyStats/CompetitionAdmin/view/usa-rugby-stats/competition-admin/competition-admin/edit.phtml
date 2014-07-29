@@ -2,8 +2,9 @@
 
 <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/navigation', ['page' => 'details', 'entity' => $entity]); ?>
 
-<?php 
+<?php
 $form->setAttribute('class', 'form-horizontal');
+$form->prepare();
 
 echo $this->form()->openTag($form);
 
@@ -16,10 +17,10 @@ $submitButton->setAttribute('class', 'btn btn-lg btn-success');
     <div class="col-md-5">
         <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form', $this->vars()); ?>
     </div>
-    
+
     <div class="col-md-7">
     </div>
-    
+
 </div>
 
 <div class="clearfix"></div>

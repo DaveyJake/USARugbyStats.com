@@ -8,6 +8,7 @@ class Resque implements QueueInterface
     {
         $token = \Resque::enqueue($queue, $class, $args);
         \Resque_Job_Status::create($token);
+
         return $token;
     }
 

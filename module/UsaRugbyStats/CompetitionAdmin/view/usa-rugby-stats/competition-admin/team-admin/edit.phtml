@@ -4,6 +4,13 @@ $form->setAttribute('action', $this->url('zfcadmin/usarugbystats_teamadmin/edit'
 $form->setAttribute('method', 'post');
 ?>
 
+<?php if ( $entity->getRemoteId() && $this->getHelperPluginManager()->has('ursRemoteDataSyncTriggerSyncTeam') ): ?>
+<div class="pull-right">
+    <a id="RosterSyncButton" class="btn btn-md btn-primary"><i class="glyphicon glyphicon-refresh"></i> Run Roster Sync</a>
+    <?php echo $this->ursRemoteDataSyncTriggerSyncTeam($entity, 'TeamRosterSync', '#RosterSyncButton'); ?>
+</div>
+<?php endif; ?>
+
 <h1>Update Team</h1>
 
 <?php echo $this->render('usa-rugby-stats/competition-admin/team-admin/form', $this->vars()); ?>

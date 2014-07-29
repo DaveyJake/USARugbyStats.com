@@ -35,6 +35,7 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
         if ( empty($this->validationGroup) ) {
             $this->validationGroup = $this->autogenerateValidationGroupForForm($this);
         }
+
         return $this->validationGroup;
     }
 
