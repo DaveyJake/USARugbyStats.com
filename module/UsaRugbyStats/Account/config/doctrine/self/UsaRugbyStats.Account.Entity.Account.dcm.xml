@@ -5,6 +5,8 @@
 
     <entity name="UsaRugbyStats\Account\Entity\Account" table="accounts">
 
+        <field name="remoteId" type="string" length="255" unique="true" nullable="true" />
+
         <one-to-many field="roleAssignments" target-entity="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment" mapped-by="account" index-by="role" orphan-removal="true">
             <cascade>
                 <cascade-all />

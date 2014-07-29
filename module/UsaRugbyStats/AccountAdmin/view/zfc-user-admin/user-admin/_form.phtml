@@ -4,36 +4,104 @@
 <?php $submitButton = $form->get('submit'); ?>
 <?php $submitButton->setAttribute('class', 'btn btn-lg btn-success'); ?>
 
+<?php echo $this->formHidden($form->get('userId')); ?>
+
 <div class="row">
     <div class="col-md-6">
+
         <div class="panel panel-default">
-            <div class="panel-heading">Basic Account Details</div>
-            <div class="panel-body">
-                <?php foreach (array('userId','username','email','display_name','password','passwordVerify','reset_password') as $elementName): ?>
-                    <?php if ( ! $form->has($elementName) ) continue; ?>
-                    <?php $element = $form->get($elementName); ?>
-                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-            
-                    <?php $isCheckbox = $element instanceof Zend\Form\Element\Checkbox || $element->getAttribute('type') == 'checkbox'; ?>
-                    
-                    <div class="row form-group">
-                        <?php if ($element->getLabel() != null): ?>
-                            <?php echo $this->formLabel($element) ?>
-                        <?php endif ?>
-                        <?php if ( ! $isCheckbox ): ?>
-                            <?php $element->setAttribute('class', 'form-control'); ?>
-                        <?php endif; ?>
-                        <div class="col-sm-8"><?php echo $this->formElement($element) . $this->formElementErrors($element) ?></div>
-                    </div>
-                <?php endforeach ?>
+          <div class="panel-heading">
+            <h3 class="panel-title">Basic Account Details</h3>
+          </div>
+          <div class="panel-body">
+
+            <div class="row form-group">
+                <?php $element = $form->get('display_name'); ?>
+                <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                <?php $element->setAttribute('class', 'form-control'); ?>
+
+                <?php echo $this->formLabel($element) ?>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                </div>
             </div>
+
+            <div class="row form-group">
+                <?php $element = $form->get('username'); ?>
+                <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                <?php $element->setAttribute('class', 'form-control'); ?>
+
+                <?php echo $this->formLabel($element) ?>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <?php $element = $form->get('email'); ?>
+                <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                <?php $element->setAttribute('class', 'form-control'); ?>
+
+                <?php echo $this->formLabel($element) ?>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                </div>
+            </div>
+
+          </div>
+          <div class="panel-heading" style="border-top: 1px solid #ddd;">
+            <h3 class="panel-title">Remote System Sync Settings</h3>
+          </div>
+          <div class="panel-body">
+
+            <div class="row form-group">
+                <?php $element = $form->get('remoteId'); ?>
+                <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                <?php $element->setAttribute('class', 'form-control'); ?>
+
+                <?php echo $this->formLabel($element) ?>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($element); ?>
+                    <p class="help-block">Used to associate this user with a record at the remote membership provider</p>
+                    <?php echo $this->formElementErrors($element) ?>
+                </div>
+            </div>
+
+          </div>
+          <div class="panel-heading" style="border-top: 1px solid #ddd;">
+            <h3 class="panel-title">Set Password</h3>
+          </div>
+          <div class="panel-body">
+
+            <div class="row form-group">
+                <?php $element = $form->get('password'); ?>
+                <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                <?php $element->setAttribute('class', 'form-control'); ?>
+
+                <?php echo $this->formLabel($element) ?>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    <span class="help-block">Leave field blank to keep current password.</span>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <?php $element = $form->get('reset_password'); ?>
+                <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+
+                <?php echo $this->formLabel($element) ?>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                </div>
+            </div>
+          </div>
         </div>
     </div>
-    
+
     <div class="col-md-6">
         <?php echo $this->render('usa-rugby-stats/account-admin/role-assignments', array('collection' => $form->get('roleAssignments')))?>
     </div>
-    
+
 </div>
 <div class="clearfix"></div>
 <div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>

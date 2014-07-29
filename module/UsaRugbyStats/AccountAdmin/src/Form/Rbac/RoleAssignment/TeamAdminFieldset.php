@@ -5,6 +5,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentFieldset;
 use DoctrineModule\Form\Element\ObjectSelect;
 use Doctrine\Common\Persistence\ObjectRepository;
+use UsaRugbyStats\Application\Common\ElementCollectionHydrator;
 
 class TeamAdminFieldset extends RoleAssignmentFieldset
 {
@@ -34,6 +35,7 @@ class TeamAdminFieldset extends RoleAssignmentFieldset
                 'template_placeholder' => '__teamindex__',
             )
         ));
+        $this->get('managedTeams')->setHydrator(new ElementCollectionHydrator($teamRepo));
     }
 
     public function getDisplayName() { return 'Team Administrator'; }

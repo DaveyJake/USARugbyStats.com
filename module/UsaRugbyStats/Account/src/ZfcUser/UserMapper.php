@@ -16,6 +16,13 @@ class UserMapper extends ZfcUserDoctrineORMMapper
         return $resultset;
     }
 
+    public function findByRemoteId($rid)
+    {
+        $er = $this->em->getRepository($this->options->getUserEntityClass());
+
+        return $er->findOneBy(array('remoteId' => $rid));
+    }
+
     public function insert($entity, $tableName = null, HydratorInterface $hydrator = null)
     {
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('entity' => $entity));

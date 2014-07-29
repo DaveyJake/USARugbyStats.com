@@ -29,6 +29,8 @@ return array(
         'UsaRugbyStats\Competition',
         'UsaRugbyStats\CompetitionFrontend',
         'UsaRugbyStats\CompetitionAdmin',
+
+        'UsaRugbyStats\RemoteDataSync',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

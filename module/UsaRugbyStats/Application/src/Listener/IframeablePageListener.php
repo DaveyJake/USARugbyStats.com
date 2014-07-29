@@ -33,6 +33,9 @@ class IframeablePageListener implements ListenerAggregateInterface
         if (! $e instanceof MvcEvent) {
             throw new \RuntimeException('IframeablePageListener must be attached to MvcEvent::EVENT_RENDER');
         }
+        if ( $e->getRequest() instanceof \Zend\Console\Request ) {
+            return;
+        }
 
         if ( $e->getRequest()->getQuery('iframe') !== 'true' ) {
             return;

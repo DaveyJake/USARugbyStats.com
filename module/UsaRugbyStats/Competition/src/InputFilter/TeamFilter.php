@@ -16,6 +16,24 @@ class TeamFilter extends InputFilter
     {
 
         $this->add(array(
+            'name'       => 'remoteId',
+            'required'   => false,
+            'validators' => array(
+                array(
+                    'name' => 'DoctrineModule\Validator\UniqueObject',
+                    'options' => array(
+                        'object_manager' => $objectManager,
+                        'object_repository' => $objectRepository,
+                        'fields' => 'remoteId',
+                    )
+                ),
+            ),
+            'filters'   => array(
+                array('name' => 'StringTrim'),
+            ),
+        ));
+
+        $this->add(array(
             'name'       => 'name',
             'required'   => true,
             'validators' => array(

@@ -21,6 +21,11 @@ class Team
     /**
      * @var string
      */
+    protected $remoteId;
+
+    /**
+     * @var string
+     */
     protected $name;
 
     /**
@@ -103,6 +108,29 @@ class Team
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Remote System Identifier of Team
+     *
+     * @return string
+     */
+    public function getRemoteId()
+    {
+        return $this->remoteId;
+    }
+
+    /**
+     * Set Remote System Identifier of Team
+     *
+     * @param  string $id
+     * @return self
+     */
+    public function setRemoteId($rid)
+    {
+        $this->remoteId = $rid;
 
         return $this;
     }
