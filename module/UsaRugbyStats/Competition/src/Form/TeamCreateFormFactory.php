@@ -3,7 +3,6 @@ namespace UsaRugbyStats\Competition\Form;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 
 class TeamCreateFormFactory implements FactoryInterface
@@ -16,7 +15,7 @@ class TeamCreateFormFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $form = new Form('create-team');
+        $form = new TeamCreateForm('create-team');
 
         // Add the team fieldset
         $teamFieldset = $sm->get('usarugbystats_competition_team_fieldset');

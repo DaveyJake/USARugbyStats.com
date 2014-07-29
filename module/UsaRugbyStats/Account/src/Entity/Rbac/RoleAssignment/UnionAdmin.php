@@ -5,6 +5,7 @@ use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment as BaseAssignment;
 use UsaRugbyStats\Competition\Entity\Union;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use UsaRugbyStats\Competition\Entity\Team;
 
 class UnionAdmin extends BaseAssignment
 {
@@ -105,6 +106,33 @@ class UnionAdmin extends BaseAssignment
         $this->managedUnions->removeElement($t);
 
         return $this;
+    }
+
+    public function getManagedTeams()
+    {
+        $set = array();
+        foreach ($this->managedUnions as $union) {
+            if (! $union instanceof Union) {
+                continue;
+            }
+            $set = array_merge($set, $union->getTeams()->toArray());
+        }
+
+        return new ArrayCollection($set);
+    }
+
+    public function hasManagedTeam(Team $t)
+    {
+        foreach ($this->managedUnions as $union) {
+            if (! $union instanceof Union) {
+                continue;
+            }
+            if ( $union->hasTeam($t) ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function getDiscriminator()

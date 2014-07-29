@@ -1,0 +1,105 @@
+<?php
+$form->prepare();
+$form->setAttribute('action', $this->url('usarugbystats_frontend_team/update', ['id' => $entity->getId()]));
+$form->setAttribute('method', 'post');
+?>
+
+<h1>Update Team</h1>
+
+<?php $form->setAttribute('class', 'form-horizontal'); ?>
+<?php echo $this->form()->openTag($form) ?>
+
+<?php $submitButton = $form->get('submit'); ?>
+<?php $submitButton->setAttribute('class', 'btn btn-lg btn-success'); ?>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <?php $fieldset = $form->get('team'); ?>
+
+        <?php echo $this->formHidden($fieldset->get('id')); ?>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Team Details</div>
+            <div class="panel-body">
+
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('name'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('union'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php if ( $this->isGranted('competition.team.update.union', $entity) ): ?>
+                        <?php   echo $this->formElement($element); ?>
+                        <?php else: ?>
+                        <p class="form-control-static"><?php echo $this->ursUnionLink($element->getValue()); ?></p>
+                        <?php endif; ?>
+                        <?php echo $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading" style="border-top: 1px solid #ddd;">Contact Information</div>
+            <div class="panel-body">
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('email'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('website'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('facebookHandle'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('twitterHandle'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+<div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>
+

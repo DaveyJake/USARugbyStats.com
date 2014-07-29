@@ -1,10 +1,11 @@
 <?php
 namespace UsaRugbyStats\Competition\Form;
 
-use Zend\Form\Form;
 use Zend\Form\FieldsetInterface;
+use Zend\Form\Form;
+use UsaRugbyStats\Application\Common\ExtendedValidationGroupForm;
 
-class CompetitionCreateForm extends Form
+class CompetitionCreateForm extends ExtendedValidationGroupForm
 {
     public function __construct(FieldsetInterface $competitionFieldset)
     {
@@ -33,6 +34,11 @@ class CompetitionCreateForm extends Form
             return $result;
         }
 
+        $vg = $this->getValidationGroup();
+        if ( ! isset($vg['compeition']['divisions']) ) {
+            return $result;
+        }
+
         $validData = $validInput['competition'];
         $fsCompetition = $this->get('competition');
 
@@ -52,6 +58,9 @@ class CompetitionCreateForm extends Form
 
             // Ensure that the teams it contains are unique to the entire competition
             if ( ! isset($arrDivision['teamMemberships']) || ! is_array($arrDivision['teamMemberships']) ) {
+                continue;
+            }
+            if ( ! isset($vg['compeition']['divisions']['teamMembership']) ) {
                 continue;
             }
             foreach ($arrDivision['teamMemberships'] as $teamKey => $arrTeamMembership) {

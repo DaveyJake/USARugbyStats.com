@@ -17,7 +17,7 @@ class UnionCreateFormFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $form = new Form('create-union');
+        $form = new UnionCreateForm('create-union');
 
         // Set the hydrator
         $form->setHydrator(new DoctrineObject($sm->get('zfcuser_doctrine_em')));

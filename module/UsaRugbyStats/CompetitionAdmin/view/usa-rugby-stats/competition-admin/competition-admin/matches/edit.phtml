@@ -21,18 +21,18 @@ $form->setAttribute('method', 'post');
     </div>
 
     <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/collection', ['collection' => $form->get('match')->get('signatures')]); ?>
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/collection', ['match' => $entity, 'collection' => $form->get('match')->get('signatures')]); ?>
     </div>
 
 </div>
 
 <div class="row">
     <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('teams')->get('H'), 'type' => 'H']); ?>
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['match' => $entity, 'fieldset' => $form->get('match')->get('teams')->get('H'), 'type' => 'H']); ?>
     </div>
 
     <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('teams')->get('A'), 'type' => 'A']); ?>
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['match' => $entity, 'fieldset' => $form->get('match')->get('teams')->get('A'), 'type' => 'A']); ?>
     </div>
 
 </div>

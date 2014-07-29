@@ -1,4 +1,9 @@
 <div class="page-header">
+  <?php if ( $this->isGranted('competition.competition.update', $competition) ):?>
+  <div class="pull-right" style="margin-top:5px">
+    <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_competition/update-details', ['id' => $competition->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Edit Competition</a>
+  </div>
+  <?php endif; ?>
   <h1><?=$this->escapeHtml($competition->getName()); ?></h1>
 </div>
 

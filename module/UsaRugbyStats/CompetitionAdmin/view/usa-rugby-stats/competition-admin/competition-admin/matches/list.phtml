@@ -4,11 +4,13 @@
 <div class="panel panel-default competition-divisions">
     <div class="panel-heading">
         Matches in this Competition
+        <?php if ( $this->isGranted('competition.competition.match.create', $entity) ): ?>
         <div class="pull-right">
             <a class="btn btn-xs btn-success competition-divisions-add" title="Add Match" href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/create', array('id' => $entity->getId())); ?>">
                 <i class="glyphicon glyphicon-plus-sign"></i>
             </a>
         </div>
+        <?php endif; ?>
     </div>
 
 <?php if ($this->paginator->count() > 0 ): ?>
@@ -55,13 +57,16 @@
             </td>
 
             <td class="col-sm-1 cell cell-ctrls">
+                <?php if ( $this->isGranted('competition.competition.match.update', $match) ): ?>
                 <a href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/edit', array('id' => $entity->getId(), 'match' => $match->getId())); ?>">
                     <?php echo $this->translate('Edit') ?>
                 </a>
-                |
-                <a href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/remove', array('id' => $entity->getId(), 'match' => $match->getId())); ?>">
+                <?php endif; ?>
+                <?php if ( $this->isGranted('competition.competition.match.delete', $match) ): ?>
+                 | <a href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/remove', array('id' => $entity->getId(), 'match' => $match->getId())); ?>">
                     <?php echo $this->translate('Delete') ?>
                 </a>
+                <?php endif; ?>
             </td>
         </tr>
     <?php endforeach; ?>

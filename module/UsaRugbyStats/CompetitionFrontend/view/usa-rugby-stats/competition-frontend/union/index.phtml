@@ -1,4 +1,9 @@
 <div class="page-header">
+  <?php if ( $this->isGranted('competition.union.update', $union) ):?>
+  <div class="pull-right" style="margin-top:5px">
+    <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_union/update', ['id' => $union->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Edit Union</a>
+  </div>
+  <?php endif; ?>
   <h1><?= $this->escapeHtml($union->getName()); ?></h1>
 </div>
 

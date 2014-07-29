@@ -10,6 +10,7 @@ use Zend\Paginator\Paginator;
 use DoctrineModule\Paginator\Adapter\Collection as CollectionAdapter;
 use UsaRugbyStats\Competition\Service\Competition\MatchService;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
+use ZfcRbac\Exception\UnauthorizedException;
 
 class CompetitionMatchAdminController extends AbstractActionController
 {
@@ -18,7 +19,10 @@ class CompetitionMatchAdminController extends AbstractActionController
 
     public function listAction()
     {
-        $entity = $this->loadCompetitionEntity();
+        $entity = $this->getCompetitionEntityFromRoute();
+        if ( ! $this->isGranted('competition.competition.match.list', $entity) ) {
+            throw new UnauthorizedException();
+        }
 
         $paginator = new Paginator(new CollectionAdapter($entity->getMatches()));
         $paginator->setItemCountPerPage(100);
@@ -34,7 +38,10 @@ class CompetitionMatchAdminController extends AbstractActionController
 
     public function createAction()
     {
-        $entity = $this->loadCompetitionEntity();
+        $entity = $this->getCompetitionEntityFromRoute();
+        if ( ! $this->isGranted('competition.competition.match.create', $entity) ) {
+            throw new UnauthorizedException();
+        }
 
         $form = $this->getMatchService()->getCreateForm();
         $form->get('match')->get('competition')->setValue($entity->getId());
@@ -64,7 +71,7 @@ class CompetitionMatchAdminController extends AbstractActionController
 
     public function editAction()
     {
-        $competition = $this->loadCompetitionEntity();
+        $competition = $this->getCompetitionEntityFromRoute();
 
         $id = $this->params()->fromRoute('match');
         $entity = $this->getMatchService()->findByID($id);
@@ -73,6 +80,10 @@ class CompetitionMatchAdminController extends AbstractActionController
         }
         if ( $entity->getCompetition() != null && $entity->getCompetition()->getId() != $competition->getId()) {
             throw new \RuntimeException('No match found with the specified identifier!');
+        }
+
+        if ( ! $this->isGranted('competition.competition.match.update', $entity) ) {
+            throw new UnauthorizedException();
         }
 
         $form = $this->getMatchService()->getUpdateForm();
@@ -105,7 +116,7 @@ class CompetitionMatchAdminController extends AbstractActionController
 
     public function removeAction()
     {
-        $competition = $this->loadCompetitionEntity();
+        $competition = $this->getCompetitionEntityFromRoute();
 
         $id = $this->params()->fromRoute('match');
         $entity = $this->getMatchService()->findByID($id);
@@ -114,6 +125,10 @@ class CompetitionMatchAdminController extends AbstractActionController
         }
         if ( $entity->getCompetition() != null && $entity->getCompetition()->getId() != $competition->getId()) {
             throw new \RuntimeException('No match found with the specified identifier!');
+        }
+
+        if ( ! $this->isGranted('competition.competition.match.delete', $entity) ) {
+            throw new UnauthorizedException();
         }
 
         if ( $this->getRequest()->isPost() && $this->params()->fromPost('confirmed') == 'Y' ) {
@@ -134,7 +149,7 @@ class CompetitionMatchAdminController extends AbstractActionController
         return $vm;
     }
 
-    protected function loadCompetitionEntity()
+    protected function getCompetitionEntityFromRoute()
     {
         $id = $this->params()->fromRoute('id');
         $svc = $this->getCompetitionService();

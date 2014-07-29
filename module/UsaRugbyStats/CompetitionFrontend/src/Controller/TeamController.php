@@ -7,6 +7,7 @@ use UsaRugbyStats\Competition\Service\TeamService;
 use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Traits\CompetitionMatchServiceTrait;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
+use ZfcRbac\Exception\UnauthorizedException;
 
 class TeamController extends AbstractActionController
 {
@@ -37,6 +38,44 @@ class TeamController extends AbstractActionController
         $vm->setVariable('upcomingMatches', $upcomingMatches);
         $vm->setVariable('pastMatches', $pastMatches);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/team/index');
+
+        return $vm;
+    }
+
+    public function updateAction()
+    {
+        $id = $this->params()->fromRoute('id');
+        if ( ! \Zend\Validator\StaticValidator::execute($id, 'Zend\Validator\Digits') ) {
+            throw new \InvalidArgumentException('Invalid Team ID specified!');
+        }
+
+        $team = $this->getTeamService()->findByID($id);
+        if (! $team instanceof Team) {
+            throw new \InvalidArgumentException('Invalid Team ID specified!');
+        }
+
+        if ( ! $this->isGranted('competition.team.update', $team) ) {
+            throw new UnauthorizedException();
+        }
+
+        $form = $this->getTeamService()->getUpdateForm();
+
+        if ( $this->getRequest()->isPost() ) {
+            $formData = $this->getRequest()->getPost()->toArray();
+            $result = $this->getTeamService()->update($team, $formData);
+            if ($result instanceof Team) {
+                $this->flashMessenger()->addSuccessMessage('The team was updated successfully!');
+
+                return $this->redirect()->toRoute('usarugbystats_frontend_team/update', ['id' => $result->getId()]);
+            }
+        } else {
+            $form->bind($team);
+        }
+
+        $vm = new ViewModel();
+        $vm->setVariable('entity', $team);
+        $vm->setVariable('form', $form);
+        $vm->setTemplate('usa-rugby-stats/competition-frontend/team/update');
 
         return $vm;
     }

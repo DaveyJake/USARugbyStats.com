@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use UsaRugbyStats\Competition\Service\UnionService;
 use UsaRugbyStats\Competition\Entity\Union;
+use ZfcRbac\Exception\UnauthorizedException;
 
 class UnionAdminController extends AbstractActionController
 {
@@ -13,6 +14,10 @@ class UnionAdminController extends AbstractActionController
 
     public function listAction()
     {
+        if ( ! $this->isGranted('competition.union.list') ) {
+            throw new UnauthorizedException();
+        }
+
         $svc = $this->getUnionService();
 
         $paginator = $svc->fetchAll();
@@ -28,6 +33,10 @@ class UnionAdminController extends AbstractActionController
 
     public function createAction()
     {
+        if ( ! $this->isGranted('competition.union.create') ) {
+            throw new UnauthorizedException();
+        }
+
         $form = $this->getUnionService()->getCreateForm();
         if ( $this->getRequest()->isPost() ) {
             $result = $this->getUnionService()->create($this->getRequest()->getPost()->toArray());
@@ -51,6 +60,10 @@ class UnionAdminController extends AbstractActionController
         $entity = $this->getUnionService()->findByID($id);
         if (! $entity instanceof Union) {
             throw new \RuntimeException('No union with the specified identifier!');
+        }
+
+        if ( ! $this->isGranted('competition.union.update', $entity) ) {
+            throw new UnauthorizedException();
         }
 
         $form = $this->getUnionService()->getUpdateForm();
@@ -80,6 +93,10 @@ class UnionAdminController extends AbstractActionController
         $entity = $this->getUnionService()->findByID($id);
         if (! $entity instanceof Union) {
             throw new \RuntimeException('No union with the specified identifier!');
+        }
+
+        if ( ! $this->isGranted('competition.union.delete', $entity) ) {
+            throw new UnauthorizedException();
         }
 
         if ( $this->getRequest()->isPost() && $this->params()->fromPost('confirmed') == 'Y' ) {

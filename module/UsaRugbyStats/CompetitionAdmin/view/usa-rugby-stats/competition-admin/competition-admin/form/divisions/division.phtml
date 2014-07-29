@@ -5,9 +5,11 @@
 <div class="panel panel-default competition-divisions-division" data-divisionid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>"<?php if (isset($index)): ?> data-index="<?php echo $this->escapeHtmlAttr($index); ?>"<?php endif;?>>
     <div class="panel-heading">
         <?php if ($isTemplate): ?>New Division<?php else: ?><?php echo $this->escapeHtml($elName->getValue()); ?><?php endif; ?>
+        <?php if ( $this->isGranted('competition.competition.update.divisions', @$competition)  ): ?>
         <div class="pull-right">
             <a class="btn btn-xs btn-danger competition-divisions-division-remove" title="Remove Division"><i class="glyphicon glyphicon-trash"></i></a>
         </div>
+        <?php endif; ?>
     </div>
     <div class="panel-body">
 
@@ -20,7 +22,12 @@
 
             <?php echo $this->formLabel($elName) ?>
             <div class="col-sm-10">
-                <?php echo $this->formElement($elName) . $this->formElementErrors($elName) ?>
+                <?php if ( $this->isGranted('competition.competition.update.divisions', @$competition) ): ?>
+                <?php echo $this->formElement($elName) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($elName->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($elName); ?>
             </div>
         </div>
 
@@ -28,9 +35,11 @@
         <div class="panel panel-default competition-divisions-division-teams">
             <div class="panel-heading">
                 Teams in this Division
+                <?php if ( $this->isGranted('competition.competition.division.team.add', @$competition)  ): ?>
                 <div class="pull-right">
                     <a class="btn btn-xs btn-success competition-divisions-division-teams-add" title="Add Team"><i class="glyphicon glyphicon-plus-sign"></i></a>
                 </div>
+                <?php endif; ?>
             </div>
 
             <?php $collAdmins = $fieldset->get('teamMemberships'); ?>
@@ -40,13 +49,14 @@
 
                 <?php $teamCount = 0; ?>
                 <?php foreach ( $collAdmins->getFieldsets() as $fsTeam ): ?>
-                <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['index' => $teamCount++, 'fieldset' => $fsTeam]); ?>
+                <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['competition' => $competition, 'index' => $teamCount++, 'fieldset' => $fsTeam]); ?>
                 <?php endforeach; ?>
 
                 </tbody>
             </table>
 
             <script type="text/template" class="team-selector-template" data-nextindex="<?php echo $this->escapeHtmlAttr($teamCount); ?>" style="display:none">
+                <?php // @NOTE purposefully omitted competition parameter so that trashcan icon will show even if delete permission is off ?>
                 <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/team', ['fieldset' => $fieldset->get('teamMemberships')->getTemplateElement(), 'isTemplate' => true]); ?>
             </script>
 

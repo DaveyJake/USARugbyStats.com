@@ -1,9 +1,12 @@
+<?php $canEdit = $this->isGranted('competition.competition.update.divisions', @$competition); ?>
 <div class="panel panel-default competition-divisions">
     <div class="panel-heading">
         Competition Divisions
+        <?php if ( $canEdit ): ?>
         <div class="pull-right">
             <a class="btn btn-xs btn-success competition-divisions-add" title="Add Division"><i class="glyphicon glyphicon-plus-sign"></i></a>
         </div>
+        <?php endif; ?>
     </div>
 
     <?php $collDivision = $fieldset->get('divisions'); ?>
@@ -13,14 +16,15 @@
 
         <?php $fsCount = 0; ?>
         <?php foreach ( $collDivision->getFieldsets() as $fsDivision ): ?>
-        <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['index' => $fsCount++, 'fieldset' => $fsDivision]); ?>
+        <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['competition' => @$competition, 'index' => $fsCount++, 'fieldset' => $fsDivision]); ?>
         <?php endforeach; ?>
 
         </div>
     </div>
 
     <script type="text/javascript">
-        var managedDivisionsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['fieldset' => $collDivision->getTemplateElement(), 'isTemplate' => true])); ?>';
+        <?php if ( $canEdit  ): ?>
+        var managedDivisionsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['competition' => @$competition, 'fieldset' => $collDivision->getTemplateElement(), 'isTemplate' => true])); ?>';
         var managedDivisionIndex = <?php echo $this->escapeJs($fsCount); ?>;
 
         // Division Add/Remove
@@ -30,10 +34,13 @@
             $('#CompetitionDivisionsContainer').append(html);
             managedDivisionIndex++;
         });
+
         $(document).on('click', '.competition-divisions .competition-divisions-division-remove', function() {
             $(this).closest('*[data-divisionid]').remove();
         });
+        <?php endif; ?>
 
+        <?php if ( $this->isGranted('competition.competition.division.team.add', @$competition)  ): ?>
         // Division Team Add/Remove
         $(document).on('click', '.competition-divisions-division .competition-divisions-division-teams-add', function() {
         	var template = $(this).closest('.competition-divisions-division').find('.team-selector-template');
@@ -42,9 +49,12 @@
             $(this).closest('.competition-divisions-division').find('.competition-divisions-division-teams table tbody').append(html);
             template.attr('data-nextindex', index+1);
         });
+        <?php endif;?>
+        <?php if ( $this->isGranted('competition.competition.division.team.remove', @$competition)  ): ?>
         $(document).on('click', '.competition-divisions-division .dropteam', function() {
             $(this).closest('*[data-teamid]').remove();
         });
+        <?php endif; ?>
     </script>
 
 </div>

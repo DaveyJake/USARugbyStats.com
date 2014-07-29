@@ -6,11 +6,11 @@
 
 <div class="row">
     <div class="col-md-6">
-    
+
         <?php $fieldset = $form->get('union'); ?>
-        
+
         <?php echo $this->formHidden($fieldset->get('id')); ?>
-        
+
         <div class="panel panel-default">
             <div class="panel-heading">Union Details</div>
             <div class="panel-body">
@@ -19,7 +19,7 @@
                     <?php $element = $fieldset->get('name'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
                     <?php $element->setAttribute('class', 'form-control'); ?>
-                    
+
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
                         <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
@@ -29,9 +29,9 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/union-admin/form/teams', ['fieldset' => $fieldset]); ?>
+        <?php echo $this->render('usa-rugby-stats/competition-admin/union-admin/form/teams', ['union' => @$this->entity, 'fieldset' => $fieldset]); ?>
     </div>
 </div>
 <div class="clearfix"></div>

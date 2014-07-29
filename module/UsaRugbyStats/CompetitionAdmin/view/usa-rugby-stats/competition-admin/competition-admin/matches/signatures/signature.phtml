@@ -1,16 +1,30 @@
+<?php $canEdit = $this->isGranted('competition.competition.match.signatures.change', @$this->match); ?>
+
 <tr>
     <td class="column column-type">
         <?php $element = $fieldset->get('type'); ?>
-        <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+        <?php if ( $canEdit ): ?>
+        <?php echo $this->formElement($element) ?>
+        <?php else: ?>
+        <?php echo $this->escapeHtml($element->getValue()); ?>
+        <?php endif;?>
+        <?php echo $this->formElementErrors($element); ?>
     </td>
 
     <td class="column signee">
         <?php $element = $fieldset->get('account'); ?>
-        <?php echo $this->formElement($element) . $this->formElementErrors($element); ?>
+        <?php if ( $canEdit ): ?>
+        <?php echo $this->formElement($element) ?>
+        <?php else: ?>
+        <?php echo $this->escapeHtml($element->getValue()); ?>
+        <?php endif;?>
+        <?php echo $this->formElementErrors($element); ?>
     </td>
 
     <td style="width:42px">
+        <?php if ( $canEdit ): ?>
         <?php echo $this->formHidden($fieldset->get('id')); ?>
         <a class="btn btn-xs btn-danger competition-match-signatures-removesignature"><i class="glyphicon glyphicon-remove"></i></a>
+        <?php endif; ?>
     </td>
 </tr>

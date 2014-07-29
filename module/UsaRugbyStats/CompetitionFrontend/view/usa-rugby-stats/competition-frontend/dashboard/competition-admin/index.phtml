@@ -37,7 +37,21 @@ $role = $me->getRoleAssignment('competition_admin');
 
       <ul class="list-group">
         <?php foreach ( $role->getManagedCompetitions() as $comp ): ?>
+        <?php   $compUrl  = $this->url('usarugbystats_frontend_competition', ['id' => $comp->getId()]); ?>
+        <?php   $compManageUrl  = $this->url('usarugbystats_frontend_competition/update-details', ['id' => $comp->getId()]); ?>
         <li class="list-group-item">
+
+        <div class="pull-right">
+          <div class="btn-group pull-right">
+            <a class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphglyphicon glyphicon-cog"></i>&nbsp;<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="<?=$this->escapeHtmlAttr($compUrl); ?>"><i class="glyphicon glyphicon-share"></i> View Competition</a></li>
+              <li><a href="<?=$this->escapeHtmlAttr($compManageUrl); ?>"><i class="glyphicon glyphicon-edit"></i> Manage Competition</a></li>
+            </ul>
+          </div>
+        </div>
+
           <h4 class="list-group-item-heading"><?=$this->ursCompetitionLink($comp); ?></h4>
           <p class="list-group-item-text">
             <?=$comp->getStartDate()->format('F jS, Y')?>&nbsp;&mdash;
