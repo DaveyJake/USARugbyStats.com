@@ -39,12 +39,14 @@ class JsonWebServiceProvider implements DataProviderInterface
     public function setWebServiceEndpoint($uri)
     {
         $this->webServiceEndpoint = $uri;
+
         return $this;
     }
 
-	public function setHttpClient(Client $client)
+    public function setHttpClient(Client $client)
     {
         $this->httpClient = $client;
+
         return $this;
     }
 
@@ -54,6 +56,7 @@ class JsonWebServiceProvider implements DataProviderInterface
             $this->httpClient = new Client();
             $this->httpClient->setAdapter(new Curl());
         }
+
         return $this->httpClient;
     }
 

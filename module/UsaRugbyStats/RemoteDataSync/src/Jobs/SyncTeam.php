@@ -188,7 +188,7 @@ class SyncTeam extends AbstractJob
         return $this;
     }
 
-	/**
+    /**
      * @return AbstractJob
      */
     public function getSyncPlayerJobPrototype()
@@ -196,17 +196,18 @@ class SyncTeam extends AbstractJob
         if ( empty($this->syncPlayerJobPrototype) ) {
             $this->syncPlayerJobPrototype = new SyncPlayer();
         }
+
         return $this->syncPlayerJobPrototype;
     }
 
-	/**
+    /**
      * @param AbstractJob $obj
      */
     public function setSyncPlayerJobPrototype(AbstractJob $obj)
     {
         $this->syncPlayerJobPrototype = $obj;
+
         return $this;
     }
-
 
 }

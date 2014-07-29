@@ -35,7 +35,7 @@ class JsonWebServiceProviderTest extends \PHPUnit_Framework_TestCase
         $team->setRemoteId(4242);
 
         $dataSet = [
-        	[ 'ID' => 123 ],
+            [ 'ID' => 123 ],
             [ 'ID' => 456 ],
         ];
 
