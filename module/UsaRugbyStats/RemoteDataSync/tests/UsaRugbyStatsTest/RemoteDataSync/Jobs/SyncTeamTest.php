@@ -3,6 +3,7 @@ namespace UsaRugbyStatsTest\RemoteDataSync\Jobs;
 
 use UsaRugbyStats\RemoteDataSync\Jobs\SyncTeam;
 use Zend\Log\Logger;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class SyncTeamTest extends AbstractJobTest
 {
@@ -146,6 +147,7 @@ class SyncTeamTest extends AbstractJobTest
         $mockTeam->shouldReceive('getRemoteId')->andReturn(123456);
         $mockTeam->shouldReceive('getName')->andReturn('Foo Team');
         $mockTeam->shouldReceive('getId')->andReturn(42);
+        $mockTeam->shouldReceive('getMembers')->andReturn(new ArrayCollection());
 
         $mockDataProvider = \Mockery::mock('UsaRugbyStats\RemoteDataSync\DataProvider\DataProviderInterface');
         $mockDataProvider->shouldReceive('syncTeam')->never();
@@ -168,4 +170,46 @@ class SyncTeamTest extends AbstractJobTest
         $this->assertStringStartsWith('Completed', @$lastMessage['message']);
     }
 
+    public function testOrphanedRecordsAreRemoved()
+    {
+        $mockAccount = \Mockery::mock('UsaRugbyStats\Account\Entity\Account');
+        $mockAccount->shouldReceive('getId')->andReturn(42);
+        $mockAccount->shouldReceive('getRemoteId');
+
+        $mockRole = \Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member');
+        $mockRole->shouldReceive('getAccount')->once()->andReturn($mockAccount);
+
+        $mockMembership = \Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
+        $mockMembership->shouldReceive('getRole')->once()->andReturn($mockRole);
+
+        $memberships = array($mockMembership);
+
+        $mockTeam = \Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $mockTeam->shouldReceive('getRemoteId')->andReturn(123456);
+        $mockTeam->shouldReceive('getName')->andReturn('Foo Team');
+        $mockTeam->shouldReceive('getId')->andReturn(42);
+        $mockTeam->shouldReceive('getMembers')->andReturn(new ArrayCollection($memberships));
+        $mockTeam->shouldReceive('removeMember')->withArgs([$mockMembership])->once();
+
+        $mockDataProvider = \Mockery::mock('UsaRugbyStats\RemoteDataSync\DataProvider\DataProviderInterface');
+        $mockDataProvider->shouldReceive('syncTeam')->never();
+
+        $service = \Mockery::mock('UsaRugbyStats\Competition\Service\TeamService');
+        $service->shouldReceive('findByID')->withArgs([42])->once()->andReturn($mockTeam);
+        $service->shouldReceive('save')->once();
+
+        $this->job->setTeamService($service);
+        $this->job->setDataProvider($mockDataProvider);
+
+        $this->job->args = ['team_id' => 42, 'team_data' => [
+            [ 'ID' => '424242' ],
+            [ /* purposefully invalid */ ],
+            [ 'ID' => '222222', 'club_ID' => '99999' /* should be skipped */ ],
+        ]];
+
+        $this->assertTrue($this->job->perform());
+
+        $lastMessage = array_pop($this->mockLoggerWriter->events);
+        $this->assertStringStartsWith('Completed', @$lastMessage['message']);
+    }
 }

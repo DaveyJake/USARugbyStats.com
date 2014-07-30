@@ -2,9 +2,12 @@
 namespace UsaRugbyStats\RemoteDataSync\Jobs;
 
 use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Competition\Entity\Team\Member as TeamMember;
+use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member as MemberRole;
 use UsaRugbyStats\Competition\Service\TeamService;
 use UsaRugbyStats\RemoteDataSync\DataProvider\DataProviderInterface;
 use UsaRugbyStats\RemoteDataSync\Queue\QueueInterface;
+use UsaRugbyStats\Account\Entity\Account;
 
 class SyncTeam extends AbstractJob
 {
@@ -74,12 +77,15 @@ class SyncTeam extends AbstractJob
         }
 
         $childJobs = [];
+        $encounteredPlayerRemoteIDs = [];
 
         $this->getLogger()->info('Enqueueing player data for update...');
         foreach ($data as $player) {
             if ( !isset($player['ID']) ) {
                 continue;
             }
+            array_push($encounteredPlayerRemoteIDs, $player['ID']);
+
             if ( !isset($player['club_ID']) ) {
                 $player['club_ID'] = $team->getRemoteId();
             }
@@ -106,6 +112,32 @@ class SyncTeam extends AbstractJob
             $childJob->args = [ 'player_id'  => NULL, 'player_data' => $player ];
             $childJob->perform();
 
+        }
+
+        $this->getLogger()->info('Cleaning up orphaned records..');
+
+        $currentMemberships = $team->getMembers();
+        $dirty = false;
+        foreach ($currentMemberships as $item) {
+            if (! $item instanceof TeamMember) {
+                continue;
+            }
+            if ( ! ( $role = $item->getRole() ) instanceof MemberRole ) {
+                continue;
+            }
+            if ( ! ( $acct = $role->getAccount() ) instanceof Account ) {
+                continue;
+            }
+
+            if ( empty($acct->getRemoteId()) || !in_array($acct->getRemoteId(), $encounteredPlayerRemoteIDs, true) ) {
+                $this->getLogger()->debug(sprintf(' - Removing Player %s', $acct->getRemoteId() ?: ('ID#'.$acct->getId())));
+                $team->removeMember($item);
+                $dirty = true;
+            }
+        }
+
+        if ($dirty) {
+            $this->getTeamService()->save($team);
         }
 
         $this->getLogger()->info('Completed!');
