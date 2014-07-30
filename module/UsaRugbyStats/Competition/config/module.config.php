@@ -171,6 +171,8 @@ return array(
             'UsaRugbyStats\Competition\Entity\Location' => [],
 
             'UsaRugbyStats\Competition\Entity\Team' => [],
+            'UsaRugbyStats\Competition\Entity\Team\Member' => [],
+
             'UsaRugbyStats\Competition\Entity\Union' => [],
 
             'UsaRugbyStats\Competition\Entity\Competition' => [],
