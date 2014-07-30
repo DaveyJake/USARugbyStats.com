@@ -90,7 +90,7 @@ abstract class AbstractService implements EventManagerAwareInterface
         $entityClass = $this->getEntityClassName();
 
         $argv = new \ArrayObject();
-        $argv->entity = new $entityClass;
+        $argv->entity = new $entityClass();
         $argv->form   = $this->getCreateForm();
         $argv->data   = $data;
 

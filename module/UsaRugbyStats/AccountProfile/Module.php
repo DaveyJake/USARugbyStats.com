@@ -1,8 +1,6 @@
 <?php
 namespace UsaRugbyStats\AccountProfile;
 
-use Zend\Mvc\MvcEvent;
-
 class Module
 {
     public function getConfig()

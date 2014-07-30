@@ -44,7 +44,7 @@ class RbacEnforceRoleAssociationTest extends ServiceManagerTestCase
         $this->assertInstanceOf('UsaRugbyStats\Account\Service\Strategy\RbacEnforceRoleAssociation', $obj);
 
         $event = Mockery::mock('Doctrine\Common\Persistence\Event\LifecycleEventArgs');
-        $event->shouldReceive('getObject')->andReturn(new \stdClass);
+        $event->shouldReceive('getObject')->andReturn(new \stdClass());
 
         $obj->prePersist($event);
     }

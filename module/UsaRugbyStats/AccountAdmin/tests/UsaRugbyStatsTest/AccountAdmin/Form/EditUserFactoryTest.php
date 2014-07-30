@@ -25,7 +25,7 @@ class EditUserFactoryTest extends \PHPUnit_Framework_TestCase
         $this->serviceManager = new \Zend\ServiceManager\ServiceManager();
         $this->serviceManager->setService('zfcuser_module_options', new \ZfcUser\Options\ModuleOptions());
         $this->serviceManager->setService('zfcuser_doctrine_em', Mockery::mock('Doctrine\Common\Persistence\ObjectManager'));
-        $this->serviceManager->setService('zfcuseradmin_module_options', new \ZfcUserAdmin\Options\ModuleOptions);
+        $this->serviceManager->setService('zfcuseradmin_module_options', new \ZfcUserAdmin\Options\ModuleOptions());
         $this->serviceManager->setService('zfcuseradmin_edituser_filter', $mockFilter);
         $this->serviceManager->setService('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement', $mockCollection);
     }
