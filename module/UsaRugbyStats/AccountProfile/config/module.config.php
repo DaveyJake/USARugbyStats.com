@@ -1,5 +1,12 @@
 <?php
 return array(
+    'ldc-user-profile' => array(
+        'registered_extensions' => array(
+            'usarugbystats-accountprofile_personalstats_extension' => true,
+            'usarugbystats-accountprofile_extprofile_extension' => true,
+        ),
+    ),
+
     'service_manager' => array(
         'aliases' => array(),
         'factories' => array(
