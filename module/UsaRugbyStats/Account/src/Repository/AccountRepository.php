@@ -36,12 +36,13 @@ class AccountRepository extends EntityRepository
                     WITH aa.id = arram.account
             WHERE
                 ctm.team = :team_id
-            ORDER BY aa.displayName ASC
 DQL;
 
         if ( !empty($status) ) {
-            $dql .= "AND ctm.membershipStatus IN :statuses";
+            $dql .= " AND ctm.membershipStatus IN (:statuses)";
         }
+
+        $dql .= " ORDER BY aa.displayName ASC";
 
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setParameter('team_id', $team_id);
