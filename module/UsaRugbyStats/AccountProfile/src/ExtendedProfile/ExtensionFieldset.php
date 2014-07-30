@@ -33,15 +33,6 @@ class ExtensionFieldset extends Fieldset
             )
         ));
 
-        $this->add(array(
-            'name' => 'membershipStatus',
-            'type' => 'Select',
-            'options' => array(
-                'label' => 'Membership Status',
-                'value_options' => ExtensionEntity::getMembershipStatusValues(),
-            )
-        ));
-
     }
 
 }

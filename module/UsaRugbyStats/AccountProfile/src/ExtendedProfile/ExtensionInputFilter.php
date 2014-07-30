@@ -25,15 +25,7 @@ class ExtensionInputFilter extends InputFilter
             'name'       => 'telephoneNumber',
             'required'   => false,
             'filters'    => array(array('name' => 'StringTrim')),
-            'validators' => array(
-                array('name' => 'PhoneNumber'),
-            ),
-        ));
-
-        $this->add(array(
-            'name'       => 'membershipStatus',
-            'required'   => false,
-            'filters'    => array(array('name' => 'Alpha')),
+            'validators' => array(),
         ));
     }
 }

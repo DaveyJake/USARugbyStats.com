@@ -40,17 +40,5 @@
         </div>
     </div>
 
-    <div class="row form-group">
-        <?php $element = $fieldset->get('membershipStatus'); ?>
-        <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-
-        <?php echo $this->formLabel($element) ?>
-        <div class="col-sm-8">
-            <?php $acceptableValues = \UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionEntity::getMembershipStatusValues(); ?>
-            <p class="form-control-static"><?php echo $this->escapeHtml(isset($acceptableValues[$element->getValue()]) ? $acceptableValues[$element->getValue()] : 'Unknown'); ?></p>
-            <?php echo $this->formElementErrors($element) ?>
-        </div>
-    </div>
-
   </div>
 </div>

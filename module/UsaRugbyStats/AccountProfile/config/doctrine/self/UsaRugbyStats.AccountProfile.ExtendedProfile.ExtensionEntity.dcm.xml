@@ -20,7 +20,6 @@
         <field name="firstName" column="first_name" type="string" length="128" />
         <field name="lastName" column="last_name" type="string" length="128" />
         <field name="telephoneNumber" column="telephone" type="string" length="25" />
-        <field name="membershipStatus" column="membership_status" type="string" length="2" nullable="true" />
 
     </entity>
 
