@@ -224,11 +224,56 @@ class SyncPlayerTest extends AbstractJobTest
         $this->mockEditForm->shouldReceive('isValid');
         $this->mockEditForm->shouldReceive('getData')->andReturn([]);
 
+        // We don't want to test the extprofile stuff here
+        $this->mockServiceLocator->shouldReceive('has')->andReturn(false);
+
         $this->job->args = ['player_id' => 42, 'player_data' => [
             'ID'         => '123456',
             'Email'      => 'foo@bar.com',
             'First_Name' => 'Testy',
             'Last_Name'  => 'McTesterson',
+        ]];
+
+        $this->job->perform();
+    }
+
+    public function testAccountProfileUpdateTriggersUpdateOfExtprofileWhenItIsPresent()
+    {
+        $acct = \Mockery::mock('UsaRugbyStats\Account\Entity\Account');
+        $acct->shouldReceive('getId')->andReturn(42);
+        $acct->shouldReceive('setRemoteId')->once();
+
+        $mockMapper = \Mockery::mock('ZfcUser\Mapper\UserInterface');
+        $mockMapper->shouldReceive('findById')->withArgs([42])->once()->andReturn($acct);
+        $mockMapper->shouldReceive('update');
+        $this->mockUserService->shouldReceive('getUserMapper')->andReturn($mockMapper);
+
+        $this->mockUserService->shouldReceive('edit')->once()->andReturn($acct);
+
+        $this->mockEditForm->shouldReceive('bind');
+        $this->mockEditForm->shouldReceive('isValid');
+        $this->mockEditForm->shouldReceive('getData')->andReturn([]);
+
+        $mockProfileForm = \Mockery::mock('Zend\Form\FormInterface');
+        $mockProfileForm->shouldReceive('has')->withArgs(['extprofile'])->andReturn(true);
+        $mockProfileForm->shouldReceive('isValid')->andReturn(true);
+        $mockProfileForm->shouldReceive('getData')->andReturnNull();
+        $mockProfileForm->shouldIgnoreMissing();
+
+        $mockProfileService = \Mockery::mock('LdcUserProfile\Service\ProfileService');
+        $mockProfileService->shouldReceive('constructFormForUser')->andReturn($mockProfileForm);
+        $mockProfileService->shouldReceive('save');
+
+        // We don't want to test the extprofile stuff here
+        $this->mockServiceLocator->shouldReceive('has')->withArgs(['ldc-user-profile_service'])->andReturn(true);
+        $this->mockServiceLocator->shouldReceive('get')->withArgs(['ldc-user-profile_service'])->andReturn($mockProfileService);
+
+        $this->job->args = ['player_id' => 42, 'player_data' => [
+            'ID'         => '123456',
+            'Email'      => 'foo@bar.com',
+            'First_Name' => 'Testy',
+            'Last_Name'  => 'McTesterson',
+            'Telephone'  => '+11234567890',
         ]];
 
         $this->job->perform();

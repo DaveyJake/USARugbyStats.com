@@ -11,6 +11,7 @@ use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member;
 use UsaRugbyStats\Competition\Entity\Team\Member as TeamMembership;
 use UsaRugbyStats\Account\Entity\Rbac\Role;
+use LdcUserProfile\Service\ProfileService;
 
 class SyncPlayer extends AbstractJob
 {
@@ -23,6 +24,11 @@ class SyncPlayer extends AbstractJob
      * @var UserService
      */
     protected $svcUser;
+
+    /**
+     * @var ProfileService
+     */
+    protected $svcExtendedProfile;
 
     /**
      * @var FormInterface
@@ -118,21 +124,47 @@ class SyncPlayer extends AbstractJob
         $form->isValid();
 
         // And pull out an array we can use to persist
-        $data = $form->getData(FormInterface::VALUES_AS_ARRAY);
+        $formData = $form->getData(FormInterface::VALUES_AS_ARRAY);
         // @HACK the ObjectSelect elements within the RoleAssignment objects don't get extracted for some reason
-        array_walk_recursive($data, function (&$item, $key) {
+        array_walk_recursive($formData, function (&$item, $key) {
             if ( is_object($item) && is_callable(array($item, 'getId')) ) {
                 $item = $item->getId();
             }
         });
 
         // Merge in the basic account data
-        $data = ArrayUtils::merge($data, $mbrdata);
+        $formData = ArrayUtils::merge($formData, $mbrdata);
 
-        $player = $this->getUserService()->edit($form, $data, $player);
+        $player = $this->getUserService()->edit($form, $formData, $player);
         if (! $player instanceof Account) {
             $this->getLogger()->err(' ** FAILED: ' . var_export($form->getMessages(), true));
             throw new \RuntimeException('Failed to update local player account!');
+        }
+
+        // If we're given an extended profile object, push in the phone number
+        $profileService = $this->getExtendedProfileService();
+        if ($profileService instanceof ProfileService) {
+            $form = $profileService->constructFormForUser($player);
+            if ( ! $form->has('extprofile') ) {
+                return;
+            }
+
+            $form->setValidationGroup(['extprofile' => [
+                'firstName',
+                'lastName',
+                'telephoneNumber'
+            ]]);
+            $form->setData(['extprofile' => [
+                'firstName'        => $data['First_Name'],
+                'lastName'         => $data['Last_Name'],
+                'telephoneNumber'  => $data['Telephone']
+            ]]);
+
+            try {
+                if ( $form->isValid() ) {
+                    $profileService->save($form->getData());
+                }
+            } catch ( \Exception $e ) {  }
         }
     }
 
@@ -316,4 +348,30 @@ class SyncPlayer extends AbstractJob
         return $this;
     }
 
+    /**
+     * @param  ProfileService $svc
+     * @return self
+     */
+    public function setExtendedProfileService(ProfileService $svc)
+    {
+        $this->svcExtendedProfile = $svc;
+
+        return $this;
+    }
+
+    /**
+     * @return ProfileService
+     */
+    public function getExtendedProfileService()
+    {
+        if ( empty($this->svcExtendedProfile) ) {
+            if ( $this->getServiceLocator()->has('ldc-user-profile_service') ) {
+                $this->svcExtendedProfile = $this->getServiceLocator()->get(
+                    'ldc-user-profile_service'
+                );
+            }
+        }
+
+        return $this->svcExtendedProfile;
+    }
 }
