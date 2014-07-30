@@ -29,17 +29,17 @@ class CompetitionCreateForm extends ExtendedValidationGroupForm
     {
         $result = parent::isValid();
 
-        $validInput = $this->getInputFilter()->getValidInput();
-        if ( ! isset($validInput['competition']) ) {
-            return $result;
+        $inputs = $this->getInputFilter()->getValidInput();
+        if ( ! isset($inputs['competition']) ) {
+            $inputs = $this->getInputFilter()->getInvalidInput();
         }
 
         $vg = $this->getValidationGroup();
-        if ( ! isset($vg['compeition']['divisions']) ) {
+        if ( ! isset($vg['competition']['divisions']) ) {
             return $result;
         }
 
-        $validData = $validInput['competition'];
+        $ifData = $inputs['competition'];
         $fsCompetition = $this->get('competition');
 
         // @TODO there really must be a better way to do this
@@ -47,7 +47,7 @@ class CompetitionCreateForm extends ExtendedValidationGroupForm
         // Ensure that each division of the competition has a unique name
         $divisionNames = array();
         $teams = array();
-        foreach ( $validData->get('divisions')->getValues() as $divKey => $arrDivision ) {
+        foreach ( $ifData->get('divisions')->getValues() as $divKey => $arrDivision ) {
             if ( in_array($arrDivision['name'], $divisionNames) ) {
                 $fsCompetition->get('divisions')->get($divKey)->get('name')->setMessages([
                     "There is already a division with this name!"
