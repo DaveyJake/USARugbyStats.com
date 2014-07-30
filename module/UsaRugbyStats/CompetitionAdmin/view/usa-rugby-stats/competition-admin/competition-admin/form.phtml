@@ -1,4 +1,4 @@
-<?php $canEdit = $this->isGranted('competition.competition.update.details', $entity); ?>
+<?php $canEdit = $this->isGranted('competition.competition.update.details', @$entity); ?>
 
 <?php $fieldset = $form->get('competition'); ?>
 
