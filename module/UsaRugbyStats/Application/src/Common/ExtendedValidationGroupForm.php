@@ -176,7 +176,7 @@ class ExtendedValidationGroupForm extends HackedBaseForm implements EventManager
         foreach ($validationGroup as $key => $value) {
             if ($formOrFieldset->has($key)) {
                 $fieldset = $formOrFieldset->byName[$key];
-            } elseif ( $formOrFieldset->has($value) ) {
+            } elseif ( is_scalar($value) && $formOrFieldset->has($value) ) {
                 $fieldset = $formOrFieldset->get($value);
                 $key = $value;
             } else {
