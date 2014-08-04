@@ -20,16 +20,18 @@ class TestUnionsFixture implements FixtureInterface,  ServiceLocatorAwareInterfa
         foreach ($this->unionData as $union) {
             echo " - {$union['name']}\n";
 
+            $session = $svc->startSession();
+            $session->form = clone $svc->getCreateForm();
+            $session->entity = new Union();
+            $svc->prepare();
+
             $entity = $svc->create(['union' => $union]);
             if (! $entity instanceof Union) {
                 echo "ERROR: Failed to create union: " . $union['name'] . "\n";
                 continue;
             }
-            $manager->persist($entity);
             unset($entity);
         }
-
-        $manager->flush();
     }
 
     protected $unionData = array(
