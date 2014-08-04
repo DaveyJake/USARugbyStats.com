@@ -23,6 +23,13 @@ class CompetitionAdminFieldset extends RoleAssignmentFieldset
             'label' => 'Competition',
             'object_manager' => $om,
             'target_class'   => 'UsaRugbyStats\Competition\Entity\Competition',
+            'find_method'    => array(
+                'name'   => 'findBy',
+                'params' => array(
+                    'criteria' => array(),
+                    'orderBy'  => array( 'name' => 'ASC' ),
+                ),
+            ),
         ));
 
         $this->add(array(

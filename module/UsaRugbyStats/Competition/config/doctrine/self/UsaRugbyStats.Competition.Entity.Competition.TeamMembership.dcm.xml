@@ -10,6 +10,8 @@
         	<join-column name="competition_id" referenced-column-name="id" />
         </many-to-one>
 
+        <field name="sortKey" type="string" length="60" />
+
         <many-to-one field="team" target-entity="UsaRugbyStats\Competition\Entity\Team" inversed-by="teamMemberships">
         	<join-column name="team_id" referenced-column-name="id" />
         </many-to-one>

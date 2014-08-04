@@ -19,7 +19,7 @@ class EmptyUnionTeamCollectionListener implements ListenerAggregateInterface
     public function run(EventInterface $e)
     {
         $entity = $e->getParams()->entity;
-        $data = $e->getParams()->data;
+        $data = @$e->getParams()->data ?: array();
 
         // Only apply this hack if the collection is in the validation group
         $vg = $e->getParams()->form->getValidationGroup();

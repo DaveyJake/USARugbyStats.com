@@ -41,6 +41,13 @@ class MatchTeamEventFieldset extends Fieldset
                 'label' => 'Match',
                 'object_manager' => $om,
                 'target_class'   => 'UsaRugbyStats\Competition\Entity\Competition\Match',
+                'find_method'    => array(
+                    'name'   => 'findBy',
+                    'params' => array(
+                        'criteria' => array(),
+                        'orderBy'  => array('description' => 'ASC'),
+                    ),
+                ),
             ),
         ));
 

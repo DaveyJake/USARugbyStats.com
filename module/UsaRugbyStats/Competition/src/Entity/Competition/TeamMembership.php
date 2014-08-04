@@ -31,6 +31,13 @@ class TeamMembership
     protected $division;
 
     /**
+     * Sort Key (the team's name)
+     *
+     * @var string
+     */
+    protected $sortKey;
+
+    /**
      * Home Team
      *
      * @var Team
@@ -79,6 +86,7 @@ class TeamMembership
     public function setTeam(Team $u = null)
     {
         $this->team = $u;
+        $this->sortKey = is_null($u) ? $u : $u->getName();
 
         return $this;
     }
@@ -126,6 +134,29 @@ class TeamMembership
     {
         $this->division = $u;
         $this->setCompetition(is_null($u) ? null : $u->getCompetition());
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSortKey()
+    {
+        $team = $this->getTeam();
+        if ( !is_null($team) && $this->sortKey != $team->getName() ) {
+            $this->sortKey = $this->getTeam()->getName();
+        }
+
+        return $this->sortKey;
+    }
+
+    /**
+     * @param string $sortKey
+     */
+    public function setSortKey($sortKey)
+    {
+        $this->sortKey = $sortKey;
 
         return $this;
     }

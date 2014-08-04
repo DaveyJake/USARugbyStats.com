@@ -22,6 +22,7 @@ class TeamAdminServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
         $sl->setService('usarugbystats_competition-admin_team_createform', $mockCreateForm);
         $sl->setService('usarugbystats_competition-admin_team_updateform', $mockUpdateForm);
+        $sl->setService('config', []);
 
         $factory = new TeamAdminServiceFactory();
         $obj = $factory->createService($sl);

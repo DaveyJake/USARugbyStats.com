@@ -28,6 +28,9 @@
         </one-to-many>
 
         <one-to-many field="teamMemberships" target-entity="UsaRugbyStats\Competition\Entity\Competition\TeamMembership" mapped-by="competition" orphan-removal="true">
+            <order-by>
+                <order-by-field name="sortKey" direction="ASC" />
+            </order-by>
             <cascade>
                 <cascade-all />
             </cascade>

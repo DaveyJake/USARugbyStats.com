@@ -27,6 +27,13 @@ class AdministratorFieldset extends Fieldset
             'label' => 'Account',
             'object_manager' => $om,
             'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
+            'find_method'    => array(
+                'name'   => 'findBy',
+                'params' => array(
+                    'criteria' => array(),
+                    'orderBy'  => array('displayName' => 'ASC'),
+                ),
+            ),
         ));
 
         $this->add($account);

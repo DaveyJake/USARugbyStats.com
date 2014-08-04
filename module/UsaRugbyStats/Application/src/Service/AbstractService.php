@@ -13,6 +13,7 @@ use UsaRugbyStats\Application\Common\ExtendedValidationGroupForm;
 use UsaRugbyStats\Application\FeatureFlags\FeatureFlags;
 use Zend\Stdlib\CallbackHandler;
 use Zend\EventManager\EventInterface;
+use Doctrine\Common\Collections\Criteria;
 
 abstract class AbstractService implements EventManagerAwareInterface
 {
@@ -93,9 +94,9 @@ abstract class AbstractService implements EventManagerAwareInterface
         return $this->getRepository()->find($id);
     }
 
-    public function fetchAll()
+    public function fetchAll(Criteria $c = null)
     {
-        $adapter = new Selectable($this->getRepository());
+        $adapter = new Selectable($this->getRepository(), $c);
         $paginator = new Paginator($adapter);
 
         return $paginator;

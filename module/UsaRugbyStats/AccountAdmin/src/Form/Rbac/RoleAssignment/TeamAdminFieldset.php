@@ -23,6 +23,13 @@ class TeamAdminFieldset extends RoleAssignmentFieldset
             'label' => 'Team',
             'object_manager' => $om,
             'target_class'   => 'UsaRugbyStats\Competition\Entity\Team',
+            'find_method'    => array(
+                'name'   => 'findBy',
+                'params' => array(
+                    'criteria' => array(),
+                    'orderBy'  => array('name' => 'ASC'),
+                ),
+            ),
         ));
 
         $this->add(array(

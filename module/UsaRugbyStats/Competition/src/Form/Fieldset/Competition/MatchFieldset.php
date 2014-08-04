@@ -52,6 +52,13 @@ class MatchFieldset extends Fieldset
                 'target_class'   => 'UsaRugbyStats\Competition\Entity\Location',
                 'display_empty_item' => true,
                 'empty_item_label'   => 'No Location Specified',
+                'find_method'    => array(
+                    'name'   => 'findBy',
+                    'params' => array(
+                        'criteria' => array(),
+                        'orderBy'  => array('name' => 'ASC'),
+                    ),
+                ),
             ),
         ));
 

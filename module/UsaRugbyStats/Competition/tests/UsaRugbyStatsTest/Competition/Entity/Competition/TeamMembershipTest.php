@@ -45,6 +45,7 @@ class TeamMembershipTest extends \PHPUnit_Framework_TestCase
     public function testGetSetTeam()
     {
         $comp = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $comp->shouldReceive('getName')->andReturn('Testing 123');
 
         $obj = new TeamMembership();
 

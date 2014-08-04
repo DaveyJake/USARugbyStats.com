@@ -23,6 +23,13 @@ class UnionAdminFieldset extends RoleAssignmentFieldset
             'label' => 'Union',
             'object_manager' => $om,
             'target_class'   => 'UsaRugbyStats\Competition\Entity\Union',
+            'find_method'    => array(
+                'name'   => 'findBy',
+                'params' => array(
+                    'criteria' => array(),
+                    'orderBy'  => array('name' => 'ASC'),
+                ),
+            ),
         ));
 
         $this->add(array(

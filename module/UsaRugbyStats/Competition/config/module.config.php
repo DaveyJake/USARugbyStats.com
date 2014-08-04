@@ -14,9 +14,13 @@ return array(
             'usarugbystats_competition_team_service' => array(
                 'extension_manager' => array(
                     'factories' => array(
+                        'update_team_membership_sort_key' => 'UsaRugbyStats\Competition\ServiceExtension\Team\UpdateTeamMembershipSortKeyFactory',
                     ),
                 ),
                 'event_map' => array(
+                    'save.post' => array(
+                        'update_team_membership_sort_key',
+                    ),
                 ),
             ),
             'usarugbystats_competition_competition_match_service' => array(

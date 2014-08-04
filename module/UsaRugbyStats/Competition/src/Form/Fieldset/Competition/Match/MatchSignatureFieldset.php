@@ -40,6 +40,13 @@ class MatchSignatureFieldset extends Fieldset
                 'label' => 'Signee',
                 'object_manager' => $om,
                 'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
+                'find_method'    => array(
+                    'name'   => 'findBy',
+                    'params' => array(
+                        'criteria' => array(),
+                        'orderBy'  => array('displayName' => 'ASC'),
+                    ),
+                ),
             ),
         ));
 
