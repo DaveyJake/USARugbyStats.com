@@ -1,7 +1,7 @@
 <?php
-namespace UsaRugbyStats\Competition\Rules\CompetitionMatch\Rbac;
+namespace UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac;
 
-use UsaRugbyStats\Competition\Rules\CompetitionMatch\AbstractRule;
+use UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\AbstractRule;
 use ZfcRbac\Service\AuthorizationServiceAwareTrait;
 use Zend\EventManager\EventInterface;
 

@@ -1,7 +1,7 @@
 <?php
-namespace UsaRugbyStats\Competition\Rules\CompetitionMatch\Rbac;
+namespace UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac;
 
-use UsaRugbyStats\Competition\Rules\CompetitionMatch\AbstractRule;
+use UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\AbstractRule;
 use ZfcRbac\Service\AuthorizationServiceAwareTrait;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 use UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionMatchTeamAssertion;

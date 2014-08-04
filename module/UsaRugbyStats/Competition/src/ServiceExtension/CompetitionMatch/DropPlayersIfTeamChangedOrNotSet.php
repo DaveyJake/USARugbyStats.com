@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\Competition\Rules\CompetitionMatch;
+namespace UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch;
 
 use Zend\EventManager\EventInterface;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;

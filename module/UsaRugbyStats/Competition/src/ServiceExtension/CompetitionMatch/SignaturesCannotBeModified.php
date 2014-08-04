@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\Competition\Rules\CompetitionMatch;
+namespace UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch;
 
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature;
 use Zend\EventManager\EventInterface;

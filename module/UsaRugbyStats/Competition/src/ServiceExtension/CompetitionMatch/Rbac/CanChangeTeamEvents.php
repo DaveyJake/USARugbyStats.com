@@ -1,19 +1,19 @@
 <?php
-namespace UsaRugbyStats\Competition\Rules\CompetitionMatch\Rbac;
+namespace UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac;
 
-use UsaRugbyStats\Competition\Rules\CompetitionMatch\AbstractRule;
+use UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\AbstractRule;
 use ZfcRbac\Service\AuthorizationServiceAwareTrait;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 use Zend\EventManager\EventInterface;
 
 /**
- * If check of RBAC permission 'competition.competition.match.team.roster.change' passes:
- *   - Toggles match.teams.(A|H).players flag on (if not exlicitly off already)
+ * If check of RBAC permission 'competition.competition.match.team.events.change' passes for either side of the match
+ *   - Toggles match.teams.(A|H).events flag on (if not exlicitly off already)
  *
- * If check of RBAC permission 'competition.competition.match.team.roster.change' fails:
- *   - Toggles match.teams.(A|H).players flag off
+ * Otherwise
+ *   - Toggles match.teams.(A|H).events flag off
  */
-class CanChangeTeamRoster extends AbstractRule
+class CanChangeTeamEvents extends AbstractRule
 {
     use AuthorizationServiceAwareTrait;
 
@@ -35,19 +35,24 @@ class CanChangeTeamRoster extends AbstractRule
 
     public function execute(EventInterface $e)
     {
+        $canModifyASide = false;
+
         foreach (['H','A'] as $key) {
             $side = $e->getParams()->entity->getTeam($key);
             if (! $side instanceof MatchTeam) {
                 continue;
             }
 
-            if ( $this->getAuthorizationService()->isGranted('competition.competition.match.team.roster.change', $side) ) {
-                $method = "enableSide{$key}TeamRosterChange";
-                $this->{$method}($e->getParams());
-            } else {
-                $method = "disableSide{$key}TeamRosterChange";
-                $this->{$method}($e->getParams());
+            if ( $this->getAuthorizationService()->isGranted('competition.competition.match.team.events.change', $side) ) {
+                $canModifyASide = true;
+                break;
             }
+        }
+
+        if ($canModifyASide) {
+            $this->enableTeamEventsChange($e->getParams());
+        } else {
+            $this->disableTeamEventsChange($e->getParams());
         }
     }
 
