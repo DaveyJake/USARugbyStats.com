@@ -16,13 +16,22 @@
             <?php $element->setAttribute('class', 'form-control'); ?>
 
             <?php echo $this->formLabel($element) ?>
-            <div class="col-sm-10">
+            <div class="col-sm-9">
                 <?php if ( $this->flags->{"match.teams.$matchSideKey.team"}->is_on() ): ?>
-                <?php echo $this->formElement($element) ?>
+                <?php   echo $this->formElement($element) ?>
                 <?php else: ?>
                 <p class="form-control-static"><?php echo $this->ursTeamLink($element->getValue()); ?></p>
                 <?php endif;?>
                 <?php echo $this->formElementErrors($element); ?>
+            </div>
+            <div class="col-sm-1" style="padding-left: 0 !important">
+                <?php if ( $this->flags->{"match.teams.$matchSideKey.players"}->is_on() ): ?>
+                <?php   $teamSide = $match->getTeam($type); ?>
+                <?php   if ( $teamSide && $teamSide->getTeam() && $teamSide->getTeam()->getRemoteId() && $this->getHelperPluginManager()->has('ursRemoteDataSyncTriggerSyncTeam') ): ?>
+                <a id="<?=$type?>RosterSyncButton" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Sync Team Members"><i class="glyphicon glyphicon-refresh"></i></a>
+                <?php     echo $this->ursRemoteDataSyncTriggerSyncTeam($teamSide->getTeam(), "{$type}TeamRosterSync", "#{$type}RosterSyncButton"); ?>
+                <?php   endif; ?>
+                <?php endif; ?>
             </div>
         </div>
 

@@ -53,6 +53,7 @@
             ->appendFile('http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places')
             ->appendFile($this->basePath() . '/assets/js/vendor/jquery.geocomplete.js')
             ->appendFile($this->basePath() . '/assets/js/jquery_funcs.js')
+            ->appendScript('$(document).ready(function() { $(\'*[data-toggle="tooltip"]\').tooltip(); });')
         ; ?>
 
     </head>
