@@ -30,6 +30,7 @@ class PlayerName extends AbstractHelper
     public function setAccountService(User $svc)
     {
         $this->accountService = $svc;
+
         return $this;
     }
 

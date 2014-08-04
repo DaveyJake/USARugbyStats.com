@@ -3,8 +3,6 @@ namespace UsaRugbyStats\Competition\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
-use UsaRugbyStats\Application\Entity\AccountInterface;
-use ZfcUser\Service\User;
 use Doctrine\Common\Persistence\ObjectRepository;
 
 class TeamPlayerLink extends AbstractHelper
@@ -36,6 +34,7 @@ class TeamPlayerLink extends AbstractHelper
     public function setMatchTeamPlayerRepository(ObjectRepository $svc)
     {
         $this->svc = $svc;
+
         return $this;
     }
 

@@ -19,7 +19,6 @@ class PlayerLinkFactory implements FactoryInterface
         $viewHelper = new PlayerLink();
         $viewHelper->setAccountService($sl->get('zfcuser_user_service'));
 
-
         return $viewHelper;
     }
 }
