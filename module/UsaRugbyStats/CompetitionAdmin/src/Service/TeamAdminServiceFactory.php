@@ -3,6 +3,8 @@ namespace UsaRugbyStats\CompetitionAdmin\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use UsaRugbyStats\Application\Service\ServiceExtensionManager;
+use UsaRugbyStats\Application\Service\ServiceExtensionManagerConfig;
 
 class TeamAdminServiceFactory implements FactoryInterface
 {
@@ -24,6 +26,14 @@ class TeamAdminServiceFactory implements FactoryInterface
 
         $service->setTeamAdministratorRepository($em->getRepository('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin'));
         $service->setAccountRepository($em->getRepository('UsaRugbyStats\Account\Entity\Account'));
+
+        //@TODO this should probably be in an initializer or abstract factory
+        $config = @$sm->get('Config')['usarugbystats']['service_extensions']['usarugbystats_competition_team_service'];
+        if ( is_array($config) ) {
+            $extmgr = new ServiceExtensionManager(new ServiceExtensionManagerConfig($config));
+            $extmgr->addPeeringServiceManager($sm);
+            $service->setExtensionManager($extmgr);
+        }
 
         return $service;
     }

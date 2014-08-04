@@ -24,6 +24,7 @@ class MatchServiceFactory implements FactoryInterface
         $service->setCreateForm($sm->get('usarugbystats_competition_competition_match_createform'));
         $service->setUpdateForm($sm->get('usarugbystats_competition_competition_match_updateform'));
 
+        //@TODO this should probably be in an initializer or abstract factory
         $config = @$sm->get('Config')['usarugbystats']['service_extensions']['usarugbystats_competition_competition_match_service'];
         if ( is_array($config) ) {
             $extmgr = new ServiceExtensionManager(new ServiceExtensionManagerConfig($config));

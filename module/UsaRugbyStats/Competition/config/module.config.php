@@ -11,6 +11,14 @@ return array(
         ),
 
         'service_extensions' => array(
+            'usarugbystats_competition_team_service' => array(
+                'extension_manager' => array(
+                    'factories' => array(
+                    ),
+                ),
+                'event_map' => array(
+                ),
+            ),
             'usarugbystats_competition_competition_match_service' => array(
                 'extension_manager' => array(
                     'invokables' => array(
