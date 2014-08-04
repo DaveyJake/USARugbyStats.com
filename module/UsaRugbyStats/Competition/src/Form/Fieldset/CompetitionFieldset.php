@@ -57,6 +57,18 @@ class CompetitionFieldset extends Fieldset
         ));
 
         $this->add(array(
+            'type' => 'Zend\Form\Element\Number',
+            'name' => 'maxPlayersOnRoster',
+            'options' => array(
+                'label' => 'Max Players on Roster',
+            ),
+            'attributes' => array(
+                'min'   => 0,
+                'max'   => 99,
+            ),
+        ));
+
+        $this->add(array(
             'type'    => 'Zend\Form\Element\Collection',
             'name'    => 'divisions',
             'options' => array(

@@ -24,6 +24,7 @@ return array(
                         'emptying_collections_hack' => 'UsaRugbyStats\Competition\Rules\CompetitionMatch\EmptyingCollectionsHack',
                         'drop_events_if_match_is_not_started' => 'UsaRugbyStats\Competition\Rules\CompetitionMatch\DropEventsIfMatchIsNotStarted',
                         'drop_players_if_team_changed_or_not_set' => 'UsaRugbyStats\Competition\Rules\CompetitionMatch\DropPlayersIfTeamChangedOrNotSet',
+                        'prerender_n_roster_slots_per_side' => 'UsaRugbyStats\Competition\Rules\CompetitionMatch\PrerenderNRosterSlotsPerSide',
                     ),
                     'factories' => array(
                         'rbac_can_change_match' => 'UsaRugbyStats\Competition\Rules\CompetitionMatch\Rbac\CanChangeMatchFactory',
@@ -36,6 +37,9 @@ return array(
                     ),
                 ),
                 'event_map' => array(
+                    'prepare.post' => array(
+                        'prerender_n_roster_slots_per_side',
+                    ),
                     'form.populate' => array(
                         'emptying_collections_hack' => 9999,
                         'remove_unused_roster_slots_from_form_data' => 80,

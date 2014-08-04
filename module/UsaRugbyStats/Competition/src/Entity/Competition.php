@@ -41,6 +41,11 @@ class Competition
     protected $variant;
 
     /**
+     * @var int
+     */
+    protected $maxPlayersOnRoster = 23;
+
+    /**
      * Divisions in this competition
      *
      * @var Collection
@@ -183,6 +188,24 @@ class Competition
             throw new \InvalidARgumentException('Invalid variant');
         }
         $this->variant = $variant;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxPlayersOnRoster()
+    {
+        return $this->maxPlayersOnRoster;
+    }
+
+    /**
+     * @param int $count
+     */
+    public function setMaxPlayersOnRoster($count)
+    {
+        $this->maxPlayersOnRoster = $count;
 
         return $this;
     }

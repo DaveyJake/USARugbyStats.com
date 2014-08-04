@@ -7,6 +7,7 @@
         <id name="id" type="integer"><generator strategy="AUTO" /></id>
         <field name="name" type="string" length="60" />
         <field name="variant" type="string" length="3" />
+        <field name="maxPlayersOnRoster" type="integer" />
 
         <field name="startDate" type="datetime" />
         <field name="endDate" type="datetime" />

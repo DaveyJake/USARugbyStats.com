@@ -31,8 +31,15 @@
 <script type="text/javascript">
     var rosterPlayerTemplate<?=$type?> = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', array_merge($argv, ['fieldset' => $fieldset->get('players')->getTemplateElement(), 'isTemplate' => true]))); ?>';
     var rosterPlayerIndex<?=$type?> = <?php echo $this->escapeJs(count($fieldset->get('players'))); ?>;
+    var maxPlayersOnRoster = <?php echo (int)(isset($competition) ? $competition->getMaxPlayersOnRoster() : ( isset($entity) ? $entity->getCompetition()->getgetMaxPlayersOnRoster() : 0)); ?>;
 
     $(document).on('click', '.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster-addplayer', function() {
+        var rosteredPlayerCount = $('.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster tbody tr').length;
+        if ( maxPlayersOnRoster > 0 && rosteredPlayerCount >= maxPlayersOnRoster ) {
+            alert('Maximum number of rostered players ('+maxPlayersOnRoster+') reached!');
+            return;
+        }
+
         var html = rosterPlayerTemplate<?=$type?>.replace(/__playerindex__/g, rosterPlayerIndex<?=$type?>++);
         $('.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster tbody').append(html);
     });

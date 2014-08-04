@@ -223,6 +223,7 @@ class MatchTeamPlayer
     public function __toString()
     {
         $player = $this->getPlayer();
+
         return '#' . $this->getNumber() . ' - ' . ($player ? $player->getDisplayName() : 'None Selected');
     }
 
