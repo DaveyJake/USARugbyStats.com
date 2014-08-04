@@ -43,6 +43,10 @@ class MatchTeamCollectionFilter extends NestedCollectionInputFilter
             }
             array_push($teams, $membership['team']);
 
+            if ( !isset($membership['players']) || empty($membership['players']) ) {
+                continue;
+            }
+
             // Player must be unique per match
             foreach ($membership['players'] as $pkey=>$player) {
                 if ( empty($player['player']) ) {

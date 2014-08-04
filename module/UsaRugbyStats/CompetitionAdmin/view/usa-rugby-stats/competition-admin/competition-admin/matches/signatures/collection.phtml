@@ -1,5 +1,5 @@
-<?php $canEdit = $this->isGranted('competition.competition.match.signatures.change', @$this->match); ?>
-
+<?php if ( ! $this->flags->{'match.signatures%visible'}->is_off() ): ?>
+<?php $argv = $this->vars()->getArrayCopy(); ?>
 <div class="panel panel-default">
     <div class="panel-heading">Match Signatures</div>
 
@@ -12,11 +12,11 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ( $collection as $fsSignature ): ?>
-            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', ['match' => @$this->match, 'fieldset' => $fsSignature]); ?>
+            <?php foreach ( $collection as $idx => $fsSignature ): ?>
+            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', array_merge($argv, ['index' => $idx, 'fieldset' => $fsSignature])); ?>
             <?php endforeach; ?>
         </tbody>
-        <?php if ( $canEdit ): ?>
+        <?php if ( $this->flags->{'match.signatures'}->is_on() ): ?>
         <tfoot>
             <tr>
                 <td colspan="5">
@@ -27,9 +27,9 @@
         <?php endif; ?>
     </table>
 
-    <?php if ( $canEdit ): ?>
+    <?php if ( $this->flags->{'match.signatures'}->is_on() ): ?>
     <script type="text/javascript">
-        matchSignatureTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', ['match' => $this->match, 'fieldset' => $collection->getTemplateElement(), 'isTemplate' => true])); ?>';
+        matchSignatureTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/signature', array_merge($argv, ['fieldset' => $collection->getTemplateElement(), 'isTemplate' => true]))); ?>';
         var matchSignatureIndex = <?php echo $this->escapeJs(count($collection)); ?>;
 
         $(document).on('click', '.competition-match-signatures .competition-match-signatures-addsignature', function() {
@@ -47,3 +47,4 @@
     <?php endif; ?>
 
 </div>
+<?php endif; ?>

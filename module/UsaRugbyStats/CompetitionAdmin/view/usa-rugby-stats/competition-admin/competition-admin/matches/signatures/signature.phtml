@@ -1,4 +1,20 @@
-<?php $canEdit = $this->isGranted('competition.competition.match.signatures.change', @$this->match); ?>
+<?php $canEdit = @$isTemplate || !$this->flags->{"match.signatures.$index"}->is_off(); ?>
+
+<?php
+// Strip out any signature types the user is not allowed to add
+if ( $this->flags->{'match.signatures.allowed_types'}->is_set() ) {
+    $element = $fieldset->get('type');
+    $existingTypes = $element->getValueOptions();
+
+    foreach ( $existingTypes as $atKey => $atLabel ) {
+        if ( ! $this->flags->{'match.signatures.allowed_types'}->has($atKey) ) {
+            unset($existingTypes[$atKey]);
+        }
+    }
+    $element->setValueOptions($existingTypes);
+}
+
+?>
 
 <tr>
     <td class="column column-type">

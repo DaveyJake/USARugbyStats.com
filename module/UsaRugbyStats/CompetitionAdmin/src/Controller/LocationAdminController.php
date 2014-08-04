@@ -27,7 +27,13 @@ class LocationAdminController extends AbstractActionController
 
     public function createAction()
     {
-        $form = $this->getLocationService()->getCreateForm();
+        $service = $this->getLocationService();
+
+        $session = $service->startSession();
+        $session->form = $service->getCreateForm();
+        $session->entity = new Location();
+        $service->prepare();
+
         if ( $this->getRequest()->isPost() ) {
             $result = $this->getLocationService()->create($this->getRequest()->getPost()->toArray());
             if ($result instanceof Location) {
@@ -38,7 +44,7 @@ class LocationAdminController extends AbstractActionController
         }
 
         $vm = new ViewModel();
-        $vm->setVariable('form', $form);
+        $vm->setVariable('form', $session->form);
         $vm->setTemplate('usa-rugby-stats/competition-admin/location-admin/create');
 
         return $vm;
@@ -52,7 +58,12 @@ class LocationAdminController extends AbstractActionController
             throw new \RuntimeException('No location with the specified identifier!');
         }
 
-        $form = $this->getLocationService()->getUpdateForm();
+        $service = $this->getLocationService();
+
+        $session = $service->startSession();
+        $session->form = $service->getUpdateForm();
+        $session->entity = $entity;
+        $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
             $result = $this->getLocationService()->update($entity, $this->getRequest()->getPost()->toArray());
@@ -61,13 +72,11 @@ class LocationAdminController extends AbstractActionController
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_locationadmin/edit', ['id' => $result->getId()]);
             }
-        } else {
-            $form->bind($entity);
         }
 
         $vm = new ViewModel();
         $vm->setVariable('entity', $entity);
-        $vm->setVariable('form', $form);
+        $vm->setVariable('form', $session->form);
         $vm->setTemplate('usa-rugby-stats/competition-admin/location-admin/edit');
 
         return $vm;

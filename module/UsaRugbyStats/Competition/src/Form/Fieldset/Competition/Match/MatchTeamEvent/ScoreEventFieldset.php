@@ -4,6 +4,7 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEve
 use Doctrine\Common\Persistence\ObjectManager;
 use UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEventFieldset;
 use Zend\Form\FormInterface;
+use UsaRugbyStats\Competition\Entity\Team;
 
 class ScoreEventFieldset extends MatchTeamEventFieldset
 {
@@ -63,7 +64,7 @@ class ScoreEventFieldset extends MatchTeamEventFieldset
                 'find_method'    => array(
                     'name'   => 'findAllPlayersForMatchTeam',
                     'params' => array(
-                        'matchTeam' => $this->getTeam() ? $this->getTeam()->getId() : null,
+                        'matchTeam' => $this->getTeam() instanceof Team ? $this->getTeam()->getId() : $this->getTeam(),
                     ),
                 ),
             ),

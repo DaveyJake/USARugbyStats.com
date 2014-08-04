@@ -1,4 +1,4 @@
-<?php $canEdit = $this->isGranted('competition.competition.match.team.roster.change', @$this->matchTeam); ?>
+<?php $canEdit = $this->flags->{"match.teams.$matchSideKey.players"}->is_on(); ?>
 <tr>
     <td class="column column-number">
         <?php $element = $fieldset->get('number'); ?>

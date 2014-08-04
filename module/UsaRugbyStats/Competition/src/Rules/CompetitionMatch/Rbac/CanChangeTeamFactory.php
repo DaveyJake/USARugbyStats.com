@@ -1,10 +1,10 @@
 <?php
-namespace UsaRugbyStats\Competition\Rbac\Listener;
+namespace UsaRugbyStats\Competition\Rules\CompetitionMatch\Rbac;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class CompetitionMatchDetailsChangeFactory implements FactoryInterface
+class CanChangeTeamFactory implements FactoryInterface
 {
     /**
      * Create service
@@ -14,7 +14,7 @@ class CompetitionMatchDetailsChangeFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $obj = new CompetitionMatchDetailsChange();
+        $obj = new CanChangeTeam();
         $obj->setAuthorizationService($sm->get('ZfcRbac\Service\AuthorizationService'));
 
         return $obj;

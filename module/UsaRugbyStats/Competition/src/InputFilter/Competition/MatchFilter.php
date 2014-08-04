@@ -4,6 +4,7 @@ namespace UsaRugbyStats\Competition\InputFilter\Competition;
 use Zend\InputFilter\InputFilter;
 use UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamCollectionFilter;
 use Doctrine\Common\Persistence\ObjectRepository;
+use UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchSignatureCollectionFilter;
 
 /**
  * Competition Input Filter
@@ -12,7 +13,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
  */
 class MatchFilter extends InputFilter
 {
-    public function __construct(Match\MatchTeamFilter $ifMatchTeam, ObjectRepository $locationRepository)
+    public function __construct(Match\MatchTeamFilter $ifMatchTeam, Match\MatchSignatureFilter $ifMatchSignature, ObjectRepository $locationRepository)
     {
 
         $this->add(array(
@@ -77,7 +78,9 @@ class MatchFilter extends InputFilter
         ));
 
         $cif = new MatchTeamCollectionFilter($ifMatchTeam);
-        $cif->setInputFilter($ifMatchTeam);
         $this->add($cif, 'teams');
+
+        $sif = new MatchSignatureCollectionFilter($ifMatchSignature);
+        $this->add($sif, 'signatures');
     }
 }

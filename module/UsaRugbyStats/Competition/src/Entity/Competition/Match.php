@@ -469,7 +469,7 @@ class Match
      */
     public function isLocked()
     {
-        return $this->getIsLocked() === true;
+        return $this->getIsLocked() == true;
     }
 
     /**

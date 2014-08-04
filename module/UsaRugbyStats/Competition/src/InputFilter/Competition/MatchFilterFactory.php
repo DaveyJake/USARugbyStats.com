@@ -8,10 +8,12 @@ class MatchFilterFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $manager)
     {
-        $fs = $manager->get('usarugbystats_competition_competition_match_team_inputfilter');
+        $ifTeam = $manager->get('usarugbystats_competition_competition_match_team_inputfilter');
+        $ifSig  = $manager->get('usarugbystats_competition_competition_match_signature_inputfilter');
+
         $repo = $manager->get('zfcuser_doctrine_em')->getRepository('UsaRugbyStats\Competition\Entity\Location');
 
-        $filter = new MatchFilter($fs, $repo);
+        $filter = new MatchFilter($ifTeam, $ifSig, $repo);
 
         return $filter;
     }

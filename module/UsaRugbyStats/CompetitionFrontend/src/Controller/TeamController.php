@@ -49,7 +49,9 @@ class TeamController extends AbstractActionController
             throw new \InvalidArgumentException('Invalid Team ID specified!');
         }
 
-        $team = $this->getTeamService()->findByID($id);
+        $service = $this->getTeamService();
+
+        $team = $service->findByID($id);
         if (! $team instanceof Team) {
             throw new \InvalidArgumentException('Invalid Team ID specified!');
         }
@@ -58,7 +60,10 @@ class TeamController extends AbstractActionController
             throw new UnauthorizedException();
         }
 
-        $form = $this->getTeamService()->getUpdateForm();
+        $session = $service->startSession();
+        $session->form = $service->getUpdateForm();
+        $session->entity = $team;
+        $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
             $formData = $this->getRequest()->getPost()->toArray();
@@ -68,13 +73,11 @@ class TeamController extends AbstractActionController
 
                 return $this->redirect()->toRoute('usarugbystats_frontend_team/update', ['id' => $result->getId()]);
             }
-        } else {
-            $form->bind($team);
         }
 
         $vm = new ViewModel();
         $vm->setVariable('entity', $team);
-        $vm->setVariable('form', $form);
+        $vm->setVariable('form', $session->form);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/team/update');
 
         return $vm;

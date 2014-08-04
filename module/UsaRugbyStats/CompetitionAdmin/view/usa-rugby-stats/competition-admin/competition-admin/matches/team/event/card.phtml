@@ -1,4 +1,4 @@
-<?php $canEdit = $this->isGranted('competition.competition.match.team.events.change', @$this->matchTeam); ?>
+<?php $canEdit = $this->flags->{"match.teams.$matchSideKey.events"}->is_on(); ?>
 
 <table class="table" style="margin-bottom: 0;">
     <tbody style="border: 0;">

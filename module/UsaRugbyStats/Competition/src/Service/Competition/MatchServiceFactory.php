@@ -3,6 +3,8 @@ namespace UsaRugbyStats\Competition\Service\Competition;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use UsaRugbyStats\Application\Service\ServiceExtensionManager;
+use UsaRugbyStats\Application\Service\ServiceExtensionManagerConfig;
 
 class MatchServiceFactory implements FactoryInterface
 {
@@ -21,6 +23,13 @@ class MatchServiceFactory implements FactoryInterface
         $service->setRepository($em->getRepository('UsaRugbyStats\Competition\Entity\Competition\Match'));
         $service->setCreateForm($sm->get('usarugbystats_competition_competition_match_createform'));
         $service->setUpdateForm($sm->get('usarugbystats_competition_competition_match_updateform'));
+
+        $config = @$sm->get('Config')['usarugbystats']['service_extensions']['usarugbystats_competition_competition_match_service'];
+        if ( is_array($config) ) {
+            $extmgr = new ServiceExtensionManager(new ServiceExtensionManagerConfig($config));
+            $extmgr->addPeeringServiceManager($sm);
+            $service->setExtensionManager($extmgr);
+        }
 
         // Populate service with the list of available "match event" types
         $fsMatchTeam = $sm->get('usarugbystats_competition_competition_match_team_fieldset');

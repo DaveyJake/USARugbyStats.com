@@ -17,6 +17,9 @@ class MatchServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $mockObjectManager->shouldReceive('getRepository')->andReturn($mockObjectRepository);
         $sl->setService('zfcuser_doctrine_em', $mockObjectManager);
 
+        $mockRulesEngine = Mockery::mock('UsaRugbyStats\Application\Rules\RulesEngine');
+        $sl->setService('usarugbystats_competition_competition_match_rulesengine', $mockRulesEngine);
+
         $mockCreateForm = Mockery::mock('Zend\Form\FormInterface');
         $mockUpdateForm = Mockery::mock('Zend\Form\FormInterface');
 
@@ -38,6 +41,7 @@ class MatchServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $sl->setService('usarugbystats_competition_competition_match_createform', $mockCreateForm);
         $sl->setService('usarugbystats_competition_competition_match_updateform', $mockUpdateForm);
         $sl->setService('usarugbystats_competition_competition_match_team_fieldset', $mockFieldset);
+        $sl->setService('config', []);
 
         $factory = new MatchServiceFactory();
         $obj = $factory->createService($sl);

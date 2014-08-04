@@ -1,4 +1,4 @@
-<?php $this->matchTeam = $this->match instanceof UsaRugbyStats\Competition\Entity\Competition\Match ? $this->match->getTeam($type) : NULL; ?>
+<?php $this->vars()->matchSideKey = $matchSideKey = $type; ?>
 
 <?php echo $this->formHidden($fieldset->get('id')); ?>
 
@@ -17,7 +17,7 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-10">
-                <?php if ( $this->isGranted('competition.competition.match.team.change', $this->matchTeam) ): ?>
+                <?php if ( $this->flags->{"match.teams.$matchSideKey.team"}->is_on() ): ?>
                 <?php echo $this->formElement($element) ?>
                 <?php else: ?>
                 <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
@@ -26,6 +26,7 @@
             </div>
         </div>
 
+        <?php if ( ! $this->flags->{"match.teams.$matchSideKey.score%visible"}->is_off() ): ?>
         <div class="row form-group">
             <?php $element = $fieldset->get('score'); ?>
             <?php $element->setLabelAttributes(array('class' => 'col-sm-2 control-label')); ?>
@@ -36,9 +37,12 @@
                 <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 
+    <?php if ( ! $this->flags->{"match.teams.$matchSideKey.players%visible"}->is_off() ): ?>
     <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/players', $this->vars()); ?>
+    <?php endif; ?>
 
 </div>
 

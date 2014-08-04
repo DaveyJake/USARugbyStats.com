@@ -45,12 +45,14 @@ class UnionController extends AbstractActionController
 
     public function updateAction()
     {
+        $service = $this->getUnionService();
+
         $id = $this->params()->fromRoute('id');
         if ( ! \Zend\Validator\StaticValidator::execute($id, 'Zend\Validator\Digits') ) {
             throw new \InvalidArgumentException('Invalid Union ID specified!');
         }
 
-        $union = $this->getUnionService()->findByID($id);
+        $union =$service->findByID($id);
         if (! $union instanceof Union) {
             throw new \InvalidArgumentException('Invalid Union ID specified!');
         }
@@ -59,7 +61,10 @@ class UnionController extends AbstractActionController
             throw new UnauthorizedException();
         }
 
-        $form = $this->getUnionService()->getUpdateForm();
+        $session = $service->startSession();
+        $session->form = $service->getUpdateForm();
+        $session->entity = $union;
+        $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
             $formData = $this->getRequest()->getPost()->toArray();
@@ -69,13 +74,11 @@ class UnionController extends AbstractActionController
 
                 return $this->redirect()->toRoute('usarugbystats_frontend_union/update', ['id' => $result->getId()]);
             }
-        } else {
-            $form->bind($union);
         }
 
         $vm = new ViewModel();
         $vm->setVariable('entity', $union);
-        $vm->setVariable('form', $form);
+        $vm->setVariable('form', $session->form);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/union/update');
 
         return $vm;

@@ -30,7 +30,12 @@ class CompetitionController extends AbstractActionController
             throw new UnauthorizedException();
         }
 
-        $form = $this->getCompetitionService()->getUpdateForm();
+        $service = $this->getCompetitionService();
+
+        $session = $service->startSession();
+        $session->form = $service->getUpdateForm();
+        $session->entity = $competition;
+        $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
             $result = $this->getCompetitionService()->update($competition, $this->getRequest()->getPost()->toArray());
@@ -39,13 +44,11 @@ class CompetitionController extends AbstractActionController
 
                 return $this->redirect()->toRoute('usarugbystats_frontend_competition/update-details', ['id' => $result->getId()]);
             }
-        } else {
-            $form->bind($competition);
         }
 
         $vm = new ViewModel();
         $vm->setVariable('entity', $competition);
-        $vm->setVariable('form', $form);
+        $vm->setVariable('form', $session->form);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/competition/update');
 
         return $vm;

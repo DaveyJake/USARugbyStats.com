@@ -1,4 +1,6 @@
-<?php $canEdit = $this->isGranted('competition.competition.match.team.events.change', @$this->matchTeam); ?>
+<?php if ( ! $this->flags->{"match.teams.$matchSideKey.events%visible"}->is_off() ): ?>
+<?php $canEdit = $this->flags->{"match.teams.$matchSideKey.events"}->is_on(); ?>
+<?php $argv = $this->vars()->getArrayCopy(); ?>
 
 <div class="panel panel-default competition-match-team competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?>-events">
     <div class="panel-heading">
@@ -11,12 +13,12 @@
                 <th style="width:30px">Minute</th>
                 <th>Type</th>
                 <th>Data</th>
-                <th></th>
+                <?php if ($canEdit): ?><th></th><?php endif; ?>
             </tr>
         </thead>
         <tbody>
             <?php foreach ( $fieldset->get('events') as $fsEvent ): ?>
-            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['matchTeam' => $this->matchTeam, 'fieldset' => $fsEvent]); ?>
+            <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', array_merge($argv, ['fieldset' => $fsEvent])); ?>
             <?php endforeach; ?>
         </tbody>
         <?php if ($canEdit): ?>
@@ -46,7 +48,7 @@
         var teamEventTemplate<?=$type?> = {};
 <?php foreach ( $fieldset->get('events')->getTemplateElement() as $fsTmpl ): ?>
 <?php   if ( preg_match('{^UsaRugbyStats\\\\Competition\\\\Form\\\\Fieldset\\\\Competition\\\\Match\\\\MatchTeamEvent\\\\(.*)EventFieldset$}is', get_class($fsTmpl), $matches) ): ?>
-        teamEventTemplate<?=$type?>['<?=strtolower($matches[1]);?>'] = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event', ['matchTeam' => $this->matchTeam, 'fieldset' => $fsTmpl, 'isTemplate' => true])); ?>';
+        teamEventTemplate<?=$type?>['<?=strtolower($matches[1]);?>'] = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/event',  array_merge($argv, ['fieldset' => $fsTmpl, 'isTemplate' => true]))); ?>';
 <?php   endif; ?>
 <?php endforeach; ?>
         var teamEventIndex<?=$type?> = <?php echo $this->escapeJs(count($fieldset->get('events'))); ?>;
@@ -62,3 +64,4 @@
     <?php endif; ?>
 
 </div>
+<?php endif; ?>

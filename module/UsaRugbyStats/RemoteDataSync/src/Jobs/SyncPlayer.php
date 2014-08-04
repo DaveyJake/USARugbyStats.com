@@ -125,12 +125,6 @@ class SyncPlayer extends AbstractJob
 
         // And pull out an array we can use to persist
         $formData = $form->getData(FormInterface::VALUES_AS_ARRAY);
-        // @HACK the ObjectSelect elements within the RoleAssignment objects don't get extracted for some reason
-        array_walk_recursive($formData, function (&$item, $key) {
-            if ( is_object($item) && is_callable(array($item, 'getId')) ) {
-                $item = $item->getId();
-            }
-        });
 
         // Merge in the basic account data
         $formData = ArrayUtils::merge($formData, $mbrdata);

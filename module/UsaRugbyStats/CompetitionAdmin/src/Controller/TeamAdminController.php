@@ -39,7 +39,13 @@ class TeamAdminController extends AbstractActionController
             throw new UnauthorizedException();
         }
 
-        $form = $this->getTeamAdminService()->getCreateForm();
+        $service = $this->getTeamAdminService();
+
+        $session = $service->startSession();
+        $session->form = $service->getCreateForm();
+        $session->entity = new Team();
+        $service->prepare();
+
         if ( $this->getRequest()->isPost() ) {
             $result = $this->getTeamAdminService()->create($this->getRequest()->getPost()->toArray());
             if ( isset($result->team) && $result->team instanceof Team) {
@@ -50,7 +56,7 @@ class TeamAdminController extends AbstractActionController
         }
 
         $vm = new ViewModel();
-        $vm->setVariable('form', $form);
+        $vm->setVariable('form', $session->form);
         $vm->setTemplate('usa-rugby-stats/competition-admin/team-admin/create');
 
         return $vm;
@@ -68,12 +74,17 @@ class TeamAdminController extends AbstractActionController
             throw new UnauthorizedException();
         }
 
+        $service = $this->getTeamAdminService();
+
         $entity = new \stdClass();
         $entity->team = $team;
-        $entity->administrators = $this->getTeamAdminService()->getAdministratorsForTeam($team);
-        $entity->members = $this->getTeamAdminService()->getMembersForTeam($team);
+        $entity->administrators = $service->getAdministratorsForTeam($team);
+        $entity->members = $service->getMembersForTeam($team);
 
-        $form = $this->getTeamAdminService()->getUpdateForm();
+        $session = $service->startSession();
+        $session->form = $service->getUpdateForm();
+        $session->entity = $entity;
+        $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
             $formData = $this->getRequest()->getPost()->toArray();
@@ -83,13 +94,11 @@ class TeamAdminController extends AbstractActionController
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_teamadmin/edit', ['id' => $result->team->getId()]);
             }
-        } else {
-            $form->bind($entity);
         }
 
         $vm = new ViewModel();
         $vm->setVariable('entity', $team);
-        $vm->setVariable('form', $form);
+        $vm->setVariable('form', $session->form);
         $vm->setTemplate('usa-rugby-stats/competition-admin/team-admin/edit');
 
         return $vm;

@@ -37,6 +37,13 @@ class UnionAdminController extends AbstractActionController
             throw new UnauthorizedException();
         }
 
+        $service = $this->getUnionService();
+
+        $session = $service->startSession();
+        $session->form = $service->getCreateForm();
+        $session->entity = new Union();
+        $service->prepare();
+
         $form = $this->getUnionService()->getCreateForm();
         if ( $this->getRequest()->isPost() ) {
             $result = $this->getUnionService()->create($this->getRequest()->getPost()->toArray());
@@ -48,7 +55,7 @@ class UnionAdminController extends AbstractActionController
         }
 
         $vm = new ViewModel();
-        $vm->setVariable('form', $form);
+        $vm->setVariable('form', $session->form);
         $vm->setTemplate('usa-rugby-stats/competition-admin/union-admin/create');
 
         return $vm;
@@ -66,7 +73,12 @@ class UnionAdminController extends AbstractActionController
             throw new UnauthorizedException();
         }
 
-        $form = $this->getUnionService()->getUpdateForm();
+        $service = $this->getUnionService();
+
+        $session = $service->startSession();
+        $session->form = $service->getUpdateForm();
+        $session->entity = $entity;
+        $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
             $result = $this->getUnionService()->update($entity, $this->getRequest()->getPost()->toArray());
@@ -75,13 +87,11 @@ class UnionAdminController extends AbstractActionController
 
                 return $this->redirect()->toRoute('zfcadmin/usarugbystats_unionadmin/edit', ['id' => $result->getId()]);
             }
-        } else {
-            $form->bind($entity);
         }
 
         $vm = new ViewModel();
-        $vm->setVariable('entity', $entity);
-        $vm->setVariable('form', $form);
+        $vm->setVariable('entity', $session->entity);
+        $vm->setVariable('form', $session->form);
         $vm->setTemplate('usa-rugby-stats/competition-admin/union-admin/edit');
 
         return $vm;

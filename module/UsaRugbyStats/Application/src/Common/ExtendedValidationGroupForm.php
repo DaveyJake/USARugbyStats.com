@@ -12,8 +12,9 @@ use Zend\EventManager\EventManagerAwareTrait;
 use Zend\Form\FormInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\CollectionInputFilter;
+use UsaRugbyStats\Application\FeatureFlags\FeatureFlags;
 
-class ExtendedValidationGroupForm extends Form implements EventManagerAwareInterface
+class ExtendedValidationGroupForm extends HackedBaseForm implements EventManagerAwareInterface
 {
     use EventManagerAwareTrait;
 
@@ -26,6 +27,14 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
     protected $validationGroup = array();
 
     /**
+     * Providing a set of feature flags matching the structure of the form
+     * allows greater control over the validation group construction
+     *
+     * @var FeatureFlags
+     */
+    protected $featureFlags;
+
+    /**
      * Override getValidationGroup to autogen the full VG if none is provided
      *
      * @see \Zend\Form\Form::getValidationGroup()
@@ -33,10 +42,24 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
     public function getValidationGroup()
     {
         if ( empty($this->validationGroup) ) {
+            $this->getEventManager()->trigger('autogenerateValidationGroupForForm.pre', $this, []);
             $this->validationGroup = $this->autogenerateValidationGroupForForm($this);
+            $this->getEventManager()->trigger('autogenerateValidationGroupForForm.post', $this, []);
         }
 
         return $this->validationGroup;
+    }
+
+    /**
+     * Mutator method to allow external triggering generation of validation group
+     */
+    public function generateValidationGroup()
+    {
+        $validationGroup = $this->getValidationGroup();
+        if ($validationGroup !== null) {
+            $this->prepareValidationGroup($this, $this->data ?: array(), $validationGroup);
+            $this->getInputFilter()->setValidationGroup($validationGroup);
+        }
     }
 
     /**
@@ -59,26 +82,31 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
         $argv->data = &$data;
         $argv->validationGroup = &$validationGroup;
 
+        $this->getEventManager()->trigger(__FUNCTION__ . '.pre', $this, $argv);
+
         if ( empty($argv->validationGroup) ) {
-            $argv->validationGroup = $this->autogenerateValidationGroupForForm($argv->formOrFieldset);
+            $this->getEventManager()->trigger('autogenerateValidationGroupForForm.pre', $argv->formOrFieldset, []);
+            $this->validationGroup = $this->autogenerateValidationGroupForForm($argv->formOrFieldset);
+            $this->getEventManager()->trigger('autogenerateValidationGroupForForm.post', $argv->formOrFieldset, []);
         }
 
-        $this->getEventManager()->trigger(__FUNCTION__ . '.pre', $this, $argv);
         $this->recursivelyPrepareValidationGroup(
             $argv->formOrFieldset,
             $argv->data,
             $argv->validationGroup
         );
+
         $this->recursivelyStripOutMissingFields(
             $argv->formOrFieldset,
             $argv->formOrFieldset->getInputFilter(),
             $argv->data,
             $argv->validationGroup
         );
+
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
     }
 
-    protected function recursivelyStripOutMissingFields(ElementInterface $formOrFieldset, InputFilterInterface $inputFilter, array $data, array &$validationGroup)
+    protected function recursivelyStripOutMissingFields(ElementInterface $formOrFieldset, InputFilterInterface $inputFilter, array $data, &$validationGroup)
     {
         if ($formOrFieldset instanceof NonuniformCollection) {
             $filters = $inputFilter->getInputFilter();
@@ -141,14 +169,19 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
         }
     }
 
-    protected function recursivelyPrepareValidationGroup(FieldsetInterface $formOrFieldset, array $data, array &$validationGroup)
+    protected function recursivelyPrepareValidationGroup(FieldsetInterface $formOrFieldset, array $data, array &$validationGroup, $fieldName = '')
     {
-        foreach ($validationGroup as $key => &$value) {
-            if (!$formOrFieldset->has($key)) {
+        $selfFieldName = $this->buildFieldNameString($fieldName, $formOrFieldset);
+
+        foreach ($validationGroup as $key => $value) {
+            if ($formOrFieldset->has($key)) {
+                $fieldset = $formOrFieldset->byName[$key];
+            } elseif ( $formOrFieldset->has($value) ) {
+                $fieldset = $formOrFieldset->get($value);
+                $key = $value;
+            } else {
                 continue;
             }
-
-            $fieldset = $formOrFieldset->byName[$key];
 
             if ($fieldset instanceof Collection) {
                 // This looks to be what causes ZF2 #4492 (can't empty existing collection)
@@ -170,7 +203,17 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
                     }
                 }
 
-                $value = $values;
+                $validationGroup[$key] = $value = $values;
+            }
+
+            $elementFieldName = $this->buildFieldNameString($selfFieldName, $fieldset);
+            if ( !empty($elementFieldName) && $this->isFlagOff($elementFieldName) ) {
+                if ( isset($validationGroup[$key]) ) {
+                    unset($validationGroup[$key]);
+                } elseif ( in_array($key, $validationGroup, true) ) {
+                    unset($validationGroup[array_search($key, $validationGroup, true)]);
+                }
+                continue;
             }
 
             // @see ZF2-6363
@@ -178,11 +221,26 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
                 $data[$key] = array();
             }
 
-            $this->recursivelyPrepareValidationGroup($fieldset, $data[$key], $validationGroup[$key]);
+            if (! $fieldset instanceof FieldsetInterface) {
+                continue;
+            }
+
+            $this->recursivelyPrepareValidationGroup($fieldset, $data[$key], $validationGroup[$key], $selfFieldName);
         }
     }
 
-    protected function autogenerateValidationGroupForForm($element)
+    protected function buildFieldNameString($root, ElementInterface $nextElement)
+    {
+        if ($nextElement instanceof FormInterface) {
+            return $root;
+        }
+
+        return empty($root)
+            ? $nextElement->getName()
+            : "{$root}.{$nextElement->getName()}";
+    }
+
+    protected function autogenerateValidationGroupForForm($element, $fieldName = '')
     {
         if ( ! is_array($element) && ! $element instanceof \Traversable ) {
             $element = (array) $element;
@@ -190,6 +248,11 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
 
         $names = [];
         foreach ($element as $elementOrFieldset) {
+            $selfFieldName = $this->buildFieldNameString($fieldName, $elementOrFieldset);
+            if ( $this->isFlagOff($selfFieldName) ) {
+                continue;
+            }
+
             // Don't push down any further if it's a NonuniformCollection
             // as validation group only support uniform collection contents
             if ($elementOrFieldset instanceof NonuniformCollection) {
@@ -197,20 +260,20 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
                 $names[$elementOrFieldset->getName()] = array();
                 foreach ($targetElement as $key => $prototype) {
                     $names[$elementOrFieldset->getName()][$key] = ArrayUtils::merge(
-                        $this->autogenerateValidationGroupForForm($prototype->getElements()),
-                        $this->autogenerateValidationGroupForForm($prototype->getFieldsets())
+                        $this->autogenerateValidationGroupForForm($prototype->getElements(), $selfFieldName . '.*'),
+                        $this->autogenerateValidationGroupForForm($prototype->getFieldsets(), $selfFieldName . '.*')
                     );
                 }
             } elseif ($elementOrFieldset instanceof Collection) {
                 $targetElement = $elementOrFieldset->getTargetElement();
                 $names[$elementOrFieldset->getName()] = ArrayUtils::merge(
-                    $this->autogenerateValidationGroupForForm($targetElement->getElements()),
-                    $this->autogenerateValidationGroupForForm($targetElement->getFieldsets())
+                    $this->autogenerateValidationGroupForForm($targetElement->getElements(), $selfFieldName . '.*'),
+                    $this->autogenerateValidationGroupForForm($targetElement->getFieldsets(), $selfFieldName . '.*')
                 );
             } elseif ($elementOrFieldset instanceof FieldsetInterface) {
                 $names[$elementOrFieldset->getName()] = ArrayUtils::merge(
-                    $this->autogenerateValidationGroupForForm($elementOrFieldset->getElements()),
-                    $this->autogenerateValidationGroupForForm($elementOrFieldset->getFieldsets())
+                    $this->autogenerateValidationGroupForForm($elementOrFieldset->getElements(), $selfFieldName),
+                    $this->autogenerateValidationGroupForForm($elementOrFieldset->getFieldsets(), $selfFieldName)
                 );
             } elseif ($elementOrFieldset instanceof ElementInterface) {
                 array_push($names, $elementOrFieldset->getName());
@@ -219,4 +282,41 @@ class ExtendedValidationGroupForm extends Form implements EventManagerAwareInter
 
         return $names;
     }
+
+    /**
+     * @return FeatureFlags
+     */
+    public function getFeatureFlags()
+    {
+        return $this->featureFlags;
+    }
+
+    /**
+     * @param eatureFlags $ff
+     */
+    public function setFeatureFlags(FeatureFlags $ff = null)
+    {
+        $this->featureFlags = $ff;
+
+        return $this;
+    }
+
+    protected function hasFlag($flag)
+    {
+        if ( ! $this->getFeatureFlags() ) {
+            return false;
+        }
+
+        return $this->getFeatureFlags()->has($flag);
+    }
+
+    protected function isFlagOff($flag)
+    {
+        if ( ! $this->getFeatureFlags() || ! $this->hasFlag($flag) ) {
+            return false;
+        }
+
+        return $this->getFeatureFlags()->$flag->is_off();
+    }
+
 }

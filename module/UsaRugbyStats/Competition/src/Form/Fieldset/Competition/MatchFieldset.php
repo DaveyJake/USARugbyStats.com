@@ -113,8 +113,8 @@ class MatchFieldset extends Fieldset
             'options' => array(
                 'label' => 'Is Locked?',
                 'value_options' => array(
-                    '1' => 'Yes',
-                    '0' => 'No',
+                    1 => 'Yes',
+                    0 => 'No',
                 ),
             ),
         ));

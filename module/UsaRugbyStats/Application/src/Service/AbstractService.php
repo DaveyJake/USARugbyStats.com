@@ -9,10 +9,21 @@ use Zend\Form\FormInterface;
 use Zend\EventManager\EventManagerAwareTrait;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\Filter\StaticFilter;
+use UsaRugbyStats\Application\Common\ExtendedValidationGroupForm;
+use UsaRugbyStats\Application\FeatureFlags\FeatureFlags;
+use Zend\Stdlib\CallbackHandler;
+use Zend\EventManager\EventInterface;
 
 abstract class AbstractService implements EventManagerAwareInterface
 {
     use EventManagerAwareTrait;
+
+    /**
+     * Session Context
+     *
+     * @var \ArrayAccess
+     */
+    protected $session;
 
     /**
      * Repository
@@ -27,6 +38,13 @@ abstract class AbstractService implements EventManagerAwareInterface
      * @var ObjectManager
      */
     protected $objectManager;
+
+    /**
+     * Service Extension Manager
+     *
+     * @var ServiceExtensionManager
+     */
+    protected $extensionManager;
 
     /**
      * Form used to create new instances
@@ -59,6 +77,10 @@ abstract class AbstractService implements EventManagerAwareInterface
     public function __construct()
     {
         array_push($this->eventIdentifier, get_called_class());
+
+        if ( is_null($this->session) ) {
+            $this->startSession();
+        }
     }
 
     public function findByID($id)
@@ -80,6 +102,41 @@ abstract class AbstractService implements EventManagerAwareInterface
     }
 
     /**
+     * Prepare Form for use in CRUD controller
+     *
+     * @param \ArrayAccess $context
+     */
+    public function startSession()
+    {
+        $this->session = new \ArrayObject();
+
+        if ( class_exists('UsaRugbyStats\Application\FeatureFlags\FeatureFlags', true) ) {
+            $this->session->flags = new FeatureFlags();
+        }
+
+        return $this->session;
+    }
+
+    public function prepare()
+    {
+        $this->getEventManager()->trigger(__FUNCTION__, $this, $this->session);
+
+        // Bind entity
+        $this->getEventManager()->trigger("form.bind", $this, $this->session);
+        $this->session->form->bind($this->session->entity);
+        if ($this->session->form instanceof ExtendedValidationGroupForm) {
+            $this->session->form->generateValidationGroup();
+        }
+        $this->getEventManager()->trigger("form.bind.post", $this, $this->session);
+
+        $this->session->{'__isPrepared'} = true;
+
+        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, $this->session);
+
+        return $this;
+    }
+
+    /**
      * Create new entity from form data
      *
      * @param  array         $data
@@ -89,12 +146,15 @@ abstract class AbstractService implements EventManagerAwareInterface
     {
         $entityClass = $this->getEntityClassName();
 
-        $argv = new \ArrayObject();
-        $argv->entity = new $entityClass();
-        $argv->form   = $this->getCreateForm();
-        $argv->data   = $data;
+        if ( !isset($this->session->entity) ) {
+            $this->session->entity = new $entityClass();
+        }
+        if ( !isset($this->session->form) ) {
+            $this->session->form = $this->getCreateForm();
+        }
+        $this->session->data = $data;
 
-        return $this->processRequest($argv);
+        return $this->processRequest($this->session);
     }
 
     /**
@@ -116,20 +176,20 @@ abstract class AbstractService implements EventManagerAwareInterface
             ));
         }
 
-        $argv = new \ArrayObject();
-        $argv->form   = $this->getUpdateForm();
-        $argv->entity = $entity;
-        $argv->data   = $data;
+        if ( !isset($this->session->form) ) {
+            $this->session->form = $this->getUpdateForm();
+        }
+        $this->session->entity = $entity;
+        $this->session->data = $data;
 
-        return $this->processRequest($argv);
+        return $this->processRequest($this->session);
     }
 
     protected function processRequest(\ArrayAccess $argv)
     {
-        // Bind entity
-        $this->getEventManager()->trigger("form.bind", $this, $argv);
-        $argv->form->bind($argv->entity);
-        $this->getEventManager()->trigger("form.bind.post", $this, $argv);
+        if (! $argv->{'__isPrepared'}) {
+            throw new \RuntimeException(get_called_class() . '::prepare() has not been called!');
+        }
 
         // Stick in the data
         $this->getEventManager()->trigger("form.populate", $this, $argv);
@@ -169,9 +229,33 @@ abstract class AbstractService implements EventManagerAwareInterface
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['entity' => $entity]);
     }
 
+    /**
+     * @return ServiceExtensionManager
+     */
+    public function getExtensionManager()
+    {
+        return $this->extensionManager;
+    }
+
+    /**
+     * @param ServiceExtensionManager $extensionManager
+     */
+    public function setExtensionManager(ServiceExtensionManager $extensionManager)
+    {
+        if ($this->extensionManager instanceof ServiceExtensionManager) {
+            $this->extensionManager->detachEventListeners($this->getEventManager());
+        }
+
+        $this->extensionManager = $extensionManager;
+        $this->extensionManager->attachEventListeners($this->getEventManager());
+
+        return $this;
+    }
+
     public function setCreateForm(FormInterface $f)
     {
         $this->createForm = $f;
+        $this->attachFlagInjectorFormListener($this->createForm);
 
         return $this;
     }
@@ -184,6 +268,7 @@ abstract class AbstractService implements EventManagerAwareInterface
     public function setUpdateForm(FormInterface $f)
     {
         $this->updateForm = $f;
+        $this->attachFlagInjectorFormListener($this->updateForm);
 
         return $this;
     }
@@ -237,6 +322,28 @@ abstract class AbstractService implements EventManagerAwareInterface
         $this->entityClassName = $fqcn;
 
         return $this;
+    }
+
+    protected $flagInjectorFormListener;
+    protected function attachFlagInjectorFormListener(FormInterface $f)
+    {
+        if (! $f instanceof ExtendedValidationGroupForm) {
+            return;
+        }
+
+        if ( empty($this->flagInjectorFormListener) ) {
+            $service = $this;
+            $this->flagInjectorFormListener = new CallbackHandler(function (EventInterface $e) use ($service) {
+                if (! $service->session->flags instanceof FeatureFlags) {
+                    return;
+                }
+                $e->getTarget()->setFeatureFlags($service->session->flags);
+            });
+        }
+
+        $f->getEventManager()->detach($this->flagInjectorFormListener);
+        $f->getEventManager()->attach('prepareValidationGroup.pre', $this->flagInjectorFormListener);
+        $f->getEventManager()->attach('autogenerateValidationGroupForForm.pre', $this->flagInjectorFormListener);
     }
 
 }

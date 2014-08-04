@@ -1,105 +1,32 @@
-<?php $fieldset = $form->get('match'); ?>
+<?php $argv = $this->vars()->getArrayCopy(); ?>
 
-<?php echo $this->formHidden($fieldset->get('id')); ?>
-<?php $canEdit = $this->isGranted('competition.competition.match.details.change', @$this->entity); ?>
+<?php $form->setAttribute('class', 'form-horizontal'); ?>
+<?php echo $this->form()->openTag($form) ?>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Match Details</div>
-    <div class="panel-body">
+<?php $submitButton = $form->get('submit'); ?>
+<?php $submitButton->setAttribute('class', 'btn btn-lg btn-success'); ?>
 
-        <div class="row form-group">
-            <?php $element = $fieldset->get('description'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
+<div class="row">
+    <div class="col-md-6">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/details', $argv); ?>
+    </div>
 
-            <?php echo $this->formLabel($element) ?>
-            <div class="col-sm-8">
-                <?php if ( $canEdit ): ?>
-                <?php echo $this->formElement($element) ?>
-                <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
-                <?php endif;?>
-                <?php echo $this->formElementErrors($element); ?>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <?php $element = $fieldset->get('date'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
-
-            <?php echo $this->formLabel($element) ?>
-            <div class="col-sm-8">
-                <?php if ( $canEdit ): ?>
-                <?php echo $this->formElement($element) ?>
-                <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
-                <?php endif;?>
-                <?php echo $this->formElementErrors($element); ?>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <?php $element = $fieldset->get('location'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
-
-            <?php echo $this->formLabel($element) ?>
-            <div class="col-sm-8">
-                <?php if ( $canEdit ): ?>
-                <?php echo $this->formElement($element) ?>
-                <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
-                <?php endif;?>
-                <?php echo $this->formElementErrors($element); ?>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <?php $element = $fieldset->get('locationDetails'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
-            <?php $element->setAttribute('rows', '3'); ?>
-
-            <?php echo $this->formLabel($element) ?>
-            <div class="col-sm-8">
-                <?php if ( $canEdit ): ?>
-                <?php echo $this->formElement($element) ?>
-                <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
-                <?php endif;?>
-                <?php echo $this->formElementErrors($element); ?>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <?php $element = $fieldset->get('status'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
-
-            <?php echo $this->formLabel($element) ?>
-            <div class="col-sm-8">
-                <?php if ( $canEdit ): ?>
-                <?php echo $this->formElement($element) ?>
-                <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
-                <?php endif;?>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <?php $element = $fieldset->get('isLocked'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-
-            <?php echo $this->formLabel($element) ?>
-            <div class="col-sm-8">
-                <?php if ( $canEdit ): ?>
-                <?php echo $this->formElement($element) ?>
-                <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
-                <?php endif;?>
-                <?php echo $this->formElementErrors($element); ?>
-            </div>
-        </div>
+    <div class="col-md-6">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/collection', array_merge($argv, ['collection' => $form->get('match')->get('signatures')])); ?>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', array_merge($argv, ['fieldset' => $form->get('match')->get('teams')->get('H'), 'type' => 'H'])); ?>
+    </div>
+
+    <div class="col-md-6">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', array_merge($argv, ['fieldset' => $form->get('match')->get('teams')->get('A'), 'type' => 'A'])); ?>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>
+
+<?php echo $this->form()->closeTag() ?>

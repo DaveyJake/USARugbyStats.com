@@ -1,44 +1,12 @@
-<h1><?php echo $this->escapeHtml($entity->getName()); ?></h1>
-<?php echo $this->render('usa-rugby-stats/competition-frontend/competition/navigation', ['page' => 'matches', 'entity' => $entity]); ?>
+<h1><?php echo $this->escapeHtml($competition->getName()); ?></h1>
+<?php echo $this->render('usa-rugby-stats/competition-frontend/competition/navigation', ['page' => 'matches', 'entity' => $competition]); ?>
 
 <?php
 $form->prepare();
-$form->setAttribute('action', $this->url('usarugbystats_frontend_competition_match/create', array('cid' => $entity->getId())));
+$form->setAttribute('action', $this->url('usarugbystats_frontend_competition_match/create', array('cid' => $competition->getId())));
 $form->setAttribute('method', 'post');
 ?>
 
 <h2>Create New Match</h2>
 
-<?php $form->setAttribute('class', 'form-horizontal'); ?>
-<?php echo $this->form()->openTag($form) ?>
-
-<?php $submitButton = $form->get('submit'); ?>
-<?php $submitButton->setAttribute('class', 'btn btn-lg btn-success'); ?>
-
-<div class="row">
-    <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/form', $this->vars()); ?>
-    </div>
-
-    <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/signatures/collection', ['collection' => $form->get('match')->get('signatures')]); ?>
-    </div>
-
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('teams')->get('H'), 'type' => 'H']); ?>
-    </div>
-
-    <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/form', ['fieldset' => $form->get('match')->get('teams')->get('A'), 'type' => 'A']); ?>
-    </div>
-
-</div>
-
-
-<div class="clearfix"></div>
-<div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>
-
-<?php echo $this->form()->closeTag() ?>
+<?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/form', $this->vars()); ?>

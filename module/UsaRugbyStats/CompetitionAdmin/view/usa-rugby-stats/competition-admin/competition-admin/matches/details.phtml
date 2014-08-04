@@ -1,0 +1,116 @@
+<?php $fieldset = $form->get('match'); ?>
+
+<?php echo $this->formHidden($fieldset->get('id')); ?>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Match Details</div>
+    <div class="panel-body">
+
+        <?php if ( ! $this->flags->{'match.description%visible'}->is_off() ): ?>
+        <div class="row form-group">
+            <?php $element = $fieldset->get('description'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+            <?php $element->setAttribute('class', 'form-control'); ?>
+
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-8">
+                <?php if ( $this->flags->{'match.description'}->is_on() ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if ( ! $this->flags->{'match.date%visible'}->is_off() ): ?>
+        <div class="row form-group">
+            <?php $element = $fieldset->get('date'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+            <?php $element->setAttribute('class', 'form-control'); ?>
+
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-8">
+                <?php if ( $this->flags->{'match.date'}->is_on() ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if ( ! $this->flags->{'match.location%visible'}->is_off() ): ?>
+        <div class="row form-group">
+            <?php $element = $fieldset->get('location'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+            <?php $element->setAttribute('class', 'form-control'); ?>
+
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-8">
+                <?php if ( $this->flags->{'match.location'}->is_on() ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if ( ! $this->flags->{'match.locationDetails%visible'}->is_off() ): ?>
+        <div class="row form-group">
+            <?php $element = $fieldset->get('locationDetails'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+            <?php $element->setAttribute('class', 'form-control'); ?>
+            <?php $element->setAttribute('rows', '3'); ?>
+
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-8">
+                <?php if ( $this->flags->{'match.locationDetails'}->is_on() ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if ( ! $this->flags->{'match.status%visible'}->is_off() ): ?>
+        <div class="row form-group">
+            <?php $element = $fieldset->get('status'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+            <?php $element->setAttribute('class', 'form-control'); ?>
+
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-8">
+                <?php if ( $this->flags->{'match.status'}->is_on() ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if ( ! $this->flags->{'match.isLocked%visible'}->is_off() ): ?>
+        <div class="row form-group">
+            <?php $element = $fieldset->get('isLocked'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-8">
+                <?php if ( ! $this->flags->{'match.isLocked'}->is_off() ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>

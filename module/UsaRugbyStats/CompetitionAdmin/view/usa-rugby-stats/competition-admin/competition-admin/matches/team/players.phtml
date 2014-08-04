@@ -1,4 +1,5 @@
-<?php $canEdit = $this->isGranted('competition.competition.match.team.roster.change', @$this->matchTeam); ?>
+<?php $canEdit = $this->flags->{"match.teams.$matchSideKey.players"}->is_on(); ?>
+<?php $argv = $this->vars()->getArrayCopy(); ?>
 
 <table class="table table-striped table-bordered competition-match-team-roster">
     <thead>
@@ -12,7 +13,7 @@
     </thead>
     <tbody>
         <?php foreach ( $fieldset->get('players') as $fsPlayer ): ?>
-        <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', ['matchTeam' => @$this->matchTeam, 'fieldset' => $fsPlayer]); ?>
+        <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', array_merge($argv, ['fieldset' => $fsPlayer])); ?>
         <?php endforeach; ?>
     </tbody>
     <?php if ($canEdit): ?>
@@ -28,7 +29,7 @@
 
 <?php if ($canEdit): ?>
 <script type="text/javascript">
-    var rosterPlayerTemplate<?=$type?> = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', ['fieldset' => $fieldset->get('players')->getTemplateElement(), 'isTemplate' => true])); ?>';
+    var rosterPlayerTemplate<?=$type?> = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', array_merge($argv, ['fieldset' => $fieldset->get('players')->getTemplateElement(), 'isTemplate' => true]))); ?>';
     var rosterPlayerIndex<?=$type?> = <?php echo $this->escapeJs(count($fieldset->get('players'))); ?>;
 
     $(document).on('click', '.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster-addplayer', function() {
