@@ -6,6 +6,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventInterface;
 use Zend\EventManager\ListenerAggregateTrait;
 use Zend\Mvc\MvcEvent;
+use Zend\Session\Container;
 
 class IframeablePageListener implements ListenerAggregateInterface
 {
@@ -13,11 +14,13 @@ class IframeablePageListener implements ListenerAggregateInterface
 
     protected $iframeablePages = array();
     protected $iframeTemplateName = 'layout/iframe';
+    protected $sessionContainer;
 
-    public function __construct(array $iframeablePages = array(), $iframeTemplateName)
+    public function __construct(array $iframeablePages = array(), $iframeTemplateName, Container $c = null)
     {
         $this->iframeablePages = $iframeablePages;
         $this->iframeTemplateName = $iframeTemplateName;
+        $this->sessionContainer = $c ?: new Container('usarugbystats_iframeable');
     }
 
     public function attach(EventManagerInterface $events)
@@ -37,11 +40,22 @@ class IframeablePageListener implements ListenerAggregateInterface
             return;
         }
 
-        if ( $e->getRequest()->getQuery('iframe') !== 'true' ) {
+        if ( $e->getRequest()->getQuery('iframe') !== NULL ) {
+            switch ( $e->getRequest()->getQuery('iframe') ) {
+                case 'true':
+                    $this->sessionContainer->flag = true;
+                    break;
+                case 'false':
+                    $this->sessionContainer->flag = false;
+                    break;
+            }
+        }
+
+        if ( ! isset($this->sessionContainer->flag) || $this->sessionContainer->flag === false ) {
             return;
         }
 
-        if ( ! in_array($e->getRouteMatch()->getMatchedRouteName(), $this->iframeablePages, true) ) {
+        if ( ! in_array('*', $this->iframeablePages, true) && ! in_array($e->getRouteMatch()->getMatchedRouteName(), $this->iframeablePages, true) ) {
             return;
         }
 

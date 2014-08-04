@@ -1,20 +1,5 @@
 <?php
 return array(
-
-    'usarugbystats' => array(
-        'application' => array(
-            'iframeable' => array(
-                'routes' => array(
-                    'usarugbystats_frontend_player',
-                    'usarugbystats_frontend_team',
-                    'usarugbystats_frontend_union',
-                    'usarugbystats_frontend_competition',
-                    'usarugbystats_frontend_competition_match',
-                ),
-            ),
-        ),
-    ),
-
     'router' => array(
         'routes' => array(
             'home' => array(
