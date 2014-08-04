@@ -7,6 +7,7 @@ use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\ScoreEvent;
+use UsaRugbyStats\Competition\Entity\Competition\TeamMembership;
 
 abstract class AbstractStandingsServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,6 +33,19 @@ abstract class AbstractStandingsServiceTest extends \PHPUnit_Framework_TestCase
         $this->service = new StandingsService();
 
         $this->competition = new Competition();
+    }
+
+    public function testGetTeamRecordsForIncludesTeamsWhichHaveNotPlayedAMatch()
+    {
+        $randomTeam = $this->generateRandomTeam(123, 'Testing 123');
+
+        $tm = new TeamMembership();
+        $tm->setTeam($randomTeam);
+        $this->competition->addTeamMembership($tm);
+
+        $result = $this->service->getTeamRecordsFor($this->competition);
+        $this->assertTrue($result->containsKey(123));
+        $this->assertEquals(0, $result->get(123)->getTotalGames());
     }
 
     public function generateRandomTeam($id, $name = null)

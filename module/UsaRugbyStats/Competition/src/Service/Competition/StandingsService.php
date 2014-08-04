@@ -7,6 +7,8 @@ use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Entity\Competition\TeamRecord;
 use Doctrine\Common\Collections\ArrayCollection;
 use UsaRugbyStats\Competition\Entity\Competition\Division;
+use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Competition\Entity\Competition\TeamMembership;
 
 class StandingsService implements EventManagerAwareInterface
 {
@@ -73,10 +75,6 @@ class StandingsService implements EventManagerAwareInterface
     public function getTeamRecordsFor(Competition $competition)
     {
         $coll = new ArrayCollection();
-
-        if ( count($competition->getMatches()) == 0 ) {
-            return $coll;
-        }
 
         foreach ( $competition->getMatches() as $match ) {
             if ( ! $match->isComplete() ) {
@@ -187,6 +185,21 @@ class StandingsService implements EventManagerAwareInterface
 
             $coll->set($homeTeam, $homeTeamRecord);
             $coll->set($awayTeam, $awayTeamRecord);
+        }
+
+        foreach ( $competition->getTeamMemberships() as $teamMembership ) {
+            if (! $teamMembership instanceof TeamMembership) {
+                continue;
+            }
+
+            $team = $teamMembership->getTeam();
+            if (! $team instanceof Team) {
+                continue;
+            }
+
+            if ( ! $coll->containsKey($team->getId()) ) {
+                $coll->set($team->getId(), (new TeamRecord())->setCompetition($competition)->setTeam($team));
+            }
         }
 
         return $coll;
