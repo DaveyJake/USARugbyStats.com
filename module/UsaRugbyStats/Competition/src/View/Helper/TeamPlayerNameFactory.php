@@ -5,7 +5,7 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 
-class PlayerLinkFactory implements FactoryInterface
+class TeamPlayerNameFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
@@ -16,9 +16,10 @@ class PlayerLinkFactory implements FactoryInterface
             ? $pluginManager->getServiceLocator()
             : $pluginManager;
 
-        $viewHelper = new PlayerLink();
-        $viewHelper->setAccountService($sl->get('zfcuser_user_service'));
+        $em = $sl->get('zfcuser_doctrine_em');
 
+        $viewHelper = new TeamPlayerName();
+        $viewHelper->setMatchTeamPlayerRepository($em->getRepository('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer'));
 
         return $viewHelper;
     }

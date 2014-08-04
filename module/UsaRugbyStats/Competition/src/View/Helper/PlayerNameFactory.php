@@ -11,8 +11,11 @@ class PlayerNameFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $pluginManager)
     {
-        $viewHelper = new PlayerName();
+        $sl = ( $pluginManager instanceof AbstractPluginManager )
+            ? $pluginManager->getServiceLocator()
+            : $pluginManager;
 
-        return $viewHelper;
+        $viewHelper = new PlayerName();
+        $viewHelper->setAccountService($sl->get('zfcuser_user_service'));
     }
 }

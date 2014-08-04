@@ -84,13 +84,13 @@
             <?php $element = $fieldset->get('status'); ?>
             <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
             <?php $element->setAttribute('class', 'form-control'); ?>
-
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
                 <?php if ( $this->flags->{'match.status'}->is_on() ): ?>
-                <?php echo $this->formElement($element) ?>
+                <?php   echo $this->formElement($element) ?>
                 <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php   $options = $element->getValueOptions(); ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml(isset($options[$element->getValue()]) ? $options[$element->getValue()] : '???'); ?></p>
                 <?php endif;?>
             </div>
         </div>
@@ -106,7 +106,7 @@
                 <?php if ( ! $this->flags->{'match.isLocked'}->is_off() ): ?>
                 <?php echo $this->formElement($element) ?>
                 <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue() ? 'Yes' : 'No'); ?></p>
                 <?php endif;?>
                 <?php echo $this->formElementErrors($element); ?>
             </div>

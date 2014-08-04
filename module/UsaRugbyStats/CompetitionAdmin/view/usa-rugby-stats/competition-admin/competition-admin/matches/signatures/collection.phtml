@@ -8,7 +8,7 @@
             <tr>
                 <th>Type</th>
                 <th>Signee</th>
-                <th></th>
+                <?php if ( $this->flags->{'match.signatures'}->is_on() ): ?><th></th><?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
         <?php if ( $this->flags->{'match.signatures'}->is_on() ): ?>
         <tfoot>
             <tr>
-                <td colspan="5">
+                <td colspan="3">
                     <a class="btn btn-sm btn-primary competition-match-signatures-addsignature" title="Add a Signature"><i class="glyphicon glyphicon-plus-sign"></i> Add a Signature</a>
                 </td>
             </tr>

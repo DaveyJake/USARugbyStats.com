@@ -22,7 +22,8 @@ if ( $this->flags->{'match.signatures.allowed_types'}->is_set() ) {
         <?php if ( $canEdit ): ?>
         <?php echo $this->formElement($element) ?>
         <?php else: ?>
-        <?php echo $this->escapeHtml($element->getValue()); ?>
+        <?php   $options = $element->getValueOptions(); ?>
+        <?php   echo $this->escapeHtml(isset($options[$element->getValue()]) ? $options[$element->getValue()] : '???'); ?>
         <?php endif;?>
         <?php echo $this->formElementErrors($element); ?>
     </td>
@@ -32,7 +33,7 @@ if ( $this->flags->{'match.signatures.allowed_types'}->is_set() ) {
         <?php if ( $canEdit ): ?>
         <?php echo $this->formElement($element) ?>
         <?php else: ?>
-        <?php echo $this->escapeHtml($element->getValue()); ?>
+        <?php echo $this->ursPlayerLink($element->getValue()); ?>
         <?php endif;?>
         <?php echo $this->formElementErrors($element); ?>
     </td>

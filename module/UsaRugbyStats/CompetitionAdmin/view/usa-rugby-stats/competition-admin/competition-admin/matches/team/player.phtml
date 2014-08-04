@@ -1,6 +1,7 @@
 <?php $canEdit = $this->flags->{"match.teams.$matchSideKey.players"}->is_on(); ?>
+
 <tr>
-    <td class="column column-number">
+    <td class="column column-number" style="text-align:center">
         <?php $element = $fieldset->get('number'); ?>
         <?php if ( $canEdit ): ?>
         <?php echo $this->formElement($element) ?>
@@ -15,7 +16,7 @@
         <?php if ( $canEdit ): ?>
         <?php echo $this->formElement($element) ?>
         <?php else: ?>
-        <?php echo $this->escapeHtml($element->getValue()); ?>
+        <?php echo $this->ursPlayerLink($element->getValue()) ?: '--'; ?>
         <?php endif;?>
         <?php echo $this->formElementErrors($element); ?>
     </td>
@@ -25,25 +26,26 @@
         <?php if ( $canEdit ): ?>
         <?php echo $this->formElement($element) ?>
         <?php else: ?>
-        <?php echo $this->escapeHtml($element->getValue()); ?>
+        <?php   $options = $element->getValueOptions(); ?>
+        <?php echo $this->escapeHtml(isset($options[$element->getValue()]) ? $options[$element->getValue()] : '???'); ?>
         <?php endif;?>
         <?php echo $this->formElementErrors($element); ?>
     </td>
 
-    <td class="column column-isfrontrow">
+    <td class="column column-isfrontrow" style="text-align:center">
         <?php $element = $fieldset->get('isFrontRow'); ?>
         <?php if ( $canEdit ): ?>
         <?php echo $this->formElement($element) ?>
         <?php else: ?>
-        <?php echo $this->escapeHtml($element->getValue()); ?>
+        <?php echo $element->getValue() ? '<i class="glyphicon glyphicon-ok"></i>' : ''; ?>
         <?php endif;?>
         <?php echo $this->formElementErrors($element); ?>
     </td>
 
+    <?php if ( $canEdit ): ?>
     <td>
-        <?php if ( $canEdit ): ?>
         <?php echo $this->formHidden($fieldset->get('id')); ?>
         <a class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove competition-match-team-roster-removeplayer"></i></a>
-        <?php endif; ?>
     </td>
+    <?php endif; ?>
 </tr>
