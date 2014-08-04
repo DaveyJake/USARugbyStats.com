@@ -7,61 +7,18 @@
   <h1><?=$this->escapeHtml($competition->getName()); ?></h1>
 </div>
 
-<?php
-$divisions = $competition->getDivisions();
-$tableStructure = [];
-$tableRowCount = 0;
-foreach ( $divisions as $division) {
-    $tableStructure[$division->getId()] = $division->getTeamMemberships()->toArray();
-    $tableRowCount = max($tableRowCount, count($tableStructure[$division->getId()]));
-}
-?>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#details" role="tab" data-toggle="tab">Details</a></li>
+  <li><a href="#standings" role="tab" data-toggle="tab">Standings</a></li>
+  <li><a href="#divisions" role="tab" data-toggle="tab">Divisions</a></li>
+  <li><a href="#matches" role="tab" data-toggle="tab">Matches</a></li>
+</ul>
 
-<div class="panel panel-default">
-  <div class="panel-heading">Participating Teams</div>
-  <?php if (count($divisions)): ?>
-  <table class="table" id="sort">
-    <thead>
-      <tr>
-        <?php foreach ( $divisions as $division): ?>
-        <th><?=$this->escapeHtml($division->getName()); ?></th>
-        <?php endforeach; ?>
-      </tr>
-    </thead>
-    <tbody>
-      <?php for ( $i = 0; $i < $tableRowCount; $i++ ): ?>
-      <tr>
-        <?php foreach ( $divisions as $division): ?>
-        <?php   $teamMembership = @$tableStructure[$division->getId()][$i] ?: NULL ?>
-        <td>
-          <?php if ( ! is_null($teamMembership) ): ?>
-          <a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $teamMembership->getTeam()->getId()]); ?>">
-            <?=$this->escapeHtml($teamMembership->getTeam()->getName()) ?>
-          </a>
-          <?php endif; ?>
-        </td>
-        <?php endforeach; ?>
-      </tr>
-      <?php endfor; ?>
-    </tbody>
-  </table>
-
-  <?php else: ?>
-  <div class="panel-body">
-    <div class="pull-center">There are no divisions in this competition.</div>
-  </div>
-  <?php endif; ?>
-</div>
-
-
-<?php $matches = $competition->getMatches(); ?>
-<div class="panel panel-default">
-  <div class="panel-heading">Competition Games</div>
-  <?php if (count($matches)): ?>
-  <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $matches, 'showScore' => true]); ?>
-  <?php else: ?>
-  <div class="panel-body">
-    <div class="pull-center">This team is not participating in any competitions.</div>
-  </div>
-  <?php endif; ?>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="details" style="padding: 20px"><?php echo $this->render('usa-rugby-stats/competition-frontend/competition/details.phtml', $this->vars()); ?></div>
+  <div class="tab-pane" id="standings" style="padding: 20px"><?php echo $this->render('usa-rugby-stats/competition-frontend/competition/standings.phtml', $this->vars()); ?></div>
+  <div class="tab-pane" id="divisions" style="padding: 20px"><?php echo $this->render('usa-rugby-stats/competition-frontend/competition/teamlisting.phtml', $this->vars()); ?></div>
+  <div class="tab-pane" id="matches" style="padding: 20px"><?php echo $this->render('usa-rugby-stats/competition-frontend/competition/matchlisting.phtml', $this->vars()); ?></div>
 </div>

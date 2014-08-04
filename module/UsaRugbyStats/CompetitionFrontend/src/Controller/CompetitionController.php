@@ -6,10 +6,12 @@ use Zend\View\Model\ViewModel;
 use UsaRugbyStats\Competition\Service\CompetitionService;
 use UsaRugbyStats\Competition\Entity\Competition;
 use ZfcRbac\Exception\UnauthorizedException;
+use UsaRugbyStats\Competition\Service\Competition\StandingsService;
 
 class CompetitionController extends AbstractActionController
 {
     protected $competitionService;
+    protected $competitionStandingsService;
 
     public function indexAction()
     {
@@ -17,6 +19,7 @@ class CompetitionController extends AbstractActionController
 
         $vm = new ViewModel();
         $vm->setVariable('competition', $competition);
+        $vm->setVariable('standings', $this->getCompetitionStandingsService()->getStandingsFor($competition));
         $vm->setTemplate('usa-rugby-stats/competition-frontend/competition/index');
 
         return $vm;
@@ -83,6 +86,24 @@ class CompetitionController extends AbstractActionController
     public function setCompetitionService(CompetitionService $s)
     {
         $this->competitionService = $s;
+
+        return $this;
+    }
+
+    public function getCompetitionStandingsService()
+    {
+        if (! $this->competitionStandingsService instanceof StandingsService) {
+            $this->setCompetitionStandingsService($this->getServiceLocator()->get(
+                'usarugbystats_competition_competition_standings_service'
+            ));
+        }
+
+        return $this->competitionStandingsService;
+    }
+
+    public function setCompetitionStandingsService(StandingsService $s)
+    {
+        $this->competitionStandingsService = $s;
 
         return $this;
     }

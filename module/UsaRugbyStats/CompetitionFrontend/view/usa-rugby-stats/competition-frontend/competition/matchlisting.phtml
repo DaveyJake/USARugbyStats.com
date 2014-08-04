@@ -1,0 +1,11 @@
+<?php $matches = $competition->getMatches(); ?>
+<div class="panel panel-default">
+  <div class="panel-heading">Competition Games</div>
+  <?php if (count($matches)): ?>
+  <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $matches, 'showScore' => true]); ?>
+  <?php else: ?>
+  <div class="panel-body">
+    <div class="pull-center">This competition does not have any matches.</div>
+  </div>
+  <?php endif; ?>
+</div>
