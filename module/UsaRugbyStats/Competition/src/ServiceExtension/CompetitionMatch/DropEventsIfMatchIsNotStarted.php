@@ -7,10 +7,7 @@ class DropEventsIfMatchIsNotStarted extends AbstractRule
 {
     public function checkPrecondition(EventInterface $e)
     {
-        if ( ! isset($e->getParams()->flags) ) {
-            return false;
-        }
-        if ( ! $e->getParams()->entity->isNotStarted() ) {
+        if ( ! $e->getParams()->entity->isNotStarted() || ! ( isset($e->getParams()->data) && $e->getParams()->data['match']['status'] == 'NS' ) ) {
             return false;
         }
 
