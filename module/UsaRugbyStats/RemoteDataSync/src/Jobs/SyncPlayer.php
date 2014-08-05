@@ -229,7 +229,7 @@ class SyncPlayer extends AbstractJob
     protected function generateZfcUserAdminArrayFromPayload($data)
     {
         return [
-            'remote_id'       => $data['ID'],
+            'remoteId'        => $data['ID'],
             'display_name'    => $data['Last_Name'] . ', ' . $data['First_Name'],
             'email'           => $data['Email'],
             // @TODO may be a good idea to ask for a unique username to be sent as well?
