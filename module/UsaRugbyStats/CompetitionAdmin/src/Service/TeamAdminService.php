@@ -253,7 +253,6 @@ class TeamAdminService extends TeamService
         return true;
     }
 
-
     /**
      * Process the supplied Team Members account selections and
      * create/update Member RBAC role objects where appropriate

@@ -242,7 +242,6 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($obj->getTeamMemberships()->contains($comp2));
     }
 
-
     public function testSetMembers()
     {
         $obj = new Team();

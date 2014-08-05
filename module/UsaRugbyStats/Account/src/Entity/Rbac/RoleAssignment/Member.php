@@ -129,7 +129,6 @@ class Member extends BaseAssignment
         return $this;
     }
 
-
     public function getDiscriminator()
     {
         return 'member';
