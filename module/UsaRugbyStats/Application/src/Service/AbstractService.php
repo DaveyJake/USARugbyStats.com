@@ -216,18 +216,24 @@ abstract class AbstractService implements EventManagerAwareInterface
 
     public function save($entity)
     {
-        $this->getEventManager()->trigger(__FUNCTION__, $this, ['entity' => $entity]);
+        $argv = new \ArrayObject();
+        $argv->entity = $entity;
+
+        $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
         $this->getObjectManager()->persist($entity);
         $this->getObjectManager()->flush();
-        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['entity' => $entity]);
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
     }
 
     public function remove($entity)
     {
-        $this->getEventManager()->trigger(__FUNCTION__, $this, ['entity' => $entity]);
+        $argv = new \ArrayObject();
+        $argv->entity = $entity;
+
+        $this->getEventManager()->trigger(__FUNCTION__, $this, $argv);
         $this->getObjectManager()->remove($entity);
         $this->getObjectManager()->flush();
-        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, ['entity' => $entity]);
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, $argv);
     }
 
     /**
