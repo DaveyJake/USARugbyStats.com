@@ -14,7 +14,6 @@ class MatchTeamCollectionFilter extends NestedCollectionInputFilter
     public function __construct(InputFilterInterface $ifMatchTeam)
     {
         $this->setInputFilter($ifMatchTeam);
-        $this->setIsRequired(false);
     }
 
     public function isValid()

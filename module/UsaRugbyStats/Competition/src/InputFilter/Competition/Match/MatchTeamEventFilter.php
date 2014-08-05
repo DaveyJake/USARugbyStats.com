@@ -25,7 +25,14 @@ abstract class MatchTeamEventFilter extends InputFilter
         $this->add(array(
             'name'       => 'minute',
             'required'   => true,
-            'validators' => array(),
+            'validators' => array(
+                array(
+                    'name' => 'GreaterThan',
+                    'options' => array(
+                        'min' => 0,
+                    )
+                ),
+            ),
             'filters'   => array(
                 array('name' => 'Digits'),
             ),

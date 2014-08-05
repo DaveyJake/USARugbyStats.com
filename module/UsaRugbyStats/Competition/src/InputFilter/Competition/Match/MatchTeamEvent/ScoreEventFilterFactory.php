@@ -8,7 +8,10 @@ class ScoreEventFilterFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $manager)
     {
-        $filter = new ScoreEventFilter();
+        $om = $manager->get('zfcuser_doctrine_em');
+        $repo = $om->getRepository('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
+
+        $filter = new ScoreEventFilter($repo);
 
         return $filter;
     }

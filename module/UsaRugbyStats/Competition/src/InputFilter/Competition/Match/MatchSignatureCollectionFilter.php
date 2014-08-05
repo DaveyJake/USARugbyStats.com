@@ -14,6 +14,5 @@ class MatchSignatureCollectionFilter extends CollectionInputFilter
     public function __construct(InputFilterInterface $ifMatchSignature)
     {
         $this->setInputFilter($ifMatchSignature);
-        $this->setIsRequired(false);
     }
 }

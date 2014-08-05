@@ -2,6 +2,7 @@
 namespace UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamEvent;
 
 use UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamEventFilter;
+use Doctrine\Common\Persistence\ObjectRepository;
 
 /**
  * Sub Event InputFilter
@@ -10,7 +11,7 @@ use UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamEventFilter
  */
 class SubEventFilter extends MatchTeamEventFilter
 {
-    public function __construct()
+    public function __construct(ObjectRepository $repoPlayer)
     {
         parent::__construct();
 
@@ -26,7 +27,15 @@ class SubEventFilter extends MatchTeamEventFilter
         $this->add(array(
             'name'       => 'playerOn',
             'required'   => true,
-            'validators' => array(),
+            'validators' => array(
+                array(
+                    'name' => 'DoctrineModule\Validator\ObjectExists',
+                    'options' => array(
+                        'object_repository' => $repoPlayer,
+                        'fields' => 'id'
+                    )
+                )
+            ),
             'filters'   => array(
                 array('name' => 'Digits'),
             ),
@@ -35,7 +44,15 @@ class SubEventFilter extends MatchTeamEventFilter
         $this->add(array(
             'name'       => 'playerOff',
             'required'   => true,
-            'validators' => array(),
+            'validators' => array(
+                array(
+                    'name' => 'DoctrineModule\Validator\ObjectExists',
+                    'options' => array(
+                        'object_repository' => $repoPlayer,
+                        'fields' => 'id'
+                    )
+                )
+            ),
             'filters'   => array(
                 array('name' => 'Digits'),
             ),

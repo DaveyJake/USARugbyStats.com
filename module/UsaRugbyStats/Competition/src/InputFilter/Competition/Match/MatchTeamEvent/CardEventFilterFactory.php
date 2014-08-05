@@ -8,7 +8,10 @@ class CardEventFilterFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $manager)
     {
-        $filter = new CardEventFilter();
+        $om = $manager->get('zfcuser_doctrine_em');
+        $repo = $om->getRepository('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
+
+        $filter = new CardEventFilter($repo);
 
         return $filter;
     }
