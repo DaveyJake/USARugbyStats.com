@@ -39,7 +39,7 @@ class MatchFieldset extends Fieldset
             'type' => 'Zend\Form\Element\DateTime',
             'name' => 'date',
             'options' => array(
-                'label' => 'Date & Time',
+                'label' => 'Date & Time'
             ),
         ));
 

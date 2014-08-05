@@ -14,12 +14,7 @@
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
                         ->appendStylesheet($this->basePath() . '/assets/css/bootstrap.min.css')
                         ->appendStylesheet($this->basePath() . '/assets/css/bootstrap-theme.min.css')
-//                         ->appendStylesheet($this->basePath() . '/assets/css/style.css')
-//                         ->appendStylesheet($this->basePath() . '/assets/css/vendor/datepicker.css')
-//                         ->appendStylesheet($this->basePath() . '/assets/css/vendor/chosen.css')
-//                         ->appendStylesheet($this->basePath() . '/assets/css/app.css')
-//                         ->appendStylesheet($this->basePath() . '/assets/css/style.css')
-//                         ->appendStylesheet($this->basePath() . '/assets/css/print.css', 'print')
+                        ->appendStylesheet($this->basePath() . '/assets/css/vendor/bootstrap-datetimepicker.min.css')
         ; ?>
         <style type="text/css">
             body { padding: 60px 0 40px 0; }
@@ -44,16 +39,9 @@
             ->appendFile($this->basePath() . '/assets/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
             ->appendFile($this->basePath() . '/assets/js/jquery.min.js')
             ->appendFile($this->basePath() . '/assets/js/bootstrap.min.js')
-            ->appendFile($this->basePath() . '/assets/js/vendor/bootstrap-datepicker.js')
+            ->appendFile($this->basePath() . '/assets/js/vendor/moment.js')
+            ->appendFile($this->basePath() . '/assets/js/vendor/bootstrap-datetimepicker.min.js')
             ->appendFile($this->basePath() . '/assets/js/vendor/chosen.jquery.min.js')
-            ->appendFile($this->basePath() . '/assets/js/vendor/jquery.dataTables.js')
-            ->appendFile($this->basePath() . '/assets/js/vendor/jquery.timeentry.pack.js')
-            ->appendFile($this->basePath() . '/assets/js/vendor/jquery.dataTables.yadcf.js')
-            ->appendFile($this->basePath() . '/assets/js/vendor/intro.js')
-            ->appendFile('http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places')
-            ->appendFile($this->basePath() . '/assets/js/vendor/jquery.geocomplete.js')
-            ->appendFile($this->basePath() . '/assets/js/jquery_funcs.js')
-            ->appendScript('$(document).ready(function() { $(\'*[data-toggle="tooltip"]\').tooltip(); });')
         ; ?>
 
     </head>

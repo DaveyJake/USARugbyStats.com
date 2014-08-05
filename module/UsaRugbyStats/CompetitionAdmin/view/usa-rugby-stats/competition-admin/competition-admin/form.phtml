@@ -49,6 +49,13 @@
             <div class="col-sm-8">
                 <?php if ( $canEdit ): ?>
                 <?php echo $this->formElement($element) ?>
+                <script type="text/javascript">
+                    $(function () {
+                        $('input[name=competition\\[startDate\\]]').datetimepicker({
+                            format: 'YYYY-MM-DDTHH:mmZ'
+                        });
+                    });
+                </script>
                 <?php else: ?>
                 <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
                 <?php endif;?>
@@ -65,6 +72,13 @@
             <div class="col-sm-8">
                 <?php if ( $canEdit ): ?>
                 <?php echo $this->formElement($element) ?>
+                <script type="text/javascript">
+                    $(function () {
+                        $('input[name=competition\\[endDate\\]]').datetimepicker({
+                            format: 'YYYY-MM-DDTHH:mmZ'
+                        });
+                    });
+                </script>
                 <?php else: ?>
                 <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
                 <?php endif;?>

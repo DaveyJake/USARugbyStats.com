@@ -44,7 +44,7 @@ class CompetitionFieldset extends Fieldset
             'type' => 'Zend\Form\Element\DateTime',
             'name' => 'startDate',
             'options' => array(
-                'label' => 'Start Date',
+                'label' => 'Start Date'
             ),
         ));
 
@@ -52,7 +52,7 @@ class CompetitionFieldset extends Fieldset
             'type' => 'Zend\Form\Element\DateTime',
             'name' => 'endDate',
             'options' => array(
-                'label' => 'End Date',
+                'label' => 'End Date'
             ),
         ));
 
