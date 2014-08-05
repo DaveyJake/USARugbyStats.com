@@ -54,8 +54,6 @@ return array(
                     ),
                     'form.populate' => array(
                         'remove_unused_roster_slots_from_form_data' => 80,
-                        'drop_events_if_match_is_not_started' => 10,
-                        'drop_players_if_team_changed_or_not_set' => 10,
                         'emptying_collections_hack' => -9999,
                     ),
                     'form.bind.post' => array(
@@ -73,6 +71,8 @@ return array(
                     ),
                     'save' => array(
                         'drop_signaures_when_match_modified' => 10,
+                        'drop_events_if_match_is_not_started' => 10,
+                        'drop_players_if_team_changed_or_not_set' => 10,
                     )
                 ),
             ),

@@ -7,7 +7,10 @@ class DropEventsIfMatchIsNotStarted extends AbstractRule
 {
     public function checkPrecondition(EventInterface $e)
     {
-        if ( ! $e->getParams()->entity->isNotStarted() || ! ( isset($e->getParams()->data) && $e->getParams()->data['match']['status'] == 'NS' ) ) {
+        if ( $e->getParams()->entity === null ) {
+            return false;
+        }
+        if ( ! $e->getParams()->entity->isNotStarted() ) {
             return false;
         }
 
@@ -18,14 +21,8 @@ class DropEventsIfMatchIsNotStarted extends AbstractRule
     {
         $side = $e->getParams()->entity->getTeam('H');
         $side->removeEvents($side->getEvents());
-        if ( isset($e->getParams()->data['match']['teams']['H']['events']) ) {
-            $e->getParams()->data['match']['teams']['H']['events'] = array();
-        }
 
         $side = $e->getParams()->entity->getTeam('A');
         $side->removeEvents($side->getEvents());
-        if ( isset($e->getParams()->data['match']['teams']['A']['events']) ) {
-            $e->getParams()->data['match']['teams']['A']['events'] = array();
-        }
     }
 }
