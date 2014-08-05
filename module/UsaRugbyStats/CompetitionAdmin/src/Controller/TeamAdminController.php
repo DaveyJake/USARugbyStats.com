@@ -43,7 +43,7 @@ class TeamAdminController extends AbstractActionController
 
         $session = $service->startSession();
         $session->form = $service->getCreateForm();
-        $session->entity = new Team();
+        $session->entity = new \stdClass();
         $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
