@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
 use UsaRugbyStats\Competition\Entity\Location;
+use UsaRugbyStats\Competition\Entity\Team;
 
 /**
  * Competition Match
@@ -704,7 +705,16 @@ class Match
      */
     public function __toString()
     {
-        return $this->getHomeTeam()->getTeam()->getName() . ' v. ' . $this->getAwayTeam()->getTeam()->getName();
+        $homeTeam = "No Team Selected";
+        if ( $this->getHomeTeam() instanceof MatchTeam && $this->getHomeTeam()->getTeam() instanceof Team ) {
+            $homeTeam = $this->getHomeTeam()->getTeam()->getName();
+        }
+        $awayTeam = "No Team Selected";
+        if ( $this->getAwayTeam() instanceof MatchTeam && $this->getAwayTeam()->getTeam() instanceof Team ) {
+            $awayTeam = $this->getAwayTeam()->getTeam()->getName();
+        }
+
+        return $homeTeam . ' v. ' . $awayTeam;
     }
 
 }

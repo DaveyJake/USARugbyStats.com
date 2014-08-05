@@ -388,6 +388,9 @@ class MatchTeam
 
     public function __toString()
     {
+        if ( ! $this->getTeam() instanceof Team ) {
+            return "No Team Selected";
+        }
         return (string) $this->getTeam()->getName();
     }
 }
