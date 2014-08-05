@@ -110,10 +110,17 @@ class CompetitionAdminController extends AbstractActionController
 
         $service = $this->getCompetitionService();
 
-        $session = $service->startSession();
-        $session->form = $service->getUpdateForm();
         // On this page we only want to edit the Division list
-        $session->form->setValidationGroup(['competition' => ['divisions']]);
+        $form = $service->getUpdateForm();
+        $vg = $form->getValidationGroup();
+        $form->setValidationGroup([
+            'competition' => [
+                'divisions' => $vg['competition']['divisions']
+            ]
+        ]);
+
+        $session = $service->startSession();
+        $session->form = $form;
         $session->entity = $entity;
         $service->prepare();
 
