@@ -1,4 +1,6 @@
-<h1>Competition Standings</h1>
+<h1><?php echo $this->escapeHtml($entity->getName()); ?></h1>
+
+<?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/navigation', ['page' => 'standings', 'entity' => $entity]); ?>
 
 <?php if (isset($standings['by-division']) && count($standings['by-division'])):?>
 
