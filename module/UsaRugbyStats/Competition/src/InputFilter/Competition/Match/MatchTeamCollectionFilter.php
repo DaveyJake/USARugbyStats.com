@@ -23,7 +23,7 @@ class MatchTeamCollectionFilter extends NestedCollectionInputFilter
 
         // Check is futile if we aren't validating the whole collection
         if ( !is_null($this->validationGroup) && ( !isset($this->validationGroup['H']) || !in_array('team', $this->validationGroup['H']) || !isset($this->validationGroup['A']) || !in_array('team', $this->validationGroup['A']) ) ) {
-            return true;
+            return $result;
         }
 
         // Ensure we have a complete set of teams
