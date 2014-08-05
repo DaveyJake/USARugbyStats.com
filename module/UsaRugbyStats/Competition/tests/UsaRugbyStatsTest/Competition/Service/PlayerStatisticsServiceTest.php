@@ -11,6 +11,7 @@ use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\CardEvent;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\SubEvent;
 use Zend\EventManager\EventInterface;
+use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 
 class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -85,6 +86,8 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
         $awayTeam->setId(42);
 
         $mockMatch = new Match();
+        $mockMatch->setHomeTeam(new MatchTeam());
+        $mockMatch->setAwayTeam(new MatchTeam());
         $mockMatch->setDate(new \DateTime('2014-06-06'));
         $mockMatch->getTeam('H')->setTeam($homeTeam)->addPlayer($this->mockTeamPlayer);
         $mockMatch->getTeam('A')->setTeam($awayTeam);
@@ -114,6 +117,8 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
         $awayTeam->setId(42);
 
         $mockMatch = new Match();
+        $mockMatch->setHomeTeam(new MatchTeam());
+        $mockMatch->setAwayTeam(new MatchTeam());
         $mockMatch->setDate(new \DateTime('2014-06-06'));
         $mockMatch->getTeam('H')->setTeam($homeTeam)->addPlayer($this->mockTeamPlayer);
         $mockMatch->getTeam('A')->setTeam($awayTeam);
@@ -167,6 +172,8 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
         $awayTeam->setId(42);
 
         $mockMatch = new Match();
+        $mockMatch->setHomeTeam(new MatchTeam());
+        $mockMatch->setAwayTeam(new MatchTeam());
         $mockMatch->setDate(new \DateTime('2014-06-06'));
         $mockMatch->getTeam('H')->setTeam($homeTeam)->addPlayer($this->mockTeamPlayer);
         $mockMatch->getTeam('A')->setTeam($awayTeam);
@@ -213,6 +220,8 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
         $awayTeam->setId(42);
 
         $mockMatch = new Match();
+        $mockMatch->setHomeTeam(new MatchTeam());
+        $mockMatch->setAwayTeam(new MatchTeam());
         $mockMatch->setDate(new \DateTime('2014-06-06'));
         $mockMatch->getTeam('H')->setTeam($homeTeam)->addPlayer($this->mockTeamPlayer);
         $mockMatch->getTeam('A')->setTeam($awayTeam);

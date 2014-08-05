@@ -21,13 +21,17 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
 
     public function execute(EventInterface $e)
     {
-        $homeTeam = $e->getParams()->entity->getTeam('H')->getTeam();
-        $homeFieldset = $e->getParams()->form->get('match')->get('teams')->get('H');
-        $this->injectRosterEntriesForSide($e->getParams()->competition, $homeTeam, $homeFieldset);
+        if ( $e->getParams()->entity->hasTeam('H') ) {
+            $homeTeam = $e->getParams()->entity->getTeam('H')->getTeam();
+            $homeFieldset = $e->getParams()->form->get('match')->get('teams')->get('H');
+            $this->injectRosterEntriesForSide($e->getParams()->competition, $homeTeam, $homeFieldset);
+        }
 
-        $awayTeam = $e->getParams()->entity->getTeam('A')->getTeam();
-        $awayFieldset = $e->getParams()->form->get('match')->get('teams')->get('A');
-        $this->injectRosterEntriesForSide($e->getParams()->competition, $homeTeam, $awayFieldset);
+        if ( $e->getParams()->entity->hasTeam('A') ) {
+            $awayTeam = $e->getParams()->entity->getTeam('A')->getTeam();
+            $awayFieldset = $e->getParams()->form->get('match')->get('teams')->get('A');
+            $this->injectRosterEntriesForSide($e->getParams()->competition, $homeTeam, $awayFieldset);
+        }
     }
 
     protected function injectRosterEntriesForSide($competition, $team, $fieldset)

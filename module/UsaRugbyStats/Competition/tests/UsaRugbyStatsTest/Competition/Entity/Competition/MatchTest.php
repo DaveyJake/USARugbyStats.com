@@ -5,6 +5,7 @@ use Mockery;
 use Doctrine\Common\Collections\ArrayCollection;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 use UsaRugbyStats\Competition\Entity\Location;
+use UsaRugbyStats\Competition\Entity\Team;
 
 class MatchTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,21 +27,27 @@ class MatchTest extends \PHPUnit_Framework_TestCase
 
     public function testCanBeConvertedToString()
     {
-        $homeTeam = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam');
-        $homeTeam->shouldReceive('getTeam->getName')->andReturn('Home');
-        $homeTeam->shouldReceive('setType')->andReturnSelf();
-        $homeTeam->shouldReceive('getType')->andReturn('H');
-        $homeTeam->shouldReceive('setMatch')->andReturnSelf();
+        $homeTeam = new Team();
+        $homeTeam->setName('Home');
 
-        $awayTeam = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam');
-        $awayTeam->shouldReceive('getTeam->getName')->andReturn('Away');
-        $awayTeam->shouldReceive('setType')->andReturnSelf();
-        $awayTeam->shouldReceive('getType')->andReturn('A');
-        $awayTeam->shouldReceive('setMatch')->andReturnSelf();
+        $homeSide = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam');
+        $homeSide->shouldReceive('getTeam')->andReturn($homeTeam);
+        $homeSide->shouldReceive('setType')->andReturnSelf();
+        $homeSide->shouldReceive('getType')->andReturn('H');
+        $homeSide->shouldReceive('setMatch')->andReturnSelf();
+
+        $awayTeam = new Team();
+        $awayTeam->setName('Away');
+
+        $awaySide = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam');
+        $awaySide->shouldReceive('getTeam')->andReturn($awayTeam);
+        $awaySide->shouldReceive('setType')->andReturnSelf();
+        $awaySide->shouldReceive('getType')->andReturn('A');
+        $awaySide->shouldReceive('setMatch')->andReturnSelf();
 
         $obj = new Match();
-        $obj->setHomeTeam($homeTeam);
-        $obj->setAwayTeam($awayTeam);
+        $obj->setHomeTeam($homeSide);
+        $obj->setAwayTeam($awaySide);
 
         $this->assertTrue(method_exists($obj, '__toString'));
         $this->assertEquals('Home v. Away', (string) $obj);

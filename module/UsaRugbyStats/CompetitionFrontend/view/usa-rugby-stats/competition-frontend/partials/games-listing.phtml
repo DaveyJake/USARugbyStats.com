@@ -20,7 +20,7 @@
      <tr>
        <td><?=$this->escapeHtml($match->getDate()->format('m/d/Y g:ia')); ?></td>
        <td><?=$this->ursTeamLink($match->getHomeTeam()); ?></td>
-       <?php if ( $showScore ): ?><td><?=$this->escapeHtml($match->getHomeTeam()->getScore()); ?> - <?=$this->escapeHtml($match->getAwayTeam()->getScore()); ?></td><?php endif;?>
+       <?php if ( $showScore ): ?><td><?=$this->escapeHtml($match->hasTeam('H') ? $match->getHomeTeam()->getScore() : NULL); ?> - <?=$this->escapeHtml($match->hasTeam('A') ? $match->getAwayTeam()->getScore() : NULL); ?></td><?php endif;?>
        <td><?=$this->ursTeamLink($match->getAwayTeam()); ?></td>
        <td>
          <?php if ( $match->getLocation() != null ): ?>

@@ -39,7 +39,7 @@ class EnforceManagedCompetitionMatchAssertion implements AssertionInterface
 
         $role = $person->getRoleAssignment('team_admin');
         if ($role instanceof TeamAdmin && $context instanceof Match) {
-            $isAllowed = $isAllowed || $role->hasManagedTeam($context->getHomeTeam()->getTeam()) || $role->hasManagedTeam($context->getAwayTeam()->getTeam());
+            $isAllowed = $isAllowed || ( $context->hasTeam('H') && $role->hasManagedTeam($context->getHomeTeam()->getTeam()) ) || ( $context->hasTeam('A') && $role->hasManagedTeam($context->getAwayTeam()->getTeam()) );
         }
         if ($isAllowed) {
             return true;
@@ -47,7 +47,7 @@ class EnforceManagedCompetitionMatchAssertion implements AssertionInterface
 
         $role = $person->getRoleAssignment('union_admin');
         if ($role instanceof UnionAdmin && $context instanceof Match) {
-            $isAllowed = $isAllowed || $role->hasManagedTeam($context->getHomeTeam()->getTeam()) || $role->hasManagedTeam($context->getAwayTeam()->getTeam());
+            $isAllowed = $isAllowed || ( $context->hasTeam('H') && $role->hasManagedTeam($context->getHomeTeam()->getTeam()) ) || ( $context->hasTeam('H') && $role->hasManagedTeam($context->getAwayTeam()->getTeam()) );
         }
         if ($isAllowed) {
             return true;

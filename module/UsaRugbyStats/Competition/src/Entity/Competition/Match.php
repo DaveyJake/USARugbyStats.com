@@ -297,12 +297,6 @@ class Match
      */
     public function getTeam($type)
     {
-        if ( ! $this->teams->containsKey($type) ) {
-            $obj = new MatchTeam();
-            $obj->setType($type);
-            $this->addTeam($obj);
-        }
-
         return $this->teams->get($type);
     }
 
@@ -373,13 +367,14 @@ class Match
     }
 
     /**
-     * @param  MatchTeam $obj
+     * @param  MatchTeam|string $obj
      * @return bool
      */
-    public function hasTeam(MatchTeam $obj)
+    public function hasTeam($obj)
     {
-        return $this->teams->containsKey($obj->getType())
-            || $this->teams->contains($obj);
+        return $obj instanceof MatchTeam
+            ? ( $this->teams->containsKey($obj->getType()) || $this->teams->contains($obj) )
+            : $this->teams->containsKey($obj);
     }
 
     /**
@@ -441,6 +436,10 @@ class Match
 
     public function getWinningSide()
     {
+        if ( $this->isNotStarted() || $this->isCancelled() ) {
+            return NULL;
+        }
+
         $hs = $this->getHomeTeam()->getScore();
         $as = $this->getAwayTeam()->getScore();
         if ($this->isAwayForfeit() || $hs > $as) {
@@ -692,8 +691,12 @@ class Match
 
     public function recalculateScore()
     {
-        $this->getHomeTeam()->recalculateScore();
-        $this->getAwayTeam()->recalculateScore();
+        if ( $this->getHomeTeam() ) {
+            $this->getHomeTeam()->recalculateScore();
+        }
+        if ( $this->getAwayTeam() ) {
+            $this->getAwayTeam()->recalculateScore();
+        }
 
         return $this;
     }

@@ -10,7 +10,7 @@
   <div class="away-team">
     <h1 style="font-size: 200%;"><?=$this->ursTeamLink($match->getAwayTeam()); ?></h1>
   </div>
-  <div id="score"><?=$this->escapeHtml($match->getAwayTeam()->getScore()); ?> -  <?=$this->escapeHtml($match->getHomeTeam()->getScore()); ?></div>
+  <div id="score"><?=$this->escapeHtml($match->hasTeam('A') ? $match->getAwayTeam()->getScore() : NULL); ?> -  <?=$this->escapeHtml($match->hasTeam('H') ? $match->getHomeTeam()->getScore() : NULL); ?></div>
   <div class="home-team">
     <h1 style="font-size: 200%;"><?=$this->ursTeamLink($match->getHomeTeam()); ?></h1>
   </div>

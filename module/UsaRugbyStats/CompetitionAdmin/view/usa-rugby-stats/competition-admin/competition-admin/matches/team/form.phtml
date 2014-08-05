@@ -26,7 +26,7 @@
             </div>
             <div class="col-sm-1" style="padding-left: 0 !important">
                 <?php if ( $this->flags->{"match.teams.$matchSideKey.players"}->is_on() ): ?>
-                <?php   $teamSide = $match instanceof \UsaRugbyStats\Competition\Entity\Competition\Match ? $match->getTeam($type) : NULL; ?>
+                <?php   $teamSide = @$match instanceof \UsaRugbyStats\Competition\Entity\Competition\Match ? $match->getTeam($type) : NULL; ?>
                 <?php   if ( $teamSide && $teamSide->getTeam() && $teamSide->getTeam()->getRemoteId() && $this->getHelperPluginManager()->has('ursRemoteDataSyncTriggerSyncTeam') ): ?>
                 <a id="<?=$type?>RosterSyncButton" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Sync Team Members"><i class="glyphicon glyphicon-refresh"></i></a>
                 <?php     echo $this->ursRemoteDataSyncTriggerSyncTeam($teamSide->getTeam(), "{$type}TeamRosterSync", "#{$type}RosterSyncButton"); ?>

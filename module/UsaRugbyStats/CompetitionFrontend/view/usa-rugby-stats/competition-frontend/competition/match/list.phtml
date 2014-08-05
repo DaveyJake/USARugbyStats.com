@@ -49,8 +49,8 @@
             </td>
             <td class="cell cell-score" style="text-align:center">
                 <?php if ( in_array($match->getStatus(), ['F', 'HF', 'AF']) ): ?>
-                <?php   echo $this->escapeHtml($match->getHomeTeam()->getScore()); ?> -
-                <?php   echo $this->escapeHtml($match->getAwayTeam()->getScore()); ?>
+                <?php   echo $this->escapeHtml($match->hasTeam('H') ? $match->getHomeTeam()->getScore() : NULL); ?> -
+                <?php   echo $this->escapeHtml($match->hasTeam('A') ? $match->getAwayTeam()->getScore() : NULL); ?>
                 <?php endif; ?>
             </td>
             <td class="cell cell-signatures" style="text-align:center">
