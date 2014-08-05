@@ -18,6 +18,7 @@ class MemberFieldset extends RoleAssignmentFieldset
                 'target_element' => $tmfs,
                 'should_create_template' => true,
                 'template_placeholder' => '__memberindex__',
+                'count' => 0,
             )
         ));
     }
