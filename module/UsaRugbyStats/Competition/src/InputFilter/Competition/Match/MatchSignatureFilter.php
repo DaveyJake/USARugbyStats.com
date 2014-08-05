@@ -28,7 +28,7 @@ class MatchSignatureFilter extends InputFilter
             'required'   => true,
             'validators' => array(),
             'filters'   => array(
-                array('name' => 'Alpha'),
+                array('name' => 'Alnum'),
             ),
         ));
 
@@ -46,15 +46,6 @@ class MatchSignatureFilter extends InputFilter
             ),
             'filters'   => array(
                 array('name' => 'Digits'),
-            ),
-        ));
-
-        $this->add(array(
-            'name'       => 'type',
-            'required'   => true,
-            'validators' => array(),
-            'filters'   => array(
-                array('name' => 'Alnum'),
             ),
         ));
 
