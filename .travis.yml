@@ -12,6 +12,9 @@ install:
   - bash .travisci/configure_apache2.sh
   # install application dependencies
   - composer install --dev
+  - composer show -i
+  # Install Scrutinizer-CI utility
+  - wget https://scrutinizer-ci.com/ocular.phar
 
 before_script:
   - mysql -e 'create database usarugby'
@@ -23,13 +26,14 @@ before_script:
 
 script:
   - for DIR in module config; do bin/php-cs-fixer fix -v --dry-run --fixers=-psr0,psr4 $DIR; done;
-  - find module -type f -name "phpunit.xml" | sort | while read FILE; do ./bin/phpunit -c $FILE || exit 1; done;
+  - find module -type f -name "phpunit.xml" | sort | while read FILE; do ./bin/phpunit -c $FILE; done;
   # The version of Behat we use doesn't support PHP 5.6 (@see https://github.com/Behat/Behat/issues/525)
-  - if [[ "$TRAVIS_PHP_VERSION" != "5.6" ]]; then find module -type f -name "behat.yml.dist" | sort | while read FILE; do REALFILE=${FILE/.dist/}; if [ ! -f "$REALFILE" ]; then cp "$FILE" "$REALFILE"; fi; ./bin/behat --config $REALFILE || exit 1; done; fi;
+  - if [[ "$TRAVIS_PHP_VERSION" != "5.6" ]]; then find module -type f -name "behat.yml.dist" | sort | while read FILE; do REALFILE=${FILE/.dist/}; if [ ! -f "$REALFILE" ]; then cp "$FILE" "$REALFILE"; fi; ./bin/behat --config $REALFILE; done; fi;
 
 after_script:
-  - curl -v http://localhost/account/login 
-  - cat /tmp/apache2_default_access.log
+  # Upload code coverage to Scrutinizer-CI
+  - find module -type f -name "clover.xml" | sort | while read FILE; do php ocular.phar code-coverage:upload --format=php-clover $FILE; done;
+  # Print some diagnostic stuff
   - cat /tmp/apache2_default_error.log
   - find /tmp -name "failure_*.html" | while read FILE; do echo $FILE; echo "======================" ; cat $FILE; echo -e "\n\n\n\n"; done;
 
