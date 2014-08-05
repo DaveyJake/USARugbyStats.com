@@ -129,8 +129,9 @@ class SyncTeam extends AbstractJob
                 continue;
             }
 
-            if ( empty($acct->getRemoteId()) || !in_array($acct->getRemoteId(), $encounteredPlayerRemoteIDs, true) ) {
-                $this->getLogger()->debug(sprintf(' - Removing Player %s', $acct->getRemoteId() ?: ('ID#'.$acct->getId())));
+            $rid = $acct->getRemoteId();
+            if ( empty($rid) || !in_array($rid, $encounteredPlayerRemoteIDs, true) ) {
+                $this->getLogger()->debug(sprintf(' - Removing Player %s', $rid ?: ('ID#'.$acct->getId())));
                 $team->removeMember($item);
                 $dirty = true;
             }
