@@ -2,7 +2,7 @@
 namespace UsaRugbyStats\Competition\Service\Competition;
 
 use UsaRugbyStats\Application\Service\AbstractService;
-use UsaRugbyStats\Competition\Entity\Competition\Match;
+use Zend\EventManager\EventInterface;
 
 class MatchService extends AbstractService
 {
@@ -14,13 +14,11 @@ class MatchService extends AbstractService
      */
     protected $availableMatchTeamEventTypes;
 
-    public function save($entity)
+    public function attachDefaultListeners()
     {
-        if ($entity instanceof Match) {
-            $entity->recalculateScore();
-        }
-
-        return parent::save($entity);
+        $this->getEventManager()->attach('save', function (EventInterface $e) {
+            $e->getParams()->entity->recalculateScore();
+        }, -99999);
     }
 
     public function setAvailableMatchTeamEventTypes($set)
