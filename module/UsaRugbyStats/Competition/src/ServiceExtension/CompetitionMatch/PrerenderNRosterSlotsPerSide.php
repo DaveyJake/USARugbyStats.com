@@ -30,7 +30,7 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
         if ( $e->getParams()->entity->hasTeam('A') ) {
             $awayTeam = $e->getParams()->entity->getTeam('A')->getTeam();
             $awayFieldset = $e->getParams()->form->get('match')->get('teams')->get('A');
-            $this->injectRosterEntriesForSide($e->getParams()->competition, $homeTeam, $awayFieldset);
+            $this->injectRosterEntriesForSide($e->getParams()->competition, $awayTeam, $awayFieldset);
         }
     }
 
