@@ -69,7 +69,7 @@ class SyncPlayer extends AbstractJob
         // Now that we have our user, time to do stuff!
 
         $this->getLogger()->debug('Updating Club Membership status...');
-        $this->updateClubMembershipStatus($player, $this->args['player_data']);
+        $this->updateClubMembershipStatus($player, @$this->args['team_id'], $this->args['player_data']);
 
         // If the user is new we skip the profile update as the data was imported on create
         if ( $player->getId() != NULL ) {
@@ -77,31 +77,35 @@ class SyncPlayer extends AbstractJob
             $this->updateAccountProfile($player, $this->args['player_data']);
         }
 
+        $this->getUserService()->getUserMapper()->update($player);
         $this->getLogger()->info('Completed!');
     }
 
-    public function updateClubMembershipStatus($player, $data)
+    public function updateClubMembershipStatus($player, $team_id, $data)
     {
-        if ( !isset($data['club_ID']) || empty($data['club_ID']) ) {
-            $this->getLogger()->err(' ** No club_ID field provided');
-
-            return NULL;
-        }
-
-        if ( isset($data['team_id']) ) {
-            $team = $this->getTeamService()->findByID($data['team_id']);
+        if ( !empty($team_id) ) {
+            $team = $this->getTeamService()->findByID($team_id);
             if (! $team instanceof Team) {
                 $this->getLogger()->err(' ** No team matching the provided team_id was found');
 
                 return NULL;
             }
         } elseif ( isset($data['club_ID']) ) {
+            if ( !isset($data['club_ID']) || empty($data['club_ID']) ) {
+                $this->getLogger()->err(' ** No club_ID field provided');
+
+                return NULL;
+            }
             $team = $this->getTeamService()->findByRemoteId($data['club_ID']);
             if (! $team instanceof Team) {
                 $this->getLogger()->err(' ** No local club record matching specified club_ID');
 
                 return NULL;
             }
+        } else {
+            $this->getLogger()->err(' ** No team identifier was passed in the request');
+
+            return NULL;
         }
 
         $membershipRole = $player->getRoleAssignment('member');
@@ -114,6 +118,7 @@ class SyncPlayer extends AbstractJob
         if (! $teamMembership instanceof TeamMembership) {
             $teamMembership = new TeamMembership();
         }
+
         $teamMembership->setTeam($team);
         $teamMembership->setMembershipStatus($data['Membership_Status']);
         $teamMembershipId = $teamMembership->getId();

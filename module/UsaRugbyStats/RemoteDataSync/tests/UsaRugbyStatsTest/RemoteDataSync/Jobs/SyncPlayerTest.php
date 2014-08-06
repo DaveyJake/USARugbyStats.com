@@ -290,7 +290,7 @@ class SyncPlayerTest extends AbstractJobTest
 
         $this->job->args = ['player_id' => 42, 'player_data' => ['club_ID' => '99999']];
 
-        $this->job->updateClubMembershipStatus($player, $this->job->args['player_data']);
+        $this->job->updateClubMembershipStatus($player, NULL, $this->job->args['player_data']);
 
         $lastEvent = array_pop($this->mockLoggerWriter->events);
         $this->assertStringStartsWith(' ** No local club record', $lastEvent['message']);
@@ -316,7 +316,7 @@ class SyncPlayerTest extends AbstractJobTest
             'club_ID'    => '99999',
         ]];
 
-        $this->job->updateClubMembershipStatus($player, $this->job->args['player_data']);
+        $this->job->updateClubMembershipStatus($player, NULL, $this->job->args['player_data']);
 
         $obj = $player->getRoleAssignment('member');
         $this->assertInstanceOf('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member', $obj);
@@ -360,7 +360,7 @@ class SyncPlayerTest extends AbstractJobTest
             'club_ID'    => '99999',
         ]];
 
-        $this->job->updateClubMembershipStatus($player, $this->job->args['player_data']);
+        $this->job->updateClubMembershipStatus($player, NULL, $this->job->args['player_data']);
 
         $obj = $player->getRoleAssignment('member');
         $this->assertSame($role, $obj);
@@ -408,7 +408,7 @@ class SyncPlayerTest extends AbstractJobTest
             'club_ID'    => '99999',
         ]];
 
-        $this->job->updateClubMembershipStatus($player, $this->job->args['player_data']);
+        $this->job->updateClubMembershipStatus($player, NULL, $this->job->args['player_data']);
 
         $obj = $player->getRoleAssignment('member');
         $this->assertSame($role, $obj);
