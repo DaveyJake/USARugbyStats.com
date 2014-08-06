@@ -1,17 +1,18 @@
 <?php $canEdit = @$isTemplate || !$this->flags->{"match.signatures.$index"}->is_off(); ?>
 
 <?php
+$element = $fieldset->get('type');
+$allTypes = $element->getValueOptions();
+
 // Strip out any signature types the user is not allowed to add
 if ( $this->flags->{'match.signatures.allowed_types'}->is_set() ) {
-    $element = $fieldset->get('type');
-    $existingTypes = $element->getValueOptions();
-
-    foreach ( $existingTypes as $atKey => $atLabel ) {
-        if ( ! $this->flags->{'match.signatures.allowed_types'}->has($atKey) ) {
-            unset($existingTypes[$atKey]);
+    $allowedTypes = [];
+    foreach ( $allTypes as $atKey => $atLabel ) {
+        if ( $this->flags->{'match.signatures.allowed_types'}->has($atKey) ) {
+            $allowedTypes[$atKey] = $atLabel;
         }
     }
-    $element->setValueOptions($existingTypes);
+    $element->setValueOptions($allowedTypes);
 }
 
 ?>
@@ -22,8 +23,7 @@ if ( $this->flags->{'match.signatures.allowed_types'}->is_set() ) {
         <?php if ( $canEdit ): ?>
         <?php echo $this->formElement($element) ?>
         <?php else: ?>
-        <?php   $options = $element->getValueOptions(); ?>
-        <?php   echo $this->escapeHtml(isset($options[$element->getValue()]) ? $options[$element->getValue()] : '???'); ?>
+        <?php   echo $this->escapeHtml(isset($allTypes[$element->getValue()]) ? $allTypes[$element->getValue()] : '???'); ?>
         <?php endif;?>
         <?php echo $this->formElementErrors($element); ?>
     </td>
@@ -38,10 +38,12 @@ if ( $this->flags->{'match.signatures.allowed_types'}->is_set() ) {
         <?php echo $this->formElementErrors($element); ?>
     </td>
 
+    <?php if ( $this->flags->{'match.signatures'}->is_on() ): ?>
     <td style="width:42px">
-        <?php if ( $canEdit ): ?>
-        <?php echo $this->formHidden($fieldset->get('id')); ?>
+        <?php if ( $canEdit ) echo $this->formHidden($fieldset->get('id')); ?>
+        <?php if ( @$isTemplate || $fieldset->get('type')->getValue() && $this->flags->{'match.signatures.allowed_types'}->has($fieldset->get('type')->getValue()) ): ?>
         <a class="btn btn-xs btn-danger competition-match-signatures-removesignature"><i class="glyphicon glyphicon-remove"></i></a>
         <?php endif; ?>
     </td>
+    <?php endif; ?>
 </tr>
