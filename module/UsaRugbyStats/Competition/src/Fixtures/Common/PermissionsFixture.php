@@ -65,7 +65,7 @@ class PermissionsFixture implements FixtureInterface, DependentFixtureInterface
         'competition.competition.create' => ['super_admin'],
         'competition.competition.update' => ['union_admin', 'competition_admin'],
         'competition.competition.update.details' => ['competition_admin'],
-        'competition.competition.update.divisions' => ['competition_admin'],
+        'competition.competition.update.divisions' => ['union_admin', 'competition_admin'],
         'competition.competition.update.matches' => ['union_admin', 'competition_admin'],
         'competition.competition.delete' => ['super_admin'],
 
@@ -73,15 +73,14 @@ class PermissionsFixture implements FixtureInterface, DependentFixtureInterface
         'competition.competition.division.team.remove' => ['competition_admin'],
 
         'competition.competition.match.list' => ['member'],
-        'competition.competition.match.create' => ['competition_admin'],
-        'competition.competition.match.update' => ['competition_admin'],
-        'competition.competition.match.delete' => ['competition_admin'],
+        'competition.competition.match.create' => ['union_admin', 'competition_admin'],
+        'competition.competition.match.update' => ['team_admin', 'competition_admin'],
+        'competition.competition.match.delete' => ['union_admin', 'competition_admin'],
 
-        //@TODO change to ...match.update.<item>
-        'competition.competition.match.details.change' => ['competition_admin'],
-        'competition.competition.match.team.change' => ['competition_admin'],
-        'competition.competition.match.team.roster.change' => ['competition_admin'],
-        'competition.competition.match.team.events.change' => ['competition_admin'],
-        'competition.competition.match.team.signatures.change' => ['competition_admin'],
+        'competition.competition.match.details.change' => ['union_admin', 'competition_admin'],
+        'competition.competition.match.team.change' => ['union_admin', 'competition_admin'],
+        'competition.competition.match.team.roster.change' => ['team_admin', 'competition_admin'],
+        'competition.competition.match.team.events.change' => ['team_admin', 'competition_admin'],
+        'competition.competition.match.signatures.change' => ['team_admin', 'competition_admin'],
     ];
 }
