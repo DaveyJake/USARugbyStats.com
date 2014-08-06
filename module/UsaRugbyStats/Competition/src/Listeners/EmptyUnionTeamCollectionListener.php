@@ -13,7 +13,7 @@ class EmptyUnionTeamCollectionListener implements ListenerAggregateInterface
 
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach('form.bind', array($this, 'run'), 10); // pre
+        $this->listeners[] = $events->attach('form.bind', array($this, 'run'), -9999); // pre
     }
 
     public function run(EventInterface $e)
