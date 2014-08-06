@@ -122,15 +122,15 @@ class TeamAdminService extends TeamService
         // If we're deleting all the administrator records, empty before form bind
         // to suppress input validator failures on missing records (@see GH-15)
         if ( !isset($data['administrators']) || empty($data['administrators']) ) {
-            $data['administrators'] = array();
             $entity->administrators = array();
+            $fsAdministrators = $this->session->form->remove('administrators');
         }
 
         // If we're deleting all the member records, empty before form bind
         // to suppress input validator failures on missing records (@see GH-15)
         if ( !isset($data['members']) || empty($data['members']) ) {
-            $data['members'] = array();
             $entity->members = array();
+            $fsMembers = $this->session->form->remove('members');
         }
 
         // Run the embedded Team entity through the normal, Doctrine-linked process
