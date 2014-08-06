@@ -55,6 +55,7 @@ return array(
                 'event_map' => array(
                     'prepare.post' => array(
                         'prerender_n_roster_slots_per_side',
+                        'hide_status_and_locked_fields_when_creating_new_match',
                         'filter_team_selection_by_competition',
                         'filter_team_event_player_selectors_by_roster',
                         'filter_team_roster_player_selectors',

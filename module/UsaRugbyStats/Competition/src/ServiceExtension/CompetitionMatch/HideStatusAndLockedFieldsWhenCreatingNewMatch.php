@@ -10,7 +10,10 @@ class HideStatusAndLockedFieldsWhenCreatingNewMatch extends AbstractRule
 {
     public function checkPrecondition(EventInterface $e)
     {
-        if ( isset($e->getParams()->entity) && $e->getParams()->entity->getId() > 0 ) {
+        if ( ! isset($e->getParams()->entity) || $e->getParams()->entity->getId() !== NULL ) {
+            return false;
+        }
+        if ( ! isset($e->getParams()->flags) ) {
             return false;
         }
 
