@@ -153,7 +153,14 @@ class SyncTeamTest extends AbstractJobTest
         $mockDataProvider->shouldReceive('syncTeam')->never();
 
         $service = \Mockery::mock('UsaRugbyStats\Competition\Service\TeamService');
-        $service->shouldReceive('findByID')->withArgs([42])->once()->andReturn($mockTeam);
+        $service->shouldReceive('findByID')->withArgs([42])->andReturn($mockTeam);
+        $service->shouldReceive('getObjectManager->clear');
+
+        $this->mockQueueAdapter->shouldReceive('enqueue')->once();
+        $this->mockQueueAdapter->shouldReceive('getJobStatus')->twice()->andReturn(\Resque_Job_Status::STATUS_RUNNING);
+        $this->mockQueueAdapter->shouldReceive('getJobStatus')->once()->andReturn(\Resque_Job_Status::STATUS_COMPLETE);
+
+        $service->shouldReceive('getObjectManager->clear');
 
         $this->job->setTeamService($service);
         $this->job->setDataProvider($mockDataProvider);
@@ -195,8 +202,13 @@ class SyncTeamTest extends AbstractJobTest
         $mockDataProvider->shouldReceive('syncTeam')->never();
 
         $service = \Mockery::mock('UsaRugbyStats\Competition\Service\TeamService');
-        $service->shouldReceive('findByID')->withArgs([42])->once()->andReturn($mockTeam);
+        $service->shouldReceive('findByID')->withArgs([42])->andReturn($mockTeam);
+        $service->shouldReceive('getObjectManager->clear');
         $service->shouldReceive('save')->once();
+
+        $this->mockQueueAdapter->shouldReceive('enqueue')->once();
+        $this->mockQueueAdapter->shouldReceive('getJobStatus')->twice()->andReturn(\Resque_Job_Status::STATUS_RUNNING);
+        $this->mockQueueAdapter->shouldReceive('getJobStatus')->once()->andReturn(\Resque_Job_Status::STATUS_COMPLETE);
 
         $this->job->setTeamService($service);
         $this->job->setDataProvider($mockDataProvider);

@@ -83,16 +83,25 @@ class SyncPlayer extends AbstractJob
     public function updateClubMembershipStatus($player, $data)
     {
         if ( !isset($data['club_ID']) || empty($data['club_ID']) ) {
-            $this->getLogger()->debug(' ** No club_ID field provided');
+            $this->getLogger()->err(' ** No club_ID field provided');
 
             return NULL;
         }
 
-        $team = $this->getTeamService()->findByRemoteId($data['club_ID']);
-        if (! $team instanceof Team) {
-            $this->getLogger()->debug(' ** No local club record matching specified club_ID');
+        if ( isset($data['team_id']) ) {
+            $team = $this->getTeamService()->findByID($data['team_id']);
+            if (! $team instanceof Team) {
+                $this->getLogger()->err(' ** No team matching the provided team_id was found');
 
-            return NULL;
+                return NULL;
+            }
+        } elseif ( isset($data['club_ID']) ) {
+            $team = $this->getTeamService()->findByRemoteId($data['club_ID']);
+            if (! $team instanceof Team) {
+                $this->getLogger()->err(' ** No local club record matching specified club_ID');
+
+                return NULL;
+            }
         }
 
         $membershipRole = $player->getRoleAssignment('member');

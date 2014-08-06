@@ -94,25 +94,25 @@ class SyncTeam extends AbstractJob
                 continue;
             }
 
-            /* uncomment these lines to run individual player updates in the background
+            $this->getLogger()->info(sprintf(' - Processing Player %s', $player['ID']));
             $token = $this->getQueueAdapter()->enqueue('sync_player', 'UsaRugbyStats\RemoteDataSync\Jobs\SyncPlayer', [
                 'player_id'    => NULL,
                 'player_data'  => $player,
             ]);
-
             array_push($childJobs, $token);
             $this->getLogger()->info(sprintf(' - Player %s => Job #%s', $player['ID'], $token));
-            */
-
-            $this->getLogger()->info(sprintf(' - Processing Player %s', $player['ID']));
-            $childJob = clone $this->getSyncPlayerJobPrototype();
-            $childJob->setServiceLocator($this->getServiceLocator());
-            $childJob->setSharedManager($this->getSharedManager());
-            $childJob->setLogger($this->getLogger());
-            $childJob->args = [ 'player_id'  => NULL, 'player_data' => $player ];
-            $childJob->perform();
-
         }
+
+        $this->getLogger()->info('Waiting on child jobs..');
+        foreach ($childJobs as $token) {
+            while ( in_array($this->getQueueAdapter()->getJobStatus($token), [1,2], true) ) {
+                usleep(500);
+            }
+        }
+
+        // Clear the OM and reload the team entity to ensure we have the whole picture
+        $this->getTeamService()->getObjectManager()->clear();
+        $team = $this->getTeamService()->findByID($team->getId());
 
         $this->getLogger()->info('Cleaning up orphaned records..');
 
