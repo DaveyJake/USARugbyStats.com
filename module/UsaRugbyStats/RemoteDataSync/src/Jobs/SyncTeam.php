@@ -97,6 +97,7 @@ class SyncTeam extends AbstractJob
             $this->getLogger()->info(sprintf(' - Processing Player %s', $player['ID']));
             $token = $this->getQueueAdapter()->enqueue('sync_player', 'UsaRugbyStats\RemoteDataSync\Jobs\SyncPlayer', [
                 'player_id'    => NULL,
+                'team_id'      => $team->getId(),
                 'player_data'  => $player,
             ]);
             array_push($childJobs, $token);
