@@ -3,8 +3,6 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEve
 
 use Doctrine\Common\Persistence\ObjectManager;
 use UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEventFieldset;
-use Zend\Form\FormInterface;
-use UsaRugbyStats\Competition\Entity\Team;
 
 class CardEventFieldset extends MatchTeamEventFieldset
 {
@@ -25,45 +23,13 @@ class CardEventFieldset extends MatchTeamEventFieldset
             ),
         ));
 
-        $this->addPlayerElements();
-    }
-
-    public function __clone()
-    {
-        parent::__clone();
-
-        $this->remove('player');
-        $this->addPlayerElements();
-    }
-
-    public function prepareElement(FormInterface $form)
-    {
-        if ($this->getTeam()) {
-            $value = $this->get('player')->getValue();
-            $this->remove('player');
-            $this->addPlayerElements();
-            $this->get('player')->setValue($value);
-        }
-
-        return parent::prepareElement($form);
-    }
-
-    protected function addPlayerElements()
-    {
         $this->add(array(
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'type' => 'UsaRugbyStats\Application\Common\ObjectSelect',
             'name' => 'player',
             'options' => array(
                 'label' => 'Player',
-                'object_manager' => $this->getObjectManager(),
+                'object_manager' => $om,
                 'target_class'   => 'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer',
-                'is_method'      => true,
-                'find_method'    => array(
-                    'name'   => 'findAllPlayersForMatchTeam',
-                    'params' => array(
-                        'matchTeam' => $this->getTeam() instanceof Team ? $this->getTeam()->getId() : $this->getTeam(),
-                    ),
-                ),
             ),
         ));
     }

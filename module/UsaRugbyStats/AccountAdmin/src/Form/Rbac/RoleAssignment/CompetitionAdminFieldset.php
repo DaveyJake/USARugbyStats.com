@@ -3,7 +3,7 @@ namespace UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignment;
 
 use UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentFieldset;
 use Doctrine\Common\Persistence\ObjectManager;
-use DoctrineModule\Form\Element\ObjectSelect;
+use UsaRugbyStats\Application\Common\ObjectSelect;
 use Doctrine\Common\Persistence\ObjectRepository;
 use UsaRugbyStats\Application\Common\ElementCollectionHydrator;
 

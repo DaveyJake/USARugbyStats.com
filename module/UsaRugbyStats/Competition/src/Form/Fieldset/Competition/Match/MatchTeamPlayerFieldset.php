@@ -76,36 +76,16 @@ class MatchTeamPlayerFieldset extends Fieldset
             ),
         ));
 
-        $this->addPlayerSelect(null);
-    }
-
-    public function addPlayerSelect($t = null)
-    {
-        $selectedValue = null;
-
-        if ( $this->has('player') ) {
-            $selectedValue = $this->get('player')->getValue();
-            $this->remove('player');
-        }
-
         $this->add(array(
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'type' => 'UsaRugbyStats\Application\Common\ObjectSelect',
             'name' => 'player',
             'options' => array(
                 'label' => 'Player',
                 'object_manager' => $this->objectManager,
                 'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
-                'is_method'      => true,
-                'find_method'    => array(
-                    'name'   => 'findAllCurrentMembersForTeam',
-                    'params' => array(
-                        'team' => $t,
-                    ),
-                ),
                 'display_empty_item' => true,
                 'empty_item_label'   => 'Select a Player',
             ),
         ));
-        $this->get('player')->setValue($selectedValue);
     }
 }

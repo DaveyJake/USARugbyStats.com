@@ -2,7 +2,7 @@
 namespace UsaRugbyStats\Competition\Form\Fieldset\Union;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use DoctrineModule\Form\Element\ObjectSelect;
+use UsaRugbyStats\Application\Common\ObjectSelect;
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectRepository;
 

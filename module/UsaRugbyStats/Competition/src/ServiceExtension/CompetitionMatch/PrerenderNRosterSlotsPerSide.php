@@ -44,7 +44,6 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
         foreach ($players as $item) {
             $players->remove($item->getName());
             $item->setName($item->get('number')->getValue());
-            $item->addPlayerSelect($team);
             $tempStorage[$item->get('number')->getValue()] = $item;
         }
 
@@ -63,7 +62,6 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
 
             $item = clone $players->getTargetElement();
             $item->setName($key);
-            $item->addPlayerSelect($team);
             $players->add($item);
 
             $valueOptions = $item->get('position')->getValueOptions();

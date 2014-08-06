@@ -4,7 +4,7 @@ namespace UsaRugbyStats\CompetitionAdmin\Form\Fieldset\Team;
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
-use DoctrineModule\Form\Element\ObjectSelect;
+use UsaRugbyStats\Application\Common\ObjectSelect;
 
 class MemberFieldset extends Fieldset
 {

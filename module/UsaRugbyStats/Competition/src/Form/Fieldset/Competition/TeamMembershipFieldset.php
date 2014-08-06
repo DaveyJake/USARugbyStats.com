@@ -23,7 +23,7 @@ class TeamMembershipFieldset extends Fieldset
         ));
 
         $this->add(array(
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'type' => 'UsaRugbyStats\Application\Common\ObjectSelect',
             'name' => 'team',
             'options' => array(
                 'label' => 'Team',

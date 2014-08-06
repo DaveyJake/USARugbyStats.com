@@ -44,7 +44,7 @@ class MatchFieldset extends Fieldset
         ));
 
         $this->add(array(
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'type' => 'UsaRugbyStats\Application\Common\ObjectSelect',
             'name' => 'location',
             'options' => array(
                 'label' => 'Location',
@@ -75,7 +75,7 @@ class MatchFieldset extends Fieldset
             'name'    => 'teams',
             'options' => array(
                 'target_element' => $fsHomeTeam,
-                'count' => 2,
+                'count' => 0,
             )
         ));
 

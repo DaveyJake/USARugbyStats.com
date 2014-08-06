@@ -37,6 +37,9 @@ return array(
                         'drop_events_if_match_is_not_started' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\DropEventsIfMatchIsNotStarted',
                         'drop_players_if_team_changed_or_not_set' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\DropPlayersIfTeamChangedOrNotSet',
                         'prerender_n_roster_slots_per_side' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\PrerenderNRosterSlotsPerSide',
+                        'filter_team_selection_by_competition' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamSelectionByCompetition',
+                        'filter_team_event_player_selectors_by_roster' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamEventPlayerSelectorsByRoster',
+                        'filter_team_roster_player_selectors' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamRosterPlayerSelectors',
                     ),
                     'factories' => array(
                         'rbac_can_change_match' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac\CanChangeMatchFactory',
@@ -51,6 +54,9 @@ return array(
                 'event_map' => array(
                     'prepare.post' => array(
                         'prerender_n_roster_slots_per_side',
+                        'filter_team_selection_by_competition',
+                        'filter_team_event_player_selectors_by_roster',
+                        'filter_team_roster_player_selectors',
                     ),
                     'form.populate' => array(
                         'remove_unused_roster_slots_from_form_data' => 80,

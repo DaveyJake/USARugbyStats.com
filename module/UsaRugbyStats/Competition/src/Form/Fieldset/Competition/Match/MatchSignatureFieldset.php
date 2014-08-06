@@ -34,7 +34,7 @@ class MatchSignatureFieldset extends Fieldset
         ));
 
         $this->add(array(
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'type' => 'UsaRugbyStats\Application\Common\ObjectSelect',
             'name' => 'account',
             'options' => array(
                 'label' => 'Signee',
