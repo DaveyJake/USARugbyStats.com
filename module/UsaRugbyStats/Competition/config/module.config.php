@@ -28,6 +28,7 @@ return array(
                     'invokables' => array(
                         'state_not_yet_started' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\ToggleSectionsBasedOnMatchStatus',
                         'disable_editing_on_locked_match' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\DisableEditingWhenLocked',
+                        'lock_match_with_all_signatures' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\LockMatchWithAllSignatures',
                         'hide_roster_if_team_is_not_selected' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\HideRosterIfTeamIsNotSelected',
                         'hide_status_and_locked_fields_when_creating_new_match' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\HideStatusAndLockedFieldsWhenCreatingNewMatch',
                         'signatures_cannot_be_modified' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\SignaturesCannotBeModified',
@@ -79,6 +80,7 @@ return array(
                         'drop_signaures_when_match_modified' => 10,
                         'drop_events_if_match_is_not_started' => 10,
                         'drop_players_if_team_changed_or_not_set' => 10,
+                        'lock_match_with_all_signatures' => 99999,
                     )
                 ),
             ),
