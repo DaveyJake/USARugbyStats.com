@@ -5,9 +5,11 @@
 
     <entity name="UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature" table="competition_competition_match_signature">
 
+<!--
         <unique-constraints>
             <unique-constraint columns="match_id,type" />
         </unique-constraints>
+-->
 
         <id name="id" type="integer"><generator strategy="AUTO" /></id>
 

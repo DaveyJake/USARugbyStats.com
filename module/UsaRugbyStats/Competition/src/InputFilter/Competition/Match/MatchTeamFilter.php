@@ -4,7 +4,6 @@ namespace UsaRugbyStats\Competition\InputFilter\Competition\Match;
 use Zend\InputFilter\InputFilter;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Zend\InputFilter\CollectionInputFilter;
-use UsaRugbyStats\Application\Common\NestedCollectionInputFilter;
 
 /**
  * Match Team Input Filter

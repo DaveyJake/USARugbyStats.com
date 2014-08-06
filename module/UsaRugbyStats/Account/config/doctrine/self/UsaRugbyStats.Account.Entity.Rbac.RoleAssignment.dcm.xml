@@ -9,9 +9,11 @@
             <generator strategy="AUTO" />
         </id>
 
+<!--
         <unique-constraints>
             <unique-constraint columns="account_id,role_id" name="role_mapping" />
         </unique-constraints>
+-->
 
         <many-to-one field="account" target-entity="UsaRugbyStats\Application\Entity\AccountInterface" inversed-by="roleAssignments">
             <join-column name="account_id" referenced-column-name="user_id" />
