@@ -2,8 +2,8 @@
 return array(
     'doctrine' => array(
         'fixture' => array(
-            'UsaRugbyStats_Account_fixture_dev' => 'module/UsaRugbyStats/Account/src/Fixtures/Development',
-            'UsaRugbyStats_Competition_fixture_dev' => 'module/UsaRugbyStats/Competition/src/Fixtures/Development',
+            'UsaRugbyStats_Account_fixture_testing' => 'module/UsaRugbyStats/Account/src/Fixtures/Testing',
+            'UsaRugbyStats_Competition_fixture_testing' => 'module/UsaRugbyStats/Competition/src/Fixtures/Testing',
         )
     )
 );
