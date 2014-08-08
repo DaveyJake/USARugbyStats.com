@@ -18,7 +18,7 @@ class MatchSignatureCollectionFilter extends CollectionInputFilter
 
     public function isValid()
     {
-        parent::isValid();
+        $result = parent::isValid();
 
         // @TODO better way to ensure collection has unique signature types?
         $values = $this->getValues();
