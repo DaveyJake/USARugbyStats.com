@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\Account\Fixtures;
+namespace UsaRugbyStats\Account\Fixtures\Doctrine;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -7,6 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use UsaRugbyStats\Account\Entity\Account;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
+use Zend\Math\Rand;
 
 class DefaultAccountsFixture implements FixtureInterface, DependentFixtureInterface, ServiceLocatorAwareInterface
 {
@@ -22,7 +23,7 @@ class DefaultAccountsFixture implements FixtureInterface, DependentFixtureInterf
             echo " - {$acct['username']}";
 
             if ( !isset($acct['password']) || empty($acct['password']) ) {
-                $acct['password'] = uniqid();
+                $acct['password'] = Rand::getString(24,null,true);
                 echo " (password = " . $acct['password'] . " )";
             }
             $acct['passwordVerify'] = $acct['password'];
@@ -45,11 +46,12 @@ class DefaultAccountsFixture implements FixtureInterface, DependentFixtureInterf
 
     public function getDependencies()
     {
-        return [ 'UsaRugbyStats\Account\Fixtures\Common\RbacRoleFixture'];
+        return [ 'UsaRugbyStats\Account\Fixtures\Doctrine\RbacRoleFixture'];
     }
 
     protected $accountData = array(
-        [ 'username' => 'administrator', 'email' => 'usarugbymedia@gmail.com', 'display_name' => 'Administrator', 'roleAssignments' => [[ 'type' => 'super_admin' ]] ],
+        [ 'id' => 1, 'username' => 'consoleadmin', 'email' => 'usarugbymedia+consoleadmin@gmail.com', 'display_name' => 'Console Administrator', 'roleAssignments' => [[ 'type' => 'super_admin' ]] ],
+        [ 'id' => 2, 'username' => 'administrator', 'email' => 'usarugbymedia@gmail.com', 'display_name' => 'Administrator', 'roleAssignments' => [[ 'type' => 'super_admin' ]] ],
     );
 
 }

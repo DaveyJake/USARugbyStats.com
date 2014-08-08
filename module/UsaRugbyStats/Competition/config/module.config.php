@@ -10,6 +10,35 @@ return array(
             ),
         ),
 
+        'data-importer' => array(
+            'tasks' => array(
+                'factories' => array(
+                    'Competition.ImportTeams' => 'UsaRugbyStats\Competition\DataImporter\ImportTeamsTaskFactory',
+                    'Competition.ImportUnions' => 'UsaRugbyStats\Competition\DataImporter\ImportUnionsTaskFactory',
+                    'Competition.ImportCompetitions' => 'UsaRugbyStats\Competition\DataImporter\ImportCompetitionsTaskFactory',
+                ),
+            ),
+            'fixtures' => array(
+                'testing' => array(
+                    'competition_unions' => array(
+                        'file' => __DIR__ . '/../data/fixtures/testing/unions.php',
+                        'task' => 'Competition.ImportUnions',
+                        'dependencies' => [ ],
+                    ),
+                    'competition_teams' => array(
+                        'file' => __DIR__ . '/../data/fixtures/testing/teams.php',
+                        'task' => 'Competition.ImportTeams',
+                        'dependencies' => [ 'testing.competition_unions' ],
+                    ),
+                    'competition_competitions' => array(
+                        'file' => __DIR__ . '/../data/fixtures/testing/competitions.php',
+                        'task' => 'Competition.ImportCompetitions',
+                        'dependencies' => [ 'testing.competition_teams' ],
+                    ),
+                ),
+            ),
+        ),
+
         'service_extensions' => array(
             'usarugbystats_competition_team_service' => array(
                 'extension_manager' => array(
@@ -231,7 +260,7 @@ return array(
             )
         ),
         'fixture' => array(
-            'UsaRugbyStats_Competition_fixture_common' => __DIR__ . '/../src/Fixtures/Common',
+            'UsaRugbyStats_Competition_fixture' => __DIR__ . '/../src/Fixtures/Doctrine',
         ),
     ),
     'audit' => array(

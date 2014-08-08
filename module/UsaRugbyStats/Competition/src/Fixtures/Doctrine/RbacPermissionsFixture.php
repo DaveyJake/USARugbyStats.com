@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\Account\Fixtures\Common;
+namespace UsaRugbyStats\Account\Fixtures\Doctrine;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use UsaRugbyStats\Account\Entity\Rbac\Permission;
 use UsaRugbyStats\Account\Entity\Rbac\Role;
 
-class PermissionsFixture implements FixtureInterface, DependentFixtureInterface
+class RbacPermissionsFixture implements FixtureInterface, DependentFixtureInterface
 {
     /**
      * {@inheritDoc}
@@ -45,7 +45,7 @@ class PermissionsFixture implements FixtureInterface, DependentFixtureInterface
 
     public function getDependencies()
     {
-        return [ 'UsaRugbyStats\Account\Fixtures\Common\RbacRoleFixture'];
+        return [ 'UsaRugbyStats\Account\Fixtures\Doctrine\RbacRoleFixture'];
     }
 
     protected $permissions = [

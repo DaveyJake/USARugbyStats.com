@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\Account\Fixtures\Common;
+namespace UsaRugbyStats\Account\Fixtures\Doctrine;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
