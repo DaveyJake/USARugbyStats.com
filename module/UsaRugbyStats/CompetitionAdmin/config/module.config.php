@@ -349,7 +349,9 @@ return array(
         'factories' => array(
             'usarugbystats_competition-admin_team_service' => 'UsaRugbyStats\CompetitionAdmin\Service\TeamAdminServiceFactory',
             'usarugbystats_competition-admin_team_administrator_fieldset' => 'UsaRugbyStats\CompetitionAdmin\Form\Fieldset\Team\AdministratorFieldsetFactory',
+            'usarugbystats_competition-admin_team_administrator_inputfilter' => 'UsaRugbyStats\CompetitionAdmin\InputFilter\Team\AdministratorFilterFactory',
             'usarugbystats_competition-admin_team_member_fieldset' => 'UsaRugbyStats\CompetitionAdmin\Form\Fieldset\Team\MemberFieldsetFactory',
+            'usarugbystats_competition-admin_team_member_inputfilter' => 'UsaRugbyStats\CompetitionAdmin\InputFilter\Team\MemberFilterFactory',
             'usarugbystats_competition-admin_team_createform' => 'UsaRugbyStats\CompetitionAdmin\Form\TeamCreateFormFactory',
             'usarugbystats_competition-admin_team_updateform' => 'UsaRugbyStats\CompetitionAdmin\Form\TeamUpdateFormFactory',
         ),

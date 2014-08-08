@@ -43,6 +43,23 @@ class TeamFilter extends InputFilter
         ));
 
         $this->add(array(
+            'name'       => 'union',
+            'required'   => true,
+            'validators' => array(
+                array(
+                    'name' => 'DoctrineModule\Validator\ObjectExists',
+                    'options' => array(
+                        'object_repository' => $objectManager->getRepository('UsaRugbyStats\Competition\Entity\Union'),
+                        'fields' => 'id',
+                    )
+                ),
+            ),
+            'filters'   => array(
+                array('name' => 'Int'),
+            ),
+        ));
+
+        $this->add(array(
             'name'       => 'email',
             'required'   => false,
             'validators' => array(
@@ -82,4 +99,5 @@ class TeamFilter extends InputFilter
             ),
         ));
     }
+
 }

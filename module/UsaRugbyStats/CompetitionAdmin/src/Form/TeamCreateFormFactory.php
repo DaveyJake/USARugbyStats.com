@@ -6,6 +6,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 use Zend\Stdlib\Hydrator\ObjectProperty;
+use Zend\InputFilter\CollectionInputFilter;
+use UsaRugbyStats\Application\Common\ExtendedValidationGroupForm;
 
 class TeamCreateFormFactory implements FactoryInterface
 {
@@ -17,7 +19,7 @@ class TeamCreateFormFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $form = new Form('create-team');
+        $form = new ExtendedValidationGroupForm('create-team');
 
         $form->setHydrator(new ObjectProperty());
         $form->setObject(new \stdClass());
@@ -60,9 +62,22 @@ class TeamCreateFormFactory implements FactoryInterface
         // Construct the input filter
 
         $teamInputFilter = $sm->get('usarugbystats_competition_team_inputfilter');
+        $ifAdministrator = $sm->get('usarugbystats_competition-admin_team_administrator_inputfilter');
+        $ifMember = $sm->get('usarugbystats_competition-admin_team_member_inputfilter');
 
         $if = new InputFilter();
         $if->add($teamInputFilter, 'team');
+
+        $cifAdministrators = new CollectionInputFilter();
+        $cifAdministrators->setInputFilter($ifAdministrator);
+        $cifAdministrators->setIsRequired(false);
+        $if->add($cifAdministrators, 'administrators');
+
+        $cifMembers = new CollectionInputFilter();
+        $cifMembers->setInputFilter($ifMember);
+        $cifMembers->setIsRequired(false);
+        $if->add($cifMembers, 'members');
+
         $form->setInputFilter($if);
 
         return $form;
