@@ -31,7 +31,7 @@ abstract class AbstractController extends AbstractActionController
     }
 
     /**
-     * @param Logger $obj
+     * @param  Logger $obj
      * @return self
      */
     public function setLogger(Logger $obj)
@@ -48,19 +48,21 @@ abstract class AbstractController extends AbstractActionController
     {
         if ( empty($this->taskService) ) {
             $this->taskService = $this->getServiceLocator()->get(
-	           'usarugbystats_data-importer_task-service'
+               'usarugbystats_data-importer_task-service'
             );
         }
+
         return $this->taskService;
     }
 
     /**
-     * @param TaskService $s
+     * @param  TaskService $s
      * @return self
      */
     public function setTaskService(TaskService $s)
     {
         $this->taskService = $s;
+
         return $this;
     }
 
@@ -74,16 +76,18 @@ abstract class AbstractController extends AbstractActionController
                 'usarugbystats_data-importer_fixture-service'
             );
         }
+
         return $this->fixtureService;
     }
 
     /**
-     * @param FixtureService $s
+     * @param  FixtureService $s
      * @return self
      */
     public function setFixtureService(FixtureService $s)
     {
         $this->fixtureService = $s;
+
         return $this;
     }
 }

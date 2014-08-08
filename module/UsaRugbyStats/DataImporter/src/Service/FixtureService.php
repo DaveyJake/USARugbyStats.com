@@ -16,6 +16,7 @@ class FixtureService
     public function setFixtureMap(array $map)
     {
         $this->fixtureMap = $map;
+
         return $this;
     }
 
@@ -27,6 +28,7 @@ class FixtureService
     public function getFixture($fqn)
     {
         $parts = explode('.', $fqn);
+
         return @$this->fixtureMap[$parts[0]][$parts[1]];
     }
 }

@@ -23,7 +23,7 @@ class DefaultAccountsFixture implements FixtureInterface, DependentFixtureInterf
             echo " - {$acct['username']}";
 
             if ( !isset($acct['password']) || empty($acct['password']) ) {
-                $acct['password'] = Rand::getString(24,NULL,true);
+                $acct['password'] = Rand::getString(24,null,true);
                 echo " (password = " . $acct['password'] . " )";
             }
             $acct['passwordVerify'] = $acct['password'];

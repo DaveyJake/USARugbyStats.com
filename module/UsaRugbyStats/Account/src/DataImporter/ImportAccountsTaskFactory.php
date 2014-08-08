@@ -3,7 +3,6 @@ namespace UsaRugbyStats\Account\DataImporter;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use UsaRugbyStats\DataImporter\Service\TaskService;
 
 class ImportAccountsTaskFactory implements FactoryInterface
 {

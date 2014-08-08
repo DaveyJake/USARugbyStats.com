@@ -17,20 +17,22 @@ class TaskRunner extends AbstractController
         $task_id = trim($this->params()->fromRoute('task'));
         if ( empty($task_id) ) {
             $this->getLogger()->crit('No task name specified!');
+
             return;
         }
 
         $this->getLogger()->info(sprintf('Loading task: %s', $task_id));
         if ( ! $this->getTaskService()->has($task_id, true, false) ) {
             $this->getLogger()->crit('No task matching that name was found');
+
             return;
         }
         $task = $this->getTaskService()->get($task_id);
-        if ( $task instanceof LoggerAwareInterface ) {
+        if ($task instanceof LoggerAwareInterface) {
             $task->setLogger($this->getLogger());
         }
 
-        $data = NULL;
+        $data = null;
 
         $this->getLogger()->info('Loading data from file...');
         $filename = $this->params()->fromRoute('file');
@@ -40,6 +42,7 @@ class TaskRunner extends AbstractController
 
         if ( empty($data) ) {
             $this->getLogger()->crit('No data was loaded!');
+
             return;
         }
 
