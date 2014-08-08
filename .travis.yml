@@ -20,9 +20,9 @@ install:
 before_script:
   - mysql -e 'create database usarugby'
   - cp .travisci/doctrine.local.php.dist config/autoload/doctrine.local.php
-  - cp config/autoload/dev_fixtures.local.php.dist config/autoload/dev_fixtures.local.php
   - ./bin/doctrine-module orm:schema-tool:create
   - ./bin/doctrine-module data-fixture:import 
+  - ./bin/console data-importer run-fixtures --group=testing
   - sudo sh -e .travisci/start_selenium2.sh
 
 script:
@@ -31,10 +31,10 @@ script:
   # Run the unit tests
   - find module -type f -name "phpunit.xml" | sort | while read FILE; do ./bin/phpunit -c $FILE; done;
   # Set up database for Behat tests
-  - cp .travisci/testing.local.php.dist config/autoload/dev_fixtures.local.php
   - ./bin/doctrine-module orm:schema-tool:drop --force
   - ./bin/doctrine-module orm:schema-tool:create
   - ./bin/doctrine-module data-fixture:import 
+  - ./bin/console data-importer run-fixtures --group=testing
   # The version of Behat we use doesn't support PHP 5.6 (@see https://github.com/Behat/Behat/issues/525)
   - if [[ "$TRAVIS_PHP_VERSION" != "5.6" ]]; then find module -type f -name "behat.yml.dist" | sort | while read FILE; do REALFILE=${FILE/.dist/}; if [ ! -f "$REALFILE" ]; then cp "$FILE" "$REALFILE"; fi; ./bin/behat --config $REALFILE; done; fi;
 
