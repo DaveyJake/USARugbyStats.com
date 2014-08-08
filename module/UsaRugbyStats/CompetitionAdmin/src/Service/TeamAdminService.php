@@ -54,21 +54,21 @@ class TeamAdminService extends TeamService
 
     public function getMembersForTeam(Team $t)
     {
-        $rawData = $this->getAccountRepository()->findAllMembersForTeam($t);
+        $rawData = $t->getMembers();
         $resultset = array();
 
-        foreach ($rawData as $account) {
-            if (! $account instanceof Account) {
+        foreach ($rawData as $membership) {
+            if (! $membership instanceof TeamMembership) {
                 continue;
             }
 
-            $role = $account->getRoleAssignment('member');
+            $role = $membership->getRole();
             if (! $role instanceof Member) {
                 continue;
             }
 
-            $membership = $role->getMembershipForTeam($t);
-            if (! $membership instanceof TeamMembership) {
+            $account = $role->getAccount();
+            if (! $account instanceof Account) {
                 continue;
             }
 
@@ -123,14 +123,12 @@ class TeamAdminService extends TeamService
         // to suppress input validator failures on missing records (@see GH-15)
         if ( !isset($data['administrators']) || empty($data['administrators']) ) {
             $entity->administrators = array();
-            $fsAdministrators = $this->session->form->remove('administrators');
         }
 
         // If we're deleting all the member records, empty before form bind
         // to suppress input validator failures on missing records (@see GH-15)
         if ( !isset($data['members']) || empty($data['members']) ) {
             $entity->members = array();
-            $fsMembers = $this->session->form->remove('members');
         }
 
         // Run the embedded Team entity through the normal, Doctrine-linked process
