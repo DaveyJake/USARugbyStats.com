@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\Account\Fixtures;
+namespace UsaRugbyStats\Account\Fixtures\Doctrine;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -45,11 +45,11 @@ class DefaultAccountsFixture implements FixtureInterface, DependentFixtureInterf
 
     public function getDependencies()
     {
-        return [ 'UsaRugbyStats\Account\Fixtures\Common\RbacRoleFixture'];
+        return [ 'UsaRugbyStats\Account\Fixtures\Doctrine\RbacRoleFixture'];
     }
 
     protected $accountData = array(
-        [ 'username' => 'administrator', 'email' => 'usarugbymedia@gmail.com', 'display_name' => 'Administrator', 'roleAssignments' => [[ 'type' => 'super_admin' ]] ],
+        [ 'username' => 'administrator', 'email' => 'usarugbymedia@gmail.com', 'display_name' => 'Administrator', 'roleAssignments' => [[ 'type' => 'super_admin' ]] ]
     );
 
 }

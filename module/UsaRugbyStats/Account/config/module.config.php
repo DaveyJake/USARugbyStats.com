@@ -82,7 +82,7 @@ return array(
             ),
         ),
         'fixture' => array(
-            'UsaRugbyStats_Account_fixture_common' => __DIR__ . '/../src/Fixtures/Common',
+            'UsaRugbyStats_Account_fixture' => __DIR__ . '/../src/Fixtures/Doctrine',
         ),
     ),
 

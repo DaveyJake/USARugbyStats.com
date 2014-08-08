@@ -231,7 +231,7 @@ return array(
             )
         ),
         'fixture' => array(
-            'UsaRugbyStats_Competition_fixture_common' => __DIR__ . '/../src/Fixtures/Common',
+            'UsaRugbyStats_Competition_fixture' => __DIR__ . '/../src/Fixtures/Doctrine',
         ),
     ),
     'audit' => array(
