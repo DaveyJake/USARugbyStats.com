@@ -35,7 +35,7 @@ vagrantfile-local:
             oQUn9u559eNn:
                 source: ../
                 target: /project
-                nfs: 'false'
+                nfs: 'true'
         usable_port_range: 2200..2250
     ssh:
         host: null
