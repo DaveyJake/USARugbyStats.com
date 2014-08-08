@@ -1,10 +1,41 @@
 #!/usr/bin/env php
 <?php
-require_once __DIR__.'/../vendor/autoload.php';
 
-use Source\Command\QueueRunCommand;
-use Symfony\Component\Console\Application;
+use ZfcUser\Authentication\Adapter\AdapterChain;
+use ZfcUser\Authentication\Adapter\AdapterChainEvent;
+use Zend\Authentication\Result;
 
-$application = new Application();
-$application->add(new QueueRunCommand);
-$application->run();
+/**
+ * This makes our life easier when dealing with paths. Everything is relative
+ * to the application root now.
+ */
+chdir(dirname(__DIR__));
+
+if (php_sapi_name() !== 'cli') {
+    die('You cannot access this file directly!');
+}
+
+// Composer autoloading
+if (file_exists('vendor/autoload.php')) {
+    $loader = include 'vendor/autoload.php';
+}
+
+if (!class_exists('Zend\Loader\AutoloaderFactory')) {
+    throw new RuntimeException('Unable to load ZF2. Run `php composer.phar install` or define a ZF2_PATH environment variable.');
+}
+
+// Run the application!
+$app = Zend\Mvc\Application::init(require 'config/application.config.php');
+$sm = $app->getServiceManager();
+
+$authService = $sm->get('zfcuser_auth_service');
+$authAdapterChain = new AdapterChain();
+$authAdapterChain->getEventManager()->attach('authenticate', function(AdapterChainEvent $e) {
+    $e->setCode(Result::SUCCESS)
+      ->setIdentity(1);
+});
+$authAdapterChain->prepareForAuthentication(new \Zend\Console\Request());
+$authService->authenticate($authAdapterChain);
+
+
+$app->run();
