@@ -1,5 +1,25 @@
 <?php
 return array(
+
+    'usarugbystats' => array(
+        'data-importer' => array(
+            'tasks' => array(
+                'factories' => array(
+                    'Account.ImportAccounts' => 'UsaRugbyStats\Account\DataImporter\ImportAccountsTaskFactory',
+                ),
+            ),
+            'fixtures' => array(
+                'testing' => array(
+                    'account_accounts' => array(
+                        'file' => __DIR__ . '/../data/fixtures/testing/accounts.php',
+                        'task' => 'Account.ImportAccounts',
+                        'dependencies' => [ 'testing.competition_unions', 'testing.competition_teams', 'testing.competition_competitions' ],
+                    ),
+                ),
+            ),
+        ),
+    ),
+
     'router' => array(
         'routes' => array(
             'zfcuser' => array(
