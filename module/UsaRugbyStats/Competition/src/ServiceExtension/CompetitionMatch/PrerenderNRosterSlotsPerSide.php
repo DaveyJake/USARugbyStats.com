@@ -43,8 +43,7 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
         $tempStorage = [];
         foreach ($players as $item) {
             $players->remove($item->getName());
-            $item->setName($item->get('number')->getValue());
-            $tempStorage[$item->get('number')->getValue()] = $item;
+            $tempStorage[$item->get('position')->getValue()] = $item;
         }
 
         $optimalLevel = $competition->getVariant() == Competition::VARIANT_FIFTEENS ? 23 : 15;
@@ -53,26 +52,24 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
             ? ( $competition->getMaxPlayersOnRoster() ?: $optimalLevel )
             : $optimalLevel;
 
-        // Pre-fill the first 23 roster slots with appropriate number and position
-        for ($key = 1; $key <= min($maxRosteredPlayers,$optimalLevel); $key++) {
+        $positions = $players->getTargetElement()->positions[$competition->getVariant()];
 
-            if ( isset($tempStorage[$key]) ) {
-                $players->add($tempStorage[$key]);
-                unset($tempStorage[$key]);
+        // Pre-fill the first N roster slots with appropriate number and position
+        $number = 0;
+        foreach ( $positions as $positionKey => $positionName ) {
+            if ( isset($tempStorage[$positionKey]) ) {
+                $players->add($tempStorage[$positionKey]);
+                unset($tempStorage[$positionKey]);
+                $number++;
                 continue;
             }
 
             $item = clone $players->getTargetElement();
-            $item->setName($key);
+            $item->setName($number);
+            $item->get('position')->setValue($positionKey);
+            $item->get('number')->setValue($number);
             $players->add($item);
-
-            $valueOptions = $item->get('position')->getValueOptions();
-            $thisPosition = array_slice($valueOptions, $key-1, 1, true);
-            if ( count($thisPosition) == 1 ) {
-                $thisPositionKey = array_keys($thisPosition);
-                $item->get('position')->setValue(array_pop($thisPositionKey));
-                $item->get('number')->setValue($key);
-            }
+            $number++;
         }
 
         // Re-add any extra records (>23) to the bottom

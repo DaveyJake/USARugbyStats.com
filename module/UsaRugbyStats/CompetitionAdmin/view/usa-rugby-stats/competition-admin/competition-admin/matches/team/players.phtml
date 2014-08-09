@@ -8,7 +8,6 @@
             <th>Player</th>
             <th>Position</th>
             <th style="text-align:center">FR?</th>
-            <?php if ( $canEdit ): ?><th></th><?php endif; ?>
         </tr>
     </thead>
     <tbody>
@@ -16,35 +15,4 @@
         <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', array_merge($argv, ['fieldset' => $fsPlayer])); ?>
         <?php endforeach; ?>
     </tbody>
-    <?php if ($canEdit): ?>
-    <tfoot>
-        <tr>
-            <td colspan="5">
-                <a class="btn btn-sm btn-primary competition-match-team-roster-addplayer" title="Add a Player"><i class="glyphicon glyphicon-plus-sign"></i> Add a Player</a>
-            </td>
-        </tr>
-    </tfoot>
-    <?php endif; ?>
 </table>
-
-<?php if ($canEdit): ?>
-<script type="text/javascript">
-    var rosterPlayerTemplate<?=$type?> = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', array_merge($argv, ['fieldset' => $fieldset->get('players')->getTemplateElement(), 'isTemplate' => true]))); ?>';
-    var rosterPlayerIndex<?=$type?> = <?php echo $this->escapeJs(count($fieldset->get('players'))); ?>;
-    var maxPlayersOnRoster = <?php echo (int)(isset($competition) ? $competition->getMaxPlayersOnRoster() : ( isset($entity) ? $entity->getCompetition()->getgetMaxPlayersOnRoster() : 0)); ?>;
-
-    $(document).on('click', '.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster-addplayer', function() {
-        var rosteredPlayerCount = $('.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster tbody tr').length;
-        if ( maxPlayersOnRoster > 0 && rosteredPlayerCount >= maxPlayersOnRoster ) {
-            alert('Maximum number of rostered players ('+maxPlayersOnRoster+') reached!');
-            return;
-        }
-
-        var html = rosterPlayerTemplate<?=$type?>.replace(/__playerindex__/g, rosterPlayerIndex<?=$type?>++);
-        $('.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster tbody').append(html);
-    });
-    $(document).on('click', '.competition-match-team-<?= ($type == 'H') ? 'home' : 'away'; ?> .competition-match-team-roster-removeplayer', function() {
-        $(this).closest('tr').remove();
-    });
-</script>
-<?php endif; ?>

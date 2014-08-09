@@ -74,7 +74,7 @@ class MatchTeamPlayerFieldset extends Fieldset
             'name' => 'number',
             'options' => array(
                 'label' => 'Type',
-                'value_options' => range(0,99),
+                'value_options' => range(1,99),
             ),
         ));
 

@@ -71,6 +71,7 @@ return array(
                         'filter_team_event_player_selectors_by_roster' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamEventPlayerSelectorsByRoster',
                         'filter_team_roster_player_selectors' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamRosterPlayerSelectors',
                         'filter_team_roster_position_selectors' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamRosterPositionSelectors',
+                        'force_roster_slot_selections' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\ForceRosterSlotSelections',
                     ),
                     'factories' => array(
                         'rbac_can_change_match' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac\CanChangeMatchFactory',
@@ -92,6 +93,7 @@ return array(
                     ),
                     'form.populate' => array(
                         'remove_unused_roster_slots_from_form_data' => 80,
+                        'force_roster_slot_selections' => 90,
                         'emptying_collections_hack' => -9999,
                     ),
                     'form.bind.post' => array(

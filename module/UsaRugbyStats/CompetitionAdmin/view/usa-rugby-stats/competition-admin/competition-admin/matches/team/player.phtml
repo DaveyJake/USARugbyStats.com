@@ -23,12 +23,8 @@
 
     <td class="column column-position">
         <?php $element = $fieldset->get('position'); ?>
-        <?php if ( $canEdit ): ?>
-        <?php echo $this->formElement($element) ?>
-        <?php else: ?>
-        <?php   $options = $element->getValueOptions(); ?>
+        <?php $options = $element->getValueOptions(); ?>
         <?php echo $this->escapeHtml(isset($options[$element->getValue()]) ? $options[$element->getValue()] : '???'); ?>
-        <?php endif;?>
         <?php echo $this->formElementErrors($element); ?>
     </td>
 
@@ -41,11 +37,4 @@
         <?php endif;?>
         <?php echo $this->formElementErrors($element); ?>
     </td>
-
-    <?php if ( $canEdit ): ?>
-    <td>
-        <?php echo $this->formHidden($fieldset->get('id')); ?>
-        <a class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove competition-match-team-roster-removeplayer"></i></a>
-    </td>
-    <?php endif; ?>
 </tr>
