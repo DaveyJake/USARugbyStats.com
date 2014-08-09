@@ -9,9 +9,6 @@
         <field name="variant" type="string" length="3" />
         <field name="maxPlayersOnRoster" type="integer" />
 
-        <field name="startDate" type="datetime" />
-        <field name="endDate" type="datetime" />
-
         <one-to-many field="divisions" target-entity="UsaRugbyStats\Competition\Entity\Competition\Division" mapped-by="competition" orphan-removal="true">
             <cascade>
                 <cascade-all />
