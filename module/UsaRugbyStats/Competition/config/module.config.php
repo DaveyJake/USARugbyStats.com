@@ -106,6 +106,9 @@ return array(
                         'rbac_can_change_match_team_roster' => 999999,
                         'rbac_can_change_match_team_events' => 999999,
                     ),
+                    'form.validate.post' => array(
+                        'prerender_n_roster_slots_per_side',
+                    ),
                     'save' => array(
                         'drop_signaures_when_match_modified' => 10,
                         // @see #110 - Reverting match to "Not Yet Started" removes all game events
