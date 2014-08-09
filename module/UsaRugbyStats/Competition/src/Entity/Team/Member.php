@@ -10,6 +10,13 @@ use UsaRugbyStats\Competition\Entity\Team;
  */
 class Member
 {
+    const STATUS_UNKNOWN = null;
+    const STATUS_UNPAID = 0;
+    const STATUS_PENDING = 1;
+    const STATUS_CURRENT = 2;
+    const STATUS_GRACEPERIOD = 3;
+    const STATUS_LAPSED = 4;
+
     /**
      * Record Primary Key
      *

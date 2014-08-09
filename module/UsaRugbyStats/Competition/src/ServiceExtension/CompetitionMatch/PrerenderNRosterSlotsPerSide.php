@@ -56,7 +56,7 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
 
         // Pre-fill the first N roster slots with appropriate number and position
         $number = 0;
-        foreach ( $positions as $positionKey => $positionName ) {
+        foreach ($positions as $positionKey => $positionName) {
             if ( isset($tempStorage[$positionKey]) ) {
                 $players->add($tempStorage[$positionKey]);
                 unset($tempStorage[$positionKey]);

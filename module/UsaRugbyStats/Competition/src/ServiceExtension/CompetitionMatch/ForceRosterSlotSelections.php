@@ -28,8 +28,7 @@ class ForceRosterSlotSelections extends AbstractRule
     {
         $variant = $e->getParams()->competition->getVariant();
 
-
-        foreach ( ['H','A'] as $side ) {
+        foreach (['H','A'] as $side) {
             if ( !isset($e->getParams()->data['match']['teams'][$side]['players']) ) {
                 continue;
             }
