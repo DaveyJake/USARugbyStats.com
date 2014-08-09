@@ -47,12 +47,14 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
             $tempStorage[$item->get('number')->getValue()] = $item;
         }
 
+        $optimalLevel = $competition->getVariant() == Competition::VARIANT_FIFTEENS ? 23 : 15;
+
         $maxRosteredPlayers = $competition instanceof Competition
-            ? ( $competition->getMaxPlayersOnRoster() ?: 23 )
-            : 23;
+            ? ( $competition->getMaxPlayersOnRoster() ?: $optimalLevel )
+            : $optimalLevel;
 
         // Pre-fill the first 23 roster slots with appropriate number and position
-        for ($key = 1; $key <= min($maxRosteredPlayers,23); $key++) {
+        for ($key = 1; $key <= min($maxRosteredPlayers,$optimalLevel); $key++) {
 
             if ( isset($tempStorage[$key]) ) {
                 $players->add($tempStorage[$key]);

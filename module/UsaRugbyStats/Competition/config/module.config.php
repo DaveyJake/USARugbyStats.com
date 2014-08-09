@@ -70,6 +70,7 @@ return array(
                         'filter_team_selection_by_competition' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamSelectionByCompetition',
                         'filter_team_event_player_selectors_by_roster' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamEventPlayerSelectorsByRoster',
                         'filter_team_roster_player_selectors' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamRosterPlayerSelectors',
+                        'filter_team_roster_position_selectors' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamRosterPositionSelectors',
                     ),
                     'factories' => array(
                         'rbac_can_change_match' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac\CanChangeMatchFactory',
@@ -105,6 +106,7 @@ return array(
                         'rbac_can_change_match_team' => 999999,
                         'rbac_can_change_match_team_roster' => 999999,
                         'rbac_can_change_match_team_events' => 999999,
+                        'filter_team_roster_position_selectors' => 99999,
                     ),
                     'form.validate.post' => array(
                         'prerender_n_roster_slots_per_side',

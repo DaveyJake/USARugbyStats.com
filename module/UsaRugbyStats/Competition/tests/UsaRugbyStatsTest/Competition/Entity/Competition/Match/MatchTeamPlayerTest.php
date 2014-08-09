@@ -145,6 +145,10 @@ class MatchTeamPlayerTest extends \PHPUnit_Framework_TestCase
             [ 'R6', true ],
             [ 'R7', true ],
             [ 'R8', true ],
+            [ '7P1', true ],
+            [ '7P2', true ],
+            [ '7C', true ],
+            [ '7WF', true ],
             [ 'XX', false ],
             [ null, false ],
         ];

@@ -34,6 +34,11 @@ class MatchTeamPlayer
     const POSITION_R7   = 'R7';
     const POSITION_R8   = 'R8';
 
+    const POSITION_7P1 = '7P1';
+    const POSITION_7P2 = '7P2';
+    const POSITION_7C  = '7C';
+    const POSITION_7WF  = '7WF';
+
     /**
      * @var integer
      */
@@ -180,7 +185,7 @@ class MatchTeamPlayer
      */
     public function setPosition($position)
     {
-        if ( ! in_array($position, ['LHP','H','THP','L1','L2','OSF','BSF','N8','SH','FH','IC','OC','W1','W2','FB','R1','R2','R3','R4','R5','R6','R7','R8']) ) {
+        if ( ! in_array($position, ['LHP','H','THP','L1','L2','OSF','BSF','N8','SH','FH','IC','OC','W1','W2','FB','R1','R2','R3','R4','R5','R6','R7','R8','7P1','7P2','7C','7WF']) ) {
             throw new InvalidArgumentException('Invalid position type!');
         }
         $this->position = $position;
