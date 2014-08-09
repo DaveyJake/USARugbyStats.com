@@ -33,8 +33,7 @@ class DropPlayersIfTeamChangedOrNotSet extends AbstractRule
 
             // Remove any players who are not on the team
             foreach ( $side->getPlayers() as $playerRecord ) {
-                $member = $side->getTeam()->getMemberById($playerRecord->getPlayer()->getId());
-                if (! $member instanceof Member) {
+                if (! $side->getTeam()->hasMember($playerRecord->getPlayer())) {
                     $playerId = $playerRecord->getPlayer()->getId();
                     $playerEvents = $side->getEvents()->filter(function ($e) use ($playerId) {
                         if ($e instanceof MatchTeamEvent\CardEvent) {
