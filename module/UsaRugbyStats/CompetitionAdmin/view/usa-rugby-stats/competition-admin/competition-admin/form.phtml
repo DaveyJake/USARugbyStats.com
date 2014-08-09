@@ -41,52 +41,6 @@
         </div>
 
         <div class="row form-group">
-            <?php $element = $fieldset->get('startDate'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
-
-            <?php echo $this->formLabel($element) ?>
-            <div class="col-sm-8">
-                <?php if ( $canEdit ): ?>
-                <?php echo $this->formElement($element) ?>
-                <script type="text/javascript">
-                    $(function () {
-                        $('input[name=competition\\[startDate\\]]').datetimepicker({
-                            format: 'YYYY-MM-DDTHH:mmZ'
-                        });
-                    });
-                </script>
-                <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
-                <?php endif;?>
-                <?php echo $this->formElementErrors($element); ?>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <?php $element = $fieldset->get('endDate'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
-
-            <?php echo $this->formLabel($element) ?>
-            <div class="col-sm-8">
-                <?php if ( $canEdit ): ?>
-                <?php echo $this->formElement($element) ?>
-                <script type="text/javascript">
-                    $(function () {
-                        $('input[name=competition\\[endDate\\]]').datetimepicker({
-                            format: 'YYYY-MM-DDTHH:mmZ'
-                        });
-                    });
-                </script>
-                <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
-                <?php endif;?>
-                <?php echo $this->formElementErrors($element); ?>
-            </div>
-        </div>
-
-        <div class="row form-group">
             <?php $element = $fieldset->get('maxPlayersOnRoster'); ?>
             <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
             <?php $element->setAttribute('class', 'form-control'); ?>

@@ -24,42 +24,6 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Testing 123', $obj->getName());
     }
 
-    public function testGetSetStartDate()
-    {
-        $now = new \DateTime();
-
-        $obj = new Competition();
-        $this->assertNull($obj->getStartDate());
-        $obj->setStartDate($now);
-        $this->assertSame($now, $obj->getStartDate());
-    }
-
-    public function testSetStartDateDoesNotAcceptNull()
-    {
-        $this->setExpectedException('PHPUnit_Framework_Error');
-
-        $obj = new Competition();
-        $obj->setStartDate(null);
-    }
-
-    public function testGetSetEndDate()
-    {
-        $now = new \DateTime();
-
-        $obj = new Competition();
-        $this->assertNull($obj->getEndDate());
-        $obj->setEndDate($now);
-        $this->assertSame($now, $obj->getEndDate());
-    }
-
-    public function testSetEndDateDoesNotAcceptNull()
-    {
-        $this->setExpectedException('PHPUnit_Framework_Error');
-
-        $obj = new Competition();
-        $obj->setEndDate(null);
-    }
-
     public function testGetSetVariant()
     {
         $obj = new Competition();

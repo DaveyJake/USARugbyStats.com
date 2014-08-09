@@ -40,21 +40,7 @@ class CompetitionFieldset extends Fieldset
             ),
         ));
 
-        $this->add(array(
-            'type' => 'Zend\Form\Element\DateTime',
-            'name' => 'startDate',
-            'options' => array(
-                'label' => 'Start Date'
-            ),
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\DateTime',
-            'name' => 'endDate',
-            'options' => array(
-                'label' => 'End Date'
-            ),
-        ));
+        // @TODO add season instead of date/time
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Number',
