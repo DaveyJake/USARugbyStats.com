@@ -24,7 +24,8 @@
         "adamlundrigan/ldc-zend-form-cti": "0.*@stable",
         "adamlundrigan/ldc-user-profile": "1.*@stable",
         "chrisboulton/php-resque": "dev-master@dev",
-        "imagine/imagine": "@stable"
+        "imagine/imagine": "@stable",
+        "eye4web/e4w-zfc-user-redirect-url": "dev-master"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master@dev",

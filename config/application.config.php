@@ -14,6 +14,7 @@ return array(
         'GoalioForgotPassword',
         'GoalioForgotPasswordDoctrineORM',
         'LdcUserProfile',
+        'E4W\ZfcUser\RedirectUrl',
 
         'ZfcAdmin',
         'ZfcUserAdmin',
