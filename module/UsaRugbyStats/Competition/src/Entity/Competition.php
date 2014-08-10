@@ -26,16 +26,6 @@ class Competition
     protected $name;
 
     /**
-     * @var \DateTime
-     */
-    protected $startDate;
-
-    /**
-     * @var \DateTime
-     */
-    protected $endDate;
-
-    /**
      * @var string
      */
     protected $variant;
@@ -115,52 +105,6 @@ class Competition
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Competition Start Date
-     *
-     * @return \DateTime
-     */
-    public function getStartDate()
-    {
-        return $this->startDate;
-    }
-
-    /**
-     * Set Competition Start Date
-     *
-     * @param  \DateTime $startDate
-     * @return self
-     */
-    public function setStartDate(\DateTime $startDate)
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
-
-    /**
-     * Competition End Date
-     *
-     * @return \DateTime
-     */
-    public function getEndDate()
-    {
-        return $this->endDate;
-    }
-
-    /**
-     * Set Competition End Date
-     *
-     * @param  \DateTime $endDate
-     * @return self
-     */
-    public function setEndDate(\DateTime $endDate)
-    {
-        $this->endDate = $endDate;
 
         return $this;
     }

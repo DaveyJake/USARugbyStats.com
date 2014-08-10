@@ -39,8 +39,6 @@
       <thead>
         <tr>
      	  <th>Competition</th>
-     	  <th width="140">Start Date</th>
-     	  <th width="140">End Date</th>
      	  <th width="55">Format</th>
          </tr>
        </thead>
@@ -49,8 +47,6 @@
          <?php   $comp = $membership->getCompetition(); ?>
          <tr>
            <td><a href="<?=$this->url('usarugbystats_frontend_competition', ['id' => $comp->getId()]); ?>"><?= $this->escapeHtml($comp->getName()); ?></a></td>
-           <td><?= $this->escapeHtml($comp->getStartDate()->format('F j, Y')); ?></td>
-           <td><?= $this->escapeHtml($comp->getEndDate()->format('F j, Y')); ?></td>
            <td><?= $this->escapeHtml($comp->getVariant()); ?></td>
         </tr>
         <?php endforeach; ?>

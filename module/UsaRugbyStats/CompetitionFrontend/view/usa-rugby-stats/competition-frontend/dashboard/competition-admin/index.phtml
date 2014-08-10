@@ -54,8 +54,6 @@ $role = $me->getRoleAssignment('competition_admin');
 
           <h4 class="list-group-item-heading"><?=$this->ursCompetitionLink($comp); ?></h4>
           <p class="list-group-item-text">
-            <?=$comp->getStartDate()->format('F jS, Y')?>&nbsp;&mdash;
-            <?=$comp->getEndDate()->format('F jS, Y')?>
           </p>
         </li>
         <?php endforeach; ?>
