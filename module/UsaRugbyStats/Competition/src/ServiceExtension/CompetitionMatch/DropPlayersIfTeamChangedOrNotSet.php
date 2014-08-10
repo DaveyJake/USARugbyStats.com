@@ -4,7 +4,6 @@ namespace UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch;
 use Zend\EventManager\EventInterface;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 use UsaRugbyStats\Competition\Entity\Team;
-use UsaRugbyStats\Competition\Entity\Team\Member;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
 
 class DropPlayersIfTeamChangedOrNotSet extends AbstractRule
