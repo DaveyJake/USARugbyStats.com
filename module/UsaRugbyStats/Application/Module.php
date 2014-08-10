@@ -2,6 +2,7 @@
 namespace UsaRugbyStats\Application;
 
 use Zend\Mvc\MvcEvent;
+use Doctrine\DBAL\Types\Type;
 
 class Module
 {
@@ -13,6 +14,8 @@ class Module
         $eventManager->attach($serviceManager->get('ZfcRbac\View\Strategy\RedirectStrategy'));
         $eventManager->attach($serviceManager->get('ZfcRbac\View\Strategy\UnauthorizedStrategy'));
         $eventManager->attach($serviceManager->get('usarugbystats_application_listener_iframeablepage'));
+
+        Type::overrideType('datetimetz', 'UsaRugbyStats\Application\Common\Doctrine\DateTimeTzType');
     }
 
     public function getConfig()
