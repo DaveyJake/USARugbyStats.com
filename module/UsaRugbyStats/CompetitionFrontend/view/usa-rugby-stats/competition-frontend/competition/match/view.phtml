@@ -18,7 +18,7 @@
 <hr style="clear:both" />
 <a href="<?=$this->url('usarugbystats_frontend_competition', ['id' => $match->getCompetition()->getId()]); ?>"><?=$this->escapeHtml($match->getCompetition()->getName()); ?></a>&nbsp;&mdash;&nbsp;
 <?=$this->escapeHtml($match->getDate()->format('F j, Y')); ?>&nbsp;&mdash;&nbsp;
-Kickoff @ <?=$this->escapeHtml($match->getDate()->format('H:i')); ?>&nbsp;&mdash;&nbsp;
+Kickoff @ <?=$this->escapeHtml($match->getDate()->format('H:i T')); ?>&nbsp;&mdash;&nbsp;
 Game iFrame
 <?php if ( $this->isGranted('competition.competition.match.update', $match) ): ?>
 &nbsp;&mdash;&nbsp;

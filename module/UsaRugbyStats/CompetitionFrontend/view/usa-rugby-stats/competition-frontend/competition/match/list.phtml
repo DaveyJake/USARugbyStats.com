@@ -42,7 +42,7 @@
                 <i><?php echo $this->escapeHtml($match->getDescription() ?: ''); ?></i>
             </td>
             <td class="cell cell-date">
-                <?php echo $this->escapeHtml($match->getDate()->format('Y-m-d @ H:i')); ?>
+                <?php echo $this->escapeHtml($match->getDate()->format('Y-m-d @ H:i T')); ?>
             </td>
             <td class="cell cell-status" style="text-align:center">
                 <?php echo $this->escapeHtml($match->getStatus()); ?>

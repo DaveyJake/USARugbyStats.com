@@ -36,7 +36,7 @@ foreach ( $this->timeseries as $item ) {
                 break;
         }
 
-        $timeseries[$key][$item['modified_on']->format('m/d/Y H:i:s')] = $statValue;
+        $timeseries[$key][$item['modified_on']->format('m/d/Y H:i:s T')] = $statValue;
     }
 }
 ?>
