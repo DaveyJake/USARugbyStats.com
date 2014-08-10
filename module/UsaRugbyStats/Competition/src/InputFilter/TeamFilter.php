@@ -4,6 +4,7 @@ namespace UsaRugbyStats\Competition\InputFilter;
 use Zend\InputFilter\InputFilter;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Zend\InputFilter\FileInput;
 
 /**
  * Team Input Filter
@@ -58,6 +59,21 @@ class TeamFilter extends InputFilter
                 array('name' => 'Int'),
             ),
         ));
+
+        $file = new FileInput();
+        $file->setRequired(false);
+        $file->getValidatorChain()->attachByName('fileisimage');
+        $file->getFilterChain()->attachByName('filerenameupload', [
+            'target' => 'data/uploads/teamlogos',
+            'randomize' => true,
+            'use_upload_extension' => true,
+        ]);
+        $file->getFilterChain()->attachByName(
+            'UsaRugbyStats\Application\Common\Filter\FileScaleAndConvertToPng',
+            []
+        );
+
+        $this->add($file, 'new_logo');
 
         $this->add(array(
             'name'       => 'email',

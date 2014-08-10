@@ -4,6 +4,7 @@
     <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_team/update', ['id' => $team->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Edit Team</a>
   </div>
   <?php endif; ?>
+<div style="float:left; padding-right:12px;"><img src="<?=$this->ursTeamLogoUrl($team) ?>" width="42" height="42" /></div>
   <h1><?= $this->escapeHtml($team->getName()); ?></h1>
 </div>
 

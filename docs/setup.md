@@ -58,6 +58,7 @@ You should now be able to access the application through the URL: http://usarugb
    - intl
    - json
    - mysql
+   - gd
  - MySQL Server (latest)
  - Redis (latest)
  - Git (latest)
@@ -66,7 +67,7 @@ You should now be able to access the application through the URL: http://usarugb
 On Ubuntu this works out to be:
 
 ```bash
-apt-get install nginx mysql-server redis-server php5-fpm php5-cli php5-curl php5-json php5-intl php5-mysql git supervisor
+apt-get install nginx mysql-server redis-server php5-fpm php5-cli php5-curl php5-json php5-intl php5-mysql php5-gd git supervisor
 ```
 
 ### 2. Configure MySQL

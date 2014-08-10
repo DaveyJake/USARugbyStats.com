@@ -47,7 +47,11 @@ class TeamAdminController extends AbstractActionController
         $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
-            $result = $this->getTeamAdminService()->create($this->getRequest()->getPost()->toArray());
+            $formData = array_merge_recursive(
+                $this->getRequest()->getPost()->toArray(),
+                $this->getRequest()->getFiles()->toArray()
+            );
+            $result = $this->getTeamAdminService()->create($formData);
             if ( isset($result->team) && $result->team instanceof Team) {
                 $this->flashMessenger()->addSuccessMessage('The team was created successfully!');
 
@@ -87,7 +91,10 @@ class TeamAdminController extends AbstractActionController
         $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
-            $formData = $this->getRequest()->getPost()->toArray();
+            $formData = array_merge_recursive(
+                $this->getRequest()->getPost()->toArray(),
+                $this->getRequest()->getFiles()->toArray()
+            );
             $result = $this->getTeamAdminService()->update($entity, $formData);
             if ( isset($result->team) && $result->team instanceof Team) {
                 $this->flashMessenger()->addSuccessMessage('The team was updated successfully!');

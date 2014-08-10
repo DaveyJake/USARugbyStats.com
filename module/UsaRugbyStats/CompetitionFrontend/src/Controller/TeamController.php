@@ -66,7 +66,10 @@ class TeamController extends AbstractActionController
         $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
-            $formData = $this->getRequest()->getPost()->toArray();
+            $formData = array_merge_recursive(
+                $this->getRequest()->getPost()->toArray(),
+                $this->getRequest()->getFiles()->toArray()
+            );
             $result = $this->getTeamService()->update($team, $formData);
             if ($result instanceof Team) {
                 $this->flashMessenger()->addSuccessMessage('The team was updated successfully!');

@@ -57,6 +57,14 @@ class TeamFieldset extends Fieldset
         );
 
         $this->add(array(
+            'type' => 'Zend\Form\Element\File',
+            'name' => 'new_logo',
+            'options' => array(
+                'label' => 'Team Logo',
+            ),
+        ));
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'email',
             'options' => array(
