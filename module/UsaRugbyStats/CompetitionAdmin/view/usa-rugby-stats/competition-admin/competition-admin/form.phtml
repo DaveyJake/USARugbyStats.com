@@ -25,6 +25,22 @@
         </div>
 
         <div class="row form-group">
+            <?php $element = $fieldset->get('type'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+            <?php $element->setAttribute('class', 'form-control'); ?>
+
+            <?php echo $this->formLabel($element) ?>
+            <div class="col-sm-8">
+                <?php if ( $canEdit ): ?>
+                <?php echo $this->formElement($element) ?>
+                <?php else: ?>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <?php endif;?>
+                <?php echo $this->formElementErrors($element); ?>
+            </div>
+        </div>
+
+        <div class="row form-group">
             <?php $element = $fieldset->get('variant'); ?>
             <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
             <?php $element->setAttribute('class', 'form-control'); ?>

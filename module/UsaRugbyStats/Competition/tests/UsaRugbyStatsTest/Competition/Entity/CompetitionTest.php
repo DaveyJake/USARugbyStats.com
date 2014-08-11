@@ -37,6 +37,35 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('15s', $obj->getVariant());
     }
 
+    /**
+     * @dataProvider providerGetSetType
+     */
+    public function testGetSetType($type, $checkMethod, $name, $expected)
+    {
+        $obj = new Competition();
+        $this->assertNull($obj->getType());
+        if (! $expected) {
+            $this->setExpectedException('InvalidArgumentException');
+        }
+        $obj->setType($type);
+        $this->assertTrue($obj->{$checkMethod}());
+        $this->assertEquals($name, $obj->getTypeString($obj->getType()));
+        $this->assertEquals($type, $obj->getType());
+    }
+
+    public function providerGetSetType()
+    {
+        return [
+            ['L', 'isLeague', 'League', true],
+            ['P', 'isPlayoffs', 'Playoffs', true],
+            ['T', 'isTournament', 'Tournament', true],
+            ['F', 'isFriendly', 'Friendly', true],
+            ['X', null, null, false],
+            [1, null, null, false],
+            [null, null, null, false],
+        ];
+    }
+
     public function testSetVariantDoesNotAcceptInvalidVariant()
     {
         $this->setExpectedException('InvalidArgumentException');

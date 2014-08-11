@@ -23,14 +23,16 @@ class DivisionCollectionFilter extends NestedCollectionInputFilter
 
         // @TODO better way to ensure collection has unique teams?
         $values = $this->getValues();
-        $teams = [];
-        foreach ($values as $divkey=>$divdata) {
-            foreach ($divdata['teamMemberships'] as $tmkey=>$membership) {
-                if ( in_array($membership['team'], $teams) ) {
-                    $this->collectionMessages[$divkey]['teamMemberships'][$tmkey] = ['team' => ['This team has already been added!']];
-                    $result = false;
+        if ( count($values) == 0 ) {
+            $teams = [];
+            foreach ($values as $divkey=>$divdata) {
+                foreach ($divdata['teamMemberships'] as $tmkey=>$membership) {
+                    if ( in_array($membership['team'], $teams) ) {
+                        $this->collectionMessages[$divkey]['teamMemberships'][$tmkey] = ['team' => ['This team has already been added!']];
+                        $result = false;
+                    }
+                    array_push($teams, $membership['team']);
                 }
-                array_push($teams, $membership['team']);
             }
         }
 

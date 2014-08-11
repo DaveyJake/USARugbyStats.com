@@ -40,6 +40,21 @@ class CompetitionFieldset extends Fieldset
             ),
         ));
 
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'type',
+            'options' => array(
+                'label' => 'Type',
+                'value_options' => [
+                    'L' => 'League',
+                    'P' => 'Playoffs',
+                    'T' => 'Tournament',
+                    'F' => 'Friendly',
+                ],
+                'empty_option' => 'Select a Type',
+            ),
+        ));
+
         // @TODO add season instead of date/time
 
         $this->add(array(

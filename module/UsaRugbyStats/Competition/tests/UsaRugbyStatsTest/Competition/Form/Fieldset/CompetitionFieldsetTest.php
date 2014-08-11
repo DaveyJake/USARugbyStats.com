@@ -18,6 +18,7 @@ class CompetitionFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('competition', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('name'));
+        $this->assertTrue($fieldset->has('type'));
         $this->assertTrue($fieldset->has('variant'));
         $this->assertTrue($fieldset->has('divisions'));
         $this->assertInstanceOf('Zend\Form\Element\Collection', $fieldset->get('divisions'));

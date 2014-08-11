@@ -417,4 +417,27 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($obj->getMembers()->contains($mbr1));
         $this->assertFalse($obj->getMembers()->contains($mbr2));
     }
+
+    public function testGetCompetitionsOfType()
+    {
+        $obj = new Team();
+
+        $comp0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $comp0->shouldReceive('getCompetition->getType')->andReturn('F');
+
+        $comp1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $comp1->shouldReceive('getCompetition->getType')->andReturn('P');
+
+        // Add roles to the existing collection
+        $collection = $obj->getTeamMemberships();
+        $collection->add($comp0);
+        $collection->add($comp1);
+
+        $result = $obj->getCompetitionsOfType('P');
+        $this->assertCount(1, $result);
+        $this->assertSame($comp1, $result->current());
+
+        $result = $obj->getCompetitionsOfType('L');
+        $this->assertCount(0, $result);
+    }
 }

@@ -15,6 +15,11 @@ class Competition
     const VARIANT_SEVENS = '7s';
     const VARIANT_FIFTEENS = '15s';
 
+    const TYPE_LEAGUE = 'L';
+    const TYPE_PLAYOFFS = 'P';
+    const TYPE_TOURNAMENT = 'T';
+    const TYPE_FRIENDLY = 'F';
+
     /**
      * @var integer
      */
@@ -29,6 +34,11 @@ class Competition
      * @var string
      */
     protected $variant;
+
+    /**
+     * @var string
+     */
+    protected $type;
 
     /**
      * @var int
@@ -122,7 +132,7 @@ class Competition
     /**
      * Specify Rugby Variant being played
      *
-     * @param  string                    $variant
+     * @param  string                    $type
      * @return self
      * @throws \InvalidArgumentException
      */
@@ -135,6 +145,54 @@ class Competition
 
         return $this;
     }
+
+    /**
+     * Competition Type (league, playoffs, tournament, and friendlies)
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set Competition Type (league, playoffs, tournament, and friendlies)
+     *
+     * @param  string                    $type
+     * @return self
+     * @throws \InvalidArgumentException
+     */
+    public function setType($type)
+    {
+        if ( ! in_array($type, ['L','P','T','F']) ) {
+            throw new \InvalidARgumentException('Invalid competition type');
+        }
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getTypeString($type = null)
+    {
+        switch ( $type ?: $this->getType() ) {
+            case 'L':
+                return 'League';
+            case 'P':
+                return 'Playoffs';
+            case 'T':
+                return 'Tournament';
+            case 'F':
+                return 'Friendly';
+        }
+
+        return NULL;
+    }
+
+    public function isLeague() { return $this->getType() === 'L'; }
+    public function isPlayoffs() { return $this->getType() === 'P'; }
+    public function isTournament() { return $this->getType() === 'T'; }
+    public function isFriendly() { return $this->getType() === 'F'; }
 
     /**
      * @return int

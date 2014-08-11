@@ -452,6 +452,17 @@ class Team
         return false;
     }
 
+    public function getCompetitionsOfType($type)
+    {
+        return $this->getTeamMemberships()->filter(function ($i) use ($type) {
+            if (! $i instanceof TeamMembership) {
+                return false;
+            }
+
+            return $i->getCompetition()->getType() == $type;
+        });
+    }
+
     /**
      * String representation of this Team object
      *
