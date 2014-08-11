@@ -79,6 +79,12 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+    'view_helpers' => array(
+        'factories' => array(
+            'isIframed' => 'UsaRugbyStats\Application\View\Helper\IsIframedFactory',
+        ),
+    ),
+
     // Placeholder for console routes
     'console' => array(
         'router' => array(
