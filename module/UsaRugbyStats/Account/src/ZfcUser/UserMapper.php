@@ -16,6 +16,22 @@ class UserMapper extends ZfcUserDoctrineORMMapper
         return $resultset;
     }
 
+    public function findAllBySearchQuery($q)
+    {
+        $er = $this->em->getRepository($this->options->getUserEntityClass());
+
+        $qb = $er->createQueryBuilder('a');
+        $qb->orWhere(
+            $qb->expr()->like('a.username', ':q'),
+            $qb->expr()->like('a.displayName', ':q'),
+            $qb->expr()->like('a.email', ':q')
+        );
+        $query = $qb->getQuery();
+        $query->setParameter('q', "%$q%");
+
+        return $query->getResult();
+    }
+
     public function findByRemoteId($rid)
     {
         $er = $this->em->getRepository($this->options->getUserEntityClass());

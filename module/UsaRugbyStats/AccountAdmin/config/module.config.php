@@ -1,5 +1,32 @@
 <?php
 return array(
+    'controllers' => array(
+        'invokables' => array(
+            'usarugbystats_accountadmin_accountsearch' => 'UsaRugbyStats\AccountAdmin\Controller\AccountSearchController',
+        ),
+    ),
+    'router' => array(
+        'routes' => array(
+            'zfcadmin' => array(
+                'child_routes' => array(
+                    'zfcuseradmin' => array(
+                        'child_routes' =>array(
+                            'search' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '/search',
+                                    'defaults' => array(
+                                        'controller' => 'usarugbystats_accountadmin_accountsearch',
+                                        'action'     => 'search',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
     'service_manager' => array(
         'factories' => array(
             'zfcuseradmin_createuser_form' => 'UsaRugbyStats\AccountAdmin\Form\CreateUserFactory',
@@ -32,8 +59,12 @@ return array(
 
     'view_manager' => array(
         'template_map' => array(
+            'zfc-user-admin/user-admin/list'  => __DIR__ . '/../view/zfc-user-admin/user-admin/list.phtml',
             'zfc-user-admin/user-admin/create'  => __DIR__ . '/../view/zfc-user-admin/user-admin/create.phtml',
             'zfc-user-admin/user-admin/edit'    => __DIR__ . '/../view/zfc-user-admin/user-admin/edit.phtml',
+            'zfc-user-admin/user-admin/pagination_userlist.phtml' => __DIR__ . '/../view/zfc-user-admin/user-admin/pagination_userlist.phtml',
+
+            'usa-rugby-stats/account-admin/account-search' => __DIR__ . '/../view/usa-rugby-stats/account-admin/account-search.phtml',
 
             'usa-rugby-stats/account-admin/role-assignments' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments.phtml',
             'usa-rugby-stats/account-admin/role-assignments/common' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/common.phtml',
