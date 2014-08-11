@@ -33,10 +33,11 @@ class AccountSearchController extends AbstractActionController
 
         $vm = new ViewModel(array(
             'users' => $paginator,
-            'userlistElements' => $this->getOptions()->getUserListElements()
+            'userlistElements' => $this->getOptions()->getUserListElements(),
+            'q' => $q,
         ));
 
-        $vm->setTemplate('usa-rugby-stats/account-admin/account-search');
+        $vm->setTemplate('usa-rugby-stats/account-admin/account-search/list');
 
         return $vm;
     }

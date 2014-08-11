@@ -12,9 +12,9 @@ return array(
                     'zfcuseradmin' => array(
                         'child_routes' =>array(
                             'search' => array(
-                                'type' => 'Literal',
+                                'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/search',
+                                    'route' => '/search[/:p]',
                                     'defaults' => array(
                                         'controller' => 'usarugbystats_accountadmin_accountsearch',
                                         'action'     => 'search',
@@ -64,7 +64,8 @@ return array(
             'zfc-user-admin/user-admin/edit'    => __DIR__ . '/../view/zfc-user-admin/user-admin/edit.phtml',
             'zfc-user-admin/user-admin/pagination_userlist.phtml' => __DIR__ . '/../view/zfc-user-admin/user-admin/pagination_userlist.phtml',
 
-            'usa-rugby-stats/account-admin/account-search' => __DIR__ . '/../view/usa-rugby-stats/account-admin/account-search.phtml',
+            'usa-rugby-stats/account-admin/account-search/list' => __DIR__ . '/../view/usa-rugby-stats/account-admin/account-search/list.phtml',
+            'usa-rugby-stats/account-admin/account-search/pagination' => __DIR__ . '/../view/usa-rugby-stats/account-admin/account-search/pagination.phtml',
 
             'usa-rugby-stats/account-admin/role-assignments' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments.phtml',
             'usa-rugby-stats/account-admin/role-assignments/common' => __DIR__ . '/../view/usa-rugby-stats/account-admin/role-assignments/common.phtml',
