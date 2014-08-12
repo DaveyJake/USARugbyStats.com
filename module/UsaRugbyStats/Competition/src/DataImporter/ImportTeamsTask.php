@@ -36,8 +36,11 @@ class ImportTeamsTask implements TaskInterface, LoggerAwareInterface
 
             $entity = $this->svcTeam->create(['team' => $team]);
             if (! $entity instanceof Team) {
-                $this->getLogger()->crit("ERROR: Failed to create team: " . $team['name']);
-                continue;
+                $this->getLogger()->crit(sprintf(
+                    "ERROR: Failed to create team: %s (Message: %s)",
+                    $team['name'],
+                    var_export($session->form->getMessages(), true)
+                ));
             }
             unset($entity);
         }

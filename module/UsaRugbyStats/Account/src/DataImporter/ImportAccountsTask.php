@@ -67,7 +67,11 @@ class ImportAccountsTask implements TaskInterface, LoggerAwareInterface
 
             $entity = $svc->create($form, $acct);
             if (! $entity instanceof Account) {
-                $this->getLogger()->crit("ERROR: Failed to create account: " . $acct['username']);
+                $this->getLogger()->crit(sprintf(
+                    "ERROR: Failed to create account: %s (Message: %s)",
+                    $acct['username'],
+                    var_export($form->getMessages(), true)
+                ));
                 continue;
             }
             unset($form, $entity);

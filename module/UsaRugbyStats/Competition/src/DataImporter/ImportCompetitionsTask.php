@@ -36,7 +36,11 @@ class ImportCompetitionsTask implements TaskInterface, LoggerAwareInterface
 
             $entity = $this->svcCompetition->create(['competition' => $competition]);
             if (! $entity instanceof Competition) {
-                $this->getLogger()->crit("ERROR: Failed to create competition: " . $competition['name']);
+                $this->getLogger()->crit(sprintf(
+                    "ERROR: Failed to create competition: %s (Message: %s)",
+                    $competition['name'],
+                    var_export($session->form->getMessages(), true)
+                ));
                 continue;
             }
             unset($entity);

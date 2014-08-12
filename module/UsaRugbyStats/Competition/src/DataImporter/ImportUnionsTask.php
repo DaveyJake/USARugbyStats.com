@@ -36,7 +36,11 @@ class ImportUnionsTask implements TaskInterface, LoggerAwareInterface
 
             $entity = $this->svcUnion->create(['union' => $union]);
             if (! $entity instanceof Union) {
-                $this->getLogger()->crit("ERROR: Failed to create union: " . $union['name']);
+                $this->getLogger()->crit(sprintf(
+                    "ERROR: Failed to create union: %s (Message: %s)",
+                    $union['name'],
+                    var_export($session->form->getMessages(), true)
+                ));
                 continue;
             }
             unset($entity);
