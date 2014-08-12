@@ -37,7 +37,34 @@ class TaskRunner extends AbstractController
         $this->getLogger()->info('Loading data from file...');
         $filename = $this->params()->fromRoute('file');
         if ( !empty($filename) && is_file($filename) ) {
-            $data = include $filename;
+            switch ( strtolower(pathinfo($filename, PATHINFO_EXTENSION)) ) {
+                case 'csv':
+                    $reader = new \SplFileObject($filename);
+                    $reader->setFlags(\SplFileObject::READ_CSV);
+                    $data = array();
+                    $headerLine = null;
+                    foreach ($reader as $key => $line) {
+                        if ( ! is_array($line) || $line == array(null) ) {
+                            continue;
+                        }
+                        if ( is_null($headerLine) ) {
+                            $headerLine = $line;
+                            continue;
+                        }
+                        if ( count($headerLine) != count($line) ) {
+                            $this->getLogger()->err(sprintf('** Line %s contains different number of columns than header', $key));
+                            continue;
+                        }
+                        $result = array_combine($headerLine, $line);
+                        if ( is_array($result) ) {
+                           array_push($data, $result);
+                        }
+                    }
+                    continue;
+                default:
+                    $data = \Zend\Config\Factory::fromFile($filename);
+                    continue;
+            }
         }
 
         if ( empty($data) ) {
