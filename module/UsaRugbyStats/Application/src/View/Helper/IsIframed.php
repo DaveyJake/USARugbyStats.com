@@ -18,6 +18,7 @@ class IsIframed extends AbstractHelper
         if ( empty($this->sessionContainer) ) {
             $this->sessionContainer = new Container('usarugbystats_iframeable');
         }
+
         return $this->sessionContainer;
     }
 }
