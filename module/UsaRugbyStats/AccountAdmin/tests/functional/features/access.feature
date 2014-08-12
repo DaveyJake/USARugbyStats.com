@@ -8,7 +8,7 @@ Feature: Account Administration Panel
     Given I am authenticated as a super administrator
     And I navigate to the Account Administration Panel
     Then I should not receive an authorization error
-    And I should see "Users"
+    And I should see "Account Administration"
     And I should see "Add New User"
   
   @javascript
