@@ -52,6 +52,12 @@ class ImportAccountsTask implements TaskInterface, LoggerAwareInterface
                 $acct['display_name'] = $acct['username'];
             }
 
+            // Process the role assignments
+            isset($acct['membership']) && $this->processRoleAssignment($acct, 'member', 'memberships', $acct['membership']);
+            isset($acct['comp_admin']) && $this->processRoleAssignment($acct, 'competition_admin','managedCompetitions', $acct['comp_admin']);
+            isset($acct['team_admin']) && $this->processRoleAssignment($acct, 'team_admin','managedTeams', $acct['team_admin']);
+            isset($acct['union_admin']) && $this->processRoleAssignment($acct, 'union_admin','managedUnions', $acct['union_admin']);
+
             $form = $this->serviceLocator->get('zfcuseradmin_createuser_form');
 
             // If there is no id element on the form, inject one
@@ -65,6 +71,44 @@ class ImportAccountsTask implements TaskInterface, LoggerAwareInterface
                 continue;
             }
             unset($form, $entity);
+        }
+    }
+
+    protected function processRoleAssignment(&$acct, $role_name, $managedKey, $role_data)
+    {
+        if ( !isset($acct['roleAssignments']) || ! is_array($acct['roleAssignments']) ) {
+            $acct['roleAssignments'] = array();
+        }
+
+        $role_data_parts = explode(',', $role_data);
+        if ( count($role_data_parts) == 0 ) {
+            return;
+        }
+
+        $roleAssignmentKey = null;
+        foreach ($acct['roleAssignments'] as $raKey => $raData) {
+            if ( isset($raData['type']) && $raData['type'] === $role_name ) {
+                $roleAssignmentKey = $raData;
+                if ( ! isset($acct['roleAssignments'][$raKey][$managedKey]) ) {
+                    $acct['roleAssignments'][$raKey][$managedKey] = array();
+                }
+                break;
+            }
+        }
+        if ( is_null($roleAssignmentKey) ) {
+            $roleAssignmentKey = array_push($acct['roleAssignments'], [
+                'type' => $role_name,
+                $managedKey => []
+            ]) - 1;
+        }
+
+        $digitFilter = new \Zend\Filter\Digits();
+        foreach ($role_data_parts as $rdp) {
+            $rdp = $digitFilter->filter($rdp);
+            if ( empty($rdp) ) {
+                continue;
+            }
+            array_push($acct['roleAssignments'][$roleAssignmentKey][$managedKey], $rdp);
         }
     }
 }
