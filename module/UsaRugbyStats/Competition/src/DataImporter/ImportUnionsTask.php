@@ -22,6 +22,10 @@ class ImportUnionsTask implements TaskInterface, LoggerAwareInterface
     {
         $this->getLogger()->debug('Importing Union records...');
 
+        // Allow manually setting the record identifer
+        $metadata = $this->svcUnion->getObjectManager()->getClassMetadata('UsaRugbyStats\Competition\Entity\Union');
+        $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+
         foreach ($data as $union) {
             $this->getLogger()->debug(" - {$union['name']}");
 
@@ -32,7 +36,11 @@ class ImportUnionsTask implements TaskInterface, LoggerAwareInterface
 
             $entity = $this->svcUnion->create(['union' => $union]);
             if (! $entity instanceof Union) {
-                $this->getLogger()->crit("ERROR: Failed to create union: " . $union['name']);
+                $this->getLogger()->crit(sprintf(
+                    "ERROR: Failed to create union: %s (Message: %s)",
+                    $union['name'],
+                    var_export($session->form->getMessages(), true)
+                ));
                 continue;
             }
             unset($entity);
