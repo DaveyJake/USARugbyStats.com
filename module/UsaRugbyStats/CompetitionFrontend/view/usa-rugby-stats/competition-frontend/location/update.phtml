@@ -1,0 +1,10 @@
+<?php
+$form->prepare();
+$form->setAttribute('action', $this->url('usarugbystats_frontend_location/update', ['id' => $entity->getId()]));
+$form->setAttribute('method', 'post');
+?>
+
+<h1>Update Location</h1>
+
+<?php echo $this->render('usa-rugby-stats/competition-admin/location-admin/form', $this->vars()); ?>
+

@@ -82,5 +82,10 @@ class RbacPermissionsFixture implements FixtureInterface, DependentFixtureInterf
         'competition.competition.match.team.roster.change' => ['team_admin', 'competition_admin'],
         'competition.competition.match.team.events.change' => ['team_admin', 'competition_admin'],
         'competition.competition.match.signatures.change' => ['team_admin', 'competition_admin'],
+
+        'competition.location.list' => ['member'],
+        'competition.location.view' => ['member'],
+        'competition.location.create' => ['team_admin', 'competition_admin'],
+        'competition.location.update' => ['team_admin', 'competition_admin'],
     ];
 }

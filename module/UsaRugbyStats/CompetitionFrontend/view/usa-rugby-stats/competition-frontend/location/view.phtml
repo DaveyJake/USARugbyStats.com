@@ -1,0 +1,46 @@
+<div class="page-header">
+  <?php if ( $this->isGranted('competition.location.update', $location) ):?>
+  <div class="pull-right" style="margin-top:5px">
+    <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_location/update', ['id' => $location->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Edit Location</a>
+  </div>
+  <?php endif; ?>
+  <h1><?= $this->escapeHtml($location->getName()); ?></h1>
+</div>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">Upcoming Matches at this Location</div>
+      <?php if (count($upcomingMatches)): ?>
+      <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $upcomingMatches, 'showScore' => false]); ?>
+      <?php else: ?>
+      <div class="panel-body">
+        <div class="pull-center">This location does not have upcoming matches.</div>
+      </div>
+      <?php endif; ?>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Past Matches at this Location</div>
+      <?php if (count($pastMatches)): ?>
+      <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $pastMatches, 'showScore' => false]); ?>
+      <?php else: ?>
+      <div class="panel-body">
+        <div class="pull-center">This location does not have past matches.</div>
+      </div>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">Location Details</div>
+      <ul class="list-group">
+        <?php if ( $location->getAddress() ): ?>
+        <li class="list-group-item"><?php echo $this->escapeHtml($location->getAddress()); ?></li>
+        <?php endif; ?>
+        <?php if ( $location->getCoordinates() ): ?>
+        <a href="https://www.google.com/maps/@<?php echo $this->escapeUrl(preg_replace('/\s/', '', $location->getCoordinates())); ?>,16z" target="_blank"><li class="list-group-item">Map</li></a>
+        <?php endif; ?>
+      </ul>
+    </div>
+  </div>
+</div>

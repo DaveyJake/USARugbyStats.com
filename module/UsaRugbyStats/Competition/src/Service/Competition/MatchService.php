@@ -3,6 +3,10 @@ namespace UsaRugbyStats\Competition\Service\Competition;
 
 use UsaRugbyStats\Application\Service\AbstractService;
 use Zend\EventManager\EventInterface;
+use UsaRugbyStats\Competition\Entity\Location;
+use Doctrine\Common\Collections\Criteria;
+use DoctrineModule\Paginator\Adapter\Selectable;
+use Zend\Paginator\Paginator;
 
 class MatchService extends AbstractService
 {

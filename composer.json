@@ -25,7 +25,8 @@
         "adamlundrigan/ldc-user-profile": "1.*@stable",
         "chrisboulton/php-resque": "dev-master@dev",
         "imagine/imagine": "@stable",
-        "eye4web/e4w-zfc-user-redirect-url": "dev-master"
+        "eye4web/e4w-zfc-user-redirect-url": "dev-master",
+        "doctrine/migrations": "dev-master@dev"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master@dev",

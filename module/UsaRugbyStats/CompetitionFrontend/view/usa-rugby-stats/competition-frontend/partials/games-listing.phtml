@@ -24,8 +24,8 @@
        <td><?=$this->ursTeamLink($match->getAwayTeam()); ?></td>
        <td>
          <?php if ( $match->getLocation() != null ): ?>
-           <?= $this->escapeHtml($match->getLocation()->getName()); ?>
-           <?php if ( !empty($match->getLocationDetails()) ): ?>
+           <?php echo  $match->getLocation() ? $this->ursLocationLink($match->getLocation()) : ''; ?>
+           <?php if ( $match->getLocation() && !empty($match->getLocationDetails()) ): ?>
              &nbsp;&dash;&nbsp;
            <?php endif; ?>
          <?php endif; ?>

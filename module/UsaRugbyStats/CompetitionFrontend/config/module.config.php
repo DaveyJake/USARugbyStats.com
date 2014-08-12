@@ -142,6 +142,57 @@ return array(
                     ),
                 ),
             ),
+            'usarugbystats_frontend_location' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/location',
+                    'defaults' => array(
+                        'controller' => 'usarugbystats_competition-frontend_location_controller',
+                        'action'     => 'list',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' =>array(
+                    'search' => array(
+                        'type' => 'Literal',
+                        'priority' => 1000,
+                        'options' => array(
+                            'route' => '/search',
+                            'defaults' => array(
+                                'action'     => 'search',
+                            ),
+                        ),
+                    ),
+                    'create' => array(
+                        'type' => 'Literal',
+                        'priority' => 1000,
+                        'options' => array(
+                            'route' => '/create',
+                            'defaults' => array(
+                                'action'     => 'create',
+                            ),
+                        ),
+                    ),
+                    'view' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/:id',
+                            'defaults' => array(
+                                'action'     => 'view',
+                            ),
+                        ),
+                    ),
+                    'update' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/:id/update',
+                            'defaults' => array(
+                                'action'     => 'update',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         ),
     ),
     'controllers' => array(
@@ -157,6 +208,7 @@ return array(
             'usarugbystats_competition-frontend_union_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\UnionController',
             'usarugbystats_competition-frontend_competition_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\CompetitionController',
             'usarugbystats_competition-frontend_competition_match_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\Competition\MatchController',
+            'usarugbystats_competition-frontend_location_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\LocationController',
         ),
     ),
     'zfc_rbac' => array(
@@ -177,6 +229,12 @@ return array(
                 'usarugbystats_frontend_competition_match/create' => array('competition_admin'),
                 'usarugbystats_frontend_competition_match/update' => array('team_admin', 'competition_admin'),
                 'usarugbystats_frontend_competition_match/delete' => array('competition_admin'),
+                'usarugbystats_frontend_location' => array('member'),
+                'usarugbystats_frontend_location/view' => array('member'),
+                'usarugbystats_frontend_location/search' => array('member'),
+                'usarugbystats_frontend_location/create' => array('team_admin', 'competition_admin'),
+                'usarugbystats_frontend_location/update' => array('team_admin', 'competition_admin'),
+
             ),
         ),
     ),

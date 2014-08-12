@@ -1,0 +1,9 @@
+<?php
+$form->prepare();
+$form->setAttribute('action', $this->url('usarugbystats_frontend_location/create'));
+$form->setAttribute('method', 'post');
+?>
+
+<h1>Create Location</h1>
+
+<?php echo $this->render('usa-rugby-stats/competition-admin/location-admin/form', $this->vars()); ?>

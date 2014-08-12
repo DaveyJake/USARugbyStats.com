@@ -25,6 +25,27 @@ class LocationAdminController extends AbstractActionController
         return $vm;
     }
 
+    public function searchAction()
+    {
+        $q = trim($this->params()->fromQuery('q'), ' %');
+        if ( empty($q) ) {
+            return $this->redirect()->toRoute('usa-rugby-stats/competition-admin/location-admin/list');
+        }
+
+        $svc = $this->getLocationService();
+
+        $paginator = $svc->findAllBySearchQuery($q);
+        $paginator->setItemCountPerPage(100);
+        $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1));
+
+        $vm = new ViewModel();
+        $vm->setVariable('paginator', $paginator);
+        $vm->setVariable('q', $q);
+        $vm->setTemplate('usa-rugby-stats/competition-admin/location-admin/search/list');
+
+        return $vm;
+    }
+
     public function createAction()
     {
         $service = $this->getLocationService();
