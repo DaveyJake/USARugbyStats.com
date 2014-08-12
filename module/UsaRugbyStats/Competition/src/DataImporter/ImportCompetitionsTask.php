@@ -6,16 +6,19 @@ use Zend\Log\LoggerAwareInterface;
 use Zend\Log\LoggerAwareTrait;
 use UsaRugbyStats\Competition\Service\CompetitionService;
 use UsaRugbyStats\Competition\Entity\Competition;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ImportCompetitionsTask implements TaskInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
     protected $svcCompetition;
+    protected $serviceLocator;
 
-    public function __construct(CompetitionService $svcCompetition)
+    public function __construct(CompetitionService $svcCompetition, ServiceLocatorInterface $sl)
     {
         $this->svcCompetition = $svcCompetition;
+        $this->serviceLocator = $sl;
     }
 
     public function execute(array $data)
@@ -30,7 +33,7 @@ class ImportCompetitionsTask implements TaskInterface, LoggerAwareInterface
             $this->getLogger()->debug(" - {$competition['name']}");
 
             $session = $this->svcCompetition->startSession();
-            $session->form = clone $this->svcCompetition->getCreateForm();
+            $session->form = $this->serviceLocator->get('usarugbystats_competition_competition_createform');
             $session->entity = new Competition();
             $this->svcCompetition->prepare();
 

@@ -15,7 +15,8 @@ class ImportCompetitionsTaskFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $sm)
     {
         $service = new ImportCompetitionsTask(
-            $sm->get('usarugbystats_competition_competition_service')
+            $sm->get('usarugbystats_competition_competition_service'),
+            $sm
         );
 
         return $service;
