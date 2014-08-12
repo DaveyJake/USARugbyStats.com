@@ -23,7 +23,7 @@ class EnforceManagedCompetitionMatchAssertion implements AssertionInterface
     {
         // If there is no context we assume we're in create mode
         // (anything goes in create mode!)
-        if (! $context instanceof Match) {
+        if (! $context instanceof Match || $context->getCompetition() === NULL) {
             return true;
         }
 
