@@ -22,6 +22,10 @@ class ImportUnionsTask implements TaskInterface, LoggerAwareInterface
     {
         $this->getLogger()->debug('Importing Union records...');
 
+        // Allow manually setting the record identifer
+        $metadata = $this->svcUnion->getObjectManager()->getClassMetadata('UsaRugbyStats\Competition\Entity\Union');
+        $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+
         foreach ($data as $union) {
             $this->getLogger()->debug(" - {$union['name']}");
 

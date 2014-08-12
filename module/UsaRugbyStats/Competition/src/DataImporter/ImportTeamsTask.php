@@ -22,6 +22,10 @@ class ImportTeamsTask implements TaskInterface, LoggerAwareInterface
     {
         $this->getLogger()->debug('Importing Team records...');
 
+        // Allow manually setting the record identifer
+        $metadata = $this->svcTeam->getObjectManager()->getClassMetadata('UsaRugbyStats\Competition\Entity\Team');
+        $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+
         foreach ($data as $team) {
             $this->getLogger()->debug(" - {$team['name']}");
 
