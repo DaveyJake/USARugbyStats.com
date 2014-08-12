@@ -48,7 +48,9 @@ class ImportCompetitionsTask implements TaskInterface, LoggerAwareInterface
                     }
 
                     if ( is_numeric($divName) ) {
-                        $divName = "Division " . ($divName+1);
+                        $divName = count($divisions) == 1
+                            ? "Pool"
+                            : "Pool " . chr(65 + $divName);
                     }
                     $divTeams = explode(',', $divTeamList);
                     $teamMemberships = array();
