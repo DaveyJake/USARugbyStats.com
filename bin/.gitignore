@@ -6,3 +6,5 @@
 !resque
 !stresstest/
 !stresstest/*
+!app_rebuild.sh
+!app_update.sh

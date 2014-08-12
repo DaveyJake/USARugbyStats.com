@@ -95,9 +95,6 @@ chmod +x composer
 git clone https://github.com/adamlundrigan/USARugby-Stats.git usarugbystats
 cd usarugbystats
 
-## Install dependencies
-composer install --dev
-
 ## Configure the application
 cd config/autoload
 
@@ -107,12 +104,11 @@ cp doctrine.local.php.dist doctrine.local.php
 # If you want e-mails to be intercepted and stored in data/mail:
 cp goaliomailservice.local.php.dist goaliomailservice.local.php
 
-# If you want extended test data fixtures
-cp dev_fixtures.local.php.dist dev_fixtures.local.php
+## Run initial application setup
+bin/app_rebuild.sh
 
-## Build initial database state
-bin/doctrine-module orm:schema-tool:create
-bin/doctrine-module data-fixture:import
+# If you want to import the extended test data fixtures, run:
+bin/console data-importer run-fixtures --group=testing
 ```
 
 
