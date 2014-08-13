@@ -7,13 +7,13 @@ class ExtensionFieldset extends Fieldset
 {
     public function __construct()
     {
-        parent::__construct('personalstats');
+        parent::__construct('extprofile');
 
         $this->add(array(
             'name' => 'firstName',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Fisrt Name'
+                'label' => 'First Name'
             )
         ));
 

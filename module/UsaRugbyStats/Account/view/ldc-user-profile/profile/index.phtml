@@ -5,6 +5,7 @@ $form->setAttribute('action', $this->url('ldc-user-profile'));
 $form->setAttribute('method', 'post');
 
 $count = count($form->getFieldsets());
+$validationGroup = $form->getValidationGroup();
 ?>
 
 <div class="page-header">
@@ -20,7 +21,7 @@ $count = count($form->getFieldsets());
 <div class="row">
   <?php foreach ( $form->getFieldsets() as $fieldset ): ?>
   <div class="col-md-<?=floor(12/$count);?>">
-    <?php echo $this->render('ldc-user-profile/profile/extension/' . $fieldset->getName(), array('fieldset' => $fieldset)); ?>
+    <?php echo $this->render('ldc-user-profile/profile/extension/' . $fieldset->getName(), array('validationGroup' => @$validationGroup[$fieldset->getName()], 'fieldset' => $fieldset)); ?>
   </div>
   <?php endforeach;?>
 </div>

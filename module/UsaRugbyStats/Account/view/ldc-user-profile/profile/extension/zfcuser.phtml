@@ -1,3 +1,8 @@
+<?php
+$validationGroup = $this->validationGroup ?: array();
+$includeEverything = ( is_array($this->validationGroup) && empty($this->validationGroup) );
+?>
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Account Details</h3>
@@ -11,7 +16,11 @@
 
         <?php echo $this->formLabel($element) ?>
         <div class="col-sm-8">
+            <?php if ( $includeEverything || in_array('id', $validationGroup, true) ): ?>
+            <?php echo $this->formElement($element); ?>
+            <?php else: ?>
             <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php endif;?>
             <?php echo $this->formElementErrors($element) ?>
         </div>
     </div>
@@ -23,7 +32,11 @@
 
         <?php echo $this->formLabel($element) ?>
         <div class="col-sm-8">
+            <?php if ( $includeEverything || in_array('display_name', $validationGroup, true) ): ?>
+            <?php echo $this->formElement($element); ?>
+            <?php else: ?>
             <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php endif;?>
             <?php echo $this->formElementErrors($element) ?>
         </div>
     </div>
@@ -35,7 +48,11 @@
 
         <?php echo $this->formLabel($element) ?>
         <div class="col-sm-8">
+            <?php if ( $includeEverything || in_array('username', $validationGroup, true) ): ?>
+            <?php echo $this->formElement($element); ?>
+            <?php else: ?>
             <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php endif;?>
             <?php echo $this->formElementErrors($element) ?>
         </div>
     </div>
@@ -47,7 +64,11 @@
 
         <?php echo $this->formLabel($element) ?>
         <div class="col-sm-8">
+            <?php if ( $includeEverything || in_array('email', $validationGroup, true) ): ?>
+            <?php echo $this->formElement($element); ?>
+            <?php else: ?>
             <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php endif;?>
             <?php echo $this->formElementErrors($element) ?>
         </div>
     </div>
@@ -65,7 +86,12 @@
 
         <?php echo $this->formLabel($element) ?>
         <div class="col-sm-8">
-            <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+            <?php if ( $includeEverything || in_array('password', $validationGroup, true) ): ?>
+            <?php echo $this->formElement($element); ?>
+            <?php else: ?>
+            <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php endif;?>
+            <?php echo $this->formElementErrors($element) ?>
         </div>
     </div>
 
@@ -76,8 +102,13 @@
 
         <?php echo $this->formLabel($element) ?>
         <div class="col-sm-8">
-            <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+            <?php if ( $includeEverything || in_array('passwordVerify', $validationGroup, true) ): ?>
+            <?php echo $this->formElement($element); ?>
             <span class="help-block">Leave fields blank to keep current password.</span>
+            <?php else: ?>
+            <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php endif;?>
+            <?php echo $this->formElementErrors($element) ?>
         </div>
     </div>
   </div>

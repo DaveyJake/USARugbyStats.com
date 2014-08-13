@@ -9,17 +9,19 @@ $form = $this->profileForm;
 $form->prepare();
 $form->setAttribute('action', $this->url('ldc-user-profile'));
 $form->setAttribute('method', 'post');
+
+$validationGroup = $form->getValidationGroup();
 ?>
 
 <?php echo $this->form()->openTag($form) ?>
 
     <div class="row">
         <div class="col-sm-6">
-            <?php echo $this->render('ldc-user-profile/profile/extension/' . $form->get('zfcuser')->getName(), array('fieldset' => $form->get('zfcuser'))); ?>
+            <?php echo $this->render('ldc-user-profile/profile/extension/' . $form->get('zfcuser')->getName(), array('validationGroup' => @$validationGroup['zfcuser'], 'fieldset' => $form->get('zfcuser'))); ?>
         </div>
         <div class="col-sm-6">
-            <?php echo $this->render('ldc-user-profile/profile/extension/' . $form->get('extprofile')->getName(), array('fieldset' => $form->get('extprofile'))); ?>
-            <?php echo $this->render('ldc-user-profile/profile/extension/' . $form->get('personalstats')->getName(), array('fieldset' => $form->get('personalstats'))); ?>
+            <?php echo $this->render('ldc-user-profile/profile/extension/' . $form->get('extprofile')->getName(), array('validationGroup' => @$validationGroup['extprofile'], 'fieldset' => $form->get('extprofile'))); ?>
+            <?php echo $this->render('ldc-user-profile/profile/extension/' . $form->get('personalstats')->getName(), array('validationGroup' => @$validationGroup['personalstats'], 'fieldset' => $form->get('personalstats'))); ?>
         </div>
     </div>
 
