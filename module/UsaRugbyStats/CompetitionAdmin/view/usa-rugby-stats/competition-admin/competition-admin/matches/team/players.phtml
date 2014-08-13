@@ -1,7 +1,16 @@
-<?php $canEdit = $this->flags->{"match.teams.$matchSideKey.players"}->is_on(); ?>
-<?php $argv = $this->vars()->getArrayCopy(); ?>
+<?php
 
-<table class="table table-striped table-bordered competition-match-team-roster">
+$canEdit = $this->flags->{"match.teams.$matchSideKey.players"}->is_on();
+
+$team = $match->getTeam($matchSideKey)->getTeam();
+$rosterFetchUrl = $this->hasRole('super_admin')
+    ? $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/edit/copy-roster', ['id' => $match->getCompetition()->getId(), 'match' => $match->getId(), 'team' => $team->getId()])
+    : $this->url('usarugbystats_frontend_competition_match/update/copy-roster', ['cid' => $match->getCompetition()->getId(), 'mid' => $match->getId(), 'team' => $team->getId()]);
+
+$argv = $this->vars()->getArrayCopy();
+?>
+
+<table class="table table-striped table-bordered competition-match-team-roster competition-match-team-roster-<?=$matchSideKey;?>">
     <thead>
         <tr>
             <th style="text-align:center">#</th>
@@ -15,4 +24,20 @@
         <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/team/player', array_merge($argv, ['fieldset' => $fsPlayer])); ?>
         <?php endforeach; ?>
     </tbody>
+    <?php if ( $canEdit ): ?>
+    <tfoot>
+        <tr>
+            <td colspan="4" style="text-align:center">
+                <a class="btn btn-sm btn-primary competition-match-team-roster-useprevious"><i class="glyphicon glyphicon-retweet"></i>&nbsp;&nbsp;Load roster from previous match</a>
+                <?= $this->ursCopyMatchRosterFromPreviousMatch(
+                        $team,
+                        'CopyMatchRosterForSide' . $matchSideKey,
+                        $rosterFetchUrl,
+                        ".competition-match-team-roster-{$matchSideKey} .competition-match-team-roster-useprevious"
+                    );
+                ?>
+            </td>
+        </tr>
+    </tfoot>
+    <?php endif; ?>
 </table>

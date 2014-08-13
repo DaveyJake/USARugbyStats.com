@@ -1,6 +1,6 @@
 <?php $canEdit = $this->flags->{"match.teams.$matchSideKey.players"}->is_on(); ?>
 
-<tr>
+<tr class="competition-match-team-roster-slot competition-match-team-roster-slot-<?=$this->escapeHtmlAttr($fieldset->get('position')->getValue()); ?>">
     <td class="column column-number" style="text-align:center">
         <?php $element = $fieldset->get('number'); ?>
         <?php if ( $canEdit ): ?>

@@ -130,6 +130,18 @@ return array(
                                 'action'     => 'update',
                             ),
                         ),
+                        'may_terminate' => true,
+                        'child_routes' =>array(
+                            'copy-roster' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/copyRosterForTeam/:team',
+                                    'defaults' => array(
+                                        'action'     => 'copy-roster',
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
                     'delete' => array(
                         'type' => 'Segment',
@@ -228,6 +240,7 @@ return array(
                 'usarugbystats_frontend_competition_match' => array('member'),
                 'usarugbystats_frontend_competition_match/create' => array('competition_admin'),
                 'usarugbystats_frontend_competition_match/update' => array('team_admin', 'competition_admin'),
+                'usarugbystats_frontend_competition_match/update/copy-roster' => array('team_admin', 'competition_admin'),
                 'usarugbystats_frontend_competition_match/delete' => array('competition_admin'),
                 'usarugbystats_frontend_location' => array('member'),
                 'usarugbystats_frontend_location/view' => array('member'),

@@ -11,9 +11,13 @@ use DoctrineModule\Paginator\Adapter\Collection as CollectionAdapter;
 use UsaRugbyStats\Competition\Service\Competition\MatchService;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 use ZfcRbac\Exception\UnauthorizedException;
+use UsaRugbyStats\Competition\Traits\TeamServiceTrait;
+use UsaRugbyStats\Competition\Entity\Team;
 
 class CompetitionMatchAdminController extends AbstractActionController
 {
+    use TeamServiceTrait;
+
     protected $competitionService;
     protected $matchService;
 
@@ -122,6 +126,46 @@ class CompetitionMatchAdminController extends AbstractActionController
         $vm->setTemplate('usa-rugby-stats/competition-admin/competition-admin/matches/edit');
 
         return $vm;
+    }
+
+    public function copyRosterAction()
+    {
+        $competition = $this->getCompetitionEntityFromRoute();
+        $id = $this->params()->fromRoute('match');
+        $entity = $this->getMatchService()->findByID($id);
+        if (! $entity instanceof Match) {
+            throw new \RuntimeException('No match found with the specified identifier!');
+        }
+        if ( $entity->getCompetition() != null && $entity->getCompetition()->getId() != $competition->getId()) {
+            throw new \RuntimeException('No match found with the specified identifier!');
+        }
+
+        if ( ! $this->isGranted('competition.competition.match.update', $entity) ) {
+            throw new UnauthorizedException();
+        }
+
+        $teamid = $this->params()->fromRoute('team');
+        $team = $this->getTeamService()->findByID($teamid);
+        if (! $team instanceof Team) {
+            throw new \RuntimeException('No match found with the specified identifier!');
+        }
+
+        $data = $this->getMatchService()->getLastMatchRosterForTeam($team, $entity);
+        if ( is_null($data) ) {
+            return $this->getResponse()->setStatusCode(404)->setContent("No Previous Match Found");
+        }
+
+        return $this->getResponse()->setContent(json_encode([
+            'match' => [
+                'id' => $data['match']->getId(),
+                'title' => $data['match']->getDate()->format('Y-m-d'),
+                'url' => (string) $this->url()->fromRoute('usarugbystats_frontend_competition_match/view', [
+                    'cid' => $competition->getId(),
+                    'mid' => $data['match']->getId(),
+                ]),
+            ],
+            'roster' => $data['roster'],
+        ]));
     }
 
     public function removeAction()

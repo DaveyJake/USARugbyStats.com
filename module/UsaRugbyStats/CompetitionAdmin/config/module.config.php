@@ -202,6 +202,18 @@ return array(
                                                         'action'     => 'edit',
                                                     ),
                                                 ),
+                                                'may_terminate' => true,
+                                                'child_routes' =>array(
+                                                    'copy-roster' => array(
+                                                        'type' => 'Segment',
+                                                        'options' => array(
+                                                            'route' => '/copyRosterForTeam/:team',
+                                                            'defaults' => array(
+                                                                'action'     => 'copy-roster',
+                                                            ),
+                                                        ),
+                                                    ),
+                                                ),
                                             ),
                                             'remove' => array(
                                                 'type' => 'Segment',
@@ -379,6 +391,11 @@ return array(
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+    ),
+    'view_helpers' => array(
+        'factories' => array(
+            'ursCopyMatchRosterFromPreviousMatch' => 'UsaRugbyStats\CompetitionAdmin\View\Helper\CopyMatchRosterFromPreviousMatchFactory',
         ),
     ),
 );
