@@ -130,7 +130,6 @@ class SyncPlayer extends AbstractJob
     public function updateAccountProfile($player, $data)
     {
         $mbrdata = $this->generateZfcUserAdminArrayFromPayload($data);
-        unset($mbrdata['username']); // Don't overwrite their username
 
         // Bind the Player object to the form...
         $form = $this->getUserUpdateForm();
@@ -179,7 +178,7 @@ class SyncPlayer extends AbstractJob
     public function loadReferencedUserAccount()
     {
         // If a player_id was specified, load it
-        if ( ! empty($this->args['player_id']) ) {
+        if ( isset($this->args['player_id']) && !empty($this->args['player_id']) ) {
             $this->getLogger()->debug('Loading Player with ID # ' . $this->args['player_id']);
             $player = $this->getUserService()->getUserMapper()->findById($this->args['player_id']);
             if ($player instanceof Account) {
@@ -194,15 +193,29 @@ class SyncPlayer extends AbstractJob
         }
 
         // Attempt to load by remote ID, if provided
-        if ( isset($this->args['player_data']['ID']) ) {
+        if ( isset($this->args['player_data']['ID']) && !empty(($this->args['player_data']['ID'])) ) {
             $player = $this->getUserService()->getUserMapper()->findByRemoteId($this->args['player_data']['ID']);
             if ($player instanceof Account) {
                 return $player;
             }
         }
 
+        // Attempt to load by username, if provided
+        if ( isset($this->args['player_data']['UserName']) && !empty($this->args['player_data']['UserName']) ) {
+            $player = $this->getUserService()->getUserMapper()->findByUsername($this->args['player_data']['UserName']);
+            if ($player instanceof Account) {
+                if ( isset($this->args['player_data']['ID']) ) {
+                    // Update the user's RemoteID so we don't have to go though this again...
+                    $player->setRemoteId($this->args['player_data']['ID']);
+                    $this->getUserService()->getUserMapper()->update($player);
+                }
+
+                return $player;
+            }
+        }
+
         // Attempt to load by email address, if provided
-        if ( isset($this->args['player_data']['Email']) ) {
+        if ( isset($this->args['player_data']['Email']) && !empty($this->args['player_data']['Email'])  ) {
             $player = $this->getUserService()->getUserMapper()->findByEmail($this->args['player_data']['Email']);
             if ($player instanceof Account) {
                 if ( isset($this->args['player_data']['ID']) ) {
@@ -242,12 +255,13 @@ class SyncPlayer extends AbstractJob
 
     protected function generateZfcUserAdminArrayFromPayload($data)
     {
+        $autoUsername = strtolower(preg_replace('{[^a-z0-9-]}is','',($data['First_Name'] . '' . $data['Last_Name'])));
+
         return [
             'remoteId'        => $data['ID'],
             'display_name'    => $data['Last_Name'] . ', ' . $data['First_Name'],
             'email'           => $data['Email'],
-            // @TODO may be a good idea to ask for a unique username to be sent as well?
-            'username'        => strtolower(preg_replace('{[^a-z0-9-]}is','',($data['First_Name'] . '' . $data['Last_Name']))),
+            'username'        => ( isset($data['UserName']) && ! empty($data['UserName']) ) ? $data['UserName'] : $autoUsername,
             'password'        => '',
             'passwordVerify'  => '',
             'reset_password'  => '0',
