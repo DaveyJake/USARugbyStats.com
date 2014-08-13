@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "76ecd7fb22a8aeebd6b6a48d8afcb97f",
+    "hash": "e027353c084dd02391de335bfbf742f7",
     "packages": [
         {
             "name": "adamlundrigan/ldc-user-profile",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adamlundrigan/LdcUserProfile.git",
-                "reference": "f234fff06857a7b051b1637a0f44c058ccc9bb36"
+                "reference": "0396e9dea63b73c0632647d06fd8cec9b07e75f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adamlundrigan/LdcUserProfile/zipball/f234fff06857a7b051b1637a0f44c058ccc9bb36",
-                "reference": "f234fff06857a7b051b1637a0f44c058ccc9bb36",
+                "url": "https://api.github.com/repos/adamlundrigan/LdcUserProfile/zipball/0396e9dea63b73c0632647d06fd8cec9b07e75f7",
+                "reference": "0396e9dea63b73c0632647d06fd8cec9b07e75f7",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +48,7 @@
                 }
             ],
             "description": "User profile extension for ZfcUser",
-            "time": "2014-07-30 16:58:34"
+            "time": "2014-08-13 14:36:23"
         },
         {
             "name": "adamlundrigan/ldc-zend-form-cti",
@@ -1619,16 +1619,16 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "dev-master",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "f73be8a9ff0d15e635aa10577e47d0e5846a70f6"
+                "reference": "0b74b66dc07ff88140287bdf67d230c1bd32ee0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/f73be8a9ff0d15e635aa10577e47d0e5846a70f6",
-                "reference": "f73be8a9ff0d15e635aa10577e47d0e5846a70f6",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/0b74b66dc07ff88140287bdf67d230c1bd32ee0c",
+                "reference": "0b74b66dc07ff88140287bdf67d230c1bd32ee0c",
                 "shasum": ""
             },
             "require": {
@@ -1733,7 +1733,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2014-08-07 20:25:35"
+            "time": "2014-08-12 16:48:34"
         },
         {
             "name": "zendframework/zendxml",
@@ -2964,16 +2964,16 @@
         },
         {
             "name": "ocramius/instantiator",
-            "version": "1.0.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/Instantiator.git",
-                "reference": "cc754c2289ffd4483c319f6ed6ee88ce21676f64"
+                "reference": "8aa99efa86c51319afc26d23254fe6a8b5a5144a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/Instantiator/zipball/cc754c2289ffd4483c319f6ed6ee88ce21676f64",
-                "reference": "cc754c2289ffd4483c319f6ed6ee88ce21676f64",
+                "url": "https://api.github.com/repos/Ocramius/Instantiator/zipball/8aa99efa86c51319afc26d23254fe6a8b5a5144a",
+                "reference": "8aa99efa86c51319afc26d23254fe6a8b5a5144a",
                 "shasum": ""
             },
             "require": {
@@ -2982,6 +2982,7 @@
             },
             "require-dev": {
                 "athletic/athletic": "~0.1.8",
+                "ext-pdo": "*",
                 "ext-phar": "*",
                 "phpunit/phpunit": "~4.0",
                 "squizlabs/php_codesniffer": "2.0.*@ALPHA"
@@ -3005,8 +3006,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.com/",
-                    "role": "Developer"
+                    "homepage": "http://ocramius.github.com/"
                 }
             ],
             "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
@@ -3015,7 +3015,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2014-06-15 11:44:46"
+            "time": "2014-08-11 23:48:35"
         },
         {
             "name": "ocramius/lazy-map",
@@ -4279,7 +4279,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "zendframework/zendframework": 20,
+        "zendframework/zendframework": 0,
         "hounddog/doctrine-data-fixture-module": 20,
         "danielss89/zfc-user-admin": 20,
         "soliantconsulting/entity-audit": 20,
