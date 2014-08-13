@@ -211,7 +211,7 @@ class TeamRecord
 
     public function setScoreInFavor($pts)
     {
-        $this->scoreInFavor = 0;
+        $this->scoreInFavor = $pts;
 
         return $this;
     }
