@@ -32,14 +32,18 @@ class StandingsService implements EventManagerAwareInterface
         foreach ($teamRecords as $key=>$item) {
             $item instanceof TeamRecord;
             $sortData['points'][$key] = $item->getTotalPoints();
+            $sortData['totalWins'][$key] = $item->getTotalWins();
             $sortData['scoreDiff'][$key] = $item->getScoreDifferential();
-            $sortData['totalGames'][$key] = $item->getTotalGames();
+            $sortData['scoreInFavor'][$key] = $item->getScoreInFavor();
+            $sortData['teamName'][$key] = $item->getTeam()->getName();
         }
         if (count($sortData) > 0) {
             array_multisort(
                 $sortData['points'], SORT_DESC,
+                $sortData['totalWins'], SORT_DESC,
                 $sortData['scoreDiff'], SORT_DESC,
-                $sortData['totalGames'], SORT_ASC,
+                $sortData['scoreInFavor'], SORT_ASC,
+                $sortData['teamName'], SORT_ASC,
                 $teamRecords
             );
         }

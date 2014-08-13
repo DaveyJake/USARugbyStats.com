@@ -50,6 +50,15 @@ class FifteensStandingsScenarioTest extends AbstractStandingsServiceTest
             $this->assertEquals($expected['FFT'], $teamRecord->getForfeits(), "{$teamName} Forfeits incorrect");
             $this->assertEquals($expected['PTS'], $teamRecord->getTotalPoints(), "{$teamName} Points incorrect");
         }
+
+        $standings = $this->service->getStandingsFor($this->competition);
+        $this->assertInternalType('array', $standings);
+        $this->assertArrayHasKey('overall', $standings);
+        $this->assertNotEmpty($standings['overall']);
+        $rank = 1;
+        foreach ($standings['overall'] as $key => $teamRecord) {
+            $this->assertEquals($rank++, $expectedResult[$teamRecord->getTeam()->getName()]['Rank']);
+        }
     }
 
     /**
