@@ -42,7 +42,7 @@ class StandingsService implements EventManagerAwareInterface
                 $sortData['points'], SORT_DESC,
                 $sortData['totalWins'], SORT_DESC,
                 $sortData['scoreDiff'], SORT_DESC,
-                $sortData['scoreInFavor'], SORT_ASC,
+                $sortData['scoreInFavor'], SORT_DESC,
                 $sortData['teamName'], SORT_ASC,
                 $teamRecords
             );
