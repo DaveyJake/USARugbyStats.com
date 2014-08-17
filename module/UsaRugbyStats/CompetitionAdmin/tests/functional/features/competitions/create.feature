@@ -170,5 +170,5 @@ Feature: Competition Administration Panel - Create Competition
     And select "Test Team #1" from "competition[divisions][1][teamMemberships][0][team]"
     Then I press "Create Competition"
     Then I should be on "/admin/competition/create"
-    And I should see "This team has already been added to another division!"
-    And I should see "This team has already been added to another division!" in the ".competition-divisions-division[data-index=1] .competition-divisions-division-teams tr[data-teamindex=0]" element
+    And I should see "This team has already been added!"
+    And I should see "This team has already been added!" in the ".competition-divisions-division[data-index=1] .competition-divisions-division-teams tr[data-teamindex=0]" element
