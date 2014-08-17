@@ -24,6 +24,24 @@ Feature: Union Administration Panel - Create Union
     And the "union[name]" field should contain "Behat Union"
       
   @javascript
+  Scenario: Administrator can create a new union with teams
+    Given I am authenticated as a super administrator
+    And I go to "/admin/union/create"   
+    When I fill in the following:
+       | union[name] | Behat Union 2 |
+    And I click the ".union-teams a.union-teams-add" element
+    And select "Test Team #8" from "union[teams][0][id]"
+    And I click the ".union-teams a.union-teams-add" element
+    And select "Test Team #7" from "union[teams][1][id]"
+    And I press "Create Union"
+    Then I should be on "/admin/union/edit/4" 
+    And I should see "The union was created successfully!"
+    And I should see "Update Union"
+    And the "union[name]" field should contain "Behat Union 2"
+    And I should see an ".union-teams table tr[data-teamid=7]" element
+    And I should see an ".union-teams table tr[data-teamid=8]" element
+          
+  @javascript
   Scenario: Name is required when creating a new union
     Given I am authenticated as a super administrator
     And I go to "/admin/union/create"
