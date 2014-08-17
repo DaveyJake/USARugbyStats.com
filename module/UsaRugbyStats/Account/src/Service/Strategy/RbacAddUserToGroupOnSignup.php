@@ -40,6 +40,10 @@ class RbacAddUserToGroupOnSignup extends AbstractListenerAggregate
             'create.post',
             [$this, 'addUserToGroup']
         );
+        $this->listeners[] = $events->attach(
+            'edit.post',
+            [$this, 'addUserToGroup']
+        );
     }
 
     /**
