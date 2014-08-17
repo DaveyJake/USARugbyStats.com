@@ -79,6 +79,6 @@ Feature: CompetitionFrontend User Dashboard Routing
        | identity | memberone |
        | credential | testtest |
     And I press "Sign In"
-    Then I should be on "/player/12" 
+    Then I should be on "/player/13" 
     And I should see "Player Statistics"
     And I should see "Teams Played For"
