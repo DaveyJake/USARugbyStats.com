@@ -18,7 +18,7 @@ Feature: Account Administration Panel - Edit User Account - Member RBAC
     And I press "submit"
     Then I should be on "/admin/user/list" 
     Given I go to "/admin/user/edit/14"
-    And I should see 2 "#RoleAssignmentContainer .rbac-assignment-member" elements
+    And I should see 1 "#RoleAssignmentContainer .rbac-assignment-member" elements
     And I should see 1 "#RoleAssignmentContainer .rbac-assignment-member-membership[data-index=0]" elements
     And I should see 1 "#RoleAssignmentContainer .rbac-assignment-member-membership[data-index=1]" elements
     And I should see that "roleAssignments[0][memberships][0][team]" field has value "1"

@@ -8,7 +8,7 @@ Feature: Account Administration Panel - Edit User Account - SuperAdmin RBAC
     Given I am authenticated as a super administrator
     And I go to "/admin/user/edit/15" 
 	And I click the ".useraccount-rbacrole-add" element
-	And I click the "#AddRoleAssignmentButtonMenu a[data-key=team_admin]" element
+	And I click the "#AddRoleAssignmentButtonMenu a[data-key=super_admin]" element
 	And I wait up to "5000" ms for "$('#RoleAssignmentContainer .rbac-assignment-superadmin').length == 1"
 	Then I should see an "#RoleAssignmentContainer .rbac-assignment-superadmin" element
     And I press "submit"
