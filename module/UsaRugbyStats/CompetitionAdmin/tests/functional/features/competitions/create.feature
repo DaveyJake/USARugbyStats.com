@@ -17,9 +17,8 @@ Feature: Competition Administration Panel - Create Competition
     And I go to "/admin/competition/create"	
     When I fill in the following:
        | competition[name]      | Behat Competition |
+       | competition[type]      | L |
        | competition[variant]   | 15s |
-       | competition[startDate] | 2014-07-01T08:00-06:00 |
-       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I press "Create Competition"
     Then I should be on "/admin/competition/edit/3" 
     And I should see "The competition was created successfully!"
@@ -32,9 +31,8 @@ Feature: Competition Administration Panel - Create Competition
     And I go to "/admin/competition/create"	
     When I fill in the following:
        | competition[name]      | Behat Competition |
+       | competition[type]      | L |
        | competition[variant]   | 15s |
-       | competition[startDate] | 2014-07-01T08:00-06:00 |
-       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I press "Create Competition"
     Then I should be on "/admin/competition/create"
     And I should see "There is already another object matching"
@@ -56,9 +54,8 @@ Feature: Competition Administration Panel - Create Competition
     And I go to "/admin/competition/create"	
     When I fill in the following:
        | competition[name]      | Competition with two empty divisions |
+       | competition[type]      | L |
        | competition[variant]   | 15s |
-       | competition[startDate] | 2014-07-01T08:00-06:00 |
-       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     And I click the ".competition-divisions-add" element
@@ -82,9 +79,8 @@ Feature: Competition Administration Panel - Create Competition
     And I go to "/admin/competition/create"	
     When I fill in the following:
        | competition[name]      | Competition with two divisions of the same name |
+       | competition[type]      | L |
        | competition[variant]   | 15s |
-       | competition[startDate] | 2014-07-01T08:00-06:00 |
-       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     And I click the ".competition-divisions-add" element
@@ -102,9 +98,8 @@ Feature: Competition Administration Panel - Create Competition
     And I go to "/admin/competition/create"	
     When I fill in the following:
        | competition[name]      | Competition with two non-empty divisions |
+       | competition[type]      | L |
        | competition[variant]   | 15s |
-       | competition[startDate] | 2014-07-01T08:00-06:00 |
-       | competition[endDate]   | 2014-07-07T18:30-06:00 |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     And I click the ".competition-divisions-add" element
@@ -139,8 +134,7 @@ Feature: Competition Administration Panel - Create Competition
     When I fill in the following:
        | competition[name]      | Competition with team added more than once |
        | competition[variant]   | 15s |
-       | competition[startDate] | 2014-07-01T08:00-06:00 |
-       | competition[endDate]   | 2014-07-07T18:30-06:00 |
+       | competition[type]      | L |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     Then I fill in the following:
@@ -161,8 +155,7 @@ Feature: Competition Administration Panel - Create Competition
     When I fill in the following:
        | competition[name]      | Competition with team added to multiple divisions |
        | competition[variant]   | 15s |
-       | competition[startDate] | 2014-07-01T08:00-06:00 |
-       | competition[endDate]   | 2014-07-07T18:30-06:00 |
+       | competition[type]      | L |
     And I click the ".competition-divisions-add" element
     Then I should see 1 ".competition-divisions-division" elements
     Then I fill in the following:
