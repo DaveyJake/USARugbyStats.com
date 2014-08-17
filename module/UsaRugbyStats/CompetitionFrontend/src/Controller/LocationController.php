@@ -40,7 +40,7 @@ class LocationController extends AbstractActionController
 
         $q = trim($this->params()->fromQuery('q'), ' %');
         if ( empty($q) ) {
-            return $this->redirect()->toRoute('usarugbystats_frontend_location/list');
+            return $this->redirect()->toRoute('usarugbystats_frontend_location');
         }
 
         $svc = $this->getLocationService();
