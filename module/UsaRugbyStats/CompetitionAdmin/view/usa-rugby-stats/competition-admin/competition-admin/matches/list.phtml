@@ -34,8 +34,7 @@
                 <?php echo $this->escapeHtml($match->getId()); ?>
             </td>
             <td class="cell cell-details">
-                <?php echo $this->escapeHtml($match); ?><br />
-                <i><?php echo $this->escapeHtml($match->getDescription() ?: ''); ?></i>
+                <?php echo $this->escapeHtml($this->ursCompetitionMatchName($match) ?: ''); ?>
             </td>
             <td class="cell cell-date">
                 <?php echo $this->escapeHtml($match->getDate()->format('Y-m-d @ H:i T')); ?>

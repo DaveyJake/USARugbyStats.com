@@ -17,14 +17,6 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(12345, $obj->getId());
     }
 
-    public function testGetSetDescription()
-    {
-        $obj = new Match();
-        $this->assertNull($obj->getDescription());
-        $obj->setDescription('Testing 123');
-        $this->assertEquals('Testing 123', $obj->getDescription());
-    }
-
     public function testCanBeConvertedToString()
     {
         $homeTeam = new Team();

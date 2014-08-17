@@ -26,15 +26,6 @@ class MatchFilter extends InputFilter
         ));
 
         $this->add(array(
-            'name'       => 'description',
-            'required'   => false,
-            'validators' => array(),
-            'filters'   => array(
-                array('name' => 'StringTrim'),
-            ),
-        ));
-
-        $this->add(array(
             'name'       => 'location',
             'required'   => false,
             'validators' => array(

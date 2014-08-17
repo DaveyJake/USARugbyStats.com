@@ -6,24 +6,6 @@
     <div class="panel-heading">Match Details</div>
     <div class="panel-body">
 
-        <?php if ( ! $this->flags->{'match.description%visible'}->is_off() ): ?>
-        <div class="row form-group">
-            <?php $element = $fieldset->get('description'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
-
-            <?php echo $this->formLabel($element) ?>
-            <div class="col-sm-8">
-                <?php if ( $this->flags->{'match.description'}->is_on() ): ?>
-                <?php echo $this->formElement($element) ?>
-                <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
-                <?php endif;?>
-                <?php echo $this->formElementErrors($element); ?>
-            </div>
-        </div>
-        <?php endif; ?>
-
         <?php if ( ! $this->flags->{'match.date%visible'}->is_off() ): ?>
         <div class="row form-group">
             <?php $element = $fieldset->get('date'); ?>

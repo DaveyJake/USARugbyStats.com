@@ -28,14 +28,6 @@ class MatchFieldset extends Fieldset
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'description',
-            'options' => array(
-                'label' => 'Description',
-            ),
-        ));
-
-        $this->add(array(
             'type' => 'Zend\Form\Element\DateTime',
             'name' => 'date',
             'options' => array(

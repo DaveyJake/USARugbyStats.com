@@ -7,6 +7,6 @@ $form->setAttribute('action', $this->url('usarugbystats_frontend_competition_mat
 $form->setAttribute('method', 'post');
 ?>
 
-<h2>Update Match <i><?php echo $this->escapeHtml($match->getDescription()); ?></i></h2>
+<h2>Update Match <i><?php echo $this->escapeHtml($this->ursCompetitionMatchName($match)); ?></i></h2>
 
 <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/matches/form', $this->vars()); ?>

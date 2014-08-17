@@ -30,11 +30,6 @@ class Match
     protected $id;
 
     /**
-     * @var string
-     */
-    protected $description;
-
-    /**
      * The competition this match is part of
      *
      * @var Competition
@@ -139,29 +134,6 @@ class Match
     public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Match Description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set Match Description
-     *
-     * @param  string $desc
-     * @return self
-     */
-    public function setDescription($desc)
-    {
-        $this->description = $desc;
 
         return $this;
     }

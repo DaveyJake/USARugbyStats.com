@@ -7,7 +7,7 @@ $form->setAttribute('action', $this->url('zfcadmin/usarugbystats_competitionadmi
 $form->setAttribute('method', 'post');
 ?>
 
-<h2>Update Match <i><?php echo $this->escapeHtml($match->getDescription()); ?></i></h2>
+<h2>Update Match <i><?php echo $this->escapeHtml($this->ursCompetitionMatchName($match)); ?></i></h2>
 
 <?php $form->setAttribute('class', 'form-horizontal'); ?>
 <?php echo $this->form()->openTag($form) ?>
