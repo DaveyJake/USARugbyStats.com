@@ -60,7 +60,7 @@ class CompetitionCreateForm extends ExtendedValidationGroupForm
             if ( ! isset($arrDivision['teamMemberships']) || ! is_array($arrDivision['teamMemberships']) ) {
                 continue;
             }
-            if ( ! isset($vg['competition']['divisions']['teamMembership']) ) {
+            if ( ! isset($vg['competition']['divisions']['teamMemberships']) ) {
                 continue;
             }
             foreach ($arrDivision['teamMemberships'] as $teamKey => $arrTeamMembership) {
