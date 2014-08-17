@@ -69,10 +69,13 @@ class TeamFilter extends InputFilter
             'use_upload_extension' => true,
         ]);
         $file->getFilterChain()->attachByName(
-            'UsaRugbyStats\Application\Common\Filter\FileScaleAndConvertToPng',
+            'UsaRugbyStats\Application\Common\Filter\FileConvertToPng',
             []
         );
-
+        $file->getFilterChain()->attachByName(
+            'UsaRugbyStats\Application\Common\Filter\FileScale',
+            []
+        );
         $this->add($file, 'new_logo');
 
         $this->add(array(

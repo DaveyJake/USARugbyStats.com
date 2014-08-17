@@ -4,9 +4,9 @@ namespace UsaRugbyStats\Application\Common\Filter;
 use Zend\Filter\AbstractFilter;
 
 /**
- * Filter to scale and convert to PNG an uploaded image
+ * Filter to scale an uploaded image
  */
-class FileScaleAndConvertToPng extends AbstractFilter
+class FileScale extends AbstractFilter
 {
     /**
      * @var array
@@ -46,14 +46,10 @@ class FileScaleAndConvertToPng extends AbstractFilter
             $sourceFile = $value;
         }
 
-        $sourceFilePathInfo = pathinfo($sourceFile);
-        $targetFile = $sourceFilePathInfo['dirname']
-                      . DIRECTORY_SEPARATOR
-                      . $sourceFilePathInfo['filename']
-                      . '.png';
         if (!file_exists($sourceFile)) {
             return $value;
         }
+        $targetFile = $sourceFile;
 
         $this->checkFileExists($targetFile);
 
