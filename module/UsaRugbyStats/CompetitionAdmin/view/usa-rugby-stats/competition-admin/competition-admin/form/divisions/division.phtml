@@ -2,7 +2,7 @@
 <?php $elId = $fieldset->get('id'); ?>
 <?php $elName = $fieldset->get('name'); ?>
 
-<div class="panel panel-default competition-divisions-division" data-divisionid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>"<?php if (isset($index)): ?> data-index="<?php echo $this->escapeHtmlAttr($index); ?>"<?php endif;?>>
+<div class="panel panel-default competition-divisions-division" data-divisionid="<?php echo $this->escapeHtmlAttr($elId->getValue()); ?>" data-index="<?php echo $this->escapeHtmlAttr(@$index === NULL ? '__index__' : $index); ?>">
     <div class="panel-heading">
         <?php if ($isTemplate): ?>New Division<?php else: ?><?php echo $this->escapeHtml($elName->getValue()); ?><?php endif; ?>
         <?php if ( $this->isGranted('competition.competition.update.divisions', @$competition)  ): ?>
