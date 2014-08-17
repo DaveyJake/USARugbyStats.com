@@ -217,7 +217,9 @@ class FeatureContext extends MinkContext
                 return;
             }
 
-            file_put_contents('/tmp/screenshot.png', $this->getSession()->getDriver()->getScreenshot());
+            $failureid = uniqid('failure_');
+
+            file_put_contents("/tmp/{$failureid}.png", $this->getSession()->getDriver()->getScreenshot());
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, 'https://api.imgur.com/3/upload');
@@ -235,7 +237,7 @@ class FeatureContext extends MinkContext
                 $this->printDebug($result);
             }
 
-            $filename = '/tmp/' . uniqid('failure_') . '.html';
+            $filename = "/tmp/{$failureid}.html";
             file_put_contents($filename, $this->getSession()->getPage()->getContent());
             $this->printDebug('Page contents dumped to file: ' . $filename);
         }

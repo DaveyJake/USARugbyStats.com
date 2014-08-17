@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use UsaRugbyStats\Competition\Entity\Team\Member as TeamMember;
 use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Application\Entity\AccountInterface;
 
 class Member extends BaseAssignment
 {
@@ -136,6 +137,6 @@ class Member extends BaseAssignment
 
     public function __toString()
     {
-        return 'User #' . $this->getAccount()->getId() . ' ' . $this->getDiscriminator();
+        return 'User #' . ($this->getAccount() instanceof AccountInterface ? $this->getAccount()->getId() : '???') . ' ' . $this->getDiscriminator();
     }
 }

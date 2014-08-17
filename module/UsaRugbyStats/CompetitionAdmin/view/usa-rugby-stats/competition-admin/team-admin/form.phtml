@@ -68,7 +68,7 @@
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
-                        <img src="<?php echo $this->ursTeamLogoUrl($entity); ?>" width="100" />
+                        <img src="<?php echo $this->ursTeamLogoUrl(@$entity); ?>" width="100" />
                         <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
-                        <img src="<?php echo $this->ursTeamCoverImageUrl($entity); ?>" width="100%" />
+                        <img src="<?php echo $this->ursTeamCoverImageUrl(@$entity); ?>" width="100%" />
                         <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
                     </div>
                 </div>

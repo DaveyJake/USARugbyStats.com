@@ -72,3 +72,25 @@ Feature: Union Administration Panel - Update Union
     And I should not see an ".union-teams table tr[data-teamid=2]" element
     And I should not see an ".union-teams table tr[data-teamid=3]" element
     And I should not see an ".union-teams table tr[data-teamid=4]" element
+    
+  @javascript
+  Scenario: Can re-add all teams after they were removed
+    Given I go to "/admin/union/edit/1"
+    And I should see 0 ".union-teams table tr[data-teamid]" elements
+    When I click the ".union-teams a.union-teams-add" element
+    And I click the ".union-teams a.union-teams-add" element
+    And I click the ".union-teams a.union-teams-add" element
+    And I click the ".union-teams a.union-teams-add" element
+    Then I should see 4 ".union-teams table tr[data-teamid]" elements
+    And select "Test Team #1" from "union[teams][0][id]"
+    And select "Test Team #2" from "union[teams][1][id]"
+    And select "Test Team #3" from "union[teams][2][id]"
+    And select "Test Team #4" from "union[teams][3][id]"
+    And I press "submit"
+    Then I should be on "/admin/union/edit/1" 
+    And I should see "The union was updated successfully!"
+    And I should see "Update Union"
+    And I should see an ".union-teams table tr[data-teamid=1]" element
+    And I should see an ".union-teams table tr[data-teamid=2]" element
+    And I should see an ".union-teams table tr[data-teamid=3]" element
+    And I should see an ".union-teams table tr[data-teamid=4]" element

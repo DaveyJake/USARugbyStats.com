@@ -107,7 +107,12 @@ class TeamFilter extends InputFilter
             'name'       => 'website',
             'required'   => false,
             'validators' => array(
-                array( 'name' => 'Uri' ),
+                array(
+                    'name' => 'Uri',
+                    'options' => array(
+                        'allowRelative' => false
+                    ),
+                ),
             ),
             'filters'   => array(
                 array('name' => 'StringTrim'),

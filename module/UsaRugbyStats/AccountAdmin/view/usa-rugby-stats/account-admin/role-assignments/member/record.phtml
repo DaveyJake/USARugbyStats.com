@@ -1,4 +1,4 @@
-<tr class="rbac-assignment-member-membership" data-index="<?php echo $this->escapeHtmlAttr(@$index ?: '__memberindex__'); ?>" style="border-bottom: 1px solid #ddd; margin-bottom: 15px;">
+<tr class="rbac-assignment-member-membership" data-index="<?php echo $this->escapeHtmlAttr(@$index === NULL ? '__memberindex__' : $index); ?>" style="border-bottom: 1px solid #ddd; margin-bottom: 15px;">
     <?php $element = $fieldset->get('id'); ?>
     <?php echo $this->formElement($element); ?>
     <?php echo $this->formElementErrors($element); ?>

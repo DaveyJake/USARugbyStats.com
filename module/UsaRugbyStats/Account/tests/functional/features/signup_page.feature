@@ -16,7 +16,7 @@ Feature: Account Registraiton Page
     Given I am on the registration page
     When I fill in the following:
        | display_name | Test Account |
-       | email | adam+urstestaccount@lundrigan.ca |
+       | email | urstestaccount@lundrigan.ca |
        | username | testaccount |
        | password | TestAccount!! |
        | passwordVerify | TestAccount!! |
@@ -29,7 +29,7 @@ Feature: Account Registraiton Page
     Given I am on the registration page
     When I fill in the following:
        | display_name | Test Account |
-       | email | adam+urstestaccount@lundrigan.ca |
+       | email | urstestaccount@lundrigan.ca |
        | username | testaccount2 |
        | password | TestAccount!! |
        | passwordVerify | TestAccount!! |
@@ -41,7 +41,7 @@ Feature: Account Registraiton Page
     Given I am on the registration page
     When I fill in the following:
        | display_name | Test Account |
-       | email | adam+urstestaccount2@lundrigan.ca |
+       | email | urstestaccount2@lundrigan.ca |
        | username | testaccount |
        | password | TestAccount!! |
        | passwordVerify | TestAccount!! |
@@ -53,7 +53,7 @@ Feature: Account Registraiton Page
     Given I am on the registration page
     When I fill in the following:
        | display_name | |
-       | email | adam+urstestaccount@lundrigan.ca |
+       | email | urstestaccount@lundrigan.ca |
        | username | testaccount |
        | password | TestAccount!! |
        | passwordVerify | TestAccount!! |
@@ -77,7 +77,7 @@ Feature: Account Registraiton Page
     Given I am on the registration page
     When I fill in the following:
        | display_name | Test Account |
-       | email | adam+urstestaccount@lundrigan.ca |
+       | email | urstestaccount@lundrigan.ca |
        | username |  |
        | password | TestAccount!! |
        | passwordVerify | TestAccount!! |
@@ -89,7 +89,7 @@ Feature: Account Registraiton Page
     Given I am on the registration page
     When I fill in the following:
        | display_name | Test Account |
-       | email | adam+urstestaccount@lundrigan.ca |
+       | email | urstestaccount@lundrigan.ca |
        | username | testaccount |
        | password |  |
        | passwordVerify | TestAccount!! |
@@ -101,7 +101,7 @@ Feature: Account Registraiton Page
     Given I am on the registration page
     When I fill in the following:
        | display_name | Test Account |
-       | email | adam+urstestaccount@lundrigan.ca |
+       | email | urstestaccount@lundrigan.ca |
        | username | testaccount |
        | password | TestAccount## |
        | passwordVerify | TestAccount!! |
