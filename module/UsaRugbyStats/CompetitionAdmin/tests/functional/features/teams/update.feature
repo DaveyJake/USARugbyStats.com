@@ -14,7 +14,7 @@ Feature: Team Administration Panel - Update Team
        | team[website] | http://behatteam.com |
        | team[facebookHandle] | behatteamfacebook |
        | team[twitterHandle] | behatteamtwitter |
-    And select "Test Union #1" from "team[union]"
+    And select "Test Union #2" from "team[union]"
     # Add an Administrator
     And I click the "a.team-admins-add" element
     And select "Console Administrator" from "administrators[1][account]"
@@ -28,7 +28,7 @@ Feature: Team Administration Panel - Update Team
     And I should see "Update Team"
     And the "team[remoteId]" field should contain "654321"
     And the "team[name]" field should contain "Behat Team Updated"
-    And the "team[union]" field should contain "1"
+    And the "team[union]" field should contain "2"
     And the "team[email]" field should contain "me@behatteam.com"
     And the "team[website]" field should contain "http://behatteam.com"
     And the "team[facebookHandle]" field should contain "behatteamfacebook"
@@ -45,7 +45,7 @@ Feature: Team Administration Panel - Update Team
     Given I am authenticated as a super administrator
     And I go to "/admin/team/edit/9"
     And I click the ".team-admins tr[data-recordid=11] a.dropadmin" element
-    And I click the ".team-admins tr[data-recordid=27] a.dropadmin" element
+    And I click the ".team-admins tr[data-recordid=36] a.dropadmin" element
     Then I should not see an ".team-admins table tr[data-recordid]" element
     Given I press "Save Changes"
     Then I should be on "/admin/team/edit/9"
@@ -57,8 +57,8 @@ Feature: Team Administration Panel - Update Team
   Scenario: Administrator can drop members from team
     Given I am authenticated as a super administrator
     And I go to "/admin/team/edit/9"
-    And I click the ".team-members tr[data-recordid=1] a.dropmember" element
-    And I click the ".team-members tr[data-recordid=2] a.dropmember" element
+    And I click the ".team-members tr[data-recordid=3] a.dropmember" element
+    And I click the ".team-members tr[data-recordid=4] a.dropmember" element
     Then I should not see an ".team-members table tr[data-recordid]" element
     Given I press "Save Changes"
     Then I should be on "/admin/team/edit/9"

@@ -22,7 +22,7 @@ Feature: Team Administration Panel - Create Team
        | team[website] | http://myteam.com |
        | team[facebookHandle] | myteamfacebook |
        | team[twitterHandle] | myteamtwitter |
-    And select "Test Union #2" from "team[union]"
+    And select "Test Union #1" from "team[union]"
     # Add an Administrator
     And I click the "a.team-admins-add" element
     And select "Team Administrator Multi" from "administrators[0][account]"
@@ -36,7 +36,7 @@ Feature: Team Administration Panel - Create Team
     And I should see "Update Team"
     And the "team[remoteId]" field should contain "123456"
     And the "team[name]" field should contain "Behat Team"
-    And the "team[union]" field should contain "2"
+    And the "team[union]" field should contain "1"
     And the "team[email]" field should contain "me@myteam.com"
     And the "team[website]" field should contain "http://myteam.com"
     And the "team[facebookHandle]" field should contain "myteamfacebook"
@@ -51,12 +51,12 @@ Feature: Team Administration Panel - Create Team
     And I go to "/admin/team/create"	
     When I fill in the following:
        | team[name] |  |
-    And select "Test Union #1" from "team[union]"
+    And select "Test Union #2" from "team[union]"
     And I press "Create Team"
     Then I should be on "/admin/team/create"
     And I should see "Value is required and can't be empty"
     And the "team[name]" field should contain ""
-    And the "team[union]" field should contain "1"
+    And the "team[union]" field should contain "2"
             
   @javascript
   Scenario: Name must be unique when creating a new team
