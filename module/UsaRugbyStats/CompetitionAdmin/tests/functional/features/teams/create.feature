@@ -45,5 +45,4 @@ Feature: Team Administration Panel - Create Team
        | team[name] | Foobar Bazbat |
     And I press "Create Team"
     Then I should be on "/admin/team/create"
-    And I should see "Value is required and can't be empty"
-    And the "team[union]" field should contain ""
+    And I should see "The input was not found in the haystack"
