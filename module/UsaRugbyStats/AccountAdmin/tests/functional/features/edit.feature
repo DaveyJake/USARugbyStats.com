@@ -118,3 +118,14 @@ Feature: Account Administration Panel - Edit User Account
     And I should see "The user was edited"
     And I navigate to the edit page for user "14"
     And I should see that "display_name" field has value "Testy McTesterson"
+      
+  @javascript
+  Scenario: Administrator can modify the display name of an existing user account
+    Given I am authenticated as a super administrator
+    And I navigate to the edit page for user "14"
+    When I fill in the following:
+       | display_name | Member Two |
+    And I press "Save Changes"
+    And I should see "The user was edited"
+    And I navigate to the edit page for user "14"
+    And I should see that "display_name" field has value "Member Two"
