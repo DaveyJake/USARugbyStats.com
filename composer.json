@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "zendframework/zendframework": "2.3.*@stable",
+        "zendframework/zendframework": "dev-master#e94885b8ac5c6a04ab1d8f8cb7b9c01cf74f6b59",
         "zf-commons/zfc-user": "1.*",
         "zf-commons/zfc-user-doctrine-orm": "1.*",
         "zf-commons/zfc-rbac": "2.*",
