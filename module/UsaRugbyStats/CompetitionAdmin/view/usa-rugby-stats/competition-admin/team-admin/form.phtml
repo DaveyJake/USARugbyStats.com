@@ -73,6 +73,18 @@
                     </div>
                 </div>
 
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('new_cover_image'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <img src="<?php echo $this->ursTeamCoverImageUrl($entity); ?>" width="100%" />
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+
             </div>
             <div class="panel-heading" style="border-top: 1px solid #ddd;">Contact Information</div>
             <div class="panel-body">

@@ -44,6 +44,7 @@ return array(
                 'extension_manager' => array(
                     'invokables' => array(
                         'update_team_logo_with_newly_uploaded_file' => 'UsaRugbyStats\Competition\ServiceExtension\Team\UpdateTeamLogoWithNewlyUploadedFile',
+                        'update_team_cover_image_with_newly_uploaded_file' => 'UsaRugbyStats\Competition\ServiceExtension\Team\UpdateTeamCoverImageWithNewlyUploadedFile',
                     ),
                     'factories' => array(
                         'update_team_membership_sort_key' => 'UsaRugbyStats\Competition\ServiceExtension\Team\UpdateTeamMembershipSortKeyFactory',
@@ -52,10 +53,12 @@ return array(
                 'event_map' => array(
                     'form.validate.post' => array(
                         'update_team_logo_with_newly_uploaded_file',
+                        'update_team_cover_image_with_newly_uploaded_file',
                     ),
                     'save.post' => array(
                         'update_team_membership_sort_key',
                         'update_team_logo_with_newly_uploaded_file',
+                        'update_team_cover_image_with_newly_uploaded_file',
                     ),
                 ),
             ),
@@ -342,6 +345,7 @@ return array(
             'ursTeamName'             => 'UsaRugbyStats\Competition\View\Helper\TeamNameFactory',
             'ursTeamLink'             => 'UsaRugbyStats\Competition\View\Helper\TeamLinkFactory',
             'ursTeamLogoUrl'          => 'UsaRugbyStats\Competition\View\Helper\TeamLogoUrlFactory',
+            'ursTeamCoverImageUrl'    => 'UsaRugbyStats\Competition\View\Helper\TeamCoverImageUrlFactory',
             'ursUnionName'            => 'UsaRugbyStats\Competition\View\Helper\UnionNameFactory',
             'ursUnionLink'            => 'UsaRugbyStats\Competition\View\Helper\UnionLinkFactory',
             'ursCompetitionName'      => 'UsaRugbyStats\Competition\View\Helper\CompetitionNameFactory',

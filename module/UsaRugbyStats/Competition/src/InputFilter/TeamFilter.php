@@ -78,6 +78,20 @@ class TeamFilter extends InputFilter
         );
         $this->add($file, 'new_logo');
 
+        $fileCover = new FileInput();
+        $fileCover->setRequired(false);
+        $fileCover->getValidatorChain()->attachByName('fileisimage');
+        $fileCover->getFilterChain()->attachByName('filerenameupload', [
+            'target' => 'data/uploads/teamcoverimages',
+            'randomize' => true,
+            'use_upload_extension' => true,
+            ]);
+        $fileCover->getFilterChain()->attachByName(
+            'UsaRugbyStats\Application\Common\Filter\FileConvertToPng',
+            []
+        );
+        $this->add($fileCover, 'new_cover_image');
+
         $this->add(array(
             'name'       => 'email',
             'required'   => false,

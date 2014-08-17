@@ -65,6 +65,14 @@ class TeamFieldset extends Fieldset
         ));
 
         $this->add(array(
+            'type' => 'Zend\Form\Element\File',
+            'name' => 'new_cover_image',
+            'options' => array(
+                'label' => 'Cover Image',
+            ),
+        ));
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'email',
             'options' => array(
