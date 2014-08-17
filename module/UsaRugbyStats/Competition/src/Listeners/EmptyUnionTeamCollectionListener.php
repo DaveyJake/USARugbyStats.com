@@ -35,7 +35,7 @@ class EmptyUnionTeamCollectionListener implements ListenerAggregateInterface
         if ( !isset($data['union']['teams']) || empty($data['union']['teams']) ) {
             $entity->removeTeams($entity->getTeams());
             $coll = $e->getParams()->form->get('union')->get('teams');
-            foreach ( $coll as $item ) {
+            foreach ($coll as $item) {
                 $coll->remove($item->getName());
             }
         }
