@@ -46,7 +46,7 @@ class FileConvertToPng extends AbstractFilter
         }
 
         $sourceFilePathInfo = pathinfo($sourceFile);
-        if ( $sourceFilePathInfo['extension'] == 'png' ) {
+        if ($sourceFilePathInfo['extension'] == 'png') {
             return $value;
         }
         $targetFile = $sourceFilePathInfo['dirname']
