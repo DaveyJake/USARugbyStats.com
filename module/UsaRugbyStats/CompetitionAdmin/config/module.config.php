@@ -281,6 +281,15 @@ return array(
                                     ),
                                 ),
                             ),
+                            'search' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/search',
+                                    'defaults' => array(
+                                        'action'     => 'search',
+                                    ),
+                                ),
+                            ),
                             'create' => array(
                                 'type' => 'Literal',
                                 'options' => array(
