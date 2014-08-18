@@ -85,8 +85,75 @@
 
             </header>
 
-            <div id="drawer-menu">
-                HELLO
+            <div id="drawer-menu" style="padding-top: 80px !important">
+
+                <?php echo $this->navigation('default')
+                                ->menu()
+                                ->setUlClass('nav navbar-nav navbar-right')
+                                ->setMaxDepth(0)
+                                ->setRenderInvisible(false)?>
+
+                <ul>
+
+<?php //@TODO All this should be added to the navigation container above ?>
+<?php if ($this->user()->hasRole('team_admin')): ?>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Teams <b class = "caret"></b></a>
+                    <ul class="dropdown-menu">
+<?php $teams = $this->user()->getRoleAssignment('team_admin')->getManagedTeams(); ?>
+<?php foreach ( $teams as $team ): ?>
+                  	  <li><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $team->getId()]); ?>"><?php echo $this->escapeHtml($team->getName()); ?></a></li>
+<?php endforeach; ?>
+                    </ul>
+                  </li>
+<?php endif; ?>
+
+<?php if ($this->user()->hasRole('union_admin')): ?>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Unions <b class = "caret"></b></a>
+                    <ul class="dropdown-menu">
+<?php $unions = $this->user()->getRoleAssignment('union_admin')->getManagedUnions(); ?>
+<?php foreach ( $unions as $union ): ?>
+                  	  <li><a href="<?=$this->url('usarugbystats_frontend_union', ['id' => $union->getId()]); ?>"><?php echo $this->escapeHtml($union->getName()); ?></a></li>
+<?php endforeach; ?>
+                    </ul>
+                  </li>
+<?php endif;?>
+
+<?php if ($this->user()->hasRole('competition_admin')): ?>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Competitions <b class = "caret"></b></a>
+                    <ul class="dropdown-menu">
+<?php $comps = $this->user()->getRoleAssignment('competition_admin')->getManagedCompetitions(); ?>
+<?php foreach ( $comps as $comp ): ?>
+                  	  <li><a href="<?=$this->url('usarugbystats_frontend_competition', ['id' => $comp->getId()]); ?>"><?php echo $this->escapeHtml($comp->getName()); ?></a></li>
+<?php endforeach; ?>
+                    </ul>
+                  </li>
+<?php endif;?>
+
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Support <b class = "caret"></b></a>
+                    <ul class="dropdown-menu">
+                  	  <li><a id="startButton" href="#">Page Tutorial</a></li>
+                  	  <li><a href="https://usarugby.zendesk.com/forums/22264177-Competition-Management-System" target="_blank">Support Center</a></li>
+                  	  <li><a href="https://usarugby.zendesk.com/anonymous_requests/new" target="_blank">Contact</a></li>
+                    </ul>
+                  </li>
+
+                <?php if ($this->user()->hasRole('super_admin')): ?>
+
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Panel <b class = "caret"></b></a>
+                      <?php echo $this->navigation('admin_navigation')
+                                      ->menu()
+                                      ->setUlClass('dropdown-menu')
+                                      ->setMaxDepth(0)
+                                      ->setRenderInvisible(false)?>
+                  </li>
+                <?php endif; ?>
+                </ul>
+
             </div>
 
             <div id="inner">
