@@ -1,61 +1,95 @@
-<div class="page-header">
-  <?php if ( $this->isGranted('competition.team.update', $team) ):?>
-  <div class="pull-right" style="margin-top:5px">
-    <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_team/update', ['id' => $team->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Edit Team</a>
-  </div>
-  <?php endif; ?>
-<div style="float:left; padding-right:12px;"><img src="<?=$this->ursTeamLogoUrl($team) ?>" width="42" height="42" /></div>
-  <h1><?= $this->escapeHtml($team->getName()); ?></h1>
+<?php
+use UsaRugbyStats\Competition\Entity\Competition\TeamRecord;
+use UsaRugbyStats\Competition\Entity\Team\Member;
+$this->layout()->cover = 'usa-rugby-stats/competition-frontend/team/cover';
+$this->layout()->coverVars = $this->vars();
+?>
+
+<div id="content" class="col-sm-8">
+
+    <div class="panel">
+
+    	<div id="team-view" class="title">
+    		<ul class="tabs">
+    			<li class="active"><h2><a href="#schedule" role="tab" data-toggle="tab"><span class="icon-calendar"></span>Schedule</a></h2></li>
+    			<li><h2><a href="#players" role="tab" data-toggle="tab"><span class="icon-users"></span>Players</a></h2></li>
+    		</ul>
+    	</div>
+
+         <div  class="tab-content">
+
+         	<div class="tab-pane active" id="schedule">
+
+                <?php if (count($this->matches) > 0): ?>
+                <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $this->matches, 'relativeToTeam' => $team]); ?>
+                <?php else: ?>
+                <div class="schedule-is-empty">This team is not participating in any upcoming matches.</div>
+                <?php endif; ?>
+            </div>
+
+            <div class="tab-pane" id="players">
+
+            <?php foreach ( $this->team->getMembers() as $membership ): ?>
+            <?php   $membership instanceof Member; ?>
+            <?php   if ( $membership->getMembershipStatus() != Member::STATUS_CURRENT ) continue; ?>
+            <?php   $player = $membership->getRole()->getAccount(); ?>
+                <div class="media">
+                  <a class="pull-left" href="<?=$this->url('usarugbystats_frontend_player', ['id' => $player->getId()]); ?>">
+                    <?=$this->gravatar($player->getEmail(), ['img_size' => 32])->setAttribs(['class' => 'media-image']); ?>
+                  </a>
+                  <div class="media-body">
+                    <h4 class="media-heading"><?=$this->escapeHtml($player->getDisplayName());?></h4>
+                  </div>
+                </div>
+            <?php endforeach;?>
+
+        	</div>
+
+        </div> <!-- end tab content  -->
+
+    </div> <!-- end panel -->
+
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">Upcoming Games</div>
-  <?php if (count($upcomingMatches)): ?>
-  <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $upcomingMatches, 'showScore' => false]); ?>
-  <?php else: ?>
-  <div class="panel-body">
-    <div class="pull-center">This team is not participating in any upcoming matches.</div>
-  </div>
-  <?php endif; ?>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">Past Games</div>
-  <?php if (count($pastMatches)): ?>
-  <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $pastMatches, 'showScore' => true]); ?>
-  <?php else: ?>
-  <div class="panel-body">
-    <div class="pull-center">This team has not participated in any past matches.</div>
-  </div>
-  <?php endif; ?>
-</div>
-
-<?php $teams = $team->getTeamMemberships(); ?>
-<div class="panel panel-default">
-  <div class="panel-heading">Competitions</div>
-  <?php if (count($teams)): ?>
-
-    <table class="table table-striped">
-      <thead>
-        <tr>
-     	  <th>Competition</th>
-     	  <th width="55">Format</th>
-         </tr>
-       </thead>
-       <tbody>
-         <?php foreach ( $teams as $membership ): ?>
-         <?php   $comp = $membership->getCompetition(); ?>
-         <tr>
-           <td><a href="<?=$this->url('usarugbystats_frontend_competition', ['id' => $comp->getId()]); ?>"><?= $this->escapeHtml($comp->getName()); ?></a></td>
-           <td><?= $this->escapeHtml($comp->getVariant()); ?></td>
-        </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-
-  <?php else: ?>
-  <div class="panel-body">
-    <div class="pull-center">This team is not participating in any competitions.</div>
-  </div>
-  <?php endif; ?>
-</div>
+<aside id="standings" class="col-sm-4">
+    <div class="panel">
+    	<div class="title">
+    		<h2><span class="icon-list"></span>Standings</h2>
+    		<a class="utility expand"><span class="icon-expand"></span>Full Standings</a>
+    	</div>
+    	<table>
+    		<thead class="more">
+    		  <tr>
+    				<th class="team">Team</th>
+    				<th class="more">GP</th>
+    				<th class="record">R</th>
+    				<th class="more">PF</th>
+    				<th class="more">PA</th>
+    				<th class="more">PD</th>
+    				<th class="more">BT</th>
+    				<th class="more">BL</th>
+    				<th class="more">FF</th>
+    				<th class="points">PTS</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    		    <?php foreach ( $this->leagueStandings['overall'] as $standingsRow): ?>
+    		    <?php   $standingsRow instanceof TeamRecord; ?>
+    		    <?php   $srTeam = $standingsRow->getTeam(); ?>
+    			<tr>
+    				<td class="team"><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $srTeam->getId()]); ?>"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($srTeam)); ?>"> <?=$this->escapeHtml($this->ursTeamName($srTeam)); ?></a></td>
+    				<td class="more"><?=$this->escapeHtml($standingsRow->getTotalGames()); ?></td>
+    				<td class="record"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?>-<?=$this->escapeHtml($standingsRow->getTotalLosses()); ?></td>
+    				<td class="more"><?=$this->escapeHtml($standingsRow->getScoreInFavor()); ?></td>
+    				<td class="more"><?=$this->escapeHtml($standingsRow->getScoreAgainst()); ?></td>
+    				<td class="more"><?=$this->escapeHtml($standingsRow->getScoreDifferential()); ?></td>
+    				<td class="more"><?=$this->escapeHtml($standingsRow->getTryBonuses()); ?></td>
+                    <td class="more"><?=$this->escapeHtml($standingsRow->getLossBonuses()); ?></td>
+                    <td class="more"><?=$this->escapeHtml($standingsRow->getForfeits()); ?></td>
+    				<td class="points"><?=$this->escapeHtml($standingsRow->getTotalPoints()); ?></td>
+    			</tr>
+    			<?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</aside>

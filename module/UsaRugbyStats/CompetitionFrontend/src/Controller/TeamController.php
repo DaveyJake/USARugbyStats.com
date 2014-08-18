@@ -6,12 +6,16 @@ use Zend\View\Model\ViewModel;
 use UsaRugbyStats\Competition\Service\TeamService;
 use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Traits\CompetitionMatchServiceTrait;
-use UsaRugbyStats\Competition\Entity\Competition\Match;
+use UsaRugbyStats\Competition\Traits\CompetitionServiceTrait;
+use UsaRugbyStats\Competition\Traits\CompetitionStandingsServiceTrait;
 use ZfcRbac\Exception\UnauthorizedException;
+use UsaRugbyStats\Competition\Entity\Competition;
 
 class TeamController extends AbstractActionController
 {
     use CompetitionMatchServiceTrait;
+    use CompetitionServiceTrait;
+    use CompetitionStandingsServiceTrait;
 
     protected $teamService;
 
@@ -27,16 +31,17 @@ class TeamController extends AbstractActionController
             throw new \InvalidArgumentException('Invalid Team ID specified!');
         }
 
-        $repository = $this->getCompetitionMatchService()->getRepository();
-        $now = new \DateTime();
-        list($upcomingMatches, $pastMatches) = $repository->findAllForTeam($team)->partition(function ($key, Match $m) use ($now) {
-            return $m->getDate() >= $now;
-        });
+        $league = $this->getCompetitionService()->findLeagueCompetitionForTeam($team);
+        $leagueStandings = $league instanceof Competition
+            ? $this->getCompetitionStandingsService()->getStandingsFor($league)
+            : NULL;
+
 
         $vm = new ViewModel();
         $vm->setVariable('team', $team);
-        $vm->setVariable('upcomingMatches', $upcomingMatches);
-        $vm->setVariable('pastMatches', $pastMatches);
+        $vm->setVariable('matches', $this->getCompetitionMatchService()->findAllForTeam($team));
+        $vm->setVariable('league', $league);
+        $vm->setVariable('leagueStandings', $leagueStandings);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/team/index');
 
         return $vm;

@@ -1,0 +1,15 @@
+<div id="cover" style="background-image: url(<?=$this->escapeHtmlAttr($this->escapeCss($this->ursTeamCoverImageUrl($this->team))); ?>) !important">
+    <div class="title">
+    	<div id="team-logo"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($this->team)); ?>"></div>
+    	<h1><?=$this->escapeHtml($this->team->getName()); ?></h1>
+    	<div class="meta">
+    		<div class="contact">John Doe</div>
+    		<div class="location">Bloomington, IN</div>
+    		<div class="links">
+    	 		<a target="_blank" href="<?=$this->escapeHtmlAttr($this->team->getWebsite()) ?: '#'; ?>"><span class="icon-browser"></span></a>
+    	 		<a target="_blank" href="<?=empty($this->team->getFacebookHandle()) ? '#' : $this->escapeHtmlAttr('https://facebook.com/' . $this->escapeUrl($this->team->getFacebookHandle())); ?>"><span class="icon-facebook"></span></a>
+    	 		<a target="_blank" href="<?=empty($this->team->getTwitterHandle()) ? '#' : $this->escapeHtmlAttr('https://twitter.com/' . $this->escapeUrl($this->team->getTwitterHandle())); ?>"><span class="icon-twitter"></span></a>
+    	 	</div>
+    	 </div>
+    </div>
+</div>
