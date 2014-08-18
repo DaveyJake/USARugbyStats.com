@@ -202,8 +202,10 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
 
         $div0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Division');
         $div0->shouldReceive('setCompetition')->withArgs([null])->once()->andReturnSelf();
+        $div0->shouldReceive('getTeamMemberships')->andReturn(new ArrayCollection());
         $div1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Division');
         $div1->shouldReceive('setCompetition')->never();
+        $div1->shouldReceive('getTeamMemberships')->andReturn(new ArrayCollection());
 
         // Add one to the existing collection
         $collection = $obj->getDivisions();
@@ -220,16 +222,51 @@ class CompetitionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($obj->getDivisions()->contains($div1));
     }
 
+    public function testRemoveDivisionWithTeamsTriggersRemovalOfTeams()
+    {
+        $obj = new Competition();
+
+        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\TeamMembership');
+        $team0->shouldReceive('setCompetition')->andReturnSelf();
+        $obj->addTeamMembership($team0);
+
+        $div0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Division');
+        $div0->shouldReceive('setCompetition')->withArgs([null])->once()->andReturnSelf();
+        $div0->shouldReceive('getTeamMemberships')->andReturn(new ArrayCollection([ $team0 ]));
+        $div0->shouldReceive('removeTeamMembership')->once()->withArgs([$team0])->andReturnSelf();
+        $div1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Division');
+        $div1->shouldReceive('setCompetition')->never();
+        $div1->shouldReceive('getTeamMemberships')->andReturn(new ArrayCollection());
+
+        // Add one to the existing collection
+        $collection = $obj->getDivisions();
+        $collection->add($div0);
+        $collection->add($div1);
+
+        // Do the remove
+        $obj->removeDivision($div0);
+
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $obj->getDivisions());
+        $this->assertSame($collection, $obj->getDivisions());
+        $this->assertEquals(1, $obj->getDivisions()->count());
+        $this->assertFalse($obj->getDivisions()->contains($div0));
+        $this->assertTrue($obj->getDivisions()->contains($div1));
+        $this->assertFalse($obj->hasTeamMembership($team0));
+    }
+
     public function testRemoveDivisions()
     {
         $obj = new Competition();
 
         $div0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Division');
         $div0->shouldReceive('setCompetition')->withArgs([null])->once()->andReturnSelf();
+        $div0->shouldReceive('getTeamMemberships')->andReturn(new ArrayCollection());
         $div1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Division');
         $div1->shouldReceive('setCompetition')->never();
+        $div1->shouldReceive('getTeamMemberships')->andReturn(new ArrayCollection());
         $div2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Division');
         $div2->shouldReceive('setCompetition')->withArgs([null])->once()->andReturnSelf();
+        $div2->shouldReceive('getTeamMemberships')->andReturn(new ArrayCollection());
 
         // Add one to the existing collection
         $collection = $obj->getDivisions();
