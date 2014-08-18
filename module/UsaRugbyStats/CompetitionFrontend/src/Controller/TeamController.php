@@ -36,12 +36,14 @@ class TeamController extends AbstractActionController
             ? $this->getCompetitionStandingsService()->getStandingsFor($league)
             : NULL;
 
+        $lastMatchRoster = $this->getCompetitionMatchService()->getLastMatchRosterForTeam($team);
 
         $vm = new ViewModel();
         $vm->setVariable('team', $team);
         $vm->setVariable('matches', $this->getCompetitionMatchService()->findAllForTeam($team));
         $vm->setVariable('league', $league);
         $vm->setVariable('leagueStandings', $leagueStandings);
+        $vm->setVariable('lastMatchRoster', $lastMatchRoster['roster']);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/team/index');
 
         return $vm;

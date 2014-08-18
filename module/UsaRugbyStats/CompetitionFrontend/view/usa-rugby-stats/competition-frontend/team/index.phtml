@@ -29,19 +29,29 @@ $this->layout()->coverVars = $this->vars();
 
             <div class="tab-pane" id="players">
 
-            <?php foreach ( $this->team->getMembers() as $membership ): ?>
-            <?php   $membership instanceof Member; ?>
-            <?php   if ( $membership->getMembershipStatus() != Member::STATUS_CURRENT ) continue; ?>
-            <?php   $player = $membership->getRole()->getAccount(); ?>
-                <div class="media">
-                  <a class="pull-left" href="<?=$this->url('usarugbystats_frontend_player', ['id' => $player->getId()]); ?>">
-                    <?=$this->gravatar($player->getEmail(), ['img_size' => 32])->setAttribs(['class' => 'media-image']); ?>
-                  </a>
-                  <div class="media-body">
-                    <h4 class="media-heading"><?=$this->escapeHtml($player->getDisplayName());?></h4>
-                  </div>
-                </div>
-            <?php endforeach;?>
+            	<table class="panel">
+            		<thead class="header">
+            			<th>Players</th>
+            			<th>POS</th>
+            			<th>PTS</th>
+            		</thead>
+            		<tbody>
+                		<?php foreach ( $this->team->getMembers() as $membership ): ?>
+                        <?php   $membership instanceof Member; ?>
+                        <?php   if ( $membership->getMembershipStatus() != Member::STATUS_CURRENT ) continue; ?>
+                        <?php   $player = $membership->getRole()->getAccount(); ?>
+                		<tr>
+                			<td class="name">
+                			    <?=$this->gravatar($player->getEmail(), ['img_size' => 32])->setAttribs(['class' => 'media-image']); ?>
+                			    <?=$this->escapeHtml($player->getDisplayName());?>
+                			</td>
+                			<?php $lastMatchPosition = array_search($player->getId(), $this->lastMatchRoster, true);?>
+                			<td class="position"><?=$this->escapeHtml($lastMatchPosition === false ? '???' : array_keys($this->lastMatchRoster)[$lastMatchPosition]);?></td>
+                			<td class="points">???</td>
+                		</tr>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
 
         	</div>
 
