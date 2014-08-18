@@ -19,6 +19,26 @@ class MatchService extends AbstractService
      */
     protected $availableMatchTeamEventTypes;
 
+    public function findAllForTeam($teams)
+    {
+        return $this->getRepository()->findAllForTeam($teams);
+    }
+
+    public function findAllForCompetition($comps)
+    {
+        return $this->getRepository()->findAllForCompetition($comps);
+    }
+
+    public function findAllForUnion($unions)
+    {
+        return $this->getRepository()->findAllForUnion($unions);
+    }
+
+    public function findAllForPlayer($players)
+    {
+        return $this->getRepository()->findAllForPlayer($players);
+    }
+
     public function getLastMatchRosterForTeam(Team $t, Match $referencePoint = null)
     {
         // Load the most recent match involving this team
