@@ -1,0 +1,21 @@
+#standings ul {
+  list-style: none;
+  padding: 0;
+}
+#standings li.header {
+  font-weight: bold;
+}
+#standings li {
+  width: 100%;
+  display: inline-block;
+  height: 25px;
+  border-bottom: 1px solid  #ECEEEE;
+}
+#standings li > div {
+  float: left;
+  line-height: 25px;
+  width: 12%;
+}
+#standings li > div.team {
+  width: 50%;
+}
