@@ -86,7 +86,7 @@ $this->layout()->coverVars = $this->vars();
     		    <?php foreach ( $this->leagueStandings['overall'] as $standingsRow): ?>
     		    <?php   $standingsRow instanceof TeamRecord; ?>
     		    <?php   $srTeam = $standingsRow->getTeam(); ?>
-    			<tr>
+    			<tr<?php if ( $srTeam->getId() == $team->getId() ) echo ' class="active"';?>>
     				<td class="team"><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $srTeam->getId()]); ?>"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($srTeam)); ?>"> <?=$this->escapeHtml($this->ursTeamName($srTeam)); ?></a></td>
     				<td class="more"><?=$this->escapeHtml($standingsRow->getTotalGames()); ?></td>
     				<td class="record"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?>-<?=$this->escapeHtml($standingsRow->getTotalLosses()); ?></td>
