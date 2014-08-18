@@ -132,7 +132,13 @@ class CompetitionAdminController extends AbstractActionController
                 continue;
             }
 
-            $result = $service->update($entity, $this->getRequest()->getPost()->toArray());
+            // If they've removed everything make sure we send an empty array
+            $data = $this->getRequest()->getPost()->toArray();
+            if ( ! isset($data['competition']['divisions']) || empty($data['competition']['divisions']) ) {
+                $data['competition']['divisions'] = array();
+            }
+
+            $result = $service->update($entity, $data);
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The division assignments were updated successfully!');
 

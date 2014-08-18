@@ -283,6 +283,12 @@ class Competition
     public function removeDivision(Competition\Division $ra)
     {
         $ra->setCompetition(null);
+
+        foreach ( $ra->getTeamMemberships() as $tm ) {
+            $this->removeTeamMembership($tm);
+            $ra->removeTeamMembership($tm);
+        }
+
         $this->divisions->removeElement($ra);
 
         return $this;
