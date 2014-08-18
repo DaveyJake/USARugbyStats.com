@@ -1,182 +1,132 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="en">
+<html lang="en" <?php echo empty($this->iframe) ? '' : ' class="iframed"'; ?>>
     <head>
-        <meta charset="utf-8">
         <?php echo $this->headTitle($this->translate('USA Rugby Stats'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()
+            ->setCharset('utf-8')
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
-        <!-- Le styles -->
+        <!-- Stylesheets -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
-                        ->appendStylesheet($this->basePath() . '/assets/css/bootstrap.min.css')
-                        ->appendStylesheet($this->basePath() . '/assets/css/bootstrap-theme.min.css')
+                        ->appendStylesheet($this->basePath() . '/assets/css/vendor/bootstrap.min.css')
+                        ->appendStylesheet($this->basePath() . '/assets/css/style.css')
+                        ->appendStylesheet($this->basePath() . '/assets/css/vendor/chosen.min.css')
                         ->appendStylesheet($this->basePath() . '/assets/css/vendor/bootstrap-datetimepicker.min.css')
         ; ?>
-        <style type="text/css">
-            body { padding: 60px 0 40px 0; }
-            a.navbar-brand { padding: 8px 0 4px 8px; }
-            a.navbar-brand img { height: 33px; }
-            @media all and (max-width: 530px) {
-                body { padding-top: 110px; }
-            }
-        </style>
 
         <!-- Fonts -->
         <script type="text/javascript" src="//use.typekit.net/dqm3mdr.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-        <script type="text/javascript">if (window != window.parent) { document.location = '?iframe=true'; }</script>
-
-        <?php if (!empty($this->iframe)) {
-                $this->headScript()->appendFile($this->basePath() . 'https://www.allplayers.com/iframe.js?usar_stats');
-        } ?>
+        <script type="text/javascript">if (window != window.top) { document.location = '?iframe=true'; }</script>
 
         <!-- Scripts -->
-        <?php echo $this->headScript()
-            ->appendFile($this->basePath() . '/assets/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
-            ->appendFile($this->basePath() . '/assets/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->appendFile($this->basePath() . '/assets/js/jquery.min.js')
-            ->appendFile($this->basePath() . '/assets/js/bootstrap.min.js')
-            ->appendFile($this->basePath() . '/assets/js/vendor/moment.js')
-            ->appendFile($this->basePath() . '/assets/js/vendor/bootstrap-datetimepicker.min.js')
-            ->appendFile($this->basePath() . '/assets/js/vendor/chosen.jquery.min.js')
-        ; ?>
+        <?php
+        echo $this->headScript()
+                  ->appendFile('//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+                  ->appendFile('//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+             ;
+
+             $this->inlineScript()
+                  ->appendFile($this->basePath() . '/assets/js/vendor/jquery.min.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/bootstrap.min.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/moment.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/bootstrap-datetimepicker.min.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/chosen.jquery.min.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/chosen.jquery.min.js')
+                  ->appendFile($this->basePath() . '/assets/js/min/main-min.js')
+             ;
+        ?>
 
     </head>
-    <body<?php echo empty($this->iframe) ? '' : ' class="app"'; ?>>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="http://usarugby.org/images/usarugby-2x-logo-beta.png" /></a>
-                    <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
+    <body>
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                <ul class="nav navbar-nav navbar-right">
-                  <?php if ( $this->plugin('user')->isAuthenticated() ): ?>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                          <?php echo $this->zfcUserDisplayName(); ?> <b class="caret"></b>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a href="<?php echo $this->url('zfcuser'); ?>">Your Account</a></li>
-                        <li><a href="<?php echo $this->url('zfcuser/logout'); ?>">Logout</a></li>
-                      </ul>
-                    </li>
-                  <?php else: ?>
-                    <li><a href="<?php echo $this->url('zfcuser/login'); ?>">Sign In</a></li>
-                  <?php endif; ?>
-                </ul>
-
-                <?php echo $this->navigation('default')
-                                ->menu()
-                                ->setUlClass('nav navbar-nav navbar-right')
-                                ->setMaxDepth(0)
-                                ->setRenderInvisible(false)?>
-
-                <ul class="nav navbar-nav navbar-right">
-
-<?php //@TODO All this should be added to the navigation container above ?>
-<?php if ($this->user()->hasRole('team_admin')): ?>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Teams <b class = "caret"></b></a>
-                    <ul class="dropdown-menu">
-<?php $teams = $this->user()->getRoleAssignment('team_admin')->getManagedTeams(); ?>
-<?php foreach ( $teams as $team ): ?>
-                  	  <li><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $team->getId()]); ?>"><?php echo $this->escapeHtml($team->getName()); ?></a></li>
-<?php endforeach; ?>
-                    </ul>
-                  </li>
-<?php endif; ?>
-
-<?php if ($this->user()->hasRole('union_admin')): ?>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Unions <b class = "caret"></b></a>
-                    <ul class="dropdown-menu">
-<?php $unions = $this->user()->getRoleAssignment('union_admin')->getManagedUnions(); ?>
-<?php foreach ( $unions as $union ): ?>
-                  	  <li><a href="<?=$this->url('usarugbystats_frontend_union', ['id' => $union->getId()]); ?>"><?php echo $this->escapeHtml($union->getName()); ?></a></li>
-<?php endforeach; ?>
-                    </ul>
-                  </li>
-<?php endif;?>
-
-<?php if ($this->user()->hasRole('competition_admin')): ?>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Competitions <b class = "caret"></b></a>
-                    <ul class="dropdown-menu">
-<?php $comps = $this->user()->getRoleAssignment('competition_admin')->getManagedCompetitions(); ?>
-<?php foreach ( $comps as $comp ): ?>
-                  	  <li><a href="<?=$this->url('usarugbystats_frontend_competition', ['id' => $comp->getId()]); ?>"><?php echo $this->escapeHtml($comp->getName()); ?></a></li>
-<?php endforeach; ?>
-                    </ul>
-                  </li>
-<?php endif;?>
-
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Support <b class = "caret"></b></a>
-                    <ul class="dropdown-menu">
-                  	  <li><a id="startButton" href="#">Page Tutorial</a></li>
-                  	  <li><a href="https://usarugby.zendesk.com/forums/22264177-Competition-Management-System" target="_blank">Support Center</a></li>
-                  	  <li><a href="https://usarugby.zendesk.com/anonymous_requests/new" target="_blank">Contact</a></li>
-                    </ul>
-                  </li>
-
-                <?php if ($this->user()->hasRole('super_admin')): ?>
-
-                  <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Panel <b class = "caret"></b></a>
-                      <?php echo $this->navigation('admin_navigation')
-                                      ->menu()
-                                      ->setUlClass('dropdown-menu')
-                                      ->setMaxDepth(0)
-                                      ->setRenderInvisible(false)?>
-                  </li>
-                <?php endif; ?>
-                </ul>
-
-                </div>
-            </div>
-        </nav>
         <div class="container">
 
-<?php
-// Render different levels of FlashMessenger messages in a Bootstrap3-friendly way
-$flash = $this->flashMessenger();
-$flash->setMessageOpenFormat('<div%s>
-     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-         &times;
-     </button>
-     <ul><li>')
-     ->setMessageSeparatorString('</li><li>')
-     ->setMessageCloseString('</li></ul></div>');
+            <header>
 
-echo $flash->render('error',   array('alert', 'alert-dismissable', 'alert-danger'));
-echo $flash->render('info',    array('alert', 'alert-dismissable', 'alert-info'));
-echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
-echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
-?>
+                <div id="brand">
+                    <a href="<?php echo $this->url('home'); ?>">USA Rugby CMS</a>
+                </div>
 
-<?php
-if (isset($_SESSION['alert_message'])) {
-	$alert = $_SESSION['alert_message'];
-    unset($_SESSION['alert_message']);
-    // @TODO: support alert types {info, success, error}.
-    echo '<div class="alert alert-info">' . $alert . '</div>';
-}
-?>
+                <div id="search-box">
+                    <span class="icon-search"></span><input id="search" type="text" placeholder="Search" />
+                </div>
 
-            <?php echo $this->content; ?>
+                <div class="pull-right" id="comps">
+                    <a id="drawer"></span>Competitions Menu
+                        <span class="line line-1"></span>
+                        <span class="line line-2"></span>
+                        <span class="line line-3"></span>
+                    </a>
 
-        </div> <!-- /container -->
-        <?php echo $this->inlineScript() ?>
+                </div>
+
+                <?php if ( $this->plugin('user')->isAuthenticated() ): ?>
+                <div class="dropdown pull-right" id="user">
+                    <a data-toggle="dropdown">
+                        <?php echo $this->gravatar($this->user()->getEmail())->getImgTag(); ?>
+                        <?php echo $this->escapeHtml($this->user()->getDisplayName()); ?>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li><a role="menuitem" tabindex="-1" href="<?php echo $this->url('zfcuser'); ?>">Your Account</a></li>
+                        <li><a role="menuitem" tabindex="-1" href="<?php echo $this->url('zfcuser/logout'); ?>">Logout</a></li>
+                    </ul>
+                </div>
+                <?php else: ?>
+                <div class="pull-right" id="user">
+                    <a href="<?php echo $this->url('zfcuser/login'); ?>">Sign In</a>
+                </div>
+                <?php endif; ?>
+
+            </header>
+
+            <div id="drawer-menu">
+                HELLO
+            </div>
+
+            <div id="inner">
+
+                <?php if ( isset($this->cover) ): ?>
+                <?php echo $this->render($this->cover, $this->coverVars ?: $this->vars()); ?>
+                <?php endif; ?>
+
+                <main class="row">
+                    <?php
+                    // Render different levels of FlashMessenger messages in a Bootstrap3-friendly way
+                    $flash = $this->flashMessenger();
+                    $flash->setMessageOpenFormat('<div%s>
+                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                             &times;
+                         </button>
+                         <ul><li>')
+                         ->setMessageSeparatorString('</li><li>')
+                         ->setMessageCloseString('</li></ul></div>');
+
+                    echo $flash->render('error',   array('alert', 'alert-dismissable', 'alert-danger'));
+                    echo $flash->render('info',    array('alert', 'alert-dismissable', 'alert-info'));
+                    echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
+                    echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
+                    ?>
+
+                    <?php echo $this->content; ?>
+                </main>
+
+                <footer>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>Copyright &copy; 2014 USA Rugby</p>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+        </div>
+
+        <?php echo $this->inlineScript(); ?>
     </body>
 </html>
