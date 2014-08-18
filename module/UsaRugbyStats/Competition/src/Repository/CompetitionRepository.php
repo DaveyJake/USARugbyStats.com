@@ -9,7 +9,7 @@ class CompetitionRepository extends EntityRepository
 {
     public function findLeagueCompetitionForTeam($team)
     {
-        $teamid = $team instanceof Team ? $team->getId() : (int)$team;
+        $teamid = $team instanceof Team ? $team->getId() : (int) $team;
 
         $dql = <<<DQL
             SELECT
