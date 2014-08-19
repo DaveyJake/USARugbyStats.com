@@ -12,6 +12,8 @@ install:
   - bash .travisci/configure_apache2.sh
   # install application dependencies
   - composer install --dev
+  # Doctrine DBAL stable release is not compatible with HHVM
+  - if [[ "$TRAVIS_PHP_VERSION" = "hhvm" || "$TRAVIS_PHP_VERSION" = "hhvm-nightly" ]]; then composer require --dev doctrine/dbal:dev-master@dev; fi
   - composer show -i
   # Install Scrutinizer-CI utility
   - wget https://scrutinizer-ci.com/ocular.phar
