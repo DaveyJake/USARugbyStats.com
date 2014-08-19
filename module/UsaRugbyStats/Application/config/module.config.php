@@ -10,33 +10,6 @@ return array(
             )
         ),
     ),
-
-    'router' => array(
-        'routes' => array(
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/',
-                    'defaults' => array(
-                        'controller' => 'UsaRugbyStats\Application\Controller\Index',
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
-        ),
-    ),
-    'controllers' => array(
-        'invokables' => array(
-            'UsaRugbyStats\Application\Controller\Index' => 'UsaRugbyStats\Application\Controller\IndexController',
-        ),
-    ),
-    'zfc_rbac' => array(
-        'guards' => array(
-            'ZfcRbac\Guard\RouteGuard' => array(
-                'home' => array('member'),
-            ),
-        ),
-    ),
     'navigation' => array(
         'default' => array(
         ),
@@ -75,24 +48,12 @@ return array(
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
-        'template_path_stack' => array(
-            __DIR__ . '/../view',
-        ),
     ),
     'view_helpers' => array(
         'factories' => array(
             'isIframed' => 'UsaRugbyStats\Application\View\Helper\IsIframedFactory',
         ),
     ),
-
-    // Placeholder for console routes
-    'console' => array(
-        'router' => array(
-            'routes' => array(
-            ),
-        ),
-    ),
-
     'doctrine' => array(
         'driver' => array(
             'usarugbystats_application_entity' => array(
