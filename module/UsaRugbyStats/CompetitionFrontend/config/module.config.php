@@ -21,6 +21,49 @@ return array(
                     ),
                 ),
             ),
+            'usarugbystats_frontend_dashboard' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/dashboard',
+                    'defaults' => array(
+                        'controller' => 'usarugbystats_competition-frontend_dashboard_router_controller',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' =>array(
+                    'competition-admin' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/competition-admin',
+                            'defaults' => array(
+                                'controller' => 'usarugbystats_competition-frontend_dashboard_competition-admin_controller',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'team-admin' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/team-admin',
+                            'defaults' => array(
+                                'controller' => 'usarugbystats_competition-frontend_dashboard_team-admin_controller',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'union-admin' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/union-admin',
+                            'defaults' => array(
+                                'controller' => 'usarugbystats_competition-frontend_dashboard_union-admin_controller',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
             'usarugbystats_frontend_player' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -217,7 +260,6 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'usarugbystats_competition-frontend_dashboard_router_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\Dashboard\RouterController',
-            'usarugbystats_competition-frontend_dashboard_member_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\Dashboard\MemberController',
             'usarugbystats_competition-frontend_dashboard_team-admin_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\Dashboard\TeamAdminController',
             'usarugbystats_competition-frontend_dashboard_union-admin_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\Dashboard\UnionAdminController',
             'usarugbystats_competition-frontend_dashboard_competition-admin_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\Dashboard\CompetitionAdminController',
@@ -235,6 +277,10 @@ return array(
         'guards' => array(
             'ZfcRbac\Guard\RouteGuard' => array(
                 'home' => array('member'),
+                'usarugbystats_frontend_dashboard' => array('member'),
+                'usarugbystats_frontend_dashboard/team-admin' => array('team_admin'),
+                'usarugbystats_frontend_dashboard/union-admin' => array('union_admin'),
+                'usarugbystats_frontend_dashboard/competition-admin' => array('competition_admin'),
                 'usarugbystats_frontend_player' => array('guest'),
                 'usarugbystats_frontend_team' => array('guest'),
                 'usarugbystats_frontend_team/update' => array('team_admin'),

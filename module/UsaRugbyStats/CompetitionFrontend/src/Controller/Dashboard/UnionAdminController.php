@@ -5,6 +5,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use UsaRugbyStats\Competition\Traits\CompetitionMatchServiceTrait;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
+use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\UnionAdmin;
+use ZfcRbac\Exception\UnauthorizedException;
 
 class UnionAdminController extends AbstractActionController
 {
@@ -15,6 +17,9 @@ class UnionAdminController extends AbstractActionController
         $repository = $this->getCompetitionMatchService()->getRepository();
         $user = $this->zfcUserAuthentication()->getIdentity();
         $role = $user->getRoleAssignment('union_admin');
+        if ( ! $role instanceof UnionAdmin ) {
+            throw new UnauthorizedException('You are not a union administrator!');
+        }
 
         $now = new \DateTime();
         list($upcomingMatches, $pastMatches) = $repository->findAllForUnion($role->getManagedUnions())->partition(function ($key, Match $m) use ($now) {
