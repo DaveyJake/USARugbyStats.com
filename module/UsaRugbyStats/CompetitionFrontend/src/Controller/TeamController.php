@@ -8,16 +8,21 @@ use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Traits\CompetitionMatchServiceTrait;
 use UsaRugbyStats\Competition\Traits\CompetitionServiceTrait;
 use UsaRugbyStats\Competition\Traits\CompetitionStandingsServiceTrait;
+use UsaRugbyStats\Competition\Traits\TeamServiceTrait;
+use UsaRugbyStats\Competition\Traits\PlayerStatisticsServiceTrait;
 use ZfcRbac\Exception\UnauthorizedException;
 use UsaRugbyStats\Competition\Entity\Competition;
+use UsaRugbyStats\Competition\Entity\Team\Member;
+use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member as MemberRoleAssignment;
+use UsaRugbyStats\Application\Entity\AccountInterface;
 
 class TeamController extends AbstractActionController
 {
     use CompetitionMatchServiceTrait;
     use CompetitionServiceTrait;
     use CompetitionStandingsServiceTrait;
-
-    protected $teamService;
+    use TeamServiceTrait;
+    use PlayerStatisticsServiceTrait;
 
     public function indexAction()
     {
@@ -36,14 +41,38 @@ class TeamController extends AbstractActionController
             ? $this->getCompetitionStandingsService()->getStandingsFor($league)
             : null;
 
-        $lastMatchRoster = $this->getCompetitionMatchService()->getLastMatchRosterForTeam($team);
+        $administrators = $this->getTeamService()->getAdministratorsForTeam($team);
+
+        $lastMatchRoster = $this->getCompetitionMatchService()->getLastMatchRosterForTeam($team, new \DateTime());
+        $players = [];
+        foreach ( $team->getMembers() as $membership ) {
+            if ( $membership->getMembershipStatus() != Member::STATUS_CURRENT ) {
+                continue;
+            }
+            if ( ! ( $membershipRole = $membership->getRole() ) instanceof MemberRoleAssignment ) {
+                continue;
+            }
+            if ( ! ( $membershipAccount = $membershipRole->getAccount() ) instanceof AccountInterface ) {
+                continue;
+            }
+            $position = array_search($membershipAccount->getId(), @$lastMatchRoster['roster'] ?: array(), true);
+            if ($position === false) {
+                continue;
+            }
+            array_push($players, [
+                'player' => $membershipAccount,
+                'position' => $position,
+                'stats' => $this->getPlayerStatisticsService()->getStatisticsFor($membershipAccount),
+            ]);
+        }
 
         $vm = new ViewModel();
         $vm->setVariable('team', $team);
         $vm->setVariable('matches', $this->getCompetitionMatchService()->findAllForTeam($team));
         $vm->setVariable('league', $league);
         $vm->setVariable('leagueStandings', $leagueStandings);
-        $vm->setVariable('lastMatchRoster', $lastMatchRoster['roster']);
+        $vm->setVariable('administrators', $administrators);
+        $vm->setVariable('players', $players);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/team/index');
 
         return $vm;

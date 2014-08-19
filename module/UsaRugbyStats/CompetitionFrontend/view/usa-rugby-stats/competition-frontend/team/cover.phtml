@@ -1,9 +1,24 @@
 <div id="cover" style="background-image: url(<?=$this->escapeHtmlAttr($this->escapeCss($this->ursTeamCoverImageUrl($this->team))); ?>) !important">
-    <div class="title">
+    <div class="title" style="padding-right: 30px">
+
+      <?php if ( $this->isGranted('competition.team.update', $team) ):?>
+      <div class="pull-right" style="margin-top:15px">
+        <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_team/update', ['id' => $team->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Edit Team</a>
+      </div>
+      <?php endif; ?>
+
     	<div id="team-logo"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($this->team)); ?>"></div>
     	<h1><?=$this->escapeHtml($this->team->getName()); ?></h1>
     	<div class="meta">
-    		<div class="contact">John Doe</div>
+        	<div class="contact">
+    	    <?php if ( isset($this->administrators) && count($this->administrators) > 0 ):?>
+    	    <?php   $admins = []; ?>
+    	    <?php   foreach ( $this->administrators as $admin ):?>
+    	    <?php     array_push($admins, $this->escapeHtml($this->ursPlayerName($admin->account))); ?>
+    	    <?php   endforeach;?>
+    	    <?php   echo implode(', ', $admins); ?>
+    		<?php endif;?>
+    		</div>
     		<div class="location">Bloomington, IN</div>
     		<div class="links">
     	 		<a target="_blank" href="<?=$this->escapeHtmlAttr($this->team->getWebsite()) ?: '#'; ?>"><span class="icon-browser"></span></a>

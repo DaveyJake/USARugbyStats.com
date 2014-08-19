@@ -1,6 +1,4 @@
 <?php
-use UsaRugbyStats\Competition\Entity\Competition\TeamRecord;
-use UsaRugbyStats\Competition\Entity\Team\Member;
 $this->layout()->cover = 'usa-rugby-stats/competition-frontend/team/cover';
 $this->layout()->coverVars = $this->vars();
 ?>
@@ -28,7 +26,7 @@ $this->layout()->coverVars = $this->vars();
             </div>
 
             <div class="tab-pane" id="players">
-
+                <?php if (count($this->players) > 0): ?>
             	<table class="panel">
             		<thead class="header">
             			<th>Players</th>
@@ -36,22 +34,22 @@ $this->layout()->coverVars = $this->vars();
             			<th>PTS</th>
             		</thead>
             		<tbody>
-                		<?php foreach ( $this->team->getMembers() as $membership ): ?>
-                        <?php   $membership instanceof Member; ?>
-                        <?php   if ( $membership->getMembershipStatus() != Member::STATUS_CURRENT ) continue; ?>
-                        <?php   $player = $membership->getRole()->getAccount(); ?>
+                		<?php foreach ( $this->players as $playerData ): ?>
                 		<tr>
                 			<td class="name">
-                			    <?=$this->gravatar($player->getEmail(), ['img_size' => 32])->setAttribs(['class' => 'media-image']); ?>
-                			    <?=$this->escapeHtml($player->getDisplayName());?>
+                			    <?=$this->gravatar($playerData['player']->getEmail(), ['img_size' => 32])->setAttribs(['class' => 'media-image']); ?>
+                			    <?=$this->ursPlayerLink($playerData['player']);?>
                 			</td>
-                			<?php $lastMatchPosition = array_search($player->getId(), $this->lastMatchRoster, true);?>
-                			<td class="position"><?=$this->escapeHtml($lastMatchPosition === false ? '???' : array_keys($this->lastMatchRoster)[$lastMatchPosition]);?></td>
-                			<td class="points">???</td>
+                			<?php $lastMatchPosition = array_search($playerData['player']->getId(), $this->lastMatchRoster, true);?>
+                			<td class="position"><?=$this->escapeHtml($playerData['position'] === false ? '--' : $playerData['position']);?></td>
+                			<td class="points"><?=$this->escapeHtml(@$playerData['stats']['team'][$team->getId()]['career']['PTS'] ?: 0); ?></td>
                 		</tr>
                         <?php endforeach;?>
                     </tbody>
                 </table>
+                <?php else: ?>
+                <div class="team-has-no-players">This team does not have any active players.</div>
+                <?php endif; ?>
 
         	</div>
 
