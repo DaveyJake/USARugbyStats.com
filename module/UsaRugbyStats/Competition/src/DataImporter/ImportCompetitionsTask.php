@@ -81,6 +81,11 @@ class ImportCompetitionsTask implements TaskInterface, LoggerAwareInterface
             $session->entity = new Competition();
             $this->svcCompetition->prepare();
 
+            // Put in an empty division if nothing was specified in the CSV
+            if ( !isset($competition['divisions']) || empty($competition['divisions']) ) {
+                $competition['divisions'] = [[ 'id' => NULL, 'name' => 'Pool', 'teamMemberships' => array()]];
+            }
+
             $entity = $this->svcCompetition->create(['competition' => $competition]);
             if (! $entity instanceof Competition) {
                 $this->getLogger()->crit(sprintf(
