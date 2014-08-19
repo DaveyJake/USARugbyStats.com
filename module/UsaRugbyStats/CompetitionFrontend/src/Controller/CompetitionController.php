@@ -41,14 +41,7 @@ class CompetitionController extends AbstractActionController
         $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
-
-            // If they've removed all the divisions make sure we send an empty array
-            $data = $this->getRequest()->getPost()->toArray();
-            if ( ! isset($data['competition']['divisions']) || empty($data['competition']['divisions']) ) {
-                $data['competition']['divisions'] = array();
-            }
-
-            $result = $this->getCompetitionService()->update($competition, $data);
+            $result = $this->getCompetitionService()->update($competition, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The competition was updated successfully!');
 

@@ -32,4 +32,25 @@ class CompetitionService extends AbstractService
     {
         return $this->getRepository()->findLeagueCompetitionForTeam($team);
     }
+
+    public function create(array $data)
+    {
+        // If they've removed all the divisions make sure we send an empty array
+        if ( ! isset($data['competition']['divisions']) || empty($data['competition']['divisions']) ) {
+            $data['competition']['divisions'] = array();
+        }
+
+        return parent::create($data);
+    }
+
+    public function update($entity, array $data)
+    {
+        // If they've removed all the divisions make sure we send an empty array
+        if ( ! isset($data['competition']['divisions']) || empty($data['competition']['divisions']) ) {
+            $data['competition']['divisions'] = array();
+        }
+
+        return parent::update($entity, $data);
+    }
+
 }
