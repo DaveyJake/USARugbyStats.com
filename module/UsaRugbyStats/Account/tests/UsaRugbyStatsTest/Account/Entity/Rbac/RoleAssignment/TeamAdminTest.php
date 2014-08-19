@@ -29,11 +29,8 @@ class TeamAdminTest extends ServiceManagerTestCase
         $obj = new TeamAdmin();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldIgnoreMissing();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1->shouldIgnoreMissing();
         $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team2->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getManagedTeams();
@@ -60,11 +57,8 @@ class TeamAdminTest extends ServiceManagerTestCase
         $obj = new TeamAdmin();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldIgnoreMissing();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1->shouldIgnoreMissing();
         $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team2->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getManagedTeams();
@@ -91,9 +85,7 @@ class TeamAdminTest extends ServiceManagerTestCase
         $obj = new TeamAdmin();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldIgnoreMissing();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getManagedTeams();
@@ -113,9 +105,7 @@ class TeamAdminTest extends ServiceManagerTestCase
         $obj = new TeamAdmin();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldIgnoreMissing();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1->shouldIgnoreMissing();
 
         // Add roles to the existing collection
         $collection = $obj->getManagedTeams();
@@ -130,9 +120,7 @@ class TeamAdminTest extends ServiceManagerTestCase
         $obj = new TeamAdmin();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldIgnoreMissing();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1->shouldIgnoreMissing();
 
         // Add both to the existing collection
         $collection = $obj->getManagedTeams();
@@ -155,11 +143,8 @@ class TeamAdminTest extends ServiceManagerTestCase
         $obj = new TeamAdmin();
 
         $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldIgnoreMissing();
         $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1->shouldIgnoreMissing();
         $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team2->shouldIgnoreMissing();
 
         // Add them all to the existing collection
         $collection = $obj->getManagedTeams();

@@ -28,24 +28,11 @@ class MemberTest extends ServiceManagerTestCase
     {
         $obj = new Member();
 
-        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldReceive('getName')->andReturn('Team A');
-        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1->shouldReceive('getName')->andReturn('Team B');
-        $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team2->shouldReceive('getName')->andReturn('Team C');
-
         $mbr0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
         $mbr0->shouldReceive('setRole')->withArgs([$obj]);
-        $mbr0->shouldReceive('getTeam')->andReturn($team0);
-        $mbr0->shouldIgnoreMissing();
         $mbr1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
         $mbr1->shouldReceive('setRole')->withArgs([$obj]);
-        $mbr1->shouldReceive('getTeam')->andReturn($team1);
-        $mbr1->shouldIgnoreMissing();
         $mbr2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
-        $mbr2->shouldReceive('getTeam')->andReturn($team2);
-        $mbr2->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getMemberships();
@@ -71,24 +58,11 @@ class MemberTest extends ServiceManagerTestCase
     {
         $obj = new Member();
 
-        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldReceive('getName')->andReturn('Team A');
-        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1->shouldReceive('getName')->andReturn('Team B');
-        $team2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team2->shouldReceive('getName')->andReturn('Team C');
-
         $mbr0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
         $mbr0->shouldReceive('setRole')->withArgs([$obj]);
-        $mbr0->shouldReceive('getTeam')->andReturn($team0);
-        $mbr0->shouldIgnoreMissing();
         $mbr1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
         $mbr1->shouldReceive('setRole')->withArgs([$obj]);
-        $mbr1->shouldReceive('getTeam')->andReturn($team1);
-        $mbr1->shouldIgnoreMissing();
         $mbr2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
-        $mbr2->shouldReceive('getTeam')->andReturn($team2);
-        $mbr2->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getMemberships();
@@ -114,18 +88,9 @@ class MemberTest extends ServiceManagerTestCase
     {
         $obj = new Member();
 
-        $team0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team0->shouldReceive('getName')->andReturn('Team A');
-        $team1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
-        $team1->shouldReceive('getName')->andReturn('Team B');
-
         $mbr0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
-        $mbr0->shouldReceive('getTeam')->andReturn($team0);
-        $mbr0->shouldIgnoreMissing();
         $mbr1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
         $mbr1->shouldReceive('setRole')->withArgs([$obj]);
-        $mbr1->shouldReceive('getTeam')->andReturn($team1);
-        $mbr1->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getMemberships();
@@ -145,9 +110,7 @@ class MemberTest extends ServiceManagerTestCase
         $obj = new Member();
 
         $mbr0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
-        $mbr0->shouldIgnoreMissing();
         $mbr1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
-        $mbr1->shouldIgnoreMissing();
 
         // Add roles to the existing collection
         $collection = $obj->getMemberships();
@@ -163,9 +126,7 @@ class MemberTest extends ServiceManagerTestCase
 
         $mbr0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
         $mbr0->shouldReceive('setRole')->withArgs([null]);
-        $mbr0->shouldIgnoreMissing();
         $mbr1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
-        $mbr1->shouldIgnoreMissing();
 
         // Add both to the existing collection
         $collection = $obj->getMemberships();
@@ -189,12 +150,9 @@ class MemberTest extends ServiceManagerTestCase
 
         $mbr0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
         $mbr0->shouldReceive('setRole')->withArgs([null]);
-        $mbr0->shouldIgnoreMissing();
         $mbr1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
         $mbr1->shouldReceive('setRole')->withArgs([null]);
-        $mbr1->shouldIgnoreMissing();
         $mbr2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Team\Member');
-        $mbr2->shouldIgnoreMissing();
 
         // Add them all to the existing collection
         $collection = $obj->getMemberships();
