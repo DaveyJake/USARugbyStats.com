@@ -3,6 +3,7 @@ namespace UsaRugbyStats\Competition\View\Helper;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\AbstractPluginManager;
 
 class PlayerNameFactory implements FactoryInterface
 {
@@ -17,5 +18,7 @@ class PlayerNameFactory implements FactoryInterface
 
         $viewHelper = new PlayerName();
         $viewHelper->setAccountService($sl->get('zfcuser_user_service'));
+
+        return $viewHelper;
     }
 }
