@@ -17,7 +17,7 @@ class UnionAdminController extends AbstractActionController
         $repository = $this->getCompetitionMatchService()->getRepository();
         $user = $this->zfcUserAuthentication()->getIdentity();
         $role = $user->getRoleAssignment('union_admin');
-        if ( ! $role instanceof UnionAdmin ) {
+        if (! $role instanceof UnionAdmin) {
             throw new UnauthorizedException('You are not a union administrator!');
         }
 

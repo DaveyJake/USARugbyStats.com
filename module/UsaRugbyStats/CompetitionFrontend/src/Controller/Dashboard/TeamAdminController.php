@@ -17,7 +17,7 @@ class TeamAdminController extends AbstractActionController
         $repository = $this->getCompetitionMatchService()->getRepository();
         $user = $this->zfcUserAuthentication()->getIdentity();
         $role = $user->getRoleAssignment('team_admin');
-        if ( ! $role instanceof TeamAdmin ) {
+        if (! $role instanceof TeamAdmin) {
             throw new UnauthorizedException('You are not a team administrator!');
         }
 

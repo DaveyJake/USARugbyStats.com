@@ -17,7 +17,7 @@ class CompetitionAdminController extends AbstractActionController
         $repository = $this->getCompetitionMatchService()->getRepository();
         $user = $this->zfcUserAuthentication()->getIdentity();
         $role = $user->getRoleAssignment('competition_admin');
-        if ( ! $role instanceof CompetitionAdmin ) {
+        if (! $role instanceof CompetitionAdmin) {
             throw new UnauthorizedException('You are not a competition administrator!');
         }
 
