@@ -34,7 +34,7 @@ class TeamController extends AbstractActionController
         $league = $this->getCompetitionService()->findLeagueCompetitionForTeam($team);
         $leagueStandings = $league instanceof Competition
             ? $this->getCompetitionStandingsService()->getStandingsFor($league)
-            : NULL;
+            : null;
 
         $lastMatchRoster = $this->getCompetitionMatchService()->getLastMatchRosterForTeam($team);
 

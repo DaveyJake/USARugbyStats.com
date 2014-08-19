@@ -10,6 +10,7 @@ class AccountController extends AbstractActionController
         if (!$this->zfcUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute('zfcuser/login');
         }
+
         return $this->redirect()->toRoute('usarugbystats_frontend_player', ['id' => $this->user()->getId()]);
     }
 }
