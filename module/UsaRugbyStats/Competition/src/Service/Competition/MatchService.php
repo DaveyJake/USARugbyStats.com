@@ -39,12 +39,19 @@ class MatchService extends AbstractService
         return $this->getRepository()->findAllForPlayer($players);
     }
 
-    public function getLastMatchRosterForTeam(Team $t, Match $referencePoint = null)
+    public function getLastMatchRosterForTeam(Team $t, $referencePoint = null)
     {
         // Load the most recent match involving this team
         $matches = $this->getRepository()->findAllForTeam($t)->toArray();
         if ( count($matches) === 0 ) {
             return NULL;
+        }
+
+        $date = null;
+        if ($referencePoint instanceof \DateTime) {
+            $date = $referencePoint;
+        } elseif ($referencePoint instanceof Match) {
+            $date = $referencePoint->getDate();
         }
 
         // Keep popping matches off the reverse-chronological list until
@@ -55,10 +62,10 @@ class MatchService extends AbstractService
             if (! $match instanceof Match) {
                 return NULL;
             }
-            if ( is_null($referencePoint) ) {
+            if ( is_null($date) ) {
                 break;
             }
-            if ( $match->getId() != $referencePoint->getId() && $match->getDate() < $referencePoint->getDate() ) {
+            if ( $match->getDate() < $date ) {
                 break;
             }
         }
