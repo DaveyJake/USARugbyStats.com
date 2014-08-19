@@ -1,0 +1,148 @@
+<h1>Administration Panel</h1>
+
+<?php
+$panels = [
+    [
+        'title' => 'Accounts',
+        'title_link' => $this->url('zfcadmin/zfcuseradmin/create'),
+        'search_link' => $this->url('zfcadmin/zfcuseradmin/search'),
+        'search_placeholder' => 'Search Accounts...',
+        'tool_links' => [
+            [
+                'title' => 'Create Account',
+                'icon' => 'glyphicon glyphicon-plus-sign',
+                'link' => $this->url('zfcadmin/zfcuseradmin/create'),
+            ],
+            [
+                'title' => 'View All Accounts',
+                'icon' => 'glyphicon glyphicon-th-list',
+                'link' => $this->url('zfcadmin/zfcuseradmin/list'),
+            ],
+        ],
+    ],
+    [
+        'title' => 'Teams',
+        'title_link' => $this->url('zfcadmin/usarugbystats_teamadmin/list'),
+        'search_link' => $this->url('zfcadmin/usarugbystats_teamadmin/search'),
+        'search_placeholder' => 'Search Teams...',
+        'tool_links' => [
+            [
+                'title' => 'Create Team',
+                'icon' => 'glyphicon glyphicon-plus-sign',
+                'link' => $this->url('zfcadmin/usarugbystats_teamadmin/create'),
+            ],
+            [
+                'title' => 'View All Teams',
+                'icon' => 'glyphicon glyphicon-th-list',
+                'link' => $this->url('zfcadmin/usarugbystats_teamadmin/list'),
+            ],
+        ],
+    ],
+    [
+        'title' => 'Unions',
+        'title_link' => $this->url('zfcadmin/usarugbystats_unionadmin/list'),
+        'search_link' => $this->url('zfcadmin/usarugbystats_unionadmin/search'),
+        'search_placeholder' => 'Search Unions...',
+        'tool_links' => [
+            [
+                'title' => 'Create Union',
+                'icon' => 'glyphicon glyphicon-plus-sign',
+                'link' => $this->url('zfcadmin/usarugbystats_unionadmin/create'),
+            ],
+            [
+                'title' => 'View All Unions',
+                'icon' => 'glyphicon glyphicon-th-list',
+                'link' => $this->url('zfcadmin/usarugbystats_unionadmin/list'),
+            ],
+        ],
+    ],
+    [
+        'title' => 'Competitions',
+        'title_link' => $this->url('zfcadmin/usarugbystats_competitionadmin/list'),
+        'search_link' => $this->url('zfcadmin/usarugbystats_competitionadmin/search'),
+        'search_placeholder' => 'Search Competitions...',
+        'tool_links' => [
+            [
+                'title' => 'Create Competition',
+                'icon' => 'glyphicon glyphicon-plus-sign',
+                'link' => $this->url('zfcadmin/usarugbystats_competitionadmin/create'),
+            ],
+            [
+                'title' => 'View All Competitions',
+                'icon' => 'glyphicon glyphicon-th-list',
+                'link' => $this->url('zfcadmin/usarugbystats_competitionadmin/list'),
+            ],
+        ],
+    ],
+    [
+        'title' => 'Locations',
+        'title_link' => $this->url('zfcadmin/usarugbystats_locationadmin/list'),
+        'search_link' => $this->url('zfcadmin/usarugbystats_locationadmin/search'),
+        'search_placeholder' => 'Search Locations...',
+        'tool_links' => [
+            [
+                'title' => 'Create Location',
+                'icon' => 'glyphicon glyphicon-plus-sign',
+                'link' => $this->url('zfcadmin/usarugbystats_locationadmin/create'),
+            ],
+            [
+                'title' => 'View All Locations',
+                'icon' => 'glyphicon glyphicon-th-list',
+                'link' => $this->url('zfcadmin/usarugbystats_locationadmin/list'),
+            ],
+        ],
+    ],
+    [
+        'title' => 'Other Tools',
+        'tool_links' => [
+            [
+                'title' => 'Entity Audit Log',
+                'icon' => 'glyphicon glyphicon-tasks',
+                'link' => $this->url('audit'),
+            ],
+        ],
+    ],
+];
+?>
+
+
+<div class="row">
+    <?php foreach ( $panels as $panel ): ?>
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <?php if (isset($panel['title_link'])): ?><a href="<?=$this->escapeHtmlAttr($panel['title_link']); ?>" style="color:white"><?php endif;?>
+                <div class="panel-heading">
+                    <h3><?=$this->escapeHtml($panel['title']); ?></h3>
+                </div>
+            <?php if (isset($panel['title_link'])): ?></a><?php endif; ?>
+            <div class="list-group">
+                <?php if (isset($panel['search_link'])): ?>
+                <div class="list-group-item">
+                     <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                            <input type="text" class="form-control input-sm admin-dashboard-search" placeholder="<?=$this->escapeHtmlAttr($panel['search_placeholder']); ?>" data-searchurl="<?=$this->escapeHtmlAttr($panel['search_link']); ?>" />
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <?php foreach ( $panel['tool_links'] as $tool ): ?>
+                <a href="<?=$this->escapeHtmlAttr($tool['link']); ?>" class="list-group-item"><i class="<?=$this->escapeHtmlAttr($tool['icon']); ?>"></i> <?=$this->escapeHtml($tool['title']); ?></a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+
+<?php
+$searchJavascript = <<<JSBLOCK
+$('.admin-dashboard-search').keypress(function(e) {
+    console.log(e.which);
+    if ( e.which != 13 ) {
+        return;
+    }
+    document.location = $(this).attr('data-searchurl') + '?q=' + encodeURI($(this).val());
+});
+JSBLOCK;
+$this->inlinescript()->appendScript($searchJavascript); ?>
