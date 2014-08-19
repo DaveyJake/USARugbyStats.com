@@ -13,7 +13,7 @@ use Zend\InputFilter\FileInput;
  */
 class TeamFilter extends InputFilter
 {
-    public function __construct(ObjectManager $objectManager, ObjectRepository $objectRepository)
+    public function __construct(ObjectManager $objectManager, ObjectRepository $unionRepository)
     {
 
         $this->add(array(
@@ -28,16 +28,7 @@ class TeamFilter extends InputFilter
         $this->add(array(
             'name'       => 'name',
             'required'   => true,
-            'validators' => array(
-                array(
-                    'name' => 'DoctrineModule\Validator\UniqueObject',
-                    'options' => array(
-                        'object_manager' => $objectManager,
-                        'object_repository' => $objectRepository,
-                        'fields' => 'name',
-                    )
-                ),
-            ),
+            'validators' => array(),
             'filters'   => array(
                 array('name' => 'StringTrim'),
             ),
@@ -50,7 +41,7 @@ class TeamFilter extends InputFilter
                 array(
                     'name' => 'DoctrineModule\Validator\ObjectExists',
                     'options' => array(
-                        'object_repository' => $objectManager->getRepository('UsaRugbyStats\Competition\Entity\Union'),
+                        'object_repository' => $unionRepository,
                         'fields' => 'id',
                     )
                 ),

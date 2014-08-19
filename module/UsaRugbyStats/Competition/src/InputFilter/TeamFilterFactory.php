@@ -9,7 +9,7 @@ class TeamFilterFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $manager)
     {
         $em = $manager->get('zfcuser_doctrine_em');
-        $repo = $em->getRepository('UsaRugbyStats\Competition\Entity\Team');
+        $repo = $em->getRepository('UsaRugbyStats\Competition\Entity\Union');
 
         $filter = new TeamFilter($em, $repo);
 
