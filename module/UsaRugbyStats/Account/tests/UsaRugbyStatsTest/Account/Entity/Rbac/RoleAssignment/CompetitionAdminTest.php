@@ -29,8 +29,11 @@ class CompetitionAdminTest extends ServiceManagerTestCase
         $obj = new CompetitionAdmin();
 
         $competition0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition0->shouldIgnoreMissing();
         $competition1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition1->shouldIgnoreMissing();
         $competition2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition2->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getManagedCompetitions();
@@ -57,8 +60,11 @@ class CompetitionAdminTest extends ServiceManagerTestCase
         $obj = new CompetitionAdmin();
 
         $competition0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition0->shouldIgnoreMissing();
         $competition1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition1->shouldIgnoreMissing();
         $competition2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition2->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getManagedCompetitions();
@@ -85,7 +91,9 @@ class CompetitionAdminTest extends ServiceManagerTestCase
         $obj = new CompetitionAdmin();
 
         $competition0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition0->shouldIgnoreMissing();
         $competition1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition1->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getManagedCompetitions();
@@ -105,7 +113,9 @@ class CompetitionAdminTest extends ServiceManagerTestCase
         $obj = new CompetitionAdmin();
 
         $competition0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition0->shouldIgnoreMissing();
         $competition1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition1->shouldIgnoreMissing();
 
         // Add roles to the existing collection
         $collection = $obj->getManagedCompetitions();
@@ -120,7 +130,9 @@ class CompetitionAdminTest extends ServiceManagerTestCase
         $obj = new CompetitionAdmin();
 
         $competition0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition0->shouldIgnoreMissing();
         $competition1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition1->shouldIgnoreMissing();
 
         // Add both to the existing collection
         $collection = $obj->getManagedCompetitions();
@@ -143,8 +155,11 @@ class CompetitionAdminTest extends ServiceManagerTestCase
         $obj = new CompetitionAdmin();
 
         $competition0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition0->shouldIgnoreMissing();
         $competition1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition1->shouldIgnoreMissing();
         $competition2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition');
+        $competition2->shouldIgnoreMissing();
 
         // Add them all to the existing collection
         $collection = $obj->getManagedCompetitions();

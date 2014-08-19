@@ -7,7 +7,9 @@ use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment as BaseAssignment;
 use UsaRugbyStats\Competition\Entity\Competition;
 
 class CompetitionAdmin extends BaseAssignment
-{protected $managedCompetitions;
+{
+    protected $managedCompetitions;
+    protected $managedCompetitionsSorted = false;
 
     /**
      * Init the Doctrine collection
@@ -27,7 +29,30 @@ class CompetitionAdmin extends BaseAssignment
      */
     public function getManagedCompetitions()
     {
+        if ( ! $this->managedCompetitionsSorted && ! empty($this->managedCompetitions) ) {
+            $this->sortManagedCompetitions();
+        }
+
         return $this->managedCompetitions;
+    }
+
+    protected function sortManagedCompetitions()
+    {
+        $collValues = [];
+        $collSortKeys = [];
+        foreach ($this->managedCompetitions as $item) {
+            $this->managedCompetitions->removeElement($item);
+            if (! $item instanceof Competition) {
+                continue;
+            }
+            array_push($collValues, $item);
+            array_push($collSortKeys, $item->getName());
+        }
+        array_multisort($collSortKeys, SORT_ASC, $collValues);
+        foreach ($collValues as $item) {
+            $this->managedCompetitions->add($item);
+        }
+        $this->managedCompetitionsSorted = true;
     }
 
     /**
@@ -66,6 +91,7 @@ class CompetitionAdmin extends BaseAssignment
         // Only add Competition if it's not already here
         if ( ! $this->hasManagedCompetition($t) ) {
             $this->managedCompetitions->add($t);
+            $this->managedCompetitionsSorted = false;
         }
 
         return $this;

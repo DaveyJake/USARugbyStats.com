@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class TeamAdmin extends BaseAssignment
 {
     protected $managedTeams;
+    protected $managedTeamsSorted;
 
     /**
      * Init the Doctrine collection
@@ -28,7 +29,30 @@ class TeamAdmin extends BaseAssignment
      */
     public function getManagedTeams()
     {
+        if ( ! $this->managedTeamsSorted && ! empty($this->managedTeams) ) {
+            $this->sortManagedTeams();
+        }
+
         return $this->managedTeams;
+    }
+
+    protected function sortManagedTeams()
+    {
+        $collValues = [];
+        $collSortKeys = [];
+        foreach ($this->managedTeams as $item) {
+            $this->managedTeams->removeElement($item);
+            if (! $item instanceof Team) {
+                continue;
+            }
+            array_push($collValues, $item);
+            array_push($collSortKeys, $item->getName());
+        }
+        array_multisort($collSortKeys, SORT_ASC, $collValues);
+        foreach ($collValues as $item) {
+            $this->managedTeams->add($item);
+        }
+        $this->managedTeamsSorted = true;
     }
 
     /**
@@ -67,6 +91,7 @@ class TeamAdmin extends BaseAssignment
         // Only add Team if it's not already here
         if ( ! $this->hasManagedTeam($t) ) {
             $this->managedTeams->add($t);
+            $this->managedTeamsSorted = false;
         }
 
         return $this;

@@ -11,6 +11,7 @@ use UsaRugbyStats\Application\Entity\AccountInterface;
 class Member extends BaseAssignment
 {
     protected $memberships;
+    protected $membershipsSorted = false;
 
     public function __construct()
     {
@@ -27,7 +28,33 @@ class Member extends BaseAssignment
      */
     public function getMemberships()
     {
+        if ( ! $this->membershipsSorted && !empty($this->memberships) ) {
+            $this->sortMemberships();
+        }
+
         return $this->memberships;
+    }
+
+    protected function sortMemberships()
+    {
+        $collValues = [];
+        $collTeamName = [];
+        foreach ($this->memberships as $item) {
+            $this->memberships->removeElement($item);
+            if (! $item instanceof TeamMember) {
+                continue;
+            }
+            if ( ! ( $team = $item->getTeam() ) instanceof Team ) {
+                continue;
+            }
+            array_push($collValues, $item);
+            array_push($collTeamName, $item->getTeam()->getName());
+        }
+        array_multisort($collTeamName, SORT_ASC, $collValues);
+        foreach ($collValues as $item) {
+            $this->memberships->add($item);
+        }
+        $this->membershipsSorted = true;
     }
 
     public function getMembershipForTeam(Team $t)
@@ -82,6 +109,7 @@ class Member extends BaseAssignment
         if ( ! $this->hasMembership($t) ) {
             $t->setRole($this);
             $this->memberships->add($t);
+            $this->membershipsSorted = false;
         }
 
         return $this;

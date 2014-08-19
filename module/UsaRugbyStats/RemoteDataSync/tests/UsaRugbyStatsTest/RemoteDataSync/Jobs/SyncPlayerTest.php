@@ -341,6 +341,7 @@ class SyncPlayerTest extends AbstractJobTest
         $player = new Account();
 
         $mockTeam = \Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $mockTeam->shouldIgnoreMissing();
 
         $mockTeamService = \Mockery::mock('UsaRugbyStats\Competition\Service\TeamService');
         $mockTeamService->shouldReceive('findByRemoteID')->andReturn($mockTeam);
@@ -371,10 +372,12 @@ class SyncPlayerTest extends AbstractJobTest
         $mockTeam = \Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
         $mockTeam->shouldReceive('getId')->andReturn(23);
         $mockTeam->shouldReceive('getRemoteId')->andReturn(99999);
+        $mockTeam->shouldReceive('getName')->andReturn("Team 23");
 
         $mockTeamOther = \Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
         $mockTeamOther->shouldReceive('getId')->andReturn(82);
         $mockTeamOther->shouldReceive('getRemoteId')->andReturn(424242);
+        $mockTeamOther->shouldReceive('getName')->andReturn("Team 82");
 
         $membership = new \UsaRugbyStats\Competition\Entity\Team\Member();
         $membership->setTeam($mockTeamOther);
@@ -408,14 +411,14 @@ class SyncPlayerTest extends AbstractJobTest
 
         $testobj = $obj->getMemberships()->current();
         $this->assertInstanceOf('UsaRugbyStats\Competition\Entity\Team\Member', $testobj);
-        $this->assertSame($membership, $testobj);
-        $this->assertSame($mockTeamOther, $testobj->getTeam());
-        $this->assertEquals(4, $testobj->getMembershipStatus());
+        $this->assertSame($mockTeam, $testobj->getTeam());
+        $this->assertEquals(2, $testobj->getMembershipStatus());
 
         $testobj = $obj->getMemberships()->next();
         $this->assertInstanceOf('UsaRugbyStats\Competition\Entity\Team\Member', $testobj);
-        $this->assertSame($mockTeam, $testobj->getTeam());
-        $this->assertEquals(2, $testobj->getMembershipStatus());
+        $this->assertSame($membership, $testobj);
+        $this->assertSame($mockTeamOther, $testobj->getTeam());
+        $this->assertEquals(4, $testobj->getMembershipStatus());
     }
 
     public function testUpdateClubMembershipStatusHappyCaseWithAccountThatAlreadyHasTheReferencedTeamMembership()
@@ -423,6 +426,7 @@ class SyncPlayerTest extends AbstractJobTest
         $mockTeam = \Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
         $mockTeam->shouldReceive('getId')->andReturn(23);
         $mockTeam->shouldReceive('getRemoteId')->andReturn(99999);
+        $mockTeam->shouldIgnoreMissing();
 
         $membership = new \UsaRugbyStats\Competition\Entity\Team\Member();
         $membership->setTeam($mockTeam);

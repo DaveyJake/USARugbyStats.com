@@ -10,6 +10,7 @@ use UsaRugbyStats\Competition\Entity\Team;
 class UnionAdmin extends BaseAssignment
 {
     protected $managedUnions;
+    protected $managedUnionsSorted = false;
 
     /**
      * Init the Doctrine collection
@@ -29,7 +30,30 @@ class UnionAdmin extends BaseAssignment
      */
     public function getManagedUnions()
     {
+        if ( ! $this->managedUnionsSorted && !empty($this->managedUnions) ) {
+            $this->sortManagedUnions();
+        }
+
         return $this->managedUnions;
+    }
+
+    protected function sortManagedUnions()
+    {
+        $collValues = [];
+        $collSortKeys = [];
+        foreach ($this->managedUnions as $item) {
+            $this->managedUnions->removeElement($item);
+            if (! $item instanceof Union) {
+                continue;
+            }
+            array_push($collValues, $item);
+            array_push($collSortKeys, $item->getName());
+        }
+        array_multisort($collSortKeys, SORT_ASC, $collValues);
+        foreach ($collValues as $item) {
+            $this->managedUnions->add($item);
+        }
+        $this->managedUnionsSorted = true;
     }
 
     /**
@@ -68,6 +92,7 @@ class UnionAdmin extends BaseAssignment
         // Only add Union if it's not already here
         if ( ! $this->hasManagedUnion($t) ) {
             $this->managedUnions->add($t);
+            $this->managedUnionsSorted = false;
         }
 
         return $this;
@@ -111,7 +136,7 @@ class UnionAdmin extends BaseAssignment
     public function getManagedTeams()
     {
         $set = array();
-        foreach ($this->managedUnions as $union) {
+        foreach ($this->getManagedUnions() as $union) {
             if (! $union instanceof Union) {
                 continue;
             }

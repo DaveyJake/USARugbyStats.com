@@ -29,8 +29,11 @@ class UnionAdminTest extends ServiceManagerTestCase
         $obj = new UnionAdmin();
 
         $union0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union0->shouldIgnoreMissing();
         $union1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union1->shouldIgnoreMissing();
         $union2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union2->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getManagedUnions();
@@ -57,8 +60,11 @@ class UnionAdminTest extends ServiceManagerTestCase
         $obj = new UnionAdmin();
 
         $union0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union0->shouldIgnoreMissing();
         $union1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union1->shouldIgnoreMissing();
         $union2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union2->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getManagedUnions();
@@ -85,7 +91,9 @@ class UnionAdminTest extends ServiceManagerTestCase
         $obj = new UnionAdmin();
 
         $union0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union0->shouldIgnoreMissing();
         $union1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union1->shouldIgnoreMissing();
 
         // Add one to the existing collection
         $collection = $obj->getManagedUnions();
@@ -105,7 +113,9 @@ class UnionAdminTest extends ServiceManagerTestCase
         $obj = new UnionAdmin();
 
         $union0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union0->shouldIgnoreMissing();
         $union1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union1->shouldIgnoreMissing();
 
         // Add roles to the existing collection
         $collection = $obj->getManagedUnions();
@@ -120,7 +130,9 @@ class UnionAdminTest extends ServiceManagerTestCase
         $obj = new UnionAdmin();
 
         $union0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union0->shouldIgnoreMissing();
         $union1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union1->shouldIgnoreMissing();
 
         // Add both to the existing collection
         $collection = $obj->getManagedUnions();
@@ -143,8 +155,11 @@ class UnionAdminTest extends ServiceManagerTestCase
         $obj = new UnionAdmin();
 
         $union0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union0->shouldIgnoreMissing();
         $union1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union1->shouldIgnoreMissing();
         $union2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Union');
+        $union2->shouldIgnoreMissing();
 
         // Add them all to the existing collection
         $collection = $obj->getManagedUnions();

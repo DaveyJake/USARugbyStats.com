@@ -7,7 +7,10 @@
         <id name="id" type="integer"><generator strategy="AUTO" /></id>
         <field name="name" type="string" length="60" unique="true" />
 
-        <one-to-many field="teams" target-entity="UsaRugbyStats\Competition\Entity\Team" mapped-by="union" order-by="name">
+        <one-to-many field="teams" target-entity="UsaRugbyStats\Competition\Entity\Team" mapped-by="union">
+            <order-by>
+                <order-by-field name="name" direction="ASC" />
+            </order-by>
             <cascade>
                 <cascade-persist />
             </cascade>
