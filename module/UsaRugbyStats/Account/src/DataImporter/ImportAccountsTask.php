@@ -80,6 +80,9 @@ class ImportAccountsTask implements TaskInterface, LoggerAwareInterface
 
     protected function processRoleAssignment(&$acct, $role_name, $managedKey, $role_data)
     {
+        if ( empty($role_data) ) {
+            return;
+        }
         if ( !isset($acct['roleAssignments']) || ! is_array($acct['roleAssignments']) ) {
             $acct['roleAssignments'] = array();
         }
