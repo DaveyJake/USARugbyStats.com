@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+.page-header, .page-header h1 {
+	margin-top: 0;
+}
+
 .panel-default {
   margin-bottom: 20px;
   background: #FFF;

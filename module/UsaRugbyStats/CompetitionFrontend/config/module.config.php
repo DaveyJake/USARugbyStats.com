@@ -14,6 +14,13 @@ return array(
                 'may_terminate' => true,
                 'child_routes' =>array(),
             ),
+            'zfcuser' => array(
+                'options' => array(
+                    'defaults' => array(
+                        'controller' => 'usarugbystats_competition-frontend_account_controller',
+                    ),
+                ),
+            ),
             'usarugbystats_frontend_player' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -215,6 +222,7 @@ return array(
             'usarugbystats_competition-frontend_dashboard_union-admin_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\Dashboard\UnionAdminController',
             'usarugbystats_competition-frontend_dashboard_competition-admin_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\Dashboard\CompetitionAdminController',
 
+            'usarugbystats_competition-frontend_account_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\AccountController',
             'usarugbystats_competition-frontend_player_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\PlayerController',
             'usarugbystats_competition-frontend_team_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\TeamController',
             'usarugbystats_competition-frontend_union_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\UnionController',

@@ -1,4 +1,11 @@
 <div class="page-header">
+
+  <?php if ( $this->user()->getId() == $player->getId() ):?>
+  <div class="pull-right" style="margin-top:5px">
+    <a class="btn btn-primary" href="<?=$this->url('ldc-user-profile', ['id' => $player->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Update Your Profile</a>
+  </div>
+  <?php endif; ?>
+
   <div style="float:left; padding-right:12px;"><?=$this->gravatar($player->getEmail(), ['img_size' => '42']) ?></div>
   <h1><?= $this->escapeHtml($player->getDisplayName()); ?></h1>
 </div>
