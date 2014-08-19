@@ -64,6 +64,7 @@ $this->layout()->coverVars = $this->vars();
     		<h2><span class="icon-list"></span>Standings</h2>
     		<a class="utility expand"><span class="icon-expand"></span>Full Standings</a>
     	</div>
+    	<?php if ( isset($this->leagueStandings['overall']) && !empty($this->leagueStandings['overall']) ): ?>
     	<table>
     		<thead class="more">
     		  <tr>
@@ -98,5 +99,8 @@ $this->layout()->coverVars = $this->vars();
     			<?php endforeach; ?>
             </tbody>
         </table>
+        <?php else: ?>
+        <div class="team-has-no-league">This team does participate in a league.</div>
+        <?php endif; ?>
     </div>
 </aside>
