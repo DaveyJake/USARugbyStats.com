@@ -24,7 +24,7 @@ class TeamAdminServiceFactory implements FactoryInterface
         $service->setCreateForm($sm->get('usarugbystats_competition-admin_team_createform'));
         $service->setUpdateForm($sm->get('usarugbystats_competition-admin_team_updateform'));
 
-        $service->setTeamAdministratorRepository($em->getRepository('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin'));
+        $service->setTeamAdminRoleAssignmentRepository($em->getRepository('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin'));
         $service->setAccountRepository($em->getRepository('UsaRugbyStats\Account\Entity\Account'));
 
         //@TODO this should probably be in an initializer or abstract factory

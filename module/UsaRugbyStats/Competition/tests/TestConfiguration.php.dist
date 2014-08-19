@@ -1,10 +1,9 @@
 <?php
 return array(
     'modules' => array(
-        // @TODO Only necessary because of NestedCollectionInputFilter stuff
         'UsaRugbyStats\Application',
         'UsaRugbyStats\Competition',
-        // @TODO Only necessary because of NonuniformCollection stuff
+        'UsaRugbyStats\Account',
         'UsaRugbyStats\AccountAdmin',
     ),
     'module_listener_options' => array(
@@ -12,6 +11,7 @@ return array(
         'module_paths' => array(
             'UsaRugbyStats\Application'  => realpath(__DIR__ . '/../../Application'),
             'UsaRugbyStats\Competition'  => realpath(__DIR__ . '/../../Competition'),
+            'UsaRugbyStats\Account'  => realpath(__DIR__ . '/../../Account'),
             'UsaRugbyStats\AccountAdmin'  => realpath(__DIR__ . '/../../AccountAdmin'),
         ),
     ),

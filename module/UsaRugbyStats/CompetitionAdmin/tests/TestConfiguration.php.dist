@@ -2,6 +2,7 @@
 return array(
     'modules' => array(
         'UsaRugbyStats\Application',
+        'UsaRugbyStats\Account',
         'UsaRugbyStats\Competition',
         'UsaRugbyStats\CompetitionAdmin',
     ),
@@ -9,6 +10,7 @@ return array(
         'config_glob_paths' => array(),
         'module_paths' => array(
             'UsaRugbyStats\Application'  => realpath(__DIR__ . '/../../Application'),
+            'UsaRugbyStats\Account'  => realpath(__DIR__ . '/../../Account'),
             'UsaRugbyStats\Competition'  => realpath(__DIR__ . '/../../Competition'),
             'UsaRugbyStats\CompetitionAdmin'  => realpath(__DIR__ . '/../../CompetitionAdmin'),
         ),

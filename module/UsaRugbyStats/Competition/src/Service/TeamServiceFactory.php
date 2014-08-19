@@ -23,6 +23,7 @@ class TeamServiceFactory implements FactoryInterface
         $service->setRepository($em->getRepository('UsaRugbyStats\Competition\Entity\Team'));
         $service->setCreateForm($sm->get('usarugbystats_competition_team_createform'));
         $service->setUpdateForm($sm->get('usarugbystats_competition_team_updateform'));
+        $service->setTeamAdminRoleAssignmentRepository($em->getRepository('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin'));
 
         //@TODO this should probably be in an initializer or abstract factory
         $config = @$sm->get('Config')['usarugbystats']['service_extensions']['usarugbystats_competition_team_service'];

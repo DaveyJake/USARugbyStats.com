@@ -17,11 +17,6 @@ class TeamAdminService extends TeamService
     /**
      * @var ObjectRepository
      */
-    protected $teamAdministratorRepository;
-
-    /**
-     * @var ObjectRepository
-     */
     protected $accountRepository;
 
     public function __construct()
@@ -31,55 +26,6 @@ class TeamAdminService extends TeamService
         // Ensure that events for TeamService still get triggered
         // @TODO there has to be a nicer way to do this
         array_push($this->eventIdentifier, 'UsaRugbyStats\Competition\Service\TeamService');
-    }
-
-    public function getAdministratorsForTeam(Team $t)
-    {
-        $rawData = $this->getTeamAdministratorRepository()->findByTeam($t->getId());
-        $resultset = array();
-
-        foreach ($rawData as $record) {
-            if (! $record instanceof TeamAdmin) {
-                continue;
-            }
-
-            $obj = new \stdClass();
-            $obj->id = $record->getId();
-            $obj->account = $record->getAccount()->getId();
-            array_push($resultset, $obj);
-        }
-
-        return $resultset;
-    }
-
-    public function getMembersForTeam(Team $t)
-    {
-        $rawData = $t->getMembers();
-        $resultset = array();
-
-        foreach ($rawData as $membership) {
-            if (! $membership instanceof TeamMembership) {
-                continue;
-            }
-
-            $role = $membership->getRole();
-            if (! $role instanceof Member) {
-                continue;
-            }
-
-            $account = $role->getAccount();
-            if (! $account instanceof Account) {
-                continue;
-            }
-
-            $obj = new \stdClass();
-            $obj->id = $membership->getId();
-            $obj->account = $account->getId();
-            $obj->membershipStatus = $membership->getMembershipStatus();
-            array_push($resultset, $obj);
-        }
-
-        return $resultset;
     }
 
     /**
@@ -218,7 +164,7 @@ class TeamAdminService extends TeamService
                 continue;
             }
 
-            $record = $this->getTeamAdministratorRepository()->find($selection['id']);
+            $record = $this->getTeamAdminRoleAssignmentRepository()->find($selection['id']);
             if (! $record instanceof TeamAdmin) {
                 continue;
             }
@@ -233,7 +179,7 @@ class TeamAdminService extends TeamService
         }
 
         foreach ($currentSet as $currentItem) {
-            $item = $this->getTeamAdministratorRepository()->find($currentItem->id);
+            $item = $this->getTeamAdminRoleAssignmentRepository()->find($currentItem->id);
             if (! $item instanceof TeamAdmin) {
                 continue;
             }
@@ -329,24 +275,6 @@ class TeamAdminService extends TeamService
         $this->getObjectManager()->flush();
 
         return true;
-    }
-
-    /**
-     * @return ObjectRepository
-     */
-    public function getTeamAdministratorRepository()
-    {
-        return $this->teamAdministratorRepository;
-    }
-
-    /**
-     * @param ObjectRepository $obj
-     */
-    public function setTeamAdministratorRepository(ObjectRepository $obj)
-    {
-        $this->teamAdministratorRepository = $obj;
-
-        return $this;
     }
 
     /**

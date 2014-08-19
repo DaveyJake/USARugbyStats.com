@@ -12,9 +12,17 @@ class TeamAdminServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $sl = new ServiceManager();
         $sl->setAllowOverride(true);
 
-        $mockObjectRepository = Mockery::mock('Doctrine\Common\Persistence\ObjectRepository');
         $mockObjectManager    = Mockery::mock('Doctrine\Common\Persistence\ObjectManager');
-        $mockObjectManager->shouldReceive('getRepository')->andReturn($mockObjectRepository);
+
+        $mockAccountRepository = Mockery::mock('Doctrine\Common\Persistence\ObjectRepository');
+        $mockObjectManager->shouldReceive('getRepository')->withArgs(['UsaRugbyStats\Account\Entity\Account'])->andReturn($mockAccountRepository);
+
+        $mockTeamAdminRoleAssignmentRepository = Mockery::mock('UsaRugbyStats\Account\Repository\Rbac\RoleAssignment\TeamAdminRepository');
+        $mockObjectManager->shouldReceive('getRepository')->withArgs(['UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin'])->andReturn($mockTeamAdminRoleAssignmentRepository);
+
+        $mockTeamRepository = Mockery::mock('UsaRugbyStats\Account\Repository\Rbac\RoleAssignment\TeamAdminRepository');
+        $mockObjectManager->shouldReceive('getRepository')->withArgs(['UsaRugbyStats\Competition\Entity\Team'])->andReturn($mockTeamRepository);
+
         $sl->setService('zfcuser_doctrine_em', $mockObjectManager);
 
         $mockCreateForm = Mockery::mock('Zend\Form\FormInterface');
@@ -29,7 +37,9 @@ class TeamAdminServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('UsaRugbyStats\CompetitionAdmin\Service\TeamAdminService', $obj);
         $this->assertSame($mockObjectManager, $obj->getObjectManager());
-        $this->assertSame($mockObjectRepository, $obj->getRepository());
+        $this->assertSame($mockTeamRepository, $obj->getRepository());
+        $this->assertSame($mockTeamAdminRoleAssignmentRepository, $obj->getTeamAdminRoleAssignmentRepository());
+        $this->assertSame($mockAccountRepository, $obj->getAccountRepository());
         $this->assertSame($mockCreateForm, $obj->getCreateForm());
         $this->assertSame($mockUpdateForm, $obj->getUpdateForm());
     }
