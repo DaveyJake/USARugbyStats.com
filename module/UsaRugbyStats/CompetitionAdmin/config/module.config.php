@@ -85,6 +85,15 @@ return array(
                                     ),
                                 ),
                             ),
+                            'search' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/search',
+                                    'defaults' => array(
+                                        'action'     => 'search',
+                                    ),
+                                ),
+                            ),
                             'create' => array(
                                 'type' => 'Literal',
                                 'options' => array(
@@ -133,6 +142,15 @@ return array(
                                     'route' => '/list',
                                     'defaults' => array(
                                         'action'     => 'list',
+                                    ),
+                                ),
+                            ),
+                            'search' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/search',
+                                    'defaults' => array(
+                                        'action'     => 'search',
                                     ),
                                 ),
                             ),

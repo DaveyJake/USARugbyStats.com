@@ -31,6 +31,31 @@ class UnionAdminController extends AbstractActionController
         return $vm;
     }
 
+    public function searchAction()
+    {
+        if ( ! $this->isGranted('competition.union.list') ) {
+            throw new UnauthorizedException();
+        }
+
+        $q = trim($this->params()->fromQuery('q'), ' %');
+        if ( empty($q) ) {
+            return $this->redirect()->toRoute('zfcadmin/usarugbystats_unionadmin/list');
+        }
+
+        $svc = $this->getUnionService();
+
+        $paginator = $svc->findAllBySearchQuery($q);
+        $paginator->setItemCountPerPage(100);
+        $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1));
+
+        $vm = new ViewModel();
+        $vm->setVariable('paginator', $paginator);
+        $vm->setVariable('q', $q);
+        $vm->setTemplate('usa-rugby-stats/competition-admin/union-admin/search/list');
+
+        return $vm;
+    }
+
     public function createAction()
     {
         if ( ! $this->isGranted('competition.union.create') ) {

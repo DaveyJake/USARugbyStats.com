@@ -1,12 +1,12 @@
-<h1>Locations</h1>
+<h1>Unions</h1>
 
 <div class="filter-bar" style="margin-bottom: 25px">
     <div class="row">
         <div class="col-sm-6">
             <div class="row">
-                <form role="form" method="GET" action="<?php echo $this->url('zfcadmin/usarugbystats_locationadmin/search') ?>">
+                <form role="form" method="GET" action="<?php echo $this->url('zfcadmin/usarugbystats_unionadmin/search') ?>">
                   <div class="col-xs-10">
-                    <input name="q" type="search" class="form-control" id="userSearch" placeholder="Enter fragment of location name, address, or coordinates..." value="<?=$this->escapeHtmlAttr($this->q);?>">
+                    <input name="q" type="search" class="form-control" id="userSearch" placeholder="Enter fragment of union name" value="<?=$this->escapeHtmlAttr($this->q);?>">
                   </div>
                   <div class="col-xs-2" style="padding-left:0"><button type="submit" class="btn btn-default">Search</button></div>
                 </form>
@@ -14,15 +14,15 @@
         </div>
         <div class="col-sm-4"></div>
         <div class="col-xs-2">
-            <?php if ( $this->isGranted('competition.location.create') ): ?>
-            <a class="btn btn-large btn-primary" href="<?php echo $this->url('zfcadmin/usarugbystats_locationadmin/create'); ?>">Add New Location</a>
-            <?php endif; ?>
+            <a class="btn btn-large btn-primary pull-right" href="<?php echo $this->url('zfcadmin/usarugbystats_unionadmin/create'); ?>">
+                <i class="glyphicon glyphicon-plus"></i> Add New Union
+            </a>
         </div>
     </div>
 </div>
 
 <?php if ($this->paginator->count() == 0 ): ?>
-<div class="alert alert-warning">There are no locations!</div>
+<div class="alert alert-warning">There are no unions!</div>
 <?php endif; ?>
 
 <?php if ($this->paginator->count() > 0 ): ?>
@@ -43,12 +43,12 @@
             <td class="cell cell-name">
                 <?php echo $this->escapeHtml($entity->getName()); ?>
             </td>
-            <td class="col-sm-1 cell cell-ctrls">
-                <a href="<?php echo $this->url('zfcadmin/usarugbystats_locationadmin/edit', array('id' => $entity->getId())); ?>">
+            <td class="col-sm-2 cell cell-ctrls" style="text-align:right">
+                <a href="<?php echo $this->url('zfcadmin/usarugbystats_unionadmin/edit', array('id' => $entity->getId())); ?>">
                     <?php echo $this->translate('Edit') ?>
                 </a>
                 |
-                <a href="<?php echo $this->url('zfcadmin/usarugbystats_locationadmin/remove', array('id' => $entity->getId())); ?>">
+                <a href="<?php echo $this->url('zfcadmin/usarugbystats_unionadmin/remove', array('id' => $entity->getId())); ?>">
                     <?php echo $this->translate('Delete') ?>
                 </a>
             </td>
@@ -58,7 +58,7 @@
     <tfoot>
         <tr>
             <td colspan="3">
-                <?php echo $this->paginationControl($this->users, 'Sliding', 'usa-rugby-stats/competition-admin/location-admin/search/pagination', ['q' => $q]); ?>
+                <?php echo $this->paginationControl($this->users, 'Sliding', 'usa-rugby-stats/competition-admin/union-admin/search/pagination', ['q' => $q]); ?>
             </td>
         </tr>
     </tfoot>

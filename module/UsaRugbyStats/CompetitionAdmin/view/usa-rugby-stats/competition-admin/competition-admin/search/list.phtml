@@ -1,12 +1,12 @@
-<h1>Teams</h1>
+<h1>Competitions</h1>
 
 <div class="filter-bar" style="margin-bottom: 25px">
     <div class="row">
         <div class="col-sm-6">
             <div class="row">
-                <form role="form" method="GET" action="<?php echo $this->url('zfcadmin/usarugbystats_teamadmin/search') ?>">
+                <form role="form" method="GET" action="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/search') ?>">
                   <div class="col-xs-10">
-                    <input name="q" type="search" class="form-control" id="userSearch" placeholder="Enter fragment of team name, remote ID, or email address..." value="<?=$this->escapeHtmlAttr($this->q);?>">
+                    <input name="q" type="search" class="form-control" id="userSearch" placeholder="Enter fragment of competition name" value="<?=$this->escapeHtmlAttr($this->q);?>">
                   </div>
                   <div class="col-xs-2" style="padding-left:0"><button type="submit" class="btn btn-default">Search</button></div>
                 </form>
@@ -14,16 +14,15 @@
         </div>
         <div class="col-sm-4"></div>
         <div class="col-xs-2">
-            <a class="btn btn-large btn-primary pull-right" href="<?php echo $this->url('zfcadmin/usarugbystats_teamadmin/create'); ?>">
-                <i class="glyphicon glyphicon-plus"></i> Add New Team
+            <a class="btn btn-large btn-primary pull-right" href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/create'); ?>">
+                <i class="glyphicon glyphicon-plus"></i> Add New Competition
             </a>
         </div>
     </div>
 </div>
 
-
 <?php if ($this->paginator->count() == 0 ): ?>
-<div class="alert alert-warning">There are no teams!</div>
+<div class="alert alert-warning">There are no competitions!</div>
 <?php endif; ?>
 
 <?php if ($this->paginator->count() > 0 ): ?>
@@ -32,6 +31,7 @@
         <tr>
             <th><?php echo $this->translate('ID') ?></th>
             <th><?php echo $this->translate('Name') ?></th>
+            <th><?php echo $this->translate('Type') ?></th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -44,12 +44,19 @@
             <td class="cell cell-name">
                 <?php echo $this->escapeHtml($entity->getName()); ?>
             </td>
+            <td class="cell cell-type">
+                <?php echo $this->escapeHtml($entity->getTypeString()); ?>
+            </td>
             <td class="col-sm-2 cell cell-ctrls" style="text-align:right">
-                <a href="<?php echo $this->url('zfcadmin/usarugbystats_teamadmin/edit', array('id' => $entity->getId())); ?>">
+                <a href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/view/standings', array('id' => $entity->getId())); ?>">
+                    <?php echo $this->translate('Standings') ?>
+                </a>
+                |
+                <a href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/edit', array('id' => $entity->getId())); ?>">
                     <?php echo $this->translate('Edit') ?>
                 </a>
                 |
-                <a href="<?php echo $this->url('zfcadmin/usarugbystats_teamadmin/remove', array('id' => $entity->getId())); ?>">
+                <a href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/remove', array('id' => $entity->getId())); ?>">
                     <?php echo $this->translate('Delete') ?>
                 </a>
             </td>
@@ -58,8 +65,8 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3">
-                <?php echo $this->paginationControl($this->users, 'Sliding', 'usa-rugby-stats/competition-admin/team-admin/search/pagination', ['q' => $q]); ?>
+            <td colspan="4">
+                <?php echo $this->paginationControl($this->users, 'Sliding', 'usa-rugby-stats/competition-admin/competition-admin/search/pagination', ['q' => $q]); ?>
             </td>
         </tr>
     </tfoot>

@@ -1,8 +1,25 @@
-<div class="pull-right" style="margin-top: 37px">
-    <a class="btn btn-large btn-primary" href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/create'); ?>">Add New Competition</a>
-</div>
-
 <h1>Competitions</h1>
+
+<div class="filter-bar" style="margin-bottom: 25px">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <form role="form" method="GET" action="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/search') ?>">
+                  <div class="col-xs-10">
+                    <input name="q" type="search" class="form-control" id="userSearch" placeholder="Enter fragment of competition name">
+                  </div>
+                  <div class="col-xs-2" style="padding-left:0"><button type="submit" class="btn btn-default">Search</button></div>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-xs-2">
+            <a class="btn btn-large btn-primary pull-right" href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/create'); ?>">
+                <i class="glyphicon glyphicon-plus"></i> Add New Competition
+            </a>
+        </div>
+    </div>
+</div>
 
 <?php if ($this->paginator->count() == 0 ): ?>
 <div class="alert alert-warning">There are no competitions!</div>
@@ -30,7 +47,7 @@
             <td class="cell cell-type">
                 <?php echo $this->escapeHtml($entity->getTypeString()); ?>
             </td>
-            <td class="col-sm-2 cell cell-ctrls">
+            <td class="col-sm-2 cell cell-ctrls" style="text-align:right">
                 <a href="<?php echo $this->url('zfcadmin/usarugbystats_competitionadmin/view/standings', array('id' => $entity->getId())); ?>">
                     <?php echo $this->translate('Standings') ?>
                 </a>
@@ -48,7 +65,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3">
+            <td colspan="4">
                 <?php echo $this->paginationControl($this->users, 'Sliding', 'usa-rugby-stats/competition-admin/competition-admin/pagination'); ?>
             </td>
         </tr>
