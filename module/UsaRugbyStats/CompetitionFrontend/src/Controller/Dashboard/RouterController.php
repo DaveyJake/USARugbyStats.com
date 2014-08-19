@@ -23,6 +23,9 @@ class RouterController extends AbstractActionController
                     return $this->redirect()->toRoute('zfcadmin');
                 case 'union_admin':
                     $managedUnions = $roleAssignment->getManagedUnions();
+                    if ( $managedUnions->count() == 0 ) {
+                        continue;
+                    }
                     if ( $managedUnions->count() == 1 ) {
                         return $this->redirect()->toRoute(
                             'usarugbystats_frontend_union',
@@ -34,6 +37,9 @@ class RouterController extends AbstractActionController
                     return $this->forward()->dispatch($controllerName);
                 case 'competition_admin':
                     $managedComps = $roleAssignment->getManagedCompetitions();
+                    if ( $managedComps->count() == 0 ) {
+                        continue;
+                    }
                     if ( $managedComps->count() == 1 ) {
                         return $this->redirect()->toRoute(
                             'usarugbystats_frontend_competition',
@@ -45,6 +51,9 @@ class RouterController extends AbstractActionController
                     return $this->forward()->dispatch($controllerName);
                 case 'team_admin':
                     $managedTeams = $roleAssignment->getManagedTeams();
+                    if ( $managedTeams->count() == 0 ) {
+                        continue;
+                    }
                     if ( $managedTeams->count() == 1 ) {
                         return $this->redirect()->toRoute(
                             'usarugbystats_frontend_team',
