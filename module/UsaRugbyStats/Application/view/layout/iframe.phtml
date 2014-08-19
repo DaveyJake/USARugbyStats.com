@@ -1,37 +1,49 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="en">
+<html lang="en" <?php echo empty($this->iframe) ? '' : ' class="iframed"'; ?>>
     <head>
-        <meta charset="utf-8">
         <?php echo $this->headTitle($this->translate('USA Rugby Stats'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()
+            ->setCharset('utf-8')
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
-        <!-- Le styles -->
+        <!-- Stylesheets -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
-                        ->appendStylesheet($this->basePath() . '/assets/css/bootstrap.min.css')
-                        ->appendStylesheet($this->basePath() . '/assets/css/bootstrap-theme.min.css')
+                        ->appendStylesheet($this->basePath() . '/assets/css/vendor/bootstrap.min.css')
+                        ->appendStylesheet($this->basePath() . '/assets/css/vendor/chosen.min.css')
+                        ->appendStylesheet($this->basePath() . '/assets/css/vendor/bootstrap-datetimepicker.min.css')
+                        ->appendStylesheet($this->basePath() . '/assets/css/bs3override.css')
+                        ->appendStylesheet($this->basePath() . '/assets/css/style.css')
         ; ?>
 
         <!-- Fonts -->
         <script type="text/javascript" src="//use.typekit.net/dqm3mdr.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <script type="text/javascript">if (window != window.top) { document.location = '?iframe=true'; }</script>
 
         <!-- Scripts -->
-        <?php echo $this->headScript()
-            ->appendFile($this->basePath() . '/assets/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
-            ->appendFile($this->basePath() . '/assets/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->appendFile($this->basePath() . '/assets/js/jquery.min.js')
-            ->appendFile($this->basePath() . '/assets/js/bootstrap.min.js')
-        ; ?>
+        <?php
+        echo $this->headScript()
+                  ->appendFile('//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+                  ->appendFile('//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                  ->appendFile($this->basePath() . '/assets/js/vendor/jquery.min.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/bootstrap.min.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/moment.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/bootstrap-datetimepicker.min.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/chosen.jquery.min.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/chosen.jquery.min.js')
+                  ->appendFile($this->basePath() . '/assets/js/min/main-min.js')
+             ;
+        ?>
 
     </head>
     <body>
-
         <div class="container">
+            <div id="inner">
+                <main class="row">
 
 <?php
 // Render different levels of FlashMessenger messages in a Bootstrap3-friendly way
@@ -58,9 +70,9 @@ if (isset($_SESSION['alert_message'])) {
     echo '<div class="alert alert-info">' . $alert . '</div>';
 }
 ?>
-
-            <?php echo $this->content; ?>
-
+                    <?php echo $this->content; ?>
+                </main>
+            </div>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>
     </body>
