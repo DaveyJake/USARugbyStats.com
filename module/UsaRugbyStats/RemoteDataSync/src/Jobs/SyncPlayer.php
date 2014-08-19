@@ -108,23 +108,25 @@ class SyncPlayer extends AbstractJob
             return NULL;
         }
 
+        $this->getLogger()->debug('Loading Member role...');
         $membershipRole = $player->getRoleAssignment('member');
         if (! $membershipRole instanceof Member) {
+            $this->getLogger()->debug('Creating new Member role...');
             $membershipRole = new Member();
             $membershipRole->setRole(new Role($membershipRole->getDiscriminator()));
             $player->addRoleAssignment($membershipRole);
         }
+        $this->getLogger()->debug('Locating existing membership record for team...');
         $teamMembership = $membershipRole->getMembershipForTeam($team);
         if (! $teamMembership instanceof TeamMembership) {
+            $this->getLogger()->debug('Creating new membership record for team...');
             $teamMembership = new TeamMembership();
-        }
-
-        $teamMembership->setTeam($team);
-        $teamMembership->setMembershipStatus($data['Membership_Status']);
-        $teamMembershipId = $teamMembership->getId();
-        if ( empty($teamMembershipId) ) {
+            $teamMembership->setTeam($team);
             $membershipRole->addMembership($teamMembership);
         }
+
+        $this->getLogger()->debug('Updating membership status...');
+        $teamMembership->setMembershipStatus($data['Membership_Status']);
     }
 
     public function updateAccountProfile($player, $data)
