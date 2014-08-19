@@ -40,7 +40,6 @@ $this->layout()->coverVars = $this->vars();
                 			    <?=$this->gravatar($playerData['player']->getEmail(), ['img_size' => 32])->setAttribs(['class' => 'media-image']); ?>
                 			    <?=$this->ursPlayerLink($playerData['player']);?>
                 			</td>
-                			<?php $lastMatchPosition = array_search($playerData['player']->getId(), $this->lastMatchRoster, true);?>
                 			<td class="position"><?=$this->escapeHtml($playerData['position'] === false ? '--' : $playerData['position']);?></td>
                 			<td class="points"><?=$this->escapeHtml(@$playerData['stats']['team'][$team->getId()]['career']['PTS'] ?: 0); ?></td>
                 		</tr>
