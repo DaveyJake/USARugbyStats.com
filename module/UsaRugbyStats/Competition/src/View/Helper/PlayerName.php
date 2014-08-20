@@ -12,10 +12,12 @@ class PlayerName extends AbstractHelper
 
     public function __invoke($obj)
     {
+        $prefix = null;
         $player = null;
         if ($obj instanceof AccountInterface) {
             $player = $obj;
         } elseif ($obj instanceof MatchTeamPlayer) {
+            $prefix = "#{$obj->getNumber()} - ";
             $player = $obj->getPlayer();
         } elseif ( ctype_digit(trim($obj)) ) {
             $player = $this->getAccountService()->getUserMapper()->findById($obj);
@@ -24,7 +26,7 @@ class PlayerName extends AbstractHelper
             return;
         }
 
-        return $player->getDisplayName();
+        return $prefix . $player->getDisplayName();
     }
 
     public function setAccountService(User $svc)

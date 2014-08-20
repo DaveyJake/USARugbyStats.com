@@ -29,7 +29,7 @@ class PlayerLink extends AbstractHelper
 
         return $this->getView()->render(
             'usa-rugby-stats/competition-frontend/partials/player-link/default',
-            [ 'player' => $player ]
+            [ 'player' => is_object($obj) ? $obj : $player ]
         );
     }
 
