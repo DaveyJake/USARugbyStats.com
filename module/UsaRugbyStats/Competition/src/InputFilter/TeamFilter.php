@@ -5,6 +5,7 @@ use Zend\InputFilter\InputFilter;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Zend\InputFilter\FileInput;
+use UsaRugbyStats\Application\Common\USStates;
 
 /**
  * Team Input Filter
@@ -123,6 +124,26 @@ class TeamFilter extends InputFilter
             'name'       => 'twitterHandle',
             'required'   => false,
             'validators' => array(),
+            'filters'   => array(
+                array('name' => 'StringTrim'),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'city',
+            'required'   => false,
+            'validators' => array(),
+            'filters'   => array(
+                array('name' => 'StringTrim'),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'state',
+            'required'   => false,
+            'validators' => array(
+                array('name' => 'InArray', 'options' => ['haystack' => [null] + array_keys(USStates::$states)])
+            ),
             'filters'   => array(
                 array('name' => 'StringTrim'),
             ),

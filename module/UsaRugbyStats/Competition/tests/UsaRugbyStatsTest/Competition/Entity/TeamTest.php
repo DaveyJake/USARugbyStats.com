@@ -64,6 +64,36 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('testtesttest', $obj->getTwitterHandle());
     }
 
+    public function testGetSetCity()
+    {
+        $obj = new Team();
+        $this->assertNull($obj->getCity());
+        $obj->setCity('Someplace');
+        $this->assertEquals('Someplace', $obj->getCity());
+    }
+
+    public function testSetCityToNull()
+    {
+        $obj = new Team();
+        $obj->setCity(null);
+        $this->assertEquals(null, $obj->getCity());
+    }
+
+    public function testGetSetState()
+    {
+        $obj = new Team();
+        $this->assertNull($obj->getState());
+        $obj->setState('AK');
+        $this->assertEquals('AK', $obj->getState());
+    }
+
+    public function testSetStateToNull()
+    {
+        $obj = new Team();
+        $obj->setState(null);
+        $this->assertEquals(null, $obj->getState());
+    }
+
     public function testCanBeConvertedToString()
     {
         $obj = new Team();

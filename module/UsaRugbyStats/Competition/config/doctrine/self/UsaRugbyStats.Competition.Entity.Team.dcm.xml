@@ -19,6 +19,8 @@
         <field name="website" type="string" length="255" nullable="true" />
         <field name="facebookHandle" type="string" length="100" nullable="true" />
         <field name="twitterHandle" type="string" length="100" nullable="true" />
+        <field name="city" type="string" length="255" nullable="true" />
+        <field name="state" type="string" length="3" nullable="true" />
 
         <one-to-many field="teamMemberships" target-entity="UsaRugbyStats\Competition\Entity\Competition\TeamMembership" mapped-by="team" orphan-removal="true">
             <order-by>

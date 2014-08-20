@@ -43,6 +43,20 @@ class Team
     protected $email;
 
     /**
+     * City
+     *
+     *  @var string
+     */
+    protected $city;
+
+    /**
+     * State
+     *
+     * @var string
+     */
+    protected $state;
+
+    /**
      * Website Address of the team
      *
      * @var string
@@ -251,6 +265,42 @@ class Team
     public function setTwitterHandle($username)
     {
         $this->twitterHandle = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param string $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param string $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
 
         return $this;
     }

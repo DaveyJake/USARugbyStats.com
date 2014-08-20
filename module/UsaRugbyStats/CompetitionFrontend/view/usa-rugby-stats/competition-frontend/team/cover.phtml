@@ -12,7 +12,11 @@
         <div class="meta">
             <div class="contact">
             </div>
-            <div class="location">Bloomington, IN</div>
+            <div class="location">
+                <?php if ( !empty($this->team->getCity()) && !empty($this->team->getState()) ):?>
+                <?=$this->escapeHtml($this->team->getCity()); ?>, <?=$this->escapeHtml($this->team->getState()); ?>
+                <?php endif;?>
+            </div>
             <div class="links">
                 <?php if ( !empty($this->team->getFacebookHandle()) ): ?>
                  <a target="_blank" href="<?=$this->escapeHtmlAttr($this->team->getWebsite()) ?: '#'; ?>"><span class="icon-browser"></span></a>

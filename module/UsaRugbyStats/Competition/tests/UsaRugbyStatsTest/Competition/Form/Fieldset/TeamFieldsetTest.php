@@ -23,6 +23,8 @@ class TeamFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($fieldset->has('email'));
         $this->assertTrue($fieldset->has('facebookHandle'));
         $this->assertTrue($fieldset->has('twitterHandle'));
+        $this->assertTrue($fieldset->has('city'));
+        $this->assertTrue($fieldset->has('state'));
         $this->assertInstanceOf('DoctrineModule\Form\Element\ObjectSelect', $fieldset->get('union'));
         $this->assertEquals('UsaRugbyStats\Competition\Entity\Union', $fieldset->get('union')->getOption('target_class'));
     }

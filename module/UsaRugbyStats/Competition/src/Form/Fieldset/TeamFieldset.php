@@ -3,6 +3,7 @@ namespace UsaRugbyStats\Competition\Form\Fieldset;
 
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
+use UsaRugbyStats\Application\Common\USStates;
 
 class TeamFieldset extends Fieldset
 {
@@ -104,6 +105,22 @@ class TeamFieldset extends Fieldset
             ),
         ));
 
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'city',
+            'options' => array(
+                'label' => 'City',
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'state',
+            'options' => array(
+                'label' => 'State',
+                'value_options' => ['' => 'Please Select a State'] + USStates::$states,
+            ),
+        ));
     }
 
 }
