@@ -41,10 +41,10 @@ $compUrl  = $this->url('usarugbystats_frontend_competition', ['id' => $match->ge
 	  <span><?=$this->escapeHtml($winningSide == 'D' ? 'D' : ( $winningSide == $teamSide ? 'W' : 'L')); ?></span>
 	  <?=$this->escapeHtml($match->getTeam($teamSide)->getScore()); ?> -
 	  <?=$this->escapeHtml($match->getTeam($opponentSide)->getScore()); ?>
+	<?php   endif;?>
 	<?php elseif ( $isRelativeToCompetition ): ?>
 	  <?=$this->escapeHtml($match->getTeam('A')->getScore()); ?> -
 	  <?=$this->escapeHtml($match->getTeam('H')->getScore()); ?>
-	<?php   endif; ?>
 	<?php endif; ?>
 	</td>
 	<td class="location">
