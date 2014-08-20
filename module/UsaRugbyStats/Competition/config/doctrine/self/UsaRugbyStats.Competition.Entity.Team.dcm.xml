@@ -21,12 +21,18 @@
         <field name="twitterHandle" type="string" length="100" nullable="true" />
 
         <one-to-many field="teamMemberships" target-entity="UsaRugbyStats\Competition\Entity\Competition\TeamMembership" mapped-by="team" orphan-removal="true">
+            <order-by>
+                <order-by-field name="sortKey" direction="ASC" />
+            </order-by>
             <cascade>
                 <cascade-all />
             </cascade>
         </one-to-many>
 
         <one-to-many field="members" target-entity="UsaRugbyStats\Competition\Entity\Team\Member" mapped-by="team" orphan-removal="true">
+            <order-by>
+                <order-by-field name="sortKey" direction="ASC" />
+            </order-by>
             <cascade>
                 <cascade-all />
             </cascade>

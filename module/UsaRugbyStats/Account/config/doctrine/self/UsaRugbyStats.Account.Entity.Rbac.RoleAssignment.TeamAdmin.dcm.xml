@@ -6,6 +6,9 @@
     <entity name="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\TeamAdmin" table="accounts_rbac_roleassignment_team_admin" repository-class="UsaRugbyStats\Account\Repository\Rbac\RoleAssignment\TeamAdminRepository">
 
         <many-to-many field="managedTeams" target-entity="UsaRugbyStats\Competition\Entity\Team">
+            <order-by>
+                <order-by-field name="name" direction="ASC" />
+            </order-by>
             <join-table name="accounts_rbac_roleassignment_team_admin_managedteams">
                 <join-columns>
                     <join-column name="ra_id" referenced-column-name="id" />

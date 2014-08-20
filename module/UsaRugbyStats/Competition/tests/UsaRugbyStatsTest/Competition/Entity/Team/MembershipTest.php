@@ -17,6 +17,7 @@ class MembershipTest extends \PHPUnit_Framework_TestCase
     public function testGetSetTeam()
     {
         $team = Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $team->shouldReceive('getName')->andReturn('Test Team #1');
 
         $obj = new Member();
 
@@ -32,6 +33,7 @@ class MembershipTest extends \PHPUnit_Framework_TestCase
     public function testGetSetRole()
     {
         $role = Mockery::mock('UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member');
+        $role->shouldReceive('getAccount->getDisplayName')->andReturn('Test Player #1');
 
         $obj = new Member();
 

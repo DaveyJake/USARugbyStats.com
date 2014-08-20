@@ -341,6 +341,7 @@ class SyncPlayerTest extends AbstractJobTest
         $player = new Account();
 
         $mockTeam = \Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
+        $mockTeam->shouldReceive('getName')->andReturn('Test Team #1');
 
         $mockTeamService = \Mockery::mock('UsaRugbyStats\Competition\Service\TeamService');
         $mockTeamService->shouldReceive('findByRemoteID')->andReturn($mockTeam);
@@ -371,10 +372,12 @@ class SyncPlayerTest extends AbstractJobTest
         $mockTeam = \Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
         $mockTeam->shouldReceive('getId')->andReturn(23);
         $mockTeam->shouldReceive('getRemoteId')->andReturn(99999);
+        $mockTeam->shouldReceive('getName')->andReturn('Test Team #1');
 
         $mockTeamOther = \Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
         $mockTeamOther->shouldReceive('getId')->andReturn(82);
         $mockTeamOther->shouldReceive('getRemoteId')->andReturn(424242);
+        $mockTeamOther->shouldReceive('getName')->andReturn('Test Team #2');
 
         $membership = new \UsaRugbyStats\Competition\Entity\Team\Member();
         $membership->setTeam($mockTeamOther);
@@ -423,6 +426,7 @@ class SyncPlayerTest extends AbstractJobTest
         $mockTeam = \Mockery::mock('UsaRugbyStats\Competition\Entity\Team');
         $mockTeam->shouldReceive('getId')->andReturn(23);
         $mockTeam->shouldReceive('getRemoteId')->andReturn(99999);
+        $mockTeam->shouldReceive('getName')->andReturn('Test Team #1');
 
         $membership = new \UsaRugbyStats\Competition\Entity\Team\Member();
         $membership->setTeam($mockTeam);

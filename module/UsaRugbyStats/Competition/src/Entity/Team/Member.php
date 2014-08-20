@@ -3,6 +3,7 @@ namespace UsaRugbyStats\Competition\Entity\Team;
 
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member as MemberRole;
 use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Application\Entity\AccountInterface;
 /**
  * Team Member
  *
@@ -47,6 +48,13 @@ class Member
     protected $membershipStatus;
 
     /**
+     * Sort Key to maintain association order
+     *
+     * @var string
+     */
+    protected $sortKey;
+
+    /**
      * @return integer
      */
     public function getId()
@@ -78,6 +86,7 @@ class Member
     public function setRole(MemberRole $role = null)
     {
         $this->role = $role;
+        $this->updateSortKey();
 
         return $this;
     }
@@ -96,6 +105,7 @@ class Member
     public function setTeam(Team $team = null)
     {
         $this->team = $team;
+        $this->updateSortKey();
 
         return $this;
     }
@@ -119,6 +129,37 @@ class Member
         $this->membershipStatus = $membershipStatus;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSortKey()
+    {
+        return $this->sortKey;
+    }
+
+    /**
+     * @param  string $key
+     * @return self
+     */
+    public function setSortKey($key)
+    {
+        $this->sortKey = $key;
+
+        return $this;
+    }
+
+    public function updateSortKey()
+    {
+        $sortKey = '';
+        if ($this->team instanceof Team) {
+            $sortKey .= $this->team->getName();
+        }
+        if ( $this->role instanceof MemberRole && $this->role->getAccount() instanceof AccountInterface ) {
+            $sortKey .= $this->role->getAccount()->getDisplayName();
+        }
+        $this->setSortKey(preg_replace('{[^a-z0-9_-]}is', '', $sortKey) ?: null);
     }
 
 }

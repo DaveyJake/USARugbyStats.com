@@ -17,6 +17,8 @@
 
         <field name="membershipStatus" type="integer" nullable="true" />
 
+        <field name="sortKey" type="text" nullable="true" />
+
     </entity>
 
 </doctrine-mapping>
