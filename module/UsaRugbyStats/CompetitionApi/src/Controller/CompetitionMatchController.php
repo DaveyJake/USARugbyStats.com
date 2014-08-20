@@ -19,7 +19,7 @@ class CompetitionMatchController extends AbstractRestfulController
     public function create($data)
     {
         $competition = $this->getCompetitionEntityFromRoute();
-        if ( $competition instanceof ApiProblem ) {
+        if ($competition instanceof ApiProblem) {
             return new ApiProblemResponse($competition);
         }
 
@@ -55,61 +55,62 @@ class CompetitionMatchController extends AbstractRestfulController
 
     public function delete($id)
     {
-        return new ApiProblemResponse(new ApiProblem(405, NULL));
+        return new ApiProblemResponse(new ApiProblem(405, null));
     }
 
-	public function deleteList()
+    public function deleteList()
     {
-        return new ApiProblemResponse(new ApiProblem(405, NULL));
+        return new ApiProblemResponse(new ApiProblem(405, null));
     }
 
-	public function get($id)
+    public function get($id)
     {
-        return new ApiProblemResponse(new ApiProblem(405, NULL));
+        return new ApiProblemResponse(new ApiProblem(405, null));
     }
 
-	public function getList()
+    public function getList()
     {
-        return new ApiProblemResponse(new ApiProblem(405, NULL));
+        return new ApiProblemResponse(new ApiProblem(405, null));
     }
 
-	public function head($id = null)
+    public function head($id = null)
     {
-        return new ApiProblemResponse(new ApiProblem(405, NULL));
+        return new ApiProblemResponse(new ApiProblem(405, null));
     }
 
-	public function options()
+    public function options()
     {
-        return new ApiProblemResponse(new ApiProblem(405, NULL));
+        return new ApiProblemResponse(new ApiProblem(405, null));
     }
 
-	public function patch($id, $data)
+    public function patch($id, $data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, NULL));
+        return new ApiProblemResponse(new ApiProblem(405, null));
     }
 
-	public function patchList($data)
+    public function patchList($data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, NULL));
+        return new ApiProblemResponse(new ApiProblem(405, null));
     }
 
-	public function replaceList($data)
+    public function replaceList($data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, NULL));
+        return new ApiProblemResponse(new ApiProblem(405, null));
     }
 
-	public function update($id, $data)
+    public function update($id, $data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, NULL));
+        return new ApiProblemResponse(new ApiProblem(405, null));
     }
 
     protected function getCompetitionEntityFromRoute()
     {
         $id = $this->params()->fromRoute('cid');
         $comp = $this->getCompetitionService()->findByID($id);
-        if ( ! $comp instanceof Competition ) {
+        if (! $comp instanceof Competition) {
             return new ApiProblem(404, 'Competition not found!');
         }
+
         return $comp;
     }
 
@@ -118,6 +119,7 @@ class CompetitionMatchController extends AbstractRestfulController
         $form = $this->getServiceLocator()->get('usarugbystats_competition_competition_match_updateform');
         $form->bind($m);
         $form->isValid();
+
         return $form->getData(FormInterface::VALUES_AS_ARRAY);
     }
 }

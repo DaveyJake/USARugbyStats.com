@@ -28,6 +28,11 @@
                 <?php else: ?>
                 <div class="schedule-is-empty">This team is not participating in any upcoming matches.</div>
                 <?php endif; ?>
+
+                <?php if ( $this->isGranted('competition.competition.match.create', $competition) ):?>
+                <?php   echo $this->render('usa-rugby-stats/competition-frontend/competition/inline-match-add', $this->vars()); ?>
+                <?php endif; ?>
+
             </div>
 
             <div class="tab-pane" id="divisions">

@@ -172,6 +172,15 @@ return array(
                             ),
                         ),
                     ),
+                    'render-match-row' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/:mid/render-match-row',
+                            'defaults' => array(
+                                'action'     => 'rende-rmatch-row',
+                            ),
+                        ),
+                    ),
                     'update' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -292,6 +301,7 @@ return array(
                 'usarugbystats_frontend_competition/create-match' => array('union_admin', 'competition_admin'),
                 'usarugbystats_frontend_competition_match' => array('guest'),
                 'usarugbystats_frontend_competition_match/view' => array('guest'),
+                'usarugbystats_frontend_competition_match/render-match-row' => array('guest'),
                 'usarugbystats_frontend_competition_match/create' => array('competition_admin'),
                 'usarugbystats_frontend_competition_match/update' => array('team_admin', 'competition_admin'),
                 'usarugbystats_frontend_competition_match/update/copy-roster' => array('team_admin', 'competition_admin'),

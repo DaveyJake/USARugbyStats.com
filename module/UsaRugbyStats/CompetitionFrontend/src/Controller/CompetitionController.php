@@ -22,6 +22,7 @@ class CompetitionController extends AbstractActionController
         $vm = new ViewModel();
         $vm->setVariable('competition', $competition);
         $vm->setVariable('standings', $this->getCompetitionStandingsService()->getStandingsFor($competition));
+        $vm->setVariable('matchCreateForm', $this->getCompetitionMatchService()->getCreateForm());
         $vm->setTemplate('usa-rugby-stats/competition-frontend/competition/index');
 
         return $vm;
@@ -74,39 +75,4 @@ class CompetitionController extends AbstractActionController
         return $competition;
     }
 
-    public function getCompetitionService()
-    {
-        if (! $this->competitionService instanceof CompetitionService) {
-            $this->setCompetitionService($this->getServiceLocator()->get(
-                'usarugbystats_competition_competition_service'
-            ));
-        }
-
-        return $this->competitionService;
-    }
-
-    public function setCompetitionService(CompetitionService $s)
-    {
-        $this->competitionService = $s;
-
-        return $this;
-    }
-
-    public function getCompetitionStandingsService()
-    {
-        if (! $this->competitionStandingsService instanceof StandingsService) {
-            $this->setCompetitionStandingsService($this->getServiceLocator()->get(
-                'usarugbystats_competition_competition_standings_service'
-            ));
-        }
-
-        return $this->competitionStandingsService;
-    }
-
-    public function setCompetitionStandingsService(StandingsService $s)
-    {
-        $this->competitionStandingsService = $s;
-
-        return $this;
-    }
 }

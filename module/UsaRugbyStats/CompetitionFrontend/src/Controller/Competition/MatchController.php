@@ -47,6 +47,25 @@ class MatchController extends AbstractActionController
         return $vm;
     }
 
+    public function renderMatchRowAction()
+    {
+        $match = $this->getMatchEntityFromRoute();
+
+        $vm = new ViewModel();
+        $vm->setVariable('match', $match);
+        $vm->setTemplate('usa-rugby-stats/competition-frontend/partials/games-listing-row', [
+            'match' => $match
+        ]);
+        $vm->setTerminal(true);
+
+        $relativeToCompetition = $this->params()->fromQuery('relativeToCompetition', null);
+        if ( !empty($relativeToCompetition) ) {
+            $vm->setVariable('relativeTo', $this->getCompetitionService()->findByID($relativeToCompetition));
+        }
+
+        return $vm;
+    }
+
     public function createAction()
     {
         $competition = $this->getCompetitionEntityFromRoute();
