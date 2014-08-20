@@ -53,9 +53,7 @@ class MatchController extends AbstractActionController
 
         $vm = new ViewModel();
         $vm->setVariable('match', $match);
-        $vm->setTemplate('usa-rugby-stats/competition-frontend/partials/games-listing-row', [
-            'match' => $match
-        ]);
+        $vm->setTemplate('usa-rugby-stats/competition-frontend/partials/games-listing-row');
         $vm->setTerminal(true);
 
         $relativeToCompetition = $this->params()->fromQuery('relativeToCompetition', null);
