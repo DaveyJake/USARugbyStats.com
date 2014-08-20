@@ -23,7 +23,7 @@ $compUrl  = $this->url('usarugbystats_frontend_competition', ['id' => $match->ge
 
 	<?=($opponent->getType() == 'H' ? '@' : 'vs.'); ?> <img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($opponent)); ?>"><?php echo $this->ursTeamLink($opponent); ?>
 	<?php else: ?>
-	<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>"><?php echo $this->ursTeamLink($match->getTeam('A')); ?>
+	<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>"><?php echo $this->ursTeamLink($match->getTeam('A')); ?>&nbsp;
 	@<br />
 	<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('H'))); ?>"><?php echo $this->ursTeamLink($match->getTeam('H')); ?>
 	<?php endif;?>
