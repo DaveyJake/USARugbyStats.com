@@ -1,8 +1,8 @@
 /*------------------------------------------------------------------
 [Master Stylesheet]
 
-Project:    USA Rugby
-Version:    2.0
+Project:	USA Rugby
+Version:	2.0
 
 1. Imports
 2. Fonts
@@ -54,14 +54,17 @@ Version:    2.0
 .icon-search:before {
   content: "\e603";
 }
+.icon-compose:before {
+  content: "\e60d";
+}
+.icon-calendar:before {
+  content: "\e605";
+}
 .icon-grid:before {
   content: "\e601";
 }
 .icon-users:before {
   content: "\e604";
-}
-.icon-calendar:before {
-  content: "\e605";
 }
 .icon-browser:before {
   content: "\e608";
@@ -410,8 +413,8 @@ table.dataTable tr.child span.dtr-title {
 /*------------------------------------------------------------------
 [Header Stylesheet]
 
-Project:    CMS
-Version:    2.0
+Project:	CMS
+Version:	2.0
 
 1. Nav (Top)
 
@@ -880,8 +883,32 @@ table tbody td img {
   padding-right: 8px;
   font-size: 10px;
 }
-#players td.home-player {
+.game #players th {
+  font-size: 12px;
+}
+.game #players th.home-player {
   text-align: right;
+}
+.game #players td.home-player {
+  text-align: right;
+}
+.game #players td.home-player,
+.game #players td.away-player {
+  width: 40%;
+}
+.game #players td.away-player {
+  text-align: left;
+}
+.game #players td {
+  text-align: center;
+}
+.game #players tr {
+  height: 34px;
+}
+.game #players tr td {
+  font-size: 13px;
+  line-height: 34px;
+  height: 34px;
 }
 #standings-full th {
   background: #223850;
@@ -904,8 +931,8 @@ table tbody td img {
 /*------------------------------------------------------------------
 [Profile Stylesheet]
 
-Project:    USA Rugby
-Version:    2.0
+Project:	USA Rugby
+Version:	2.0
 
 1. Imports
 2. Fonts
@@ -1016,7 +1043,7 @@ Version:    2.0
   line-height: 150px;
 }
 #game-header > div.away-team {
-  background: url('../img/header-bg.jpg') center top no-repeat;
+  background: url('http://usarugby.dev.lundrigan.ca/assets/img/teamcoverimages/2.png') center center no-repeat;
   -webkit-background-size: cover cover;
           background-size: cover;
   position: relative;
@@ -1029,7 +1056,7 @@ Version:    2.0
   left: 0;
   right: 0;
   content: '';
-  background: rgba(29, 37, 65, 0.9);
+  background: rgba(15, 33, 68, 0.9);
   z-index: 0;
 }
 #game-header > div.away-team .score {
@@ -1073,7 +1100,7 @@ Version:    2.0
   left: 0;
   right: 0;
   content: '';
-  background: rgba(100, 30, 30, 0.9);
+  background: rgba(11, 23, 46, 0.9);
   z-index: 0;
 }
 #game-header > div.home-team .score {
@@ -1102,22 +1129,49 @@ Version:    2.0
   left: 20px;
   z-index: 1;
 }
-#players ul {
+.game #players {
+  padding-right: 0;
+}
+.game #players tr {
+  padding: 0 10px;
+}
+.game #players table thead th:first-of-type {
+  padding-left: 5px;
+}
+.game #players table thead th:last-of-type {
+  padding-right: 5px;
+}
+.game .panel .title a.edit {
+  background: #c23752;
+  color: #FFF;
+  line-height: 30px;
+  margin-top: 7px;
+  margin-right: 10px;
+  border-radius: 30px;
+}
+.game .panel .title {
+  height: 46px;
+  line-height: 46px;
+}
+.game .panel .title h2 {
+  line-height: 44px;
+}
+#game-meta {
+  background: #FFF;
+  height: 55px;
+  line-height: 55px;
+  position: relative;
+  z-index: 1;
+}
+#game-meta ul {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 20px;
 }
-#players ul.home-players {
-  float: right;
-  width: 40%;
-}
-#players ul.away-players {
-  float: right;
-  width: 40%;
-}
-#players ul.positions {
-  float: right;
-  width: 20%;
+#game-meta ul li {
+  float: left;
+  padding: 0 20px;
+  border-right: 1px solid #f2f3f5;
 }
 /* 2. Fonts  -------------------------------------------------------*/
 h1,
