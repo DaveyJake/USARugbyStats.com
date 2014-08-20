@@ -3,6 +3,7 @@ namespace UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch;
 
 use Zend\EventManager\EventInterface;
 use UsaRugbyStats\Competition\Entity\Competition;
+use UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamPlayerFieldset;
 
 /**
  * Processing Rule to force specific order on roster slot positions
@@ -37,7 +38,7 @@ class ForceRosterSlotSelections extends AbstractRule
 
             $key = 1;
             foreach ( $e->getParams()->data['match']['teams'][$side]['players'] as &$record ) {
-                $valueOptions = $fieldset->positions[$variant];
+                $valueOptions = MatchTeamPlayerFieldset::$positions[$variant];
                 $thisPosition = array_slice($valueOptions, $key-1, 1, true);
                 if ( count($thisPosition) == 1 ) {
                     $thisPositionKey = array_keys($thisPosition);

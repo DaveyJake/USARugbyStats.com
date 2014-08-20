@@ -3,6 +3,7 @@ namespace UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch;
 
 use Zend\EventManager\EventInterface;
 use UsaRugbyStats\Competition\Entity\Competition;
+use UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamPlayerFieldset;
 
 /**
  * Processing Rule to pre-render N roster slots per side,
@@ -52,7 +53,7 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
             ? ( $competition->getMaxPlayersOnRoster() ?: $optimalLevel )
             : $optimalLevel;
 
-        $positions = $players->getTargetElement()->positions[$competition->getVariant()];
+        $positions = MatchTeamPlayerFieldset::$positions[$competition->getVariant()];
 
         // Pre-fill the first N roster slots with appropriate number and position
         $number = 0;

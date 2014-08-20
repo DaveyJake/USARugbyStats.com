@@ -10,7 +10,7 @@ class MatchTeamPlayerFieldset extends Fieldset
 {
     protected $objectManager;
 
-    public $positions = [
+    public static $positions = [
         Competition::VARIANT_FIFTEENS => [
             'LHP' => 'Loose-Head Prop (P)',
             'H' => 'Hooker (H)',
@@ -117,6 +117,6 @@ class MatchTeamPlayerFieldset extends Fieldset
             return false;
         }
 
-        $this->get('position')->setValueOptions($this->positions[$v]);
+        $this->get('position')->setValueOptions(self::$positions[$v]);
     }
 }

@@ -35,7 +35,7 @@ class MatchTeamPlayerFieldsetTest extends \PHPUnit_Framework_TestCase
         $fieldset->setVariant(Competition::VARIANT_FIFTEENS);
 
         $this->assertTrue($fieldset->has('position'));
-        $this->assertEquals($fieldset->positions[Competition::VARIANT_FIFTEENS], $fieldset->get('position')->getValueOptions());
+        $this->assertEquals(MatchTeamPlayerFieldset::$positions[Competition::VARIANT_FIFTEENS], $fieldset->get('position')->getValueOptions());
     }
 
     public function testSetVariantTo7sChangesPositionSelect()
@@ -47,6 +47,6 @@ class MatchTeamPlayerFieldsetTest extends \PHPUnit_Framework_TestCase
         $fieldset->setVariant(Competition::VARIANT_SEVENS);
 
         $this->assertTrue($fieldset->has('position'));
-        $this->assertEquals($fieldset->positions[Competition::VARIANT_SEVENS], $fieldset->get('position')->getValueOptions());
+        $this->assertEquals(MatchTeamPlayerFieldset::$positions[Competition::VARIANT_SEVENS], $fieldset->get('position')->getValueOptions());
     }
 }
