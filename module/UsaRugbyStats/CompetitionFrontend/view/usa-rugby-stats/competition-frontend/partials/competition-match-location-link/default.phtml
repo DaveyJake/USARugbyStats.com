@@ -1,0 +1,8 @@
+<?php $loc = $match->getLocation(); ?>
+<?php if ( $loc instanceof \UsaRugbyStats\Competition\Entity\Location ): ?>
+<?php   echo $this->ursLocationLink($match->getLocation()); ?>
+<?php elseif ( !empty($match->getLocationDetails()) ): ?>
+<a href="https://www.google.ca/maps/search/<?=$this->escapeHtmlAttr($this->escapeUrl($match->getLocationDetails())); ?>">Map</a>
+<?php else: ?>
+N/A
+<?php endif; ?>

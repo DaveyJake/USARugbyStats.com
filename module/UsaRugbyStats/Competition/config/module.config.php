@@ -353,6 +353,8 @@ return array(
             'ursCompetitionDivisionName' => 'UsaRugbyStats\Competition\View\Helper\CompetitionDivisionNameFactory',
             'ursCompetitionMatchName' => 'UsaRugbyStats\Competition\View\Helper\CompetitionMatchNameFactory',
             'ursCompetitionMatchLink' => 'UsaRugbyStats\Competition\View\Helper\CompetitionMatchLinkFactory',
+            'ursCompetitionMatchLocationName' => 'UsaRugbyStats\Competition\View\Helper\CompetitionMatchLocationNameFactory',
+            'ursCompetitionMatchLocationLink' => 'UsaRugbyStats\Competition\View\Helper\CompetitionMatchLocationLinkFactory',
             'ursTeamPlayerName'       => 'UsaRugbyStats\Competition\View\Helper\TeamPlayerNameFactory',
             'ursTeamPlayerLink'       => 'UsaRugbyStats\Competition\View\Helper\TeamPlayerLinkFactory',
             'ursLocationName'       => 'UsaRugbyStats\Competition\View\Helper\LocationNameFactory',
