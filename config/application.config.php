@@ -2,6 +2,8 @@
 return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
+        'ZF\ApiProblem',
+
         'ZfcBase',
         'GoalioMailService',
 
@@ -28,6 +30,7 @@ return array(
         'UsaRugbyStats\AccountProfile',
         'UsaRugbyStats\AccountAdmin',
         'UsaRugbyStats\Competition',
+        'UsaRugbyStats\CompetitionApi',
         'UsaRugbyStats\CompetitionFrontend',
         'UsaRugbyStats\CompetitionAdmin',
 
