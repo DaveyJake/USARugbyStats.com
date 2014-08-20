@@ -56,7 +56,7 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
         $positions = MatchTeamPlayerFieldset::$positions[$competition->getVariant()];
 
         // Pre-fill the first N roster slots with appropriate number and position
-        $number = 0;
+        $number = 1;
         foreach ($positions as $positionKey => $positionName) {
             if ( isset($tempStorage[$positionKey]) ) {
                 $players->add($tempStorage[$positionKey]);
