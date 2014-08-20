@@ -70,11 +70,11 @@ $('#MatchQuickAdd').click(function() {
     $('#AsyncMatchAddForm').hide();
 
     var payload = {
-        'match[date]': $('input[name=match\\\\[date\\\\]]').val(),
-        'match[location]': $('select[name=match\\\\[location\\\\]]').val(),
-        'match[locationDetails]': $('input[name=match\\\\[locationDetails\\\\]]').val(),
-        'match[teams][H][team]': $('select[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]').val(),
-        'match[teams][A][team]': $('select[name=match\\\\[teams\\\\]\\\\[A\\\\]\\\\[team\\\\]]').val(),
+        'match[date]': $('*[name=match\\\\[date\\\\]]').val(),
+        'match[location]': $('*[name=match\\\\[location\\\\]]').val(),
+        'match[locationDetails]': $('*[name=match\\\\[locationDetails\\\\]]').val(),
+        'match[teams][H][team]': $('*[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]').val(),
+        'match[teams][A][team]': $('*[name=match\\\\[teams\\\\]\\\\[A\\\\]\\\\[team\\\\]]').val(),
     };
 
     function addErrorMessage(field, messages) {
@@ -99,11 +99,11 @@ $('#MatchQuickAdd').click(function() {
     }).done(function(data) {
         console.log(data);
 
-        $('input[name=match\\\\[date\\\\]]').val(null),
-        $('select[name=match\\\\[location\\\\]]').val(null),
-        $('input[name=match\\\\[locationDetails\\\\]]').val(null),
-        $('select[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]').val(null),
-        $('select[name=match\\\\[teams\\\\]\\\\[A\\\\]\\\\[team\\\\]]').val(null),
+        $('*[name=match\\\\[date\\\\]]').val(null),
+        $('*[name=match\\\\[location\\\\]]').val(null),
+        $('*[name=match\\\\[locationDetails\\\\]]').val(null),
+        $('*[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]').val(null),
+        $('*[name=match\\\\[teams\\\\]\\\\[A\\\\]\\\\[team\\\\]]').val(null),
 
         $.ajax({
             type: "GET",
@@ -118,11 +118,11 @@ $('#MatchQuickAdd').click(function() {
             $('#AsyncMatchAddForm').show();
         });
     }).fail(function(xhr, status) {
-        try { addErrorMessage('input[name=match\\\\[date\\\\]]', xhr.responseJSON.validation_messages.match.date); } catch (e) {};
-        try { addErrorMessage('input[name=match\\\\[location\\\\]]', xhr.responseJSON.validation_messages.match.location); } catch (e) {};
-        try { addErrorMessage('input[name=match\\\\[locationDetails\\\\]]', xhr.responseJSON.validation_messages.match.locationDetails); } catch (e) {};
-        try { addErrorMessage('select[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]', xhr.responseJSON.validation_messages.match.teams.H.team); } catch (e) {};
-        try { addErrorMessage('select[name=match\\\\[teams\\\\]\\\\[A\\\\]\\\\[team\\\\]]', xhr.responseJSON.validation_messages.match.teams.A.team); } catch (e) {};
+        try { addErrorMessage('*[name=match\\\\[date\\\\]]', xhr.responseJSON.validation_messages.match.date); } catch (e) {};
+        try { addErrorMessage('*[name=match\\\\[location\\\\]]', xhr.responseJSON.validation_messages.match.location); } catch (e) {};
+        try { addErrorMessage('*[name=match\\\\[locationDetails\\\\]]', xhr.responseJSON.validation_messages.match.locationDetails); } catch (e) {};
+        try { addErrorMessage('*[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]', xhr.responseJSON.validation_messages.match.teams.H.team); } catch (e) {};
+        try { addErrorMessage('*[name=match\\\\[teams\\\\]\\\\[A\\\\]\\\\[team\\\\]]', xhr.responseJSON.validation_messages.match.teams.A.team); } catch (e) {};
 
         $('#AsyncMatchAddSpinner').hide();
         $('#AsyncMatchAddForm').show();
