@@ -1,5 +1,8 @@
 @CHARSET "UTF-8";
 
+ul.navigation, ul.admin-navigation { margin-top: 0px !important; }
+ul.admin-navigation > li > a:before { content:'— ' }
+
 .page-header, .page-header h1 {
 	margin-top: 0;
 }
