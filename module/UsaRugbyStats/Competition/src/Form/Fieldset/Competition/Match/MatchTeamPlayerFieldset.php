@@ -3,7 +3,6 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition\Match;
 
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
-use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Entity\Competition;
 
 class MatchTeamPlayerFieldset extends Fieldset
@@ -74,7 +73,7 @@ class MatchTeamPlayerFieldset extends Fieldset
             'name' => 'number',
             'options' => array(
                 'label' => 'Type',
-                'value_options' => array_combine(range(1,23), range(1,23)),
+                'value_options' => range(0,99),
             ),
         ));
 

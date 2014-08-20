@@ -42,9 +42,13 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
         // Pop off any existing entries and store them temporarily
         // (prevents manual change in number from ruining sort order on form render)
         $tempStorage = [];
+        $usedNumbers = [];
         foreach ($players as $item) {
             $players->remove($item->getName());
-            $tempStorage[$item->get('position')->getValue()] = $item;
+            if ( ! empty($item->get('player')->getValue()) ) {
+                $tempStorage[$item->get('position')->getValue()] = $item;
+                array_push($usedNumbers, $item->get('number')->getValue());
+            }
         }
 
         $optimalLevel = $competition->getVariant() == Competition::VARIANT_FIFTEENS ? 23 : 15;
@@ -56,21 +60,21 @@ class PrerenderNRosterSlotsPerSide extends AbstractRule
         $positions = MatchTeamPlayerFieldset::$positions[$competition->getVariant()];
 
         // Pre-fill the first N roster slots with appropriate number and position
-        $number = 1;
+        $number = 0;
         foreach ($positions as $positionKey => $positionName) {
+            $number++;
             if ( isset($tempStorage[$positionKey]) ) {
+                $tempStorage[$positionKey]->setName($positionKey);
                 $players->add($tempStorage[$positionKey]);
                 unset($tempStorage[$positionKey]);
-                $number++;
                 continue;
             }
 
             $item = clone $players->getTargetElement();
-            $item->setName($number);
+            $item->setName($positionKey);
             $item->get('position')->setValue($positionKey);
-            $item->get('number')->setValue($number);
+            $item->get('number')->setValue(in_array($number, $usedNumbers, true) ? 0 : $number);
             $players->add($item);
-            $number++;
         }
 
         // Re-add any extra records (>23) to the bottom

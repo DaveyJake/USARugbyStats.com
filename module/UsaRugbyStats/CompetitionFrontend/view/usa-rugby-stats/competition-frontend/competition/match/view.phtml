@@ -77,15 +77,15 @@ $positions = array_keys(MatchTeamPlayerFieldset::$positions[$this->match->getCom
         		<th># - POS</th>
         		<th class="away-player"><?=$this->escapeHtml($this->ursTeamName($awayTeam)); ?></th>
         	</thead>
-        	<?php for ( $i = 0; $i < $maxPlayers; $i++ ): ?>
-        	<?php   $homePlayer = $homeTeamRoster->get($i); ?>
-        	<?php   $awayPlayer = $awayTeamRoster->get($i); ?>
+        	<?php foreach ( $positions as $poskey ): ?>
+        	<?php   $homePlayer = $homeTeamRoster->get($poskey); ?>
+        	<?php   $awayPlayer = $awayTeamRoster->get($poskey); ?>
         	<tr>
-        		<td class="home-player"><?=$homePlayer ? $this->ursPlayerLink($homePlayer->getPlayer()) : '--';?></td>
-        		<td><?=($i+1);?> - <?=$this->escapeHtml($positions[$i]);?></td>
-        		<td class="away-player"><?=$awayPlayer ? $this->ursPlayerLink($awayPlayer->getPlayer()) : '--';?></td>
+        		<td class="home-player"><?=$homePlayer ? $this->ursPlayerLink($homePlayer) : '--';?></td>
+        		<td><?=$this->escapeHtml($poskey);?></td>
+        		<td class="away-player"><?=$awayPlayer ? $this->ursPlayerLink($awayPlayer) : '--';?></td>
         	</tr>
-        	<?php endfor; ?>
+        	<?php endforeach; ?>
         </table>
     </div>
 </aside>

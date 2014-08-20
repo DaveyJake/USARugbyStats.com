@@ -213,7 +213,7 @@ class MatchTeam
     {
         if ( ! $this->hasPlayer($p) ) {
             $p->setTeam($this);
-            $this->players->add($p);
+            $this->players->set($p->getPosition(), $p);
         }
 
         return $this;

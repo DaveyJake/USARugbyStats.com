@@ -149,8 +149,10 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
 
         $player0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
         $player0->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
+        $player0->shouldReceive('getPosition')->andReturn('P1');
         $player1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
         $player1->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
+        $player1->shouldReceive('getPosition')->andReturn('P2');
 
         $newCollection = new ArrayCollection();
         $newCollection->add($player0);
@@ -171,8 +173,10 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
 
         $player0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
         $player0->shouldReceive('setTeam')->never();
+        $player0->shouldReceive('getPosition')->andReturn('P1');
         $player1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
         $player1->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
+        $player1->shouldReceive('getPosition')->andReturn('P2');
 
         // Add one to the existing collection
         $collection = $obj->getPlayers();
@@ -194,6 +198,7 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
 
         $player0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
         $player0->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
+        $player0->shouldReceive('getPosition')->andReturn('P2');
 
         // Add player0 twice
         $coll = new ArrayCollection();
@@ -213,10 +218,13 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
 
         $player0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
         $player0->shouldReceive('setTeam')->never();
+        $player0->shouldReceive('getPosition')->andReturn('P1');
         $player1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
         $player1->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
+        $player1->shouldReceive('getPosition')->andReturn('P2');
         $player2 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
         $player2->shouldReceive('setTeam')->withArgs([$obj])->once()->andReturnSelf();
+        $player2->shouldReceive('getPosition')->andReturn('H');
 
         // Add one to the existing collection
         $collection = $obj->getPlayers();
@@ -239,7 +247,9 @@ class MatchTeamTest extends \PHPUnit_Framework_TestCase
         $obj = new MatchTeam();
 
         $player0 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
+        $player0->shouldReceive('getPosition')->andReturn('P1');
         $player1 = Mockery::mock('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
+        $player1->shouldReceive('getPosition')->andReturn('P2');
 
         // Add roles to the existing collection
         $collection = $obj->getPlayers();
