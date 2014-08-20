@@ -46,9 +46,6 @@ class TeamController extends AbstractActionController
         $lastMatchRoster = $this->getCompetitionMatchService()->getLastMatchRosterForTeam($team, new \DateTime());
         $players = [];
         foreach ( $team->getMembers() as $membership ) {
-            if ( $membership->getMembershipStatus() != Member::STATUS_CURRENT ) {
-                continue;
-            }
             if ( ! ( $membershipRole = $membership->getRole() ) instanceof MemberRoleAssignment ) {
                 continue;
             }
@@ -56,9 +53,6 @@ class TeamController extends AbstractActionController
                 continue;
             }
             $position = array_search($membershipAccount->getId(), @$lastMatchRoster['roster'] ?: array(), true);
-            if ($position === false) {
-                continue;
-            }
             array_push($players, [
                 'player' => $membershipAccount,
                 'position' => $position,
