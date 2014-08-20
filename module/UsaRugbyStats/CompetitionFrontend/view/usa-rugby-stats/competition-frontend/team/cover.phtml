@@ -18,13 +18,13 @@
                 <?php endif;?>
             </div>
             <div class="links">
-                <?php if ( !empty($this->team->getFacebookHandle()) ): ?>
+                <?php if ( !empty($this->team->getWebsite()) ): ?>
                  <a target="_blank" href="<?=$this->escapeHtmlAttr($this->team->getWebsite()) ?: '#'; ?>"><span class="icon-browser"></span></a>
                  <?php endif; ?>
                  <?php if ( !empty($this->team->getFacebookHandle()) ): ?>
                  <a target="_blank" href="<?=empty($this->team->getFacebookHandle()) ? '#' : $this->escapeHtmlAttr('https://facebook.com/' . $this->escapeUrl($this->team->getFacebookHandle())); ?>"><span class="icon-facebook"></span></a>
                  <?php endif; ?>
-                 <?php if ( !empty($this->team->getFacebookHandle()) ): ?>
+                 <?php if ( !empty($this->team->getTwitterHandle()) ): ?>
                  <a target="_blank" href="<?=empty($this->team->getTwitterHandle()) ? '#' : $this->escapeHtmlAttr('https://twitter.com/' . $this->escapeUrl($this->team->getTwitterHandle())); ?>"><span class="icon-twitter"></span></a>
                  <?php endif; ?>
              </div>
