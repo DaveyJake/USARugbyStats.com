@@ -160,7 +160,7 @@
                 <?php echo $this->render($this->cover, $this->coverVars ?: $this->vars()); ?>
                 <?php endif; ?>
 
-                <main class="row">
+                <main class="row<?=empty($this->mainClasses) ? '' : ' ' . implode(' ', $this->mainClasses); ?>">
                     <?php
                     // Render different levels of FlashMessenger messages in a Bootstrap3-friendly way
                     $flash = $this->flashMessenger();

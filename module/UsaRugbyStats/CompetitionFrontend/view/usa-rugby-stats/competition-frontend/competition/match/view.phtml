@@ -1,98 +1,91 @@
-<style>
-.scoreboard .away-team h1, .scoreboard .home-team h1 {font-size: 28px; line-height: 58px; overflow: hidden; white-space: nowrap; text-transform: uppercase; }
-.scoreboard .away-team h1 a, .scoreboard .home-team h1 a { color: #1D2C46;}
-.scoreboard .away-team { float: left;}
-.scoreboard .home-team { float: left;}
-.scoreboard #score { display: inline-block; text-align: center; line-height: 74px; font-size: 48px; float: left; margin: 11px 20px 0 20px; color: #999; }
-</style>
+<?php
+use UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamPlayerFieldset;
+$this->layout()->cover = 'usa-rugby-stats/competition-frontend/competition/match/cover';
+$this->layout()->coverVars = $this->vars();
+$this->layout()->mainClasses = array_merge((array)$this->layout()->mainClasses, ['game']);
 
-<div class="scoreboard">
-  <div class="away-team">
-    <h1 style="font-size: 200%;"><?=$this->ursTeamLink($match->getAwayTeam()); ?></h1>
-  </div>
-  <div id="score"><?=$this->escapeHtml($match->hasTeam('A') ? $match->getAwayTeam()->getScore() : NULL); ?> -  <?=$this->escapeHtml($match->hasTeam('H') ? $match->getHomeTeam()->getScore() : NULL); ?></div>
-  <div class="home-team">
-    <h1 style="font-size: 200%;"><?=$this->ursTeamLink($match->getHomeTeam()); ?></h1>
-  </div>
-</div>
-<hr style="clear:both" />
-<a href="<?=$this->url('usarugbystats_frontend_competition', ['id' => $match->getCompetition()->getId()]); ?>"><?=$this->escapeHtml($match->getCompetition()->getName()); ?></a>&nbsp;&mdash;&nbsp;
-<?=$this->escapeHtml($match->getDate()->format('F j, Y')); ?>&nbsp;&mdash;&nbsp;
-Kickoff @ <?=$this->escapeHtml($match->getDate()->format('H:i T')); ?>&nbsp;&mdash;&nbsp;
-Game iFrame
-<?php if ( $this->isGranted('competition.competition.match.update', $match) ): ?>
-&nbsp;&mdash;&nbsp;
-<a href="<?php echo $this->url('usarugbystats_frontend_competition_match/update', array('cid' => $match->getCompetition()->getId(), 'mid' => $match->getId())); ?>"><?php echo $this->translate('Edit Match') ?></a>
-<?php endif;?>
-<hr style="clear:both" />
+$homeSide = $this->match->getTeam('H');
+$homeTeam = $homeSide->getTeam();
+$homeTeamRoster = $homeSide->getPlayers();
+$awaySide = $this->match->getTeam('A');
+$awayTeam = $awaySide->getTeam();
+$awayTeamRoster = $awaySide->getPlayers();
 
+//@TODO this should be encapsulated by the Competition object
+$maxPlayers = empty($this->match->getCompetition()->getMaxPlayersOnRoster())
+    ? ( $this->match->getCompetition()->getVariant() == '7s' ? '15' : '23' )
+    : $this->match->getCompetition()->getMaxPlayersOnRoster();
 
-
-<div class="row">
-  <?php foreach ( ['A', 'H'] as $teamkey ): ?>
-  <?php   $teamMembership = $match->getTeam($teamkey); ?>
-    <div class="col-sm-6">
-    <div class="panel panel-default">
-      <div class="panel-heading"><?=($teamkey == 'H' ? 'Home' : 'Opponent')?> Roster&nbsp;&mdash;&nbsp;<?=$this->escapeHtml($teamMembership->getTeam()->getName()); ?></div>
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
-       	    <th>#</th>
-       	    <th>Pos</th>
-     	    <th>Player</th>
-     	    <th>FR</th>
-           </tr>
-         </thead>
-         <tbody>
-           <?php foreach ( $teamMembership->getPlayers() as $player ): ?>
-           <tr>
-             <td><?=$this->escapeHtml($player->getNumber()); ?></td>
-             <td><?=$this->escapeHtml($player->getPosition()); ?></td>
-             <td><?=$this->ursPlayerLink($player->getPlayer()); ?></td>
-             <td><?=$player->isFrontRow() ? '<i class="glyphicon glyphicon-ok"></i>' : ''; ?></td>
-           </tr>
-           <?php endforeach;?>
-         </tbody>
-      </table>
-
+// Get list of positions for this rugby variant
+$positions = array_keys(MatchTeamPlayerFieldset::$positions[$this->match->getCompetition()->getVariant()]);
+?>
+<div id="content" class="col-sm-7">
+    <div class="panel">
+        <div class="title">
+    		<h2><span class="icon-list"></span>Game Stream</h2>
+    		<?php if ( $this->isGranted('competition.competition.match.update', $this->match) && $this->match->isStarted() ): ?>
+    		<a class="utility edit"><span class="icon-compose"></span>Add Event</a>
+    		<?php endif; ?>
+        </div>
+        <table>
+        	<thead>
+        		<th>MIN</th>
+        		<th>EVENT</th>
+        		<th>TYPE</th>
+        		<th>SIDE</th>
+        		<th>PLAYER(S)</th>
+        	</thead>
+        	<?php foreach ($this->match->getEvents() as $event): ?>
+        	<tr>
+        		<td><?=$this->escapeHtml($event->getMinute());?>'</td>
+        		<td><?=$this->escapeHtml($event->getEvent());?></td>
+        		<td><?=$this->escapeHtml($event->getType());?></td>
+        		<td><?=$this->escapeHtml($event->getTeam()->getType() == 'H' ? 'home' : 'away');?></td>
+                <?php
+                switch ( $event->getEvent() ) {
+                    case 'score':
+                        echo '<td>' . $this->ursPlayerLink($event->getPlayer()) . '</td>';
+                        break;
+                    case 'card':
+                        echo '<td>' . $this->ursPlayerLink($event->getPlayer()) . '</td>';
+                        break;
+                    case 'sub':
+                        echo '<td>';
+                        echo 'Off: ' . $this->ursPlayerLink($event->getPlayerOff()) . '<br />';
+                        echo 'On: ' . $this->ursPlayerLink($event->getPlayerOn()) . '<br />';
+                        echo '</td>';
+                        break;
+                }
+                ?>
+        	</tr>
+        	<?php endforeach; ?>
+        </table>
     </div>
-  </div>
-  <?php endforeach; ?>
 </div>
 
-
-<div class="panel panel-default">
-  <div class="panel-heading">Game Summary</div>
-
-  <table class="table table-striped">
-    <thead>
-      <tr>
-   	    <th>Min</th>
-   	    <th>Event</th>
- 	    <th>Team</th>
- 	    <th>Player</th>
-       </tr>
-     </thead>
-     <tbody>
-       <?php foreach ( $match->getEvents() as $event ): ?>
-       <tr>
-         <td><?=$this->escapeHtml($event->getMinute()); ?></td>
-         <td><?=$this->escapeHtml($event->getType()); ?></td>
-         <td><?=$this->ursTeamLink($event->getTeam()); ?></td>
-         <?php if ( $event->getDiscriminator() == 'sub'): ?>
-         <td>
-           On&nbsp;&mdash;&nbsp;#<?=$this->escapeHtml($event->getPlayerOn()->getNumber()); ?> - <?=$this->ursPlayerLink($event->getPlayerOn()); ?><br />
-           Off&nbsp;&mdash;&nbsp;#<?=$this->escapeHtml($event->getPlayerOff()->getNumber()); ?> - <?=$this->ursPlayerLink($event->getPlayerOff()); ?>
-         </td>
-         <?php else: ?>
-         <td>#<?=$this->escapeHtml($event->getPlayer()->getNumber()); ?> -
-            <?=$this->ursPlayerLink($event->getPlayer()); ?></td>
-         <?php endif;?>
-       </tr>
-       <?php endforeach;?>
-     </tbody>
-  </table>
-
-</div>
-
+<aside class="col-sm-5" id="players">
+    <div class="panel">
+        <div class="title">
+    		<h2><span class="icon-users"></span>Rosters</h2>
+    		<?php if ( $this->isGranted('competition.competition.match.update', $this->match) && $this->match->isNotStarted() ): ?>
+    		<a class="utility edit"><span class="icon-compose"></span>Edit Roster</a>
+    		<?php endif; ?>
+        </div>
+        <table>
+        	<thead>
+        		<th class="home-player"><?=$this->escapeHtml($this->ursTeamName($homeTeam)); ?></th>
+        		<th># - POS</th>
+        		<th class="away-player"><?=$this->escapeHtml($this->ursTeamName($awayTeam)); ?></th>
+        	</thead>
+        	<?php for ( $i = 0; $i < $maxPlayers; $i++ ): ?>
+        	<?php   $homePlayer = $homeTeamRoster->get($i); ?>
+        	<?php   $awayPlayer = $awayTeamRoster->get($i); ?>
+        	<tr>
+        		<td class="home-player"><?=$homePlayer ? $this->ursPlayerLink($homePlayer->getPlayer()) : '--';?></td>
+        		<td><?=($i+1);?> - <?=$this->escapeHtml($positions[$i]);?></td>
+        		<td class="away-player"><?=$awayPlayer ? $this->ursPlayerLink($awayPlayer->getPlayer()) : '--';?></td>
+        	</tr>
+        	<?php endfor; ?>
+        </table>
+    </div>
+</aside>

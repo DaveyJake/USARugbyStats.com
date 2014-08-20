@@ -1,0 +1,32 @@
+<?php
+$homeSide = $this->match->getTeam('H');
+$homeTeam = $homeSide->getTeam();
+$awaySide = $this->match->getTeam('A');
+$awayTeam = $awaySide->getTeam();
+?>
+<div id="game-header" class="row">
+
+	<div class="col-sm-6 home-team" style="background-image: url(<?=$this->escapeHtmlAttr($this->escapeCss($this->ursTeamCoverImageUrl($homeTeam))); ?>) !important">
+		<div class="score"><?=$this->escapeHtml($this->match->isNotStarted() ? '' : $homeSide->getScore()); ?></div>
+		<h2><?=$this->ursTeamLink($homeTeam); ?></h2>
+		<div class="team-logo"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($homeTeam)); ?>"></div>
+	</div>
+
+
+	<div class="col-sm-6 away-team" style="background-image: url(<?=$this->escapeHtmlAttr($this->escapeCss($this->ursTeamCoverImageUrl($awayTeam))); ?>) !important">
+		<div class="score"><?=$this->escapeHtml($this->match->isNotStarted() ? '' : $awaySide->getScore()); ?></div>
+		<h2><?=$this->ursTeamLink($awayTeam); ?></h2>
+		<div class="team-logo"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($awayTeam)); ?>"></div>
+	</div>
+
+</div>
+
+<div id="game-meta">
+	<ul>
+		<li>Date: <?=$this->escapeHtml($this->match->getDate()->format('M d, Y')); ?></li>
+		<li>Competition: <?=$this->ursCompetitionLink($this->match->getCompetition()); ?></li>
+		<li>Kickoff: <?=$this->escapeHtml($this->match->getDate()->format('g:iA e')); ?></li>
+		<li>Location: <?=$this->ursCompetitionMatchLocationLink($this->match); ?></li>
+		<li></li>
+	</ul>
+</div>
