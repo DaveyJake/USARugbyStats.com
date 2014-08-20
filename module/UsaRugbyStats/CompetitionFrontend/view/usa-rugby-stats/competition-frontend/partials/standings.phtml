@@ -1,0 +1,39 @@
+<?php
+use UsaRugbyStats\Competition\Entity\Team;
+
+$isExpanded = @$this->isExpanded === true;
+$relativeToTeam = $this->relativeTo instanceof Team;
+?>
+<table>
+	<thead class="<?=$isExpanded ? '' : 'more'; ?>">
+	  <tr>
+			<th class="team">Team</th>
+			<th class="<?=$isExpanded ? '' : 'more'; ?>">GP</th>
+			<th class="record">R</th>
+			<th class="<?=$isExpanded ? '' : 'more'; ?>">PF</th>
+			<th class="<?=$isExpanded ? '' : 'more'; ?>">PA</th>
+			<th class="<?=$isExpanded ? '' : 'more'; ?>">PD</th>
+			<th class="<?=$isExpanded ? '' : 'more'; ?>">BT</th>
+			<th class="<?=$isExpanded ? '' : 'more'; ?>">BL</th>
+			<th class="<?=$isExpanded ? '' : 'more'; ?>">FF</th>
+			<th class="points">PTS</th>
+		</tr>
+	</thead>
+	<tbody>
+	    <?php foreach ( $this->standings as $standingsRow): ?>
+	    <?php   $srTeam = $standingsRow->getTeam(); ?>
+		<tr<?php if ( $relativeToTeam && $srTeam->getId() == $this->relativeTo->getId() ) echo ' class="active"';?>>
+			<td class="team"><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $srTeam->getId()]); ?>"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($srTeam)); ?>"> <?=$this->escapeHtml($this->ursTeamName($srTeam)); ?></a></td>
+			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalGames()); ?></td>
+			<td class="record"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?>-<?=$this->escapeHtml($standingsRow->getTotalLosses()); ?></td>
+			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreInFavor()); ?></td>
+			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreAgainst()); ?></td>
+			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreDifferential()); ?></td>
+			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTryBonuses()); ?></td>
+            <td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getLossBonuses()); ?></td>
+            <td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getForfeits()); ?></td>
+			<td class="points"><?=$this->escapeHtml($standingsRow->getTotalPoints()); ?></td>
+		</tr>
+		<?php endforeach; ?>
+    </tbody>
+</table>

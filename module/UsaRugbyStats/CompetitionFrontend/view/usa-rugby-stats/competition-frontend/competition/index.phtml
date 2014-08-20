@@ -1,24 +1,49 @@
 <div class="page-header">
   <?php if ( $this->isGranted('competition.competition.update', $competition) ):?>
-  <div class="pull-right" style="margin-top:5px">
+  <div class="pull-right" style="margin:5px 15px 0 0">
     <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_competition/update-details', ['id' => $competition->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Edit Competition</a>
   </div>
   <?php endif; ?>
   <h1><?=$this->escapeHtml($competition->getName()); ?></h1>
+  <p><?php echo $this->escapeHtml($competition->getTypeString()); ?> &mdash; Rugby <?php echo $this->escapeHtml($competition->getVariant()); ?></p>
 </div>
 
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#details" role="tab" data-toggle="tab">Details</a></li>
-  <li><a href="#standings" role="tab" data-toggle="tab">Standings</a></li>
-  <li><a href="#divisions" role="tab" data-toggle="tab">Divisions</a></li>
-  <li><a href="#matches" role="tab" data-toggle="tab">Matches</a></li>
-</ul>
+<div id="content" class="col-sm-12">
 
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane active" id="details" style="padding: 20px"><?php echo $this->render('usa-rugby-stats/competition-frontend/competition/details.phtml', $this->vars()); ?></div>
-  <div class="tab-pane" id="standings" style="padding: 20px"><?php echo $this->render('usa-rugby-stats/competition-frontend/competition/standings.phtml', $this->vars()); ?></div>
-  <div class="tab-pane" id="divisions" style="padding: 20px"><?php echo $this->render('usa-rugby-stats/competition-frontend/competition/teamlisting.phtml', $this->vars()); ?></div>
-  <div class="tab-pane" id="matches" style="padding: 20px"><?php echo $this->render('usa-rugby-stats/competition-frontend/competition/matchlisting.phtml', $this->vars()); ?></div>
+    <div class="panel">
+
+    	<div id="team-view" class="title">
+    		<ul class="tabs">
+    			<li class="active"><h2><a href="#schedule" role="tab" data-toggle="tab"><span class="icon-calendar"></span>Schedule</a></h2></li>
+    			<li><h2><a href="#divisions" role="tab" data-toggle="tab"><span class="icon-users"></span><?=($competition->getDivisions()->count() > 1) ? 'Divisions' : 'Teams'; ?></a></h2></li>
+    			<li><h2><a href="#standings" role="tab" data-toggle="tab"><span class="icon-list"></span>Standings</a></h2></li>
+    		</ul>
+    	</div>
+
+         <div  class="tab-content">
+
+         	<div class="tab-pane active" id="schedule">
+                <?php if (count($competition->getMatches()) > 0): ?>
+                <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $competition->getMatches(), 'relativeTo' => $competition]); ?>
+                <?php else: ?>
+                <div class="schedule-is-empty">This team is not participating in any upcoming matches.</div>
+                <?php endif; ?>
+            </div>
+
+            <div class="tab-pane" id="divisions">
+                <?php   echo $this->render('usa-rugby-stats/competition-frontend/competition/teamlisting', $this->vars()); ?>
+        	</div>
+
+        	<div class="tab-pane" id="standings">
+            	<?php if ( isset($this->standings['overall']) && !empty($this->standings['overall']) ): ?>
+            	<?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/standings', ['standings' => $this->standings['overall'], 'isExpanded' => true]); ?>
+                <?php else: ?>
+                <div class="team-has-no-league">This competition does not yet have standings.</div>
+                <?php endif; ?>
+            </div>
+
+        </div> <!-- end tab content  -->
+
+    </div> <!-- end panel -->
+
 </div>

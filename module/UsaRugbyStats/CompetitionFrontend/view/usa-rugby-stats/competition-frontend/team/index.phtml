@@ -17,9 +17,8 @@ $this->layout()->coverVars = $this->vars();
          <div  class="tab-content">
 
          	<div class="tab-pane active" id="schedule">
-
                 <?php if (count($this->matches) > 0): ?>
-                <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $this->matches, 'relativeToTeam' => $team]); ?>
+                <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $this->matches, 'relativeTo' => $team]); ?>
                 <?php else: ?>
                 <div class="schedule-is-empty">This team is not participating in any upcoming matches.</div>
                 <?php endif; ?>
@@ -65,40 +64,7 @@ $this->layout()->coverVars = $this->vars();
     		<a class="utility expand"><span class="icon-expand"></span>Full Standings</a>
     	</div>
     	<?php if ( isset($this->leagueStandings['overall']) && !empty($this->leagueStandings['overall']) ): ?>
-    	<table>
-    		<thead class="more">
-    		  <tr>
-    				<th class="team">Team</th>
-    				<th class="more">GP</th>
-    				<th class="record">R</th>
-    				<th class="more">PF</th>
-    				<th class="more">PA</th>
-    				<th class="more">PD</th>
-    				<th class="more">BT</th>
-    				<th class="more">BL</th>
-    				<th class="more">FF</th>
-    				<th class="points">PTS</th>
-    			</tr>
-    		</thead>
-    		<tbody>
-    		    <?php foreach ( $this->leagueStandings['overall'] as $standingsRow): ?>
-    		    <?php   $standingsRow instanceof TeamRecord; ?>
-    		    <?php   $srTeam = $standingsRow->getTeam(); ?>
-    			<tr<?php if ( $srTeam->getId() == $team->getId() ) echo ' class="active"';?>>
-    				<td class="team"><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $srTeam->getId()]); ?>"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($srTeam)); ?>"> <?=$this->escapeHtml($this->ursTeamName($srTeam)); ?></a></td>
-    				<td class="more"><?=$this->escapeHtml($standingsRow->getTotalGames()); ?></td>
-    				<td class="record"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?>-<?=$this->escapeHtml($standingsRow->getTotalLosses()); ?></td>
-    				<td class="more"><?=$this->escapeHtml($standingsRow->getScoreInFavor()); ?></td>
-    				<td class="more"><?=$this->escapeHtml($standingsRow->getScoreAgainst()); ?></td>
-    				<td class="more"><?=$this->escapeHtml($standingsRow->getScoreDifferential()); ?></td>
-    				<td class="more"><?=$this->escapeHtml($standingsRow->getTryBonuses()); ?></td>
-                    <td class="more"><?=$this->escapeHtml($standingsRow->getLossBonuses()); ?></td>
-                    <td class="more"><?=$this->escapeHtml($standingsRow->getForfeits()); ?></td>
-    				<td class="points"><?=$this->escapeHtml($standingsRow->getTotalPoints()); ?></td>
-    			</tr>
-    			<?php endforeach; ?>
-            </tbody>
-        </table>
+        <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/standings', ['standings' => $this->leagueStandings['overall'], 'relativeTo' => $team]); ?>
         <?php else: ?>
         <div class="team-has-no-league">This team does participate in a league.</div>
         <?php endif; ?>

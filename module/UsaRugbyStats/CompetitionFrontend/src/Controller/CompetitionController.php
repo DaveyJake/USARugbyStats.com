@@ -3,15 +3,17 @@ namespace UsaRugbyStats\CompetitionFrontend\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use UsaRugbyStats\Competition\Service\CompetitionService;
 use UsaRugbyStats\Competition\Entity\Competition;
 use ZfcRbac\Exception\UnauthorizedException;
-use UsaRugbyStats\Competition\Service\Competition\StandingsService;
+use UsaRugbyStats\Competition\Traits\CompetitionServiceTrait;
+use UsaRugbyStats\Competition\Traits\CompetitionStandingsServiceTrait;
+use UsaRugbyStats\Competition\Traits\CompetitionMatchServiceTrait;
 
 class CompetitionController extends AbstractActionController
 {
-    protected $competitionService;
-    protected $competitionStandingsService;
+    use CompetitionServiceTrait;
+    use CompetitionStandingsServiceTrait;
+    use CompetitionMatchServiceTrait;
 
     public function indexAction()
     {

@@ -1,8 +1,8 @@
 /*------------------------------------------------------------------
 [Master Stylesheet]
 
-Project:	USA Rugby
-Version:	2.0
+Project:    USA Rugby
+Version:    2.0
 
 1. Imports
 2. Fonts
@@ -410,8 +410,8 @@ table.dataTable tr.child span.dtr-title {
 /*------------------------------------------------------------------
 [Header Stylesheet]
 
-Project:	CMS
-Version:	2.0
+Project:    CMS
+Version:    2.0
 
 1. Nav (Top)
 
@@ -573,11 +573,28 @@ header #drawer.active .line-2 {
   float: right;
   display: block;
   position: absolute;
-  top: 0;
   right: 0;
+  bottom: 0;
   background: #223850;
   height: 100%;
   border-left: 4px solid rgba(0, 0, 0, 0.1);
+}
+#drawer-menu ul {
+  list-style: none;
+  margin: 55px 0 0 0;
+  padding: 0;
+}
+#drawer-menu ul li a {
+  color: rgba(255, 255, 255, 0.5);
+  height: 35px;
+  line-height: 35px;
+  border-top: 1px solid #253d57;
+  border-bottom: 1px solid #1f3349;
+  padding-left: 15px;
+  display: block;
+}
+#drawer-menu ul li a:hover {
+  background: #1f3349;
 }
 table {
   width: 100%;
@@ -608,35 +625,29 @@ table tbody tr {
   height: 40px;
   list-style: none;
   padding: 0 30px;
-  cursor: pointer;
 }
-table tbody tr:hover {
-  background: #f2f3f5;
-}
-table tbody tr.even,
-table tbody tr:nth-child(even) {
-  background: #FAFAFC;
-}
-table tbody tr.even:hover,
-table tbody tr:nth-child(even):hover {
-  background: #f2f3f5;
-}
-table tbody tr.active {
+table tbody tr.active,
+table tbody tr.active:nth-child(odd) {
   background: #c23752;
   position: relative;
   height: 42px;
   color: #FFF;
 }
-table tbody tr.active a {
+table tbody tr.active a,
+table tbody tr.active:nth-child(odd) a {
   color: #FFF;
 }
-table tbody tr.active:after {
+table tbody tr.active:after,
+table tbody tr.active:nth-child(odd):after {
   position: absolute;
   height: 4px;
   left: 0;
   right: 0;
   background: #ae314a;
   content: '';
+}
+table tbody tr:nth-child(odd) {
+  background: #f9fafb;
 }
 table tbody td {
   line-height: 40px;
@@ -678,6 +689,23 @@ table tbody td img {
   margin-bottom: 2px;
   padding-right: 6px;
 }
+#standings tr:hover,
+#schedule tr:hover {
+  background: #f2f3f5;
+  cursor: pointer;
+}
+#standings tr:hover.even,
+#schedule tr:hover.even,
+#standings tr:hover:nth-child(even),
+#schedule tr:hover:nth-child(even) {
+  background: #FAFAFC;
+}
+#standings tr:hover.even:hover,
+#schedule tr:hover.even:hover,
+#standings tr:hover:nth-child(even):hover,
+#schedule tr:hover:nth-child(even):hover {
+  background: #f2f3f5;
+}
 #schedule .result-time span {
   font-size: 12px;
   font-weight: bold;
@@ -690,6 +718,9 @@ table tbody td img {
 }
 #standings table tbody td:first-of-type {
   padding-left: 25px;
+}
+#standings {
+  padding-right: 0;
 }
 #standings .points {
   width: 17%;
@@ -704,6 +735,10 @@ table tbody td img {
 }
 #standings .team {
   width: 66%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
 }
 #standings .more {
   display: none;
@@ -778,146 +813,6 @@ table tbody td img {
   z-index: 4;
   position: absolute;
 }
-/*------------------------------------------------------------------
-[Profile Stylesheet]
-
-Project:	USA Rugby
-Version:	2.0
-
-1. Imports
-2. Fonts
-3. Colors
-4. Shadows
-5. Utilities
-6. Layout
-
---------------------------------------------------------------------*/
-#profile {
-  padding: 15px 0;
-}
-#profile h1 {
-  margin: 0;
-  padding: 10px 0;
-  text-align: center;
-  display: block;
-}
-#profile .meta > div {
-  border-top: 1px solid #f2f3f5;
-  height: 30px;
-  line-height: 30px;
-  margin: 0 20px;
-}
-#profile .meta > div span {
-  font-weight: bold;
-}
-#cover {
-  height: 400px;
-  background: url(../img/header-bg.jpg) no-repeat center center;
-  -webkit-background-size: cover cover;
-          background-size: cover;
-  position: relative;
-}
-#cover .title {
-  padding: 40px 80px;
-  position: relative;
-  z-index: 1;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-#cover .title h1 {
-  color: #FFF;
-  left: 120px;
-  font-size: 64px;
-  line-height: 58px;
-  z-index: 1;
-  letter-spacing: -1px;
-  display: inline-block;
-  float: left;
-  margin: 0;
-  border-right: 1px solid #FFF;
-  margin-right: 15px;
-  padding-right: 15px;
-  padding-left: 40px;
-}
-#cover .title #team-logo {
-  position: absolute;
-  left: 40px;
-  bottom: 40px;
-}
-#cover .title #team-logo img {
-  width: 80px;
-  z-index: 1;
-}
-#cover .title .meta {
-  float: left;
-  display: inline-block;
-  color: #FFF;
-}
-#cover .title .meta .links {
-  padding-top: 4px;
-}
-#cover .title .meta .links > a {
-  float: left;
-  padding-right: 9px;
-  color: rgba(255, 255, 255, 0.7);
-}
-#cover .title .meta .links > a:hover {
-  color: #FFF;
-}
-#cover:after {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  content: '';
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 15, 30, 0.7)));
-  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 15, 30, 0.7) 100%);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 15, 30, 0.7) 100%);
-}
-/* 2. Fonts  -------------------------------------------------------*/
-h1,
-h2 {
-  font-family: "refrigerator-deluxe";
-}
-html {
-  text-rendering: optimizeLegibility !important;
-  -webkit-font-smoothing: antialiased !important;
-}
-/* 3. Colors  -------------------------------------------------------*/
-body {
-  font-size: 14px;
-  color: #6f747a;
-  font-family: "proxima-nova";
-  background: url('../img/bg.jpg') center top no-repeat;
-}
-.container {
-  position: relative;
-  padding: 0;
-  -webkit-box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.09);
-          box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.09);
-}
-#inner {
-  -webkit-transition: all 200ms;
-          transition: all 200ms;
-}
-#inner.open {
-  -webkit-transform: translateX(-230px);
-      -ms-transform: translateX(-230px);
-          transform: translateX(-230px);
-}
-.no-pad {
-  padding: 0;
-}
-main.row {
-  background: #f2f3f5;
-  margin: 0;
-  position: relative;
-  padding: 30px 15px;
-}
 .panel {
   margin-bottom: 20px;
   background: #FFF;
@@ -984,4 +879,302 @@ main.row {
 .panel .title a.utility span {
   padding-right: 8px;
   font-size: 10px;
+}
+#players td.home-player {
+  text-align: right;
+}
+#standings-full th {
+  background: #223850;
+  color: #FFF;
+  height: 40px;
+  line-height: 40px;
+}
+#standings-full th h2 {
+  margin: 0;
+  font-size: 24px;
+}
+#standings-full tr td,
+#standings-full table thead th {
+  text-align: center;
+}
+#standings-full tr td.team,
+#standings-full tr th.team {
+  text-align: left;
+}
+/*------------------------------------------------------------------
+[Profile Stylesheet]
+
+Project:    USA Rugby
+Version:    2.0
+
+1. Imports
+2. Fonts
+3. Colors
+4. Shadows
+5. Utilities
+6. Layout
+
+--------------------------------------------------------------------*/
+#profile {
+  padding: 15px 0;
+}
+#profile h1 {
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+  display: block;
+}
+#profile .meta > div {
+  border-top: 1px solid #f2f3f5;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 20px;
+}
+#profile .meta > div span {
+  font-weight: bold;
+}
+#cover {
+  height: 400px;
+  background: url(../img/header-bg.jpg) no-repeat center center;
+  -webkit-background-size: cover cover;
+          background-size: cover;
+  position: relative;
+}
+#cover .title {
+  padding: 40px 80px;
+  position: relative;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+#cover .title h1 {
+  color: #FFF;
+  left: 120px;
+  font-size: 64px;
+  line-height: 58px;
+  z-index: 1;
+  letter-spacing: -1px;
+  display: inline-block;
+  float: left;
+  margin: 0;
+  border-right: 1px solid #FFF;
+  margin-right: 15px;
+  padding-right: 15px;
+  padding-left: 40px;
+}
+#cover .title #team-logo {
+  position: absolute;
+  left: 40px;
+  bottom: 50px;
+}
+#cover .title #team-logo img {
+  width: 80px;
+  z-index: 1;
+}
+#cover .title .meta {
+  float: left;
+  display: inline-block;
+  color: #FFF;
+}
+#cover .title .meta .links {
+  padding-top: 4px;
+}
+#cover .title .meta .links > a {
+  float: left;
+  padding-right: 9px;
+  color: rgba(255, 255, 255, 0.7);
+}
+#cover .title .meta .links > a:hover {
+  color: #FFF;
+}
+#cover:after {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: '';
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 15, 30, 0.7)));
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 15, 30, 0.7) 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 15, 30, 0.7) 100%);
+}
+#game-header {
+  margin: 0;
+  height: 150px;
+}
+#game-header > div {
+  background: #f2f3f5;
+  position: relative;
+}
+#game-header > div .score {
+  color: #FFF;
+  font-family: "refrigerator-deluxe";
+  font-size: 80px;
+  line-height: 150px;
+}
+#game-header > div.away-team {
+  background: url('../img/header-bg.jpg') center top no-repeat;
+  -webkit-background-size: cover cover;
+          background-size: cover;
+  position: relative;
+}
+#game-header > div.away-team:after {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: '';
+  background: rgba(29, 37, 65, 0.9);
+  z-index: 0;
+}
+#game-header > div.away-team .score {
+  float: left;
+  z-index: 1;
+  position: relative;
+}
+#game-header > div.away-team h2 {
+  float: left;
+  line-height: 150px;
+  margin: 0;
+  padding: 0;
+  padding-left: 30px;
+  font-size: 48px;
+  position: relative;
+  z-index: 1;
+}
+#game-header > div.away-team h2 a {
+  color: #FFF;
+  z-index: 1;
+  position: relative;
+}
+#game-header > div.away-team .team-logo img {
+  float: left;
+  width: 60px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1;
+}
+#game-header > div.home-team {
+  background: url('../img/header-bg.jpg') center top no-repeat;
+  -webkit-background-size: cover cover;
+          background-size: cover;
+}
+#game-header > div.home-team:after {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: '';
+  background: rgba(100, 30, 30, 0.9);
+  z-index: 0;
+}
+#game-header > div.home-team .score {
+  float: right;
+  z-index: 1;
+  position: relative;
+}
+#game-header > div.home-team h2 {
+  float: right;
+  line-height: 150px;
+  margin: 0;
+  padding: 0;
+  padding-right: 30px;
+  font-size: 48px;
+  z-index: 1;
+  position: relative;
+}
+#game-header > div.home-team h2 a {
+  color: #FFF;
+}
+#game-header > div.home-team .team-logo img {
+  float: left;
+  width: 60px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1;
+}
+#players ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#players ul.home-players {
+  float: right;
+  width: 40%;
+}
+#players ul.away-players {
+  float: right;
+  width: 40%;
+}
+#players ul.positions {
+  float: right;
+  width: 20%;
+}
+/* 2. Fonts  -------------------------------------------------------*/
+h1,
+h2 {
+  font-family: "refrigerator-deluxe";
+}
+html {
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+/* 3. Colors  -------------------------------------------------------*/
+body {
+  font-size: 14px;
+  color: #6f747a;
+  font-family: "proxima-nova";
+  background: #161212 url('../img/bg.jpg') center top no-repeat;
+}
+.container {
+  position: relative;
+  padding: 0;
+  -webkit-box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.09);
+          box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.09);
+}
+#inner {
+  -webkit-transition: all 200ms;
+          transition: all 200ms;
+}
+#inner.open {
+  -webkit-transform: translateX(-230px);
+      -ms-transform: translateX(-230px);
+          transform: translateX(-230px);
+}
+#content {
+  padding-left: 0;
+}
+.no-pad {
+  padding: 0;
+}
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+main.row {
+  background: #f2f3f5;
+  margin: 0;
+  position: relative;
+  padding: 30px 30px;
+  min-height: 800px;
+}
+footer {
+  background: #223850;
+  text-align: center;
+  z-index: 4;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+}
+footer p {
+  margin: 0;
 }
