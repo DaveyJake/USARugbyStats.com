@@ -45,7 +45,7 @@ class CompetitionMatchController extends AbstractRestfulController
         if ($result instanceof Match) {
             return new JsonModel([
                 'data' => $this->extractMatch($result)
-                ]);
+            ]);
         }
 
         return new ApiProblemResponse(
@@ -65,7 +65,12 @@ class CompetitionMatchController extends AbstractRestfulController
 
     public function get($id)
     {
-        return new ApiProblemResponse(new ApiProblem(405, null));
+        $match = $this->getCompetitionMatchEntityFromRoute();
+        if ($match instanceof ApiProblem) {
+            return new ApiProblemResponse($match);
+        }
+
+        return new JsonModel($this->extractMatch($match));
     }
 
     public function getList()
@@ -112,6 +117,22 @@ class CompetitionMatchController extends AbstractRestfulController
         }
 
         return $comp;
+    }
+
+    protected function getCompetitionMatchEntityFromRoute()
+    {
+        $comp = $this->getCompetitionEntityFromRoute();
+        if ($comp instanceof ApiProblem) {
+            return $comp;
+        }
+
+        $id = $this->params()->fromRoute('id');
+        $match = $this->getCompetitionMatchService()->findByID($id);
+        if (! $match instanceof Match || $match->getCompetition()->getId() != $comp->getId()) {
+            return new ApiProblem(404, 'Match not found!');
+        }
+
+        return $match;
     }
 
     protected function extractMatch(Match $m)
