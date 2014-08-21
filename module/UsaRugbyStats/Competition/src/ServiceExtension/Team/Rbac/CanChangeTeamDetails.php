@@ -38,12 +38,14 @@ class CanChangeTeamDetails implements ServiceExtensionInterface
         // If they don't have the RBAC permission for changing this team, disallow everything
         if ( ! $this->getAuthorizationService()->isGranted('competition.team.update', $e->getParams()->entity) ) {
             $this->applyFlags($e->getParams()->flags, $base);
+
             return;
         }
 
         if ( $this->getAuthorizationService()->getIdentity()->hasRole('super_admin') ) {
-            array_walk($base, function(&$item) { $item = true; });
+            array_walk($base, function (&$item) { $item = true; });
             $this->applyFlags($e->getParams()->flags, $base);
+
             return;
         }
 

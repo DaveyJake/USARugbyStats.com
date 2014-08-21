@@ -1,26 +1,33 @@
 <h1><?php echo $this->escapeHtml($entity->getName()); ?></h1>
 
+<?php $canEdit = $this->isGranted('competition.competition.update.details', @$entity) || $this->isGranted('competition.competition.update.divisions', @$entity); ?>
 <?php echo $this->render('usa-rugby-stats/competition-frontend/competition/navigation', ['page' => 'update', 'entity' => $entity]); ?>
 
 <?php
-$form->setAttribute('class', 'form-horizontal');
-$form->prepare();
+if ( $canEdit ) {
+    $form->setAttribute('class', 'form-horizontal');
+    $form->prepare();
 
-echo $this->form()->openTag($form);
+    echo $this->form()->openTag($form);
 
-$submitButton = $form->get('submit');
-$submitButton->setAttribute('class', 'btn btn-lg btn-success');
+    $submitButton = $form->get('submit');
+    $submitButton->setAttribute('class', 'btn btn-lg btn-success');
+}
 
 ?>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-6">
         <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form', $this->vars()); ?>
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions', ['fieldset' => $form->get('competition')]); ?>
+    </div>
+    <div class="col-md-6">
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions', ['competition' => @$entity, 'fieldset' => $form->get('competition'), 'teamViewRoute' => 'usarugbystats_frontend_team']); ?>
     </div>
 </div>
 
+<?php if ( $canEdit ): ?>
 <div class="clearfix"></div>
 <div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>
 
 <?php echo $this->form()->closeTag() ?>
+<?php endif; ?>

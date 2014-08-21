@@ -12,7 +12,7 @@
             <?php echo $this->formSelect($elTeam); ?>
         <?php else: ?>
             <?php echo $this->formHidden($elTeam); ?>
-            <a href="<?php echo $this->url('zfcadmin/usarugbystats_teamadmin/edit',['id'=>$elTeam->getValue()]); ?>" target="_blank">
+            <a href="<?php echo $this->url($this->teamViewRoute ?: 'zfcadmin/usarugbystats_teamadmin/edit',['id'=>$elTeam->getValue()]); ?>" target="_blank">
                 <?php echo $this->escapeHtml($fieldset->getTeam()->getName()); ?>
             </a>
         <?php endif; ?>

@@ -44,6 +44,20 @@ class CompetitionController extends AbstractActionController
         $service->prepare();
 
         if ( $this->getRequest()->isPost() ) {
+
+            // Enforce RBAC permissions
+            $vg = $session->form->getValidationGroup();
+            if ( ! $this->isGranted('competition.competition.update.details', $competition) ) {
+                $vg = ['competition' => ['divisions' => $vg['competition']['divisions']]];
+            }
+            if ( ! $this->isGranted('competition.competition.update.divisions', $competition) ) {
+                unset($vg['competition']['divisions']);
+            }
+            if ( empty($vg['competition']) ) {
+                throw new UnauthorizedException();
+            }
+            $session->form->setValidationGroup($vg);
+
             $result = $this->getCompetitionService()->update($competition, $this->getRequest()->getPost()->toArray());
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The competition was updated successfully!');

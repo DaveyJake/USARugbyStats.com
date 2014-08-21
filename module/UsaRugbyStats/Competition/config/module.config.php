@@ -318,13 +318,13 @@ return array(
             'competition.union.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedUnionsAssertion',
 
             'competition.competition.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.update.details' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
+            'competition.competition.update.details' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsExcludeCompetitionAdminAssertion',
             'competition.competition.update.matches' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.update.divisions' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
+            'competition.competition.update.divisions' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsExcludeCompetitionAdminAssertion',
             'competition.competition.delete' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
 
-            'competition.competition.division.team.add' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
-            'competition.competition.division.team.remove' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
+            'competition.competition.division.team.add' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsExcludeCompetitionAdminAssertion',
+            'competition.competition.division.team.remove' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsExcludeCompetitionAdminAssertion',
 
             'competition.competition.match.create' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionsAssertion',
             'competition.competition.match.update' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedCompetitionMatchAssertion',

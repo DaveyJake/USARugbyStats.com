@@ -16,7 +16,7 @@
 
         <?php $fsCount = 0; ?>
         <?php foreach ( $collDivision->getFieldsets() as $fsDivision ): ?>
-        <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['competition' => @$competition, 'index' => $fsCount++, 'fieldset' => $fsDivision]); ?>
+        <?php   echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['competition' => @$competition, 'index' => $fsCount++, 'fieldset' => $fsDivision, 'teamViewRoute' => $this->teamViewRoute]); ?>
         <?php endforeach; ?>
 
         </div>
@@ -24,7 +24,7 @@
 
     <script type="text/javascript">
         <?php if ( $canEdit  ): ?>
-        var managedDivisionsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['competition' => @$competition, 'fieldset' => $collDivision->getTemplateElement(), 'isTemplate' => true])); ?>';
+        var managedDivisionsSelectorTemplate = '<?php echo $this->escapeJs($this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions/division', ['competition' => @$competition, 'fieldset' => $collDivision->getTemplateElement(), 'isTemplate' => true, 'teamViewRoute' => $this->teamViewRoute])); ?>';
         var managedDivisionIndex = <?php echo $this->escapeJs($fsCount); ?>;
 
         // Division Add/Remove
