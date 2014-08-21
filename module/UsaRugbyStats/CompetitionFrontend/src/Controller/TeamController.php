@@ -111,6 +111,7 @@ class TeamController extends AbstractActionController
         $vm = new ViewModel();
         $vm->setVariable('entity', $team);
         $vm->setVariable('form', $session->form);
+        $vm->setVariable('flags', $session->form->getFeatureFlags());
         $vm->setTemplate('usa-rugby-stats/competition-frontend/team/update');
 
         return $vm;

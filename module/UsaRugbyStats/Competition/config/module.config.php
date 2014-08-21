@@ -4,7 +4,6 @@ return array(
     'usarugbystats' => array(
        'application' => array(
             'event_listeners' => array(
-                'usarugbystats_competition_rbac_listener_teamadmincannotmodifyteamunion',
                 'usarugbystats_competition_rbac_listener_unionupdateteams',
                 'usarugbystats_competition_rbac_listener_competitionupdatedivisions',
             ),
@@ -48,9 +47,13 @@ return array(
                     ),
                     'factories' => array(
                         'update_team_membership_sort_key' => 'UsaRugbyStats\Competition\ServiceExtension\Team\UpdateTeamMembershipSortKeyFactory',
+                        'rbac_can_change_team_details' => 'UsaRugbyStats\Competition\ServiceExtension\Team\Rbac\CanChangeTeamDetailsFactory',
                     ),
                 ),
                 'event_map' => array(
+                    'form.bind.post' => array(
+                        'rbac_can_change_team_details' => 99999,
+                    ),
                     'form.validate.post' => array(
                         'update_team_logo_with_newly_uploaded_file',
                         'update_team_cover_image_with_newly_uploaded_file',
@@ -145,7 +148,6 @@ return array(
             'usarugbystats_competition_listener_emptyunionteamcollection' => 'UsaRugbyStats\Competition\Listeners\EmptyUnionTeamCollectionListener',
         ),
         'factories' => array(
-            'usarugbystats_competition_rbac_listener_teamadmincannotmodifyteamunion' => 'UsaRugbyStats\Competition\Rbac\Listener\TeamAdminCannotModifyTeamUnionFactory',
             'usarugbystats_competition_rbac_listener_unionupdateteams' => 'UsaRugbyStats\Competition\Rbac\Listener\UnionUpdateTeamsFactory',
             'usarugbystats_competition_rbac_listener_competitionupdatedivisions' => 'UsaRugbyStats\Competition\Rbac\Listener\CompetitionUpdateDivisionsFactory',
 

@@ -11,7 +11,7 @@ $form->setAttribute('method', 'post');
 </div>
 <?php endif; ?>
 
-<h1>Update Team</h1>
+<h1 style="margin-top:0"><?=$this->ursTeamLink($entity);?> <i class="glyphicon glyphicon-chevron-right" style="font-size:0.75em"></i>&nbsp;&nbsp;Team Management</h1>
 
 <?php $form->setAttribute('class', 'form-horizontal'); ?>
 <?php echo $this->form()->openTag($form) ?>
@@ -30,6 +30,7 @@ $form->setAttribute('method', 'post');
             <div class="panel-heading">Team Details</div>
             <div class="panel-body">
 
+                <?php if ( ! $this->flags->{'team.name%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('name'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -37,10 +38,17 @@ $form->setAttribute('method', 'post');
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
-                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                        <?php if ( $this->flags->{'team.name'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
+                        <?php else: ?>
+                        <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
                     </div>
                 </div>
+                <?php endif; ?>
 
+                <?php if ( ! $this->flags->{'team.union%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('union'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -48,15 +56,17 @@ $form->setAttribute('method', 'post');
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
-                        <?php if ( $this->isGranted('competition.team.update.union', $entity) ): ?>
-                        <?php   echo $this->formElement($element); ?>
+                        <?php if ( $this->flags->{'team.union'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
                         <?php else: ?>
                         <p class="form-control-static"><?php echo $this->ursUnionLink($element->getValue()); ?></p>
-                        <?php endif; ?>
-                        <?php echo $this->formElementErrors($element) ?>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
                     </div>
                 </div>
+                <?php endif; ?>
 
+                <?php if ( ! $this->flags->{'team.city%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('city'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -64,10 +74,17 @@ $form->setAttribute('method', 'post');
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
-                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                        <?php if ( $this->flags->{'team.city'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
+                        <?php else: ?>
+                        <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
                     </div>
                 </div>
+                <?php endif; ?>
 
+                <?php if ( ! $this->flags->{'team.state%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('state'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -75,12 +92,19 @@ $form->setAttribute('method', 'post');
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
-                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                        <?php if ( $this->flags->{'team.state'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
+                        <?php else: ?>
+                        <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
             <div class="panel-heading" style="border-top: 1px solid #ddd;">Contact Information</div>
             <div class="panel-body">
+                <?php if ( ! $this->flags->{'team.email%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('email'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -88,10 +112,17 @@ $form->setAttribute('method', 'post');
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
-                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                        <?php if ( $this->flags->{'team.email'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
+                        <?php else: ?>
+                        <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
                     </div>
                 </div>
+                <?php endif; ?>
 
+                <?php if ( ! $this->flags->{'team.website%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('website'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -99,10 +130,17 @@ $form->setAttribute('method', 'post');
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
-                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                        <?php if ( $this->flags->{'team.website'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
+                        <?php else: ?>
+                        <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
                     </div>
                 </div>
+                <?php endif; ?>
 
+                <?php if ( ! $this->flags->{'team.facebookHandle%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('facebookHandle'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -110,10 +148,17 @@ $form->setAttribute('method', 'post');
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
-                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                        <?php if ( $this->flags->{'team.facebookHandle'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
+                        <?php else: ?>
+                        <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
                     </div>
                 </div>
+                <?php endif; ?>
 
+                <?php if ( ! $this->flags->{'team.twitterHandle%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('twitterHandle'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -121,9 +166,15 @@ $form->setAttribute('method', 'post');
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
-                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                        <?php if ( $this->flags->{'team.twitterHandle'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
+                        <?php else: ?>
+                        <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -132,6 +183,7 @@ $form->setAttribute('method', 'post');
         <div class="panel panel-default">
             <div class="panel-heading">Team Images</div>
             <div class="panel-body">
+                <?php if ( ! $this->flags->{'team.new_logo%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('new_logo'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -140,10 +192,15 @@ $form->setAttribute('method', 'post');
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
                         <img src="<?php echo $this->ursTeamLogoUrl($entity); ?>" width="100" />
-                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                        <?php if ( $this->flags->{'team.new_logo'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
                     </div>
                 </div>
+                <?php endif; ?>
 
+                <?php if ( ! $this->flags->{'team.new_cover_image%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('new_cover_image'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -152,9 +209,13 @@ $form->setAttribute('method', 'post');
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
                         <img src="<?php echo $this->ursTeamCoverImageUrl($entity); ?>" width="100%" />
-                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                        <?php if ( $this->flags->{'team.new_cover_image'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
