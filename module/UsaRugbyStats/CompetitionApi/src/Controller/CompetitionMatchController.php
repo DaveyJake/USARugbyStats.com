@@ -145,6 +145,7 @@ class CompetitionMatchController extends AbstractRestfulController
         return new ApiProblemResponse(
             new ApiProblem(422, 'Validation failed', null, null, ['validation_messages' => $session->form->getMessages()])
         );
+
         return new JsonModel($this->extractMatch($match));
     }
 

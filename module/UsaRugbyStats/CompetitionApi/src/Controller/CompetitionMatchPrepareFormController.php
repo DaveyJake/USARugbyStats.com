@@ -18,7 +18,7 @@ class CompetitionMatchPrepareFormController extends AbstractActionController
     public function prepareFormAction()
     {
         $match = $this->getCompetitionMatchEntityFromRoute(false);
-        if ( $match instanceof ApiProblem ) {
+        if ($match instanceof ApiProblem) {
             return new ApiProblemResponse($match);
         }
 
@@ -34,8 +34,8 @@ class CompetitionMatchPrepareFormController extends AbstractActionController
 
         $eventTypes = [];
         $events = $fs->get('teams')->get('H')->get('events')->getTargetElement();
-        foreach ( $events as $key => $fsEvent ) {
-            switch ($key ) {
+        foreach ($events as $key => $fsEvent) {
+            switch ($key) {
                 case 'sub':
                     $name = 'Substitution';
                     break;
@@ -72,7 +72,7 @@ class CompetitionMatchPrepareFormController extends AbstractActionController
     protected function processValueOptions($vo)
     {
         $output = [];
-        foreach ( $vo as $key => $entry ) {
+        foreach ($vo as $key => $entry) {
             if (is_array($entry)) {
                 $label = $entry['label'];
                 $value = $entry['value'];
@@ -86,6 +86,7 @@ class CompetitionMatchPrepareFormController extends AbstractActionController
             }
             $output[] = ['label' => $label, 'value' => $value];
         }
+
         return $output;
     }
 
@@ -109,14 +110,15 @@ class CompetitionMatchPrepareFormController extends AbstractActionController
 
         $match = $this->getCompetitionMatchService()->findByID($id);
         if (! $match instanceof Match) {
-            if ( $require_match_id === false ) {
+            if ($require_match_id === false) {
                 return null;
             }
+
             return new ApiProblem(404, 'Match not found!');
         }
 
         $comp = $this->getCompetitionEntityFromRoute();
-        if (! $comp instanceof Competition ) {
+        if (! $comp instanceof Competition) {
             return $comp;
         }
 

@@ -46,11 +46,12 @@ class FeatureFlags
     public function toArray()
     {
         $copy = $this->flags;
-        foreach ( $copy as $key => &$value ) {
-            if ( $value instanceof FeatureFlag ) {
+        foreach ($copy as $key => &$value) {
+            if ($value instanceof FeatureFlag) {
                 $copy[$key] = $value->toArray();
             }
         }
+
         return $copy;
     }
 

@@ -1,6 +1,6 @@
 angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
 
-    .factory('CompetitionMatchEventApi', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
+    .factory('CompetitionMatchEventApi', ['$q', '$http', '$rootScope', 'CompetitionMatchApi', function($q, $http, $rootScope, CompetitionMatchApi) {
         var self = {
                 get: function(params) {
                     var d = $q.defer();
@@ -27,8 +27,9 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                     
                     $http(req)
                          .success(function(data) {
-                             console.log(data);
-                             d.resolve(data);
+                             CompetitionMatchApi.get(match).finally(function() {
+                                 d.resolve(data);
+                             })
                          })
                          .error(function(err) {
                              d.reject(err);
@@ -46,7 +47,9 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                     
                     $http(req)
                          .success(function(data) {
-                             d.resolve(data);
+                             CompetitionMatchApi.get({id:params.match, competition:params.competition}).finally(function() {
+                                 d.resolve(data);
+                             })
                          })
                          .error(function(err) {
                              d.reject(err);
@@ -126,7 +129,23 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                             var newrec = angular.copy(rec);
                             newrec.side = side;
                             newrec.minute = parseInt(newrec.minute); // Hack to get sorting right
-                            $rootScope.matchEvents.unshift(newrec);
+
+                            if ( typeof newrec.id == 'undefined' || newrec.id == null ) {
+                                $rootScope.matchEvents.unshift(newrec);
+                                return;
+                            }
+
+                            var isAdded = false;
+                            angular.forEach($rootScope.matchEvents, function(existingRec, existingIndex) {
+                                if ( existingRec.id == newrec.id ) {
+                                    $rootScope.matchEvents[existingIndex] = newrec;
+                                    isAdded = true;
+                                }
+                            });
+                            if ( ! isAdded ) {
+                                $rootScope.matchEvents.unshift(newrec);
+                            }
+                            
                         });
                     } catch(e) {}
                 });
@@ -346,13 +365,50 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                 || $rootScope.permissions['match.teams.A.events'];
         }
         
-        $scope.addScore = function() {
-
+        $scope.addEventOfType = function(type) {
+            delete $scope.error;
+            
+            $rootScope.newEvent = { event: type };
+            $('#newEvent.minute').focus();
+            $('#MatchEventCreateDialog').modal('show');
+        }
+        
+        $scope.createNewEvent = function(newEvent) {
+            $scope.modalLoading = true;
+            
+            var formdata = {};
+            angular.forEach(newEvent, function(v,k) {
+                if ( k == 'side' ) {
+                    formdata["event[team]"] = $rootScope.match.teams[v].id;
+                    return;
+                }
+                formdata["event["+k+"]"] = v;
+            });
+            console.log(formdata);
+            
+            CompetitionMatchEventApi.create(urlParams, formdata)
+                .then(
+                    function()
+                    {
+                        
+                    },
+                    function(err) 
+                    {
+                        if ( err.status == 422 ) {
+                            $scope.error = err.validation_messages;
+                            return;
+                        }
+                        alert(err.title);
+                    }
+                )
+                .finally(function() {
+                    $scope.modalLoading = false;
+                })
         }
         
         $scope.trashEvent = function(event) {
             $('#MatchEventRemoveDialog').modal('show');
-            $('#MatchEventRemoveDialog .yesbutton').click(function() {
+            $('#MatchEventRemoveDialog .yesbutton').unbind('click').click(function() {
                 $scope.modalLoading = true;
                 $scope.trashEventForRealz(event).finally(function() {
                     $scope.modalLoading = false;

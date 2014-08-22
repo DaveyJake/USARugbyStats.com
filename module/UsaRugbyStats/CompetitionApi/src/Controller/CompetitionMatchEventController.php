@@ -20,8 +20,6 @@ use UsaRugbyStats\Application\Entity\AccountInterface;
 use UsaRugbyStats\Competition\Form\Fieldset\Competition\Match\MatchTeamEventFieldset;
 use UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamEventFilter;
 use Zend\Validator\InArray;
-use UsaRugbyStats\CompetitionApi\Extractor\CompetitionMatchExtractor;
-use Zend\Stdlib\ArrayUtils;
 
 class CompetitionMatchEventController extends AbstractRestfulController
 {
@@ -40,7 +38,7 @@ class CompetitionMatchEventController extends AbstractRestfulController
         unset($data['event']['id']);
 
         $match = $this->getCompetitionMatchEntityFromRoute();
-        if ( $match instanceof ApiProblem ) {
+        if ($match instanceof ApiProblem) {
             return new ApiProblemResponse($match);
         }
 
@@ -52,13 +50,21 @@ class CompetitionMatchEventController extends AbstractRestfulController
         $service->prepare();
 
         $flags = $session->form->getFeatureFlags();
-        $side = $match->getHomeTeam()->getId() == @$data['event']['team'] ? 'H' : ($match->getAwayTeam()->getId() == @$data['event']['team'] ? 'A' : NULL);
-        if ( ! $this->isGranted('competition.competition.match.team.events.change', $side == NULL ? NULL : $match->getTeam($side)) || ! $flags->{"match.teams.{$side}.events"}->is_on() ) {
+        $side = $match->getHomeTeam()->getId() == @$data['event']['team'] ? 'H' : ($match->getAwayTeam()->getId() == @$data['event']['team'] ? 'A' : null);
+        if ( empty($side) ) {
+            return new ApiProblemResponse(
+                new ApiProblem(422, 'Validation failed', null, null, [
+                    'validation_messages' => ['team' => ['isEmpty' => 'You must select a side!']]
+                ])
+            );
+        }
+
+        if ( ! $this->isGranted('competition.competition.match.team.events.change', $side == NULL ? null : $match->getTeam($side)) || ! $flags->{"match.teams.{$side}.events"}->is_on() ) {
             return new ApiProblemResponse(new ApiProblem(403, 'Not authorized to add events!'));
         }
 
         $entity = $this->hydrate($session, $data);
-        if ( $entity instanceof ApiProblem ) {
+        if ($entity instanceof ApiProblem) {
             return new ApiProblemResponse($entity);
         }
 
@@ -71,7 +77,7 @@ class CompetitionMatchEventController extends AbstractRestfulController
     public function delete($id)
     {
         $event = $this->getEventEntityFromRoute();
-        if ( $event instanceof ApiProblem ) {
+        if ($event instanceof ApiProblem) {
             return new ApiProblemResponse($event);
         }
 
@@ -94,7 +100,7 @@ class CompetitionMatchEventController extends AbstractRestfulController
     public function get($id)
     {
         $event = $this->getEventEntityFromRoute();
-        if ( $event instanceof ApiProblem ) {
+        if ($event instanceof ApiProblem) {
             return new ApiProblemResponse($event);
         }
 
@@ -166,7 +172,7 @@ class CompetitionMatchEventController extends AbstractRestfulController
     protected function getEventEntityFromRoute()
     {
         $match = $this->getCompetitionMatchEntityFromRoute();
-        if ( $match instanceof ApiProblem ) {
+        if ($match instanceof ApiProblem) {
             return $match;
         }
 
@@ -185,7 +191,7 @@ class CompetitionMatchEventController extends AbstractRestfulController
         $data['event'] = $hydrator->extract($e);
         $data['event']['event'] = $e->getDiscriminator();
         $data['event']['match'] = $e->getMatch()->getId();
-        $data['event']['team'] = $e->getTeam() instanceof MatchTeam ? $e->getTeam()->getId() : NULL;
+        $data['event']['team'] = $e->getTeam() instanceof MatchTeam ? $e->getTeam()->getId() : null;
 
         if ( $e->getTeam() instanceof MatchTeam ) {
             $side = $e->getTeam();
@@ -197,11 +203,10 @@ class CompetitionMatchEventController extends AbstractRestfulController
             }
         }
 
-        switch ( $data['event']['event'] )
-        {
+        switch ($data['event']['event']) {
             case 'sub':
 
-                $data['event']['playerOn'] = $e->getPlayerOn() instanceof MatchTeamPlayer ? $e->getPlayerOn()->getId() : NULL;
+                $data['event']['playerOn'] = $e->getPlayerOn() instanceof MatchTeamPlayer ? $e->getPlayerOn()->getId() : null;
                 if ( $e->getPlayerOn() instanceof MatchTeamPlayer ) {
                     $position = $e->getPlayerOn();
                     if ( $position->getPlayer() instanceof AccountInterface ) {
@@ -212,7 +217,7 @@ class CompetitionMatchEventController extends AbstractRestfulController
                     }
                 }
 
-                $data['event']['playerOff'] = $e->getPlayerOff() instanceof MatchTeamPlayer ? $e->getPlayerOff()->getId() : NULL;
+                $data['event']['playerOff'] = $e->getPlayerOff() instanceof MatchTeamPlayer ? $e->getPlayerOff()->getId() : null;
                 if ( $e->getPlayerOff() instanceof MatchTeamPlayer ) {
                     $position = $e->getPlayerOff();
                     if ( $position->getPlayer() instanceof AccountInterface ) {
@@ -225,7 +230,7 @@ class CompetitionMatchEventController extends AbstractRestfulController
 
                 break;
             default:
-                $data['event']['player'] = $e->getPlayer() instanceof MatchTeamPlayer ? $e->getPlayer()->getId() : NULL;
+                $data['event']['player'] = $e->getPlayer() instanceof MatchTeamPlayer ? $e->getPlayer()->getId() : null;
                 if ( $e->getPlayer() instanceof MatchTeamPlayer ) {
                     $position = $e->getPlayer();
                     if ( $position->getPlayer() instanceof AccountInterface ) {
@@ -241,12 +246,11 @@ class CompetitionMatchEventController extends AbstractRestfulController
         return $data;
     }
 
-
     protected function hydrate($session, $data)
     {
         $ifEventTypes = $session->form->getInputFilter()->get('match')->get('teams')->getInputFilter()->get('events')->getInputFilter();
         $ifEvent = @$ifEventTypes[$data['event']['event']];
-        if ( ! $ifEvent instanceof MatchTeamEventFilter ) {
+        if (! $ifEvent instanceof MatchTeamEventFilter) {
             return new ApiProblem(400, 'Invalid event type!');
         }
 
@@ -263,13 +267,13 @@ class CompetitionMatchEventController extends AbstractRestfulController
         );
 
         // Ensure player fields are valid
-        $side = $session->entity->getHomeTeam()->getId() == $data['event']['team'] ? 'H' : ($session->entity->getAwayTeam()->getId() == $data['event']['team'] ? 'A' : NULL);
+        $side = $session->entity->getHomeTeam()->getId() == $data['event']['team'] ? 'H' : ($session->entity->getAwayTeam()->getId() == $data['event']['team'] ? 'A' : null);
         if ( !empty($side) ) {
             $playerHaystack = array();
             foreach ( $session->entity->getTeam($side)->getPlayers() as $p ) {
                 array_push($playerHaystack, $p->getId());
             }
-            switch ( $data['event']['event'] ) {
+            switch ($data['event']['event']) {
                 case 'sub':
                     $ifEvent->get('playerOn')->getValidatorChain()->attach(
                         new InArray(['haystack' => $playerHaystack])
@@ -288,7 +292,7 @@ class CompetitionMatchEventController extends AbstractRestfulController
         }
 
         if ( ! $ifEvent->setData($data['event'])->isValid() ) {
-            return new ApiProblem(422, 'Validation failed', NULL, NULL, [
+            return new ApiProblem(422, 'Validation failed', null, null, [
                 'validation_messages' => $ifEvent->getMessages()
             ]);
         }
@@ -297,7 +301,7 @@ class CompetitionMatchEventController extends AbstractRestfulController
 
         $fsEventTypes = $session->form->get('match')->get('teams')->get($side)->get('events')->getTargetElement();
         $fsEvent = @$fsEventTypes[$data['event']['event']];
-        if ( ! $fsEvent instanceof MatchTeamEventFieldset ) {
+        if (! $fsEvent instanceof MatchTeamEventFieldset) {
             return new ApiProblem(400, 'Invalid event type!');
         }
 
@@ -305,10 +309,11 @@ class CompetitionMatchEventController extends AbstractRestfulController
 
         $entity = $fsEvent->getObject();
         $entity->setMatch($session->entity);
+
         return $entity;
     }
 
-	/**
+    /**
      * @return ObjectRepository
      */
     public function getMatchTeamEventMapper()
@@ -318,15 +323,17 @@ class CompetitionMatchEventController extends AbstractRestfulController
                 'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent'
             );
         }
+
         return $this->matchTeamEventMapper;
     }
 
-	/**
+    /**
      * @param ObjectRepository $m
      */
     public function setMatchTeamEventMapper(ObjectRepository $m)
     {
         $this->matchTeamEventMapper = $m;
+
         return $this;
     }
 
@@ -340,6 +347,7 @@ class CompetitionMatchEventController extends AbstractRestfulController
                 'zfcuser_doctrine_em'
             );
         }
+
         return $this->objectManager;
     }
 
