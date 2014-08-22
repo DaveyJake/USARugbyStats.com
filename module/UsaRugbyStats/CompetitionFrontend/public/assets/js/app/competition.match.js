@@ -390,7 +390,7 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                 .then(
                     function()
                     {
-                        
+                        $('#MatchEventCreateDialog').modal('hide');
                     },
                     function(err) 
                     {
