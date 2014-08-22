@@ -1,5 +1,62 @@
 angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
 
+    .factory('CompetitionMatchEventApi', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
+        var self = {
+                get: function(params) {
+                    var d = $q.defer();
+                    $http.get('/api/competition/'+params.competition+'/match/'+params.match+'/event/'+params.id)
+                         .success(function(data) {
+                             console.log(data);
+                             d.resolve(data);
+                         })
+                         .error(function(err) {
+                             d.reject(err);
+                         });
+                    return d.promise;
+                },
+                
+                create: function(match, data) {
+                    var d = $q.defer();
+                                    
+                    var req = {
+                        method: 'POST', 
+                        url: '/api/competition/'+match.competition+'/match/'+match.id+'/event',
+                        data: $.param(data), 
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    };
+                    
+                    $http(req)
+                         .success(function(data) {
+                             console.log(data);
+                             d.resolve(data);
+                         })
+                         .error(function(err) {
+                             d.reject(err);
+                         });
+                    return d.promise;
+                },
+                
+                remove: function(params) {
+                    var d = $q.defer();
+                                    
+                    var req = {
+                        method: 'DELETE', 
+                        url: '/api/competition/'+params.competition+'/match/'+params.match+'/event/'+params.id
+                    };
+                    
+                    $http(req)
+                         .success(function(data) {
+                             d.resolve(data);
+                         })
+                         .error(function(err) {
+                             d.reject(err);
+                         });
+                    return d.promise;
+                },
+        };
+        return self;
+    }])
+
     .factory('CompetitionMatchApi', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
         var self = {
             doPrepareForm: function(match) {
@@ -65,7 +122,7 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                 }
                 angular.forEach(['A','H'], function(side) {
                     try {
-                        angular.forEach($rootScope.match.teams.H.events, function(rec, index) {
+                        angular.forEach($rootScope.match.teams[side].events, function(rec, index) {
                             var newrec = angular.copy(rec);
                             newrec.side = side;
                             newrec.minute = parseInt(newrec.minute); // Hack to get sorting right
@@ -78,7 +135,7 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
         return self;
     }])
 
-    .controller('main', ['$q', '$scope', '$rootScope', 'CompetitionMatchApi', function($q, $scope, $rootScope, CompetitionMatchApi) {
+    .controller('main', ['$q', '$scope', '$rootScope', 'CompetitionMatchApi', 'CompetitionMatchEventApi', function($q, $scope, $rootScope, CompetitionMatchApi, CompetitionMatchEventApi) {
         $rootScope.match = {
             id: $rootScope.matchid,
             competition: $rootScope.compid
@@ -294,11 +351,38 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
         }
         
         $scope.trashEvent = function(event) {
+            $('#MatchEventRemoveDialog').modal('show');
+            $('#MatchEventRemoveDialog .yesbutton').click(function() {
+                $scope.modalLoading = true;
+                $scope.trashEventForRealz(event).finally(function() {
+                    $scope.modalLoading = false;
+                    $('#MatchEventRemoveDialog').modal('hide');
+                });
+            });
+        }
+        
+        $scope.trashEventForRealz = function(event) {
+            var p = $q.defer();
             if ( event.id != null ) {
-                //@TODO send delete to server
-            }
-            
-            $rootScope.matchEvents.splice($rootScope.matchEvents.indexOf(event), 1);
+                CompetitionMatchEventApi.remove({
+                    competition: $rootScope.match.competition,
+                    match: $rootScope.match.id,
+                    id: event.id
+                }).then(
+                    function() {
+                        $rootScope.matchEvents.splice($rootScope.matchEvents.indexOf(event), 1);
+                        p.resolve();
+                    },
+                    function(err) {
+                        alert(err.title);
+                        p.reject();
+                    }
+                );
+            } else {
+                $rootScope.matchEvents.splice($rootScope.matchEvents.indexOf(event), 1);
+                p.resolve();
+            }            
+            return p.promise;
         }
         
         $scope.formatDate = function(date, format) {

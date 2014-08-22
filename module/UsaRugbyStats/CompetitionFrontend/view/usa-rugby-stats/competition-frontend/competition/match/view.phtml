@@ -221,6 +221,27 @@ $this->layout()->containerAttributes = array_merge(
         </div>
     </aside>
 
+    <div class="modal fade" id="MatchEventRemoveDialog" role="dialog" aria-labelledby="MatchEventRemoveDialogLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="MatchEventRemoveDialogLabel">Are you sure?</h4>
+          </div>
+          <div class="modal-body">
+            <p ng-hide="modalLoading">Are you sure you want to delete this game event?</p>
+            <span ng-show="modalLoading" style="font-size: 2em;"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;Deleting...</span>
+          </div>
+          <div ng-hide="modalLoading" class="modal-footer" style="text-align:center">
+            <button type="button" class="nobutton btn btn-success" data-dismiss="modal">No</button>
+            <button type="button" class="yesbutton btn btn-danger">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php $this->inlinescript()->appendScript("\$('MatchEventRemoveDialog').modal({show:false});"); ?>
+
+
     <div class="modal fade" id="MatchDetailsEditDialog" role="dialog" aria-labelledby="MatchDetailsEditDialogLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
