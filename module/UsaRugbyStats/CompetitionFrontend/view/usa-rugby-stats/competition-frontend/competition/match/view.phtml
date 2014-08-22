@@ -146,14 +146,14 @@ $this->layout()->containerAttributes = array_merge(
                 		<td ng-hide="isEditingRoster">{{posKey}}</td>
                 		<td ng-show="isEditingRoster">{{positionNames[$index]}}</td>
                 		<td class="away-player">
-                		  <div ng-hide="isEditingRoster && permissions['match.teams.H.players']">
+                		  <div ng-hide="isEditingRoster && permissions['match.teams.A.players']">
                 		    <span ng-show="extdata.player[match.teams.A.players[posKey].player]">
                 		      #{{match.teams.A.players[posKey].number}} -
                 		      {{extdata.player[match.teams.A.players[posKey].player].name}}
                 		    </span>
                 		    <span ng-hide="extdata.player[match.teams.A.players[posKey]]">&mdash;</span>
                 		  </div>
-                		  <div ng-show="isEditingRoster && permissions['match.teams.H.players']">
+                		  <div ng-show="isEditingRoster && permissions['match.teams.A.players']">
                 		    <input type="hidden" ng-model="match.teams.A.players[posKey].id" name="match[teams][A][players][{{posKey}}][id]" />
                 		    <div class="row">
                     		    <div class="col-xs-4">
@@ -168,7 +168,7 @@ $this->layout()->containerAttributes = array_merge(
                                     <select ng-model="match.teams.A.players[posKey].player" class="form-control input-sm"  name="match[teams][A][players][{{posKey}}][player]">
                                         <option value="">Choose</option>
                                         <option
-                                            ng-repeat="(key,player) in formdata.players.H"
+                                            ng-repeat="(key,player) in formdata.players.A"
                                             value="{{player.value}}"
                                             ng-selected="match.teams.A.players[posKey].player == player.value"
                                             ng-hide="player.value == ''"
