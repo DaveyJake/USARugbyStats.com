@@ -66,6 +66,13 @@ class CompetitionMatchExtractor
                     if ( ! $p instanceof MatchTeamPlayer || ! $p->getPlayer() instanceof AccountInterface ) {
                         continue;
                     }
+                    $rawData['_embedded']['teamPlayer'][$p->getId()] = [
+                        'id' => $p->getId(),
+                        'number' => $p->getNumber(),
+                        'position' => $p->getPosition(),
+                        'isFrontRow' => $p->getIsFrontRow(),
+                        'acct' => $p->getPlayer()->getId(),
+                    ];
                     $rawData['_embedded']['player'][$p->getPlayer()->getId()] = [
                         'id' => $p->getPlayer()->getId(),
                         'name' => $p->getPlayer()->getDisplayName(),

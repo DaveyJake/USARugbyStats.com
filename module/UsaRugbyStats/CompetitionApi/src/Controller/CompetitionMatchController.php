@@ -118,6 +118,10 @@ class CompetitionMatchController extends AbstractRestfulController
             return new ApiProblemResponse($match);
         }
 
+        if ( ! $this->isGranted('competition.competition.match.update', $match) ) {
+            return new ApiProblemResponse(new ApiProblem(403, 'Not authorized to update this match!'));
+        }
+
         $service = $this->getCompetitionMatchService();
         $session = $service->startSession();
         $session->form = $service->getCreateForm();

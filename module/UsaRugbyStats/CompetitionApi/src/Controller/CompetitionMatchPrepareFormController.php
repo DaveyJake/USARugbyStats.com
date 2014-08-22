@@ -32,6 +32,27 @@ class CompetitionMatchPrepareFormController extends AbstractActionController
         $session->form->prepare();
         $fs = $session->form->get('match');
 
+        $eventTypes = [];
+        $events = $fs->get('teams')->get('H')->get('events')->getTargetElement();
+        foreach ( $events as $key => $fsEvent ) {
+            switch ($key ) {
+                case 'sub':
+                    $name = 'Substitution';
+                    break;
+                case 'card':
+                    $name = 'Card';
+                    break;
+                case 'score':
+                    $name = 'Score';
+                    break;
+            }
+            $eventTypes[$key] = [
+                'name' => $name,
+                'options' => $this->processValueOptions($fsEvent->get('type')->getValueOptions()),
+                'optionLookup' => $fsEvent->get('type')->getValueOptions(),
+            ];
+        }
+
         return new JsonModel([
             'feature_flags' => $session->form->getFeatureFlags()->toArray(),
             'datasets' => [
@@ -41,6 +62,9 @@ class CompetitionMatchPrepareFormController extends AbstractActionController
                     'H' => $this->processValueOptions($fs->get('teams')->get('H')->get('players')->getTargetElement()->get('player')->getValueOptions()),
                     'A' => $this->processValueOptions($fs->get('teams')->get('A')->get('players')->getTargetElement()->get('player')->getValueOptions()),
                 ],
+                'event' => [
+                    'types' => $eventTypes,
+                ]
             ],
         ]);
     }

@@ -20,6 +20,8 @@ $maxPlayers = empty($this->match->getCompetition()->getMaxPlayersOnRoster())
 $positionKeys = json_encode(array_keys(MatchTeamPlayerFieldset::$positions[$this->match->getCompetition()->getVariant()]));
 $positionNames = json_encode(array_values(MatchTeamPlayerFieldset::$positions[$this->match->getCompetition()->getVariant()]));
 
+$isEditMode = $this->isGranted('competition.competition.update', $match) ? 'true' : 'false';
+
 $this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/angular.min.js'));
 $this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/angular-encode-uri.min.js'));
 $this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/ngRange.js'));
@@ -31,6 +33,7 @@ $this->inlineScript()->appendScript("
         \$rootScope.compid = {$match->getCompetition()->getId()};
         \$rootScope.positionKeys = {$positionKeys};
         \$rootScope.positionNames = {$positionNames};
+        \$rootScope.isEditMode = {$isEditMode};
     });
 ");
 
@@ -66,18 +69,47 @@ $this->layout()->containerAttributes = array_merge(
         <div class="panel" ng-hide="match.status == 'NS' || match.status == 'C'">
             <div class="title">
         		<h2><span class="icon-list"></span>Game Stream</h2>
-        		<a ng-show="permissions['match.teams.H.events'] || permissions['match.teams.A.events']" class="utility edit"><span class="icon-compose"></span>Add Event</a>
+
+        		<div class="pull-right" style="margin-right:12px; margin-top: -2px" ng-show="canAddEvents()">
+        		  <a class="btn btn-xs btn-success" ng-click="addScore()"><i class="glyphicon glyphicon-plus"></i> Score</a>
+        		  <a class="btn btn-xs btn-info" ng-click="addSub"><i class="glyphicon glyphicon-plus"></i> Sub</a>
+        		  <a class="btn btn-xs btn-danger" ng-click="addCard()"><i class="glyphicon glyphicon-plus"></i> Card</a>
+        		</div>
+
             </div>
             <table>
             	<thead>
             	   <tr>
             		 <th>MIN</th>
             		 <th>EVENT</th>
-            		 <th>TYPE</th>
             		 <th>SIDE</th>
-            		 <th>PLAYER(S)</th>
+            		 <th>DETAILS</th>
+            		 <th width="60" ng-show="canAddEvents()"></th>
             	   </tr>
             	</thead>
+            	<tbody>
+            	   <tr ng-repeat="(ekey,event) in matchEvents | orderBy:'minute'">
+            		 <td ng-show="event.id > 0">{{event.minute}}'</td>
+            		 <td ng-show="event.id > 0">
+            		   {{formdata.event.types[event.event].name}} -
+            		   {{formdata.event.types[event.event].optionLookup[event.type]}}
+            		 </td>
+            		 <td ng-show="event.id > 0 && event.side == 'H'">{{homeTeam.name}}</td>
+            		 <td ng-show="event.id > 0 && event.side == 'A'">{{awayTeam.name}}</td>
+            		 <td>
+            		   <div ng-show="event.id > 0 && event.event != 'sub'">
+            		      #{{extdata.teamPlayer[event.player].number}} -
+            		      {{extdata.player[extdata.teamPlayer[event.player].acct].name}}
+            		   </div>
+            		   <div ng-show="event.id > 0 && event.event == 'sub'">
+                		 Off: #{{extdata.teamPlayer[event.playerOff].number}} - {{extdata.player[extdata.teamPlayer[event.playerOff].acct].name}}<br />
+                		 On: #{{extdata.teamPlayer[event.playerOn].number}} - {{extdata.player[extdata.teamPlayer[event.playerOn].acct].name}}
+            		   </div>
+            		 </td>
+            		 <td ng-show="event.id > 0 && canAddEvents()" style="text-align:right; padding-right: 10px;">
+            		   <a ng-click="trashEvent(event)" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+            		 </td>
+            	</tbody>
             </table>
         </div>
     </div>
@@ -111,7 +143,7 @@ $this->layout()->containerAttributes = array_merge(
                 		      #{{match.teams.H.players[posKey].number}} -
                 		      {{extdata.player[match.teams.H.players[posKey].player].name}}
                 		    </span>
-                		    <span ng-hide="extdata.player[match.teams.H.players[posKey]]">&mdash;</span>
+                		    <span ng-hide="extdata.player[match.teams.H.players[posKey].player]">&mdash;</span>
                 		  </div>
                 		  <div ng-show="isEditingRoster && permissions['match.teams.H.players']">
                 		    <div class="row">
@@ -143,7 +175,7 @@ $this->layout()->containerAttributes = array_merge(
                             </div>
                 		  </div>
                 		</td>
-                		<td ng-hide="isEditingRoster">{{posKey}}</td>
+                		<td ng-hide="isEditingRoster"><abbr title="{{positionNames[$index]}}">{{posKey}}</abbr></td>
                 		<td ng-show="isEditingRoster">{{positionNames[$index]}}</td>
                 		<td class="away-player">
                 		  <div ng-hide="isEditingRoster && permissions['match.teams.A.players']">
@@ -151,7 +183,7 @@ $this->layout()->containerAttributes = array_merge(
                 		      #{{match.teams.A.players[posKey].number}} -
                 		      {{extdata.player[match.teams.A.players[posKey].player].name}}
                 		    </span>
-                		    <span ng-hide="extdata.player[match.teams.A.players[posKey]]">&mdash;</span>
+                		    <span ng-hide="extdata.player[match.teams.A.players[posKey].player]">&mdash;</span>
                 		  </div>
                 		  <div ng-show="isEditingRoster && permissions['match.teams.A.players']">
                 		    <input type="hidden" ng-model="match.teams.A.players[posKey].id" name="match[teams][A][players][{{posKey}}][id]" />

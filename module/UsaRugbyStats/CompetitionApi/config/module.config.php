@@ -44,7 +44,7 @@ return array(
     'zfc_rbac' => array(
         'guards' => array(
             'ZfcRbac\Guard\RouteGuard' => array(
-                'usarugbystats_competition-api_*' => array('member'),
+                'usarugbystats_competition-api_*' => array('guest'),
             ),
         ),
     ),

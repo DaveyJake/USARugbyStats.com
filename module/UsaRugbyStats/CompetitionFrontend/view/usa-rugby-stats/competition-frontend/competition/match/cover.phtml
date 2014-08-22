@@ -20,7 +20,7 @@
     <div id="game-meta">
     	<ul>
     		<li>Date: {{formatDate(match.date, 'MMM Do YYYY')}}</li>
-    		<li>Competition: {{competition.name}}</li>
+    		<li>Competition: <a ng-href="/competition/{{competition.id}}">{{competition.name}}</a></li>
     		<li>Kickoff: {{formatDate(match.date, 'h:mm A')}}</li>
     		<li>Location:
     		  <span ng-show="location.id">

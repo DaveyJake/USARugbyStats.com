@@ -41,8 +41,9 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                 
                 $http(req)
                      .success(function(data) {
-                         self._updateMatchDataInScope(data);
-                         d.resolve(data);
+                         self.doPrepareForm(match).finally(function() { 
+                             self._updateMatchDataInScope(data); d.resolve(data); 
+                         });
                      })
                      .error(function(err) {
                          d.reject(err);
@@ -58,6 +59,20 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                 $rootScope.location = data._embedded.location;
                 $rootScope.homeTeam = data._embedded.team[data.match.teams.H.team];
                 $rootScope.awayTeam = data._embedded.team[data.match.teams.A.team];
+                
+                if ( typeof $rootScope.matchEvents == 'undefined' ) {
+                    $rootScope.matchEvents = new Array();
+                }
+                angular.forEach(['A','H'], function(side) {
+                    try {
+                        angular.forEach($rootScope.match.teams.H.events, function(rec, index) {
+                            var newrec = angular.copy(rec);
+                            newrec.side = side;
+                            newrec.minute = parseInt(newrec.minute); // Hack to get sorting right
+                            $rootScope.matchEvents.unshift(newrec);
+                        });
+                    } catch(e) {}
+                });
             }
         };
         return self;
@@ -69,11 +84,13 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
             competition: $rootScope.compid
         };
         var urlParams = angular.copy($rootScope.match);
-                
-        $q.all([
-            CompetitionMatchApi.get(urlParams),
-            CompetitionMatchApi.doPrepareForm(urlParams)
-        ]).then(
+
+        var todo = [ CompetitionMatchApi.get(urlParams) ];
+        if ( $rootScope.isEditMode ) {
+            todo.push(CompetitionMatchApi.doPrepareForm(urlParams));
+        }
+        
+        $q.all(todo).then(
             function() {
                 $scope.loading = false;
                 $('.nghide').show().removeClass('nghide');
@@ -262,6 +279,26 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
           $scope.isEditingRoster = false;
           $('#players').removeClass('col-sm-12').addClass('col-sm-5'); 
           $('#content').show();           
+        }
+        
+        $scope.canAddEvents = function() {
+            if ( typeof $rootScope.permissions == 'undefined' ) {
+                return false;
+            }
+            return $rootScope.permissions['match.teams.H.events'] 
+                || $rootScope.permissions['match.teams.A.events'];
+        }
+        
+        $scope.addScore = function() {
+
+        }
+        
+        $scope.trashEvent = function(event) {
+            if ( event.id != null ) {
+                //@TODO send delete to server
+            }
+            
+            $rootScope.matchEvents.splice($rootScope.matchEvents.indexOf(event), 1);
         }
         
         $scope.formatDate = function(date, format) {
