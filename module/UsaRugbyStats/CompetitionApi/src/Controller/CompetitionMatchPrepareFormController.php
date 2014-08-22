@@ -25,7 +25,8 @@ class CompetitionMatchPrepareFormController extends AbstractActionController
         $svc = $this->getCompetitionMatchService();
         $session = $svc->startSession();
         $session->form = $svc->getCreateForm();
-        $session->entity = new Match();
+        $session->entity = $match;
+        $session->competition = $match->getCompetition();
         $svc->prepare();
 
         $session->form->prepare();
@@ -36,7 +37,11 @@ class CompetitionMatchPrepareFormController extends AbstractActionController
             'datasets' => [
                 'locations' => $this->processValueOptions($fs->get('location')->getValueOptions()),
                 'teams' => $this->processValueOptions($fs->get('teams')->getTargetElement()->get('team')->getValueOptions()),
-            ]
+                'players' => [
+                    'H' => $this->processValueOptions($fs->get('teams')->get('H')->get('players')->getTargetElement()->get('player')->getValueOptions()),
+                    'A' => $this->processValueOptions($fs->get('teams')->get('A')->get('players')->getTargetElement()->get('player')->getValueOptions()),
+                ],
+            ],
         ]);
     }
 

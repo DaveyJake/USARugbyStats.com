@@ -9,7 +9,7 @@ use UsaRugbyStats\Competition\Entity\Competition;
 use ZF\ApiProblem\ApiProblem;
 use ZF\ApiProblem\ApiProblemResponse;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
-use Zend\Form\FormInterface;
+use UsaRugbyStats\CompetitionApi\Extractor\CompetitionMatchExtractor;
 
 class CompetitionMatchController extends AbstractRestfulController
 {
@@ -37,15 +37,13 @@ class CompetitionMatchController extends AbstractRestfulController
 
         $data = $this->getRequest()->getPost()->toArray();
         $data['match']['competition'] = $competition->getId();
-        //@TODO why is this necessay here?
+        //@TODO why is this necessary here?
         $data['match']['teams']['H']['type'] = 'H';
         $data['match']['teams']['A']['type'] = 'A';
 
         $result = $service->create($data);
         if ($result instanceof Match) {
-            return new JsonModel([
-                'data' => $this->extractMatch($result)
-            ]);
+            return new JsonModel($this->extractMatch($result));
         }
 
         return new ApiProblemResponse(
@@ -90,7 +88,17 @@ class CompetitionMatchController extends AbstractRestfulController
 
     public function patch($id, $data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, null));
+        $match = $this->getCompetitionMatchEntityFromRoute();
+        if ($match instanceof ApiProblem) {
+            return new ApiProblemResponse($match);
+        }
+
+        // Merge provided data into entity's current date
+        $currentData = $this->extractMatch($match);
+        unset($currentData['_embedded']);
+        $data = array_replace_recursive($currentData, $data);
+
+        return $this->update($id, $data);
     }
 
     public function patchList($data)
@@ -105,7 +113,35 @@ class CompetitionMatchController extends AbstractRestfulController
 
     public function update($id, $data)
     {
-        return new ApiProblemResponse(new ApiProblem(405, null));
+        $match = $this->getCompetitionMatchEntityFromRoute();
+        if ($match instanceof ApiProblem) {
+            return new ApiProblemResponse($match);
+        }
+
+        $service = $this->getCompetitionMatchService();
+        $session = $service->startSession();
+        $session->form = $service->getCreateForm();
+        $session->competition = $match->getCompetition();
+        $session->entity = $match;
+        $service->prepare();
+
+        if ( empty($data) ) {
+            $data = $this->getRequest()->getPost()->toArray();
+        }
+        $data['match']['competition'] = $match->getCompetition()->getId();
+        //@TODO why is this necessary here?
+        $data['match']['teams']['H']['type'] = 'H';
+        $data['match']['teams']['A']['type'] = 'A';
+
+        $result = $service->update($match, $data);
+        if ($result instanceof Match) {
+            return new JsonModel($this->extractMatch($result));
+        }
+
+        return new ApiProblemResponse(
+            new ApiProblem(422, 'Validation failed', null, null, ['validation_messages' => $session->form->getMessages()])
+        );
+        return new JsonModel($this->extractMatch($match));
     }
 
     protected function getCompetitionEntityFromRoute()
@@ -138,9 +174,7 @@ class CompetitionMatchController extends AbstractRestfulController
     protected function extractMatch(Match $m)
     {
         $form = $this->getServiceLocator()->get('usarugbystats_competition_competition_match_updateform');
-        $form->bind($m);
-        $form->isValid();
-
-        return $form->getData(FormInterface::VALUES_AS_ARRAY);
+        $ext = new CompetitionMatchExtractor($form);
+        return $ext->extract($m);
     }
 }

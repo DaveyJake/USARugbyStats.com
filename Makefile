@@ -18,7 +18,10 @@ js = https://raw.githubusercontent.com/jquery/jquery/0d5ec2d8ac94a419ee47a39319c
 	 https://raw.githubusercontent.com/twbs/bootstrap/c068162161154a4b85110ea1e7dd3d7897ce2b72/dist/js/bootstrap.min.js \
 	 https://cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.min.js \
 	 https://raw.githubusercontent.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js \
-	 http://momentjs.com/downloads/moment.js
+	 http://momentjs.com/downloads/moment.js \
+         https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js \
+         https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js.map \
+         https://github.com/rubenv/angular-encode-uri/raw/master/dist/angular-encode-uri.min.js
 
 all: deleteall makecss maketwbsfont makejs
 

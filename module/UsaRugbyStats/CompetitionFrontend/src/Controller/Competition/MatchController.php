@@ -12,6 +12,7 @@ use Zend\Paginator\Paginator;
 use DoctrineModule\Paginator\Adapter\Collection as CollectionAdapter;
 use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Traits\TeamServiceTrait;
+use UsaRugbyStats\CompetitionApi\Extractor\CompetitionMatchExtractor;
 
 class MatchController extends AbstractActionController
 {
