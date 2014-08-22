@@ -86,7 +86,7 @@ class ExtendedValidationGroupForm extends HackedBaseForm implements EventManager
 
         if ( empty($argv->validationGroup) ) {
             $this->getEventManager()->trigger('autogenerateValidationGroupForForm.pre', $argv->formOrFieldset, []);
-            $this->validationGroup = $this->autogenerateValidationGroupForForm($argv->formOrFieldset);
+            $argv->validationGroup = $this->autogenerateValidationGroupForForm($argv->formOrFieldset);
             $this->getEventManager()->trigger('autogenerateValidationGroupForForm.post', $argv->formOrFieldset, []);
         }
 
@@ -114,8 +114,13 @@ class ExtendedValidationGroupForm extends HackedBaseForm implements EventManager
                 if ( !isset($validationGroup[$collElement->getName()]) ) {
                     continue;
                 }
-                $discr = $data[$collKey][$formOrFieldset->getDiscriminatorFieldName()];
-                $this->recursivelyStripOutMissingFields($collElement, $filters[$discr], @$data[$collElement->getName()] ?: array(), $validationGroup[$collElement->getName()]);
+
+                $discr = $data[$collElement->getName()][$formOrFieldset->getDiscriminatorFieldName()];
+                $elementInputFilter = $filters[$discr];
+                $elementData = @$data[$collElement->getName()] ?: array();
+                $elementValidationGroup = $validationGroup[$collElement->getName()];
+
+                $this->recursivelyStripOutMissingFields($collElement, $elementInputFilter, $elementData, $elementValidationGroup);
             }
 
             return;
@@ -207,6 +212,7 @@ class ExtendedValidationGroupForm extends HackedBaseForm implements EventManager
             }
 
             $elementFieldName = $this->buildFieldNameString($selfFieldName, $fieldset);
+
             if ( !empty($elementFieldName) && $this->isFlagOff($elementFieldName) ) {
                 if ( isset($validationGroup[$key]) ) {
                     unset($validationGroup[$key]);

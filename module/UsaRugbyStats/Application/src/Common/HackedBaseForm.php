@@ -3,13 +3,12 @@ namespace UsaRugbyStats\Application\Common;
 
 use Zend\Form\Form;
 use Zend\Form\FieldsetInterface;
-// use DoctrineModule\Form\Element\ObjectSelect;
+use DoctrineModule\Form\Element\ObjectSelect as DoctrineObjectSelect;
 use DoctrineModule\Form\Element\ObjectMultiCheckbox;
 use DoctrineModule\Form\Element\ObjectRadio;
-use Zend\Form\Element\DateTime;
 use Zend\Form\FormInterface;
 use Zend\Form\Element\Collection;
-use Zend\Stdlib\ArrayUtils;
+use LdcZendFormCTI\Form\Element\NonuniformCollection;
 
 /**
  * Rationale:
@@ -58,11 +57,11 @@ class HackedBaseForm extends Form
         if (null !== $this->baseFieldset) {
             $name = $this->baseFieldset->getName();
             $values[$name] = $this->baseFieldset->extract();
-            $this->nukeStrayObjectsFromTheResult($this, $values);
+            $this->nukeStrayObjectsFromTheResult($this, $values, $this->getName());
             $this->baseFieldset->populateValues($values[$name]);
         } else {
             $values = parent::extract();
-            $this->nukeStrayObjectsFromTheResult($this, $values);
+            $this->nukeStrayObjectsFromTheResult($this, $values, $this->getName());
             $this->populateValues($values);
         }
 
@@ -89,67 +88,87 @@ class HackedBaseForm extends Form
             return $result;
         }
 
-        $this->nukeStrayObjectsFromTheResult($this, $result);
+        $this->nukeStrayObjectsFromTheResult($this, $result, $this->getName());
 
         return $result;
     }
 
-    protected function nukeStrayObjectsFromTheResult($element, &$data)
+    protected function nukeStrayObjectsFromTheResult($element, &$data, $tracker = 'root')
     {
-        foreach ($data as $childKey => &$childValue) {
-            if ( ! $element instanceof FieldsetInterface || ! $element->has($childKey) ) {
-                if ($element instanceof Collection) {
-                    $this->nukeStrayObjectsFromTheResult($element->getTargetElement(), $childValue);
-                    continue;
-                }
-
-                if ( ! is_object($childValue) ) {
-                    continue;
-                }
-
-                if ($childValue instanceof \Traversable) {
-                    $data[$childKey] = ArrayUtils::iteratorToArray($childValue);
-                }
-
-                if ( is_callable(array($childValue, 'getId')) ) {
-                    $data[$childKey] = $childValue->getId();
-                    continue;
-                }
-
-                if ( ! is_scalar($childValue) ) {
-                    $childValue = null;
-                }
-                continue;
-            }
-            $childElement = $element->get($childKey);
-
-            if ($childElement instanceof FieldsetInterface) {
-                $this->nukeStrayObjectsFromTheResult($childElement, $childValue);
-                continue;
-            }
-
-            if ($childElement instanceof DateTime && $childValue instanceof \DateTime) {
-                $data[$childKey] = $childValue->format($childElement->getFormat());
-                continue;
-            }
-
-            if ($childElement instanceof ObjectSelect || $childElement instanceof ObjectMultiCheckbox || $childElement instanceof ObjectRadio) {
-                $data[$childKey] = $childElement->getProxy()->getValue($childValue);
-                continue;
-            }
-
-            if ( ! is_object($childValue) ) {
-                continue;
-            }
-
-            if ($childValue instanceof \Traversable) {
-                $data[$childKey] = ArrayUtils::iteratorToArray($childValue);
-            }
-
-            if ( is_callable(array($childValue, 'getId')) ) {
-                $data[$childKey] = $childValue->getId();
-                continue;
-            }
+        // If the value is scalar, our work is done
+        if ( is_scalar($data) ) {
+            return;
         }
+
+        // The chain is broken!
+        if ( $element == NULL || empty($data) ) {
+            $data = null;
+
+            return;
+        }
+
+        // If it's a collection we bore down into it's contents
+        if ($element instanceof NonuniformCollection) {
+            foreach ($data as $k => &$v) {
+                $discr = $v[$element->getDiscriminatorFieldName()];
+                $childElement = $element->has($k) ? $element->get($k) : $element->getTargetElement()[$discr];
+                $this->nukeStrayObjectsFromTheResult($childElement, $v, "{$tracker}.{$k}");
+            }
+
+            return;
+        }
+
+        // If it's a collection we bore down into it's contents
+        if ($element instanceof Collection) {
+            foreach ($data as $k => &$v) {
+                $childElement = $element->has($k) ? $element->get($k) : $element->getTargetElement();
+                $this->nukeStrayObjectsFromTheResult($childElement, $v, "{$tracker}.{$k}");
+            }
+
+            return;
+        }
+
+        // If it's an array or traversable we treat it like a fieldset
+        if ( is_array($data) || $data instanceof \Traversable ) {
+            foreach ($data as $k => &$v) {
+                $childElement = $element instanceof FieldsetInterface && $element->has($k) ? $element->get($k) : null;
+                $this->nukeStrayObjectsFromTheResult($childElement, $v, "{$tracker}.{$k}");
+                continue;
+            }
+
+            return;
+        }
+
+        // If it's a datetime form element, format the output appropriately
+        if ($element instanceof \Zend\Form\Element\DateTime && $data instanceof \DateTime) {
+            $data = $data->format($element->getFormat());
+
+            return;
+        }
+
+        // If it's a Doctrine form element pull the raw value from the proxy
+        // ($element->getValue() returns an entity)
+        if ($element instanceof DoctrineObjectSelect || $element instanceof ObjectMultiCheckbox || $element instanceof ObjectRadio) {
+            $data = $element->getProxy()->getValue($data);
+
+            return;
+        }
+
+        // If the object has an ID getter, use it
+        if ( is_object($data) && method_exists($data, 'getId') ) {
+            $data = $data->getId();
+
+            return;
+        }
+
+        // If the object has a string transformer, use it
+        if ( is_object($data) && method_exists($data, '__toString') ) {
+            $data = (string) $data;
+
+            return;
+        }
+
+        // You can't handle this data!
+        unset($data);
     }
 }
