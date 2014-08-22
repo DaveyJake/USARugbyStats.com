@@ -1,7 +1,6 @@
 <?php
 namespace UsaRugbyStats\CompetitionApi\Extractor;
 
-use UsaRugbyStats\Application\Common\ExtendedValidationGroupForm;
 use Zend\Form\FormInterface;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
@@ -10,23 +9,16 @@ use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
 use UsaRugbyStats\Application\Entity\AccountInterface;
 use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Application\Common\ExtendedValidationGroupForm;
 
 class CompetitionMatchExtractor
 {
-    protected $form;
-
-    public function __construct(ExtendedValidationGroupForm $f)
+    public static function extract(Match $m, ExtendedValidationGroupForm $form)
     {
-        $this->form = $f;
-    }
+        $form->bind($m);
+        $form->isValid();
 
-    public function extract(Match $m)
-    {
-        $this->form->bind($m);
-        $this->form->isValid();
-
-        $rawData = $this->form->getData(FormInterface::VALUES_AS_ARRAY);
-
+        $rawData = $form->getData(FormInterface::VALUES_AS_ARRAY);
         $rawData['_embedded'] = array();
 
         // Expand Competition entity

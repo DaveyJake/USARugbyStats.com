@@ -178,7 +178,7 @@ class CompetitionMatchController extends AbstractRestfulController
     protected function extractMatch(Match $m)
     {
         $form = $this->getServiceLocator()->get('usarugbystats_competition_competition_match_updateform');
-        $ext = new CompetitionMatchExtractor($form);
-        return $ext->extract($m);
+
+        return CompetitionMatchExtractor::extract($m, $form);
     }
 }
