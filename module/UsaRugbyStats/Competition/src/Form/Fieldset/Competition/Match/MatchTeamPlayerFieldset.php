@@ -69,6 +69,14 @@ class MatchTeamPlayerFieldset extends Fieldset
         ));
 
         $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'team',
+            'options' => array(
+                'label' => 'Team',
+            ),
+        ));
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'number',
             'options' => array(
