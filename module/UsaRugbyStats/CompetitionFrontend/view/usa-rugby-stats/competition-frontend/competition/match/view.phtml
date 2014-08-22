@@ -91,8 +91,7 @@ $this->layout()->containerAttributes = array_merge(
             	   <tr ng-repeat="(ekey,event) in matchEvents | orderBy:'minute'">
             		 <td ng-show="event.id > 0">{{event.minute}}'</td>
             		 <td ng-show="event.id > 0">
-            		   {{formdata.event.types[event.event].name}} -
-            		   {{formdata.event.types[event.event].optionLookup[event.type]}}
+            		   {{event.type}} {{event.event}}
             		 </td>
             		 <td ng-show="event.id > 0 && event.side == 'H'">{{homeTeam.name}}</td>
             		 <td ng-show="event.id > 0 && event.side == 'A'">{{awayTeam.name}}</td>
