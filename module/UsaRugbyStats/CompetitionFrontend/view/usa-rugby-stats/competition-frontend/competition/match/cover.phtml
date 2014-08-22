@@ -4,14 +4,14 @@
 
     	<div class="col-sm-6 home-team" ng-style="{backgroundImage: 'url(/assets/img/teamcoverimages/{{homeTeam.id}}.png) !important'}">
     		<div class="score">{{match.teams.A.score}}</div>
-    		<h2>{{homeTeam.name}}</h2>
+    		<h2><a ng-href="/team/{{homeTeam.id}}">{{homeTeam.name}}</a></h2>
     		<div class="team-logo"><img ng-src="/assets/img/teamlogos/{{homeTeam.id}}.png"></div>
     	</div>
 
 
     	<div class="col-sm-6 away-team" ng-style="{backgroundImage: 'url(/assets/img/teamcoverimages/{{awayTeam.id}}.png) !important'}">
     		<div class="score">{{match.teams.A.score}}</div>
-    		<h2>{{awayTeam.name}}</h2>
+    		<h2><a ng-href="/team/{{awayTeam.id}}">{{awayTeam.name}}</a></h2>
     		<div class="team-logo"><img ng-src="/assets/img/teamlogos/{{awayTeam.id}}.png"></div>
     	</div>
 

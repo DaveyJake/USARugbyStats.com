@@ -1,4 +1,4 @@
-angular.module('ursCompetitionMatch', ['rt.encodeuri'])
+angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
 
     .factory('CompetitionMatchApi', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
         var self = {
@@ -195,21 +195,73 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri'])
             );
         }
         
+        $scope.startEditingRoster = function() {
+            $scope.isEditingRoster = true;
+            $('#content').hide();
+            $('#players').removeClass('col-sm-5').addClass('col-sm-12');
+        }
+        
         $scope.saveChangesToRoster = function() {
             if ( $rootScope.match.status != 'NS' ) {
                 alert('Match is started, so rosters cannot be changed!');
             }
+            if ( $scope.matchRosterIsBeingSaved ) {
+                return;
+            }
             $scope.matchRosterIsBeingUpdated = true;
-            
-            console.log($rootScope.match.teams.H.players);
-            console.log($rootScope.match.teams.A.players);
-            
-            data = {}
-            angular.forEach($rootScope.match.teams.H.players, function(v,k) {
-                console.log(k);
-                console.log(v);
+
+            var data = {};
+            angular.forEach(['A','H'], function(side) {
+                angular.forEach($rootScope.positionKeys, function(pkey, index) {
+                    if ( ! $rootScope.permissions['match.teams.'+side+'.players'] ) {
+                        return;
+                    }
+                    try {
+                        if ( $rootScope.match.teams[side].players[pkey].player > 0 ) {
+                            data['match[teams]['+side+'][players]['+pkey+'][id]'] 
+                                = $rootScope.match.teams[side].players[pkey].id;
+                            data['match[teams]['+side+'][players]['+pkey+'][number]'] 
+                                = $rootScope.match.teams[side].players[pkey].number 
+                                    ? $rootScope.match.teams[side].players[pkey].number
+                                    : index+1;
+                            data['match[teams]['+side+'][players]['+pkey+'][player]'] 
+                                = $rootScope.match.teams[side].players[pkey].player;
+                        }
+                    } catch ( e ) {}
+                });
             });
             
+            $scope.matchRosterIsBeingSaved = true;
+            $scope.error = {};
+            
+            CompetitionMatchApi.patch(urlParams, data).then(
+                function(data) {
+                    $scope.matchRosterIsBeingSaved = false;
+                    alert('Roste Updated Successfully!');
+                },
+                function(err) {
+                    if ( err.status == 422 ) {
+                        angular.forEach(['A','H'], function(side) {
+                            $scope.error[side] = {};
+                            angular.forEach($rootScope.positionKeys, function(pkey, index) {
+                                $scope.error[side][pkey] = {};
+                                try { $scope.error[side][pkey]['player'] = err.validation_messages.match.teams[side].players[pkey].player; } catch (e) {}
+                                try { $scope.error[side][pkey]['number'] = err.validation_messages.match.teams[side].players[pkey].number; } catch (e) {}
+                            });
+                        });
+                        $scope.matchRosterIsBeingSaved = false;
+                    } else {
+                        alert(err.title);
+                        $scope.matchRosterIsBeingSaved = false;
+                    }
+                }
+            );
+        }
+        
+        $scope.cancelEditingRoster = function() {
+          $scope.isEditingRoster = false;
+          $('#players').removeClass('col-sm-12').addClass('col-sm-5'); 
+          $('#content').show();           
         }
         
         $scope.formatDate = function(date, format) {

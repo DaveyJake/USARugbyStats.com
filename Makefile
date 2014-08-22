@@ -21,7 +21,8 @@ js = https://raw.githubusercontent.com/jquery/jquery/0d5ec2d8ac94a419ee47a39319c
 	 http://momentjs.com/downloads/moment.js \
          https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js \
          https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js.map \
-         https://github.com/rubenv/angular-encode-uri/raw/master/dist/angular-encode-uri.min.js
+         https://github.com/rubenv/angular-encode-uri/raw/master/dist/angular-encode-uri.min.js \
+	 https://raw.githubusercontent.com/resin-io/ngRange/master/dist/ngRange.js
 
 all: deleteall makecss maketwbsfont makejs
 
