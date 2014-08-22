@@ -330,7 +330,7 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
             CompetitionMatchApi.patch(urlParams, data).then(
                 function(data) {
                     $scope.matchRosterIsBeingSaved = false;
-                    alert('Roste Updated Successfully!');
+                    alert('Roster changes have been saved');
                 },
                 function(err) {
                     if ( err.status == 422 ) {
