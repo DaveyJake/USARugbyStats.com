@@ -53,10 +53,17 @@ $this->layout()->containerAttributes = array_merge(
 
     <div class="alert alert-success" ng-show="match.status == 'S' && permissions['match.status']">
         <span>This match is currently in progress.</span>
-        <a class="btn btn-danger pull-right" style="margin-top: -7px" ng-click="resetMatchToNotStarted()">
-            <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-pause"></i> Revert to 'Not Started'</span>
-            <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Reverting...</span>
-        </a>
+        <div class="pull-right">
+            <a class="btn btn-success" style="margin-top: -7px" ng-click="markCompleted()">
+                <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-ok"></i> Mark as Completed</span>
+                <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Completing...</span>
+            </a>
+
+            <a class="btn btn-danger" style="margin-top: -7px" ng-click="resetMatchToNotStarted()">
+                <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-pause"></i> Revert to 'Not Started'</span>
+                <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Reverting...</span>
+            </a>
+        </div>
     </div>
 
     <div id="content" class="col-sm-7">
@@ -91,7 +98,7 @@ $this->layout()->containerAttributes = array_merge(
             	   </tr>
             	</thead>
             	<tbody>
-            	   <tr ng-repeat="(ekey,event) in matchEvents | orderBy:'-minute'">
+            	   <tr ng-repeat="(ekey,event) in matchEvents | orderBy:'minute'">
             		 <td ng-show="event.id > 0">{{event.minute}}'</td>
             		 <td ng-show="event.id > 0">
             		   {{event.type}} {{event.event}}
@@ -128,6 +135,9 @@ $this->layout()->containerAttributes = array_merge(
                         <div ng-show="matchRosterIsBeingSaved"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp; Saving...</div>
                     </a>
         		</div>
+            </div>
+            <div ng-show="matchRosterSavedSuccessfully" class="alert alert-success" style="border:0;border-radius:0;margin-bottom:0;padding:10px;">
+                <p class="text-center"><i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Roster Changes Saved!</p>
             </div>
             <table>
             	<thead>
@@ -177,7 +187,7 @@ $this->layout()->containerAttributes = array_merge(
                             </div>
                 		  </div>
                 		</td>
-                		<td ng-hide="isEditingRoster"><abbr title="{{positionNames[$index]}}">{{posKey}}</abbr></td>
+                		<td ng-hide="isEditingRoster">{{posKey}}</td>
                 		<td ng-show="isEditingRoster">{{positionNames[$index]}}</td>
                 		<td class="away-player">
                 		  <div ng-hide="isEditingRoster && permissions['match.teams.A.players']">

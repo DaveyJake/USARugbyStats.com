@@ -154,7 +154,7 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
         return self;
     }])
 
-    .controller('main', ['$q', '$scope', '$rootScope', 'CompetitionMatchApi', 'CompetitionMatchEventApi', function($q, $scope, $rootScope, CompetitionMatchApi, CompetitionMatchEventApi) {
+    .controller('main', ['$q', '$scope', '$rootScope', '$timeout', 'CompetitionMatchApi', 'CompetitionMatchEventApi', function($q, $scope, $rootScope, $timeout, CompetitionMatchApi, CompetitionMatchEventApi) {
         $rootScope.match = {
             id: $rootScope.matchid,
             competition: $rootScope.compid
@@ -296,7 +296,7 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
         
         $scope.saveChangesToRoster = function() {
             if ( $rootScope.match.status != 'NS' ) {
-                alert('Match is started, so rosters cannot be changed!');
+                alert('Match is started so rosters cannot be changed.');
             }
             if ( $scope.matchRosterIsBeingSaved ) {
                 return;
@@ -330,7 +330,11 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
             CompetitionMatchApi.patch(urlParams, data).then(
                 function(data) {
                     $scope.matchRosterIsBeingSaved = false;
-                    alert('Roster changes have been saved');
+                    $scope.isEditingRoster = false;
+                    $scope.matchRosterSavedSuccessfully = true;
+                    $timeout(function() { delete $scope.matchRosterSavedSuccessfully; }, 3000);
+                    $('#players').removeClass('col-sm-12').addClass('col-sm-5'); 
+                    $('#content').show();
                 },
                 function(err) {
                     if ( err.status == 422 ) {
