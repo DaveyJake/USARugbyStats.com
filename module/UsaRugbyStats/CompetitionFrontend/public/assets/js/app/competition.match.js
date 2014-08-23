@@ -154,22 +154,33 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
         return self;
     }])
 
-    .controller('main', ['$q', '$scope', '$rootScope', '$timeout', 'CompetitionMatchApi', 'CompetitionMatchEventApi', function($q, $scope, $rootScope, $timeout, CompetitionMatchApi, CompetitionMatchEventApi) {
+    .controller('main', ['$q', '$scope', '$rootScope', '$timeout', '$interval', 'CompetitionMatchApi', 'CompetitionMatchEventApi', function($q, $scope, $rootScope, $timeout, $interval, CompetitionMatchApi, CompetitionMatchEventApi) {
         $rootScope.match = {
             id: $rootScope.matchid,
             competition: $rootScope.compid
         };
         var urlParams = angular.copy($rootScope.match);
-
-        var todo = [ CompetitionMatchApi.get(urlParams) ];
-        if ( $rootScope.isEditMode ) {
-            todo.push(CompetitionMatchApi.doPrepareForm(urlParams));
-        }
         
-        $q.all(todo).then(
+        $scope.refreshPage = function() {
+            var todo = [ CompetitionMatchApi.get(urlParams) ];
+            if ( $rootScope.isEditMode ) {
+                todo.push(CompetitionMatchApi.doPrepareForm(urlParams));
+            }
+            return $q.all(todo);
+        }
+
+        $scope.refreshPage().then(
             function() {
                 $scope.loading = false;
                 $('.nghide').show().removeClass('nghide');
+                
+                // Periodic page refresh [@TODO should use websockets]
+                $interval(function() {
+                    if ( $rootScope.match.status == 'NS' || $rootScope.match.status == 'S' ) {
+                        $scope.refreshPage();
+                    }
+                }, 30000);
+                
             },
             function(err) {
                 alert(err.title); 
