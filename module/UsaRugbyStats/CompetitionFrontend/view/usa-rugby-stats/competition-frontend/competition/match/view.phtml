@@ -296,15 +296,23 @@ $this->layout()->containerAttributes = array_merge(
               <div class="form-group">
                 <label for="newEvent.side" class="col-sm-3 control-label">Side</label>
                 <div class="col-sm-9">
-                  <div style="margin-bottom:5px">
-                    <input type="radio" name="newEvent.side" ng-model="newEvent.side" value="H" ng-checked="newEvent.team == homeTeam.id"> <img ng-src="/assets/img/teamlogos/{{homeTeam.id}}.png" width="24"> {{homeTeam.name}}
+                  <div class="row">
+                  <div class="col-xs-4">
+                    <label for="newEventHomeSide" style="text-align:center;white-space:normal !important" class="btn btn-default" ng-class="{'btn-info':newEvent.side == 'H'}">
+                        <input id="newEventHomeSide" type="radio" name="newEvent.side" ng-model="newEvent.side" value="H" ng-checked="newEvent.team == homeTeam.id"><br />
+                        <img ng-src="/assets/img/teamlogos/{{homeTeam.id}}.png" width="64"><br /><strong>{{homeTeam.name}}</strong>
+                    </label>
                   </div>
-                  <div style="margin-bottom:5px">
-                    <input type="radio" name="newEvent.side" ng-model="newEvent.side" value="A" ng-checked="newEvent.team == awayTeam.id"> <img ng-src="/assets/img/teamlogos/{{awayTeam.id}}.png" width="24"> {{awayTeam.name}}
+                  <div class="col-xs-4">
+                    <label for="newEventAwaySide" style="text-align:center;white-space:normal !important" class="btn btn-default" ng-class="{'btn-info':newEvent.side == 'A'}">
+                        <input id="newEventAwaySide" type="radio" name="newEvent.side" ng-model="newEvent.side" value="A" ng-checked="newEvent.team == awayTeam.id"><br />
+                        <img ng-src="/assets/img/teamlogos/{{awayTeam.id}}.png" width="64"><br /><strong>{{awayTeam.name}}</strong>
+                    </label>
                   </div>
                   <p ng-show="error['team']" ng-repeat="(ek,em) in error['team']" class="help-block">
                         <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
                   </p>
+                  </div>
                 </div>
               </div>
               <div class="form-group" ng-show="newEvent.side && newEvent.event != 'sub'">

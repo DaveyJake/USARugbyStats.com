@@ -6,7 +6,6 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                     var d = $q.defer();
                     $http.get('/api/competition/'+params.competition+'/match/'+params.match+'/event/'+params.id)
                          .success(function(data) {
-                             console.log(data);
                              d.resolve(data);
                          })
                          .error(function(err) {
@@ -399,7 +398,6 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                 }
                 formdata["event["+k+"]"] = v;
             });
-            console.log(formdata);
             
             CompetitionMatchEventApi.create(urlParams, formdata)
                 .then(
