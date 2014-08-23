@@ -51,9 +51,9 @@ $this->layout()->containerAttributes = array_merge(
 
 <div class="nghide" style="display:none" ng-hide="loading">
 
-    <div class="alert alert-success" ng-show="match.status == 'S' && permissions['match.status']">
+    <div class="alert alert-success" ng-show="match.status == 'S'">
         <span>This match is currently in progress.</span>
-        <div class="pull-right">
+        <div class="pull-right" ng-show="permissions['match.status']">
             <a class="btn btn-success" style="margin-top: -7px" ng-click="markCompleted()">
                 <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-ok"></i> Mark as Completed</span>
                 <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Completing...</span>
