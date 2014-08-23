@@ -1,23 +1,30 @@
 <?php
+use UsaRugbyStats\Application\Entity\AccountInterface;
 $form->prepare();
 $form->setAttribute('action', $this->url('usarugbystats_frontend_team/update', ['id' => $entity->getId()]));
 $form->setAttribute('method', 'post');
+
+$form->setAttribute('class', 'form-horizontal');
+echo $this->form()->openTag($form);
+
+$submitButton = $form->get('submit');
+$submitButton->setLabel('Save Changes');
+$submitButton->setAttribute('class', 'btn btn-md btn-success');
+
 ?>
 
 <?php if ( $entity->getRemoteId() && $this->getHelperPluginManager()->has('ursRemoteDataSyncTriggerSyncTeam') ): ?>
 <div class="pull-right">
+
     <a id="RosterSyncButton" class="btn btn-md btn-primary"><i class="glyphicon glyphicon-refresh"></i> Run Roster Sync</a>
     <?php echo $this->ursRemoteDataSyncTriggerSyncTeam($entity, 'TeamRosterSync', '#RosterSyncButton'); ?>
+
+    <?php echo $this->formButton($submitButton); ?>
+
 </div>
 <?php endif; ?>
 
 <h1 style="margin-top:0"><?=$this->ursTeamLink($entity);?> <i class="glyphicon glyphicon-chevron-right" style="font-size:0.75em"></i>&nbsp;&nbsp;Team Management</h1>
-
-<?php $form->setAttribute('class', 'form-horizontal'); ?>
-<?php echo $this->form()->openTag($form) ?>
-
-<?php $submitButton = $form->get('submit'); ?>
-<?php $submitButton->setAttribute('class', 'btn btn-lg btn-success'); ?>
 
 <div class="row">
     <div class="col-md-6">
@@ -176,12 +183,8 @@ $form->setAttribute('method', 'post');
                 </div>
                 <?php endif; ?>
             </div>
-        </div>
-    </div>
 
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">Team Images</div>
+            <div class="panel-heading" style="border-top: 1px solid #ddd;">Team Images</div>
             <div class="panel-body">
                 <?php if ( ! $this->flags->{'team.new_logo%visible'}->is_off() ): ?>
                 <div class="row form-group">
@@ -218,8 +221,43 @@ $form->setAttribute('method', 'post');
                 <?php endif; ?>
             </div>
         </div>
+
+        <div class="clearfix"></div>
+        <div class="text-center"><?php echo $this->formButton($submitButton); ?></div>
+
+    </div>
+
+    <div class="col-sm-6">
+    <div class="panel panel-default team-members">
+        <div class="panel-heading">
+            Team Members
+        </div>
+
+        <?php $membershipStates = [NULL => 'Not Specified', 0 => 'Unpaid', 1 => 'Pending', 2 => 'Current', 3 => 'Grace Period', 4 => 'Lapsed']; ?>
+
+        <table class="table table-striped">
+            <thead class="header">
+    		  <tr>
+    		    <th>Player</th>
+    			<th class="text-center">Membership Status</th>
+    		  </tr>
+    		</thead>
+            <tbody style="border:0">
+                <?php foreach ( $entity->getMembers() as $member ): ?>
+                <?php   $acct = $member->getRole()->getAccount();?>
+                <?php   if ( ! $acct instanceof AccountInterface ) continue; ?>
+                <tr>
+                    <td>
+                        <?php echo $this->gravatar($acct->getEmail()); ?>
+                        <?php echo $this->ursPlayerLink($acct); ?>
+                    </td>
+                    <td class="text-center">
+                        <?php echo $this->escapeHtml($membershipStates[$member->getMembershipStatus()]); ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </div>
-<div class="clearfix"></div>
-<div class="pull-left"><?php echo $this->formButton($submitButton); ?></div>
 

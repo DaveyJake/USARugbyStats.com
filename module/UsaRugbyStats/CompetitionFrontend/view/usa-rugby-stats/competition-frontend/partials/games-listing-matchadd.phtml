@@ -1,0 +1,68 @@
+<?php
+$form = $this->ursCompetitionMatchCreateForm();
+$form->prepare();
+$fieldset = $form->get('match');
+?>
+
+  <tr>
+    <th>
+        <?php $element = $fieldset->get('date'); ?>
+        <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+        <?php $element->setAttribute('style', 'width: 90%; display:inline'); ?>
+
+        <?php echo $this->formElement($element) ?>
+        <span class="help-block error-message" style="display:none"></span>
+        <script type="text/javascript">
+            $(function () {
+                $('input[name=match\\[date\\]]').datetimepicker({
+                    format: 'YYYY-MM-DDTHH:mmZ'
+                });
+            });
+        </script>
+    </th>
+    <th>
+        <?php $element = $fieldset->get('teams')->get('A')->get('team'); ?>
+        <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+        <?php $element->setAttribute('style', 'width: 45%; display:inline'); ?>
+
+        <?php echo $this->formElement($element) ?>
+        <span class="help-block error-message" style="display:none"></span>
+        <script type="text/javascript">
+            $(function () {
+                $('input[name=match\\[date\\]]').datetimepicker({
+                    format: 'YYYY-MM-DDTHH:mmZ'
+                });
+            });
+        </script>
+@
+        <?php $element = $fieldset->get('teams')->get('H')->get('team'); ?>
+        <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+        <?php $element->setAttribute('style', 'width: 45%; display:inline'); ?>
+
+        <?php echo $this->formElement($element) ?>
+        <span class="help-block error-message" style="display:none"></span>
+        <script type="text/javascript">
+            $(function () {
+                $('input[name=match\\[date\\]]').datetimepicker({
+                    format: 'YYYY-MM-DDTHH:mmZ'
+                });
+            });
+        </script>
+    </th>
+    <th></th>
+    <th>
+        <?php $element = $fieldset->get('location'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'control-label', 'style' => 'display:inline !important')); ?>
+        <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+        <?php $element->setAttribute('style', 'width: 90%; display:inline'); ?>
+
+        <?php echo $this->formElement($element) ?><br />
+
+        <?php $element = $fieldset->get('locationDetails'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'control-label', 'style' => 'display:inline !important')); ?>
+        <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+        <?php $element->setAttribute('style', 'width: 90%; display:inline'); ?>
+        <?php echo $this->formElement($element) ?>
+        <span class="help-block error-message" style="display:none"></span>
+    </th>
+  </tr>

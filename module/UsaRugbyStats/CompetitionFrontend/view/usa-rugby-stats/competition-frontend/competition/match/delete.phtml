@@ -7,6 +7,6 @@
 
 <form action="<?php echo $this->url('usarugbystats_frontend_competition_match/delete', ['cid' => $competition->getId(), 'mid' => $entity->getId()]); ?>" method="POST">
   <input type="hidden" name="confirmed" value="Y" />
-  <a class="btn btn-success" href="<?php echo $this->url('usarugbystats_frontend_competition_match', ['cid' => $competition->getId()]); ?>">No, Abort! Abort!</a>
+  <a class="btn btn-success" href="<?php echo $this->url('usarugbystats_frontend_competition', ['cid' => $competition->getId()]); ?>">No, Abort! Abort!</a>
   <button type="submit" class="btn btn-danger">Yes, Remove It!</button>
 </form>

@@ -42,7 +42,7 @@ $( document ).ready(function() {
 
     $(".result-time span:contains('W')").css( "color", "#223850" );
 
-    $("#schedule tr, #standings tr").click(function(){
+    $("#schedule tbody tr, #standings tbody tr").click(function(){
      window.location=$(this).find("a").attr("href"); 
      return false;
     });

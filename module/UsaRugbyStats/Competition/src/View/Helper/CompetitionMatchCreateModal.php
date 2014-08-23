@@ -1,19 +1,37 @@
 <?php
-$form = $this->matchCreateForm;
-$form->prepare();
-$fieldset = $form->get('match');
-?>
+namespace UsaRugbyStats\Competition\View\Helper;
 
+use Zend\View\Helper\AbstractHelper;
+use UsaRugbyStats\Competition\Entity\Competition\Match;
+use Zend\Form\FormInterface;
+
+class CompetitionMatchCreateModal extends AbstractHelper
+{
+    protected $form;
+
+    public function __construct(FormInterface $form)
+    {
+        $this->form = $form;
+    }
+
+    public function __invoke($competition, $tableSelector = '#schedule body')
+    {
+        $this->view->placeholder('form')->captureStart();
+        $this->form->get('match')->get('competition')->setValue($competition->getId());
+        $this->form->prepare();
+        $fieldset = $this->form->get('match');
+?>
 <div class="well" style="margin: 20px">
+  <h4 style="margin-top: 0; margin-bottom:20px">Quick-Add Match</h4>
     <div id="AsyncMatchAddSpinner" class="alert alert-info" style="display:none"><i class="glyphicon glyphicon-refresh"></i> Sending your request.  Please wait...</div>
     <div id="AsyncMatchAddForm" class="form-inline">
         <div class="form-group" style="vertical-align:top">
             <?php $element = $fieldset->get('date'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'control-label', 'style' => 'display:inline !important')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
 
-            <?php echo $this->formLabel($element) ?><br />
-            <?php echo $this->formElement($element) ?>
+            <?php echo $this->view->formLabel($element) ?><br />
+            <?php echo $this->view->formElement($element) ?>
             <span class="help-block error-message" style="display:none"></span>
             <script type="text/javascript">
                 $(function () {
@@ -25,46 +43,49 @@ $fieldset = $form->get('match');
         </div>
         <div class="form-group" style="vertical-align:top">
             <?php $element = $fieldset->get('location'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'control-label', 'style' => 'display:inline !important')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
 
-            <?php echo $this->formLabel($element) ?><br />
-            <?php echo $this->formElement($element) ?><br />
+            <?php echo $this->view->formLabel($element) ?><br />
+            <?php echo $this->view->formElement($element) ?><br />
 
             <?php $element = $fieldset->get('locationDetails'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'control-label', 'style' => 'display:inline !important')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
-            <?php echo $this->formElement($element) ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php echo $this->view->formElement($element) ?>
             <span class="help-block error-message" style="display:none"></span>
         </div>
         <div class="form-group" style="vertical-align:top">
             <?php $element = $fieldset->get('teams')->get('H')->get('team'); ?>
             <?php $element->setLabel('Home Team'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'control-label', 'style' => 'display:inline !important')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
 
-            <?php echo $this->formLabel($element) ?><br />
-            <?php echo $this->formElement($element) ?>
+            <?php echo $this->view->formLabel($element) ?><br />
+            <?php echo $this->view->formElement($element) ?>
             <span class="help-block error-message" style="display:none"></span>
         </div>
         <div class="form-group" style="vertical-align:top">
             <?php $element = $fieldset->get('teams')->get('A')->get('team'); ?>
             <?php $element->setLabel('Away Team'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'control-label', 'style' => 'display:inline !important')); ?>
-            <?php $element->setAttribute('class', 'form-control'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
 
-            <?php echo $this->formLabel($element) ?><br />
-            <?php echo $this->formElement($element) ?>
+            <?php echo $this->view->formLabel($element) ?><br />
+            <?php echo $this->view->formElement($element) ?>
             <span class="help-block error-message" style="display:none"></span>
         </div>
         <div class="form-group pull-right" style="margin-top: 21px">
             <button id="MatchQuickAdd" class="btn btn-primary">Add Match!</button>
         </div>
     </div>
+</div>
 <?php
-$matchCreateUrl = $this->url('usarugbystats_competition-api_competition_match', ['cid' => $competition->getId()]);
-$matchRenderUrl = $this->url('usarugbystats_frontend_competition_match/render-match-row', ['cid' => $competition->getId(), 'mid' => ':mid']);
-$addMatchJavascript = <<<JSBLOCK
+        $this->view->placeholder('form')->captureEnd();
+
+        $matchCreateUrl = $this->view->url('usarugbystats_competition-api_competition_match', ['cid' => $competition->getId()]);
+        $matchRenderUrl = $this->view->url('usarugbystats_frontend_competition_match/render-match-row', ['cid' => $competition->getId(), 'mid' => 'XXXXXX']);
+        $addMatchJavascript = <<<JSBLOCK
 $('#MatchQuickAdd').click(function() {
     $('#AsyncMatchAddSpinner').show();
     $('#AsyncMatchAddForm').hide();
@@ -97,8 +118,6 @@ $('#MatchQuickAdd').click(function() {
         data: payload,
         dataType: "json"
     }).done(function(data) {
-        console.log(data);
-
         $('*[name=match\\\\[date\\\\]]').val(null),
         $('*[name=match\\\\[location\\\\]]').val(null),
         $('*[name=match\\\\[locationDetails\\\\]]').val(null),
@@ -107,11 +126,11 @@ $('#MatchQuickAdd').click(function() {
 
         $.ajax({
             type: "GET",
-            url: "{$matchRenderUrl}".replace(':mid', data.data.match.id),
+            url: "{$matchRenderUrl}".replace('XXXXXX', data.match.id),
             data: {relativeToCompetition: '{$competition->getId()}'},
             dataType: "html"
         }).done(function(data) {
-            $('#schedule tbody').append(data);
+            $('{$tableSelector}').append(data);
 
         }).always(function() {
             $('#AsyncMatchAddSpinner').hide();
@@ -129,8 +148,9 @@ $('#MatchQuickAdd').click(function() {
     });
 });
 JSBLOCK;
-$this->inlineScript()->appendScript($addMatchJavascript);
-?>
+        $this->view->inlineScript()->appendScript($addMatchJavascript);
 
+        return $this->view->placeholder('form');
 
-</div>
+    }
+}

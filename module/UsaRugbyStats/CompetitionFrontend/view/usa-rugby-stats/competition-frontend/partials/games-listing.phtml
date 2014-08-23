@@ -21,9 +21,11 @@ $now = new DateTime();
 		<th class="type">Type</th>
 		<?php endif;?>
 	</thead>
+	<tbody>
 	<?php $vars = $this->vars()->getArrayCopy(); ?>
 	<?php foreach ( $this->matches as $match ): ?>
     <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing-row', $vars + ['match' => $match]); ?>
 	<?php endforeach; ?>
+	</tbody>
 </table>
 

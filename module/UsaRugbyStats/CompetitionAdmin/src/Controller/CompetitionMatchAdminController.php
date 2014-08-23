@@ -159,7 +159,7 @@ class CompetitionMatchAdminController extends AbstractActionController
             'match' => [
                 'id' => $data['match']->getId(),
                 'title' => $data['match']->getDate()->format('Y-m-d'),
-                'url' => (string) $this->url()->fromRoute('usarugbystats_frontend_competition_match/view', [
+                'url' => (string) $this->url()->fromRoute('usarugbystats_frontend_competition_match', [
                     'cid' => $competition->getId(),
                     'mid' => $data['match']->getId(),
                 ]),

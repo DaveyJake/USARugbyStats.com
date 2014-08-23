@@ -670,6 +670,10 @@ table tbody td.date {
 }
 table tbody td.opponent {
   width: 30%;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  white-space: no-wrap;
+  overflow: hidden;
 }
 table tbody td.result-time {
   width: 15%;

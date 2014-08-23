@@ -12,7 +12,6 @@ use UsaRugbyStats\Competition\Traits\TeamServiceTrait;
 use UsaRugbyStats\Competition\Traits\PlayerStatisticsServiceTrait;
 use ZfcRbac\Exception\UnauthorizedException;
 use UsaRugbyStats\Competition\Entity\Competition;
-use UsaRugbyStats\Competition\Entity\Team\Member;
 use UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\Member as MemberRoleAssignment;
 use UsaRugbyStats\Application\Entity\AccountInterface;
 

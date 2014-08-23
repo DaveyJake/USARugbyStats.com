@@ -1,7 +1,7 @@
 <div class="page-header">
   <?php if ( $this->isGranted('competition.competition.update', $competition) ):?>
   <div class="pull-right" style="margin:5px 15px 0 0">
-    <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_competition/update-details', ['id' => $competition->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Edit Competition</a>
+    <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_competition/update', ['id' => $competition->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Edit Competition</a>
   </div>
   <?php endif; ?>
   <h1><?=$this->escapeHtml($competition->getName()); ?></h1>
@@ -29,10 +29,7 @@
                 <div class="schedule-is-empty">This team is not participating in any upcoming matches.</div>
                 <?php endif; ?>
 
-                <?php if ( $this->isGranted('competition.competition.match.create', $competition) ):?>
-                <?php   echo $this->render('usa-rugby-stats/competition-frontend/competition/inline-match-add', $this->vars()); ?>
-                <?php endif; ?>
-
+                <?php echo $this->ursCompetitionMatchCreateModal($competition, '#schedule tbody'); ?>
             </div>
 
             <div class="tab-pane" id="divisions">

@@ -22,7 +22,6 @@ class CompetitionController extends AbstractActionController
         $vm = new ViewModel();
         $vm->setVariable('competition', $competition);
         $vm->setVariable('standings', $this->getCompetitionStandingsService()->getStandingsFor($competition));
-        $vm->setVariable('matchCreateForm', $this->getCompetitionMatchService()->getCreateForm());
         $vm->setTemplate('usa-rugby-stats/competition-frontend/competition/index');
 
         return $vm;
@@ -62,7 +61,7 @@ class CompetitionController extends AbstractActionController
             if ($result instanceof Competition) {
                 $this->flashMessenger()->addSuccessMessage('The competition was updated successfully!');
 
-                return $this->redirect()->toRoute('usarugbystats_frontend_competition/update-details', ['id' => $result->getId()]);
+                return $this->redirect()->toRoute('usarugbystats_frontend_competition/update', ['id' => $result->getId()]);
             }
         }
 

@@ -25,7 +25,7 @@ $relativeToTeam = $this->relativeTo instanceof Team;
 		<tr<?php if ( $relativeToTeam && $srTeam->getId() == $this->relativeTo->getId() ) echo ' class="active"';?>>
 			<td class="team"><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $srTeam->getId()]); ?>"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($srTeam)); ?>"> <?=$this->escapeHtml($this->ursTeamName($srTeam)); ?></a></td>
 			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalGames()); ?></td>
-			<td class="record"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?>-<?=$this->escapeHtml($standingsRow->getTotalLosses()); ?></td>
+			<td class="record"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?>-<?=$this->escapeHtml($standingsRow->getTotalLosses()); ?>-<?=$this->escapeHtml($standingsRow->getTotalTies()); ?></td>
 			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreInFavor()); ?></td>
 			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreAgainst()); ?></td>
 			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreDifferential()); ?></td>

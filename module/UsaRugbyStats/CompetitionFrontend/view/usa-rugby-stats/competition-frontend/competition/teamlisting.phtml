@@ -26,9 +26,7 @@ foreach ( $divisions as $division) {
         <?php   $teamMembership = @$tableStructure[$division->getId()][$i] ?: NULL ?>
         <td>
           <?php if ( ! is_null($teamMembership) ): ?>
-          <a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $teamMembership->getTeam()->getId()]); ?>">
-            <?=$this->escapeHtml($teamMembership->getTeam()->getName()) ?>
-          </a>
+          <img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($teamMembership->getTeam()));?>" /> <?=$this->ursTeamLink($teamMembership->getTeam()); ?>
           <?php endif; ?>
         </td>
         <?php endforeach; ?>

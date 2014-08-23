@@ -131,10 +131,10 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' =>array(
-                    'update-details' => array(
+                    'update' => array(
                         'type' => 'Literal',
                         'options' => array(
-                            'route' => '/update/details',
+                            'route' => '/update',
                             'defaults' => array(
                                 'action'     => 'update',
                             ),
@@ -145,67 +145,36 @@ return array(
             'usarugbystats_frontend_competition_match' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/competition/:cid/match',
+                    'route' => '/competition/:cid/match/:mid',
                     'defaults' => array(
                         'controller' => 'usarugbystats_competition-frontend_competition_match_controller',
-                        'action'     => 'list',
+                        'action'     => 'view',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' =>array(
-                    'create' => array(
-                        'type' => 'Literal',
-                        'priority' => 1000,
-                        'options' => array(
-                            'route' => '/create',
-                            'defaults' => array(
-                                'action'     => 'create',
-                            ),
-                        ),
-                    ),
-                    'view' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/:mid',
-                            'defaults' => array(
-                                'action'     => 'view',
-                            ),
-                        ),
-                    ),
                     'render-match-row' => array(
-                        'type' => 'Segment',
+                        'type' => 'Literal',
                         'options' => array(
-                            'route' => '/:mid/render-match-row',
+                            'route' => '/render-match-row',
                             'defaults' => array(
                                 'action'     => 'rende-rmatch-row',
                             ),
                         ),
                     ),
-                    'update' => array(
+                    'copy-roster' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/:mid/update',
+                            'route' => '/copyRosterForTeam/:team',
                             'defaults' => array(
-                                'action'     => 'update',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                        'child_routes' =>array(
-                            'copy-roster' => array(
-                                'type' => 'Segment',
-                                'options' => array(
-                                    'route' => '/copyRosterForTeam/:team',
-                                    'defaults' => array(
-                                        'action'     => 'copy-roster',
-                                    ),
-                                ),
+                                'action'     => 'copy-roster',
                             ),
                         ),
                     ),
                     'delete' => array(
-                        'type' => 'Segment',
+                        'type' => 'Literal',
                         'options' => array(
-                            'route' => '/:mid/delete',
+                            'route' => '/delete',
                             'defaults' => array(
                                 'action'     => 'delete',
                             ),
@@ -278,7 +247,7 @@ return array(
             'usarugbystats_competition-frontend_team_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\TeamController',
             'usarugbystats_competition-frontend_union_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\UnionController',
             'usarugbystats_competition-frontend_competition_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\CompetitionController',
-            'usarugbystats_competition-frontend_competition_match_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\Competition\MatchController',
+            'usarugbystats_competition-frontend_competition_match_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\CompetitionMatchController',
             'usarugbystats_competition-frontend_location_controller' => 'UsaRugbyStats\CompetitionFrontend\Controller\LocationController',
         ),
     ),
@@ -296,15 +265,10 @@ return array(
                 'usarugbystats_frontend_union' => array('guest'),
                 'usarugbystats_frontend_union/update' => array('union_admin'),
                 'usarugbystats_frontend_competition' => array('guest'),
-                'usarugbystats_frontend_competition/update-details' => array('union_admin', 'competition_admin'),
-                'usarugbystats_frontend_competition/update-matches' => array('union_admin', 'competition_admin'),
-                'usarugbystats_frontend_competition/create-match' => array('union_admin', 'competition_admin'),
+                'usarugbystats_frontend_competition/update' => array('union_admin', 'competition_admin'),
                 'usarugbystats_frontend_competition_match' => array('guest'),
-                'usarugbystats_frontend_competition_match/view' => array('guest'),
                 'usarugbystats_frontend_competition_match/render-match-row' => array('guest'),
-                'usarugbystats_frontend_competition_match/create' => array('competition_admin'),
-                'usarugbystats_frontend_competition_match/update' => array('team_admin', 'competition_admin'),
-                'usarugbystats_frontend_competition_match/update/copy-roster' => array('team_admin', 'competition_admin'),
+                'usarugbystats_frontend_competition_match/copy-roster' => array('team_admin', 'competition_admin'),
                 'usarugbystats_frontend_competition_match/delete' => array('competition_admin'),
                 'usarugbystats_frontend_location' => array('member'),
                 'usarugbystats_frontend_location/view' => array('guest'),

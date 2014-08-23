@@ -1,5 +1,5 @@
 <?php
-namespace UsaRugbyStats\CompetitionFrontend\Controller\Competition;
+namespace UsaRugbyStats\CompetitionFrontend\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -13,7 +13,7 @@ use DoctrineModule\Paginator\Adapter\Collection as CollectionAdapter;
 use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Traits\TeamServiceTrait;
 
-class MatchController extends AbstractActionController
+class CompetitionMatchController extends AbstractActionController
 {
     use TeamServiceTrait;
 
@@ -87,7 +87,7 @@ class MatchController extends AbstractActionController
             if ($result instanceof Match) {
                 $this->flashMessenger()->addSuccessMessage('The match was created successfully!');
 
-                return $this->redirect()->toRoute('usarugbystats_frontend_competition_match/update', [
+                return $this->redirect()->toRoute('usarugbystats_frontend_competition_match', [
                     'cid' => $competition->getId(),
                     'mid' => $result->getId(),
                 ]);
@@ -100,47 +100,6 @@ class MatchController extends AbstractActionController
         $vm->setVariable('form', $session->form);
         $vm->setVariable('flags', $session->flags);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/competition/match/create');
-
-        return $vm;
-    }
-
-    public function updateAction()
-    {
-        $competition = $this->getCompetitionEntityFromRoute();
-        $match = $this->getMatchEntityFromRoute();
-        if ( ! $this->isGranted('competition.competition.match.update', $match) ) {
-            throw new UnauthorizedException();
-        }
-
-        $service = $this->getMatchService();
-
-        $session = $service->startSession();
-        $session->form = $service->getUpdateForm();
-        $session->competition = $competition;
-        $session->entity = $match;
-        $service->prepare();
-
-        if ( $this->getRequest()->isPost() ) {
-            $data = $this->getRequest()->getPost()->toArray();
-            $data['match']['competition'] = $competition->getId();
-
-            $result = $this->getMatchService()->update($match, $data);
-            if ($result instanceof Match) {
-                $this->flashMessenger()->addSuccessMessage('The match was updated successfully!');
-
-                return $this->redirect()->toRoute('usarugbystats_frontend_competition_match/update', [
-                    'cid' => $competition->getId(),
-                    'mid' => $result->getId(),
-                ]);
-            }
-        }
-
-        $vm = new ViewModel();
-        $vm->setVariable('competition', $competition);
-        $vm->setVariable('match', $session->entity);
-        $vm->setVariable('form', $session->form);
-        $vm->setVariable('flags', $session->flags);
-        $vm->setTemplate('usa-rugby-stats/competition-frontend/competition/match/update');
 
         return $vm;
     }
@@ -168,7 +127,7 @@ class MatchController extends AbstractActionController
             'match' => [
                 'id' => $data['match']->getId(),
                 'title' => $data['match']->getDate()->format('Y-m-d'),
-                'url' => (string) $this->url()->fromRoute('usarugbystats_frontend_competition_match/view', [
+                'url' => (string) $this->url()->fromRoute('usarugbystats_frontend_competition_match', [
                     'cid' => $competition->getId(),
                     'mid' => $data['match']->getId(),
                 ]),
@@ -189,7 +148,7 @@ class MatchController extends AbstractActionController
             $this->getMatchService()->remove($entity);
             $this->flashMessenger()->addSuccessMessage('The match was removed successfully!');
 
-            return $this->redirect()->toRoute('usarugbystats_frontend_competition_match', [
+            return $this->redirect()->toRoute('usarugbystats_frontend_competition', [
                 'cid' => $competition->getId(),
             ]);
         }

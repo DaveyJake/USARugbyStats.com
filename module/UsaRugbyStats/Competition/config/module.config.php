@@ -359,6 +359,7 @@ return array(
             'ursCompetitionMatchLink' => 'UsaRugbyStats\Competition\View\Helper\CompetitionMatchLinkFactory',
             'ursCompetitionMatchLocationName' => 'UsaRugbyStats\Competition\View\Helper\CompetitionMatchLocationNameFactory',
             'ursCompetitionMatchLocationLink' => 'UsaRugbyStats\Competition\View\Helper\CompetitionMatchLocationLinkFactory',
+            'ursCompetitionMatchCreateModal' => 'UsaRugbyStats\Competition\View\Helper\CompetitionMatchCreateModalFactory',
             'ursTeamPlayerName'       => 'UsaRugbyStats\Competition\View\Helper\TeamPlayerNameFactory',
             'ursTeamPlayerLink'       => 'UsaRugbyStats\Competition\View\Helper\TeamPlayerLinkFactory',
             'ursLocationName'       => 'UsaRugbyStats\Competition\View\Helper\LocationNameFactory',

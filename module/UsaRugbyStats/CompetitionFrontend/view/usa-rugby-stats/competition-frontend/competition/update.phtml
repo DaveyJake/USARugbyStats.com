@@ -1,9 +1,8 @@
 <h1><?php echo $this->escapeHtml($entity->getName()); ?></h1>
 
-<?php $canEdit = $this->isGranted('competition.competition.update.details', @$entity) || $this->isGranted('competition.competition.update.divisions', @$entity); ?>
-<?php echo $this->render('usa-rugby-stats/competition-frontend/competition/navigation', ['page' => 'update', 'entity' => $entity]); ?>
-
 <?php
+
+$canEdit = $this->isGranted('competition.competition.update.details', @$entity) || $this->isGranted('competition.competition.update.divisions', @$entity);
 if ( $canEdit ) {
     $form->setAttribute('class', 'form-horizontal');
     $form->prepare();
