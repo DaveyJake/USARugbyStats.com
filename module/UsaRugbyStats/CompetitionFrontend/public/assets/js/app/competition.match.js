@@ -403,6 +403,9 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                 .then(
                     function()
                     {
+                        $scope.matchEventAddedSuccessfully = true;
+                        $timeout(function() { delete $scope.matchEventAddedSuccessfully; }, 3000);
+                        
                         $('#MatchEventCreateDialog').modal('hide');
                     },
                     function(err) 
