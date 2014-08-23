@@ -108,11 +108,11 @@ $this->layout()->containerAttributes = array_merge(
             		 <td>
             		   <div ng-show="event.id > 0 && event.event != 'sub'">
             		      #{{extdata.teamPlayer[event.player].number}} -
-            		      {{extdata.player[extdata.teamPlayer[event.player].acct].name}}
+            		      <a ng-href="/player/{{extdata.teamPlayer[event.player].acct}}" target="_blank">{{extdata.player[extdata.teamPlayer[event.player].acct].name}}</a>
             		   </div>
             		   <div ng-show="event.id > 0 && event.event == 'sub'">
-                		 Off: #{{extdata.teamPlayer[event.playerOff].number}} - {{extdata.player[extdata.teamPlayer[event.playerOff].acct].name}}<br />
-                		 On: #{{extdata.teamPlayer[event.playerOn].number}} - {{extdata.player[extdata.teamPlayer[event.playerOn].acct].name}}
+                		 Off: #{{extdata.teamPlayer[event.playerOff].number}} - <a ng-href="/player/{{extdata.teamPlayer[event.playerOff].acct}}" target="_blank">{{extdata.player[extdata.teamPlayer[event.playerOff].acct].name}}</a><br />
+                		 On: #{{extdata.teamPlayer[event.playerOn].number}} - <a ng-href="/player/{{extdata.teamPlayer[event.playerOn].acct}}" target="_blank">{{extdata.player[extdata.teamPlayer[event.playerOn].acct].name}}</a>
             		   </div>
             		 </td>
             		 <td ng-show="event.id > 0 && canAddEvents()" style="text-align:right; padding-right: 10px;">
@@ -153,7 +153,7 @@ $this->layout()->containerAttributes = array_merge(
                 		  <div ng-hide="isEditingRoster && permissions['match.teams.H.players']">
                 		    <span ng-show="extdata.player[match.teams.H.players[posKey].player]">
                 		      #{{match.teams.H.players[posKey].number}} -
-                		      {{extdata.player[match.teams.H.players[posKey].player].name}}
+                		      <a ng-href="/player/{{match.teams.H.players[posKey].player}}" target="_blank">{{extdata.player[match.teams.H.players[posKey].player].name}}</a>
                 		    </span>
                 		    <span ng-hide="extdata.player[match.teams.H.players[posKey].player]">&mdash;</span>
                 		  </div>
@@ -193,7 +193,7 @@ $this->layout()->containerAttributes = array_merge(
                 		  <div ng-hide="isEditingRoster && permissions['match.teams.A.players']">
                 		    <span ng-show="extdata.player[match.teams.A.players[posKey].player]">
                 		      #{{match.teams.A.players[posKey].number}} -
-                		      {{extdata.player[match.teams.A.players[posKey].player].name}}
+                		      <a ng-href="/player/{{match.teams.A.players[posKey].player}}" target="_blank">{{extdata.player[match.teams.A.players[posKey].player].name}}</a>
                 		    </span>
                 		    <span ng-hide="extdata.player[match.teams.A.players[posKey].player]">&mdash;</span>
                 		  </div>
