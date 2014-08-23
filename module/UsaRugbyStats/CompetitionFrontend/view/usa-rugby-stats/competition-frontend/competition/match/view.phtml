@@ -51,18 +51,86 @@ $this->layout()->containerAttributes = array_merge(
 
 <div class="nghide" style="display:none" ng-hide="loading">
 
-    <div class="alert alert-success" ng-show="match.status == 'S'">
+    <div class="alert alert-warning" ng-show="match.status == 'S'">
         <span>This match is currently in progress.</span>
         <div class="pull-right" ng-show="permissions['match.status']">
-            <a class="btn btn-success" style="margin-top: -7px" ng-click="markCompleted()">
-                <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-ok"></i> Mark as Completed</span>
-                <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Completing...</span>
-            </a>
+            Mark as
+            <div class="btn-group" style="margin-top: -7px; margin-left: 10px;">
+                <a class="btn btn-success" ng-click="markCompleted()">
+                    <span ng-hide="matchStatusIsChangingToCompleted"><i class="glyphicon glyphicon-ok"></i> Completed</span>
+                    <span ng-show="matchStatusIsChangingToCompleted"><i class="glyphicon glyphicon-refresh"></i> Completing...</span>
+                </a>
 
-            <a class="btn btn-danger" style="margin-top: -7px" ng-click="resetMatchToNotStarted()">
-                <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-pause"></i> Revert to 'Not Started'</span>
-                <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Reverting...</span>
-            </a>
+                <div class="btn-group">
+                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span ng-hide="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-ban-circle"></i> Forfeit/Cancel <span class="caret"></span></span>
+                    <span ng-show="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-refresh"></i> Updating...</span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="markForfeit('HF')">Home Forfeit</a></li>
+                    <li><a ng-click="markForfeit('AF')">Away Forfeit</a></li>
+                    <li><a ng-click="markCancelled">Cancelled</a></li>
+                  </ul>
+                </div>
+
+                <a class="btn btn-danger" ng-click="resetMatchToNotStarted()">
+                    <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-pause"></i> Not Started</span>
+                    <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Reverting...</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-success" ng-show="match.status == 'F'">
+        <span>This match has completed</span>
+        <div class="pull-right" ng-show="permissions['match.status']">
+            Mark as
+            <div class="btn-group" style="margin-top: -7px; margin-left: 10px;">
+                <a class="btn btn-danger" ng-click="resetMatchToNotStarted()">
+                    <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-pause"></i> Not Started</span>
+                    <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Reverting...</span>
+                </a>
+
+                <div class="btn-group">
+                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span ng-hide="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-ban-circle"></i> Forfeit/Cancel <span class="caret"></span></span>
+                    <span ng-show="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-refresh"></i> Updating...</span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="markForfeit('HF')">Home Forfeit</a></li>
+                    <li><a ng-click="markForfeit('AF')">Away Forfeit</a></li>
+                    <li><a ng-click="markForfeit('C')">Cancelled</a></li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-danger" ng-show="match.status == 'C' || match.status == 'HF' || match.status == 'AF'">
+        <span ng-show="match.status == 'HF'">This match was forfeited by <strong>{{homeTeam.name}}</strong>.</span>
+        <span ng-show="match.status == 'AF'">This match was forfeited by <strong>{{awayTeam.name}}</strong>.</span>
+        <span ng-show="match.status == 'C'">This match was cancelled.</span>
+
+        <div class="pull-right" ng-show="permissions['match.status']">
+            Mark as
+            <div class="btn-group" style="margin-top: -7px; margin-left: 10px;">
+                <a class="btn btn-danger" ng-click="resetMatchToNotStarted()">
+                    <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-pause"></i> Not Started</span>
+                    <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Reverting...</span>
+                </a>
+
+                <div class="btn-group">
+                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span ng-hide="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-ban-circle"></i> Forfeit/Cancel <span class="caret"></span></span>
+                    <span ng-show="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-refresh"></i> Updating...</span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="markForfeit('HF')">Home Forfeit</a></li>
+                    <li><a ng-click="markForfeit('AF')">Away Forfeit</a></li>
+                    <li><a ng-click="markCancelled">Cancelled</a></li>
+                  </ul>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -76,7 +144,7 @@ $this->layout()->containerAttributes = array_merge(
             </a>
         </div>
 
-        <div class="panel" ng-hide="match.status == 'NS' || match.status == 'C'">
+        <div class="panel" ng-hide="match.status == 'NS'">
             <div class="title">
         		<h2><span class="icon-list"></span>Game Stream</h2>
 

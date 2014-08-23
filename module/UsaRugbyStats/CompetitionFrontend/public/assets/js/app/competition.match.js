@@ -271,6 +271,7 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
         $scope.startMatch = function() {
             if ( $rootScope.match.status != 'NS' ) {
                 alert('Match already started!');
+                return;
             }
             $scope.matchStatusIsChanging = true;
             CompetitionMatchApi.patch(urlParams, {'match[status]': 'S'}).then(
@@ -286,6 +287,7 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
         $scope.resetMatchToNotStarted = function() {
             if ( $rootScope.match.status == 'NS' ) {
                 alert('Match already not started!');
+                return;
             }
             $scope.matchStatusIsChanging = true;
             CompetitionMatchApi.patch(urlParams, {'match[status]': 'NS'}).then(
@@ -456,6 +458,35 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
             }            
             return p.promise;
         }
+        
+        $scope.markCompleted = function() {
+            if ( $rootScope.match.status == 'NS' ) {
+                alert('Match must be in progress!');
+                return;
+            }
+            $scope.matchStatusIsChangingToCompleted = true;
+            CompetitionMatchApi.patch(urlParams, {'match[status]': 'F'}).then(
+                function(data) {
+                    $scope.matchStatusIsChangingToCompleted = false;
+                },
+                function(err) {
+                    alert(err.title);
+                }
+            );
+        }
+        
+        $scope.markForfeit = function(status) {
+            $scope.matchStatusIsChangingToForfeit = true;
+            CompetitionMatchApi.patch(urlParams, {'match[status]': status}).then(
+                function(data) {
+                    $scope.matchStatusIsChangingToForfeit = false;
+                },
+                function(err) {
+                    alert(err.title);
+                }
+            );
+        }
+
         
         $scope.formatDate = function(date, format) {
             return moment(date).format(format);
