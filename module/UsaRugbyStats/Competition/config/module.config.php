@@ -85,6 +85,7 @@ return array(
                         'filter_team_roster_player_selectors' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamRosterPlayerSelectors',
                         'filter_team_roster_position_selectors' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamRosterPositionSelectors',
                         'fill_in_missing_roster_position_field' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FillInMissingRosterPositionField',
+                        'recalculate_score' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\RecalculateScore',
                     ),
                     'factories' => array(
                         'rbac_can_change_match' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac\CanChangeMatchFactory',
@@ -99,7 +100,6 @@ return array(
                 'event_map' => array(
                     'prepare.post' => array(
                         'prerender_n_roster_slots_per_side',
-                        'hide_status_and_locked_fields_when_creating_new_match',
                         'filter_team_selection_by_competition',
                         'filter_team_event_player_selectors_by_roster',
                         'filter_team_roster_player_selectors',
@@ -110,6 +110,7 @@ return array(
                         'emptying_collections_hack' => -9999,
                     ),
                     'form.bind.post' => array(
+                        'hide_status_and_locked_fields_when_creating_new_match' => -999999,
                         'state_not_yet_started' => -99999,
                         'disable_editing_on_locked_match' => 99999,
                         'hide_roster_if_team_is_not_selected' => -99999,
@@ -132,6 +133,7 @@ return array(
                         // 'drop_events_if_match_is_not_started' => 10,
                         'drop_players_if_team_changed_or_not_set' => 10,
                         'lock_match_with_all_signatures' => 99999,
+                        'recalculate_score' => 99999,
                     )
                 ),
             ),

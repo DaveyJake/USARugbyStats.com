@@ -42,7 +42,7 @@
     </head>
     <body>
 
-        <div class="container">
+        <div class="container"<?=empty($this->containerAttributes) ? '' : ' ' . implode(' ', $this->containerAttributes); ?>>
 
             <header>
 

@@ -44,7 +44,7 @@ class NestedCollectionInputFilter extends CollectionInputFilter
             $inputFilter = clone $this->getInputFilter();  // Added
             $inputFilter->setData($data);
 
-            if (null !== $this->validationGroup) {
+            if (null !== $this->validationGroup && isset($this->validationGroup[$key])) { // Changed
                 $inputFilter->setValidationGroup($this->validationGroup[$key]);
             }
 

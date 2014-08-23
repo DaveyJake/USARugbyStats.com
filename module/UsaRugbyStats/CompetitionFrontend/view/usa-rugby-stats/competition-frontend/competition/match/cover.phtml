@@ -1,32 +1,37 @@
-<?php
-$homeSide = $this->match->getTeam('H');
-$homeTeam = $homeSide->getTeam();
-$awaySide = $this->match->getTeam('A');
-$awayTeam = $awaySide->getTeam();
-?>
-<div id="game-header" class="row">
+<div class="nghide" style="display:none">
 
-	<div class="col-sm-6 home-team" style="background-image: url(<?=$this->escapeHtmlAttr($this->escapeCss($this->ursTeamCoverImageUrl($homeTeam))); ?>) !important">
-		<div class="score"><?=$this->escapeHtml($this->match->isNotStarted() ? '' : $homeSide->getScore()); ?></div>
-		<h2><?=$this->ursTeamLink($homeTeam); ?></h2>
-		<div class="team-logo"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($homeTeam)); ?>"></div>
-	</div>
+    <div id="game-header" class="row">
+
+    	<div class="col-sm-6 home-team" ng-style="{backgroundImage: 'url(/assets/img/teamcoverimages/{{homeTeam.id}}.png) !important'}">
+    		<div class="score">{{match.teams.H.score}}</div>
+    		<h2><a ng-href="/team/{{homeTeam.id}}">{{homeTeam.name}}</a></h2>
+    		<div class="team-logo"><img ng-src="/assets/img/teamlogos/{{homeTeam.id}}.png"></div>
+    	</div>
 
 
-	<div class="col-sm-6 away-team" style="background-image: url(<?=$this->escapeHtmlAttr($this->escapeCss($this->ursTeamCoverImageUrl($awayTeam))); ?>) !important">
-		<div class="score"><?=$this->escapeHtml($this->match->isNotStarted() ? '' : $awaySide->getScore()); ?></div>
-		<h2><?=$this->ursTeamLink($awayTeam); ?></h2>
-		<div class="team-logo"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($awayTeam)); ?>"></div>
-	</div>
+    	<div class="col-sm-6 away-team" ng-style="{backgroundImage: 'url(/assets/img/teamcoverimages/{{awayTeam.id}}.png) !important'}">
+    		<div class="score">{{match.teams.A.score}}</div>
+    		<h2><a ng-href="/team/{{awayTeam.id}}">{{awayTeam.name}}</a></h2>
+    		<div class="team-logo"><img ng-src="/assets/img/teamlogos/{{awayTeam.id}}.png"></div>
+    	</div>
 
-</div>
+    </div>
 
-<div id="game-meta">
-	<ul>
-		<li>Date: <?=$this->escapeHtml($this->match->getDate()->format('M d, Y')); ?></li>
-		<li>Competition: <?=$this->ursCompetitionLink($this->match->getCompetition()); ?></li>
-		<li>Kickoff: <?=$this->escapeHtml($this->match->getDate()->format('g:iA e')); ?></li>
-		<li>Location: <?=$this->ursCompetitionMatchLocationLink($this->match); ?></li>
-		<li></li>
-	</ul>
+    <div id="game-meta">
+    	<ul>
+    		<li>Date: {{formatDate(match.date, 'MMM Do YYYY')}}</li>
+    		<li>Competition: <a ng-href="/competition/{{competition.id}}">{{competition.name}}</a></li>
+    		<li>Kickoff: {{formatDate(match.date, 'h:mm A')}}</li>
+    		<li>Location:
+    		  <span ng-show="location.id">
+                <a target="_blank" href="/location/{{location.id}}">{{location.name}}</a>
+    		  </span>
+    		  <span ng-hide="location.id">
+    		    <a target="_blank" href="http://maps.google.com/maps/search/{{match.locationDetails|encodeUri}}">Map <i class="glyphicon glyphicon-map-marker"></i></a>
+    		  </span>
+    		</li>
+    		<li ng-show="permissions['match']"><a ng-click="editDetails()"><span class="icon-compose"></span> Edit</a></li>
+    	</ul>
+    </div>
+
 </div>

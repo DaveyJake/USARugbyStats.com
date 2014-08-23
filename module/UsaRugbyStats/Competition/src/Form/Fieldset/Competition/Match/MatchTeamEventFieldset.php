@@ -38,6 +38,16 @@ class MatchTeamEventFieldset extends Fieldset
             ),
         ));
 
+        $this->add(array(
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'team',
+            'options' => array(
+                'label' => 'Match',
+                'object_manager' => $om,
+                'target_class'   => 'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam',
+            ),
+        ));
+
         $this->get('event')->setValue($name);
     }
 

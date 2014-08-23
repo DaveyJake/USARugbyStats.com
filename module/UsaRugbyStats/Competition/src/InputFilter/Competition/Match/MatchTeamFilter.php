@@ -25,6 +25,15 @@ class MatchTeamFilter extends InputFilter
         ));
 
         $this->add(array(
+            'name'       => 'score',
+            'required'   => false,
+            'validators' => array(),
+            'filters'   => array(
+                array('name' => 'Digits'),
+            ),
+        ));
+
+        $this->add(array(
             'name'       => 'type',
             'required'   => true,
             'validators' => array(

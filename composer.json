@@ -28,7 +28,8 @@
         "imagine/imagine": "@stable",
         "eye4web/e4w-zfc-user-redirect-url": "dev-master",
         "doctrine/migrations": "dev-master@dev",
-        "zfcampus/zf-api-problem": "@stable"
+        "zfcampus/zf-api-problem": "@stable",
+        "rwoverdijk/assetmanager": "@stable"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master@dev",

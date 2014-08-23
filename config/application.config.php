@@ -4,6 +4,8 @@ return array(
     'modules' => array(
         'ZF\ApiProblem',
 
+        'AssetManager',
+
         'ZfcBase',
         'GoalioMailService',
 

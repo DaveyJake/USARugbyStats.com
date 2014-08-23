@@ -17,75 +17,537 @@ $maxPlayers = empty($this->match->getCompetition()->getMaxPlayersOnRoster())
     : $this->match->getCompetition()->getMaxPlayersOnRoster();
 
 // Get list of positions for this rugby variant
-$positions = array_keys(MatchTeamPlayerFieldset::$positions[$this->match->getCompetition()->getVariant()]);
-?>
-<div id="content" class="col-sm-7">
-    <div class="panel">
-        <div class="title">
-    		<h2><span class="icon-list"></span>Game Stream</h2>
-    		<?php if ( $this->isGranted('competition.competition.match.update', $this->match) && $this->match->isStarted() ): ?>
-    		<a class="utility edit"><span class="icon-compose"></span>Add Event</a>
-    		<?php endif; ?>
-        </div>
-        <table>
-        	<thead>
-        		<th>MIN</th>
-        		<th>EVENT</th>
-        		<th>TYPE</th>
-        		<th>SIDE</th>
-        		<th>PLAYER(S)</th>
-        	</thead>
-        	<?php foreach ($this->match->getEvents() as $event): ?>
-        	<tr>
-        		<td><?=$this->escapeHtml($event->getMinute());?>'</td>
-        		<td><?=$this->escapeHtml($event->getEvent());?></td>
-        		<td><?=$this->escapeHtml($event->getType());?></td>
-        		<td><?=$this->escapeHtml($event->getTeam()->getType() == 'H' ? 'home' : 'away');?></td>
-                <?php
-                switch ( $event->getEvent() ) {
-                    case 'score':
-                        echo '<td>' . $this->ursPlayerLink($event->getPlayer()) . '</td>';
-                        break;
-                    case 'card':
-                        echo '<td>' . $this->ursPlayerLink($event->getPlayer()) . '</td>';
-                        break;
-                    case 'sub':
-                        echo '<td>';
-                        echo 'Off: ' . $this->ursPlayerLink($event->getPlayerOff()) . '<br />';
-                        echo 'On: ' . $this->ursPlayerLink($event->getPlayerOn()) . '<br />';
-                        echo '</td>';
-                        break;
-                }
-                ?>
-        	</tr>
-        	<?php endforeach; ?>
-        </table>
-    </div>
-</div>
+$positionKeys = json_encode(array_keys(MatchTeamPlayerFieldset::$positions[$this->match->getCompetition()->getVariant()]));
+$positionNames = json_encode(array_values(MatchTeamPlayerFieldset::$positions[$this->match->getCompetition()->getVariant()]));
 
-<aside class="col-sm-5" id="players">
-    <div class="panel">
-        <div class="title">
-    		<h2><span class="icon-users"></span>Rosters</h2>
-    		<?php if ( $this->isGranted('competition.competition.match.update', $this->match) && $this->match->isNotStarted() ): ?>
-    		<a class="utility edit"><span class="icon-compose"></span>Edit Roster</a>
-    		<?php endif; ?>
+$isEditMode = $this->isGranted('competition.competition.update', $match) ? 'true' : 'false';
+
+$this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/angular.min.js'));
+$this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/angular-encode-uri.min.js'));
+$this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/ngRange.js'));
+$this->inlineScript()->appendFile($this->basePath('/assets/js/app/competition.match.js'));
+
+$this->inlineScript()->appendScript("
+    angular.module('ursCompetitionMatch').run(function(\$rootScope) {
+        \$rootScope.matchid = {$match->getId()};
+        \$rootScope.compid = {$match->getCompetition()->getId()};
+        \$rootScope.positionKeys = {$positionKeys};
+        \$rootScope.positionNames = {$positionNames};
+        \$rootScope.isEditMode = {$isEditMode};
+    });
+");
+
+$this->layout()->containerAttributes = array_merge(
+    (array)$this->layout()->containerAttributes,
+    [
+        'ng-app="ursCompetitionMatch"',
+        'ng-controller="main"',
+    ]
+);
+
+?>
+
+<p class="text-center" ng-show="loading" style="font-size: 3em;"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;Loading...</p>
+
+<div class="nghide" style="display:none" ng-hide="loading">
+
+    <div class="alert alert-warning" ng-show="match.status == 'S'">
+        <span>This match is currently in progress.</span>
+        <div class="pull-right" ng-show="permissions['match.status']">
+            Mark as
+            <div class="btn-group" style="margin-top: -7px; margin-left: 10px;">
+                <a class="btn btn-success" ng-click="markCompleted()">
+                    <span ng-hide="matchStatusIsChangingToCompleted"><i class="glyphicon glyphicon-ok"></i> Completed</span>
+                    <span ng-show="matchStatusIsChangingToCompleted"><i class="glyphicon glyphicon-refresh"></i> Completing...</span>
+                </a>
+
+                <div class="btn-group">
+                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span ng-hide="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-ban-circle"></i> Forfeit/Cancel <span class="caret"></span></span>
+                    <span ng-show="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-refresh"></i> Updating...</span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="markForfeit('HF')">Home Forfeit</a></li>
+                    <li><a ng-click="markForfeit('AF')">Away Forfeit</a></li>
+                    <li><a ng-click="markCancelled">Cancelled</a></li>
+                  </ul>
+                </div>
+
+                <a class="btn btn-danger" ng-click="resetMatchToNotStarted()">
+                    <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-pause"></i> Not Started</span>
+                    <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Reverting...</span>
+                </a>
+            </div>
         </div>
-        <table>
-        	<thead>
-        		<th class="home-player"><?=$this->escapeHtml($this->ursTeamName($homeTeam)); ?></th>
-        		<th># - POS</th>
-        		<th class="away-player"><?=$this->escapeHtml($this->ursTeamName($awayTeam)); ?></th>
-        	</thead>
-        	<?php foreach ( $positions as $poskey ): ?>
-        	<?php   $homePlayer = $homeTeamRoster->get($poskey); ?>
-        	<?php   $awayPlayer = $awayTeamRoster->get($poskey); ?>
-        	<tr>
-        		<td class="home-player"><?=$homePlayer ? $this->ursPlayerLink($homePlayer) : '--';?></td>
-        		<td><?=$this->escapeHtml($poskey);?></td>
-        		<td class="away-player"><?=$awayPlayer ? $this->ursPlayerLink($awayPlayer) : '--';?></td>
-        	</tr>
-        	<?php endforeach; ?>
-        </table>
     </div>
-</aside>
+
+    <div class="alert alert-success" ng-show="match.status == 'F'">
+        <span>This match has completed</span>
+        <div class="pull-right" ng-show="permissions['match.status']">
+            Mark as
+            <div class="btn-group" style="margin-top: -7px; margin-left: 10px;">
+                <a class="btn btn-danger" ng-click="resetMatchToNotStarted()">
+                    <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-pause"></i> Not Started</span>
+                    <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Reverting...</span>
+                </a>
+
+                <div class="btn-group">
+                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span ng-hide="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-ban-circle"></i> Forfeit/Cancel <span class="caret"></span></span>
+                    <span ng-show="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-refresh"></i> Updating...</span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="markForfeit('HF')">Home Forfeit</a></li>
+                    <li><a ng-click="markForfeit('AF')">Away Forfeit</a></li>
+                    <li><a ng-click="markForfeit('C')">Cancelled</a></li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-danger" ng-show="match.status == 'C' || match.status == 'HF' || match.status == 'AF'">
+        <span ng-show="match.status == 'HF'">This match was forfeited by <strong>{{homeTeam.name}}</strong>.</span>
+        <span ng-show="match.status == 'AF'">This match was forfeited by <strong>{{awayTeam.name}}</strong>.</span>
+        <span ng-show="match.status == 'C'">This match was cancelled.</span>
+
+        <div class="pull-right" ng-show="permissions['match.status']">
+            Mark as
+            <div class="btn-group" style="margin-top: -7px; margin-left: 10px;">
+                <a class="btn btn-danger" ng-click="resetMatchToNotStarted()">
+                    <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-pause"></i> Not Started</span>
+                    <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Reverting...</span>
+                </a>
+
+                <div class="btn-group">
+                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span ng-hide="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-ban-circle"></i> Forfeit/Cancel <span class="caret"></span></span>
+                    <span ng-show="matchStatusIsChangingToForfeit"><i class="glyphicon glyphicon-refresh"></i> Updating...</span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="markForfeit('HF')">Home Forfeit</a></li>
+                    <li><a ng-click="markForfeit('AF')">Away Forfeit</a></li>
+                    <li><a ng-click="markCancelled">Cancelled</a></li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content" class="col-sm-7">
+
+        <div class="alert alert-info" ng-show="match.status == 'NS'">
+            <span>This match has not yet started</span>
+            <a ng-show="permissions['match.status']" class="btn btn-success pull-right" style="margin-top: -7px" ng-click="startMatch()">
+                <span ng-hide="matchStatusIsChanging"><i class="glyphicon glyphicon-play"></i> Start it now</span>
+                <span ng-show="matchStatusIsChanging"><i class="glyphicon glyphicon-refresh"></i> Starting...</span>
+            </a>
+        </div>
+
+        <div class="panel" ng-hide="match.status == 'NS'">
+            <div class="title">
+        		<h2><span class="icon-list"></span>Game Stream</h2>
+
+        		<div class="pull-right" style="margin-right:12px; margin-top: -2px" ng-show="canAddEvents()">
+        		  <a class="btn btn-xs btn-success" ng-click="addEventOfType('score')"><i class="glyphicon glyphicon-plus"></i> Score</a>
+        		  <a class="btn btn-xs btn-info" ng-click="addEventOfType('sub')"><i class="glyphicon glyphicon-plus"></i> Sub</a>
+        		  <a class="btn btn-xs btn-danger" ng-click="addEventOfType('card')"><i class="glyphicon glyphicon-plus"></i> Card</a>
+        		</div>
+
+            </div>
+            <div ng-show="matchEventAddedSuccessfully" class="alert alert-success" style="border:0;border-radius:0;margin-bottom:0;padding:10px;">
+                <p class="text-right"><i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Event added successfully!</p>
+            </div>
+            <table>
+            	<thead>
+            	   <tr>
+            		 <th>MIN</th>
+            		 <th>EVENT</th>
+            		 <th>SIDE</th>
+            		 <th>DETAILS</th>
+            		 <th width="60" ng-show="canAddEvents()"></th>
+            	   </tr>
+            	</thead>
+            	<tbody>
+            	   <tr ng-repeat="(ekey,event) in matchEvents | orderBy:'minute'">
+            		 <td ng-show="event.id > 0">{{event.minute}}'</td>
+            		 <td ng-show="event.id > 0">
+            		   {{event.type}} {{event.event}}
+            		 </td>
+            		 <td ng-show="event.id > 0 && event.side == 'H'">{{homeTeam.name}}</td>
+            		 <td ng-show="event.id > 0 && event.side == 'A'">{{awayTeam.name}}</td>
+            		 <td>
+            		   <div ng-show="event.id > 0 && event.event != 'sub'">
+            		      #{{extdata.teamPlayer[event.player].number}} -
+            		      <a ng-href="/player/{{extdata.teamPlayer[event.player].acct}}" target="_blank">{{extdata.player[extdata.teamPlayer[event.player].acct].name}}</a>
+            		   </div>
+            		   <div ng-show="event.id > 0 && event.event == 'sub'">
+                		 Off: #{{extdata.teamPlayer[event.playerOff].number}} - <a ng-href="/player/{{extdata.teamPlayer[event.playerOff].acct}}" target="_blank">{{extdata.player[extdata.teamPlayer[event.playerOff].acct].name}}</a><br />
+                		 On: #{{extdata.teamPlayer[event.playerOn].number}} - <a ng-href="/player/{{extdata.teamPlayer[event.playerOn].acct}}" target="_blank">{{extdata.player[extdata.teamPlayer[event.playerOn].acct].name}}</a>
+            		   </div>
+            		 </td>
+            		 <td ng-show="event.id > 0 && canAddEvents()" style="text-align:right; padding-right: 10px;">
+            		   <a ng-click="trashEvent(event)" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+            		 </td>
+            	</tbody>
+            </table>
+        </div>
+    </div>
+
+    <aside class="col-sm-5" id="players">
+        <div class="panel">
+            <div class="title">
+        		<h2><span class="icon-users"></span>Rosters</h2>
+        		<div ng-show="permissions['match.teams.H.players'] || permissions['match.teams.A.players']">
+        		    <a ng-hide="isEditingRoster" class="utility edit" ng-click="startEditingRoster()"><span class="icon-compose"></span>Edit Roster</a>
+        		    <a ng-show="isEditingRoster" class="utility edit" ng-click="cancelEditingRoster()"><i class="glyphicon glyphicon-ban-circle"></i>&nbsp;&nbsp;Cancel</a>
+        		    <a ng-show="isEditingRoster" class="utility edit" ng-click="saveChangesToRoster()">
+                        <div ng-hide="matchRosterIsBeingSaved"><i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Save Changes</div>
+                        <div ng-show="matchRosterIsBeingSaved"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp; Saving...</div>
+                    </a>
+        		</div>
+            </div>
+            <div ng-show="matchRosterSavedSuccessfully" class="alert alert-success" style="border:0;border-radius:0;margin-bottom:0;padding:10px;">
+                <p class="text-center"><i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Roster Changes Saved!</p>
+            </div>
+            <table>
+            	<thead>
+                    <tr>
+            	       <th class="home-player">{{homeTeam.name}}</th>
+            		   <th></th>
+            		   <th class="away-player">{{awayTeam.name}}</th>
+            	   </tr>
+            	</thead>
+            	<tbody>
+                	<tr ng-repeat="posKey in positionKeys">
+                		<td class="home-player">
+                		  <div ng-hide="isEditingRoster && permissions['match.teams.H.players']">
+                		    <span ng-show="extdata.player[match.teams.H.players[posKey].player]">
+                		      #{{match.teams.H.players[posKey].number}} -
+                		      <a ng-href="/player/{{match.teams.H.players[posKey].player}}" target="_blank">{{extdata.player[match.teams.H.players[posKey].player].name}}</a>
+                		    </span>
+                		    <span ng-hide="extdata.player[match.teams.H.players[posKey].player]">&mdash;</span>
+                		  </div>
+                		  <div ng-show="isEditingRoster && permissions['match.teams.H.players']">
+                		    <div class="row">
+                		        <input type="hidden" ng-model="match.teams.H.players[posKey].id" name="match[teams][H][players][{{posKey}}][id]" />
+                    		    <div class="col-xs-4">
+                        		    <select ng-model="match.teams.H.players[posKey].number" class="form-control input-sm" name="match[teams][H][players][{{posKey}}][number]">
+                        		        <option ng-repeat="n in [1,100] | range" ng-selected="match.teams.H.players[posKey].number == n || n == ($parent.$index+1)">{{n}}</option>
+                        		    </select>
+                                    <p ng-show="error.H[posKey].number" ng-repeat="(ek,em) in error.H[posKey].number" class="help-block">
+                                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                                    </p>
+                    		    </div>
+                    		    <div class="col-xs-8">
+                                    <select ng-model="match.teams.H.players[posKey].player" class="form-control input-sm" name="match[teams][H][players][{{posKey}}][player]">
+                                        <option value="">Choose</option>
+                                        <option
+                                            ng-repeat="(key,player) in formdata.players.H"
+                                            value="{{player.value}}"
+                                            ng-selected="match.teams.H.players[posKey].player == player.value"
+                                            ng-hide="player.value == ''"
+                                        >
+                                            {{player.label}}
+                                        </option>
+                                    </select>
+                                    <p ng-show="error.H[posKey].player" ng-repeat="(ek,em) in error.H[posKey].player" class="help-block">
+                                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                                    </p>
+                                </div>
+                            </div>
+                		  </div>
+                		</td>
+                		<td ng-hide="isEditingRoster">{{posKey}}</td>
+                		<td ng-show="isEditingRoster">{{positionNames[$index]}}</td>
+                		<td class="away-player">
+                		  <div ng-hide="isEditingRoster && permissions['match.teams.A.players']">
+                		    <span ng-show="extdata.player[match.teams.A.players[posKey].player]">
+                		      #{{match.teams.A.players[posKey].number}} -
+                		      <a ng-href="/player/{{match.teams.A.players[posKey].player}}" target="_blank">{{extdata.player[match.teams.A.players[posKey].player].name}}</a>
+                		    </span>
+                		    <span ng-hide="extdata.player[match.teams.A.players[posKey].player]">&mdash;</span>
+                		  </div>
+                		  <div ng-show="isEditingRoster && permissions['match.teams.A.players']">
+                		    <input type="hidden" ng-model="match.teams.A.players[posKey].id" name="match[teams][A][players][{{posKey}}][id]" />
+                		    <div class="row">
+                    		    <div class="col-xs-4">
+                        		    <select ng-model="match.teams.A.players[posKey].number" class="form-control input-sm"  name="match[teams][A][players][{{posKey}}][number]">
+                        		        <option ng-repeat="n in [1,100] | range" ng-selected="match.teams.A.players[posKey].number == n || n == ($parent.$index+1)">{{n}}</option>
+                        		    </select>
+                                    <p ng-show="error.A[posKey].number" ng-repeat="(ek,em) in error.A[posKey].number" class="help-block">
+                                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                                    </p>
+                    		    </div>
+                    		    <div class="col-xs-8">
+                                    <select ng-model="match.teams.A.players[posKey].player" class="form-control input-sm"  name="match[teams][A][players][{{posKey}}][player]">
+                                        <option value="">Choose</option>
+                                        <option
+                                            ng-repeat="(key,player) in formdata.players.A"
+                                            value="{{player.value}}"
+                                            ng-selected="match.teams.A.players[posKey].player == player.value"
+                                            ng-hide="player.value == ''"
+                                        >
+                                            {{player.label}}
+                                        </option>
+                                    </select>
+                                    <p ng-show="error.A[posKey].player" ng-repeat="(ek,em) in error.A[posKey].player" class="help-block">
+                                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                                    </p>
+                                </div>
+                            </div>
+                		  </div>
+                		</td>
+                	</tr>
+            	</tbody>
+            </table>
+        </div>
+    </aside>
+
+    <div class="modal fade" id="MatchEventRemoveDialog" role="dialog" aria-labelledby="MatchEventRemoveDialogLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="MatchEventRemoveDialogLabel">Are you sure?</h4>
+          </div>
+          <div class="modal-body">
+            <p ng-hide="modalLoading">Are you sure you want to delete this game event?</p>
+            <span ng-show="modalLoading" style="font-size: 2em;"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;Deleting...</span>
+          </div>
+          <div ng-hide="modalLoading" class="modal-footer" style="text-align:center">
+            <button type="button" class="nobutton btn btn-success" data-dismiss="modal">No</button>
+            <button type="button" class="yesbutton btn btn-danger">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php $this->inlinescript()->appendScript("\$('MatchEventRemoveDialog').modal({show:false});"); ?>
+
+
+    <div class="modal fade" id="MatchEventCreateDialog" role="dialog" aria-labelledby="MatchEventCreateDialogLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="MatchEventCreateDialogLabel">Add {{formdata.event.types[newEvent.event].name}}</h4>
+          </div>
+          <div class="modal-body">
+            <span ng-show="modalLoading" style="font-size: 2em;"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;Saving...</span>
+            <form ng-hide="modalLoading" class="form-horizontal" role="form">
+              <div class="alert alert-danger" ng-show="error">One or more errors occurred during save</div>
+              <div class="form-group">
+                <label for="newEvent.minute" class="col-sm-3 control-label">Minute</label>
+                <div class="col-sm-9">
+                  <input ng-model="newEvent.minute" type="text" class="form-control" id="newEvent.minute">
+                  <p ng-show="error['minute']" ng-repeat="(ek,em) in error['minute']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="newEvent.type" class="col-sm-3 control-label">Type</label>
+                <div class="col-sm-9">
+                    <select ng-model="newEvent.type" class="form-control" id="newEvent.type">
+                        <option value="">Choose a Type</option>
+                        <option
+                            ng-repeat="(key,etype) in formdata.event.types[newEvent.event].options"
+                            value="{{etype.value}}"
+                            ng-selected="newEvent.type == etype.value"
+                            ng-hide="etype.value == ''"
+                        >
+                            {{etype.label}}
+                        </option>
+                    </select>
+                    <p ng-show="error['type']" ng-repeat="(ek,em) in error['type']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="newEvent.side" class="col-sm-3 control-label">Side</label>
+                <div class="col-sm-9">
+                  <div class="row">
+                  <div class="col-xs-4">
+                    <label for="newEventHomeSide" style="text-align:center;white-space:normal !important" class="btn btn-default" ng-class="{'btn-info':newEvent.side == 'H'}">
+                        <input id="newEventHomeSide" type="radio" name="newEvent.side" ng-model="newEvent.side" value="H" ng-checked="newEvent.team == homeTeam.id"><br />
+                        <img ng-src="/assets/img/teamlogos/{{homeTeam.id}}.png" width="64"><br /><strong>{{homeTeam.name}}</strong>
+                    </label>
+                  </div>
+                  <div class="col-xs-4">
+                    <label for="newEventAwaySide" style="text-align:center;white-space:normal !important" class="btn btn-default" ng-class="{'btn-info':newEvent.side == 'A'}">
+                        <input id="newEventAwaySide" type="radio" name="newEvent.side" ng-model="newEvent.side" value="A" ng-checked="newEvent.team == awayTeam.id"><br />
+                        <img ng-src="/assets/img/teamlogos/{{awayTeam.id}}.png" width="64"><br /><strong>{{awayTeam.name}}</strong>
+                    </label>
+                  </div>
+                  <p ng-show="error['team']" ng-repeat="(ek,em) in error['team']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                  </p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" ng-show="newEvent.side && newEvent.event != 'sub'">
+                <label for="newEvent.player" class="col-sm-3 control-label">Player</label>
+                <div class="col-sm-9">
+                    <select ng-model="newEvent.player" class="form-control" id="newEvent.player">
+                        <option value="">Choose a Player</option>
+                        <option
+                            ng-repeat="(key,player) in match.teams[newEvent.side].players"
+                            value="{{player.id}}"
+                            ng-selected="newEvent.player == player.id"
+                            ng-hide="player.id == ''"
+                        >
+                            #{{player.number}} - {{extdata.player[player.player].name}} ({{player.position}})
+                        </option>
+                    </select>
+                    <p ng-show="error['player']" ng-repeat="(ek,em) in error['player']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                  </p>
+                </div>
+              </div>
+              <div class="form-group" ng-show="newEvent.side && newEvent.event == 'sub'">
+                <label for="newEvent.playerOff" class="col-sm-3 control-label">Player Off</label>
+                <div class="col-sm-9">
+                    <select ng-model="newEvent.playerOff" class="form-control" id="newEvent.playerOff">
+                        <option value="">Choose a Player</option>
+                        <option
+                            ng-repeat="(key,player) in match.teams[newEvent.side].players"
+                            value="{{player.id}}"
+                            ng-selected="newEvent.playerOff == player.id"
+                            ng-hide="player.id == ''"
+                        >
+                            #{{player.number}} - {{extdata.player[player.player].name}} ({{player.position}})
+                        </option>
+                    </select>
+                    <p ng-show="error['playerOff']" ng-repeat="(ek,em) in error['playerOff']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                  </p>
+                </div>
+              </div>
+              <div class="form-group" ng-show="newEvent.side && newEvent.event == 'sub'">
+                <label for="newEvent.playerOn" class="col-sm-3 control-label">Player On</label>
+                <div class="col-sm-9">
+                    <select ng-model="newEvent.playerOn" class="form-control" id="newEvent.playerOn">
+                        <option value="">Choose a Player</option>
+                        <option
+                            ng-repeat="(key,player) in match.teams[newEvent.side].players"
+                            value="{{player.id}}"
+                            ng-selected="newEvent.playerOn == player.id"
+                            ng-hide="player.id == ''"
+                        >
+                            #{{player.number}} - {{extdata.player[player.player].name}} ({{player.position}})
+                        </option>
+                    </select>
+                    <p ng-show="error['playerOn']" ng-repeat="(ek,em) in error['playerOn']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div ng-hide="modalLoading" class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="createNewEvent(newEvent)">Add Event</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php $this->inlinescript()->appendScript("\$('MatchEventCreateDialog').modal({show:false});"); ?>
+
+
+    <div class="modal fade" id="MatchDetailsEditDialog" role="dialog" aria-labelledby="MatchDetailsEditDialogLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="MatchDetailsEditDialogLabel">Update Match Details</h4>
+          </div>
+          <div class="modal-body">
+            <span ng-show="modalLoading" style="font-size: 2em;"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;Loading...</span>
+            <form ng-hide="modalLoading" class="form-horizontal" role="form">
+              <div class="alert alert-success" ng-show="success">Match updated successfully!</div>
+              <div class="alert alert-danger" ng-show="error">One or more errors occurred during save</div>
+              <div class="form-group" ng-show="permissions['match.date']">
+                <label for="match.date" class="col-sm-3 control-label">Date</label>
+                <div class="col-sm-9">
+                  <input ng-model="match.date" type="text" class="form-control" id="match.date" value="{{match.date}}">
+                  <p ng-show="error['match.date']" ng-repeat="(ek,em) in error['match.date']" class="help-block">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                  </p>
+                </div>
+              </div>
+              <div class="form-group" ng-show="permissions['match.location']">
+                <label for="match.location" class="col-sm-3 control-label">Location</label>
+                <div class="col-sm-9">
+                    <select ng-model="match.location" class="form-control" id="match.location">
+                        <option value="">No Location Specified</option>
+                        <option
+                            ng-repeat="(key,location) in formdata.locations"
+                            value="{{location.value}}"
+                            ng-selected="match.location == location.value"
+                            ng-hide="location.value == ''"
+                        >
+                            {{location.label}}
+                        </option>
+                    </select>
+                    <p ng-show="error['match.location']" ng-repeat="(ek,em) in error['match.location']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                  </p>
+                </div>
+              </div>
+              <div class="form-group" ng-show="permissions['match.locationDetails']">
+                <label for="match.locationDetails" class="col-sm-3 control-label">Location Details</label>
+                <div class="col-sm-9">
+                  <textarea ng-model="match.locationDetails" class="form-control" id="match.locationDetails">{{match.locationDetails}}</textarea>
+                  <p ng-show="error['match.locationDetails']" ng-repeat="(ek,em) in error['match.locationDetails']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                  </p>
+                </div>
+              </div>
+              <div class="form-group" ng-show="permissions['match.teams.H.team']">
+                <label for="match.home" class="col-sm-3 control-label">Home Team</label>
+                <div class="col-sm-9">
+                    <select ng-model="match.teams.H.team" class="form-control" id="match.away">
+                        <option
+                            ng-repeat="(key,team) in formdata.teams"
+                            value="{{team.value}}"
+                            ng-selected="match.teams.H.team == team.value"
+                            ng-hide="location.value == ''"
+                        >
+                            {{team.label}}
+                        </option>
+                    </select>
+                    <p ng-show="error['match.teams.H.team']" ng-repeat="(ek,em) in error['match.teams.H.team']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                    </p>
+                </div>
+              </div>
+              <div class="form-group" ng-show="permissions['match.teams.A.team']">
+                <label for="match.away" class="col-sm-3 control-label">Away Team</label>
+                <div class="col-sm-9">
+                    <select ng-model="match.teams.A.team" class="form-control" id="match.home">
+                        <option
+                            ng-repeat="(key,team) in formdata.teams"
+                            value="{{team.value}}"
+                            ng-selected="match.teams.A.team == team.value"
+                            ng-hide="location.value == ''"
+                        >
+                            {{team.label}}
+                        </option>
+                    </select>
+                    <p ng-show="error['match.teams.A.team']" ng-repeat="(ek,em) in error['match.teams.A.team']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                    </p>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div ng-hide="modalLoading" class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="saveMatchDetails(match)">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php $this->inlinescript()->appendScript("\$('MatchDetailsEditDialog').modal({show:false});"); ?>
+</div>

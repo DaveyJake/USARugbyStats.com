@@ -43,4 +43,20 @@ class FeatureFlags
         return $this;
     }
 
+    public function toArray()
+    {
+        $copy = $this->flags;
+        foreach ($copy as $key => &$value) {
+            if ($value instanceof FeatureFlag) {
+                $copy[$key] = $value->toArray();
+            }
+        }
+
+        return $copy;
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->toArray());
+    }
 }

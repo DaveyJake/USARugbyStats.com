@@ -159,8 +159,13 @@ class FeatureFlag
         return array_shift($this->value);
     }
 
-    public function __toString()
+    public function toArray()
     {
         return $this->get();
+    }
+
+    public function __toString()
+    {
+        return json_encode($this->get());
     }
 }
