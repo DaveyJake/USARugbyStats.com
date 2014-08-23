@@ -4,18 +4,25 @@ namespace UsaRugbyStats\Competition\View\Helper;
 use Zend\View\Helper\AbstractHelper;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 use Zend\Form\FormInterface;
+use ZfcRbac\Service\AuthorizationServiceInterface;
 
 class CompetitionMatchCreateModal extends AbstractHelper
 {
+    protected $authService;
     protected $form;
 
-    public function __construct(FormInterface $form)
+    public function __construct(AuthorizationServiceInterface $authService, FormInterface $form)
     {
+        $this->authService = $authService;
         $this->form = $form;
     }
 
     public function __invoke($competition, $tableSelector = '#schedule body')
     {
+        if ( ! $this->authService->isGranted('competition.competition.match.create', $competition) ) {
+            return;
+        }
+
         $this->view->placeholder('form')->captureStart();
         $this->form->get('match')->get('competition')->setValue($competition->getId());
         $this->form->prepare();
