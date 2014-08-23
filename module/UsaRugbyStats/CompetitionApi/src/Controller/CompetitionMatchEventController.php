@@ -68,14 +68,15 @@ class CompetitionMatchEventController extends AbstractRestfulController
             return new ApiProblemResponse($entity);
         }
 
-        $this->getObjectManager()->persist($entity);
-        $this->getObjectManager()->flush();
+        $match->addEvent($entity);
+        $this->getCompetitionMatchService()->save($match);
 
         return new JsonModel($this->extractEvent($entity));
     }
 
     public function delete($id)
     {
+        $match = $this->getCompetitionMatchEntityFromRoute();
         $event = $this->getEventEntityFromRoute();
         if ($event instanceof ApiProblem) {
             return new ApiProblemResponse($event);
@@ -86,8 +87,8 @@ class CompetitionMatchEventController extends AbstractRestfulController
             return new ApiProblem(403, 'Not authorized to remove events!');
         }
 
-        $this->getObjectManager()->remove($event);
-        $this->getObjectManager()->flush();
+        $match->removeEvent($event);
+        $this->getCompetitionMatchService()->save($match);
 
         return $this->getResponse()->setStatusCode(204);
     }
