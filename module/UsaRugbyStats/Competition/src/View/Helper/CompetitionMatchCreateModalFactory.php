@@ -18,7 +18,7 @@ class CompetitionMatchCreateModalFactory implements FactoryInterface
 
         $viewHelper = new CompetitionMatchCreateModal(
             $sl->get('ZfcRbac\Service\AuthorizationService'),
-            $sl->get('usarugbystats_competition_competition_match_createform')
+            $sl->get('usarugbystats_competition_competition_match_service')
         );
 
         return $viewHelper;

@@ -5,16 +5,17 @@ use Zend\View\Helper\AbstractHelper;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 use Zend\Form\FormInterface;
 use ZfcRbac\Service\AuthorizationServiceInterface;
+use UsaRugbyStats\Competition\Service\Competition\MatchService;
 
 class CompetitionMatchCreateModal extends AbstractHelper
 {
     protected $authService;
-    protected $form;
+    protected $matchService;
 
-    public function __construct(AuthorizationServiceInterface $authService, FormInterface $form)
+    public function __construct(AuthorizationServiceInterface $authService, MatchService $s)
     {
         $this->authService = $authService;
-        $this->form = $form;
+        $this->matchService = $s;
     }
 
     public function __invoke($competition, $tableSelector = '#schedule body')
@@ -23,10 +24,16 @@ class CompetitionMatchCreateModal extends AbstractHelper
             return;
         }
 
+        $session = $this->matchService->startSession();
+        $session->form = $this->matchService->getCreateForm();
+        $session->competition = $competition;
+        $session->entity = new Match();
+        $this->matchService->prepare();
+
         $this->view->placeholder('form')->captureStart();
-        $this->form->get('match')->get('competition')->setValue($competition->getId());
-        $this->form->prepare();
-        $fieldset = $this->form->get('match');
+        $session->form->get('match')->get('competition')->setValue($competition->getId());
+        $session->form->prepare();
+        $fieldset = $session->form->get('match');
 ?>
 <div class="well" style="margin: 20px">
   <h4 style="margin-top: 0; margin-bottom:20px">Quick-Add Match</h4>
