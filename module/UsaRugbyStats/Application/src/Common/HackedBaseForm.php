@@ -58,11 +58,11 @@ class HackedBaseForm extends Form
             $name = $this->baseFieldset->getName();
             $values[$name] = $this->baseFieldset->extract();
             $this->nukeStrayObjectsFromTheResult($this, $values, $this->getName());
-            $this->baseFieldset->populateValues($values[$name]);
+            $this->baseFieldset->populateValues($values[$name] ?: array());
         } else {
             $values = parent::extract();
             $this->nukeStrayObjectsFromTheResult($this, $values, $this->getName());
-            $this->populateValues($values);
+            $this->populateValues($values ?: array());
         }
 
         return $values;
