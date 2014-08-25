@@ -1,8 +1,8 @@
-<h1><?php echo $this->escapeHtml($entity->getName()); ?></h1>
+<h1><?php echo $this->escapeHtml($competition->getName()); ?></h1>
 
 <?php
 
-$canEdit = $this->isGranted('competition.competition.update.details', @$entity) || $this->isGranted('competition.competition.update.divisions', @$entity);
+$canEdit = $this->isGranted('competition.competition.update.details', @$competition) || $this->isGranted('competition.competition.update.divisions', @$competition);
 if ( $canEdit ) {
     $form->setAttribute('class', 'form-horizontal');
     $form->prepare();
@@ -20,7 +20,7 @@ if ( $canEdit ) {
         <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form', $this->vars()); ?>
     </div>
     <div class="col-md-6">
-        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions', ['competition' => @$entity, 'fieldset' => $form->get('competition'), 'teamViewRoute' => 'usarugbystats_frontend_team']); ?>
+        <?php echo $this->render('usa-rugby-stats/competition-admin/competition-admin/form/divisions', ['competition' => @$competition, 'fieldset' => $form->get('competition'), 'teamViewRoute' => 'usarugbystats_frontend_team']); ?>
     </div>
 </div>
 
