@@ -118,7 +118,8 @@ class TeamFieldset extends Fieldset
             'name' => 'state',
             'options' => array(
                 'label' => 'State',
-                'value_options' => ['' => 'Please Select a State'] + USStates::$states,
+                'empty_option' => 'Please Select a State',
+                'value_options' => USStates::$states,
             ),
         ));
     }

@@ -141,8 +141,9 @@ class TeamFilter extends InputFilter
         $this->add(array(
             'name'       => 'state',
             'required'   => false,
+            'allow_empty' => true,
             'validators' => array(
-                array('name' => 'InArray', 'options' => ['haystack' => [null] + array_keys(USStates::$states)])
+                array('name' => 'InArray', 'options' => ['haystack' => array_keys(USStates::$states)])
             ),
             'filters'   => array(
                 array('name' => 'StringTrim'),
