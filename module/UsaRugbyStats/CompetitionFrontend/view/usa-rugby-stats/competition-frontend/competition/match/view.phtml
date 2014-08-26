@@ -55,7 +55,7 @@ $this->layout()->containerAttributes = array_merge(
 
 <div class="nghide" style="display:none" ng-hide="loading">
 
-    <div class="alert alert-danger" ng-show="isEditMode && match.isLocked">
+    <div class="alert alert-danger" ng-show="isEditMode && match.isLocked == '1'">
         <span>This match cannot be modified because it has been locked.</span>
     </div>
 
