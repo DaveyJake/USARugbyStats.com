@@ -39,17 +39,35 @@ class CompetitionMatchCreateModal extends AbstractHelper
     <div id="AsyncMatchAddSpinner" class="alert alert-info" style="display:none"><i class="glyphicon glyphicon-refresh"></i> Sending your request.  Please wait...</div>
     <div id="AsyncMatchAddForm" class="form-inline">
         <div class="form-group" style="vertical-align:top">
-            <?php $element = $fieldset->get('date'); ?>
+
+            <?php $element = $fieldset->get('date_date'); ?>
             <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
             <?php $element->setAttribute('class', 'form-control input-sm'); ?>
-
             <?php echo $this->view->formLabel($element) ?><br />
-            <?php echo $this->view->formElement($element) ?>
+            <?php echo $this->view->formElement($element) ?><br />
+
+            <?php $element = $fieldset->get('date_time'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php echo $this->view->formLabel($element) ?><br />
+            <?php echo $this->view->formElement($element) ?><br />
+
+            <?php $element = $fieldset->get('timezone'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php echo $this->view->formLabel($element) ?><br />
+            <?php echo $this->view->formElement($element) ?><br />
+
             <span class="help-block error-message" style="display:none"></span>
             <script type="text/javascript">
                 $(function () {
-                    $('input[name=match\\[date\\]]').datetimepicker({
-                        format: 'YYYY-MM-DDTHH:mmZ'
+                    $('input[name=match\\[date_date\\]]').datetimepicker({
+                        pickTime: false,
+                        format: 'YYYY-MM-DD'
+                    });
+                    $('input[name=match\\[date_time\\]]').datetimepicker({
+                        pickDate: false,
+                        format: 'h:mm A'
                     });
                 });
             </script>
@@ -104,7 +122,9 @@ $('#MatchQuickAdd').click(function () {
     $('#AsyncMatchAddForm').hide();
 
     var payload = {
-        'match[date]': $('*[name=match\\\\[date\\\\]]').val(),
+        'match[date_date]': $('*[name=match\\\\[date_date\\\\]]').val(),
+        'match[date_time]': $('*[name=match\\\\[date_time\\\\]]').val(),
+        'match[timezone]': $('*[name=match\\\\[timezone\\\\]]').val(),
         'match[location]': $('*[name=match\\\\[location\\\\]]').val(),
         'match[locationDetails]': $('*[name=match\\\\[locationDetails\\\\]]').val(),
         'match[teams][H][team]': $('*[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]').val(),
@@ -132,7 +152,9 @@ $('#MatchQuickAdd').click(function () {
         data: payload,
         dataType: "json"
     }).done(function (data) {
-        $('*[name=match\\\\[date\\\\]]').val(null),
+        $('*[name=match\\\\[date_date\\\\]]').val(null),
+        $('*[name=match\\\\[date_time\\\\]]').val(null),
+        $('*[name=match\\\\[timezone\\\\]]').val(null),
         $('*[name=match\\\\[location\\\\]]').val(null),
         $('*[name=match\\\\[locationDetails\\\\]]').val(null),
         $('*[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]').val(null),
@@ -151,7 +173,9 @@ $('#MatchQuickAdd').click(function () {
             $('#AsyncMatchAddForm').show();
         });
     }).fail(function (xhr, status) {
-        try { addErrorMessage('*[name=match\\\\[date\\\\]]', xhr.responseJSON.validation_messages.match.date); } catch (e) {};
+        try { addErrorMessage('*[name=match\\\\[date_date\\\\]]', xhr.responseJSON.validation_messages.match.date_date); } catch (e) {};
+        try { addErrorMessage('*[name=match\\\\[date_time\\\\]]', xhr.responseJSON.validation_messages.match.date_time); } catch (e) {};
+        try { addErrorMessage('*[name=match\\\\[timezone\\\\]]', xhr.responseJSON.validation_messages.match.timezone); } catch (e) {};
         try { addErrorMessage('*[name=match\\\\[location\\\\]]', xhr.responseJSON.validation_messages.match.location); } catch (e) {};
         try { addErrorMessage('*[name=match\\\\[locationDetails\\\\]]', xhr.responseJSON.validation_messages.match.locationDetails); } catch (e) {};
         try { addErrorMessage('*[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]', xhr.responseJSON.validation_messages.match.teams.H.team); } catch (e) {};

@@ -30,7 +30,7 @@ $compUrl  = $this->url('usarugbystats_frontend_competition', ['id' => $match->ge
 	<?php if ( $match->isCancelled() ): ?>
 	   Cancelled
 	<?php elseif ( $match->isNotStarted() || $now <= $match->getDate() ): ?>
-	  <?=$this->escapeHtml($match->getDate()->format('H:i'));?>
+	  <?=$this->escapeHtml($match->getDate()->format('g:i a T'));?>
 	<?php elseif ( $isRelativeToTeam ): ?>
 	<?php   $teamSide = $match->getTeam('H')->getTeam()->getId() == $this->relativeTo->getId() ? 'H' : 'A'; ?>
 	<?php   $opponentSide = $teamSide == 'H' ? 'A' : 'H'; ?>
