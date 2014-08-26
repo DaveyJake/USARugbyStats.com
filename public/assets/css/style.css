@@ -499,7 +499,7 @@ header #comps a {
 header #user a {
   padding-right: 40px;
 }
-header #user a:after {
+header #user > a:after {
   width: 0;
   height: 0;
   border-left: 4px solid transparent;
