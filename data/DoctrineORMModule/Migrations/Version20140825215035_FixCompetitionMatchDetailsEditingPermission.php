@@ -1,0 +1,1 @@
+../../../module/UsaRugbyStats/Competition/data/migrations/Version20140825215035_FixCompetitionMatchDetailsEditingPermission.php
