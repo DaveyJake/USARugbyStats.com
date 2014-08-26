@@ -95,6 +95,7 @@ return array(
                         'rbac_can_change_match_team' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac\CanChangeTeamFactory',
                         'rbac_can_change_match_team_roster' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac\CanChangeTeamRosterFactory',
                         'rbac_can_change_match_team_events' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac\CanChangeTeamEventsFactory',
+                        'rbac_can_change_match_lockflag' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac\CanChangeMatchLockFlagFactory',
                     ),
                 ),
                 'event_map' => array(
@@ -122,6 +123,7 @@ return array(
                         'rbac_can_change_match_team' => 999999,
                         'rbac_can_change_match_team_roster' => 999999,
                         'rbac_can_change_match_team_events' => 999999,
+                        'rbac_can_change_match_lockflag' => 999999,
                         'filter_team_roster_position_selectors' => 99999,
                     ),
                     'form.validate.post' => array(
