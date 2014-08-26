@@ -67,6 +67,7 @@ class CompetitionController extends AbstractActionController
 
         $vm = new ViewModel();
         $vm->setVariable('competition', $competition);
+        $vm->setVariable('entity', $competition);
         $vm->setVariable('form', $session->form);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/competition/update');
 

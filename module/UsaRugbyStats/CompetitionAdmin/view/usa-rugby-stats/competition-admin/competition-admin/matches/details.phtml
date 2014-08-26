@@ -6,7 +6,7 @@
     <div class="panel-heading">Match Details</div>
     <div class="panel-body">
 
-        <?php if ( ! $this->flags->{'match.date%visible'}->is_off() ): ?>
+        <?php if ( ! $this->flags->{'match.date_date%visible'}->is_off() ): ?>
         <div class="row form-group">
             <?php $element = $fieldset->get('date_date'); ?>
             <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -14,7 +14,7 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-8">
-                <?php if ( $this->flags->{'match.date'}->is_on() ): ?>
+                <?php if ( $this->flags->{'match.date_date'}->is_on() ): ?>
                 <?php echo $this->formElement($element) ?>
                 <script type="text/javascript">
                     $(function () {
@@ -30,6 +30,8 @@
                 <?php echo $this->formElementErrors($element); ?>
             </div>
         </div>
+        <?php endif; ?>
+        <?php if ( ! $this->flags->{'match.date_time%visible'}->is_off() ): ?>
         <div class="row form-group">
             <?php $element = $fieldset->get('date_time'); ?>
             <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
@@ -37,7 +39,7 @@
 
             <?php echo $this->formLabel($element) ?>
             <div class="col-sm-3">
-                <?php if ( $this->flags->{'match.date'}->is_on() ): ?>
+                <?php if ( $this->flags->{'match.date_time'}->is_on() ): ?>
                 <?php echo $this->formElement($element) ?>
                 <script type="text/javascript">
                     $(function () {
@@ -52,15 +54,17 @@
                 <?php endif;?>
                 <?php echo $this->formElementErrors($element); ?>
             </div>
+            <?php endif; ?>
+            <?php if ( ! $this->flags->{'match.timezone%visible'}->is_off() ): ?>
             <div class="col-sm-5">
                 <?php $element = $fieldset->get('timezone'); ?>
                 <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
                 <?php $element->setAttribute('class', 'form-control'); ?>
 
-                <?php if ( $this->flags->{'match.date'}->is_on() ): ?>
+                <?php if ( $this->flags->{'match.timezone'}->is_on() ): ?>
                 <?php   echo $this->formElement($element) ?>
                 <?php else: ?>
-                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                <p class="form-control-static"><?php echo $this->escapeHtml($element->getValueOptions()[$element->getValue()]); ?></p>
                 <?php endif;?>
                 <?php echo $this->formElementErrors($element); ?>
             </div>

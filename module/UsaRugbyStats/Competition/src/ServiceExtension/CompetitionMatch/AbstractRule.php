@@ -6,7 +6,9 @@ use UsaRugbyStats\Application\Service\ServiceExtensionInterface;
 abstract class AbstractRule implements ServiceExtensionInterface
 {
     protected $detailsFields = [
-        'match.date',
+        'match.date_date',
+        'match.date_time',
+        'match.timezone',
         'match.location',
         'match.locationDetails',
         'match.status',

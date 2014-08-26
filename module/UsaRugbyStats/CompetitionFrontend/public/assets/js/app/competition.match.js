@@ -215,10 +215,17 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
         
         $scope.saveMatchDetails = function(data) {
             $scope.modalLoading = true;
+            delete $scope.success;
             
             var changes = {};                
-            if ( $rootScope.permissions['match.date'] ) {
-                changes['match[date]'] = data.date;
+            if ( $rootScope.permissions['match.date_date'] ) {
+                changes['match[date_date]'] = data.date_date;
+            }
+            if ( $rootScope.permissions['match.date_time'] ) {
+                changes['match[date_time]'] = data.date_time;
+            }
+            if ( $rootScope.permissions['match.timezone'] ) {
+                changes['match[timezone]'] = data.timezone;
             }
             if ( $rootScope.permissions['match.location'] ) {
                 changes['match[location]'] = data.location;
@@ -241,8 +248,14 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                 function(err) {
                     if ( err.status == 422 ) {
                         $scope.error = {};
-                        if ( typeof err.validation_messages.match.date != 'undefined' ) {
-                            $scope.error['match.date'] = err.validation_messages.match.date;
+                        if ( typeof err.validation_messages.match.date_date != 'undefined' ) {
+                            $scope.error['match.date_date'] = err.validation_messages.match.date_date;
+                        }
+                        if ( typeof err.validation_messages.match.date_time != 'undefined' ) {
+                            $scope.error['match.date_time'] = err.validation_messages.match.date_time;
+                        }
+                        if ( typeof err.validation_messages.match.timezone != 'undefined' ) {
+                            $scope.error['match.timezone'] = err.validation_messages.match.timezone;
                         }
                         if ( typeof err.validation_messages.match.location != 'undefined' ) {
                             $scope.error['match.location'] = err.validation_messages.match.location;
