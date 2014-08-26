@@ -1,5 +1,5 @@
 <div class="page-header">
-  <?php if ( $this->isGranted('competition.competition.update', $competition) ):?>
+  <?php if ( $this->isGranted('competition.competition.update.details', $competition) ):?>
   <div class="pull-right" style="margin:5px 15px 0 0">
     <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_competition/update', ['id' => $competition->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Edit Competition</a>
   </div>

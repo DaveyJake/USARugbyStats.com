@@ -23,7 +23,7 @@ $positionKeys = json_encode(array_keys(MatchTeamPlayerFieldset::$positions[$this
 $positionNames = json_encode(array_values(MatchTeamPlayerFieldset::$positions[$this->match->getCompetition()->getVariant()]));
 $timezones = json_encode(Timezones::$timezones);
 
-$isEditMode = $this->isGranted('competition.competition.update', $match) ? 'true' : 'false';
+$isEditMode = $this->isGranted('competition.competition.match.update', $match) ? 'true' : 'false';
 
 $this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/angular.min.js'));
 $this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/angular-encode-uri.min.js'));

@@ -22,6 +22,9 @@ class CanChangeDetails extends AbstractRule
         if ( ! isset($e->getParams()->flags) ) {
             return false;
         }
+        if ( ! isset($e->getParams()->entity) ) {
+            return false;
+        }
 
         return true;
     }
