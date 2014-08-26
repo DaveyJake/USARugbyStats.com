@@ -37,6 +37,7 @@ class CompetitionMatchCreateModal extends AbstractHelper
 <div class="well" style="margin: 20px">
   <h4 style="margin-top: 0; margin-bottom:20px">Quick-Add Match</h4>
     <div id="AsyncMatchAddSpinner" class="alert alert-info" style="display:none"><i class="glyphicon glyphicon-refresh"></i> Sending your request.  Please wait...</div>
+    <div id="AsyncMatchAddedSuccessfully" class="alert alert-success" style="display:none"><i class="glyphicon glyphicon-ok"></i> Match added successfully!</div>
     <div id="AsyncMatchAddForm">
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-2" style="vertical-align:top; padding: 4px; ">
@@ -171,7 +172,7 @@ $('#MatchQuickAdd').click(function () {
         });
     }
 
-    $('#AsyncMatchAddForm .form-group').removeClass('has-error');
+    $('#AsyncMatchAddForm *').removeClass('has-error');
     $('#AsyncMatchAddForm .error-message').hide();
 
     $.ajax({
@@ -180,14 +181,6 @@ $('#MatchQuickAdd').click(function () {
         data: payload,
         dataType: "json"
     }).done(function (data) {
-        $('*[name=match\\\\[date_date\\\\]]').val(null),
-        $('*[name=match\\\\[date_time\\\\]]').val(null),
-        $('*[name=match\\\\[timezone\\\\]]').val(null),
-        $('*[name=match\\\\[location\\\\]]').val(null),
-        $('*[name=match\\\\[locationDetails\\\\]]').val(null),
-        $('*[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]').val(null),
-        $('*[name=match\\\\[teams\\\\]\\\\[A\\\\]\\\\[team\\\\]]').val(null),
-
         $.ajax({
             type: "GET",
             url: "{$matchRenderUrl}".replace('XXXXXX', data.match.id),
@@ -195,10 +188,11 @@ $('#MatchQuickAdd').click(function () {
             dataType: "html"
         }).done(function (data) {
             $('{$tableSelector}').append(data);
-
         }).always(function () {
             $('#AsyncMatchAddSpinner').hide();
             $('#AsyncMatchAddForm').show();
+            $('#AsyncMatchAddedSuccessfully').show();
+            setTimeout(function() { $('#AsyncMatchAddedSuccessfully').hide(); }, 5000);
         });
     }).fail(function (xhr, status) {
         try { addErrorMessage('*[name=match\\\\[date_date\\\\]]', xhr.responseJSON.validation_messages.match.date_date); } catch (e) {};
