@@ -3,6 +3,7 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition;
 
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
+use UsaRugbyStats\Application\Common\Timezones;
 
 class MatchFieldset extends Fieldset
 {
@@ -28,10 +29,30 @@ class MatchFieldset extends Fieldset
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\DateTime',
-            'name' => 'date',
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'date_date',
             'options' => array(
-                'label' => 'Date & Time'
+                'label' => 'Date',
+                'format' => 'Y-m-d',
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'date_time',
+            'options' => array(
+                'label' => 'Time',
+                'format' => 'g:i A',
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'timezone',
+            'options' => array(
+                'label' => 'Timezone',
+                'empty_item_label'   => 'Select a Timezone',
+                'value_options' => Timezones::$timezones,
             ),
         ));
 

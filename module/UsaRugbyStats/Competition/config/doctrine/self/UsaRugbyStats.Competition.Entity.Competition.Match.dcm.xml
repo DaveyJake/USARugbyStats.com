@@ -10,7 +10,8 @@
         	<join-column name="competition_id" referenced-column-name="id" />
         </many-to-one>
 
-        <field name="date" type="datetimetz" />
+        <field name="date" type="datetime" nullable="true" />
+        <field name="timezone" type="string" nullable="true" />
 
         <many-to-one field="location" target-entity="UsaRugbyStats\Competition\Entity\Location" inversed-by="matches" nullable="true">
             <join-column name="location_id" referenced-column-name="id" />

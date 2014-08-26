@@ -26,7 +26,9 @@ class MatchFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('match', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('competition'));
-        $this->assertTrue($fieldset->has('date'));
+        $this->assertTrue($fieldset->has('date_date'));
+        $this->assertTrue($fieldset->has('date_time'));
+        $this->assertTrue($fieldset->has('timezone'));
         $this->assertTrue($fieldset->has('status'));
 
         $this->assertTrue($fieldset->has('teams'));

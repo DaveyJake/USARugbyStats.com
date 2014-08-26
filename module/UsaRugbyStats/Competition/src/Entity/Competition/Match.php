@@ -44,6 +44,18 @@ class Match
     protected $date;
 
     /**
+     * Is stored DateTime instance localized?
+     *
+     * @var unknown
+     */
+    protected $dateLocalized = false;
+
+    /**
+     * @var string
+     */
+    protected $timezone;
+
+    /**
      * Location (venue) for the match
      *
      * @var Location|null
@@ -350,23 +362,44 @@ class Match
     }
 
     /**
-     * DateTime of Match
-     *
      * @return \DateTime
      */
     public function getDate()
     {
+        if (!$this->dateLocalized && !empty($this->timezone)) {
+            $this->date->setTimezone(
+                new \DateTimeZone($this->timezone)
+            );
+        }
+
         return $this->date;
     }
 
     /**
-     * Set DateTime of Match
-     *
-     * @param \DateTime $date
+     * @param DateTime $dt
      */
-    public function setDate(\DateTime $date)
+    public function setDate(\DateTime $dt)
     {
-        $this->date = $date;
+        $this->dateLocalized = false;
+        $this->date = $dt;
+
+        return $this;
+    }
+
+    /**
+     * @return the $timezone
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
+    }
+
+    /**
+     * @param string $tz
+     */
+    public function setTimezone($tz)
+    {
+        $this->timezone = $tz;
 
         return $this;
     }

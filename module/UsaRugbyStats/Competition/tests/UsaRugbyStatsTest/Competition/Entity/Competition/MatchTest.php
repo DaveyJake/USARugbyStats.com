@@ -165,6 +165,17 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $obj->setDate(null);
     }
 
+    public function testGetDateConvertsDateTimeObjectsToLocalTimezone()
+    {
+        $dt = \DateTime::createFromFormat(DATE_ISO8601, '2014-08-25T23:09:43-0230');
+
+        $obj = new Match();
+        $obj->setTimezone('America/Denver');
+        $obj->setDate($dt);
+
+        $this->assertEquals('2014-08-25T19:39:43-0600', $obj->getDate()->format(DATE_ISO8601));
+    }
+
     /**
      * @dataProvider providerGetSetStatus
      */

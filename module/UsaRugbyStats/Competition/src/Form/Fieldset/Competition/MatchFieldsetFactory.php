@@ -3,7 +3,6 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 
 class MatchFieldsetFactory implements FactoryInterface
@@ -25,7 +24,7 @@ class MatchFieldsetFactory implements FactoryInterface
         $form = new MatchFieldset($om, $fsHomeTeam, $fsAwayTeam, $fsSignature);
 
         // Set the hydrator
-        $form->setHydrator(new DoctrineObject($om));
+        $form->setHydrator(new MatchFieldsetHydrator($om));
         $form->setObject(new Match());
 
         return $form;

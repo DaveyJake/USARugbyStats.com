@@ -3,7 +3,6 @@ namespace UsaRugbyStats\Competition\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
-use Zend\Form\FormInterface;
 use ZfcRbac\Service\AuthorizationServiceInterface;
 use UsaRugbyStats\Competition\Service\Competition\MatchService;
 
@@ -100,7 +99,7 @@ class CompetitionMatchCreateModal extends AbstractHelper
         $matchCreateUrl = $this->view->url('usarugbystats_competition-api_competition_match', ['cid' => $competition->getId()]);
         $matchRenderUrl = $this->view->url('usarugbystats_frontend_competition_match/render-match-row', ['cid' => $competition->getId(), 'mid' => 'XXXXXX']);
         $addMatchJavascript = <<<JSBLOCK
-$('#MatchQuickAdd').click(function() {
+$('#MatchQuickAdd').click(function () {
     $('#AsyncMatchAddSpinner').show();
     $('#AsyncMatchAddForm').hide();
 
@@ -112,13 +111,14 @@ $('#MatchQuickAdd').click(function() {
         'match[teams][A][team]': $('*[name=match\\\\[teams\\\\]\\\\[A\\\\]\\\\[team\\\\]]').val(),
     };
 
-    function addErrorMessage(field, messages) {
-        if ( typeof messages == 'undefined' ) {
+    function addErrorMessage(field, messages)
+    {
+        if (typeof messages == 'undefined') {
             return;
         }
         $(field).parent().addClass('has-error');
         var errContainer = $(field).parent().find('.error-message').text("");
-        $.each(messages, function(k,v) {
+        $.each(messages, function (k,v) {
             errContainer.append(v).show();
         });
     }
@@ -131,7 +131,7 @@ $('#MatchQuickAdd').click(function() {
         url: "{$matchCreateUrl}",
         data: payload,
         dataType: "json"
-    }).done(function(data) {
+    }).done(function (data) {
         $('*[name=match\\\\[date\\\\]]').val(null),
         $('*[name=match\\\\[location\\\\]]').val(null),
         $('*[name=match\\\\[locationDetails\\\\]]').val(null),
@@ -143,14 +143,14 @@ $('#MatchQuickAdd').click(function() {
             url: "{$matchRenderUrl}".replace('XXXXXX', data.match.id),
             data: {relativeToCompetition: '{$competition->getId()}'},
             dataType: "html"
-        }).done(function(data) {
+        }).done(function (data) {
             $('{$tableSelector}').append(data);
 
-        }).always(function() {
+        }).always(function () {
             $('#AsyncMatchAddSpinner').hide();
             $('#AsyncMatchAddForm').show();
         });
-    }).fail(function(xhr, status) {
+    }).fail(function (xhr, status) {
         try { addErrorMessage('*[name=match\\\\[date\\\\]]', xhr.responseJSON.validation_messages.match.date); } catch (e) {};
         try { addErrorMessage('*[name=match\\\\[location\\\\]]', xhr.responseJSON.validation_messages.match.location); } catch (e) {};
         try { addErrorMessage('*[name=match\\\\[locationDetails\\\\]]', xhr.responseJSON.validation_messages.match.locationDetails); } catch (e) {};
