@@ -51,7 +51,7 @@ class RbacPermissionsFixture implements FixtureInterface, DependentFixtureInterf
     protected $permissions = [
         'competition.union.list' => ['member'],
         'competition.union.create' => ['super_admin'],
-        'competition.union.update' => ['union_admin'],
+        'competition.union.update' => ['super_admin'],
         'competition.union.update.teams' => ['super_admin'],
         'competition.union.delete' => ['super_admin'],
 
