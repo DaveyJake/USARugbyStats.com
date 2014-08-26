@@ -58,7 +58,7 @@ class CanChangeMatchLockFlag extends AbstractRule
         }
 
         $role = $person->getRoleAssignment('super_admin');
-        if ( $role instanceof SuperAdmin ) {
+        if ($role instanceof SuperAdmin) {
             $isAllowed = true;
         }
 

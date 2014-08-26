@@ -192,7 +192,7 @@ $('#MatchQuickAdd').click(function () {
             $('#AsyncMatchAddSpinner').hide();
             $('#AsyncMatchAddForm').show();
             $('#AsyncMatchAddedSuccessfully').show();
-            setTimeout(function() { $('#AsyncMatchAddedSuccessfully').hide(); }, 5000);
+            setTimeout(function () { $('#AsyncMatchAddedSuccessfully').hide(); }, 5000);
         });
     }).fail(function (xhr, status) {
         try { addErrorMessage('*[name=match\\\\[date_date\\\\]]', xhr.responseJSON.validation_messages.match.date_date); } catch (e) {};

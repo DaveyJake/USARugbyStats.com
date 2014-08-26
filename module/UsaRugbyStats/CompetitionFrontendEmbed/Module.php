@@ -7,7 +7,7 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractController', 'dispatch', function(MvcEvent $e) {
+        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractController', 'dispatch', function (MvcEvent $e) {
             if ( ! preg_match('{^usarugbystats_frontend-embed_}is', $e->getRouteMatch()->getMatchedRouteName()) ) {
                 return;
             }
