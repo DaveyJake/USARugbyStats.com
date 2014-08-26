@@ -37,15 +37,16 @@ class CompetitionMatchCreateModal extends AbstractHelper
 <div class="well" style="margin: 20px">
   <h4 style="margin-top: 0; margin-bottom:20px">Quick-Add Match</h4>
     <div id="AsyncMatchAddSpinner" class="alert alert-info" style="display:none"><i class="glyphicon glyphicon-refresh"></i> Sending your request.  Please wait...</div>
-    <div id="AsyncMatchAddForm" class="form-inline">
-       
-        <div class="form-group" style="vertical-align:top">
+    <div id="AsyncMatchAddForm" class="row">
+
+        <div class="col-xs-12 col-sm-4 col-md-2" style="vertical-align:top; padding: 4px; ">
 
             <?php $element = $fieldset->get('date_date'); ?>
             <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
             <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php $element->setAttribute('style', 'max-width: 95%;'); ?>
             <?php echo $this->view->formLabel($element) ?><br />
-            <?php echo $this->view->formElement($element) ?><br />
+            <?php echo $this->view->formElement($element) ?>
 
              <span class="help-block error-message" style="display:none"></span>
             <script type="text/javascript">
@@ -59,73 +60,80 @@ class CompetitionMatchCreateModal extends AbstractHelper
 
         </div>
 
-        <div class="form-group" style="vertical-align:top">
-            <?php $element = $fieldset->get('location'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
-            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
-
-            <?php echo $this->view->formLabel($element) ?><br />
-            <?php echo $this->view->formElement($element) ?><br />
-
-            <?php $element = $fieldset->get('locationDetails'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
-            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
-            <?php echo $this->view->formElement($element) ?>
-            <span class="help-block error-message" style="display:none"></span>
-        </div>
-        <div class="form-group" style="vertical-align:top">
+        <div class="col-xs-12 col-sm-4 col-md-3" style="vertical-align:top; padding: 4px;">
             <?php $element = $fieldset->get('teams')->get('H')->get('team'); ?>
             <?php $element->setLabel('Home Team'); ?>
             <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
             <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php $element->setAttribute('style', 'max-width: 95%;'); ?>
 
             <?php echo $this->view->formLabel($element) ?><br />
             <?php echo $this->view->formElement($element) ?>
             <span class="help-block error-message" style="display:none"></span>
         </div>
-        <div class="form-group" style="vertical-align:top">
+        <div class="col-xs-12 col-sm-4 col-md-3" style="vertical-align:top; padding: 4px;">
             <?php $element = $fieldset->get('teams')->get('A')->get('team'); ?>
             <?php $element->setLabel('Away Team'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important;')); ?>
             <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php $element->setAttribute('style', 'max-width: 95%;'); ?>
 
             <?php echo $this->view->formLabel($element) ?><br />
             <?php echo $this->view->formElement($element) ?>
             <span class="help-block error-message" style="display:none"></span>
         </div>
 
-        <div class="form-group" style="vertical-align:top">
-
+        <div class="col-xs-12 col-sm-4 col-md-2" style="vertical-align:top; padding: 4px;">
             <?php $element = $fieldset->get('date_time'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php $element->setAttribute('style', 'max-width: 95%;'); ?>
+            <?php echo $this->view->formLabel($element) ?><br />
+            <?php echo $this->view->formElement($element) ?>
+            <span class="help-block error-message" style="display:none"></span>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-2" style="vertical-align:top; padding: 4px;">
+            <?php $element = $fieldset->get('timezone'); ?>
             <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
             <?php $element->setAttribute('class', 'form-control input-sm'); ?>
             <?php echo $this->view->formLabel($element) ?><br />
             <?php echo $this->view->formElement($element) ?><br />
 
-        <span class="help-block error-message" style="display:none"></span>
-         <script type="text/javascript">
+            <p class="help-block error-message" style="display:none;"></p>
+            <script type="text/javascript">
                 $(function () {
                     $('input[name=match\\[date_time\\]]').datetimepicker({
                         pickDate: false,
                         format: 'h:mm A'
                     });
                 });
-        </script>
+            </script>
 
         </div>
-
-        <div class="form-group" style="vertical-align:top">
-        
-            <?php $element = $fieldset->get('timezone'); ?>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3" style="vertical-align:top; padding: 4px;">
+            <?php $element = $fieldset->get('location'); ?>
             <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
             <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php $element->setAttribute('style', 'max-width: 95%;'); ?>
             <?php echo $this->view->formLabel($element) ?><br />
             <?php echo $this->view->formElement($element) ?><br />
-            
         </div>
 
+        <div class="col-xs-12 col-sm-4 col-md-3" style="vertical-align:top; padding: 4px;">
+            <?php $element = $fieldset->get('locationDetails'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php $element->setAttribute('style', 'max-width: 95%;'); ?>
+            <?php echo $this->view->formLabel($element) ?><br />
+            <?php echo $this->view->formElement($element) ?>
 
-        <div class="form-group pull-right" style="margin-top: 21px">
+            <span class="help-block error-message" style="display:none"></span>
+        </div>
+
+        <div class="col-xs-12 col-md-6 text-right" style="margin-top: 20px">
             <button id="MatchQuickAdd" class="btn btn-primary">Add Match!</button>
         </div>
     </div>
