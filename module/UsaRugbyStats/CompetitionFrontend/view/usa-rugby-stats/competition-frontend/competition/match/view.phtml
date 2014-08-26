@@ -55,6 +55,10 @@ $this->layout()->containerAttributes = array_merge(
 
 <div class="nghide" style="display:none" ng-hide="loading">
 
+    <div class="alert alert-danger" ng-show="isEditMode && match.isLocked">
+        <span>This match cannot be modified because it has been locked.</span>
+    </div>
+
     <div class="alert alert-warning" ng-show="match.status == 'S'">
         <span>This match is currently in progress.</span>
         <div class="pull-right" ng-show="permissions['match.status']">

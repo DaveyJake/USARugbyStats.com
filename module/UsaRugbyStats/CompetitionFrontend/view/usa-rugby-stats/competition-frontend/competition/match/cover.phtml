@@ -30,7 +30,7 @@
     		    <a target="_blank" href="http://maps.google.com/maps/search/{{match.locationDetails|encodeUri}}">Map <i class="glyphicon glyphicon-map-marker"></i></a>
     		  </span>
     		</li>
-    		<li ng-show="permissions['match']"><a ng-click="editDetails()"><span class="icon-compose"></span> Edit</a></li>
+    		<li ng-show="permissions['match'] && !match.isLocked"><a ng-click="editDetails()"><span class="icon-compose"></span> Edit</a></li>
     	</ul>
     </div>
 
