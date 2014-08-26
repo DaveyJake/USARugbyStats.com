@@ -1,0 +1,5 @@
+<?php if ( isset($this->standings['overall']) && !empty($this->standings['overall']) ): ?>
+<?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/standings', ['standings' => $this->standings['overall'], 'isExpanded' => true]); ?>
+<?php else: ?>
+<div class="competition-empty">This competition does not yet have standings.</div>
+<?php endif; ?>

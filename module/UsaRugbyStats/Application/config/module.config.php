@@ -2,10 +2,6 @@
 return array(
     'usarugbystats' => array(
         'application' => array(
-            'iframeable' => array(
-                'routes' => array(),
-                'layout' => 'layout/iframe',
-            ),
             'event_listeners' => array(
             )
         ),
@@ -21,7 +17,6 @@ return array(
         ),
         'factories' => array(
             'default' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-            'usarugbystats_application_listener_iframeablepage' => 'UsaRugbyStats\Application\Listener\IframeablePageListenerFactory',
         ),
         'aliases' => array(
             'translator' => 'MvcTranslator',
@@ -45,16 +40,10 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'layout/iframe'           => __DIR__ . '/../view/layout/iframe.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/403'               => __DIR__ . '/../view/error/403.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
             'zfc-admin/admin/index'   => __DIR__ . '/../view/zfc-admin/admin/index.phtml',
-        ),
-    ),
-    'view_helpers' => array(
-        'factories' => array(
-            'isIframed' => 'UsaRugbyStats\Application\View\Helper\IsIframedFactory',
         ),
     ),
     'doctrine' => array(

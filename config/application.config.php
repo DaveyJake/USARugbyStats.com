@@ -34,6 +34,7 @@ return array(
         'UsaRugbyStats\Competition',
         'UsaRugbyStats\CompetitionApi',
         'UsaRugbyStats\CompetitionFrontend',
+        'UsaRugbyStats\CompetitionFrontendEmbed',
         'UsaRugbyStats\CompetitionAdmin',
 
         'UsaRugbyStats\RemoteDataSync',

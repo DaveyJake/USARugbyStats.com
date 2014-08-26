@@ -1,6 +1,6 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="en" <?php echo empty($this->iframe) ? '' : ' class="iframed"'; ?>>
+<html lang="en">
     <head>
         <?php echo $this->headTitle($this->translate('USA Rugby Stats'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
@@ -22,7 +22,6 @@
         <!-- Fonts -->
         <script type="text/javascript" src="//use.typekit.net/dqm3mdr.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-        <script type="text/javascript">if (window != window.top) { document.location = '?iframe=true'; }</script>
 
         <!-- Scripts -->
         <?php

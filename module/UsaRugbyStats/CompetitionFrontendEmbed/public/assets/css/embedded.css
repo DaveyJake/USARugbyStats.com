@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+
+body { background-image: none; background-color: transparent; }
+body > div.container { width: 100%; }
+main.row { padding: 0; background-color: white; min-height: 0 !important; }

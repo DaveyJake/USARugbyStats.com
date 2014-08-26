@@ -17,12 +17,12 @@
                         ->appendStylesheet($this->basePath() . '/assets/css/vendor/bootstrap-datetimepicker.min.css')
                         ->appendStylesheet($this->basePath() . '/assets/css/bs3override.css')
                         ->appendStylesheet($this->basePath() . '/assets/css/style.css')
+                        ->appendStylesheet($this->basePath() . '/assets/css/embedded.css')
         ; ?>
 
         <!-- Fonts -->
         <script type="text/javascript" src="//use.typekit.net/dqm3mdr.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-        <script type="text/javascript">if (window != window.top) { document.location = '?iframe=true'; }</script>
 
         <!-- Scripts -->
         <?php
@@ -44,32 +44,6 @@
         <div class="container">
             <div id="inner">
                 <main class="row">
-
-<?php
-// Render different levels of FlashMessenger messages in a Bootstrap3-friendly way
-$flash = $this->flashMessenger();
-$flash->setMessageOpenFormat('<div%s>
-     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-         &times;
-     </button>
-     <ul><li>')
-     ->setMessageSeparatorString('</li><li>')
-     ->setMessageCloseString('</li></ul></div>');
-
-echo $flash->render('error',   array('alert', 'alert-dismissable', 'alert-danger'));
-echo $flash->render('info',    array('alert', 'alert-dismissable', 'alert-info'));
-echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
-echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
-?>
-
-<?php
-if (isset($_SESSION['alert_message'])) {
-	$alert = $_SESSION['alert_message'];
-    unset($_SESSION['alert_message']);
-    // @TODO: support alert types {info, success, error}.
-    echo '<div class="alert alert-info">' . $alert . '</div>';
-}
-?>
                     <?php echo $this->content; ?>
                 </main>
             </div>

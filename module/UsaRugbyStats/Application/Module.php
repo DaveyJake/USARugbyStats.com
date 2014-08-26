@@ -13,7 +13,6 @@ class Module
 
         $eventManager->attach($serviceManager->get('ZfcRbac\View\Strategy\RedirectStrategy'));
         $eventManager->attach($serviceManager->get('ZfcRbac\View\Strategy\UnauthorizedStrategy'));
-        $eventManager->attach($serviceManager->get('usarugbystats_application_listener_iframeablepage'));
 
         Type::overrideType('datetime', 'UsaRugbyStats\Application\Common\Doctrine\UTCDateTimeType');
     }
