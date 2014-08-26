@@ -233,13 +233,14 @@ $this->layout()->containerAttributes = array_merge(
                 		    <span ng-show="extdata.player[match.teams.H.players[posKey].player]">
                 		      #{{match.teams.H.players[posKey].number}} -
                 		      <a ng-href="/player/{{match.teams.H.players[posKey].player}}" target="_blank">{{extdata.player[match.teams.H.players[posKey].player].name}}</a>
+                		      <span ng-show="match.teams.H.players[posKey].isFrontRow == '1'" style="font-weight:bold">(FR)</span>
                 		    </span>
                 		    <span ng-hide="extdata.player[match.teams.H.players[posKey].player]">&mdash;</span>
                 		  </div>
                 		  <div ng-show="isEditingRoster && permissions['match.teams.H.players']">
                 		    <div class="row">
                 		        <input type="hidden" ng-model="match.teams.H.players[posKey].id" name="match[teams][H][players][{{posKey}}][id]" />
-                    		    <div class="col-xs-4">
+                    		    <div class="col-xs-3">
                         		    <select ng-model="match.teams.H.players[posKey].number" class="form-control input-sm" name="match[teams][H][players][{{posKey}}][number]">
                         		        <option ng-repeat="n in [1,100] | range" ng-selected="match.teams.H.players[posKey].number == n || n == ($parent.$index+1)">{{n}}</option>
                         		    </select>
@@ -247,7 +248,13 @@ $this->layout()->containerAttributes = array_merge(
                                         <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
                                     </p>
                     		    </div>
-                    		    <div class="col-xs-8">
+                    		    <div class="col-xs-2">
+                                    <label><input type="checkbox" ng-model="match.teams.H.players[posKey].isFrontRow" ng-value="1" /> FR</label>
+                                    <p ng-show="error.H[posKey].isFrontRow" ng-repeat="(ek,em) in error.H[posKey].isFrontRow" class="help-block">
+                                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                                    </p>
+                    		    </div>
+                    		    <div class="col-xs-7">
                                     <select ng-model="match.teams.H.players[posKey].player" class="form-control input-sm" name="match[teams][H][players][{{posKey}}][player]">
                                         <option value="">Choose</option>
                                         <option
@@ -273,13 +280,14 @@ $this->layout()->containerAttributes = array_merge(
                 		    <span ng-show="extdata.player[match.teams.A.players[posKey].player]">
                 		      #{{match.teams.A.players[posKey].number}} -
                 		      <a ng-href="/player/{{match.teams.A.players[posKey].player}}" target="_blank">{{extdata.player[match.teams.A.players[posKey].player].name}}</a>
+                		      <span ng-show="match.teams.A.players[posKey].isFrontRow == '1'" style="font-weight:bold">(FR)</span>
                 		    </span>
                 		    <span ng-hide="extdata.player[match.teams.A.players[posKey].player]">&mdash;</span>
                 		  </div>
                 		  <div ng-show="isEditingRoster && permissions['match.teams.A.players']">
                 		    <input type="hidden" ng-model="match.teams.A.players[posKey].id" name="match[teams][A][players][{{posKey}}][id]" />
                 		    <div class="row">
-                    		    <div class="col-xs-4">
+                    		    <div class="col-xs-3">
                         		    <select ng-model="match.teams.A.players[posKey].number" class="form-control input-sm"  name="match[teams][A][players][{{posKey}}][number]">
                         		        <option ng-repeat="n in [1,100] | range" ng-selected="match.teams.A.players[posKey].number == n || n == ($parent.$index+1)">{{n}}</option>
                         		    </select>
@@ -287,7 +295,13 @@ $this->layout()->containerAttributes = array_merge(
                                         <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
                                     </p>
                     		    </div>
-                    		    <div class="col-xs-8">
+                    		    <div class="col-xs-2">
+                                    <label><input type="checkbox" ng-model="match.teams.A.players[posKey].isFrontRow" ng-value="1" /> FR</label>
+                                    <p ng-show="error.A[posKey].isFrontRow" ng-repeat="(ek,em) in error.A[posKey].isFrontRow" class="help-block">
+                                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                                    </p>
+                    		    </div>
+                    		    <div class="col-xs-7">
                                     <select ng-model="match.teams.A.players[posKey].player" class="form-control input-sm"  name="match[teams][A][players][{{posKey}}][player]">
                                         <option value="">Choose</option>
                                         <option

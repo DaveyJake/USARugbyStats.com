@@ -178,7 +178,7 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                 
                 // Periodic page refresh [@TODO should use websockets]
                 $interval(function() {
-                    if ( $rootScope.isEditingMatchDetails ) {
+                    if ( $rootScope.isEditingMatchDetails || $scope.isEditingRoster ) {
                         return;
                     }
                     if ( $rootScope.match.status == 'NS' || $rootScope.match.status == 'S' ) {
@@ -356,6 +356,13 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                                 = $rootScope.match.teams[side].players[pkey].number 
                                     ? $rootScope.match.teams[side].players[pkey].number
                                     : index+1;
+                            try {
+                                data['match[teams]['+side+'][players]['+pkey+'][isFrontRow]'] 
+                                    = ( $rootScope.match.teams[side].players[pkey].isFrontRow ? '1' : '0' );
+                            } catch ( e ) {
+                                data['match[teams]['+side+'][players]['+pkey+'][isFrontRow]'] 
+                                    = '0';
+                            }
                             data['match[teams]['+side+'][players]['+pkey+'][player]'] 
                                 = $rootScope.match.teams[side].players[pkey].player;
                         }
@@ -383,6 +390,7 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                                 $scope.error[side][pkey] = {};
                                 try { $scope.error[side][pkey]['player'] = err.validation_messages.match.teams[side].players[pkey].player; } catch (e) {}
                                 try { $scope.error[side][pkey]['number'] = err.validation_messages.match.teams[side].players[pkey].number; } catch (e) {}
+                                try { $scope.error[side][pkey]['isFrontRow'] = err.validation_messages.match.teams[side].players[pkey].isFrontRow; } catch (e) {}
                             });
                         });
                         $scope.matchRosterIsBeingSaved = false;
