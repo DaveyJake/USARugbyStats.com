@@ -5,6 +5,7 @@ use Zend\InputFilter\InputFilter;
 use UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchTeamCollectionFilter;
 use Doctrine\Common\Persistence\ObjectRepository;
 use UsaRugbyStats\Competition\InputFilter\Competition\Match\MatchSignatureCollectionFilter;
+use UsaRugbyStats\Application\Common\Timezones;
 
 /**
  * Competition Input Filter
@@ -22,6 +23,46 @@ class MatchFilter extends InputFilter
             'validators' => array(),
             'filters'   => array(
                 array('name' => 'Digits'),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'date_date',
+            'required'   => true,
+            'validators' => array(
+                array(
+                    'name' => 'Zend\Validator\Date',
+                    'options' => array(
+                        'format' => 'Y-m-d'
+                    ),
+                ),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'date_time',
+            'required'   => true,
+            'validators' => array(
+                array(
+                    'name' => 'Zend\Validator\Date',
+                    'options' => array(
+                        'format' => 'g:i a'
+                    ),
+                ),
+            ),
+        ));
+
+        $this->add(array(
+            'name'       => 'timezone',
+            'required'   => true,
+            'validators' => array(
+                array(
+                    'name' => 'InArray',
+                    'options' => array(
+                        'haystack' => array_keys(Timezones::$timezones),
+                        'strict'   => true
+                    ),
+                ),
             ),
         ));
 

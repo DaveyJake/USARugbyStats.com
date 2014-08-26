@@ -14,8 +14,8 @@ class MatchFieldsetHydrator extends DoctrineObject
     public function extract($object)
     {
         $data = parent::extract($object);
-        $data['date_time'] = $data['date'] ? $data['date']->format($this->timeFormat) : NULL;
-        $data['date_date'] = $data['date'] ? $data['date']->format($this->dateFormat) : NULL;
+        $data['date_time'] = $data['date'] ? $data['date']->format($this->timeFormat) : null;
+        $data['date_date'] = $data['date'] ? $data['date']->format($this->dateFormat) : null;
         unset($data['date']);
 
         return $data;
