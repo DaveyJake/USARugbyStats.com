@@ -26,10 +26,12 @@ class MatchFieldsetHydrator extends DoctrineObject
      */
     public function hydrate(array $data, $object)
     {
-        $data['date'] = \DateTime::createFromFormat(
-            $this->dateFormat . ' ' . $this->timeFormat . ' e',
-            $data['date_date'] . ' ' . $data['date_time'] . ' ' . $data['timezone']
-        );
+        if ( isset($data['date_date']) && isset($data['date_time']) && isset($data['timezone']) ) {
+            $data['date'] = \DateTime::createFromFormat(
+                $this->dateFormat . ' ' . $this->timeFormat . ' e',
+                $data['date_date'] . ' ' . $data['date_time'] . ' ' . $data['timezone']
+            );
+        }
         unset($data['date_date'], $data['date_time']);
 
         return parent::hydrate($data, $object);
