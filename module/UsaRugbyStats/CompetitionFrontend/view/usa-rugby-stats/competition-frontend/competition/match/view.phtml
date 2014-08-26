@@ -577,6 +577,16 @@ $this->layout()->containerAttributes = array_merge(
                     </p>
                 </div>
               </div>
+              <div class="form-group" ng-show="permissions['match.isLocked']">
+                <label for="match.isLocked" class="col-sm-3 control-label">Locked?</label>
+                <div class="col-sm-9">
+                  <label class="radio-inline"><input type="radio" ng-model="match.isLocked" ng-value="1"> Yes</label>
+                  <label class="radio-inline"><input type="radio" ng-model="match.isLocked" ng-value="0"> No</label>
+                  <p ng-show="error['match.isLocked']" ng-repeat="(ek,em) in error['match.isLocked']" class="help-block">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> {{em}}
+                  </p>
+                </div>
+              </div>
             </form>
           </div>
           <div ng-hide="modalLoading" class="modal-footer">

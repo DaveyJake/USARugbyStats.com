@@ -21,12 +21,16 @@ class DisableEditingWhenLocked extends AbstractRule
     public function execute(EventInterface $e)
     {
         if ( $e->getParams()->entity->isLocked() ) {
+            $allowEditLock = $e->getParams()->flags->{'match.isLocked'}->is_on();
+
             $this->disableDetailsChange($e->getParams());
             $this->disableTeamChange($e->getParams());
             $this->disableTeamEventsChange($e->getParams());
             $this->disableTeamRosterChange($e->getParams());
             $this->disableSignatureChange($e->getParams());
             $e->getParams()->flags->{'match.signatures.allowed_types'} = [];
+
+            $allowEditLock && $e->getParams()->flags->{'match.isLocked'}->on();
         }
     }
 }

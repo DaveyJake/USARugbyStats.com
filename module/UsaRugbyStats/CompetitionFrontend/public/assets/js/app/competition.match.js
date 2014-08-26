@@ -160,6 +160,9 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
         };
         var urlParams = angular.copy($rootScope.match);
         
+        $('#MatchDetailsEditDialog').on('show.bs.modal', function() { $rootScope.isEditingMatchDetails = true; });
+        $('#MatchDetailsEditDialog').on('hide.bs.modal', function() { $rootScope.isEditingMatchDetails = false; });
+        
         $scope.refreshPage = function() {
             var todo = [ CompetitionMatchApi.get(urlParams) ];
             if ( $rootScope.isEditMode ) {
@@ -175,6 +178,9 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                 
                 // Periodic page refresh [@TODO should use websockets]
                 $interval(function() {
+                    if ( $rootScope.isEditingMatchDetails ) {
+                        return;
+                    }
                     if ( $rootScope.match.status == 'NS' || $rootScope.match.status == 'S' ) {
                         $scope.refreshPage();
                     }
@@ -211,6 +217,8 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                     alert(err.title); 
                 }
             );
+            
+            
         }
         
         $scope.saveMatchDetails = function(data) {
@@ -239,6 +247,9 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
             if ( $rootScope.permissions['match.teams.A.team'] ) {
                 changes['match[teams][A][team]'] = data.teams.A.team;
             }
+            if ( $rootScope.permissions['match.isLocked'] ) {
+                changes['match[isLocked]'] = data.isLocked;
+            }
             
             CompetitionMatchApi.patch(urlParams, changes).then(
                 function(data) {
@@ -262,6 +273,9 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
                         }
                         if ( typeof err.validation_messages.match.locationDetails != 'undefined' ) {
                             $scope.error['match.locationDetails'] = err.validation_messages.match.locationDetails;
+                        }
+                        if ( typeof err.validation_messages.match.isLocked != 'undefined' ) {
+                            $scope.error['match.isLocked'] = err.validation_messages.match.isLocked;
                         }
                         try {
                             if ( typeof err.validation_messages.match.teams.H.team != 'undefined' ) {

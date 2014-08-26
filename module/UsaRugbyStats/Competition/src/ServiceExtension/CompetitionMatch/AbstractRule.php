@@ -12,6 +12,7 @@ abstract class AbstractRule implements ServiceExtensionInterface
         'match.location',
         'match.locationDetails',
         'match.status',
+        'match.isLocked',
     ];
 
     protected function enableMatchChange($context)
