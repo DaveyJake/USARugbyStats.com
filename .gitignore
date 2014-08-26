@@ -13,3 +13,5 @@ vendor/*
 
 vagrant/.vagrant
 vagrant/puphpet/config.yaml
+
+public/config.codekit

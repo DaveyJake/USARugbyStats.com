@@ -1,8 +1,8 @@
 /*------------------------------------------------------------------
 [Master Stylesheet]
 
-Project:	USA Rugby
-Version:	2.0
+Project:  USA Rugby
+Version:  2.0
 
 1. Imports
 2. Fonts
@@ -413,8 +413,8 @@ table.dataTable tr.child span.dtr-title {
 /*------------------------------------------------------------------
 [Header Stylesheet]
 
-Project:	CMS
-Version:	2.0
+Project:  CMS
+Version:  2.0
 
 1. Nav (Top)
 
@@ -616,6 +616,10 @@ table thead th {
   line-height: 40px;
   padding: 0 10px;
 }
+table thead th.location {
+  display: none;
+}
+
 table thead th:first-of-type {
   padding-left: 30px;
   text-align: left;
@@ -680,6 +684,7 @@ table tbody td.result-time {
 }
 table tbody td.location {
   width: 30%;
+  display: none;
 }
 table tbody td.type {
   width: 10%;
@@ -935,8 +940,8 @@ table tbody td img {
 /*------------------------------------------------------------------
 [Profile Stylesheet]
 
-Project:	USA Rugby
-Version:	2.0
+Project:  USA Rugby
+Version:  2.0
 
 1. Imports
 2. Fonts
