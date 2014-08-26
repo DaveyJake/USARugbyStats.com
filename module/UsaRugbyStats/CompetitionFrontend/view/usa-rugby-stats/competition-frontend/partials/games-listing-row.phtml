@@ -45,15 +45,6 @@ $compUrl  = $this->url('usarugbystats_frontend_competition', ['id' => $match->ge
 	  <?=$this->escapeHtml($match->getTeam('H')->getScore()); ?>
 	<?php endif; ?>
 	</td>
-	<td class="location">
-    <?php if ( $match->getLocation() != null ): ?>
-      <?php echo  $match->getLocation() ? $this->ursLocationLink($match->getLocation()) : ''; ?>
-      <?php if ( $match->getLocation() && !empty($match->getLocationDetails()) ): ?>
-        &nbsp;&dash;&nbsp;
-      <?php endif; ?>
-    <?php endif; ?>
-    <?= $this->escapeHtml($match->getLocationDetails()); ?>
-	</td>
 	<?php if ( ! $isRelativeToCompetition ): ?>
 	<td class="type"><?=$this->escapeHtml($match->getCompetition()->getTypeString());?></td>
 	<?php endif; ?>
