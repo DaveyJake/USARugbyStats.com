@@ -38,6 +38,7 @@ class CompetitionMatchCreateModal extends AbstractHelper
   <h4 style="margin-top: 0; margin-bottom:20px">Quick-Add Match</h4>
     <div id="AsyncMatchAddSpinner" class="alert alert-info" style="display:none"><i class="glyphicon glyphicon-refresh"></i> Sending your request.  Please wait...</div>
     <div id="AsyncMatchAddForm" class="form-inline">
+       
         <div class="form-group" style="vertical-align:top">
 
             <?php $element = $fieldset->get('date_date'); ?>
@@ -46,32 +47,18 @@ class CompetitionMatchCreateModal extends AbstractHelper
             <?php echo $this->view->formLabel($element) ?><br />
             <?php echo $this->view->formElement($element) ?><br />
 
-            <?php $element = $fieldset->get('date_time'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
-            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
-            <?php echo $this->view->formLabel($element) ?><br />
-            <?php echo $this->view->formElement($element) ?><br />
-
-            <?php $element = $fieldset->get('timezone'); ?>
-            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
-            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
-            <?php echo $this->view->formLabel($element) ?><br />
-            <?php echo $this->view->formElement($element) ?><br />
-
-            <span class="help-block error-message" style="display:none"></span>
+             <span class="help-block error-message" style="display:none"></span>
             <script type="text/javascript">
                 $(function () {
                     $('input[name=match\\[date_date\\]]').datetimepicker({
                         pickTime: false,
                         format: 'YYYY-MM-DD'
                     });
-                    $('input[name=match\\[date_time\\]]').datetimepicker({
-                        pickDate: false,
-                        format: 'h:mm A'
-                    });
                 });
             </script>
+
         </div>
+
         <div class="form-group" style="vertical-align:top">
             <?php $element = $fieldset->get('location'); ?>
             <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
@@ -106,6 +93,38 @@ class CompetitionMatchCreateModal extends AbstractHelper
             <?php echo $this->view->formElement($element) ?>
             <span class="help-block error-message" style="display:none"></span>
         </div>
+
+        <div class="form-group" style="vertical-align:top">
+
+            <?php $element = $fieldset->get('date_time'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php echo $this->view->formLabel($element) ?><br />
+            <?php echo $this->view->formElement($element) ?><br />
+
+        <span class="help-block error-message" style="display:none"></span>
+         <script type="text/javascript">
+                $(function () {
+                    $('input[name=match\\[date_time\\]]').datetimepicker({
+                        pickDate: false,
+                        format: 'h:mm A'
+                    });
+                });
+        </script>
+
+        </div>
+
+        <div class="form-group" style="vertical-align:top">
+        
+            <?php $element = $fieldset->get('timezone'); ?>
+            <?php $element->setLabelAttributes(array('class' => 'control-label input-sm', 'style' => 'display:inline !important')); ?>
+            <?php $element->setAttribute('class', 'form-control input-sm'); ?>
+            <?php echo $this->view->formLabel($element) ?><br />
+            <?php echo $this->view->formElement($element) ?><br />
+            
+        </div>
+
+
         <div class="form-group pull-right" style="margin-top: 21px">
             <button id="MatchQuickAdd" class="btn btn-primary">Add Match!</button>
         </div>
