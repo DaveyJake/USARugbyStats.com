@@ -1,0 +1,38 @@
+<div class="panel">
+    <div class="title">
+		<h2><span class="icon-users"></span>Rosters</h2>
+    </div>
+    <table>
+    	<thead>
+            <tr>
+    	       <th class="home-player"><?=$this->ursTeamLink($match->getHomeTeam()); ?></th>
+    		   <th></th>
+    		   <th class="away-player"><?=$this->ursTeamLink($match->getAwayTeam()); ?></th>
+    	   </tr>
+    	</thead>
+    	<tbody>
+    	   <?php $homePlayers = $match->getHomeTeam()->getPlayers(); ?>
+    	   <?php $awayPlayers = $match->getAwayTeam()->getPlayers(); ?>
+
+    	   <?php foreach ( $this->positions as $pkey => $pname ): ?>
+        	<tr>
+        		<td class="home-player">
+        		  <?php if (isset($homePlayers[$pkey])): ?>
+        		  # <?=$this->escapeHtml($homePlayers[$pkey]->getNumber()) ?> - <?=$this->ursPlayerLink($homePlayers[$pkey]->getPlayer()); ?>
+        		  <?php if ( $homePlayers[$pkey]->isFrontRow() ) echo '<span style="font-weight:bold">(FR)</span>';?>
+        		  <?php else: echo '&mdash;'; ?>
+        		  <?php endif; ?>
+        		</td>
+        		<td style="text-align:center"><?=$this->escapeHtml($pname);?></td>
+        		<td class="away-player">
+        		  <?php if (isset($awayPlayers[$pkey])): ?>
+        		  # <?=$this->escapeHtml($awayPlayers[$pkey]->getNumber()) ?> - <?=$this->ursPlayerLink($awayPlayers[$pkey]->getPlayer()); ?>
+        		  <?php if ( $homePlayers[$pkey]->isFrontRow() ) echo '<span style="font-weight:bold">(FR)</span>';?>
+        		  <?php else: echo '&mdash;'; ?>
+        		  <?php endif; ?>
+        		</td>
+        	</tr>
+        	<?php endforeach; ?>
+    	</tbody>
+    </table>
+</div>

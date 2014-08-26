@@ -5,12 +5,10 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Traits\CompetitionServiceTrait;
-use UsaRugbyStats\Competition\Traits\CompetitionStandingsServiceTrait;
 
 class CompetitionScheduleController extends AbstractActionController
 {
     use CompetitionServiceTrait;
-    use CompetitionStandingsServiceTrait;
 
     public function indexAction()
     {

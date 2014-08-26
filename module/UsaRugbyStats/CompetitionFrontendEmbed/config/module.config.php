@@ -22,12 +22,23 @@ return array(
                     ),
                 ),
             ),
+            'usarugbystats_frontend-embed_competition_match_rosters' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/embed/competition/:cid/match/:mid/rosters',
+                    'defaults' => array(
+                        'controller' => 'usarugbystats_competition-frontend-embed_competition_match_rosters',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
         ),
     ),
     'controllers' => array(
         'invokables' => array(
             'usarugbystats_competition-frontend-embed_competition_standings' => 'UsaRugbyStats\CompetitionFrontendEmbed\Controller\CompetitionStandingsController',
             'usarugbystats_competition-frontend-embed_competition_schedule' => 'UsaRugbyStats\CompetitionFrontendEmbed\Controller\CompetitionScheduleController',
+            'usarugbystats_competition-frontend-embed_competition_match_rosters' => 'UsaRugbyStats\CompetitionFrontendEmbed\Controller\CompetitionMatchRostersController',
         ),
     ),
     'zfc_rbac' => array(
@@ -43,6 +54,7 @@ return array(
 
             'usa-rugby-stats/competition-frontend-embed/competition/standings' => __DIR__ . '/../view/competition/standings.phtml',
             'usa-rugby-stats/competition-frontend-embed/competition/schedule' => __DIR__ . '/../view/competition/schedule.phtml',
+            'usa-rugby-stats/competition-frontend-embed/competition/match/rosters' => __DIR__ . '/../view/competition/match/rosters.phtml',
         ),
     ),
     'asset_manager' => array(
