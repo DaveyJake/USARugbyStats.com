@@ -1052,7 +1052,6 @@ Version:  2.0
   line-height: 150px;
 }
 #game-header > div.away-team {
-  background: url('http://usarugby.dev.lundrigan.ca/assets/img/teamcoverimages/2.png') center center no-repeat;
   -webkit-background-size: cover cover;
           background-size: cover;
   position: relative;
@@ -1097,7 +1096,6 @@ Version:  2.0
   z-index: 1;
 }
 #game-header > div.home-team {
-  background: url('../img/header-bg.jpg') center top no-repeat;
   -webkit-background-size: cover cover;
           background-size: cover;
 }
