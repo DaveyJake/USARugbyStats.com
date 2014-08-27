@@ -186,8 +186,11 @@ $this->layout()->containerAttributes = array_merge(
             		 <td ng-show="event.id > 0 && event.side == 'A'">{{awayTeam.name}}</td>
             		 <td>
             		   <div ng-show="event.id > 0 && event.event != 'sub'">
-            		      #{{extdata.teamPlayer[event.player].number}} -
-            		      <a ng-href="/player/{{extdata.teamPlayer[event.player].acct}}" target="_blank">{{extdata.player[extdata.teamPlayer[event.player].acct].name}}</a>
+            		      <span ng-show="extdata.teamPlayer[event.player]">
+            		        #{{extdata.teamPlayer[event.player].number}} -
+            		        <a ng-href="/player/{{extdata.teamPlayer[event.player].acct}}" target="_blank">{{extdata.player[extdata.teamPlayer[event.player].acct].name}}</a>
+            		      </span>
+            		      <span ng-hide="extdata.teamPlayer[event.player]">Team {{event.event}}</span>
             		   </div>
             		   <div ng-show="event.id > 0 && event.event == 'sub'">
                 		 Off: #{{extdata.teamPlayer[event.playerOff].number}} - <a ng-href="/player/{{extdata.teamPlayer[event.playerOff].acct}}" target="_blank">{{extdata.player[extdata.teamPlayer[event.playerOff].acct].name}}</a><br />
@@ -412,7 +415,8 @@ $this->layout()->containerAttributes = array_merge(
                 <label for="newEvent.player" class="col-sm-3 control-label">Player</label>
                 <div class="col-sm-9">
                     <select ng-model="newEvent.player" class="form-control" id="newEvent.player">
-                        <option value="">Choose a Player</option>
+                        <option value="" ng-show="newEvent.event == 'sub'">Choose a Player</option>
+                        <option value="" ng-show="newEvent.event != 'sub'">No Player Selected (Team {{newEvent.event}})</option>
                         <option
                             ng-repeat="(key,player) in match.teams[newEvent.side].players"
                             value="{{player.id}}"
@@ -431,7 +435,8 @@ $this->layout()->containerAttributes = array_merge(
                 <label for="newEvent.playerOff" class="col-sm-3 control-label">Player Off</label>
                 <div class="col-sm-9">
                     <select ng-model="newEvent.playerOff" class="form-control" id="newEvent.playerOff">
-                        <option value="">Choose a Player</option>
+                        <option value="" ng-show="newEvent.event == 'sub'">Choose a Player</option>
+                        <option value="" ng-show="newEvent.event != 'sub'">No Player Selected (Team {{newEvent.event}})</option>
                         <option
                             ng-repeat="(key,player) in match.teams[newEvent.side].players"
                             value="{{player.id}}"

@@ -27,6 +27,7 @@ class ScoreEventFilter extends MatchTeamEventFilter
         $this->add(array(
             'name'       => 'player',
             'required'   => true,
+            'allow_empty'=> true,
             'validators' => array(
                 array(
                     'name' => 'DoctrineModule\Validator\ObjectExists',

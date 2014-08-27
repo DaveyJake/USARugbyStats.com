@@ -201,6 +201,7 @@ abstract class AbstractService implements EventManagerAwareInterface
         $this->getEventManager()->trigger("form.validate", $this, $argv);
         $argv->result = $argv->form->isValid();
         $this->getEventManager()->trigger("form.validate.post", $this, $argv);
+
         if (! $argv->result) {
             return false;
         }

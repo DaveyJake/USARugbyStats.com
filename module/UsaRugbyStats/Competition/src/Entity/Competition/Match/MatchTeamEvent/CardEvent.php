@@ -49,7 +49,7 @@ class CardEvent extends MatchTeamEvent
         return $this->player;
     }
 
-    public function setPlayer(MatchTeamPlayer $player)
+    public function setPlayer(MatchTeamPlayer $player = null)
     {
         $this->player = $player;
 

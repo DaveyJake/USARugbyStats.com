@@ -29,6 +29,7 @@ class CardEventFieldset extends MatchTeamEventFieldset
             'options' => array(
                 'label' => 'Player',
                 'object_manager' => $om,
+                'empty_option'   => 'No Player Selected (Team Card)',
                 'target_class'   => 'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer',
             ),
         ));

@@ -24,11 +24,11 @@ class CardEventTest extends MatchTeamEventTest
         $this->assertSame($player, $obj->getPlayer());
     }
 
-    public function testSetPlayerDoesNotAcceptNull()
+    public function testSetPlayerDoesAcceptNull()
     {
-        $this->setExpectedException('PHPUnit_Framework_Error');
         $obj = new $this->entityClass();
         $obj->setPlayer(null);
+        $this->assertNull($obj->getPlayer());
     }
 
     /**
