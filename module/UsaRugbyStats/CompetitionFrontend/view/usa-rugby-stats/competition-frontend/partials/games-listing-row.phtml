@@ -31,7 +31,7 @@ if ( $isRelativeToTeam ): ?>
 	<?php   $teamSide = $match->getTeam('H')->getTeam()->getId() == $this->relativeTo->getId() ? 'H' : 'A'; ?>
 	<?php   $opponentSide = $teamSide == 'H' ? 'A' : 'H'; ?>
 	<?php   $winningSide = $match->getWinningSide(); ?>
-	<?php   if ( ! is_null($winningSide) ): ?>
+	<?php   if ( $match->isComplete() ): ?>
 	  <span><?=$this->escapeHtml($winningSide == 'D' ? 'D' : ( $winningSide == $teamSide ? 'W' : 'L')); ?></span>
 	<?php endif;?>
 	  <?=$this->escapeHtml($match->getTeam($teamSide)->getScore()); ?> -
@@ -60,16 +60,7 @@ if ( $isRelativeToTeam ): ?>
 		   Cancelled
 		<?php elseif ( $match->isNotStarted() || $now <= $match->getDate() ): ?>
 		  <?=$this->escapeHtml($match->getDate()->format('g:i a T'));?>
-		<?php elseif ( $isRelativeToTeam ): ?>
-		<?php   $teamSide = $match->getTeam('H')->getTeam()->getId() == $this->relativeTo->getId() ? 'H' : 'A'; ?>
-		<?php   $opponentSide = $teamSide == 'H' ? 'A' : 'H'; ?>
-		<?php   $winningSide = $match->getWinningSide(); ?>
-		<?php   if ( ! is_null($winningSide) ): ?>
-		  <span><?=$this->escapeHtml($winningSide == 'D' ? 'D' : ( $winningSide == $teamSide ? 'W' : 'L')); ?></span>
-		  <?=$this->escapeHtml($match->getTeam($teamSide)->getScore()); ?> -
-		  <?=$this->escapeHtml($match->getTeam($opponentSide)->getScore()); ?>
-		<?php   endif;?>
-		<?php elseif ( $isRelativeToCompetition ): ?>
+		<?php else: ?>
 		  <?=$this->escapeHtml($match->getTeam('A')->getScore()); ?> -
 		  <?=$this->escapeHtml($match->getTeam('H')->getScore()); ?>
 		<?php endif; ?>
