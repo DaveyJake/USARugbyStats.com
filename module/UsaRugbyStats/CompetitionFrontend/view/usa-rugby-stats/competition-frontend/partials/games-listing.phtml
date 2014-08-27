@@ -7,19 +7,32 @@ $isRelativeToCompetition = $this->relativeTo instanceof Competition;
 
 $now = new DateTime();
 ?>
+
 <table class="responsive">
+	
+	<?php if ( $isRelativeToTeam ): ?>
+
 	<thead class="header">
 		<th class="date">Date</th>
-		<?php if ( $isRelativeToTeam ): ?>
 		<th class="opponent">Opponent</th>
-		<?php else: ?>
-		<th class="opponent"></th>
-		<?php endif;?>
 		<th class="result-time">Result/Time</th>
-		<?php if ( ! $isRelativeToCompetition ): ?>
 		<th class="type">Type</th>
 		<?php endif;?>
 	</thead>
+
+	<?php else: ?>
+
+	<thead class="header">
+		<th class="date">Date</th>
+		<th class="opponent">Away</th>
+		<th class="result-time">Result/Time</th>
+		<th class="opponent">Home</th>
+		<th class="type">Type</th>
+		<?php endif;?>
+	</thead>
+
+	<?php endif;?>
+
 	<tbody>
 	<?php $vars = $this->vars()->getArrayCopy(); ?>
 	<?php foreach ( $this->matches as $match ): ?>
