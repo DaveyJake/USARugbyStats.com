@@ -12,8 +12,6 @@ $compUrl  = $this->url('usarugbystats_frontend_competition', ['id' => $match->ge
 
 if ( $isRelativeToTeam ): ?>
 
-<?php endif;?>
-
 <tr data-matchdatetime="<?=$this->escapeHtmlAttr($match->getDate()->format('U')); ?>">
 	<td class="date"><a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"><?=$this->escapeHtml($match->getDate()->format('M jS')); ?></a></td>
 	<td class="opponent">
@@ -29,15 +27,19 @@ if ( $isRelativeToTeam ): ?>
 	   Cancelled
 	<?php elseif ( $match->isNotStarted() || $now <= $match->getDate() ): ?>
 	  <?=$this->escapeHtml($match->getDate()->format('g:i a T'));?>
-	
+    <?php else: ?>
 	<?php   $teamSide = $match->getTeam('H')->getTeam()->getId() == $this->relativeTo->getId() ? 'H' : 'A'; ?>
 	<?php   $opponentSide = $teamSide == 'H' ? 'A' : 'H'; ?>
 	<?php   $winningSide = $match->getWinningSide(); ?>
 	<?php   if ( ! is_null($winningSide) ): ?>
 	  <span><?=$this->escapeHtml($winningSide == 'D' ? 'D' : ( $winningSide == $teamSide ? 'W' : 'L')); ?></span>
+	<?php endif;?>
 	  <?=$this->escapeHtml($match->getTeam($teamSide)->getScore()); ?> -
 	  <?=$this->escapeHtml($match->getTeam($opponentSide)->getScore()); ?>
+	<?php endif;?>
 	</td>
+
+    <td class="type"><?=$this->escapeHtml($match->getCompetition()->getTypeString());?></td>
 
 </tr>
 
@@ -47,6 +49,10 @@ if ( $isRelativeToTeam ): ?>
 
 	<td class="date">
 		<a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"><?=$this->escapeHtml($match->getDate()->format('M jS')); ?></a>
+	</td>
+
+	<td class="away">
+		<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>"><?php echo $this->ursTeamLink($match->getTeam('A')); ?>
 	</td>
 
 	<td class="result-time">
@@ -68,13 +74,12 @@ if ( $isRelativeToTeam ): ?>
 		  <?=$this->escapeHtml($match->getTeam('H')->getScore()); ?>
 		<?php endif; ?>
 	</td>
-	
-	<td class="away">
+
+	<td class="home">
 		<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('H'))); ?>"><?php echo $this->ursTeamLink($match->getTeam('H')); ?>
 	</td>
 
-	<td class="type"><?=$this->escapeHtml($match->getCompetition()->getTypeString());?></td>
-
+    <td class="type"><?=$this->escapeHtml($match->getCompetition()->getTypeString());?></td>
 </tr>
 
 <?php endif;?>
