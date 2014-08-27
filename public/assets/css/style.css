@@ -700,12 +700,18 @@ table tbody td img {
   background: #f2f3f5;
   cursor: pointer;
 }
+
 #standings tr:hover.even,
 #schedule tr:hover.even,
 #standings tr:hover:nth-child(even),
 #schedule tr:hover:nth-child(even) {
   background: #FAFAFC;
 }
+
+#content #standings tr.active:hover, #content #schedule tr.active:hover {
+  background: #9C2B41;
+}
+
 #standings tr:hover.even:hover,
 #schedule tr:hover.even:hover,
 #standings tr:hover:nth-child(even):hover,
@@ -729,7 +735,6 @@ table tbody td img {
   padding-right: 0;
 }
 #standings .points {
-  width: 17%;
   text-align: center;
   font-weight: bold;
 }
@@ -739,6 +744,18 @@ table tbody td img {
   font-size: 12px;
   position: relative;
 }
+
+/*@TODO work around*/
+.tab-pane#standings .record, #standings.col-sm-7 .record {
+  display: none;
+}
+
+.tab-pane#standings .td {
+  border-left: 1px solid #EFF0F3;
+}
+
+/*@End Work Around*/
+
 #standings .team {
   width: 66%;
   white-space: nowrap;
@@ -774,11 +791,8 @@ table tbody td img {
   padding-right: 10px;
   padding-left: 10px;
   border-left: 0;
-}
-#standings.col-sm-7 .record {
-  width: 13%;
-  font-size: 14px;
-}
+
+
 #standings.col-sm-7 thead .points {
   background: #e6e8ec;
 }

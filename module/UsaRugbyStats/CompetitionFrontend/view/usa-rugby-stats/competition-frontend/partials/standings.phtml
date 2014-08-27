@@ -10,6 +10,9 @@ $relativeToTeam = $this->relativeTo instanceof Team;
 			<th class="team">Team</th>
 			<th class="<?=$isExpanded ? '' : 'more'; ?>">GP</th>
 			<th class="record">R</th>
+			<th class="<?=$isExpanded ? '' : 'more'; ?>">W</th>
+			<th class="<?=$isExpanded ? '' : 'more'; ?>">L</th>
+			<th class="<?=$isExpanded ? '' : 'more'; ?>">T</th>
 			<th class="<?=$isExpanded ? '' : 'more'; ?>">PF</th>
 			<th class="<?=$isExpanded ? '' : 'more'; ?>">PA</th>
 			<th class="<?=$isExpanded ? '' : 'more'; ?>">PD</th>
@@ -26,6 +29,10 @@ $relativeToTeam = $this->relativeTo instanceof Team;
 			<td class="team"><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $srTeam->getId()]); ?>"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($srTeam)); ?>"> <?=$this->escapeHtml($this->ursTeamName($srTeam)); ?></a></td>
 			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalGames()); ?></td>
 			<td class="record"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?>-<?=$this->escapeHtml($standingsRow->getTotalLosses()); ?>-<?=$this->escapeHtml($standingsRow->getTotalTies()); ?></td>
+			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?></td>
+			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalLosses()); ?></td>
+			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalTies()); ?></td>
+
 			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreInFavor()); ?></td>
 			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreAgainst()); ?></td>
 			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreDifferential()); ?></td>
