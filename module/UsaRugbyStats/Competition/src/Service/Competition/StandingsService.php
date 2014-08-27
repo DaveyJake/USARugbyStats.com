@@ -31,6 +31,10 @@ class StandingsService implements EventManagerAwareInterface
         $sortData = [];
         foreach ($teamRecords as $key=>$item) {
             $item instanceof TeamRecord;
+            if ( !isset($teamToDivision[$item->getTeam()->getId()]) ) {
+                continue;
+            }
+            $sortData['division'][$key] = $teamToDivision[$item->getTeam()->getId()]->getName();
             $sortData['points'][$key] = $item->getTotalPoints();
             $sortData['totalWins'][$key] = $item->getTotalWins();
             $sortData['scoreDiff'][$key] = $item->getScoreDifferential();
@@ -39,6 +43,7 @@ class StandingsService implements EventManagerAwareInterface
         }
         if (count($sortData) > 0) {
             array_multisort(
+                $sortData['division'], SORT_ASC,
                 $sortData['points'], SORT_DESC,
                 $sortData['totalWins'], SORT_DESC,
                 $sortData['scoreDiff'], SORT_DESC,
