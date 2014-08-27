@@ -59,7 +59,10 @@ class CompetitionMatchEventController extends AbstractRestfulController
             );
         }
 
-        if ( ! $this->isGranted('competition.competition.match.team.events.change', $side == NULL ? null : $match->getTeam($side)) || ! $flags->{"match.teams.{$side}.events"}->is_on() ) {
+        $canChangeHomeEvents = $this->isGranted('competition.competition.match.team.events.change', $match->getHomeTeam());
+        $canChangeAwayEvents = $this->isGranted('competition.competition.match.team.events.change', $match->getAwayTeam());
+
+        if ( ( ! $canChangeHomeEvents && ! $canChangeAwayEvents ) || ! $flags->{"match.teams.{$side}.events"}->is_on() ) {
             return new ApiProblemResponse(new ApiProblem(403, 'Not authorized to add events!'));
         }
 
