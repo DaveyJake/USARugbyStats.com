@@ -23,6 +23,7 @@ if ( $isRelativeToTeam ): ?>
 	<?=($opponent->getType() == 'H' ? '@' : 'vs.'); ?> <img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($opponent)); ?>"><?php echo $this->ursTeamLink($opponent); ?>
 	</td>
 	<td class="result-time">
+	<a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>">
 	<?php if ( $match->isCancelled() ): ?>
 	   Cancelled
 	<?php elseif ( $match->isNotStarted() || $now <= $match->getDate() ): ?>
@@ -37,6 +38,7 @@ if ( $isRelativeToTeam ): ?>
 	  <?=$this->escapeHtml($match->getTeam($teamSide)->getScore()); ?> -
 	  <?=$this->escapeHtml($match->getTeam($opponentSide)->getScore()); ?>
 	<?php endif;?>
+	</a>
 	</td>
 
     <td class="type"><?=$this->escapeHtml($match->getCompetition()->getTypeString());?></td>
@@ -56,6 +58,7 @@ if ( $isRelativeToTeam ): ?>
 	</td>
 
 	<td class="result-time">
+	  <a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>">
 		<?php if ( $match->isCancelled() ): ?>
 		   Cancelled
 		<?php elseif ( $match->isNotStarted() || $now <= $match->getDate() ): ?>
@@ -64,6 +67,7 @@ if ( $isRelativeToTeam ): ?>
 		  <?=$this->escapeHtml($match->getTeam('A')->getScore()); ?> -
 		  <?=$this->escapeHtml($match->getTeam('H')->getScore()); ?>
 		<?php endif; ?>
+      </a>
 	</td>
 
 	<td class="home">
