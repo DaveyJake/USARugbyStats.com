@@ -1,0 +1,10 @@
+<?php
+
+$divCount = count($this->standings['by-division']);
+foreach ( $this->standings['by-division'] as $divKey => $divData ) {
+    echo $this->render('usa-rugby-stats/competition-frontend/partials/standings', [
+        'standings' => $divData['standings'],
+        'divisionTitle' => ($divCount > 1 ? $divData['division']->getName() : ''),
+        'isExpanded' => $this->isExpanded]
+    );
+}

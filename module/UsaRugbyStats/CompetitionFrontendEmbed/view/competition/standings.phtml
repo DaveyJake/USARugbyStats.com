@@ -1,5 +1,12 @@
-<?php if ( isset($this->standings['overall']) && !empty($this->standings['overall']) ): ?>
-<?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/standings', ['standings' => $this->standings['overall'], 'isExpanded' => true]); ?>
+<?php if ( isset($this->standings['by-division']) && !empty($this->standings['by-division']) ): ?>
+<div id="standings-full">
+<?php   $divCount = count($this->standings['by-division']); ?>
+<?php   foreach ( $this->standings['by-division'] as $divKey => $divData ): ?>
+<div class="panel">
+<?php     echo $this->render('usa-rugby-stats/competition-frontend/partials/standings', ['standings' => $divData['standings'], 'divisionTitle' => ($divCount > 1 ? $divData['division']->getName() : ''), 'isExpanded' => true]); ?>
+</div>
+<?php   endforeach;?>
+</div>
 <?php else: ?>
 <div class="competition-empty">This competition does not yet have standings.</div>
 <?php endif; ?>

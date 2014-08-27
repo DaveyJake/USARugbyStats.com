@@ -5,9 +5,9 @@ $isExpanded = @$this->isExpanded === true;
 $relativeToTeam = $this->relativeTo instanceof Team;
 ?>
 <table>
-	<thead class="<?=$isExpanded ? '' : 'more'; ?>">
+	<thead>
 	  <tr>
-			<th class="team">Team</th>
+			<th class="team"><?=empty($this->divisionTitle) ? 'Team' : $this->escapeHtml($this->divisionTitle); ?></th>
 			<th class="<?=$isExpanded ? '' : 'more'; ?>">GP</th>
 			<th class="record">R</th>
 			<th class="<?=$isExpanded ? '' : 'more'; ?>">W</th>

@@ -66,8 +66,8 @@ $this->layout()->coverVars = $this->vars();
     	</div>
     	<?php if ( $league instanceof Competition ): ?>
     	<div style="font-weight:bold; color: #223850;font-size: 13px;height: 35px;background: #eff0f3; padding: 8px 0 0 15px;overflow:hidden;text-overflow:ellipsis"><?php echo $this->ursCompetitionLink($league); ?></div>
-    	<?php if ( isset($this->leagueStandings['overall']) && !empty($this->leagueStandings['overall']) ): ?>
-        <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/standings', ['standings' => $this->leagueStandings['overall'], 'relativeTo' => $team]); ?>
+    	<?php if ( isset($this->leagueStandings['by-division']) && !empty($this->leagueStandings['by-division']) ): ?>
+        <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/standings-bydivision', ['standings' => $this->leagueStandings, 'isExpanded' => false] ); ?>
         <?php else: ?>
         <div class="team-has-no-league">This team does participate in a league.</div>
         <?php endif; ?>

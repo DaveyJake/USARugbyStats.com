@@ -37,8 +37,8 @@
         	</div>
 
         	<div class="tab-pane" id="standings">
-            	<?php if ( isset($this->standings['overall']) && !empty($this->standings['overall']) ): ?>
-            	<?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/standings', ['standings' => $this->standings['overall'], 'isExpanded' => true]); ?>
+            	<?php if ( isset($this->standings['by-division']) && !empty($this->standings['by-division']) ): ?>
+                <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/standings-bydivision', ['standings' => $this->standings, 'isExpanded' => false] ); ?>
                 <?php else: ?>
                 <div class="team-has-no-league">This competition does not yet have standings.</div>
                 <?php endif; ?>
