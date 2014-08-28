@@ -771,7 +771,7 @@ table tbody td img {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 250px;
+  max-width: 225px;
 }
 #standings .more {
   display: none;
