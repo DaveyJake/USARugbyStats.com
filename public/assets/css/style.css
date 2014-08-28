@@ -731,7 +731,7 @@ table tbody td img {
   display: none;
 }
 #standings table tbody td:first-of-type {
-  padding-left: 25px;
+  padding-left: 10px;
 }
 #standings {
   padding-right: 0;
@@ -747,6 +747,24 @@ table tbody td img {
   position: relative;
 }
 
+#standings .sub-title {
+  height: 35px;
+  background: #3C454E; 
+  padding: 8px 0 0 15px;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+#standings .sub-title a {
+  font-weight:bold; 
+  font-size: 13px;
+  color: #FFF; 
+}
+
+#standings .sub-title a:hover {
+  color: #F1F1F1;
+}
+
 /*@TODO work around - Competition View schedule */
 .tab-pane#standings .record, #standings.col-sm-7 .record {
   display: none;
@@ -756,11 +774,11 @@ table tbody td img {
   border-left: 1px solid #EFF0F3;
 }
 
-.tab-pane#standings td.result-time, .tab-pane#standings th.result-time {
+.competition td.result-time, .competition th.result-time {
   text-align: center;
 }
 
-.td.away {
+td.away {
   text-align: right;
 }
 
@@ -771,7 +789,7 @@ table tbody td img {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 250px;
+  max-width: 225px;
 }
 #standings .more {
   display: none;
