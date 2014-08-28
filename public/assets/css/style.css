@@ -731,7 +731,7 @@ table tbody td img {
   display: none;
 }
 #standings table tbody td:first-of-type {
-  padding-left: 25px;
+  padding-left: 10px;
 }
 #standings {
   padding-right: 0;
@@ -745,6 +745,24 @@ table tbody td img {
   text-align: center;
   font-size: 12px;
   position: relative;
+}
+
+#standings .sub-title {
+  height: 35px;
+  background: #3C454E; 
+  padding: 8px 0 0 15px;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+#standings .sub-title a {
+  font-weight:bold; 
+  font-size: 13px;
+  color: #FFF; 
+}
+
+#standings .sub-title a:hover {
+  color: #F1F1F1;
 }
 
 /*@TODO work around - Competition View schedule */
