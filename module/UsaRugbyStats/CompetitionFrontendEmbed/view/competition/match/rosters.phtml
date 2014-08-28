@@ -18,7 +18,7 @@
         	<tr>
         		<td class="home-player">
         		  <?php if (isset($homePlayers[$pkey])): ?>
-        		  # <?=$this->escapeHtml($homePlayers[$pkey]->getNumber()) ?> - <?=$this->ursPlayerLink($homePlayers[$pkey]->getPlayer()); ?>
+        		  <?=$this->ursPlayerLink($homePlayers[$pkey]->getPlayer()); ?> - #<?=$this->escapeHtml($homePlayers[$pkey]->getNumber()) ?> 
         		  <?php if ( $homePlayers[$pkey]->isFrontRow() ) echo '<span style="font-weight:bold">(FR)</span>';?>
         		  <?php else: echo '&mdash;'; ?>
         		  <?php endif; ?>

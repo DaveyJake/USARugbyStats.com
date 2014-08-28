@@ -693,8 +693,10 @@ table tbody td.position {
 table tbody td img {
   height: 23px;
   margin-bottom: 2px;
-  padding-right: 6px;
+  padding: 0 6px;
 }
+
+
 #standings tr:hover,
 #schedule tr:hover {
   background: #f2f3f5;
@@ -745,13 +747,21 @@ table tbody td img {
   position: relative;
 }
 
-/*@TODO work around*/
+/*@TODO work around - Competition View schedule */
 .tab-pane#standings .record, #standings.col-sm-7 .record {
   display: none;
 }
 
 .tab-pane#standings .td {
   border-left: 1px solid #EFF0F3;
+}
+
+.tab-pane#standings td.result-time, .tab-pane#standings th.result-time {
+  text-align: center;
+}
+
+.td.away {
+  text-align: right;
 }
 
 /*@End Work Around*/

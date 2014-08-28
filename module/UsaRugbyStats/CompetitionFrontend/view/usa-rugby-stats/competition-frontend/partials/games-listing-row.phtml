@@ -54,7 +54,7 @@ if ( $isRelativeToTeam ): ?>
 	</td>
 
 	<td class="away">
-		<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>"><?php echo $this->ursTeamLink($match->getTeam('A')); ?>
+		<?php echo $this->ursTeamLink($match->getTeam('A')); ?><img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>">
 	</td>
 
 	<td class="result-time">
