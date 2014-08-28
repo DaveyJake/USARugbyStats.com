@@ -8,9 +8,10 @@ $isRelativeToCompetition = $this->relativeTo instanceof Competition;
 $now = new DateTime();
 ?>
 
-<table class="responsive">
 
 	<?php if ( $isRelativeToTeam ): ?>
+
+<table class="responsive">
 
 	<thead class="header">
 		<th class="date">Date</th>
@@ -20,6 +21,8 @@ $now = new DateTime();
 	</thead>
 
 	<?php else: ?>
+
+<table class="competition responsive">
 
 	<thead class="header">
 		<th class="date">Date</th>
@@ -37,5 +40,6 @@ $now = new DateTime();
     <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing-row', $vars + ['match' => $match]); ?>
 	<?php endforeach; ?>
 	</tbody>
+	
 </table>
 

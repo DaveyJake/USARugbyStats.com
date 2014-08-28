@@ -756,11 +756,11 @@ table tbody td img {
   border-left: 1px solid #EFF0F3;
 }
 
-.tab-pane#standings td.result-time, .tab-pane#standings th.result-time {
+.competition td.result-time, .competition th.result-time {
   text-align: center;
 }
 
-.td.away {
+td.away {
   text-align: right;
 }
 
