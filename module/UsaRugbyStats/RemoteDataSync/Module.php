@@ -49,7 +49,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
     public function getConsoleUsage(Console $console)
     {
         return array(
-            'remote-data-sync sync_team --team-id=' => 'Trigger sync_team job on the specified team',
+            'remote-data-sync sync_team --team-id= --wait=' => 'Trigger sync_team job on the specified team',
         );
     }
 

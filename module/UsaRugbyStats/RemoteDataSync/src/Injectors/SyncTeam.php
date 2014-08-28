@@ -36,7 +36,8 @@ class SyncTeam extends AbstractInjector
         $this->getLogger()->info('Enqueuing your job...');
 
         $token = \Resque::enqueue('sync_team', 'UsaRugbyStats\RemoteDataSync\Jobs\SyncTeam', [
-            'team_id' => $team->getId()
+            'team_id' => $team->getId(),
+            'wait' => $request->getParam('wait', false),
         ]);
 
         $this->getLogger()->info('Job is in flight!');
