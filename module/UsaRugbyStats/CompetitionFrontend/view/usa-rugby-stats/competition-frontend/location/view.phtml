@@ -8,7 +8,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-8">
     <div class="panel panel-default">
       <div class="panel-heading">Upcoming Matches at this Location</div>
       <?php if (count($upcomingMatches)): ?>
@@ -30,17 +30,29 @@
       <?php endif; ?>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="panel panel-default">
       <div class="panel-heading">Location Details</div>
-      <ul class="list-group">
+      <div class="panel-body">
         <?php if ( $location->getAddress() ): ?>
-        <li class="list-group-item"><?php echo $this->escapeHtml($location->getAddress()); ?></li>
+        <?php echo $this->escapeHtml($location->getAddress()); ?><br /></li>
         <?php endif; ?>
         <?php if ( $location->getCoordinates() ): ?>
-        <a href="https://www.google.com/maps/@<?php echo $this->escapeUrl(preg_replace('/\s/', '', $location->getCoordinates())); ?>,16z" target="_blank"><li class="list-group-item">Map</li></a>
+        <a href="https://www.google.com/maps/@<?php echo $this->escapeUrl(preg_replace('/\s/', '', $location->getCoordinates())); ?>,16z" target="_blank">@ <?=$this->escapeHtml($location->getCoordinates()) ?></a>
         <?php endif; ?>
-      </ul>
+      </div>
+
+        <?php if ( $location->getAddress() || $location->getCoordinates() ): ?>
+        <div id="geocomplete"></div>
+        <div id="googlemap" style="width:100%;height: 250px;"></div>
+        <script>
+          $('#geocomplete').geocomplete({
+              location: '<?=$this->escapeJs($location->getCoordinates() ?: $location->getAddress());?>',
+              map: "#googlemap",
+              mapOptions: { zoom: 9 }
+          });
+        </script>
+        <?php endif;?>
     </div>
   </div>
 </div>

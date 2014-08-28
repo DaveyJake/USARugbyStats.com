@@ -125,7 +125,7 @@ class LocationController extends AbstractActionController
 
             $result = $this->getLocationService()->update($location, $data);
             if ($result instanceof Location) {
-                $this->flashMessenger()->addSuccessMessage('The match was updated successfully!');
+                $this->flashMessenger()->addSuccessMessage('The location was updated successfully!');
 
                 return $this->redirect()->toRoute('usarugbystats_frontend_location/update', [
                     'id' => $result->getId(),

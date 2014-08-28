@@ -33,7 +33,8 @@
                   ->appendFile($this->basePath() . '/assets/js/vendor/moment.js')
                   ->appendFile($this->basePath() . '/assets/js/vendor/bootstrap-datetimepicker.min.js')
                   ->appendFile($this->basePath() . '/assets/js/vendor/chosen.jquery.min.js')
-                  ->appendFile($this->basePath() . '/assets/js/vendor/chosen.jquery.min.js')
+                  ->appendFile('//maps.googleapis.com/maps/api/js?libraries=places')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/jquery.geocomplete.min.js')
                   ->appendFile($this->basePath() . '/assets/js/min/main-min.js')
              ;
         ?>

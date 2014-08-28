@@ -2,6 +2,7 @@
 return array(
     'controllers' => array(
         'invokables' => array(
+            'usarugbystats_competition-api_location' => 'UsaRugbyStats\CompetitionApi\Controller\LocationController',
             'usarugbystats_competition-api_competition_match' => 'UsaRugbyStats\CompetitionApi\Controller\CompetitionMatchController',
             'usarugbystats_competition-api_competition_match_event' => 'UsaRugbyStats\CompetitionApi\Controller\CompetitionMatchEventController',
             'usarugbystats_competition-api_competition_match_prepare-form' => 'UsaRugbyStats\CompetitionApi\Controller\CompetitionMatchPrepareFormController',
@@ -53,6 +54,18 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
+            ),
+            'usarugbystats_competition-api_location' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/api/location[/:id]',
+                    'constraints' => array(
+                        'id' => '\d{1,}',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'usarugbystats_competition-api_location',
+                    ),
+                ),
             ),
         ),
     ),

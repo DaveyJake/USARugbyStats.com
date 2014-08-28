@@ -1,5 +1,7 @@
 @CHARSET "UTF-8";
 
+.pac-container { z-index: 9999999999 !important; }
+
 ul.navigation, ul.admin-navigation { margin-top: 0px !important; }
 ul.admin-navigation > li > a:before { content:'— ' }
 

@@ -121,6 +121,8 @@ class CompetitionMatchCreateModal extends AbstractHelper
                 <?php $element->setAttribute('style', 'max-width: 95%;'); ?>
                 <?php echo $this->view->formLabel($element) ?><br />
                 <?php echo $this->view->formElement($element) ?><br />
+
+                <div class="text-center"><a class="btn btn-info btn-sm" id="AddLocationButton"><i class="glyphicon glyphicon-plus-sign"></i> Add a Location</a></div>
             </div>
 
             <div class="col-xs-12 col-sm-4 col-md-3" style="vertical-align:top; padding: 4px;">
@@ -138,14 +140,129 @@ class CompetitionMatchCreateModal extends AbstractHelper
                 <button id="MatchQuickAdd" class="btn btn-primary">Add Match!</button>
             </div>
         </div>
+
+        <div id="AddLocationModal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Add New Location</h4>
+              </div>
+              <div class="modal-body geocomplete-details">
+                <div id="AsyncLocationAddSpinner" class="alert alert-info" style="display:none"><i class="glyphicon glyphicon-refresh"></i> Sending your request.  Please wait...</div>
+                <div id="AsyncLocationAddedSuccessfully" class="alert alert-success" style="display:none"><i class="glyphicon glyphicon-ok"></i> Location added successfully!</div>
+                <form id="AsyncLocationAddForm" class="form-horizontal" role="form">
+                    <div class="row form-group">
+                        <label class="col-sm-3 control-label" for="location[name]">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="location[name]" class="form-control" value="">
+                            <span class="help-block error-message" style="display:none"></span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-sm-3 control-label" for="location[address]">Address</label>
+                        <div class="col-sm-9">
+                            <textarea name="location[address]" class="form-control"></textarea>
+                            <span class="help-block error-message" style="display:none"></span>
+                            <div class="map_canvas" style="width:100%; height: 200px;"></div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-sm-3 control-label" for="location[coordinates]">Coordinates</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="location[coordinates]" class="form-control" value="" data-geocomplete-detail="location">
+                            <span class="help-block error-message" style="display:none"></span>
+                        </div>
+                    </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="AddLocationSaveButton" type="button" class="btn btn-primary">Save</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div>
     </div>
 </div>
 <?php
         $this->view->placeholder('form')->captureEnd();
 
+        $locationCreateUrl = $this->view->url('usarugbystats_competition-api_location');
+
         $matchCreateUrl = $this->view->url('usarugbystats_competition-api_competition_match', ['cid' => $competition->getId()]);
         $matchRenderUrl = $this->view->url('usarugbystats_frontend_competition_match/render-match-row', ['cid' => $competition->getId(), 'mid' => 'XXXXXX']);
         $addMatchJavascript = <<<JSBLOCK
+
+function addErrorMessage(field, messages)
+{
+    if (typeof messages == 'undefined') {
+        return;
+    }
+    $(field).parent().addClass('has-error');
+    var errContainer = $(field).parent().find('.error-message').text("");
+    $.each(messages, function (k,v) {
+        errContainer.append(v).show();
+    });
+}
+
+$('#AddLocationModal').modal({show: false}).on('shown.bs.modal', function () {
+  google.maps.event.trigger($("*[name=location\\\\[address\\\\]]").geocomplete('map'), 'resize');
+})
+
+$("*[name=location\\\\[address\\\\]]").geocomplete({
+  map: ".map_canvas",
+  details: ".geocomplete-details",
+  detailsAttribute: "data-geocomplete-detail",
+  types: ["geocode", "establishment"]
+});
+
+$('#AddLocationButton').click(function() {
+    $('#AddLocationModal').modal('show');
+});
+$('#AddLocationSaveButton').click(function() {
+    $('#AsyncLocationAddSpinner').show();
+    $('#AsyncLocationAddForm').hide().removeClass('has-error');
+    $('#AsyncLocationAddForm .error-message').hide();
+
+    var payload = {
+        'location[name]': $('*[name=location\\\\[name\\\\]]').val(),
+        'location[address]': $('*[name=location\\\\[address\\\\]]').val(),
+        'location[coordinates]': $('*[name=location\\\\[coordinates\\\\]]').val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "{$locationCreateUrl}",
+        data: payload,
+        dataType: "json"
+    }).done(function (data) {
+        $('#AsyncLocationAddSpinner').hide();
+        $('#AsyncLocationAddForm').show();
+        $('#AsyncLocationAddedSuccessfully').show();
+
+        $('*[name=match\\\\[location\\\\]]').append($('<option>', {
+            text: data.location.name,
+            value: data.location.id
+        }));
+        $('*[name=match\\\\[location\\\\]]').val(data.location.id);
+
+        setTimeout(function () {
+            $('#AsyncLocationAddedSuccessfully').hide();
+            $('#AddLocationModal').modal('hide');
+        }, 5000);
+    }).fail(function (xhr, status) {
+        try { addErrorMessage('*[name=location\\\\[name\\\\]]', xhr.responseJSON.validation_messages.location.name); } catch (e) {};
+        try { addErrorMessage('*[name=location\\\\[address\\\\]]', xhr.responseJSON.validation_messages.location.address); } catch (e) {};
+        try { addErrorMessage('*[name=location\\\\[coordinates\\\\]]', xhr.responseJSON.validation_messages.location.coordinates); } catch (e) {};
+
+        $('#AsyncLocationAddSpinner').hide();
+        $('#AsyncLocationAddForm').show();
+    });
+
+});
+
+
 $('#MatchQuickAdd').click(function () {
     $('#AsyncMatchAddSpinner').show();
     $('#AsyncMatchAddForm').hide();
@@ -159,18 +276,6 @@ $('#MatchQuickAdd').click(function () {
         'match[teams][H][team]': $('*[name=match\\\\[teams\\\\]\\\\[H\\\\]\\\\[team\\\\]]').val(),
         'match[teams][A][team]': $('*[name=match\\\\[teams\\\\]\\\\[A\\\\]\\\\[team\\\\]]').val(),
     };
-
-    function addErrorMessage(field, messages)
-    {
-        if (typeof messages == 'undefined') {
-            return;
-        }
-        $(field).parent().addClass('has-error');
-        var errContainer = $(field).parent().find('.error-message').text("");
-        $.each(messages, function (k,v) {
-            errContainer.append(v).show();
-        });
-    }
 
     $('#AsyncMatchAddForm *').removeClass('has-error');
     $('#AsyncMatchAddForm .error-message').hide();

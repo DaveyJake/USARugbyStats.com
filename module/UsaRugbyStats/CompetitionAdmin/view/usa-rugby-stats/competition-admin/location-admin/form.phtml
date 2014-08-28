@@ -13,7 +13,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">Location Details</div>
-            <div class="panel-body">
+            <div class="panel-body geocomplete-details">
 
                 <div class="row form-group">
                     <?php $element = $fieldset->get('name'); ?>
@@ -35,6 +35,7 @@
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
                         <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                        <div class="map_canvas" style="width:100%; height: 200px;"></div>
                     </div>
                 </div>
 
@@ -42,12 +43,23 @@
                     <?php $element = $fieldset->get('coordinates'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
                     <?php $element->setAttribute('class', 'form-control'); ?>
+                    <?php $element->setAttribute('data-geocomplete-detail', 'location'); ?>
 
                     <?php echo $this->formLabel($element) ?>
                     <div class="col-sm-8">
                         <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
                     </div>
                 </div>
+
+                <script>
+                  $("*[name=location\\[address\\]]").geocomplete({
+                    map: ".map_canvas",
+                    details: ".geocomplete-details",
+                    detailsAttribute: "data-geocomplete-detail",
+                    location: "<?=$this->escapeJs($element->getValue()); ?>",
+                    types: ["geocode", "establishment"]
+                  });
+                </script>
 
             </div>
         </div>
