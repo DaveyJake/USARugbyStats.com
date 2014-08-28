@@ -45,7 +45,7 @@ return array(
             'routes' => array(
                 'usa-rugby-stats_remote-data-sync_injector_sync-team' => array(
                     'options' => array(
-                        'route' => 'remote-data-sync sync_team --team-id= --wait=',
+                        'route' => 'remote-data-sync sync_team --team-id= [--wait=]',
                         'defaults' => array(
                             'controller' => 'usa-rugby-stats_remote-data-sync_injector_sync-team',
                             'action'     => 'execute',
