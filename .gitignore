@@ -15,3 +15,5 @@ vagrant/.vagrant
 vagrant/puphpet/config.yaml
 
 public/config.codekit
+public/assets/img/teamlogos
+public/assets/img/teamcoverimages
