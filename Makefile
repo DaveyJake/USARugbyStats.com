@@ -19,10 +19,11 @@ js = https://raw.githubusercontent.com/jquery/jquery/0d5ec2d8ac94a419ee47a39319c
 	 https://cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.min.js \
 	 https://raw.githubusercontent.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js \
 	 http://momentjs.com/downloads/moment.js \
-         https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js \
-         https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js.map \
-         https://github.com/rubenv/angular-encode-uri/raw/master/dist/angular-encode-uri.min.js \
-	 https://raw.githubusercontent.com/resin-io/ngRange/master/dist/ngRange.js
+     https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js \
+     https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js.map \
+     https://github.com/rubenv/angular-encode-uri/raw/master/dist/angular-encode-uri.min.js \
+	 https://raw.githubusercontent.com/resin-io/ngRange/master/dist/ngRange.js \
+	 http://cdn.jsdelivr.net/jquery.geocomplete/1.5.1/jquery.geocomplete.min.js
 
 all: deleteall makecss maketwbsfont makejs
 
