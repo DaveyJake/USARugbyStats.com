@@ -27,10 +27,23 @@ return array(
                     'route' => '/account',
                 ),
             ),
+            'usarugbystats_account-api_account' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/api/account[/:id]',
+                    'constraints' => array(
+                        'id' => '\d{1,}',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'usarugbystats_account-api_account',
+                    ),
+                ),
+            ),
         ),
     ),
     'controllers' => array(
         'invokables' => array(
+            'usarugbystats_account-api_account' => 'UsaRugbyStats\Account\Controller\AccountApiController',
         ),
     ),
     'service_manager' => array(
@@ -114,6 +127,11 @@ return array(
                 'role_name_property'    => 'name'
             ),
         ),
+        'guards' => array(
+            'ZfcRbac\Guard\RouteGuard' => array(
+                'usarugbystats_account-api_*' => array('member'),
+            ),
+        ),
     ),
 
     'audit' => array(
@@ -125,6 +143,14 @@ return array(
             'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\SuperAdmin' => [],
             'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\UnionAdmin' => [],
             'UsaRugbyStats\Account\Entity\Rbac\RoleAssignment\CompetitionAdmin' => [],
+        ),
+    ),
+
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'paths' => array(
+                __DIR__ . '/../public',
+            ),
         ),
     ),
 );
