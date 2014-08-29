@@ -5,6 +5,7 @@ use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use UsaRugbyStats\Application\Common\ObjectSelect;
+use Zend\Form\Element\Select;
 
 class AdministratorFieldset extends Fieldset
 {
@@ -21,22 +22,11 @@ class AdministratorFieldset extends Fieldset
             'name' => 'id'
         ));
 
-        $account = new ObjectSelect();
-        $account->setName('account');
-        $account->setOptions(array(
-            'label' => 'Account',
-            'object_manager' => $om,
-            'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
-            'find_method'    => array(
-                'name'   => 'findBy',
-                'params' => array(
-                    'criteria' => array(),
-                    'orderBy'  => array('displayName' => 'ASC'),
-                ),
-            ),
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'account'
         ));
 
-        $this->add($account);
     }
 
     public function getAccount($id = null)

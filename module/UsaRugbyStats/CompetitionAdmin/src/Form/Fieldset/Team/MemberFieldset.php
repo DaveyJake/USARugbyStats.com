@@ -21,21 +21,10 @@ class MemberFieldset extends Fieldset
             'name' => 'id'
         ));
 
-        $account = new ObjectSelect();
-        $account->setName('account');
-        $account->setOptions(array(
-            'label' => 'Account',
-            'object_manager' => $om,
-            'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
-            'find_method'    => array(
-                'name'   => 'findBy',
-                'params' => array(
-                    'criteria' => array(),
-                    'orderBy'  => array('displayName' => 'ASC'),
-                ),
-            ),
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'account'
         ));
-        $this->add($account);
 
         $this->add(
             array(

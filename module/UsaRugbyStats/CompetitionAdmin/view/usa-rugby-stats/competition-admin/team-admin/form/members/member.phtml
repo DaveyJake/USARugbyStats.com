@@ -16,6 +16,14 @@
                     <?php $elAccount->setAttribute('class', 'form-control input-sm'); ?>
                     <?php echo $this->formElement($elAccount); ?>
                     <?php echo $this->formElementErrors($elAccount); ?>
+                    <script type="text/javascript">
+                    new USARugbyStats.Account.Selector({
+                        target: '<?=$this->escapejs($elAccount->getName());?>'
+                        <?php if ( $elAccount->getValue() ): ?>
+                        ,defaultValues: [{id: <?=$this->escapeJs($elAccount->getValue()); ?>, 'display_name':'<?=$this->escapeJs($this->ursPlayerName($elAccount->getValue()));?>'}]
+                        <?php endif; ?>
+                    });
+                    </script>
                 </td>
             </tr>
             <tr>
