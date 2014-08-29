@@ -15,10 +15,7 @@ class MemberFieldsetFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $om = $sm->get('zfcuser_doctrine_em');
-        $mapper = $om->getRepository('UsaRugbyStats\Account\Entity\Account');
-
-        $fieldset = new MemberFieldset($om, $mapper);
+        $fieldset = new MemberFieldset();
         $fieldset->setHydrator(new ObjectProperty());
         $fieldset->setObject(new \stdClass());
 

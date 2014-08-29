@@ -15,10 +15,7 @@ class AdministratorFieldsetFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $om = $sm->get('zfcuser_doctrine_em');
-        $mapper = $om->getRepository('UsaRugbyStats\Account\Entity\Account');
-
-        $fieldset = new AdministratorFieldset($om, $mapper);
+        $fieldset = new AdministratorFieldset();
         $fieldset->setHydrator(new ObjectProperty());
         $fieldset->setObject(new \stdClass());
 

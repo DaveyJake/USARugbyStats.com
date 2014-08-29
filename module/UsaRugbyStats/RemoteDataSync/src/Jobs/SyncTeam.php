@@ -48,7 +48,6 @@ class SyncTeam extends AbstractJob
             throw new \InvalidArgumentException('Invalid Request!');
         }
 
-
         $this->getLogger()->debug('Loading Team ID # ' . $this->args['team_id']);
         $team = $this->getTeamService()->findByID($this->args['team_id']);
         if (! $team instanceof Team) {
@@ -106,7 +105,7 @@ class SyncTeam extends AbstractJob
             $this->getLogger()->info(sprintf(' - Player %s => Job #%s', $player['ID'], $token));
         }
 
-        if ( $this->args['wait'] ) {
+        if ($this->args['wait']) {
             $this->getLogger()->info('Waiting on child jobs..');
             foreach ($childJobs as $token) {
                 while ( in_array($this->getQueueAdapter()->getJobStatus($token), [1,2], true) ) {

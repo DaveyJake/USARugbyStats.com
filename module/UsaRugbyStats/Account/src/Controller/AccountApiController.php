@@ -30,7 +30,7 @@ class AccountApiController extends AbstractRestfulController
     public function get($id)
     {
         $acct = $this->getUserService()->getUserMapper()->findById($id);
-        if ( ! $acct instanceof AccountInterface ) {
+        if (! $acct instanceof AccountInterface) {
             return new ApiProblemResponse(new ApiProblem(404, 'User Not Found!'));
         }
 
@@ -46,9 +46,10 @@ class AccountApiController extends AbstractRestfulController
 
         if ( preg_match('{^#([0-9]+)$}', $q, $matches ) ) {
             $acct = $this->getUserService()->getUserMapper()->findById($matches[1]);
-            if ( ! $acct instanceof AccountInterface ) {
+            if (! $acct instanceof AccountInterface) {
                 return new ApiProblemResponse(new ApiProblem(404, 'User Not Found!'));
             }
+
             return new JsonModel([$this->extractUser($acct)]);
         }
 
@@ -58,7 +59,7 @@ class AccountApiController extends AbstractRestfulController
         }
 
         $dehydrated = array();
-        foreach ( $resultset as $item ) {
+        foreach ($resultset as $item) {
             $dehydrated[] = $this->extractUser($item);
         }
 

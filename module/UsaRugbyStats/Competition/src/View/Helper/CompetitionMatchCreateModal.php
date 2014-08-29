@@ -217,10 +217,10 @@ $("*[name=location\\\\[address\\\\]]").geocomplete({
   types: ["geocode", "establishment"]
 });
 
-$('#AddLocationButton').click(function() {
+$('#AddLocationButton').click(function () {
     $('#AddLocationModal').modal('show');
 });
-$('#AddLocationSaveButton').click(function() {
+$('#AddLocationSaveButton').click(function () {
     $('#AsyncLocationAddSpinner').show();
     $('#AsyncLocationAddForm').hide().removeClass('has-error');
     $('#AsyncLocationAddForm .error-message').hide();
