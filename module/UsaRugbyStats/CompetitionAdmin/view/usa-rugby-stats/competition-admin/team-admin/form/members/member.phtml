@@ -13,6 +13,7 @@
             <tr>
                 <td width="100">Person:</td>
                 <td>
+                    <?php if ( empty($elIdValue) ): ?>
                     <?php $elAccount->setAttribute('class', 'form-control input-sm'); ?>
                     <?php echo $this->formElement($elAccount); ?>
                     <?php echo $this->formElementErrors($elAccount); ?>
@@ -24,14 +25,24 @@
                         <?php endif; ?>
                     });
                     </script>
+                    <?php else:?>
+                    <?=$this->ursPlayerLink($elAccount->getValue());?>
+                    <?php echo $this->formHidden($elAccount); ?>
+                    <?php endif;?>
+                    <?php echo $this->formElementErrors($elAccount); ?>
                 </td>
             </tr>
             <tr>
                 <td width="100">Status:</td>
                 <td>
+                    <?php if ( empty($elIdValue) ): ?>
                     <?php $elStatus->setAttribute('class', 'form-control input-sm'); ?>
                     <?php echo $this->formElement($elStatus); ?>
-                    <?php echo $this->formElementErrors($elStatus); ?>
+                    <?php else: ?>
+                    <?=$this->escapeHtml($elStatus->getValueOptions()[$elStatus->getValue()]); ?>
+                    <?php echo $this->formHidden($elStatus); ?>
+                    <?php endif; ?>
+                    <?php echo $this->formElementErrors($elAccount); ?>
                 </td>
             </tr>
         </table>

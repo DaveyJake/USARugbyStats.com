@@ -8,6 +8,7 @@
     <?php echo $this->formElementErrors($elId); ?>
 
     <td class="column column-name">
+        <?php if ( empty($elIdValue) ): ?>
         <?php $elAccount->setAttribute('class', 'form-control input-sm'); ?>
         <?php echo $this->formElement($elAccount); ?>
         <?php echo $this->formElementErrors($elAccount); ?>
@@ -19,6 +20,12 @@
             <?php endif; ?>
         });
         </script>
+        <?php else:?>
+        <?=$this->ursPlayerLink($elAccount->getValue());?>
+        <?php echo $this->formHidden($elAccount); ?>
+        <?php endif;?>
+        <?php echo $this->formElementErrors($elAccount); ?>
+
     </td>
 
     <td class="col-sm-2 column column-actions" style="text-align:right; padding-right: 15px;"><a class="btn btn-xs btn-danger dropadmin" title="Remove Administrator"><i class="glyphicon glyphicon-trash"></i></a></td>
