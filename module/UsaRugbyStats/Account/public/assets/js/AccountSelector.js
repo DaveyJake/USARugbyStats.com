@@ -17,6 +17,15 @@ USARugbyStats.Account.Selector = function(cfg)
     
     var selector = '*[name=' + config.target.replace(/(\[|\])/g, "\\$1") + ']';
     
+    if ( $(selector).prop('tagName').toLowerCase() == 'select' ) {
+        $(selector).select2({
+            placeholder: "Search for an account...",
+            minimumInputLength: 2,
+            maximumSelectionSize: 1,
+        });
+        return;
+    }
+
     $(selector).select2({
         placeholder: "Search for an account...",
         minimumInputLength: 2,
