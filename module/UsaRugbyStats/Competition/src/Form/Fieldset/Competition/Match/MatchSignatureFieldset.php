@@ -34,19 +34,10 @@ class MatchSignatureFieldset extends Fieldset
         ));
 
         $this->add(array(
-            'type' => 'UsaRugbyStats\Application\Common\ObjectSelect',
+            'type' => 'Zend\Form\Element\Text',
             'name' => 'account',
             'options' => array(
                 'label' => 'Signee',
-                'object_manager' => $om,
-                'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
-                'find_method'    => array(
-                    'name'   => 'findBy',
-                    'params' => array(
-                        'criteria' => array(),
-                        'orderBy'  => array('displayName' => 'ASC'),
-                    ),
-                ),
             ),
         ));
 

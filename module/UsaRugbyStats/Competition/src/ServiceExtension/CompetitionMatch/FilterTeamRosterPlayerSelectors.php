@@ -31,10 +31,10 @@ class FilterTeamRosterPlayerSelectors extends AbstractRule
                 continue;
             }
 
-            $fsSide->get('players')->getTargetElement()->get('player')->setFindMethod([
-                'name'   => 'findAllCurrentMembersForTeam',
-                'params' => [ 'team' => $teamid ],
-            ]);
+            $fsSide->get('players')->getTargetElement()->filterPlayerSelectForTeam($teamid);
+            foreach ( $fsSide->get('players') as $fieldset ) {
+                $fieldset->filterPlayerSelectForTeam($teamid);
+            }
         }
     }
 }

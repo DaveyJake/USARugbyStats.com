@@ -29,22 +29,18 @@ class MatchTeamEventFieldset extends Fieldset
         ));
 
         $this->add(array(
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'type' => 'Zend\Form\Element\Hidden',
             'name' => 'match',
             'options' => array(
                 'label' => 'Match',
-                'object_manager' => $om,
-                'target_class'   => 'UsaRugbyStats\Competition\Entity\Competition\Match',
             ),
         ));
 
         $this->add(array(
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'type' => 'Zend\Form\Element\Hidden',
             'name' => 'team',
             'options' => array(
                 'label' => 'Match',
-                'object_manager' => $om,
-                'target_class'   => 'UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam',
             ),
         ));
 

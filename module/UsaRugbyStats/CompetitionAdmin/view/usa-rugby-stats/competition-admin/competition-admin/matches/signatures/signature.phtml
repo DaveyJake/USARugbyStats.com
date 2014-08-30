@@ -32,6 +32,14 @@ if ( $this->flags->{'match.signatures.allowed_types'}->is_set() ) {
         <?php $element = $fieldset->get('account'); ?>
         <?php if ( $canEdit ): ?>
         <?php echo $this->formElement($element) ?>
+        <script type="text/javascript">
+        new USARugbyStats.Account.Selector({
+            target: '<?=$this->escapejs($element->getName());?>'
+            <?php if ( $element->getValue() ): ?>
+            ,defaultValues: [{id: <?=$this->escapeJs($element->getValue()); ?>, 'display_name':'<?=$this->escapeJs($this->ursPlayerName($element->getValue()));?>'}]
+            <?php endif; ?>
+        });
+        </script>
         <?php else: ?>
         <?php echo $this->ursPlayerLink($element->getValue()); ?>
         <?php endif;?>

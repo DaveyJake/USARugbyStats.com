@@ -4,6 +4,7 @@ namespace UsaRugbyStats\Competition\Form\Fieldset\Competition\Match;
 use Zend\Form\Fieldset;
 use Doctrine\Common\Persistence\ObjectManager;
 use UsaRugbyStats\Competition\Entity\Competition;
+use UsaRugbyStats\Application\Common\ObjectSelect;
 
 class MatchTeamPlayerFieldset extends Fieldset
 {
@@ -106,16 +107,43 @@ class MatchTeamPlayerFieldset extends Fieldset
         ));
 
         $this->add(array(
-            'type' => 'UsaRugbyStats\Application\Common\ObjectSelect',
+            'type' => 'Zend\Form\Element\Text',
             'name' => 'player',
             'options' => array(
                 'label' => 'Player',
-                'object_manager' => $this->objectManager,
-                'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
                 'display_empty_item' => true,
                 'empty_item_label'   => 'Select a Player',
             ),
         ));
+    }
+
+    public function filterPlayerSelectForTeam($teamid)
+    {
+        $findMethod = [
+            'name'   => 'findAllCurrentMembersForTeam',
+            'params' => [ 'team' => $teamid ],
+        ];
+
+        if ( ! $this->get('player') instanceof ObjectSelect ) {
+            $value = $this->get('player')->getValue();
+
+            $this->remove('player');
+            $this->add(array(
+                'type' => 'UsaRugbyStats\Application\Common\ObjectSelect',
+                'name' => 'player',
+                'options' => array(
+                    'label' => 'Player',
+                    'object_manager' => $this->objectManager,
+                    'display_empty_item' => true,
+                    'empty_option'   => 'No Player Selected',
+                    'target_class'   => 'UsaRugbyStats\Account\Entity\Account',
+                    'find_method'    => $findMethod,
+                ),
+            ));
+
+            $this->get('player')->setValue($value);
+        }
+        $this->get('player')->setFindMethod($findMethod);
     }
 
     public function setVariant($v)

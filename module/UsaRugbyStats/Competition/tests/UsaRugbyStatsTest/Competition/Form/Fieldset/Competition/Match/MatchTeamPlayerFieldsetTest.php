@@ -22,8 +22,7 @@ class MatchTeamPlayerFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($fieldset->has('position'));
         $this->assertTrue($fieldset->has('isFrontRow'));
         $this->assertTrue($fieldset->has('player'));
-        $this->assertInstanceOf('DoctrineModule\Form\Element\ObjectSelect', $fieldset->get('player'));
-        $this->assertEquals('UsaRugbyStats\Account\Entity\Account', $fieldset->get('player')->getOption('target_class'));
+        $this->assertInstanceOf('Zend\Form\ElementInterface', $fieldset->get('player'));
     }
 
     public function testSetVariantTo15sChangesPositionSelect()

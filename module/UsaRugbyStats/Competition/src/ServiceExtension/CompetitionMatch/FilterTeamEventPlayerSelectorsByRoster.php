@@ -33,22 +33,12 @@ class FilterTeamEventPlayerSelectorsByRoster extends AbstractRule
                 continue;
             }
 
-            $newConfig = [
-                'name'   => 'findAllPlayersForMatchTeam',
-                'params' => [ 'matchTeam' => $teamid ],
-            ];
-
             $targetElements = $fsSide->get('events')->getTargetElement();
             foreach ($targetElements as $fieldset) {
-                if ( $fieldset->has('player') ) {
-                    $fieldset->get('player')->setFindMethod($newConfig);
-                }
-                if ( $fieldset->has('playerOn') ) {
-                    $fieldset->get('playerOn')->setFindMethod($newConfig);
-                }
-                if ( $fieldset->has('playerOff') ) {
-                    $fieldset->get('playerOff')->setFindMethod($newConfig);
-                }
+                $fieldset->filterPlayerSelectForTeam($teamid);
+            }
+            foreach ( $fsSide->get('events') as $fieldset ) {
+                $fieldset->filterPlayerSelectForTeam($teamid);
             }
         }
     }

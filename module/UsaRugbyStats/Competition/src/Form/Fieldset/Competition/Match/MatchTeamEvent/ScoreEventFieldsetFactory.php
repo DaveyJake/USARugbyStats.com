@@ -5,6 +5,7 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\ScoreEvent;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEventHydrator;
+use UsaRugbyStats\Competition\Hydrator\ObjectPopulateStrategy;
 
 class ScoreEventFieldsetFactory implements FactoryInterface
 {
@@ -21,7 +22,10 @@ class ScoreEventFieldsetFactory implements FactoryInterface
         $form = new ScoreEventFieldset($om);
 
         // Set the hydrator
-        $form->setHydrator(new MatchTeamEventHydrator($om));
+        $hydrator = new MatchTeamEventHydrator($om);
+        $repo = $om->getRepository('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
+        $hydrator->addStrategy('player', new ObjectPopulateStrategy($repo));
+        $form->setHydrator($hydrator);
         $form->setObject(new ScoreEvent());
 
         return $form;

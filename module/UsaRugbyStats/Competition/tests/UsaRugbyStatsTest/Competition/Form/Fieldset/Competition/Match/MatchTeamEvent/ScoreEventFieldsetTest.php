@@ -19,8 +19,7 @@ class ScoreEventFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($fieldset->has('event'));
 
         $this->assertTrue($fieldset->has('player'));
-        $this->assertInstanceOf('DoctrineModule\Form\Element\ObjectSelect', $fieldset->get('player'));
-        $this->assertEquals('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer', $fieldset->get('player')->getOption('target_class'));
+        $this->assertInstanceOf('Zend\Form\ElementInterface', $fieldset->get('player'));
 
         $this->assertTrue($fieldset->has('type'));
 

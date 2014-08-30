@@ -5,6 +5,7 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\SubEvent;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEventHydrator;
+use UsaRugbyStats\Competition\Hydrator\ObjectPopulateStrategy;
 
 class SubEventFieldsetFactory implements FactoryInterface
 {
@@ -21,7 +22,11 @@ class SubEventFieldsetFactory implements FactoryInterface
         $form = new SubEventFieldset($om);
 
         // Set the hydrator
-        $form->setHydrator(new MatchTeamEventHydrator($om));
+        $hydrator = new MatchTeamEventHydrator($om);
+        $repo = $om->getRepository('UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer');
+        $hydrator->addStrategy('playerOn', new ObjectPopulateStrategy($repo));
+        $hydrator->addStrategy('playerOff', new ObjectPopulateStrategy($repo));
+        $form->setHydrator($hydrator);
         $form->setObject(new SubEvent());
 
         return $form;

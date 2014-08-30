@@ -18,4 +18,5 @@ class MatchTeamEventHydrator extends DoctrineObject
 
         return $result;
     }
+
 }

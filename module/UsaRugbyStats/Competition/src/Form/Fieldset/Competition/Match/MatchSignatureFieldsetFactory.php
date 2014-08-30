@@ -5,6 +5,7 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature;
+use UsaRugbyStats\Competition\Hydrator\ObjectPopulateStrategy;
 
 class MatchSignatureFieldsetFactory implements FactoryInterface
 {
@@ -21,7 +22,10 @@ class MatchSignatureFieldsetFactory implements FactoryInterface
         $form = new MatchSignatureFieldset($om);
 
         // Set the hydrator
-        $form->setHydrator(new DoctrineObject($om));
+        $hydrator = new DoctrineObject($om);
+        $repo = $om->getRepository('UsaRugbyStats\Account\Entity\Account');
+        $hydrator->addStrategy('player', new ObjectPopulateStrategy($repo));
+        $form->setHydrator($hydrator);
         $form->setObject(new MatchSignature());
 
         return $form;
