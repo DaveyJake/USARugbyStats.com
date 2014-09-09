@@ -31,7 +31,7 @@ class ToggleSectionsBasedOnMatchStatus extends AbstractRule
                 break;
             case 'S':
                 $this->disableTeamChange($e->getParams());
-                $this->disableTeamRosterChange($e->getParams());
+                $this->enableTeamRosterChange($e->getParams());
                 $this->enableTeamEventsChange($e->getParams());
                 $this->disableSignatureChange($e->getParams());
                 $this->hideSignatures($e->getParams());

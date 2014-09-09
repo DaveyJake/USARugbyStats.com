@@ -334,9 +334,6 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
         }
         
         $scope.saveChangesToRoster = function() {
-            if ( $rootScope.match.status != 'NS' ) {
-                alert('Match is started so rosters cannot be changed.');
-            }
             if ( $scope.matchRosterIsBeingSaved ) {
                 return;
             }
