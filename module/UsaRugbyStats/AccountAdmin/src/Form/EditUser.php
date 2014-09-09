@@ -23,8 +23,6 @@ class EditUser extends ZfcUserAdminEditUserForm
 
         $rbacFieldset = $serviceManager->get('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement');
         $this->add($rbacFieldset);
-
-        $filter = $serviceManager->get('zfcuseradmin_edituser_filter');
     }
 
 }

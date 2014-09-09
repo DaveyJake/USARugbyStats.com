@@ -24,17 +24,36 @@ class EditUserFilterFactory implements FactoryInterface
         $zfcUserAdminOptions = $sm->get('zfcuseradmin_module_options');
         $zfcUserMapper = $sm->get('zfcuser_user_mapper');
 
-        $filter = new RegisterFilter(
-            new NoRecordExistsEdit(array(
-                'mapper' => $zfcUserMapper,
-                'key' => 'email'
-            )),
-            new NoRecordExistsEdit(array(
-                'mapper' => $zfcUserMapper,
-                'key' => 'username'
-            )),
-            $zfcUserOptions
-        );
+        $emailValidator = new NoRecordExistsEdit(array(
+            'mapper' => $zfcUserMapper,
+            'key' => 'email'
+        ));
+        $usernameValidator = new NoRecordExistsEdit(array(
+            'mapper' => $zfcUserMapper,
+            'key' => 'username'
+        ));
+        $filter = new RegisterFilter($emailValidator, $usernameValidator, $zfcUserOptions);
+
+        // Allow usernames to be 1-255 characters
+        // (ZfcUser default is 3-255)
+        if ( $filter->has('username') ) {
+            $filter->remove('username');
+            $filter->add(array(
+                'name'       => 'username',
+                'required'   => true,
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'min' => 1,
+                            'max' => 255,
+                        ),
+                    ),
+                    $usernameValidator,
+                ),
+            ));
+        }
+
         if (!$zfcUserAdminOptions->getAllowPasswordChange()) {
             $filter->remove('password')->remove('passwordVerify');
         } else {

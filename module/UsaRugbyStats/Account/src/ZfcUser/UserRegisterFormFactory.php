@@ -1,20 +1,13 @@
 <?php
-namespace UsaRugbyStats\AccountAdmin\Form;
+namespace UsaRugbyStats\Account\ZfcUser;
 
-use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-
-use ZfcUser\Form\RegisterFilter;
+use Zend\ServiceManager\FactoryInterface;
 use ZfcUser\Validator\NoRecordExists;
-use UsaRugbyStats\AccountAdmin\Entity\AccountHydrator;
+use ZfcUser\Form\Register;
+use ZfcUser\Form\RegisterFilter;
 
-/**
- * Factory for creating instance of CreateUser form
- * @TODO this should be upstreamed to ZfcUserAdmin w/ new configuration option for configuring form class name
- *
- * @author Adam Lundrigan <adam@lundrigan.ca>
- */
-class CreateUserFactory implements FactoryInterface
+class UserRegisterFormFactory implements FactoryInterface
 {
     /**
      * Create service
@@ -24,21 +17,18 @@ class CreateUserFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $zfcUserOptions = $sm->get('zfcuser_module_options');
-        $zfcUserAdminOptions = $sm->get('zfcuseradmin_module_options');
-
-        $form = new CreateUser(null, $zfcUserAdminOptions, $zfcUserOptions, $sm);
-        $form->setHydrator(new AccountHydrator($sm->get('zfcuser_doctrine_em')));
+        $options = $sm->get('zfcuser_module_options');
+        $form = new Register(null, $options);
 
         $emailValidator = new NoRecordExists(array(
             'mapper' => $sm->get('zfcuser_user_mapper'),
-            'key' => 'email'
+            'key'    => 'email'
         ));
         $usernameValidator = new NoRecordExists(array(
             'mapper' => $sm->get('zfcuser_user_mapper'),
-            'key' => 'username'
+            'key'    => 'username'
         ));
-        $filter = new RegisterFilter($emailValidator, $usernameValidator, $zfcUserOptions);
+        $filter = new RegisterFilter($emailValidator, $usernameValidator, $options);
 
         // Allow usernames to be 1-255 characters
         // (ZfcUser default is 3-255)
@@ -60,9 +50,6 @@ class CreateUserFactory implements FactoryInterface
             ));
         }
 
-        if ($zfcUserAdminOptions->getCreateUserAutoPassword()) {
-            $filter->remove('password')->remove('passwordVerify');
-        }
         $form->setInputFilter($filter);
 
         return $form;

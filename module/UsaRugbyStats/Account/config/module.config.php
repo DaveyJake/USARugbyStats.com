@@ -55,6 +55,9 @@ return array(
 
             // Override ZfcUser mapper from ZfcUserDoctrineORM with one that triggers events on insert and update
             'zfcuser_user_mapper' => 'UsaRugbyStats\Account\ZfcUser\UserMapperFactory',
+
+            // Override factory for ZfcUser\Form\Register so we can hijack the validator and meld it to our will
+            'zfcuser_register_form' => 'UsaRugbyStats\Account\ZfcUser\UserRegisterFormFactory',
         ),
     ),
     'translator' => array(

@@ -23,7 +23,6 @@ class CreateUser extends ZfcUserAdminCreateUserForm
 
         $rbacFieldset = $serviceManager->get('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement');
         $this->add($rbacFieldset);
-
     }
 
 }
