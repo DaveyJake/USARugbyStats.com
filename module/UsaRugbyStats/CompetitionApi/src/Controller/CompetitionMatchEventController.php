@@ -82,9 +82,9 @@ class CompetitionMatchEventController extends AbstractRestfulController
             return new ApiProblemResponse($event);
         }
 
-        $side = $event->getTeam()->getType();
-        if ( ! $this->isGranted('competition.competition.match.team.events.change', $event->getTeam()) ) {
-            return new ApiProblem(403, 'Not authorized to remove events!');
+        if ( ! $this->isGranted('competition.competition.match.team.events.change', $match->getTeam('H'))
+          && ! $this->isGranted('competition.competition.match.team.events.change', $match->getTeam('A')) ) {
+            return new ApiProblemResponse(new ApiProblem(403, 'Not authorized to remove events!'));
         }
 
         $match->removeEvent($event);
