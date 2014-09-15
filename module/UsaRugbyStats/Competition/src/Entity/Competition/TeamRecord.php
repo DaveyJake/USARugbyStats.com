@@ -204,7 +204,6 @@ class TeamRecord
     public function addForfeit()
     {
         $this->forfeits++;
-        $this->totalGames++;
 
         return $this;
     }
