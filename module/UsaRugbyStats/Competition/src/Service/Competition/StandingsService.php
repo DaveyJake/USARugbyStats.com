@@ -137,7 +137,7 @@ class StandingsService implements EventManagerAwareInterface
 
             // Count the number of tries recorded
             $triesInGame = $homeSide->getEvents()->filter(function ($e) {
-                return $e->getDiscriminator() == 'score' && $e->isTry();
+                return $e->getDiscriminator() == 'score' && ( $e->isTry() || $e->isPenaltyTry() );
             })->count();
 
             // Add the number of tries to the team's record (if AF then min. # of tries we have is 4)
@@ -179,7 +179,7 @@ class StandingsService implements EventManagerAwareInterface
 
             // Count the number of tries recorded
             $triesInGame = $awaySide->getEvents()->filter(function ($e) {
-                return $e->getDiscriminator() == 'score' && $e->isTry();
+                return $e->getDiscriminator() == 'score' && ( $e->isTry() || $e->isPenaltyTry() );
             })->count();
 
             // Add the number of tries to the team's record (if HF then min. # of tries we have is 4)
