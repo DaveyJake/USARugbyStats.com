@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "35909ade033c86c3171d09741e9a148f",
+    "hash": "fdac9de778083bab4564d5eaf4881b19",
     "packages": [
         {
             "name": "adamlundrigan/ldc-user-profile",
@@ -1290,6 +1290,62 @@
                 "zf2"
             ],
             "time": "2014-07-06 02:40:10"
+        },
+        {
+            "name": "hrevert/ht-session",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hrevert/HtSession.git",
+                "reference": "63afaa8a47d2d91a53f647190d12d99a0d86028e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hrevert/HtSession/zipball/63afaa8a47d2d91a53f647190d12d99a0d86028e",
+                "reference": "63afaa8a47d2d91a53f647190d12d99a0d86028e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "zendframework/zend-modulemanager": "~2.2",
+                "zendframework/zend-mvc": "~2.2",
+                "zendframework/zend-session": "~2.2",
+                "zendframework/zend-stdlib": "~2.2"
+            },
+            "suggest": {
+                "zendframework/zend-db": "To store session in database"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HtSession\\": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ojhaujjwal",
+                    "email": "bring2uo@gmail.com"
+                },
+                {
+                    "name": "Hrevert Technologies",
+                    "email": "info@hrevert.com"
+                }
+            ],
+            "description": "A Zend Framework 2 module to manage session configurations, session validators, storing session data in database.",
+            "homepage": "https://github.com/hrevert/HtSession",
+            "keywords": [
+                "module",
+                "session",
+                "zf2"
+            ],
+            "time": "2014-06-23 15:48:16"
         },
         {
             "name": "imagine/imagine",

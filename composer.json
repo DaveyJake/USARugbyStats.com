@@ -29,7 +29,8 @@
         "eye4web/e4w-zfc-user-redirect-url": "dev-master",
         "doctrine/migrations": "dev-master@dev",
         "zfcampus/zf-api-problem": "@stable",
-        "rwoverdijk/assetmanager": "@stable"
+        "rwoverdijk/assetmanager": "@stable",
+        "hrevert/ht-session": "1.*"
     },
     "require-dev": {
         "fabpot/Goutte": "dev-master@dev",

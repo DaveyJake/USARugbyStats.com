@@ -1,0 +1,1 @@
+../../../module/UsaRugbyStats/Application/data/migrations/Version20140930133516_ImportSessionTable.php
