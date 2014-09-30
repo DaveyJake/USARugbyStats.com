@@ -28,6 +28,7 @@ $isEditMode = $this->isGranted('competition.competition.match.update', $match) ?
 $this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/angular.min.js'));
 $this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/angular-encode-uri.min.js'));
 $this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/ngRange.js'));
+$this->inlineScript()->appendFile($this->basePath('/assets/js/vendor/ng-order-object-by.js'));
 $this->inlineScript()->appendFile($this->basePath('/assets/js/app/competition.match.js'));
 
 $this->inlineScript()->appendScript("
@@ -418,7 +419,7 @@ $this->layout()->containerAttributes = array_merge(
                         <option value="" ng-show="newEvent.event == 'sub'">Choose a Player</option>
                         <option value="" ng-show="newEvent.event != 'sub'">No Player Selected (Team {{newEvent.event}})</option>
                         <option
-                            ng-repeat="(key,player) in match.teams[newEvent.side].players"
+                            ng-repeat="player in match.teams[newEvent.side].players | orderObjectBy:'player.number':false"
                             value="{{player.id}}"
                             ng-selected="newEvent.player == player.id"
                             ng-hide="player.id == ''"
@@ -438,7 +439,7 @@ $this->layout()->containerAttributes = array_merge(
                         <option value="" ng-show="newEvent.event == 'sub'">Choose a Player</option>
                         <option value="" ng-show="newEvent.event != 'sub'">No Player Selected (Team {{newEvent.event}})</option>
                         <option
-                            ng-repeat="(key,player) in match.teams[newEvent.side].players"
+                            ng-repeat="player in match.teams[newEvent.side].players | orderObjectBy:'player.number':false"
                             value="{{player.id}}"
                             ng-selected="newEvent.playerOff == player.id"
                             ng-hide="player.id == ''"
@@ -457,7 +458,7 @@ $this->layout()->containerAttributes = array_merge(
                     <select ng-model="newEvent.playerOn" class="form-control" id="newEvent.playerOn">
                         <option value="">Choose a Player</option>
                         <option
-                            ng-repeat="(key,player) in match.teams[newEvent.side].players"
+                            ng-repeat="player in match.teams[newEvent.side].players | orderObjectBy:'player.number':false"
                             value="{{player.id}}"
                             ng-selected="newEvent.playerOn == player.id"
                             ng-hide="player.id == ''"

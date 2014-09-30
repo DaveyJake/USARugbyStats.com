@@ -1,4 +1,4 @@
-angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange'])
+angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObjectBy'])
 
     .factory('CompetitionMatchEventApi', ['$q', '$http', '$rootScope', 'CompetitionMatchApi', function($q, $http, $rootScope, CompetitionMatchApi) {
         var self = {
