@@ -80,7 +80,7 @@
                 </div>
                 <?php else: ?>
                 <div class="pull-right" id="user">
-                    <a href="<?php echo $this->url('zfcuser/login'); ?>">Sign In</a>
+                    <a href="<?php echo $this->url('zfcuser/login'); ?><?php if ( !preg_match('{/account/login}is', $this->serverUrl(true)) ): ?>?redirect=<?=$this->escapeUrl($this->serverUrl(true));?><?php endif; ?>">Sign In</a>
                 </div>
                 <?php endif; ?>
 
