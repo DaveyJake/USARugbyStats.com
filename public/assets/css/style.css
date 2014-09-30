@@ -779,6 +779,9 @@ table tbody td img {
 }
 
 td.away {
+  text-align: left;
+}
+td.home {
   text-align: right;
 }
 
