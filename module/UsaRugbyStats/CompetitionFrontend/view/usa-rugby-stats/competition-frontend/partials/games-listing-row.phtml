@@ -53,9 +53,8 @@ if ( $isRelativeToTeam ): ?>
 		<a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"><?=$this->escapeHtml($match->getDate()->format('M jS')); ?></a>
 	</td>
 
-	<td class="home">
-		<?php echo $this->ursTeamLink($match->getTeam('H')); ?>
-		<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('H'))); ?>">
+	<td class="away">
+		<?php echo $this->ursTeamLink($match->getTeam('A')); ?><img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>">
 	</td>
 
 	<td class="result-time">
@@ -71,9 +70,8 @@ if ( $isRelativeToTeam ): ?>
       </a>
 	</td>
 
-	<td class="away">
-		<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>">
-		<?php echo $this->ursTeamLink($match->getTeam('A')); ?>
+	<td class="home">
+		<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('H'))); ?>"><?php echo $this->ursTeamLink($match->getTeam('H')); ?>
 	</td>
 
     <td class="type"><?=$this->escapeHtml($match->getCompetition()->getTypeString());?></td>

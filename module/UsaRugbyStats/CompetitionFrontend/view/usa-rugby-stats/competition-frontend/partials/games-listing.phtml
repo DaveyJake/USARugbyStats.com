@@ -26,9 +26,9 @@ $now = new DateTime();
 
 	<thead class="header">
 		<th class="date">Date</th>
-		<th class="opponent">Home</th>
-		<th class="result-time">Result/Time</th>
 		<th class="opponent">Away</th>
+		<th class="result-time">Result/Time</th>
+		<th class="opponent">Home</th>
 		<th class="type">Type</th>
 	</thead>
 
@@ -40,6 +40,6 @@ $now = new DateTime();
     <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing-row', $vars + ['match' => $match]); ?>
 	<?php endforeach; ?>
 	</tbody>
-
+	
 </table>
 
