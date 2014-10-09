@@ -22,7 +22,7 @@ $form->setAttribute('method', 'post');
                     <?php
                     $messages = $form->get('identity')->getMessages();
                     if ( count($messages) > 0  ) {
-                        echo '<div class="alert alert-danger">The credentials you provided do not match any known account.<br />Please try again, or <a href="' . $this->url('zfcuser/forgotpassword') . '">reset your account password.</a></div>';
+                        echo '<div class="alert alert-danger">The credentials you provided do not match any known account.  Please try again, or <a href="' . $this->url('zfcuser/forgotpassword') . '">reset your account password.</a></div>';
                     }
                     ?>
 
@@ -69,6 +69,9 @@ $form->setAttribute('method', 'post');
             <div class="panel-heading">
                 <h3 class="panel-title"><?php echo $this->translate('System Checkup'); ?></h3>
             </div>
+            <div class="panel-body" style="padding: 8px" id="SystemCheckupPreamble">
+                To use USA Rugby CMS your web browser must meet the following requirements:
+            </div>
             <ul class="list-group" id="SystemCheckup">
               <noscript>
                 <li class="list-group-item list-group-item-danger">
@@ -84,9 +87,12 @@ $form->setAttribute('method', 'post');
                   <p class="list-group-item-text"><a href="http://www.wikihow.com/Enable-Cookies-in-Your-Internet-Web-Browser" target="_blank">View instructions for enabling Cookies</a></p>
                 </span>
               </li>
-              <li id="SystemCheckupSession" style="display:none" class="list-group-item"><i class="glyphicon"></i>&nbsp;&nbsp;
-                <span class="success">Session cookie OK</span>
-                <span class="failure">Session cookie broken</span>
+              <li id="SystemCheckupSession" style="display:none" class="list-group-item">
+                <span class="success"><i class="glyphicon"></i>&nbsp;&nbsp;Session cookie</span>
+                <span class="failure">
+                  <div class="list-group-item-heading"><i class="glyphicon"></i>&nbsp;&nbsp;Session cookie is broken</div>
+                  <p class="list-group-item-text">Please contact the Support Center for assistance</a></p>
+                </span>
               </li>
             </ul>
         </div>
@@ -94,6 +100,7 @@ $form->setAttribute('method', 'post');
 
         $('#SystemCheckup span.success').hide();
         $('#SystemCheckup span.failure').hide();
+        $('#SystemCheckupPreamble').hide();
 
         var SystemCheckup = {
             JavascriptCheckup: function() {
@@ -127,6 +134,10 @@ $form->setAttribute('method', 'post');
                 for ( var check in list ) {
                     var method = list[check] + 'Checkup';
                     var result = SystemCheckup[method]();
+
+                    if ( result === false ) {
+                        $('#SystemCheckupPreamble').show();
+                    }
 
                     $('#SystemCheckup' + list[check] + ' i.glyphicon').addClass('glyphicon-' + (result === true ? 'ok' : 'remove'));
                     $('#SystemCheckup' + list[check]).addClass('list-group-item-' + (result === true ? 'success' : 'danger')).show();
