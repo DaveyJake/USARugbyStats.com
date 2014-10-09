@@ -73,12 +73,10 @@ $form->setAttribute('method', 'post');
                 To use USA Rugby CMS your web browser must meet the following requirements:
             </div>
             <ul class="list-group" id="SystemCheckup">
-              <noscript>
-                <li class="list-group-item list-group-item-danger">
-                  <div class="list-group-item-heading"><i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;Javascript is not enabled</div>
-                  <p class="list-group-item-text"><a href="http://www.enable-javascript.com/" target="_blank">View instructions for enabling Javascript</a></p>
-                </li>
-              </noscript>
+              <li class="list-group-item list-group-item-danger" id="SystemCheckupNoJavascript">
+                <div class="list-group-item-heading"><i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;Javascript is not enabled</div>
+                <p class="list-group-item-text"><a href="http://www.enable-javascript.com/" target="_blank">View instructions for enabling Javascript</a></p>
+              </li>
               <li id="SystemCheckupJavascript" style="display:none" class="list-group-item list-group-item-success"><i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;JavaScript enabled</li>
               <li id="SystemCheckupCookies" style="display:none" class="list-group-item">
                 <span class="success"><i class="glyphicon"></i>&nbsp;&nbsp;Cookies enabled</span>
@@ -98,6 +96,7 @@ $form->setAttribute('method', 'post');
         </div>
         <script type="text/javascript">
 
+        $('#SystemCheckupNoJavascript').hide();
         $('#SystemCheckup span.success').hide();
         $('#SystemCheckup span.failure').hide();
         $('#SystemCheckupPreamble').hide();
