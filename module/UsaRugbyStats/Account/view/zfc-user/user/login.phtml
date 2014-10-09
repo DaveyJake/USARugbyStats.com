@@ -42,10 +42,13 @@ $form->setAttribute('method', 'post');
                         <?php echo $this->formSubmit($element); ?>
                     </fieldset>
                 <?php echo $this->form()->closeTag() ?>
-                
-                <?php if ($this->enableRegistration) : ?>
+
                 <div style="margin-top: 15px; text-align: center">
                 <p><a href="<?php echo $this->url('zfcuser/forgotpassword') ?>"><?php echo $this->translate("Forgot your password?"); ?></a></p>
+                </div>
+
+                <?php if ($this->enableRegistration) : ?>
+                <div style="margin-top: 15px; text-align: center">
                 <?php echo $this->translate('Not registered?'); ?> <a href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
                 </div>
                 <?php endif; ?>
