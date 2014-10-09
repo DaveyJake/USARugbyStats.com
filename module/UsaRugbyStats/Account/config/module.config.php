@@ -39,11 +39,22 @@ return array(
                     ),
                 ),
             ),
+            'usarugbystats_account-api_session_sid' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/api/session/sid',
+                    'defaults' => array(
+                        'controller' => 'usarugbystats_account-api_session',
+                        'action' => 'sid',
+                    ),
+                ),
+            ),
         ),
     ),
     'controllers' => array(
         'invokables' => array(
             'usarugbystats_account-api_account' => 'UsaRugbyStats\Account\Controller\AccountApiController',
+            'usarugbystats_account-api_session' => 'UsaRugbyStats\Account\Controller\SessionController',
         ),
     ),
     'service_manager' => array(
@@ -132,6 +143,7 @@ return array(
         ),
         'guards' => array(
             'ZfcRbac\Guard\RouteGuard' => array(
+                'usarugbystats_account-api_session_sid' => array('guest'),
                 'usarugbystats_account-api_*' => array('member'),
             ),
         ),
