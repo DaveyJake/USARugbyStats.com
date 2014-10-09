@@ -13,6 +13,7 @@ class SessionController extends AbstractActionController
         }
 
         $this->getResponse()->getHeaders()->addHeaders(Headers::FromString('Content-type: application/json'));
+
         return $this->getResponse()->setContent(json_encode([
             'sid' => session_id()
         ]));
