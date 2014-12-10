@@ -216,20 +216,6 @@ class SyncPlayer extends AbstractJob
             }
         }
 
-        // Attempt to load by email address, if provided
-        if ( isset($this->args['player_data']['Email']) && !empty($this->args['player_data']['Email'])  ) {
-            $player = $this->getUserService()->getUserMapper()->findByEmail($this->args['player_data']['Email']);
-            if ($player instanceof Account) {
-                if ( isset($this->args['player_data']['ID']) ) {
-                    // Update the user's RemoteID so we don't have to go though this again...
-                    $player->setRemoteId($this->args['player_data']['ID']);
-                    $this->getUserService()->getUserMapper()->update($player);
-                }
-
-                return $player;
-            }
-        }
-
         // Give them a new account
         if ( isset($this->args['player_data']) && !empty($this->args['player_data']) ) {
             return $this->createNewUserAccount($this->args['player_data']);
