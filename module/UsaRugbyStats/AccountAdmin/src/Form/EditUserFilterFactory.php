@@ -9,6 +9,7 @@ use ZfcUserAdmin\Validator\NoRecordExistsEdit;
 use Zend\Validator\Callback;
 use UsaRugbyStats\Account\ZfcUser\UserMapper;
 use UsaRugbyStats\Account\Entity\Account;
+use Zend\Validator\NotEmpty;
 
 class EditUserFilterFactory implements FactoryInterface
 {
@@ -24,10 +25,7 @@ class EditUserFilterFactory implements FactoryInterface
         $zfcUserAdminOptions = $sm->get('zfcuseradmin_module_options');
         $zfcUserMapper = $sm->get('zfcuser_user_mapper');
 
-        $emailValidator = new NoRecordExistsEdit(array(
-            'mapper' => $zfcUserMapper,
-            'key' => 'email'
-        ));
+        $emailValidator = new NotEmpty();
         $usernameValidator = new NoRecordExistsEdit(array(
             'mapper' => $zfcUserMapper,
             'key' => 'username'
@@ -36,23 +34,21 @@ class EditUserFilterFactory implements FactoryInterface
 
         // Allow usernames to be 1-255 characters
         // (ZfcUser default is 3-255)
-        if ( $filter->has('username') ) {
-            $filter->remove('username');
-            $filter->add(array(
-                'name'       => 'username',
-                'required'   => true,
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'min' => 1,
-                            'max' => 255,
-                        ),
+        $filter->remove('username');
+        $filter->add(array(
+            'name'       => 'username',
+            'required'   => true,
+            'validators' => array(
+                array(
+                    'name'    => 'StringLength',
+                    'options' => array(
+                        'min' => 1,
+                        'max' => 255,
                     ),
-                    $usernameValidator,
                 ),
-            ));
-        }
+                $usernameValidator,
+            ),
+        ));
 
         if (!$zfcUserAdminOptions->getAllowPasswordChange()) {
             $filter->remove('password')->remove('passwordVerify');
