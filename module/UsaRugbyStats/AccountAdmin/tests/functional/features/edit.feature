@@ -99,14 +99,15 @@ Feature: Account Administration Panel - Edit User Account
     And I should see "The input is not a valid email address"
       
   @javascript
-  Scenario: Administrator cannot change the email address to one used by another account
+  Scenario: Administrator can change the email address to one used by another account
     Given I am authenticated as a super administrator
     And I navigate to the edit page for user "14"
     When I fill in the following:
        | email | ursmemberone@lundrigan.ca |
     And I press "Save Changes"
-    And I am on the edit page for user "14"
-    And I should see "A record matching the input was found"
+    And I should see "The user was edited"
+    And I navigate to the edit page for user "14"
+    And I should see that "email" field has value "ursmemberone@lundrigan.ca"
       
   @javascript
   Scenario: Administrator can modify the display name of an existing user account

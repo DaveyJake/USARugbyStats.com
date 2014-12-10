@@ -82,7 +82,7 @@ Feature: Account Administration Panel - Create User Account
     And I should see "The input is not a valid email address"
       
   @javascript
-  Scenario: Must provide a unique email address when creating a new account
+  Scenario: A unique email address is not required when creating a new account
     Given I am authenticated as a super administrator
     And I navigate to the Add New User page of the Account Administration Panel	
     When I fill in the following:
@@ -92,8 +92,8 @@ Feature: Account Administration Panel - Create User Account
        | password | testtest123 |
        | passwordVerify | testtest123 |
     And I press "Register"
-    Then I should be on the Add New User page of the Account Administration Panel
-    And I should see "A record matching the input was found"
+    Then I should see "The user was created"
+    And I should see "adam+teamadmin@lundrigan.ca"
     
   @javascript
   Scenario: Display Name is a required field for creating a new account
