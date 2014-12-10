@@ -7,7 +7,6 @@ return array(
         'AssetManager',
 
         'ZfcBase',
-        'GoalioMailService',
 
         'DoctrineModule',
         'DoctrineORMModule',
@@ -15,8 +14,6 @@ return array(
 
         'ZfcUser',
         'ZfcUserDoctrineORM',
-        'GoalioForgotPassword',
-        'GoalioForgotPasswordDoctrineORM',
         'LdcUserProfile',
         'E4W\ZfcUser\RedirectUrl',
         'HtSession',
