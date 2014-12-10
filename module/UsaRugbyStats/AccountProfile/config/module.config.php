@@ -10,6 +10,8 @@ return array(
     'service_manager' => array(
         'aliases' => array(),
         'factories' => array(
+            'ldc-user-profile_extension_zfcuser_inputfilter' => 'UsaRugbyStats\AccountProfile\ZfcUser\ZfcUserInputFilterFactory',
+            
             'usarugbystats-accountprofile_personalstats_extension' => 'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionFactory',
             'usarugbystats-accountprofile_personalstats_extension_service' => 'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionServiceFactory',
 
