@@ -4,8 +4,6 @@ namespace UsaRugbyStats\AccountAdmin\Form;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-use ZfcUser\Form\RegisterFilter;
-use ZfcUser\Validator\NoRecordExists;
 use UsaRugbyStats\AccountAdmin\Entity\AccountHydrator;
 
 /**
