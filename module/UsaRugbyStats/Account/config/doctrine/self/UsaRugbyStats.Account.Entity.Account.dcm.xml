@@ -5,6 +5,12 @@
 
     <entity name="UsaRugbyStats\Account\Entity\Account" table="accounts" repository-class="UsaRugbyStats\Account\Repository\AccountRepository">
 
+        <attribute-overrides>
+            <attribute-override name="email">
+				<field unique="false" />
+			</attribute-override>
+		</attribute-overrides>
+
         <field name="remoteId" type="string" length="255" unique="true" nullable="true" />
 
         <one-to-many field="roleAssignments" target-entity="UsaRugbyStats\Account\Entity\Rbac\RoleAssignment" mapped-by="account" index-by="role" orphan-removal="true">
