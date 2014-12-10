@@ -3,6 +3,7 @@ namespace UsaRugbyStatsTest\AccountAdmin\Form;
 
 use Mockery;
 use UsaRugbyStats\AccountAdmin\Form\CreateUserFactory;
+use UsaRugbyStats\AccountAdmin\Form\EditUserFilterFactory;
 
 class CreateUserFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,6 +28,10 @@ class CreateUserFactoryTest extends \PHPUnit_Framework_TestCase
         $this->serviceManager->setService('zfcuser_user_mapper', Mockery::mock('ZfcUser\Mapper\UserInterface'));
         $this->serviceManager->setService('zfcuseradmin_module_options', $mockOptions);
         $this->serviceManager->setService('UsaRugbyStats\AccountAdmin\Form\Rbac\RoleAssignmentElement', $mockCollection);
+
+        $filter = (new EditUserFilterFactory())->createService($this->serviceManager);
+
+        $this->serviceManager->setService('zfcuseradmin_edituser_filter', $filter);
     }
 
     public function testCreateService()
