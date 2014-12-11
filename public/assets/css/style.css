@@ -703,6 +703,11 @@ table tbody td img {
   cursor: pointer;
 }
 
+#standings tr:hover td.nolink,
+#schedule tr:hover td.nolink {
+  cursor: default;
+}
+
 #standings tr:hover.even,
 #schedule tr:hover.even,
 #standings tr:hover:nth-child(even),

@@ -269,7 +269,7 @@ return array(
                 'usarugbystats_frontend_competition_match' => array('guest'),
                 'usarugbystats_frontend_competition_match/render-match-row' => array('guest'),
                 'usarugbystats_frontend_competition_match/copy-roster' => array('team_admin', 'competition_admin'),
-                'usarugbystats_frontend_competition_match/delete' => array('competition_admin'),
+                'usarugbystats_frontend_competition_match/delete' => array('union_admin', 'competition_admin'),
                 'usarugbystats_frontend_location' => array('member'),
                 'usarugbystats_frontend_location/view' => array('guest'),
                 'usarugbystats_frontend_location/search' => array('member'),

@@ -149,7 +149,7 @@ class CompetitionMatchController extends AbstractActionController
             $this->flashMessenger()->addSuccessMessage('The match was removed successfully!');
 
             return $this->redirect()->toRoute('usarugbystats_frontend_competition', [
-                'cid' => $competition->getId(),
+                'id' => $competition->getId(),
             ]);
         }
 
