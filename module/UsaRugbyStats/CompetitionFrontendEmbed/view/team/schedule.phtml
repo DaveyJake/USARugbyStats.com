@@ -1,5 +1,5 @@
 <?php if (count($matches) > 0): ?>
-<?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $matches, 'relativeTo' => $team]); ?>
+<?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $matches, 'relativeTo' => $team, 'link_options' => ['new_window' => true]]); ?>
 <?php else: ?>
 <div class="schedule-is-empty">This competition does not have any matches.</div>
 <?php endif; ?>
