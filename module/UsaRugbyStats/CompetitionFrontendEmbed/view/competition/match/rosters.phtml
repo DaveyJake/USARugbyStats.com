@@ -26,7 +26,7 @@
         		<td style="text-align:center"><?=$this->escapeHtml($pname);?></td>
         		<td class="away-player">
         		  <?php if (isset($awayPlayers[$pkey]) && null !== $awayPlayers[$pkey]): ?>
-        		  # <?=$this->escapeHtml($awayPlayers[$pkey]->getNumber(), 'default', ['new_window' => true]) ?> - <?=$this->ursPlayerLink($awayPlayers[$pkey]->getPlayer()); ?>
+        		  # <?=$this->escapeHtml($awayPlayers[$pkey]->getNumber()) ?> - <?=$this->ursPlayerLink($awayPlayers[$pkey]->getPlayer(), 'default', ['new_window' => true]); ?>
         		  <?php if ( $awayPlayers[$pkey]->isFrontRow() ) echo '<span style="font-weight:bold">(FR)</span>';?>
         		  <?php else: echo '&mdash;'; ?>
         		  <?php endif; ?>
