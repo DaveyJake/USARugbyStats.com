@@ -4,7 +4,7 @@ use UsaRugbyStats\Competition\Entity\Competition;
 
 $isRelativeToTeam = $this->relativeTo instanceof Team;
 $isRelativeToCompetition = $this->relativeTo instanceof Competition;
-
+$link_options = isset($link_options) ? (array)$link_options : array();
 $now = new DateTime();
 
 $matchViewUrl = $this->url('usarugbystats_frontend_competition_match', ['cid' => $match->getCompetition()->getId(), 'mid' => $match->getId()]);
@@ -16,17 +16,17 @@ $matchDeleteUrl = $this->url('usarugbystats_frontend_competition_match/delete', 
 if ( $isRelativeToTeam ): ?>
 
 <tr data-matchdatetime="<?=$this->escapeHtmlAttr($match->getDate()->format('U')); ?>">
-	<td class="date"><a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"><?=$this->escapeHtml($match->getDate()->format('M jS')); ?></a></td>
+	<td class="date"><a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>><?=$this->escapeHtml($match->getDate()->format('M jS')); ?></a></td>
 	<td class="opponent">
 	<?php   $opponent = $match->getTeam('H')->getTeam()->getId() == $this->relativeTo->getId()
 	                  ? $match->getTeam('A')
 	                  : $match->getTeam('H');
 	?>
 
-	<?=($opponent->getType() == 'H' ? '@' : 'vs.'); ?> <img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($opponent)); ?>"><?php echo $this->ursTeamLink($opponent); ?>
+	<?=($opponent->getType() == 'H' ? '@' : 'vs.'); ?> <img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($opponent)); ?>"><?php echo $this->ursTeamLink($opponent, 'default', $link_options); ?>
 	</td>
 	<td class="result-time">
-	<a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>">
+	<a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>>
 	<?php if ( $match->isCancelled() ): ?>
 	   Cancelled
 	<?php elseif ( $match->isNotStarted() || $now <= $match->getDate() ): ?>
@@ -47,7 +47,7 @@ if ( $isRelativeToTeam ): ?>
     <td class="type"><?=$this->escapeHtml($match->getCompetition()->getTypeString());?></td>
     <td class="toolbox nolink" style="text-align:right">
         <?php if ($canDeleteMatch): ?>
-        <a href="<?=$this->escapeHtmlAttr($matchDeleteUrl); ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
+        <a href="<?=$this->escapeHtmlAttr($matchDeleteUrl); ?>" class="btn btn-default btn-sm"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>><i class="glyphicon glyphicon-trash"></i></a>
         <?php endif; ?>
     </td>
 </tr>
@@ -57,15 +57,15 @@ if ( $isRelativeToTeam ): ?>
 <tr data-matchdatetime="<?=$this->escapeHtmlAttr($match->getDate()->format('U')); ?>">
 
 	<td class="date">
-		<a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"><?=$this->escapeHtml($match->getDate()->format('M jS')); ?></a>
+		<a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>><?=$this->escapeHtml($match->getDate()->format('M jS')); ?></a>
 	</td>
 
 	<td class="away">
-		<?php echo $this->ursTeamLink($match->getTeam('A')); ?><img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>">
+		<?php echo $this->ursTeamLink($match->getTeam('A'), 'default', $link_options); ?><img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>">
 	</td>
 
 	<td class="result-time">
-	  <a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>">
+	  <a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>>
 		<?php if ( $match->isCancelled() ): ?>
 		   Cancelled
 		<?php elseif ( $match->isNotStarted() || $now <= $match->getDate() ): ?>
@@ -78,13 +78,13 @@ if ( $isRelativeToTeam ): ?>
 	</td>
 
 	<td class="home">
-		<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('H'))); ?>"><?php echo $this->ursTeamLink($match->getTeam('H')); ?>
+		<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('H'))); ?>"><?php echo $this->ursTeamLink($match->getTeam('H'), 'default', $link_options); ?>
 	</td>
 
     <td class="type"><?=$this->escapeHtml($match->getCompetition()->getTypeString());?></td>
     <td class="toolbox nolink" style="text-align:right">
         <?php if ($canDeleteMatch): ?>
-        <a href="<?=$this->escapeHtmlAttr($matchDeleteUrl); ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
+        <a href="<?=$this->escapeHtmlAttr($matchDeleteUrl); ?>" class="btn btn-default btn-sm"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>><i class="glyphicon glyphicon-trash"></i></a>
         <?php endif; ?>
     </td>
 </tr>

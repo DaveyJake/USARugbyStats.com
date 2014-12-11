@@ -3,6 +3,8 @@ use UsaRugbyStats\Competition\Entity\Team;
 
 $isExpanded = @$this->isExpanded === true;
 $relativeToTeam = $this->relativeTo instanceof Team;
+$link_options = isset($link_options) ? (array)$link_options : array();
+
 ?>
 <table>
 	<thead>
@@ -26,7 +28,7 @@ $relativeToTeam = $this->relativeTo instanceof Team;
 	    <?php foreach ( $this->standings as $standingsRow): ?>
 	    <?php   $srTeam = $standingsRow->getTeam(); ?>
 		<tr<?php if ( $relativeToTeam && $srTeam->getId() == $this->relativeTo->getId() ) echo ' class="active"';?>>
-			<td class="team"><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $srTeam->getId()]); ?>"><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($srTeam)); ?>"> <?=$this->escapeHtml($this->ursTeamName($srTeam)); ?></a></td>
+			<td class="team"><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $srTeam->getId()]); ?>"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($srTeam)); ?>"> <?=$this->escapeHtml($this->ursTeamName($srTeam)); ?></a></td>
 			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalGames()); ?></td>
 			<td class="record"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?>-<?=$this->escapeHtml($standingsRow->getTotalLosses()); ?>-<?=$this->escapeHtml($standingsRow->getTotalTies()); ?></td>
 			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?></td>
