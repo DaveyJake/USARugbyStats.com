@@ -18,7 +18,7 @@ class LocationName extends AbstractHelper
             $location = $this->getLocationService()->findByID($obj);
         }
         if (! $location instanceof Location) {
-            return "&gt; No Location Specified &lt;";
+            return "No Location Specified";
         }
 
         return $location->getName();
