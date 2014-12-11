@@ -22,7 +22,7 @@ $form->setAttribute('method', 'post');
                     <?php
                     $messages = $form->get('identity')->getMessages();
                     if ( count($messages) > 0  ) {
-                        echo '<div class="alert alert-danger">The credentials you provided do not match any known account.  Please try again, or <a href="' . $this->url('zfcuser/forgotpassword') . '">reset your account password.</a></div>';
+                        echo '<div class="alert alert-danger">The credentials you provided do not match any known account.  Please try again or contact support.</div>';
                     }
                     ?>
 
