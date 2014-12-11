@@ -6,11 +6,11 @@ use UsaRugbyStats\Competition\Entity\Competition\Match;
 
 class CompetitionMatchLink extends AbstractHelper
 {
-    public function __invoke(Match $match, $format = 'default')
+    public function __invoke(Match $match, $format = 'default', array $options = array())
     {
         return $this->getView()->render(
             'usa-rugby-stats/competition-frontend/partials/competition-match-link/' . $format,
-            [ 'match' => $match ]
+            [ 'match' => $match, 'options' => $options ]
         );
     }
 }

@@ -13,7 +13,7 @@ class PlayerLink extends AbstractHelper
      */
     protected $accountService;
 
-    public function __invoke($obj)
+    public function __invoke($obj, $format = 'default', array $options = array())
     {
         $player = null;
         if ($obj instanceof AccountInterface) {
@@ -28,8 +28,8 @@ class PlayerLink extends AbstractHelper
         }
 
         return $this->getView()->render(
-            'usa-rugby-stats/competition-frontend/partials/player-link/default',
-            [ 'player' => is_object($obj) ? $obj : $player ]
+            'usa-rugby-stats/competition-frontend/partials/player-link/' . $format,
+            [ 'player' => is_object($obj) ? $obj : $player, 'options' => $options ]
         );
     }
 

@@ -9,7 +9,7 @@ class UnionLink extends AbstractHelper
 {
     use UnionServiceTrait;
 
-    public function __invoke($obj)
+    public function __invoke($obj, $format = 'default', array $options = array())
     {
         $union = null;
         if ($obj instanceof Union) {
@@ -22,8 +22,8 @@ class UnionLink extends AbstractHelper
         }
 
         return $this->getView()->render(
-            'usa-rugby-stats/competition-frontend/partials/union-link/default',
-            [ 'union' => $union ]
+            'usa-rugby-stats/competition-frontend/partials/union-link/' . $format,
+            [ 'union' => $union, 'options' => $options ]
         );
     }
 }

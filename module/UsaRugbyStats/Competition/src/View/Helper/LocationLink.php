@@ -9,7 +9,7 @@ class LocationLink extends AbstractHelper
 {
     use LocationServiceTrait;
 
-    public function __invoke($obj)
+    public function __invoke($obj, $format = 'default', array $options = array())
     {
         $location = null;
         if ($obj instanceof Location) {
@@ -22,8 +22,8 @@ class LocationLink extends AbstractHelper
         }
 
         return $this->getView()->render(
-            'usa-rugby-stats/competition-frontend/partials/location-link/default',
-            [ 'location' => $location ]
+            'usa-rugby-stats/competition-frontend/partials/location-link/' . $format,
+            [ 'location' => $location, 'options' => $options ]
         );
     }
 }

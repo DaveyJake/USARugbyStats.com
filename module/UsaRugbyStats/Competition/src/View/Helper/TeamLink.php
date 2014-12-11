@@ -10,7 +10,7 @@ class TeamLink extends AbstractHelper
 {
     use TeamServiceTrait;
 
-    public function __invoke($obj)
+    public function __invoke($obj, $format = 'default', array $options = array())
     {
         $team = null;
         if ($obj instanceof Team) {
@@ -25,8 +25,8 @@ class TeamLink extends AbstractHelper
         }
 
         return $this->getView()->render(
-            'usa-rugby-stats/competition-frontend/partials/team-link/default',
-            [ 'team' => $team ]
+            'usa-rugby-stats/competition-frontend/partials/team-link/' . $format,
+            [ 'team' => $team, 'options' => $options ]
         );
     }
 }

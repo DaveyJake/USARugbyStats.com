@@ -6,6 +6,6 @@ $account = $this->player instanceof MatchTeamPlayer
     : $this->player;
 ?>
 
-<a href="<?=$this->url('usarugbystats_frontend_player', ['id' => $account->getId()]); ?>">
+<a href="<?=$this->url('usarugbystats_frontend_player', ['id' => $account->getId()]); ?>"<?php if(@$options['new_window']):?> target="_blank"<?php endif;?>>
   <?=$this->escapeHtml($this->ursPlayerName($this->player)); ?>
 </a>

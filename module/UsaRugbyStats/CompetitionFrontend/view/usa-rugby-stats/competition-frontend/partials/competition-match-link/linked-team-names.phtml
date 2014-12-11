@@ -1,3 +1,3 @@
-<a href="<?=$this->url('usarugbystats_frontend_competition_match', ['mid' => $match->getId(), 'cid' => $match->getCompetition()->getId()]); ?>">
+<a href="<?=$this->url('usarugbystats_frontend_competition_match', ['mid' => $match->getId(), 'cid' => $match->getCompetition()->getId()]); ?>"<?php if(@$options['new_window']):?> target="_blank"<?php endif;?>>
   <?php echo $this->ursTeamLink($match->getHomeTeam()); ?> v. <?php echo $this->ursTeamLink($match->getAwayTeam()); ?>
 </a>
