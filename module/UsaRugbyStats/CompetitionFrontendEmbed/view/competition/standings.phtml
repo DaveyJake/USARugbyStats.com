@@ -3,7 +3,7 @@
 <?php   $divCount = count($this->standings['by-division']); ?>
 <?php   foreach ( $this->standings['by-division'] as $divKey => $divData ): ?>
 <div class="panel">
-<?php     echo $this->render('usa-rugby-stats/competition-frontend/partials/standings', ['standings' => $divData['standings'], 'divisionTitle' => ($divCount > 1 ? $divData['division']->getName() : ''), 'isExpanded' => true]); ?>
+<?php     echo $this->render('usa-rugby-stats/competition-frontend/partials/standings', ['standings' => $divData['standings'], 'divisionTitle' => ($divCount > 1 ? $divData['division']->getName() : ''), 'isExpanded' => true, 'link_options' => ['new_window' => true]]); ?>
 </div>
 <?php   endforeach;?>
 </div>
