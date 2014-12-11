@@ -5,9 +5,9 @@
     <table>
     	<thead>
             <tr>
-    	       <th class="home-player"><?=$this->ursTeamLink($match->getHomeTeam()); ?></th>
+    	       <th class="home-player"><?=$this->ursTeamLink($match->getHomeTeam(), 'default', ['new_window' => true]); ?></th>
     		   <th></th>
-    		   <th class="away-player"><?=$this->ursTeamLink($match->getAwayTeam()); ?></th>
+    		   <th class="away-player"><?=$this->ursTeamLink($match->getAwayTeam(), 'default', ['new_window' => true]); ?></th>
     	   </tr>
     	</thead>
     	<tbody>
@@ -17,17 +17,17 @@
     	   <?php foreach ( $this->positions as $pkey => $pname ): ?>
         	<tr>
         		<td class="home-player">
-        		  <?php if (isset($homePlayers[$pkey])): ?>
-        		  <?=$this->ursPlayerLink($homePlayers[$pkey]->getPlayer()); ?> - #<?=$this->escapeHtml($homePlayers[$pkey]->getNumber()) ?> 
+        		  <?php if (isset($homePlayers[$pkey]) && null !== $homePlayers[$pkey]): ?>
+        		  <?=$this->ursPlayerLink($homePlayers[$pkey]->getPlayer(), 'default', ['new_window' => true]); ?> - #<?=$this->escapeHtml($homePlayers[$pkey]->getNumber()) ?> 
         		  <?php if ( $homePlayers[$pkey]->isFrontRow() ) echo '<span style="font-weight:bold">(FR)</span>';?>
         		  <?php else: echo '&mdash;'; ?>
         		  <?php endif; ?>
         		</td>
         		<td style="text-align:center"><?=$this->escapeHtml($pname);?></td>
         		<td class="away-player">
-        		  <?php if (isset($awayPlayers[$pkey])): ?>
-        		  # <?=$this->escapeHtml($awayPlayers[$pkey]->getNumber()) ?> - <?=$this->ursPlayerLink($awayPlayers[$pkey]->getPlayer()); ?>
-        		  <?php if ( $homePlayers[$pkey]->isFrontRow() ) echo '<span style="font-weight:bold">(FR)</span>';?>
+        		  <?php if (isset($awayPlayers[$pkey]) && null !== $awayPlayers[$pkey]): ?>
+        		  # <?=$this->escapeHtml($awayPlayers[$pkey]->getNumber()) ?> - <?=$this->ursPlayerLink($awayPlayers[$pkey]->getPlayer(), 'default', ['new_window' => true]); ?>
+        		  <?php if ( $awayPlayers[$pkey]->isFrontRow() ) echo '<span style="font-weight:bold">(FR)</span>';?>
         		  <?php else: echo '&mdash;'; ?>
         		  <?php endif; ?>
         		</td>

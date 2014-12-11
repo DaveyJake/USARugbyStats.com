@@ -39,7 +39,7 @@ $now = new DateTime();
 	<tbody>
 	<?php $vars = $this->vars()->getArrayCopy(); ?>
 	<?php foreach ( $this->matches as $match ): ?>
-    <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing-row', $vars + ['match' => $match]); ?>
+    <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing-row', $vars + ['match' => $match, 'link_options' => @$link_options]); ?>
 	<?php endforeach; ?>
 	</tbody>
 	

@@ -12,7 +12,7 @@ class TeamPlayerLink extends AbstractHelper
      */
     protected $svc;
 
-    public function __invoke($obj)
+    public function __invoke($obj, $format = 'default', array $options = array())
     {
         $player = null;
         if ($obj instanceof MatchTeamPlayer) {
@@ -28,7 +28,7 @@ class TeamPlayerLink extends AbstractHelper
             return;
         }
 
-        return $this->getView()->ursPlayerLink($player);
+        return $this->getView()->ursPlayerLink($player, $format, $options);
     }
 
     public function setMatchTeamPlayerRepository(ObjectRepository $svc)
