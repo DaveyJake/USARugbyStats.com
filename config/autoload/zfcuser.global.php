@@ -31,7 +31,7 @@ $settings = array(
      *
      * Accepted values: boolean true or false
      */
-    //'enable_registration' => true,
+    'enable_registration' => false,
 
     /**
      * Enable Username
@@ -72,7 +72,7 @@ $settings = array(
      * Default value: array containing 'email'
      * Accepted values: array containing one or more of: email, username
      */
-    'auth_identity_fields' => array( 'username', 'email' ),
+    'auth_identity_fields' => array( 'username' ),
 
     /**
      * Login form timeout

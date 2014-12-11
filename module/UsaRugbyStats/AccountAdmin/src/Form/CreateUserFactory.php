@@ -4,8 +4,6 @@ namespace UsaRugbyStats\AccountAdmin\Form;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-use ZfcUser\Form\RegisterFilter;
-use ZfcUser\Validator\NoRecordExists;
 use UsaRugbyStats\AccountAdmin\Entity\AccountHydrator;
 
 /**
@@ -30,35 +28,7 @@ class CreateUserFactory implements FactoryInterface
         $form = new CreateUser(null, $zfcUserAdminOptions, $zfcUserOptions, $sm);
         $form->setHydrator(new AccountHydrator($sm->get('zfcuser_doctrine_em')));
 
-        $emailValidator = new NoRecordExists(array(
-            'mapper' => $sm->get('zfcuser_user_mapper'),
-            'key' => 'email'
-        ));
-        $usernameValidator = new NoRecordExists(array(
-            'mapper' => $sm->get('zfcuser_user_mapper'),
-            'key' => 'username'
-        ));
-        $filter = new RegisterFilter($emailValidator, $usernameValidator, $zfcUserOptions);
-
-        // Allow usernames to be 1-255 characters
-        // (ZfcUser default is 3-255)
-        if ( $filter->has('username') ) {
-            $filter->remove('username');
-            $filter->add(array(
-                'name'       => 'username',
-                'required'   => true,
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'min' => 1,
-                            'max' => 255,
-                        ),
-                    ),
-                    $usernameValidator,
-                ),
-            ));
-        }
+        $filter = $sm->get('zfcuseradmin_edituser_filter');
 
         if ($zfcUserAdminOptions->getCreateUserAutoPassword()) {
             $filter->remove('password')->remove('passwordVerify');

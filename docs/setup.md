@@ -101,9 +101,6 @@ cd config/autoload
 cp doctrine.local.php.dist doctrine.local.php
 # Edit file to add mysql user information
 
-# If you want e-mails to be intercepted and stored in data/mail:
-cp goaliomailservice.local.php.dist goaliomailservice.local.php
-
 ## Run initial application setup
 bin/app_rebuild.sh
 

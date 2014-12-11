@@ -123,38 +123,6 @@ class SyncPlayerTest extends AbstractJobTest
         $this->assertSame($acct, $this->job->loadReferencedUserAccount());
     }
 
-    public function testUserAccountLoadedByEmailFromPlayerDataIfNoUserIdRemoteIdOrUsernameSpecifiedDirectly()
-    {
-        $acct = \Mockery::mock('UsaRugbyStats\Account\Entity\Account');
-
-        $mockMapper = \Mockery::mock('ZfcUser\Mapper\UserInterface');
-        $mockMapper->shouldReceive('findById')->never();
-        $mockMapper->shouldReceive('findByRemoteId')->andReturnNull();
-        $mockMapper->shouldReceive('findByUsername')->andReturnNull();
-        $mockMapper->shouldReceive('findByEmail')->withArgs(['foo@bar.com'])->once()->andReturn($acct);
-        $this->mockUserService->shouldReceive('getUserMapper')->andReturn($mockMapper);
-
-        $this->job->args = ['player_data' => ['Email' => 'foo@bar.com']];
-        $this->assertSame($acct, $this->job->loadReferencedUserAccount());
-    }
-
-    public function testUserAccountLoadedByEmailFromPlayerDataIfNoUserIdRemoteIdOrUsernameSpecifiedDirectlyAndSavesRemoteId()
-    {
-        $acct = \Mockery::mock('UsaRugbyStats\Account\Entity\Account');
-        $acct->shouldReceive('setRemoteId')->once();
-
-        $mockMapper = \Mockery::mock('ZfcUser\Mapper\UserInterface');
-        $mockMapper->shouldReceive('findById')->never();
-        $mockMapper->shouldReceive('findByRemoteId')->andReturnNull();
-        $mockMapper->shouldReceive('findByUsername')->andReturnNull();
-        $mockMapper->shouldReceive('findByEmail')->withArgs(['foo@bar.com'])->once()->andReturn($acct);
-        $mockMapper->shouldReceive('update')->once();
-        $this->mockUserService->shouldReceive('getUserMapper')->andReturn($mockMapper);
-
-        $this->job->args = ['player_data' => ['ID' => '9999', 'Email' => 'foo@bar.com']];
-        $this->assertSame($acct, $this->job->loadReferencedUserAccount());
-    }
-
     public function testNewUserAccountIsCreatedIfNoExistingAccountIsFound()
     {
         $acct = \Mockery::mock('UsaRugbyStats\Account\Entity\Account');
@@ -174,7 +142,7 @@ class SyncPlayerTest extends AbstractJobTest
         $mockMapper->shouldReceive('findById')->never();
         $mockMapper->shouldReceive('findByRemoteId')->withArgs(['123456'])->once()->andReturnNull();
         $mockMapper->shouldReceive('findByUsername')->withArgs(['foobaruser'])->once()->andReturnNull();
-        $mockMapper->shouldReceive('findByEmail')->withArgs(['foo@bar.com'])->once()->andReturnNull();
+        $mockMapper->shouldReceive('findByEmail')->withArgs(['foo@bar.com'])->never();
         $this->mockUserService->shouldReceive('getUserMapper')->andReturn($mockMapper);
 
         $this->assertSame($acct, $this->job->loadReferencedUserAccount());
