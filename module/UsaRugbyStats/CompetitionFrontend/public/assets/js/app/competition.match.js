@@ -123,24 +123,6 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
                     $rootScope.matchEvents = new Array();
                 }
                 angular.forEach(['A','H'], function(side) {
-                	// Reset the player number to default (index+1) if no player is selected
-                    try {
-                        angular.forEach($rootScope.positionKeys, function(pkey, index) {
-                        	try {
-                        		if ( ! angular.isDefined($rootScope.match.teams[side].players) ) {
-                        			$rootScope.match.teams[side].players = {};
-                        		}
-                        		if ( ! angular.isDefined($rootScope.match.teams[side].players[pkey]) ) {
-                        			$rootScope.match.teams[side].players[pkey] = {};
-                        		}
-                        		if ( ! ( $rootScope.match.teams[side].players[pkey].number > 0 ) ) {
-                        			$rootScope.match.teams[side].players[pkey].number = index+1;                        		
-                        		}
-                        	} catch(e) {
-                        		$rootScope.match.teams[side].players[pkey].number = index+1;
-                        	}
-                        });
-                    } catch(e) {}
                     try {
                         angular.forEach($rootScope.match.teams[side].events, function(rec, index) {
                             var newrec = angular.copy(rec);
@@ -349,6 +331,17 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
             $scope.isEditingRoster = true;
             $('#content').hide();
             $('#players').removeClass('col-sm-5').addClass('col-sm-12');
+            
+            // Reset the player number if Angular injected an undefined value
+            angular.forEach(['A','H'], function(side) {
+                angular.forEach($rootScope.positionKeys, function(pkey, index) {
+                    var number = $('select[name=match\\\[teams\\\]\\\['+side+'\\\]\\\[players\\\]\\\['+pkey+'\\\]\\\[number\\\]]');
+                    if (!(number.val() > 0)) {
+                    	number.find('option:empty').remove();
+                    	number.val(index+1);
+                    }
+                });
+            });
         }
         
         $scope.saveChangesToRoster = function() {
