@@ -119,32 +119,15 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
                 $rootScope.homeTeam = data._embedded.team[data.match.teams.H.team];
                 $rootScope.awayTeam = data._embedded.team[data.match.teams.A.team];
                 
-                if ( typeof $rootScope.matchEvents == 'undefined' ) {
-                    $rootScope.matchEvents = new Array();
-                }
+                $rootScope.matchEvents = new Array();
+                
                 angular.forEach(['A','H'], function(side) {
                     try {
                         angular.forEach($rootScope.match.teams[side].events, function(rec, index) {
                             var newrec = angular.copy(rec);
                             newrec.side = side;
                             newrec.minute = parseInt(newrec.minute); // Hack to get sorting right
-
-                            if ( typeof newrec.id == 'undefined' || newrec.id == null ) {
-                                $rootScope.matchEvents.unshift(newrec);
-                                return;
-                            }
-
-                            var isAdded = false;
-                            angular.forEach($rootScope.matchEvents, function(existingRec, existingIndex) {
-                                if ( existingRec.id == newrec.id ) {
-                                    $rootScope.matchEvents[existingIndex] = newrec;
-                                    isAdded = true;
-                                }
-                            });
-                            if ( ! isAdded ) {
-                                $rootScope.matchEvents.unshift(newrec);
-                            }
-                            
+                            $rootScope.matchEvents.unshift(newrec);
                         });
                     } catch(e) {}
                 });
