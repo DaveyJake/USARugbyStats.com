@@ -86,6 +86,7 @@ return array(
                         'filter_team_roster_position_selectors' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamRosterPositionSelectors',
                         'fill_in_missing_roster_position_field' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FillInMissingRosterPositionField',
                         'recalculate_score' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\RecalculateScore',
+                        'convert_events_to_team_events_when_player_dropped' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\ConvertEventsToTeamEventsWhenPlayerDropped',
                     ),
                     'factories' => array(
                         'rbac_can_change_match' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac\CanChangeMatchFactory',
@@ -130,6 +131,7 @@ return array(
                         'prerender_n_roster_slots_per_side',
                     ),
                     'save' => array(
+                        'convert_events_to_team_events_when_player_dropped' => 0,
                         'drop_signaures_when_match_modified' => 10,
                         // @see #110 - Reverting match to "Not Yet Started" removes all game events
                         // 'drop_events_if_match_is_not_started' => 10,
