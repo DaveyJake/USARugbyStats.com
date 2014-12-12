@@ -123,6 +123,24 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
                     $rootScope.matchEvents = new Array();
                 }
                 angular.forEach(['A','H'], function(side) {
+                	// Reset the player number to default (index+1) if no player is selected
+                    try {
+                        angular.forEach($rootScope.positionKeys, function(pkey, index) {
+                        	try {
+                        		if ( ! angular.isDefined($rootScope.match.teams[side].players) ) {
+                        			$rootScope.match.teams[side].players = {};
+                        		}
+                        		if ( ! angular.isDefined($rootScope.match.teams[side].players[pkey]) ) {
+                        			$rootScope.match.teams[side].players[pkey] = {};
+                        		}
+                        		if ( ! ( $rootScope.match.teams[side].players[pkey].number > 0 ) ) {
+                        			$rootScope.match.teams[side].players[pkey].number = index+1;                        		
+                        		}
+                        	} catch(e) {
+                        		$rootScope.match.teams[side].players[pkey].number = index+1;
+                        	}
+                        });
+                    } catch(e) {}
                     try {
                         angular.forEach($rootScope.match.teams[side].events, function(rec, index) {
                             var newrec = angular.copy(rec);
@@ -346,22 +364,26 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
                         return;
                     }
                     try {
-                        if ( $rootScope.match.teams[side].players[pkey].player > 0 ) {
-                            data['match[teams]['+side+'][players]['+pkey+'][id]'] 
-                                = $rootScope.match.teams[side].players[pkey].id;
-                            data['match[teams]['+side+'][players]['+pkey+'][number]'] 
-                                = $rootScope.match.teams[side].players[pkey].number 
-                                    ? $rootScope.match.teams[side].players[pkey].number
-                                    : index+1;
-                            try {
-                                data['match[teams]['+side+'][players]['+pkey+'][isFrontRow]'] 
-                                    = ( $rootScope.match.teams[side].players[pkey].isFrontRow ? '1' : '0' );
-                            } catch ( e ) {
-                                data['match[teams]['+side+'][players]['+pkey+'][isFrontRow]'] 
-                                    = '0';
-                            }
+                        data['match[teams]['+side+'][players]['+pkey+'][id]'] 
+                        	= $rootScope.match.teams[side].players[pkey].id;
+                        
+                        data['match[teams]['+side+'][players]['+pkey+'][number]'] 
+                            = $rootScope.match.teams[side].players[pkey].number > 0
+                                ? $rootScope.match.teams[side].players[pkey].number
+                                : index+1;
+                        try {
+                            data['match[teams]['+side+'][players]['+pkey+'][isFrontRow]'] 
+                                = ( $rootScope.match.teams[side].players[pkey].isFrontRow ? '1' : '0' );
+                        } catch ( e ) {
+                            data['match[teams]['+side+'][players]['+pkey+'][isFrontRow]'] 
+                                = '0';
+                        }
+                        if ( $rootScope.match.teams[side].players[pkey].player > 0 ) { 
                             data['match[teams]['+side+'][players]['+pkey+'][player]'] 
                                 = $rootScope.match.teams[side].players[pkey].player;
+                        } else {
+                        	data['match[teams]['+side+'][players]['+pkey+'][player]'] 
+                        		= null;
                         }
                     } catch ( e ) {}
                 });

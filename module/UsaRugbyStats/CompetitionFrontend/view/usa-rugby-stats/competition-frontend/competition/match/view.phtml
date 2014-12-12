@@ -260,7 +260,7 @@ $this->layout()->containerAttributes = array_merge(
                     		    </div>
                     		    <div class="col-xs-7">
                                     <select ng-model="match.teams.H.players[posKey].player" class="form-control input-sm" name="match[teams][H][players][{{posKey}}][player]">
-                                        <option value="">Choose</option>
+                                        <option value="">No Player Selected</option>
                                         <option
                                             ng-repeat="(key,player) in formdata.players.H"
                                             value="{{player.value}}"
@@ -307,7 +307,7 @@ $this->layout()->containerAttributes = array_merge(
                     		    </div>
                     		    <div class="col-xs-7">
                                     <select ng-model="match.teams.A.players[posKey].player" class="form-control input-sm"  name="match[teams][A][players][{{posKey}}][player]">
-                                        <option value="">Choose</option>
+                                        <option value="">No Player Selected</option>
                                         <option
                                             ng-repeat="(key,player) in formdata.players.A"
                                             value="{{player.value}}"
