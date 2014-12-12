@@ -8,8 +8,7 @@ class CompetitionMatchStatus extends AbstractHelper
 {
     public function __invoke(Match $match)
     {
-        switch ( $match->getStatus() )
-        {
+        switch ( $match->getStatus() ) {
             case Match::STATUS_AWAYFORFEIT:
                 return 'Away Forfeit';
             case Match::STATUS_CANCELLED:
@@ -23,6 +22,7 @@ class CompetitionMatchStatus extends AbstractHelper
             case Match::STATUS_STARTED:
                 return 'Started';
         }
+
         return 'Unknown';
     }
 }
