@@ -12,31 +12,31 @@ use Zend\EventManager\SharedEventManagerInterface;
 class UpdatePlayerPhotoWithNewlyUploadedFile implements SharedListenerAggregateInterface
 {
     const TARGET_CLASS = 'LdcUserProfile\Service\ProfileService';
-    
+
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
-    
+
     /**
      * @var string
      */
     protected $uploadedImage = null;
-    
+
     public function attachShared(SharedEventManagerInterface $events)
     {
         $this->listeners[] = $events->attach(
-            static::TARGET_CLASS, 
-            static::TARGET_CLASS . '::validate.post', 
+            static::TARGET_CLASS,
+            static::TARGET_CLASS . '::validate.post',
             array($this, 'stashFileName')
         );
         $this->listeners[] = $events->attach(
-            static::TARGET_CLASS, 
-            static::TARGET_CLASS . '::save.post', 
+            static::TARGET_CLASS,
+            static::TARGET_CLASS . '::save.post',
             array($this, 'moveUploadedFile')
         );
     }
-    
+
     public function stashFileName(EventInterface $e)
     {
         $formData = $e->getParams()['form']->getData(FormInterface::VALUES_AS_ARRAY);
@@ -45,7 +45,7 @@ class UpdatePlayerPhotoWithNewlyUploadedFile implements SharedListenerAggregateI
         }
         $this->uploadedImage = $formData['extprofile']['custom_photo']['tmp_name'];
     }
-    
+
     public function moveUploadedFile(EventInterface $e)
     {
         if ( empty($this->uploadedImage) ) {

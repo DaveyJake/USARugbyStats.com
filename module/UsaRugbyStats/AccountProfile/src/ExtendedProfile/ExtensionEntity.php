@@ -12,7 +12,7 @@ class ExtensionEntity
     protected $lastName;
 
     protected $telephoneNumber;
-    
+
     protected $photoSource = 'G';
 
     public function getId()
@@ -74,12 +74,12 @@ class ExtensionEntity
 
         return $this;
     }
-    
+
     public function getPhotoSource()
     {
         return $this->photoSource ?: 'G';
     }
-    
+
     public function setPhotoSource($src)
     {
         // G = Gravatar
@@ -87,7 +87,7 @@ class ExtensionEntity
         if (in_array($src, ['G', 'C'])) {
             $this->photoSource = $src;
         }
-        
+
         return $this;
     }
 

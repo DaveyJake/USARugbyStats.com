@@ -24,11 +24,11 @@ class ExtensionFactory implements FactoryInterface
         $ext->setFieldset($fs);
         $ext->setInputFilter(new ExtensionInputFilter());
         $ext->setService($sm->get('usarugbystats-accountprofile_extprofile_extension_service'));
-        
+
         $sm->get('SharedEventManager')->attachAggregate(
             new UpdatePlayerPhotoWithNewlyUploadedFile()
-        );        
-        
+        );
+
         return $ext;
     }
 }

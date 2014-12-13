@@ -17,38 +17,39 @@ class PlayerAvatar extends AbstractHelper
     {
         $this->service = $svc;
     }
-    
+
     public function __invoke(UserInterface $user, $settings = array())
     {
         $extprofile = $this->service->getExtensions()['extprofile']->getObjectForUser($user);
-        if ( ! $extprofile instanceof ExtensionEntity ) {
+        if (! $extprofile instanceof ExtensionEntity) {
             throw new \RuntimeException('No extended profile for user!');
         }
-        
+
         if ( $extprofile->getPhotoSource() === 'G' ) {
             return $this->getView()->gravatar($user->getEmail(), $settings);
         }
 
         return sprintf(
-            '<img src="%s" %s />', 
-            $this->getView()->ursPlayerPhotoUrl($user), 
+            '<img src="%s" %s />',
+            $this->getView()->ursPlayerPhotoUrl($user),
             $this->buildHtmlAttrs($settings)
         );
     }
-    
+
     protected function buildHtmlAttrs($settings)
     {
         $set = [];
         foreach ($settings as $key => $value) {
-            switch ( $key ) {
+            switch ($key) {
                 case 'img_size':
                     $set[] = 'width="'.$this->getView()->escapeHtmlAttr($value).'"';
-                    break; 
+                    break;
                 case 'class':
                     $set[] = 'class="'.$this->getView()->escapeHtmlAttr($value).'"';
                     break;
             }
         }
+
         return implode(' ', $set);
     }
 }

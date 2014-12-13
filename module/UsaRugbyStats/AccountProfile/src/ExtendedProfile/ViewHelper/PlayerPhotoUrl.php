@@ -2,13 +2,12 @@
 namespace UsaRugbyStats\AccountProfile\ExtendedProfile\ViewHelper;
 
 use Zend\View\Helper\AbstractHelper;
-use LdcUserProfile\Service\ProfileService;
 use ZfcUser\Entity\UserInterface;
 
 class PlayerPhotoUrl extends AbstractHelper
 {
     protected $basePattern = '/assets/img/playeravatars/%s.png';
-    
+
     public function __invoke($user, $settings = array())
     {
         if ($user instanceof UserInterface) {
@@ -19,7 +18,7 @@ class PlayerPhotoUrl extends AbstractHelper
         if ( empty($userid) ) {
             return sprintf($this->basePattern, 'notfound');
         }
-        
+
         $url      = sprintf($this->basePattern, $userid);
         $filename = 'public' . $url;
 

@@ -40,7 +40,7 @@ class ExtensionInputFilter extends InputFilter
                 ),
             )),
         ));
-        
+
         $file = new FileInput('custom_photo');
         $file->setRequired(false);
         $file->getValidatorChain()->attachByName('fileisimage');
@@ -58,6 +58,6 @@ class ExtensionInputFilter extends InputFilter
             []
         );
         $this->add($file);
-        
+
     }
 }
