@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fdac9de778083bab4564d5eaf4881b19",
+    "hash": "9d922cf57de26b5ea8ca3b7a24b6e006",
     "packages": [
         {
             "name": "adamlundrigan/ldc-user-profile",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adamlundrigan/LdcUserProfile.git",
-                "reference": "0396e9dea63b73c0632647d06fd8cec9b07e75f7"
+                "reference": "c73c7f14e837428334d669f4de4399aa87cdba61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adamlundrigan/LdcUserProfile/zipball/0396e9dea63b73c0632647d06fd8cec9b07e75f7",
-                "reference": "0396e9dea63b73c0632647d06fd8cec9b07e75f7",
+                "url": "https://api.github.com/repos/adamlundrigan/LdcUserProfile/zipball/c73c7f14e837428334d669f4de4399aa87cdba61",
+                "reference": "c73c7f14e837428334d669f4de4399aa87cdba61",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +48,7 @@
                 }
             ],
             "description": "User profile extension for ZfcUser",
-            "time": "2014-08-13 14:36:23"
+            "time": "2014-12-13 22:29:38"
         },
         {
             "name": "adamlundrigan/ldc-zend-form-cti",
