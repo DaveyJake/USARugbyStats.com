@@ -22,6 +22,7 @@ return array(
     'view_manager' => array(
         'template_map' => array(
             'ldc-user-profile/profile/index' => __DIR__ . '/../view/ldc-user-profile/profile/index.phtml',
+            'ldc-user-profile/profile/extension/zfcuser' => __DIR__ . '/../view/ldc-user-profile/profile/extension/zfcuser.phtml',
 
             'ldc-user-profile/profile/extension/personalstats' => __DIR__ . '/../view/ldc-user-profile/profile/extension/personalstats.phtml',
             'usa-rugby-stats/account-profile/personal-stats/user-timeseries-chart' => __DIR__ . '/../view/usa-rugby-stats/account-profile/personal-stats/user-timeseries-chart.phtml',
