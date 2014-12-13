@@ -33,6 +33,25 @@ class ExtensionFieldset extends Fieldset
             )
         ));
 
+        $this->add(array(
+            'name' => 'photoSource',
+            'type' => 'Radio',
+            'options' => array(
+                'label' => 'Profile Picture',
+                'value_options' => array(
+                    'G' => 'Gravatar',
+                    'C' => 'Custom Photo',
+                ),
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\File',
+            'name' => 'custom_photo',
+            'options' => array(
+                'label' => 'Choose new File',
+            ),
+        ));
     }
 
 }

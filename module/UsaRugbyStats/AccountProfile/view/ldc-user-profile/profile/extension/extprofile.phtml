@@ -57,5 +57,49 @@ $includeEverything = ( is_array($this->validationGroup) && empty($this->validati
         </div>
     </div>
 
+    <div class="row form-group">
+        <?php $element = $fieldset->get('photoSource'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+        <?php // $element->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($element); ?>
+        <div class="col-sm-8">
+            <?php if ( $includeEverything || in_array('photoSource', $validationGroup, true) ): ?>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="PhotoSourceGravatarRadio"><input id="PhotoSourceGravatarRadio" type="radio" name="<?=$this->escapeHtmlAttr($element->getName());?>" value="G"<?php if($element->getValue() === 'G') echo ' checked="checked"';?> /> Gravatar</label><br />
+                    <label for="PhotoSourceCustomRadio"><input id="PhotoSourceCustomRadio" type="radio" name="<?=$this->escapeHtmlAttr($element->getName());?>" value="C"<?php if($element->getValue() === 'C') echo ' checked="checked"';?> /> Custom Photo</label>
+                </div>
+                <div id="PhotoSources" class="col-md-5" style="background-color: #eaeaea; padding: 5px;">
+                    <div id="PhotoSourceGravatar" data-photosource="G" style="display:<?=($element->getValue() === 'G') ? 'block' : 'none';?>; text-align:center">
+                        <div><a href="https://gravatar.com/" target="_blank">Gravatar</a> Photo</div>
+                        <?=$this->gravatar($userEntity->getEmail(), ['img_size' => 100]);?>
+                    </div>
+                    <div id="PhotoSourceCustom" data-photosource="C" style="display:<?=($element->getValue() === 'C') ? 'block' : 'none';?>; text-align:center">
+                        <div>Custom Photo</div>
+                        <img src="<?=$this->ursPlayerPhotoUrl($userEntity); ?>" style="width:100px" />
+                        <?php $photoElement = $fieldset->get('custom_photo');?>
+                        <?php $photoElement->setAttributes(['class' => 'filestyle', 'data-buttonText' => 'Choose New File', 'data-input' => 'false', 'data-size' => 'sm']); ?>
+                        <div style="margin-top: 5px"><?=$this->formFile($photoElement);?></div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                $('input[name="extprofile\\\[photoSource\\\]"]').change(function() {
+                	$('#PhotoSources div[data-photosource]').hide();
+                	$('div[data-photosource=' + $(this).val() + ']').show();
+                });
+                $('input[name="extprofile\\\[custom_photo\\\]"]').on('change', function()  {
+                    $(this).closest('form').submit();
+                });
+                </script>
+            </div>
+            <?php else: ?>
+            <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php endif;?>
+            
+            <?php echo $this->formElementErrors($element) ?>
+        </div>
+    </div>
+
   </div>
 </div>

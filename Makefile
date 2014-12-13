@@ -25,7 +25,8 @@ js = https://raw.githubusercontent.com/jquery/jquery/0d5ec2d8ac94a419ee47a39319c
 	 https://raw.githubusercontent.com/resin-io/ngRange/master/dist/ngRange.js \
          https://github.com/fmquaglia/ngOrderObjectBy/raw/master/src/ng-order-object-by.js \
 	 http://cdn.jsdelivr.net/jquery.geocomplete/1.5.1/jquery.geocomplete.min.js \
-	 https://github.com/ivaynberg/select2/raw/master/select2.js
+	 https://github.com/ivaynberg/select2/raw/master/select2.js \
+         http://markusslima.github.io/bootstrap-filestyle/js/bootstrap-filestyle.min.js
 
 all: deleteall makecss maketwbsfont makejs
 
