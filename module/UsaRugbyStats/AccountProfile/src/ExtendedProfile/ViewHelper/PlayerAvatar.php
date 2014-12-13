@@ -44,6 +44,9 @@ class PlayerAvatar extends AbstractHelper
                 case 'img_size':
                     $set[] = 'width="'.$this->getView()->escapeHtmlAttr($value).'"';
                     break; 
+                case 'class':
+                    $set[] = 'class="'.$this->getView()->escapeHtmlAttr($value).'"';
+                    break;
             }
         }
         return implode(' ', $set);
