@@ -6,8 +6,23 @@
   </div>
   <?php endif; ?>
 
-  <div style="float:left; padding-right:12px;"><?=$this->gravatar($player->getEmail(), ['img_size' => '42']) ?></div>
+  <div style="float:left; padding-right:12px;cursor:pointer;" data-toggle="modal" data-target="#myModal"><?=$this->ursPlayerAvatar($player, ['img_size' => '42']) ?></div>
   <h1><?= $this->escapeHtml($player->getDisplayName()); ?></h1>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width:332px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel"><?= $this->escapeHtml($player->getDisplayName()); ?></h4>
+      </div>
+      <div class="modal-body">
+        <?=$this->ursPlayerAvatar($player, ['img_size' => '300']) ?>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="row">

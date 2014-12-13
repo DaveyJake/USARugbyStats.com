@@ -25,6 +25,8 @@ $settings = array(
             'firstName',
             'lastName',
             'telephoneNumber',
+            'photoSource',
+            'custom_photo',
         ),
         'personalstats' => array(
 
@@ -39,6 +41,10 @@ $settings = array(
         'zfcuser' => array(
             'password',
             'passwordVerify',
+        ),
+        'extprofile' => array(
+            'photoSource',
+            'custom_photo',
         ),
         'personalstats' => array(),
     ),

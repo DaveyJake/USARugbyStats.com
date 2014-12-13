@@ -248,7 +248,7 @@ $submitButton->setAttribute('class', 'btn btn-md btn-success');
                 <?php   if ( ! $acct instanceof AccountInterface ) continue; ?>
                 <tr>
                     <td>
-                        <?php echo $this->gravatar($acct->getEmail()); ?>
+                        <?php echo $this->ursPlayerAvatar($acct); ?>
                         <?php echo $this->ursPlayerLink($acct); ?>
                     </td>
                     <td class="text-center">

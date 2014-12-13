@@ -32,6 +32,8 @@ return array(
     'view_helpers' => array(
         'factories' => array(
             'ursProfilePersonalStatsGraph' => 'UsaRugbyStats\AccountProfile\PersonalStats\ViewHelper\UserTimeseriesChartFactory',
+            'ursPlayerAvatar' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ViewHelper\PlayerAvatarFactory',
+            'ursPlayerPhotoUrl' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ViewHelper\PlayerPhotoUrlFactory',
         ),
     ),
 

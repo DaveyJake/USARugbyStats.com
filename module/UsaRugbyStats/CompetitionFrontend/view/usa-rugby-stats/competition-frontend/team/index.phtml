@@ -37,7 +37,7 @@ $this->layout()->coverVars = $this->vars();
                 		<?php foreach ( $this->players as $playerData ): ?>
                 		<tr>
                 			<td class="name">
-                			    <?=$this->gravatar($playerData['player']->getEmail(), ['img_size' => 32])->setAttribs(['class' => 'media-image']); ?>
+                			    <?=$this->ursPlayerAvatar($playerData['player'], ['img_size' => 32, 'class' => 'media-image']); ?>
                 			    <?=$this->ursPlayerLink($playerData['player']);?>
                 			</td>
                 			<td class="position"><?=$this->escapeHtml($playerData['position'] === false ? '--' : $playerData['position']);?></td>

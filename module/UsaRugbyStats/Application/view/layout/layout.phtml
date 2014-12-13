@@ -39,6 +39,7 @@
                   ->appendFile($this->basePath() . '/assets/js/vendor/jquery.geocomplete.min.js')
                   ->appendFile($this->basePath() . '/assets/js/min/main-min.js')
                   ->appendFile($this->basePath() . '/assets/js/AccountSelector.js')
+                  ->appendFile($this->basePath() . '/assets/js/vendor/bootstrap-filestyle.min.js')
              ;
         ?>
 
@@ -69,7 +70,7 @@
                 <?php if ( $this->plugin('user')->isAuthenticated() ): ?>
                 <div class="dropdown pull-right" id="user">
                     <a data-toggle="dropdown">
-                        <?php echo $this->gravatar($this->user()->getEmail())->getImgTag(); ?>
+                        <?php echo $this->ursPlayerAvatar($this->user()); ?>
                         <?php echo $this->escapeHtml($this->user()->getDisplayName()); ?>
                     </a>
 
