@@ -52,6 +52,9 @@ return array(
                 )
             )
         ),
+        'fixture' => array(
+            'UsaRugbyStats_AccountProfile_fixture' => __DIR__ . '/../src/Fixtures/Doctrine',
+        ),
     ),
 
     'audit' => array(
