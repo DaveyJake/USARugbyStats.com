@@ -1,0 +1,8 @@
+<div class="page-header">
+  <a href="<?=$this->url('usarugbystats_frontend_player', ['id' => $player->getId()]); ?>">
+    <div style="float:left; padding-right:12px;"><?=$this->ursPlayerAvatar($player, ['img_size' => '42']) ?></div>
+    <h1><?= $this->escapeHtml($player->getDisplayName()); ?></h1>
+  </a>
+</div>
+
+<?=$this->render('usa-rugby-stats/account-profile/form', ['profileForm' => $form, 'options' => $options]); ?>

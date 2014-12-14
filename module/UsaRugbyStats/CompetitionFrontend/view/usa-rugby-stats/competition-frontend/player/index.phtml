@@ -4,8 +4,12 @@
   <div class="pull-right" style="margin-top:5px">
     <a class="btn btn-primary" href="<?=$this->url('ldc-user-profile', ['id' => $player->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Update Your Profile</a>
   </div>
+  <?php elseif (true): ?>
+  <div class="pull-right" style="margin-top:5px">
+    <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_player/update', ['id' => $player->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Update Profile</a>
+  </div>
   <?php endif; ?>
-
+  
   <div style="float:left; padding-right:12px;cursor:pointer;" data-toggle="modal" data-target="#myModal"><?=$this->ursPlayerAvatar($player, ['img_size' => '42']) ?></div>
   <h1><?= $this->escapeHtml($player->getDisplayName()); ?></h1>
 </div>

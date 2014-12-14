@@ -74,7 +74,17 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
-                'child_routes' =>array(),
+                'child_routes' =>array(
+                    'update' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/update',
+                            'defaults' => array(
+                                'action'     => 'update',
+                            ),
+                        ),
+                    ),
+                ),
             ),
             'usarugbystats_frontend_team' => array(
                 'type' => 'Segment',
@@ -260,6 +270,7 @@ return array(
                 'usarugbystats_frontend_dashboard/union-admin' => array('union_admin'),
                 'usarugbystats_frontend_dashboard/competition-admin' => array('competition_admin'),
                 'usarugbystats_frontend_player' => array('guest'),
+                'usarugbystats_frontend_player/update' => array('team_admin', 'competition_admin'),
                 'usarugbystats_frontend_team' => array('guest'),
                 'usarugbystats_frontend_team/update' => array('team_admin'),
                 'usarugbystats_frontend_union' => array('guest'),
