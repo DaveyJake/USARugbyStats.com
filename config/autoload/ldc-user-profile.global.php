@@ -15,39 +15,7 @@ $settings = array(
     /**
      * Override of default validation groups to switch editing on/off for specific fields
      */
-    'validation_group_overrides' => array(
-        'zfcuser' => array(
-            'email',
-            'password',
-            'passwordVerify',
-        ),
-        'extprofile' => array(
-            'firstName',
-            'lastName',
-            'telephoneNumber',
-            'photoSource',
-            'custom_photo',
-        ),
-        'personalstats' => array(
-
-        ),
-    ),
-
-    /**
-     * Override of default validation groups to switch editing on/off for specific fields
-     * when the user account in question has a Remote ID
-     */
-    'validation_group_overrides_remoteid' => array(
-        'zfcuser' => array(
-            'password',
-            'passwordVerify',
-        ),
-        'extprofile' => array(
-            'photoSource',
-            'custom_photo',
-        ),
-        'personalstats' => array(),
-    ),
+    'validation_group_overrides' => array(),
 );
 
 /**
