@@ -7,6 +7,31 @@ return array(
         ),
     ),
 
+    'zfc_rbac' => [
+        'assertion_map' => [
+            'account.profile' => 'UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedPlayerAssertion',
+
+            'account.profile.zfcuser.username' => 'UsaRugbyStats\AccountProfile\ZfcUser\ExtensionRbacAssertion',
+            'account.profile.zfcuser.email' => 'UsaRugbyStats\AccountProfile\ZfcUser\ExtensionRbacAssertion',
+            'account.profile.zfcuser.display_name' => 'UsaRugbyStats\AccountProfile\ZfcUser\ExtensionRbacAssertion',
+            'account.profile.zfcuser.password' => 'UsaRugbyStats\AccountProfile\ZfcUser\ExtensionRbacAssertion',
+            'account.profile.zfcuser.passwordVerify' => 'UsaRugbyStats\AccountProfile\ZfcUser\ExtensionRbacAssertion',
+
+            'account.profile.extprofile.firstName' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionRbacAssertion',
+            'account.profile.extprofile.lastName' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionRbacAssertion',
+            'account.profile.extprofile.telephoneNumber' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionRbacAssertion',
+            'account.profile.extprofile.photoSource' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionRbacAssertion',
+            'account.profile.extprofile.custom_photo' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionRbacAssertion',
+
+            'account.profile.personalstats.height_ft' => 'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionRbacAssertion',
+            'account.profile.personalstats.height_in' => 'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionRbacAssertion',
+            'account.profile.personalstats.weight_lbs' => 'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionRbacAssertion',
+            'account.profile.personalstats.weight_oz' => 'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionRbacAssertion',
+            'account.profile.personalstats.benchPress' => 'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionRbacAssertion',
+            'account.profile.personalstats.sprintTime' => 'UsaRugbyStats\AccountProfile\PersonalStats\ExtensionRbacAssertion',
+        ],
+    ],
+
     'service_manager' => array(
         'aliases' => array(),
         'factories' => array(
