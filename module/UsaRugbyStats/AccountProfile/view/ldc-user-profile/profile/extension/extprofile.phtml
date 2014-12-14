@@ -42,6 +42,27 @@ $includeEverything = ( is_array($this->validationGroup) && empty($this->validati
     </div>
 
     <div class="row form-group">
+        <?php $element = $fieldset->get('citizenship'); ?>
+        <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+        <?php $element->setAttribute('class', 'form-control'); ?>
+
+        <?php echo $this->formLabel($element) ?>
+        <div class="col-sm-8">
+            <?php if ( $includeEverything || in_array('citizenship', $validationGroup, true) ): ?>
+            <?php echo $this->formElement($element); ?>
+            <?php else: ?>
+                <?php switch ( $element->getValue() ) {
+                    case 'US': echo "U.S. Citizen"; break;
+                    case 'RA': echo "Resident Alien"; break;
+                    case 'NA': echo "Non-resident Alien"; break;
+                    default: echo "Not Specified"; break;
+                }?>
+            <?php endif;?>
+            <?php echo $this->formElementErrors($element) ?>
+        </div>
+    </div>
+
+    <div class="row form-group">
         <?php $element = $fieldset->get('telephoneNumber'); ?>
         <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
         <?php $element->setAttribute('class', 'form-control'); ?>

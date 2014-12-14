@@ -52,6 +52,20 @@ class ExtensionFieldset extends Fieldset
                 'label' => 'Choose new File',
             ),
         ));
+
+        $this->add(array(
+            'name' => 'citizenship',
+            'type' => 'Select',
+            'options' => array(
+                'label' => 'Citizenship',
+                'empty_option' => 'Not Specified',
+                'value_options' => array(
+                    'US' => 'U.S. Citizen',
+                    'RA' => 'Resident Alien',
+                    'NA' => 'Non-resident Alien',
+                ),
+            ),
+        ));
     }
 
 }

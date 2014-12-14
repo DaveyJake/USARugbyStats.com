@@ -59,5 +59,16 @@ class ExtensionInputFilter extends InputFilter
         );
         $this->add($file);
 
+        $this->add(array(
+            'name'       => 'citizenship',
+            'required'   => false,
+            'filters'    => array(array('name' => 'StringTrim')),
+            'validators' => array(array(
+                'name' => 'InArray',
+                'options' => array(
+                    'haystack' => ['US','RA','NA'],
+                ),
+            )),
+        ));
     }
 }

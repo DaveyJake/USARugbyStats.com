@@ -15,6 +15,8 @@ class ExtensionEntity
 
     protected $photoSource = 'G';
 
+    protected $citizenship;
+
     public function getId()
     {
         return $this->id;
@@ -86,6 +88,23 @@ class ExtensionEntity
         // C = Custom
         if (in_array($src, ['G', 'C'])) {
             $this->photoSource = $src;
+        }
+
+        return $this;
+    }
+
+    public function getCitizenship()
+    {
+        return $this->citizenship;
+    }
+
+    public function setCitizenship($key)
+    {
+        // US = US Citizen
+        // RA = Resident Alien
+        // NA = Non-resident Alien
+        if (is_null($key) || in_array($key, ['US', 'RA', 'NA'])) {
+            $this->citizenship = $key;
         }
 
         return $this;

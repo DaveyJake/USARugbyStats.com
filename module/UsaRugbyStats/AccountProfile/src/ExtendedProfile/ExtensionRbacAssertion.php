@@ -32,6 +32,11 @@ class ExtensionRbacAssertion implements AssertionInterface
             return false;
         }
 
+        // Only union_admin and super_admin can edit citizenship field
+        if ( $context['element'] == 'citizenship' && ! ( $user->hasRole('union_admin') || $user->hasRole('super_admin') ) ) {
+            return false;
+        }
+
         if ( $user->getId() === $player->getId() ) {
             return true;
         }
