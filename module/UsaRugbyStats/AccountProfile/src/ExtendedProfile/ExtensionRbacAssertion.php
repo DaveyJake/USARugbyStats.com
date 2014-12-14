@@ -9,6 +9,8 @@ use UsaRugbyStats\Competition\Rbac\Assertion\EnforceManagedPlayerAssertion;
 
 class ExtensionRbacAssertion implements AssertionInterface
 {
+    protected $enabledWhenRemoteIdPresent = ['photoSource', 'custom_photo'];
+
     /**
      * @param  AuthorizationService $authorization
      * @return bool
@@ -22,6 +24,12 @@ class ExtensionRbacAssertion implements AssertionInterface
         $player = $context['player'];
         if (! $player instanceof UserInterface) {
             throw new \InvalidArgumentException('Context must contain the player account entity');
+        }
+
+        // If this player is linked to the remote system, block editing of synced fields
+        // @TODO should this be an event listener stored in RemoteDataSync ?
+        if ($player->getRemoteId() > 0 && !in_array($context['element'], $this->enabledWhenRemoteIdPresent, true)) {
+            return false;
         }
 
         if ( $user->getId() === $player->getId() ) {

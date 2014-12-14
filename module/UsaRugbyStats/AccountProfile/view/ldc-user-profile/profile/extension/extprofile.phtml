@@ -19,7 +19,7 @@ $includeEverything = ( is_array($this->validationGroup) && empty($this->validati
             <?php if ( $includeEverything || in_array('firstName', $validationGroup, true) ): ?>
             <?php echo $this->formElement($element); ?>
             <?php else: ?>
-            <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php echo $this->escapeHtml($element->getValue()); ?>
             <?php endif;?>
             <?php echo $this->formElementErrors($element) ?>
         </div>
@@ -35,7 +35,7 @@ $includeEverything = ( is_array($this->validationGroup) && empty($this->validati
             <?php if ( $includeEverything || in_array('lastName', $validationGroup, true) ): ?>
             <?php echo $this->formElement($element); ?>
             <?php else: ?>
-            <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php echo $this->escapeHtml($element->getValue()); ?>
             <?php endif;?>
             <?php echo $this->formElementErrors($element) ?>
         </div>
@@ -51,7 +51,7 @@ $includeEverything = ( is_array($this->validationGroup) && empty($this->validati
             <?php if ( $includeEverything || in_array('telephoneNumber', $validationGroup, true) ): ?>
             <?php echo $this->formElement($element); ?>
             <?php else: ?>
-            <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php echo $this->escapeHtml($element->getValue()); ?>
             <?php endif;?>
             <?php echo $this->formElementErrors($element) ?>
         </div>
@@ -94,7 +94,7 @@ $includeEverything = ( is_array($this->validationGroup) && empty($this->validati
                 </script>
             </div>
             <?php else: ?>
-            <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+            <?php echo $this->escapeHtml($element->getValue()); ?>
             <?php endif;?>
             
             <?php echo $this->formElementErrors($element) ?>
