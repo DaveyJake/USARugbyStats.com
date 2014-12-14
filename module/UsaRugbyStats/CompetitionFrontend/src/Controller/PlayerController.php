@@ -64,9 +64,6 @@ class PlayerController extends AbstractActionController
 
         $fm = $this->flashMessenger()->setNamespace('ldc-user-profile');
 
-        // Ensure that the user can't change the account ID during update
-        $prg['zfcuser']['id'] = $this->zfcUserAuthentication()->getIdentity()->getId();
-
         if (! $this->getService()->validate($form, $prg)) {
             $fm->addErrorMessage('One or more of the values you provided is invalid.');
 
@@ -82,8 +79,6 @@ class PlayerController extends AbstractActionController
         $fm->addSuccessMessage('Profile updated successfully!');
 
         return $this->redirect()->toUrl($selfurl);
-
-        return $vm;
     }
 
     protected function getPlayerEntityFromRoute()
