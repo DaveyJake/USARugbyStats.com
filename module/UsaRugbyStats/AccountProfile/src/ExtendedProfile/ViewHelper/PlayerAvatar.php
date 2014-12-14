@@ -21,11 +21,7 @@ class PlayerAvatar extends AbstractHelper
     public function __invoke(UserInterface $user, $settings = array())
     {
         $extprofile = $this->service->getExtensions()['extprofile']->getObjectForUser($user);
-        if (! $extprofile instanceof ExtensionEntity) {
-            throw new \RuntimeException('No extended profile for user!');
-        }
-
-        if ( $extprofile->getPhotoSource() === 'G' ) {
+        if ( ! $extprofile instanceof ExtensionEntity || $extprofile->getPhotoSource() === 'G' ) {
             return $this->getView()->gravatar($user->getEmail(), $settings);
         }
 
