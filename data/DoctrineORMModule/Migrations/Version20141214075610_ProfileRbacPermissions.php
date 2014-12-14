@@ -1,0 +1,1 @@
+../../../module/UsaRugbyStats/AccountProfile/data/migrations/Version20141214075610_ProfileRbacPermissions.php

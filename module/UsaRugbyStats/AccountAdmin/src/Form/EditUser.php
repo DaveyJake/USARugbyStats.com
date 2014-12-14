@@ -22,7 +22,7 @@ class EditUser extends ZfcUserAdminEditUserForm
                 ),
             ));
         }
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'remoteId',
