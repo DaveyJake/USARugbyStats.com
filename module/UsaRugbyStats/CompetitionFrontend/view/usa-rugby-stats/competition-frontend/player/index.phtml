@@ -4,7 +4,7 @@
   <div class="pull-right" style="margin-top:5px">
     <a class="btn btn-primary" href="<?=$this->url('ldc-user-profile', ['id' => $player->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Update Your Profile</a>
   </div>
-  <?php elseif (true): ?>
+  <?php elseif ($this->isGranted('account.profile', $player)): ?>
   <div class="pull-right" style="margin-top:5px">
     <a class="btn btn-primary" href="<?=$this->url('usarugbystats_frontend_player/update', ['id' => $player->getId()]); ?>"><i class="glyphicon glyphglyphicon glyphicon-cog"></i> Update Profile</a>
   </div>

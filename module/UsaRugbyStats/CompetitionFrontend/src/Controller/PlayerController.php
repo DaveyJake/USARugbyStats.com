@@ -39,6 +39,9 @@ class PlayerController extends AbstractActionController
     public function updateAction()
     {
         $player = $this->getPlayerEntityFromRoute();
+        if ( ! $this->isGranted('account.profile', $player) ) {
+            throw new UnauthorizedException('You are not authorized to edit this player\'s profile');
+        }
 
         $selfurl = $this->url()->fromRoute('usarugbystats_frontend_player/update', ['id' => $player->getId()]);
         
