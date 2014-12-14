@@ -1,0 +1,20 @@
+<?php
+return array(
+    'modules' => array(
+        'UsaRugbyStats\Application',
+        'UsaRugbyStats\Competition',
+        'UsaRugbyStats\Account',
+        'UsaRugbyStats\AccountAdmin',
+        'UsaRugbyStats\AccountProfile',
+    ),
+    'module_listener_options' => array(
+        'config_glob_paths' => array(),
+        'module_paths' => array(
+            'UsaRugbyStats\Application'  => realpath(__DIR__ . '/../../Application'),
+            'UsaRugbyStats\Competition'  => realpath(__DIR__ . '/../../Competition'),
+            'UsaRugbyStats\Account'  => realpath(__DIR__ . '/../../Account'),
+            'UsaRugbyStats\AccountAdmin'  => realpath(__DIR__ . '/../../AccountAdmin'),
+            'UsaRugbyStats\AccountProfile'  => realpath(__DIR__ . '/../../AccountProfile'),
+        ),
+    ),
+);
