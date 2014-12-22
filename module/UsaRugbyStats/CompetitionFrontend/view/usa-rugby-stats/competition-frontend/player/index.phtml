@@ -168,6 +168,62 @@
 
   </div>
   <div class="col-md-4">
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">Player Profile</div>
+
+      <?php 
+        if ( $this->profile->personalstats instanceof \UsaRugbyStats\AccountProfile\PersonalStats\ExtensionEntity ) {
+            $height_ft = floor($this->profile->personalstats->getHeight() / 12);
+            $height_in = $this->profile->personalstats->getHeight() % 12;
+            $weight_lbs = floor($this->profile->personalstats->getWeight() / 16);
+            $weight_oz = $this->profile->personalstats->getWeight() % 16;        
+        }
+        if ( $this->profile->extprofile instanceof \UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionEntity ) {
+            $citizenship = $this->profile->extprofile->getCitizenship();
+        }
+      ?>
+      
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-xs-5">Height:</div>
+            <div class="col-xs-7">
+              <?php if (isset($height_ft) && $height_ft > 0): ?>
+              <?=$this->escapeHtml($height_ft) ?>&#39; <?=$this->escapeHtml($height_in) ?>&quot;</div>
+              <?php else: ?>
+              N/A
+              <?php endif;?>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-xs-5">Weight:</div>
+            <div class="col-xs-7">
+              <?php if (isset($weight_lbs) && $weight_lbs > 0): ?>
+              <?=$this->escapeHtml($weight_lbs) ?> lbs<?php if($weight_oz > 0):?> <?=$this->escapeHtml($height_in) ?> oz<?php endif;?></div>
+              <?php else: ?>
+              N/A
+              <?php endif;?>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-xs-5">Citizenship:</div>
+            <div class="col-xs-7">
+              <?php if (isset($citizenship)): ?>
+                <?php $citizenshipValues = ['US' => 'U.S. Citizen', 'RA' => 'Resident Alien', 'NA' => 'Non-resident Alien']; ?>
+                <?=$this->escapeHtml(@$citizenshipValues[$citizenship] ?: 'N/A') ?>
+              <?php else: ?>
+              N/A
+              <?php endif;?>
+          </div>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  
     <div class="panel panel-default">
       <div class="panel-heading">Teams Played For</div>
 

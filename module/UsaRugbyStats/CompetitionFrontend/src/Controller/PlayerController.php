@@ -27,9 +27,11 @@ class PlayerController extends AbstractActionController
 
         $teams = $this->getTeamService()->getRepository()->findAllForPlayer($player);
         $statistics = $this->getPlayerStatisticsService()->getStatisticsFor($player);
-
+        $profile = $this->getService()->getProfileForUser($player);
+        
         $vm = new ViewModel();
         $vm->setVariable('player', $player);
+        $vm->setVariable('profile', $profile);
         $vm->setVariable('teams', $teams);
         $vm->setVariable('statistics', $statistics);
         $vm->setTemplate('usa-rugby-stats/competition-frontend/player/index');
