@@ -35,13 +35,13 @@ class DropPlayersIfTeamChangedOrNotSet extends AbstractRule
                 if (! $side->getTeam()->hasMember($playerRecord->getPlayer())) {
                     $playerId = $playerRecord->getPlayer()->getId();
                     $playerEvents = $side->getEvents()->filter(function ($e) use ($playerId) {
-                        if ($e instanceof MatchTeamEvent\CardEvent) {
+                        if ($e instanceof MatchTeamEvent\CardEvent && !is_null($e->getPlayer())) {
                             return $e->getPlayer()->getId() === $playerId;
                         }
-                        if ($e instanceof MatchTeamEvent\ScoreEvent) {
+                        if ($e instanceof MatchTeamEvent\ScoreEvent && !is_null($e->getPlayer())) {
                             return $e->getPlayer()->getId() === $playerId;
                         }
-                        if ($e instanceof MatchTeamEvent\SubEvent) {
+                        if ($e instanceof MatchTeamEvent\SubEvent && !is_null($e->getPlayerOn()) && !is_null($e->getPlayerOff())) {
                             return $e->getPlayerOn()->getId() === $playerId
                                ||  $e->getPlayerOff()->getId() === $playerId;
                         }

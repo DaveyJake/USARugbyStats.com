@@ -16,6 +16,8 @@
 
         <field name="minute" type="smallint" />
 
+		<field name="runningScore" type="json_array" />
+
         <discriminator-column name="event" type="string" length="5" />
         <discriminator-map>
             <discriminator-mapping value="score" class="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\ScoreEvent" />

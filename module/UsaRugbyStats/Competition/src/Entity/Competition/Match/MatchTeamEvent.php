@@ -31,6 +31,13 @@ abstract class MatchTeamEvent
      */
     protected $minute;
 
+    /**
+     * Running Score
+     *
+     * @var unknown
+     */
+    protected $runningScore = array('H' => 0, 'A' => 0);
+
     public function getId()
     {
         return $this->id;
@@ -82,6 +89,40 @@ abstract class MatchTeamEvent
     public function getEvent()
     {
         return $this->getDiscriminator();
+    }
+
+    public function getRunningScore()
+    {
+        if (!isset($this->runningScore['H'])) {
+            $this->runningScore['H'] = 0;
+        }
+        if (!isset($this->runningScore['A'])) {
+            $this->runningScore['A'] = 0;
+        }
+
+        return $this->runningScore;
+    }
+
+    public function setRunningScore(array $sides)
+    {
+        if ( array_keys($sides) == array('H','A') ) {
+            $this->setRunningScoreForSide('H', $sides['H']);
+            $this->setRunningScoreForSide('A', $sides['A']);
+        }
+
+        return $this;
+    }
+
+    public function setRunningScoreForSide($side, $score)
+    {
+        if ( ! in_array($side, array('H','A')) ) {
+            return $this;
+        }
+        if ( is_numeric($score) && $score >= 0 ) {
+            $this->runningScore[$side] = $score;
+        }
+
+        return $this;
     }
 
     abstract public function hasPlayer(AccountInterface $player);

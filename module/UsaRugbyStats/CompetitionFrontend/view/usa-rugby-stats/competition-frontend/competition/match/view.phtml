@@ -173,6 +173,7 @@ $this->layout()->containerAttributes = array_merge(
             		 <th>MIN</th>
             		 <th>EVENT</th>
             		 <th>SIDE</th>
+            		 <th style="text-align:center">SCORE</th>
             		 <th>DETAILS</th>
             		 <th width="60" ng-show="canAddEvents()"></th>
             	   </tr>
@@ -183,8 +184,9 @@ $this->layout()->containerAttributes = array_merge(
             		 <td ng-show="event.id > 0">
             		   {{event.type}} {{event.event}}
             		 </td>
-            		 <td ng-show="event.id > 0 && event.side == 'H'">{{homeTeam.name}}</td>
-            		 <td ng-show="event.id > 0 && event.side == 'A'">{{awayTeam.name}}</td>
+            		 <td ng-show="event.id > 0 && event.side == 'H'"><a href="/team/{{homeTeam.id}}" target="_blank"><img ng-src="/assets/img/teamlogos/{{homeTeam.id}}.png" height="20"> {{homeTeam.name}}</a></td>
+            		 <td ng-show="event.id > 0 && event.side == 'A'"><a href="/team/{{awayTeam.id}}" target="_blank"><img ng-src="/assets/img/teamlogos/{{awayTeam.id}}.png" height="20"> {{awayTeam.name}}</a></td>
+            		 <td style="text-align:center">{{event.runningScore.H}} - {{event.runningScore.A}}</td>
             		 <td>
             		   <div ng-show="event.id > 0 && event.event != 'sub'">
             		      <span ng-show="extdata.teamPlayer[event.player]">

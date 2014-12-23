@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 use UsaRugbyStats\Competition\Entity\Location;
 use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\ScoreEvent;
+use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
+use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\CardEvent;
 
 class MatchTest extends \PHPUnit_Framework_TestCase
 {
@@ -577,5 +580,45 @@ class MatchTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($obj->getEvents()->contains($event0));
         $this->assertTrue($obj->getEvents()->contains($event1));
         $this->assertFalse($obj->getEvents()->contains($event2));
+    }
+
+    public function testRecalculateScoreUpdatesRunningScoresProperly()
+    {
+        $obj = new Match();
+
+        $homeSide = new MatchTeam();
+        $awaySide = new MatchTeam();
+
+        $obj->setHomeTeam($homeSide);
+        $obj->setAwayTeam($awaySide);
+
+        $event0 = new ScoreEvent();
+        $event0->setType('TR');
+        $event0->setTeam($homeSide);
+        $obj->addEvent($event0);
+
+        $event1 = new ScoreEvent();
+        $event1->setType('PK');
+        $event1->setTeam($awaySide);
+        $obj->addEvent($event1);
+
+        $event2 = new CardEvent();
+        $event2->setType('R');
+        $event2->setTeam($awaySide);
+        $obj->addEvent($event2);
+
+        $event3 = new ScoreEvent();
+        $event3->setType('TR');
+        $event3->setTeam($awaySide);
+        $obj->addEvent($event3);
+
+        $obj->recalculateScore();
+
+        $this->assertEquals(5, $homeSide->getScore());
+        $this->assertEquals(8, $awaySide->getScore());
+        $this->assertEquals(['H' => 5, 'A' => 0], $event0->getRunningScore());
+        $this->assertEquals(['H' => 5, 'A' => 3], $event1->getRunningScore());
+        $this->assertEquals(['H' => 5, 'A' => 3], $event2->getRunningScore());
+        $this->assertEquals(['H' => 5, 'A' => 8], $event3->getRunningScore());
     }
 }

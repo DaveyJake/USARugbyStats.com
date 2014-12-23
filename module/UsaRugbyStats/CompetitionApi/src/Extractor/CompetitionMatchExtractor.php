@@ -15,6 +15,8 @@ class CompetitionMatchExtractor
 {
     public static function extract(Match $m, ExtendedValidationGroupForm $form)
     {
+        $m->recalculateScore();
+
         $form->bind($m);
         $form->isValid();
 
@@ -52,6 +54,12 @@ class CompetitionMatchExtractor
                 'id' => $team->getTeam()->getId(),
                 'name' => $team->getTeam()->getName(),
             ];
+
+            if ( !empty($team->getEvents()) ) {
+                foreach ($team->getEvents() as $k => $event ) {
+                    $rawData['match']['teams'][$team->getType()]['events'][$k]['runningScore'] = $event->getRunningScore();
+                }
+            }
 
             if ( !empty($team->getPlayers()) ) {
                 foreach ( $team->getPlayers() as $p ) {

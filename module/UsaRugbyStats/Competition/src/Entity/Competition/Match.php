@@ -696,11 +696,21 @@ class Match
 
     public function recalculateScore()
     {
-        if ( $this->getHomeTeam() ) {
-            $this->getHomeTeam()->recalculateScore();
+        $score = ['H' => 0, 'A' => 0];
+        foreach ( $this->getEvents() as $event ) {
+            if ( ! $event->getTeam() instanceof MatchTeam ) {
+                continue;
+            }
+            if ( $event->getDiscriminator() === 'score' ) {
+                $score[$event->getTeam()->getType()] += $event->getPoints();
+            }
+            $event->setRunningScore($score);
         }
-        if ( $this->getAwayTeam() ) {
-            $this->getAwayTeam()->recalculateScore();
+        if ($this->getHomeTeam() instanceof MatchTeam ) {
+            $this->getHomeTeam()->setScore($score['H']);
+        }
+        if ($this->getAwayTeam() instanceof MatchTeam ) {
+            $this->getAwayTeam()->setScore($score['A']);
         }
 
         return $this;
