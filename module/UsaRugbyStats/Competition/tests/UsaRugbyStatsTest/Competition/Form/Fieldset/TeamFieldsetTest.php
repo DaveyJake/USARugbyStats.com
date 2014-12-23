@@ -18,6 +18,7 @@ class TeamFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('team', $fieldset->getName());
         $this->assertTrue($fieldset->has('id'));
         $this->assertTrue($fieldset->has('name'));
+        $this->assertTrue($fieldset->has('abbreviation'));
         $this->assertTrue($fieldset->has('union'));
         $this->assertTrue($fieldset->has('website'));
         $this->assertTrue($fieldset->has('email'));

@@ -351,6 +351,7 @@ return array(
             'ursPlayerName'           => 'UsaRugbyStats\Competition\View\Helper\PlayerNameFactory',
             'ursPlayerLink'           => 'UsaRugbyStats\Competition\View\Helper\PlayerLinkFactory',
             'ursTeamName'             => 'UsaRugbyStats\Competition\View\Helper\TeamNameFactory',
+            'ursTeamAbbreviation'     => 'UsaRugbyStats\Competition\View\Helper\TeamAbbreviationFactory',
             'ursTeamLink'             => 'UsaRugbyStats\Competition\View\Helper\TeamLinkFactory',
             'ursTeamLogoUrl'          => 'UsaRugbyStats\Competition\View\Helper\TeamLogoUrlFactory',
             'ursTeamCoverImageUrl'    => 'UsaRugbyStats\Competition\View\Helper\TeamCoverImageUrlFactory',

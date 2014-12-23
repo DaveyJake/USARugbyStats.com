@@ -29,6 +29,11 @@ class Team
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $abbreviation;
+
+    /**
      * The union this team is a member of
      *
      * @var Union
@@ -170,6 +175,28 @@ class Team
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Team Abbreviation
+     *
+     * @return string
+     */
+    public function getAbbreviation()
+    {
+        return $this->abbreviation;
+    }
+
+    /**
+	 * Set Team Abbreviation
+	 *
+     * @param string $abbr
+     */
+    public function setAbbreviation($abbr)
+    {
+        $this->abbreviation = $abbr;
 
         return $this;
     }

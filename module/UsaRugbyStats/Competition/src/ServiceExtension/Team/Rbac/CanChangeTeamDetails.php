@@ -24,6 +24,7 @@ class CanChangeTeamDetails implements ServiceExtensionInterface
             'team' => false,
             'team.remoteId' => false,
             'team.name' => false,
+            'team.abbreviation' => false,
             'team.union' => false,
             'team.city' => false,
             'team.state' => false,

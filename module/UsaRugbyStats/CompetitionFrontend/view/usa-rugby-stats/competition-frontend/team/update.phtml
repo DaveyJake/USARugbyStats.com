@@ -55,6 +55,25 @@ $submitButton->setAttribute('class', 'btn btn-md btn-success');
                 </div>
                 <?php endif; ?>
 
+                <?php if ( ! $this->flags->{'team.abbreviation%visible'}->is_off() ): ?>
+                <div class="row form-group">
+                    <?php $element = $fieldset->get('abbreviation'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+                    <?php $element->setAttribute('maxlength', 4); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php if ( $this->flags->{'team.abbreviation'}->is_on() ): ?>
+                        <?php echo $this->formElement($element) ?>
+                        <?php else: ?>
+                        <p class="form-control-static"><?php echo $this->escapeHtml($element->getValue()); ?></p>
+                        <?php endif;?>
+                        <?php echo $this->formElementErrors($element); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+                
                 <?php if ( ! $this->flags->{'team.union%visible'}->is_off() ): ?>
                 <div class="row form-group">
                     <?php $element = $fieldset->get('union'); ?>

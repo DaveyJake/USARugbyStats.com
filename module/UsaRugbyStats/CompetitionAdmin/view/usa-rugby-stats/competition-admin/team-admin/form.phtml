@@ -51,6 +51,18 @@
                 </div>
 
                 <div class="row form-group">
+                    <?php $element = $fieldset->get('abbreviation'); ?>
+                    <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
+                    <?php $element->setAttribute('class', 'form-control'); ?>
+                    <?php $element->setAttribute('maxlength', 4); ?>
+
+                    <?php echo $this->formLabel($element) ?>
+                    <div class="col-sm-8">
+                        <?php echo $this->formElement($element) . $this->formElementErrors($element) ?>
+                    </div>
+                </div>
+                
+                <div class="row form-group">
                     <?php $element = $fieldset->get('union'); ?>
                     <?php $element->setLabelAttributes(array('class' => 'col-sm-4 control-label')); ?>
                     <?php $element->setAttribute('class', 'form-control'); ?>
