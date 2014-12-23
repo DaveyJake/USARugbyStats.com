@@ -53,6 +53,7 @@ class CompetitionMatchExtractor
             $rawData['_embedded']['team'][$team->getTeam()->getId()] = [
                 'id' => $team->getTeam()->getId(),
                 'name' => $team->getTeam()->getName(),
+                'abbreviation' => $team->getTeam()->getAbbreviation(),
             ];
 
             if ( !empty($team->getEvents()) ) {
