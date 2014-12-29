@@ -63,6 +63,7 @@ return array(
             'ursProfilePersonalStatsGraph' => 'UsaRugbyStats\AccountProfile\PersonalStats\ViewHelper\UserTimeseriesChartFactory',
             'ursPlayerAvatar' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ViewHelper\PlayerAvatarFactory',
             'ursPlayerPhotoUrl' => 'UsaRugbyStats\AccountProfile\ExtendedProfile\ViewHelper\PlayerPhotoUrlFactory',
+            'ursPlayerProfile' => 'UsaRugbyStats\AccountProfile\ViewHelper\PlayerProfileHelperFactory',
         ),
     ),
 
