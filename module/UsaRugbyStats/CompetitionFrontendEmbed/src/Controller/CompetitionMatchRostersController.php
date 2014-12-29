@@ -41,6 +41,7 @@ class CompetitionMatchRostersController extends AbstractActionController
         $vm = new ViewModel();
         $vm->setVariable('match', $match);
         $vm->setVariable('positions', $positions);
+        $vm->setVariable('forcePrint', $this->params()->fromQuery('forcePrint', '0') === '1');
         $vm->setTemplate('usa-rugby-stats/competition-frontend-embed/competition/match/rosters');
 
         return $vm;

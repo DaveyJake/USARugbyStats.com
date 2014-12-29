@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+
+table td, table th { border: 1px solid black; border-width: 1px 1px 0 0; }
+table td:first-of-type, table th:first-of-type { border-left: 1px solid black; }
+table { border-bottom: 1px solid black; }
+
+#EmbeddedMatchRoster table { width: 100%; }
+#EmbeddedMatchRoster .player-position span { display: none; }

@@ -223,15 +223,18 @@ $this->layout()->containerAttributes = array_merge(
     <aside class="col-sm-5" id="players">
         <div class="panel">
             <div class="title">
-        		<h2><span class="icon-users"></span>Rosters</h2>
-        		<div ng-show="permissions['match.teams.H.players'] || permissions['match.teams.A.players']">
-        		    <a ng-hide="isEditingRoster" class="utility edit" ng-click="startEditingRoster()"><span class="icon-compose"></span>Edit Roster</a>
-        		    <a ng-show="isEditingRoster" class="utility edit" ng-click="cancelEditingRoster()"><i class="glyphicon glyphicon-ban-circle"></i>&nbsp;&nbsp;Cancel</a>
-        		    <a ng-show="isEditingRoster" class="utility edit" ng-click="saveChangesToRoster()">
+                <h2><span class="icon-users"></span>Rosters</h2>
+                
+                <a ng-hide="isEditingRoster" class="utility edit" href="<?=$this->escapeHtmlAttr($this->url('usarugbystats_frontend-embed_competition_match_rosters', ['mid' => $match->getId(), 'cid' => $match->getCompetition()->getId()], ['query' => ['forcePrint' => '1']])); ?>" target="_rosterpopup"><span class="glyphicon glyphicon-print"></span>Print</a>
+                
+                <div ng-show="permissions['match.teams.H.players'] || permissions['match.teams.A.players']">
+                    <a ng-hide="isEditingRoster" class="utility edit" ng-click="startEditingRoster()"><span class="icon-compose"></span>Edit</a>
+                    <a ng-show="isEditingRoster" class="utility edit" ng-click="cancelEditingRoster()"><i class="glyphicon glyphicon-ban-circle"></i>&nbsp;&nbsp;Cancel</a>
+                    <a ng-show="isEditingRoster" class="utility edit" ng-click="saveChangesToRoster()">
                         <div ng-hide="matchRosterIsBeingSaved"><i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Save Changes</div>
                         <div ng-show="matchRosterIsBeingSaved"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp; Saving...</div>
                     </a>
-        		</div>
+                </div>
             </div>
             <div ng-show="matchRosterSavedSuccessfully" class="alert alert-success" style="border:0;border-radius:0;margin-bottom:0;padding:10px;">
                 <p class="text-center"><i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Roster Changes Saved!</p>

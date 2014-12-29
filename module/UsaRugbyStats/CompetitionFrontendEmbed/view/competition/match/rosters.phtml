@@ -2,37 +2,81 @@
     <div class="title">
 		<h2><span class="icon-users"></span>Rosters</h2>
     </div>
-    <table>
+    <table id="EmbeddedMatchRoster">
     	<thead>
             <tr>
-    	       <th class="home-player"><?=$this->ursTeamLink($match->getHomeTeam(), 'default', ['new_window' => true]); ?></th>
-    		   <th></th>
-    		   <th class="away-player"><?=$this->ursTeamLink($match->getAwayTeam(), 'default', ['new_window' => true]); ?></th>
+    	       <th colspan="3" class="home-player"><?=$this->ursTeamLink($match->getHomeTeam(), 'default', ['new_window' => true]); ?></th>
+               <th></th>
+               <th colspan="3" class="away-player"><?=$this->ursTeamLink($match->getAwayTeam(), 'default', ['new_window' => true]); ?></th>
+    	   </tr>
+            <tr>
+    	       <th class="player-name home-player-name">Player</th>
+               <th class="player-frontrow home-player-frontrow">FR?</th>
+               <th class="player-citizenship home-player-citizenship"><abbr title="Citizenship">CIT</abbr></th>
+               <th class="player-position"></th>
+    	       <th class="player-name away-player-name">Player</th>
+               <th class="player-frontrow away-player-frontrow">FR?</th>
+               <th class="player-citizenship away-player-citizenship"><abbr title="Citizenship">CIT</abbr></th>
     	   </tr>
     	</thead>
     	<tbody>
-    	   <?php $homePlayers = $match->getHomeTeam()->getPlayers(); ?>
-    	   <?php $awayPlayers = $match->getAwayTeam()->getPlayers(); ?>
+    	    <?php $homePlayers = $match->getHomeTeam()->getPlayers(); ?>
+    	    <?php $awayPlayers = $match->getAwayTeam()->getPlayers(); ?>
 
-    	   <?php foreach ( $this->positions as $pkey => $pname ): ?>
+    	    <?php foreach ( $this->positions as $pkey => $pname ): ?>
+                <?php 
+                $homePlayer = @$homePlayers[$pkey];
+                $homePlayerProfile = $homePlayer && $homePlayer->getPlayer() ? $this->ursPlayerProfile($homePlayer->getPlayer()) : NULL;
+                $awayPlayer = @$awayPlayers[$pkey];
+                $awayPlayerProfile = $awayPlayer && $awayPlayer->getPlayer() ? $this->ursPlayerProfile($awayPlayer->getPlayer()) : NULL;
+                ?>
+            
         	<tr>
-        		<td class="home-player">
-        		  <?php if (isset($homePlayers[$pkey]) && null !== $homePlayers[$pkey]): ?>
-        		  <?=$this->ursPlayerLink($homePlayers[$pkey]->getPlayer(), 'default', ['new_window' => true]); ?> - #<?=$this->escapeHtml($homePlayers[$pkey]->getNumber()) ?> 
-        		  <?php if ( $homePlayers[$pkey]->isFrontRow() ) echo '<span style="font-weight:bold">(FR)</span>';?>
+        		<td class="player-name home-player-name">
+        		  <?php if (null !== $homePlayer): ?>
+        		  <?=$this->ursPlayerLink($homePlayer->getPlayer(), 'default', ['new_window' => true]); ?> - #<?=$this->escapeHtml($homePlayer->getNumber()) ?> 
         		  <?php else: echo '&mdash;'; ?>
         		  <?php endif; ?>
         		</td>
-        		<td style="text-align:center"><?=$this->escapeHtml($pname);?></td>
-        		<td class="away-player">
-        		  <?php if (isset($awayPlayers[$pkey]) && null !== $awayPlayers[$pkey]): ?>
-        		  # <?=$this->escapeHtml($awayPlayers[$pkey]->getNumber()) ?> - <?=$this->ursPlayerLink($awayPlayers[$pkey]->getPlayer(), 'default', ['new_window' => true]); ?>
-        		  <?php if ( $awayPlayers[$pkey]->isFrontRow() ) echo '<span style="font-weight:bold">(FR)</span>';?>
+                        <td class="player-frontrow home-player-frontrow">
+                          <?php if (null !== $homePlayer): ?>
+                          <?php if ( $homePlayer->isFrontRow() ) echo '<span style="font-weight:bold;">&#10003;</span>';?>
+        		  <?php else: echo '&mdash;'; ?>
+        		  <?php endif; ?>
+                        </td>
+                        <td class="player-citizenship home-player-citizenship">
+                          <?php if (null !== $homePlayerProfile): ?>
+                          <?=$this->escapeHtml($homePlayerProfile->extprofile->getCitizenship()); ?>
+        		  <?php else: echo '&mdash;'; ?>
+        		  <?php endif; ?>
+                        </td>
+        		<td class="player-position" style="text-align:center">
+                            <abbr title="<?=$this->escapeHtml($pname);?>"><?=$this->escapeHtml($pkey);?></abbr>
+                            <span><?=$this->escapeHtml($pname);?></span>
+                        </td>
+        		<td class="player-name away-player-name">
+        		  <?php if (null !== $awayPlayer): ?>
+        		  # <?=$this->escapeHtml($awayPlayer->getNumber()) ?> - <?=$this->ursPlayerLink($awayPlayer->getPlayer(), 'default', ['new_window' => true]); ?>
         		  <?php else: echo '&mdash;'; ?>
         		  <?php endif; ?>
         		</td>
+                        <td class="player-frontrow away-player-frontrow">
+                          <?php if (null !== $awayPlayer): ?>
+                          <?php if ( $awayPlayer->isFrontRow() ) echo '<span style="font-weight:bold;">&#10003;</span>';?>
+        		  <?php else: echo '&mdash;'; ?>
+        		  <?php endif; ?>
+                        </td>
+                        <td class="player-citizenship away-player-citizenship">
+                          <?php if (null !== $awayPlayer): ?>
+        		  <?php else: echo '&mdash;'; ?>
+        		  <?php endif; ?>
+                        </td>
         	</tr>
         	<?php endforeach; ?>
     	</tbody>
     </table>
 </div>
+
+<?php if ($forcePrint === true): ?>
+<script type="text/javascript">window.print();</script>
+<?php endif; ?>
