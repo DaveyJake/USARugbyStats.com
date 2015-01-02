@@ -45,7 +45,7 @@
         		  <?php endif; ?>
                         </td>
                         <td class="player-citizenship home-player-citizenship">
-                          <?php if (null !== $homePlayerProfile): ?>
+                          <?php if (null !== $homePlayerProfile && null !== $homePlayerProfile->extprofile): ?>
                           <?=$this->escapeHtml($homePlayerProfile->extprofile->getCitizenship()); ?>
         		  <?php else: echo '&mdash;'; ?>
         		  <?php endif; ?>
@@ -67,7 +67,8 @@
         		  <?php endif; ?>
                         </td>
                         <td class="player-citizenship away-player-citizenship">
-                          <?php if (null !== $awayPlayer): ?>
+                          <?php if (null !== $awayPlayer && null !== $awayPlayerProfile->extprofile): ?>
+                          <?=$this->escapeHtml($awayPlayerProfile->extprofile->getCitizenship()); ?>
         		  <?php else: echo '&mdash;'; ?>
         		  <?php endif; ?>
                         </td>
