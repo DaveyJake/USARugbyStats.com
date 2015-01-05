@@ -4,7 +4,7 @@ namespace UsaRugbyStats\Competition\ServiceExtension\Competition;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class NewFriendlyCompetitionGetsAllTeamsFactory implements FactoryInterface
+class FriendlyCompetitionGetsAllTeamsFactory implements FactoryInterface
 {
     /**
      * Create service
@@ -14,7 +14,7 @@ class NewFriendlyCompetitionGetsAllTeamsFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sm)
     {
-        $obj = new NewFriendlyCompetitionGetsAllTeams(
+        $obj = new FriendlyCompetitionGetsAllTeams(
             $sm->get('usarugbystats_competition_team_service')
         );
 

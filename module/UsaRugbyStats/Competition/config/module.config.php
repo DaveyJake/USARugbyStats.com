@@ -70,12 +70,12 @@ return array(
             'usarugbystats_competition_competition_service' => array(
                 'extension_manager' => array(
                     'factories' => array(
-                        'new_friendly_competition_gets_all_teams' => 'UsaRugbyStats\Competition\ServiceExtension\Competition\NewFriendlyCompetitionGetsAllTeamsFactory'
+                        'friendly_competition_gets_all_teams' => 'UsaRugbyStats\Competition\ServiceExtension\Competition\FriendlyCompetitionGetsAllTeamsFactory'
                     )
                 ),
                 'event_map' => array(
                     'save' => array(
-                        'new_friendly_competition_gets_all_teams',
+                        'friendly_competition_gets_all_teams',
                     ),
                 ),
             ),
