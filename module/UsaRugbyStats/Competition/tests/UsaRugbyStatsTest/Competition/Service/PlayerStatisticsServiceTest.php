@@ -9,7 +9,6 @@ use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\ScoreEvent
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
 use UsaRugbyStats\Competition\Entity\Team;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\CardEvent;
-use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\SubEvent;
 use Zend\EventManager\EventInterface;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeam;
 
@@ -32,6 +31,11 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->service = new PlayerStatisticsService();
         $this->service->setCompetitionMatchService($this->mockMatchService);
+
+        // Remove default-attached listeners so we're testing the core class, not all the extra functionality
+        foreach ( $this->service->getEventManager()->getEvents() as $evt ) {
+            $this->service->getEventManager()->clearListeners($evt);
+        }
     }
 
     public function getEmptyResult()
@@ -71,34 +75,6 @@ class PlayerStatisticsServiceTest extends \PHPUnit_Framework_TestCase
     {
         $mockMatch = new Match();
         $mockMatch->setDate(new \DateTime('2014-06-06'));
-
-        $this->mockMatchService->shouldReceive('getRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
-        $result = $this->service->getStatisticsFor($this->mockPlayer);
-        $this->assertEquals($this->getEmptyResult(), $result);
-    }
-
-    public function testIgnoresUnsupportedEventTypes()
-    {
-        $homeTeam = new Team();
-        $homeTeam->setId(99);
-
-        $awayTeam = new Team();
-        $awayTeam->setId(42);
-
-        $mockMatch = new Match();
-        $mockMatch->setHomeTeam(new MatchTeam());
-        $mockMatch->setAwayTeam(new MatchTeam());
-        $mockMatch->setDate(new \DateTime('2014-06-06'));
-        $mockMatch->getTeam('H')->setTeam($homeTeam)->addPlayer($this->mockTeamPlayer);
-        $mockMatch->getTeam('A')->setTeam($awayTeam);
-
-        $event = new SubEvent();
-        $event->setType('BL');
-        $event->setPlayerOn($this->mockTeamPlayer);
-        $event->setPlayerOff($this->mockTeamPlayer);
-        $event->setTeam($mockMatch->getTeam('H'));
-
-        $mockMatch->addEvent($event);
 
         $this->mockMatchService->shouldReceive('getRepository->findAllForPlayer')->once()->andReturn(new ArrayCollection([$mockMatch]));
         $result = $this->service->getStatisticsFor($this->mockPlayer);

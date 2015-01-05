@@ -9,6 +9,7 @@ use UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
 use UsaRugbyStats\Competition\Entity\Location;
 use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Application\Entity\AccountInterface;
 
 /**
  * Competition Match
@@ -692,6 +693,23 @@ class Match
     public function hasEvent(MatchTeamEvent $ra)
     {
         return $this->events->contains($ra);
+    }
+
+    public function getRosterPositionForPlayer(AccountInterface $p)
+    {
+        foreach (['H', 'A'] as $side) {
+            if ( ! $this->getTeam($side) instanceof MatchTeam ) {
+                continue;
+            }
+            $result = $this->getTeam($side)->getPlayers()->filter(function ($slot) use ($p) {
+                return $slot->getPlayer() && $slot->getPlayer()->getId() === $p->getId();
+            });
+            if (!empty($result)) {
+                return $result->first();
+            }
+        }
+
+        return false;
     }
 
     public function recalculateScore()

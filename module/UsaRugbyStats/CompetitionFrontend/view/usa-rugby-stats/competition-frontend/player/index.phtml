@@ -37,11 +37,13 @@
         <thead>
           <tr>
             <th></th>
-            <th style="text-align:center">Points</th>
-         	<th style="text-align:center">Tries</th>
-         	<th style="text-align:center">Cons</th>
-         	<th style="text-align:center">Pens</th>
-         	<th style="text-align:center">DGs</th>
+            <th style="text-align:center">GP</th>
+            <th style="text-align:center">GS</th>
+            <th style="text-align:center">PTS</th>
+         	<th style="text-align:center">TR</th>
+         	<th style="text-align:center">CON</th>
+         	<th style="text-align:center">P-TRY</th>
+         	<th style="text-align:center">DG</th>
          	<th style="text-align:center">YC</th>
          	<th style="text-align:center">RC</th>
           </tr>
@@ -49,24 +51,28 @@
         <tbody>
           <tr>
             <th>All-Time</th>
-            <td style="text-align:center"><?=$this->escapeHtml($statistics['career']['PTS']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($statistics['career']['TR'] + $statistics['career']['PT']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($statistics['career']['CV']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($statistics['career']['PK']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($statistics['career']['DG']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($statistics['career']['YC']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($statistics['career']['RC']); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$statistics['career']['credits']['played'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$statistics['career']['credits']['started'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$statistics['career']['PTS'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml((@$statistics['career']['TR'] + @$statistics['career']['PT']) ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$statistics['career']['CV'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$statistics['career']['PK'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$statistics['career']['DG'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$statistics['career']['YC'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$statistics['career']['RC'] ?: 0); ?></td>
           </tr>
           <?php foreach ( $statistics['season'] as $season=>$data): ?>
           <tr>
             <th><?=$this->escapeHtml($season); ?></th>
-            <td style="text-align:center"><?=$this->escapeHtml($data['PTS']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['TR'] + $data['PT']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['CV']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['PK']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['DG']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['YC']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['RC']); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['credits']['played'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['credits']['started'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['PTS'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml((@$data['TR'] + @$data['PT']) ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['CV'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['PK'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['DG'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['YC'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['RC'] ?: 0); ?></td>
           </tr>
           <?php endforeach; ?>
         </tbody>
@@ -80,11 +86,13 @@
           <tr>
             <th>Team</th>
             <th>Season</th>
-            <th style="text-align:center">Points</th>
-         	<th style="text-align:center">Tries</th>
-         	<th style="text-align:center">Cons</th>
-         	<th style="text-align:center">Pens</th>
-         	<th style="text-align:center">DGs</th>
+            <th style="text-align:center">GP</th>
+            <th style="text-align:center">GS</th>
+            <th style="text-align:center">PTS</th>
+         	<th style="text-align:center">TR</th>
+         	<th style="text-align:center">CON</th>
+         	<th style="text-align:center">P-TRY</th>
+         	<th style="text-align:center">DG</th>
          	<th style="text-align:center">YC</th>
          	<th style="text-align:center">RC</th>
           </tr>
@@ -92,26 +100,30 @@
         <tbody>
           <?php foreach ( $statistics['team'] as $teamid=>$teamData): ?>
           <tr>
-            <th rowspan="<?=$this->escapeHtmlAttr(count($teamData['season'])+1); ?>"><?=$this->ursTeamLink($teamid); ?></th>
+            <th rowspan="<?=$this->escapeHtmlAttr(count($teamData['season'])+1); ?>"><?=$this->ursTeamLink($teamid, 'short_logo'); ?></th>
             <td>All-Time</td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['PTS']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['TR'] + $teamData['career']['PT']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['CV']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['PK']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['DG']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['YC']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['RC']); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['credits']['played'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['credits']['started'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['PTS'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml((@$teamData['career']['TR'] + @$teamData['career']['PT']) ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['CV'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['PK'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['DG'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['YC'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['RC'] ?: 0); ?></td>
           </tr>
           <?php foreach ( $teamData['season'] as $season => $data): ?>
           <tr>
             <td><?=$this->escapeHtml($season); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['PTS']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['TR'] + $data['PT']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['CV']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['PK']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['DG']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['YC']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['RC']); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['credits']['played'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['credits']['started'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['PTS'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml((@$data['TR'] + @$data['PT']) ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['CV'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['PK'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['DG'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['YC'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['RC'] ?: 0); ?></td>
           </tr>
           <?php endforeach; ?>
           <?php endforeach; ?>
@@ -127,11 +139,13 @@
           <tr>
             <th>Team</th>
             <th>Season</th>
-            <th style="text-align:center">Points</th>
-         	<th style="text-align:center">Tries</th>
-         	<th style="text-align:center">Cons</th>
-         	<th style="text-align:center">Pens</th>
-         	<th style="text-align:center">DGs</th>
+            <th style="text-align:center">GP</th>
+            <th style="text-align:center">GS</th>
+            <th style="text-align:center">PTS</th>
+         	<th style="text-align:center">TR</th>
+         	<th style="text-align:center">CON</th>
+         	<th style="text-align:center">P-TRY</th>
+         	<th style="text-align:center">DG</th>
          	<th style="text-align:center">YC</th>
          	<th style="text-align:center">RC</th>
           </tr>
@@ -141,24 +155,28 @@
           <tr>
             <th rowspan="<?=$this->escapeHtmlAttr(count($teamData['season'])+1); ?>"><?=$this->ursTeamLink($teamid); ?></th>
             <td>All-Time</td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['PTS']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['TR'] + $teamData['career']['PT']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['CV']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['PK']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['DG']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['YC']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($teamData['career']['RC']); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['credits']['played'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['credits']['started'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['PTS'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml((@$teamData['career']['TR'] + @$teamData['career']['PT']) ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['CV'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['PK'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['DG'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['YC'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['RC'] ?: 0); ?></td>
           </tr>
           <?php foreach ( $teamData['season'] as $season => $data): ?>
           <tr>
             <td><?=$this->escapeHtml($season); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['PTS']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['TR'] + $data['PT']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['CV']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['PK']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['DG']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['YC']); ?></td>
-            <td style="text-align:center"><?=$this->escapeHtml($data['RC']); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['credits']['played'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['credits']['started'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['PTS'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml((@$data['TR'] + @$data['PT']) ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['CV'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['PK'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['DG'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['YC'] ?: 0); ?></td>
+            <td style="text-align:center"><?=$this->escapeHtml(@$data['RC'] ?: 0); ?></td>
           </tr>
           <?php endforeach; ?>
           <?php endforeach; ?>
