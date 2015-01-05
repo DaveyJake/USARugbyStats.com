@@ -31,7 +31,7 @@ class CompetitionServiceFactory implements FactoryInterface
             $extmgr->addPeeringServiceManager($sm);
             $service->setExtensionManager($extmgr);
         }
-        
+
         return $service;
     }
 }

@@ -32,4 +32,9 @@ DQL;
 
         return array_pop($resultset);
     }
+
+    public function findFriendlyCompetitions()
+    {
+        return $this->findBy(['type' => Competition::TYPE_FRIENDLY]);
+    }
 }

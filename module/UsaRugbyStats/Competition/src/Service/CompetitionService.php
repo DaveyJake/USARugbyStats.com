@@ -33,6 +33,11 @@ class CompetitionService extends AbstractService
         return $this->getRepository()->findLeagueCompetitionForTeam($team);
     }
 
+    public function findFriendlyCompetitions()
+    {
+        return $this->getRepository()->findFriendlyCompetitions();
+    }
+
     public function create(array $data)
     {
         // If they've removed all the divisions make sure we send an empty array
