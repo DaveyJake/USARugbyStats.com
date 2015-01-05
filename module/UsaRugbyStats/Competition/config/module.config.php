@@ -62,6 +62,17 @@ return array(
                         'update_team_membership_sort_key',
                         'update_team_logo_with_newly_uploaded_file',
                         'update_team_cover_image_with_newly_uploaded_file',
+                        'update_friendly_competitions_with_team_changes',
+                    ),
+                ),
+            ),
+            'usarugbystats_competition_competition_service' => array(
+                'extension_manager' => array(
+                    'factories' => array(
+                    )
+                ),
+                'event_map' => array(
+                    'save' => array(
                     ),
                 ),
             ),
