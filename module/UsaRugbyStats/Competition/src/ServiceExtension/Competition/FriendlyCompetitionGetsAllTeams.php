@@ -7,7 +7,7 @@ use Zend\EventManager\EventInterface;
 use UsaRugbyStats\Competition\Entity\Competition;
 use UsaRugbyStats\Competition\Entity\Competition\Division;
 
-class NewFriendlyCompetitionGetsAllTeams implements ServiceExtensionInterface
+class FriendlyCompetitionGetsAllTeams implements ServiceExtensionInterface
 {
     /**
      * @var TeamService
@@ -22,16 +22,7 @@ class NewFriendlyCompetitionGetsAllTeams implements ServiceExtensionInterface
     public function checkPrecondition(EventInterface $e)
     {
         // Only applies to friendlies
-        if ( ! $e->getParams()->entity->isFriendly() ) {
-            return false;
-        }
-
-        // Only run this for newly-created competitions
-        if ( ! empty($e->getParams()->entity->getId()) ) {
-            return false;
-        }
-
-        return true;
+        return $e->getParams()->entity->isFriendly();
     }
 
     public function execute(EventInterface $e)
@@ -39,23 +30,33 @@ class NewFriendlyCompetitionGetsAllTeams implements ServiceExtensionInterface
         $entity = $e->getParams()->entity;
         $entity instanceof Competition;
 
-        // Clear any pre-selected team memberships
-        $entity->removeTeamMemberships($entity->getTeamMemberships());
+        $division = $entity->getDivisions()->first();
 
         // Reset Division Structure
-        $entity->removeDivisions($entity->getDivisions());
+        // Leave just first division, transfer all other teams to it
+        if ($entity->getDivisions()->count() > 1) {
+            $entity->getDivisions()->map(function ($div) use ($entity, $division) {
+                if ($division === $div) {
+                    return;
+                }
+                $tmset = $div->getTeamMemberships();
+                $div->removeTeamMemberships($tmset);
+                $division->addTeamMemberships($tmset);
+                $entity->removeDivision($div);
+            });
+        }
 
-        // Create a new "Friendly Pool" division
-        $division = new Division();
-        $division->setName('Friendly Pool');
+        // Create a new "Friendly Pool" division if comp has none
+        if (! $division instanceof Division) {
+            $division = new Division();
+            $division->setName('Friendly Pool');
+            $entity->addDivision($division);
+        }
 
         // Add every team in the system
         $teams = $this->teamService->getRepository()->findAll();
         foreach ($teams as $team) {
             $division->addTeam($team);
         }
-
-        // Add new division to the competition
-        $entity->addDivision($division);
     }
 }
