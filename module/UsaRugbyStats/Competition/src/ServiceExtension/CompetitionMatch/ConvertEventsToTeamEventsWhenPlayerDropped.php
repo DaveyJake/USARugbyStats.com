@@ -18,16 +18,16 @@ class ConvertEventsToTeamEventsWhenPlayerDropped extends AbstractRule
         if ( ! isset($e->getParams()->entity) ) {
             return false;
         }
-
+        if ( ! $e->getParams()->entity instanceof Match ) {
+            return false;
+        }
+        
         return true;
     }
 
     public function execute(EventInterface $e)
     {
         $entity = &$e->getParams()->entity;
-        if (! $entity instanceof Match) {
-            return;
-        }
 
         foreach ( $entity->getTeams() as $side ) {
             if (! $side instanceof MatchTeam) {
