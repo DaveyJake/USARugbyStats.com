@@ -13,7 +13,7 @@ install:
   # install application dependencies
   - composer install --dev
   # Doctrine DBAL stable release is not compatible with HHVM
-  - if [[ "$TRAVIS_PHP_VERSION" = "hhvm" || "$TRAVIS_PHP_VERSION" = "hhvm-nightly" ]]; then composer require --dev doctrine/dbal:dev-master@dev; fi
+  - if [[ "$TRAVIS_PHP_VERSION" = "hhvm" || "$TRAVIS_PHP_VERSION" = "hhvm-nightly" ]]; then composer require --dev doctrine/dbal:~2.5; fi
   - composer show -i
   # Install Scrutinizer-CI utility
   - wget https://scrutinizer-ci.com/ocular.phar
