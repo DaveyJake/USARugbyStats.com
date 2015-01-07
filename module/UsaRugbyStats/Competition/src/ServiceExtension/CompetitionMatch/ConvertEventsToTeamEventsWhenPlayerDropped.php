@@ -21,7 +21,7 @@ class ConvertEventsToTeamEventsWhenPlayerDropped extends AbstractRule
         if ( ! $e->getParams()->entity instanceof Match ) {
             return false;
         }
-        
+
         return true;
     }
 

@@ -71,7 +71,7 @@ class StandingsService implements EventManagerAwareInterface
             }
             $teamRecordsByDivisionCollection[$division->getId()]['standings']->add($item);
         }
-
+        
         $params['result'] = [
             'overall' => new ArrayCollection($teamRecords),
             'by-division' => $teamRecordsByDivisionCollection,
