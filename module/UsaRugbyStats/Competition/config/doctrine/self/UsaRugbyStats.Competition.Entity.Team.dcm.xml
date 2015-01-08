@@ -10,7 +10,7 @@
         <field name="remoteId" type="string" length="255" nullable="true" />
 
         <field name="name" type="string" length="60" />
-        <field name="abbreviation" type="string" length="4" />
+        <field name="abbreviation" type="string" length="5" />
 
         <many-to-one field="union" target-entity="UsaRugbyStats\Competition\Entity\Union" inversed-by="teams">
             <join-column name="union_id" referenced-column-name="id" />
