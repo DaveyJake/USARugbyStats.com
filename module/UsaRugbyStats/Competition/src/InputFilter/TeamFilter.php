@@ -41,7 +41,7 @@ class TeamFilter extends InputFilter
             'allow_empty' => true,
             'validators'  => array(
                 array('name' => 'Alnum'),
-                array('name' => 'StringLength', 'options' => array('min' => 4, 'max' => 4)),
+                array('name' => 'StringLength', 'options' => array('min' => 2, 'max' => 5)),
             ),
             'filters'    => array(
                 array('name' => 'StringTrim'),
