@@ -9,6 +9,7 @@ use UsaRugbyStats\Competition\Entity\Competition\Match;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
 use UsaRugbyStats\Competition\Service\PlayerStatistics\AppearanceCreditCalculator;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer;
+use UsaRugbyStats\Competition\Entity\Competition;
 
 class PlayerStatisticsService implements EventManagerAwareInterface
 {
@@ -41,6 +42,10 @@ class PlayerStatisticsService implements EventManagerAwareInterface
         $matches = $this->getCompetitionMatchService()->getRepository()->findAllForPlayer($account);
         foreach ($matches as $match) {
             if (! $match instanceof Match) {
+                continue;
+            }
+            // Exclude friendly matches from statistics calculations
+            if ( $match->getCompetition() instanceof Competition && $match->getCompetition()->isFriendly() ) {
                 continue;
             }
             $playerPosition = $match->getRosterPositionForPlayer($account);
