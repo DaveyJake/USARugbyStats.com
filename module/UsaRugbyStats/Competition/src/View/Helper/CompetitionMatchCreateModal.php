@@ -293,6 +293,7 @@ $('#MatchQuickAdd').click(function () {
             dataType: "html"
         }).done(function (data) {
             $('{$tableSelector}').append(data);
+            $('.schedule-is-empty').hide();
         }).always(function () {
             $('#AsyncMatchAddSpinner').hide();
             $('#AsyncMatchAddForm').show();

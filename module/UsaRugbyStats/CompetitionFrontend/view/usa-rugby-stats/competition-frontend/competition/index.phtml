@@ -23,9 +23,8 @@
          <div  class="tab-content">
 
          	<div class="tab-pane active" id="schedule">
-                <?php if (count($competition->getMatches()) > 0): ?>
                 <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/games-listing', ['matches' => $competition->getMatches(), 'relativeTo' => $competition]); ?>
-                <?php else: ?>
+                <?php if (count($competition->getMatches()) == 0): ?>
                 <div class="schedule-is-empty">This team is not participating in any upcoming matches.</div>
                 <?php endif; ?>
 
