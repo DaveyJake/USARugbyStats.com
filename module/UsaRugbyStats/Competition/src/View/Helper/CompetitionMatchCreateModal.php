@@ -22,6 +22,11 @@ class CompetitionMatchCreateModal extends AbstractHelper
         if ( ! $this->authService->isGranted('competition.competition.match.create', $competition) ) {
             return;
         }
+        
+        if ($competition->getTeamMemberships()->count() === 0) {
+            echo '<div class="alert alert-danger" style="margin:20px">This competition has no competing teams, so match creation is disabled.</div>';
+            return;
+        }
 
         $session = $this->matchService->startSession();
         $session->form = $this->matchService->getCreateForm();
