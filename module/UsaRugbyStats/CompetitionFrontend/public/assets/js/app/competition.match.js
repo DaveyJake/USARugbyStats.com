@@ -119,32 +119,15 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
                 $rootScope.homeTeam = data._embedded.team[data.match.teams.H.team];
                 $rootScope.awayTeam = data._embedded.team[data.match.teams.A.team];
                 
-                if ( typeof $rootScope.matchEvents == 'undefined' ) {
-                    $rootScope.matchEvents = new Array();
-                }
+                $rootScope.matchEvents = new Array();
+                
                 angular.forEach(['A','H'], function(side) {
                     try {
                         angular.forEach($rootScope.match.teams[side].events, function(rec, index) {
                             var newrec = angular.copy(rec);
                             newrec.side = side;
                             newrec.minute = parseInt(newrec.minute); // Hack to get sorting right
-
-                            if ( typeof newrec.id == 'undefined' || newrec.id == null ) {
-                                $rootScope.matchEvents.unshift(newrec);
-                                return;
-                            }
-
-                            var isAdded = false;
-                            angular.forEach($rootScope.matchEvents, function(existingRec, existingIndex) {
-                                if ( existingRec.id == newrec.id ) {
-                                    $rootScope.matchEvents[existingIndex] = newrec;
-                                    isAdded = true;
-                                }
-                            });
-                            if ( ! isAdded ) {
-                                $rootScope.matchEvents.unshift(newrec);
-                            }
-                            
+                            $rootScope.matchEvents.unshift(newrec);
                         });
                     } catch(e) {}
                 });
@@ -331,6 +314,17 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
             $scope.isEditingRoster = true;
             $('#content').hide();
             $('#players').removeClass('col-sm-5').addClass('col-sm-12');
+            
+            // Reset the player number if Angular injected an undefined value
+            angular.forEach(['A','H'], function(side) {
+                angular.forEach($rootScope.positionKeys, function(pkey, index) {
+                    var number = $('select[name=match\\\[teams\\\]\\\['+side+'\\\]\\\[players\\\]\\\['+pkey+'\\\]\\\[number\\\]]');
+                    if (!(number.val() > 0)) {
+                    	number.find('option:empty').remove();
+                    	number.val(index+1);
+                    }
+                });
+            });
         }
         
         $scope.saveChangesToRoster = function() {
@@ -346,22 +340,26 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
                         return;
                     }
                     try {
-                        if ( $rootScope.match.teams[side].players[pkey].player > 0 ) {
-                            data['match[teams]['+side+'][players]['+pkey+'][id]'] 
-                                = $rootScope.match.teams[side].players[pkey].id;
-                            data['match[teams]['+side+'][players]['+pkey+'][number]'] 
-                                = $rootScope.match.teams[side].players[pkey].number 
-                                    ? $rootScope.match.teams[side].players[pkey].number
-                                    : index+1;
-                            try {
-                                data['match[teams]['+side+'][players]['+pkey+'][isFrontRow]'] 
-                                    = ( $rootScope.match.teams[side].players[pkey].isFrontRow ? '1' : '0' );
-                            } catch ( e ) {
-                                data['match[teams]['+side+'][players]['+pkey+'][isFrontRow]'] 
-                                    = '0';
-                            }
+                        data['match[teams]['+side+'][players]['+pkey+'][id]'] 
+                        	= $rootScope.match.teams[side].players[pkey].id;
+                        
+                        data['match[teams]['+side+'][players]['+pkey+'][number]'] 
+                            = $rootScope.match.teams[side].players[pkey].number > 0
+                                ? $rootScope.match.teams[side].players[pkey].number
+                                : index+1;
+                        try {
+                            data['match[teams]['+side+'][players]['+pkey+'][isFrontRow]'] 
+                                = ( $rootScope.match.teams[side].players[pkey].isFrontRow ? '1' : '0' );
+                        } catch ( e ) {
+                            data['match[teams]['+side+'][players]['+pkey+'][isFrontRow]'] 
+                                = '0';
+                        }
+                        if ( $rootScope.match.teams[side].players[pkey].player > 0 ) { 
                             data['match[teams]['+side+'][players]['+pkey+'][player]'] 
                                 = $rootScope.match.teams[side].players[pkey].player;
+                        } else {
+                        	data['match[teams]['+side+'][players]['+pkey+'][player]'] 
+                        		= null;
                         }
                     } catch ( e ) {}
                 });

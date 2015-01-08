@@ -173,6 +173,7 @@ $this->layout()->containerAttributes = array_merge(
             		 <th>MIN</th>
             		 <th>EVENT</th>
             		 <th>SIDE</th>
+            		 <th style="text-align:center">SCORE</th>
             		 <th>DETAILS</th>
             		 <th width="60" ng-show="canAddEvents()"></th>
             	   </tr>
@@ -183,8 +184,21 @@ $this->layout()->containerAttributes = array_merge(
             		 <td ng-show="event.id > 0">
             		   {{event.type}} {{event.event}}
             		 </td>
-            		 <td ng-show="event.id > 0 && event.side == 'H'">{{homeTeam.name}}</td>
-            		 <td ng-show="event.id > 0 && event.side == 'A'">{{awayTeam.name}}</td>
+            		 <td ng-show="event.id > 0 && event.side == 'H'">
+            		   <a href="/team/{{homeTeam.id}}" target="_blank">
+            		     <img ng-src="/assets/img/teamlogos/{{homeTeam.id}}.png" height="20" style="padding-right: 0">
+            		     <span ng-show="homeTeam.abbreviation">{{homeTeam.abbreviation}}</span>
+            		     <span ng-hide="homeTeam.abbreviation">{{homeTeam.name}}</span>
+            		   </a>
+            		 </td>
+            		 <td ng-show="event.id > 0 && event.side == 'A'">
+            		   <a href="/team/{{awayTeam.id}}" target="_blank">
+            		     <img ng-src="/assets/img/teamlogos/{{awayTeam.id}}.png" height="20" style="padding-right: 0">
+            		     <span ng-show="awayTeam.abbreviation">{{awayTeam.abbreviation}}</span>
+            		     <span ng-hide="awayTeam.abbreviation">{{awayTeam.name}}</span>
+            		   </a>
+            		 </td>
+            		 <td style="text-align:center">{{event.runningScore.H}} - {{event.runningScore.A}}</td>
             		 <td>
             		   <div ng-show="event.id > 0 && event.event != 'sub'">
             		      <span ng-show="extdata.teamPlayer[event.player]">
@@ -209,15 +223,18 @@ $this->layout()->containerAttributes = array_merge(
     <aside class="col-sm-5" id="players">
         <div class="panel">
             <div class="title">
-        		<h2><span class="icon-users"></span>Rosters</h2>
-        		<div ng-show="permissions['match.teams.H.players'] || permissions['match.teams.A.players']">
-        		    <a ng-hide="isEditingRoster" class="utility edit" ng-click="startEditingRoster()"><span class="icon-compose"></span>Edit Roster</a>
-        		    <a ng-show="isEditingRoster" class="utility edit" ng-click="cancelEditingRoster()"><i class="glyphicon glyphicon-ban-circle"></i>&nbsp;&nbsp;Cancel</a>
-        		    <a ng-show="isEditingRoster" class="utility edit" ng-click="saveChangesToRoster()">
+                <h2><span class="icon-users"></span>Rosters</h2>
+                
+                <a ng-hide="isEditingRoster" class="utility edit" href="<?=$this->escapeHtmlAttr($this->url('usarugbystats_frontend-embed_competition_match_rosters', ['mid' => $match->getId(), 'cid' => $match->getCompetition()->getId()], ['query' => ['forcePrint' => '1']])); ?>" target="_rosterpopup"><span class="glyphicon glyphicon-print"></span>Print</a>
+                
+                <div ng-show="permissions['match.teams.H.players'] || permissions['match.teams.A.players']">
+                    <a ng-hide="isEditingRoster" class="utility edit" ng-click="startEditingRoster()"><span class="icon-compose"></span>Edit</a>
+                    <a ng-show="isEditingRoster" class="utility edit" ng-click="cancelEditingRoster()"><i class="glyphicon glyphicon-ban-circle"></i>&nbsp;&nbsp;Cancel</a>
+                    <a ng-show="isEditingRoster" class="utility edit" ng-click="saveChangesToRoster()">
                         <div ng-hide="matchRosterIsBeingSaved"><i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Save Changes</div>
                         <div ng-show="matchRosterIsBeingSaved"><i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp; Saving...</div>
                     </a>
-        		</div>
+                </div>
             </div>
             <div ng-show="matchRosterSavedSuccessfully" class="alert alert-success" style="border:0;border-radius:0;margin-bottom:0;padding:10px;">
                 <p class="text-center"><i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Roster Changes Saved!</p>
@@ -260,7 +277,7 @@ $this->layout()->containerAttributes = array_merge(
                     		    </div>
                     		    <div class="col-xs-7">
                                     <select ng-model="match.teams.H.players[posKey].player" class="form-control input-sm" name="match[teams][H][players][{{posKey}}][player]">
-                                        <option value="">Choose</option>
+                                        <option value="">No Player Selected</option>
                                         <option
                                             ng-repeat="(key,player) in formdata.players.H"
                                             value="{{player.value}}"
@@ -307,7 +324,7 @@ $this->layout()->containerAttributes = array_merge(
                     		    </div>
                     		    <div class="col-xs-7">
                                     <select ng-model="match.teams.A.players[posKey].player" class="form-control input-sm"  name="match[teams][A][players][{{posKey}}][player]">
-                                        <option value="">Choose</option>
+                                        <option value="">No Player Selected</option>
                                         <option
                                             ng-repeat="(key,player) in formdata.players.A"
                                             value="{{player.value}}"

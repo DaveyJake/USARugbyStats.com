@@ -33,6 +33,39 @@ class ExtensionFieldset extends Fieldset
             )
         ));
 
+        $this->add(array(
+            'name' => 'photoSource',
+            'type' => 'Radio',
+            'options' => array(
+                'label' => 'Profile Picture',
+                'value_options' => array(
+                    'G' => 'Gravatar',
+                    'C' => 'Custom Photo',
+                ),
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\File',
+            'name' => 'custom_photo',
+            'options' => array(
+                'label' => 'Choose new File',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'citizenship',
+            'type' => 'Select',
+            'options' => array(
+                'label' => 'Citizenship',
+                'empty_option' => 'Not Specified',
+                'value_options' => array(
+                    'US' => 'U.S. Citizen',
+                    'RA' => 'Resident Alien',
+                    'NA' => 'Non-resident Alien',
+                ),
+            ),
+        ));
     }
 
 }

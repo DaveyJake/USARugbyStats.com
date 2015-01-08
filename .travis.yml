@@ -9,22 +9,22 @@ php:
 install:
   - sudo apt-get update
   # install apache2 w/ FastCGI
-  - bash .travisci/configure_apache2.sh
+#  - bash .travisci/configure_apache2.sh
   # install application dependencies
   - composer install --dev
   # Doctrine DBAL stable release is not compatible with HHVM
-  - if [[ "$TRAVIS_PHP_VERSION" = "hhvm" || "$TRAVIS_PHP_VERSION" = "hhvm-nightly" ]]; then composer require --dev doctrine/dbal:dev-master@dev; fi
+  - if [[ "$TRAVIS_PHP_VERSION" = "hhvm" || "$TRAVIS_PHP_VERSION" = "hhvm-nightly" ]]; then composer require --dev doctrine/dbal:~2.5; fi
   - composer show -i
   # Install Scrutinizer-CI utility
   - wget https://scrutinizer-ci.com/ocular.phar
 
 before_script:
-  - mysql -e 'create database usarugby'
-  - cp .travisci/doctrine.local.php.dist config/autoload/doctrine.local.php
-  - ./bin/doctrine-module orm:schema-tool:create
-  - ./bin/doctrine-module data-fixture:import 
-  - ./bin/console data-importer run-fixtures --group=testing
-  - sudo sh -e .travisci/start_selenium2.sh
+#  - mysql -e 'create database usarugby'
+#  - cp .travisci/doctrine.local.php.dist config/autoload/doctrine.local.php
+#  - ./bin/doctrine-module orm:schema-tool:create
+#  - ./bin/doctrine-module data-fixture:import 
+#  - ./bin/console data-importer run-fixtures --group=testing
+#  - sudo sh -e .travisci/start_selenium2.sh
 
 script:
   # Coding Standards checks
@@ -32,26 +32,22 @@ script:
   # Run the unit tests
   - find module -type f -name "phpunit.xml" | sort | while read FILE; do ./bin/phpunit -c $FILE; done;
   # Set up database for Behat tests
-  - ./bin/doctrine-module orm:schema-tool:drop --force
-  - ./bin/doctrine-module orm:schema-tool:create
-  - ./bin/doctrine-module data-fixture:import 
-  - ./bin/console data-importer run-fixtures --group=testing
+#  - ./bin/doctrine-module orm:schema-tool:drop --force
+#  - ./bin/doctrine-module orm:schema-tool:create
+#  - ./bin/doctrine-module data-fixture:import 
+#  - ./bin/console data-importer run-fixtures --group=testing
   # The version of Behat we use doesn't support PHP 5.6 (@see https://github.com/Behat/Behat/issues/525)
-  - if [[ "$TRAVIS_PHP_VERSION" != "5.6" ]]; then find module -type f -name "behat.yml.dist" | sort | while read FILE; do REALFILE=${FILE/.dist/}; if [ ! -f "$REALFILE" ]; then cp "$FILE" "$REALFILE"; fi; ./bin/behat --config $REALFILE; done; fi;
+#  - if [[ "$TRAVIS_PHP_VERSION" != "5.6" ]]; then find module -type f -name "behat.yml.dist" | sort | while read FILE; do REALFILE=${FILE/.dist/}; if [ ! -f "$REALFILE" ]; then cp "$FILE" "$REALFILE"; fi; ./bin/behat --config $REALFILE; done; fi;
 
 after_script:
   # Upload code coverage to Scrutinizer-CI
   - find module -type f -name "clover.xml" | sort | while read FILE; do php ocular.phar code-coverage:upload --format=php-clover $FILE; done;
   # Print some diagnostic stuff
-  - cat /tmp/apache2_default_error.log
-  - find /tmp -name "failure_*.html" | while read FILE; do echo $FILE; echo "======================" ; cat $FILE; echo -e "\n\n\n\n"; done;
+#  - cat /tmp/apache2_default_error.log
+#  - find /tmp -name "failure_*.html" | while read FILE; do echo $FILE; echo "======================" ; cat $FILE; echo -e "\n\n\n\n"; done;
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: 5.6
-    - php: hhvm
-    - php: hhvm-nightly
 
 env:
   global:

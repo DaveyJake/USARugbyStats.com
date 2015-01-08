@@ -32,6 +32,14 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Testing 123', $obj->getName());
     }
 
+    public function testGetSetAbbreviation()
+    {
+        $obj = new Team();
+        $this->assertNull($obj->getAbbreviation());
+        $obj->setAbbreviation('Testing 123');
+        $this->assertEquals('Testing 123', $obj->getAbbreviation());
+    }
+
     public function testGetSetEmail()
     {
         $obj = new Team();

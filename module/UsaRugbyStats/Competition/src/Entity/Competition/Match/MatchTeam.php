@@ -372,16 +372,14 @@ class MatchTeam
         return $this->events->contains($p);
     }
 
+    /**
+     * @deprecated use Match::recalculateScore instead
+     */
     public function recalculateScore()
     {
-        $score = 0;
-        foreach ( $this->getEvents() as $event ) {
-            if ( $event->getDiscriminator() != 'score' ) {
-                continue;
-            }
-            $score += $event->getPoints();
+        if ( $this->getMatch() instanceof Match ) {
+            $this->getMatch()->recalculateScore();
         }
-        $this->setScore($score);
 
         return $this;
     }

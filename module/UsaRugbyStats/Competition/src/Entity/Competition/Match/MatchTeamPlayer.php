@@ -194,6 +194,16 @@ class MatchTeamPlayer
     }
 
     /**
+     * Is this roster slot a reserve slot?
+     *
+     * @return boolean
+     */
+    public function isReserve()
+    {
+        return in_array($this->getPosition(), ['R1','R2','R3','R4','R5','R6','R7','R8'], true);
+    }
+
+    /**
      * Is Player Front-Row?
      *
      * @return boolean

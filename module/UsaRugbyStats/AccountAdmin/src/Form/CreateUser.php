@@ -13,6 +13,16 @@ class CreateUser extends ZfcUserAdminCreateUserForm
     {
         parent::__construct($name, $createOptions, $registerOptions, $serviceManager);
 
+        if (!$this->has('userId')) {
+            $this->add(array(
+                'name' => 'userId',
+                'type' => 'Zend\Form\Element\Hidden',
+                'attributes' => array(
+                    'type' => 'hidden'
+                ),
+            ));
+        }
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'remoteId',

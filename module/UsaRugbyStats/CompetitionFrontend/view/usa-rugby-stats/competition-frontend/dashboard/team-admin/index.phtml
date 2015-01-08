@@ -4,7 +4,7 @@ $role = $me->getRoleAssignment('team_admin');
 ?>
 
 <div class="page-header">
-  <div style="float:left; padding-right:12px;"><?=$this->gravatar($me->getEmail(), ['img_size' => '42']) ?></div>
+  <div style="float:left; padding-right:12px;"><?=$this->ursPlayerAvatar($me, ['img_size' => '42']) ?></div>
   <h1><?= $this->escapeHtml($me->getDisplayName()); ?></h1>
 </div>
 

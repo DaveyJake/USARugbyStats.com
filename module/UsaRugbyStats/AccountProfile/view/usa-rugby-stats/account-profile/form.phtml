@@ -1,0 +1,42 @@
+<?php
+$form = $this->profileForm;
+$form->prepare();
+$form->setAttribute('method', 'post');
+
+if (empty($form->getAttribute('action'))) {
+    $form->setAttribute('action', $this->url('ldc-user-profile'));
+}
+
+$userEntity = $form->get('zfcuser')->getObject();
+
+$validationGroup = $form->getValidationGroup();
+?>
+
+<?php echo $this->form()->openTag($form) ?>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <?php echo $this->render('ldc-user-profile/profile/extension/' . $form->get('zfcuser')->getName(), array('userEntity' => $userEntity, 'validationGroup' => @$validationGroup['zfcuser'], 'fieldset' => $form->get('zfcuser'))); ?>
+        </div>
+        <div class="col-sm-6">
+            <?php echo $this->render('ldc-user-profile/profile/extension/' . $form->get('extprofile')->getName(), array('userEntity' => $userEntity, 'validationGroup' => @$validationGroup['extprofile'], 'fieldset' => $form->get('extprofile'))); ?>
+            <?php echo $this->render('ldc-user-profile/profile/extension/' . $form->get('personalstats')->getName(), array('userEntity' => $userEntity, 'validationGroup' => @$validationGroup['personalstats'], 'fieldset' => $form->get('personalstats'))); ?>
+        </div>
+    </div>
+
+    <?php foreach ($form->getElements() as $element): ?>
+        <?php if (!$element instanceof Zend\Form\Element\Button && !$element instanceof Zend\Form\Element\Hidden): ?>
+            <dt><?php echo $this->formLabel($element) ?></dt>
+        <?php endif ?>
+        <?php if ($element instanceof Zend\Form\Element\Button): ?>
+        <?php   $element->setAttribute('class', 'btn btn-lg btn-primary'); ?>
+            <dd><?php echo $this->formButton($element) ?></dd>
+        <?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
+            <dd><?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?></dd>
+        <?php else: ?>
+            <dd><?php echo $this->formInput($element) . $this->formElementErrors($element) ?></dd>
+        <?php endif ?>
+    <?php endforeach;?>
+
+    </dl>
+<?php echo $this->form()->closeTag() ?>

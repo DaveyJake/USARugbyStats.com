@@ -48,6 +48,7 @@ return array(
                     'factories' => array(
                         'update_team_membership_sort_key' => 'UsaRugbyStats\Competition\ServiceExtension\Team\UpdateTeamMembershipSortKeyFactory',
                         'rbac_can_change_team_details' => 'UsaRugbyStats\Competition\ServiceExtension\Team\Rbac\CanChangeTeamDetailsFactory',
+                        'update_friendly_competitions_with_team_changes' => 'UsaRugbyStats\Competition\ServiceExtension\Team\UpdateFriendlyCompetitionsWithTeamChangesFactory',
                     ),
                 ),
                 'event_map' => array(
@@ -62,6 +63,19 @@ return array(
                         'update_team_membership_sort_key',
                         'update_team_logo_with_newly_uploaded_file',
                         'update_team_cover_image_with_newly_uploaded_file',
+                        'update_friendly_competitions_with_team_changes',
+                    ),
+                ),
+            ),
+            'usarugbystats_competition_competition_service' => array(
+                'extension_manager' => array(
+                    'factories' => array(
+                        'friendly_competition_gets_all_teams' => 'UsaRugbyStats\Competition\ServiceExtension\Competition\FriendlyCompetitionGetsAllTeamsFactory'
+                    )
+                ),
+                'event_map' => array(
+                    'save' => array(
+                        'friendly_competition_gets_all_teams',
                     ),
                 ),
             ),
@@ -86,6 +100,7 @@ return array(
                         'filter_team_roster_position_selectors' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FilterTeamRosterPositionSelectors',
                         'fill_in_missing_roster_position_field' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\FillInMissingRosterPositionField',
                         'recalculate_score' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\RecalculateScore',
+                        'convert_events_to_team_events_when_player_dropped' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\ConvertEventsToTeamEventsWhenPlayerDropped',
                     ),
                     'factories' => array(
                         'rbac_can_change_match' => 'UsaRugbyStats\Competition\ServiceExtension\CompetitionMatch\Rbac\CanChangeMatchFactory',
@@ -130,6 +145,7 @@ return array(
                         'prerender_n_roster_slots_per_side',
                     ),
                     'save' => array(
+                        'convert_events_to_team_events_when_player_dropped' => 0,
                         'drop_signaures_when_match_modified' => 10,
                         // @see #110 - Reverting match to "Not Yet Started" removes all game events
                         // 'drop_events_if_match_is_not_started' => 10,
@@ -349,6 +365,7 @@ return array(
             'ursPlayerName'           => 'UsaRugbyStats\Competition\View\Helper\PlayerNameFactory',
             'ursPlayerLink'           => 'UsaRugbyStats\Competition\View\Helper\PlayerLinkFactory',
             'ursTeamName'             => 'UsaRugbyStats\Competition\View\Helper\TeamNameFactory',
+            'ursTeamAbbreviation'     => 'UsaRugbyStats\Competition\View\Helper\TeamAbbreviationFactory',
             'ursTeamLink'             => 'UsaRugbyStats\Competition\View\Helper\TeamLinkFactory',
             'ursTeamLogoUrl'          => 'UsaRugbyStats\Competition\View\Helper\TeamLogoUrlFactory',
             'ursTeamCoverImageUrl'    => 'UsaRugbyStats\Competition\View\Helper\TeamCoverImageUrlFactory',

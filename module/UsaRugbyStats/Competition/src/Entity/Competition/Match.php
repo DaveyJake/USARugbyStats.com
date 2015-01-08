@@ -9,6 +9,7 @@ use UsaRugbyStats\Competition\Entity\Competition\Match\MatchSignature;
 use UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent;
 use UsaRugbyStats\Competition\Entity\Location;
 use UsaRugbyStats\Competition\Entity\Team;
+use UsaRugbyStats\Application\Entity\AccountInterface;
 
 /**
  * Competition Match
@@ -694,13 +695,40 @@ class Match
         return $this->events->contains($ra);
     }
 
+    public function getRosterPositionForPlayer(AccountInterface $p)
+    {
+        foreach (['H', 'A'] as $side) {
+            if ( ! $this->getTeam($side) instanceof MatchTeam ) {
+                continue;
+            }
+            $result = $this->getTeam($side)->getPlayers()->filter(function ($slot) use ($p) {
+                return $slot->getPlayer() && $slot->getPlayer()->getId() === $p->getId();
+            });
+            if ($result->count() > 0) {
+                return $result->first();
+            }
+        }
+
+        return false;
+    }
+
     public function recalculateScore()
     {
-        if ( $this->getHomeTeam() ) {
-            $this->getHomeTeam()->recalculateScore();
+        $score = ['H' => 0, 'A' => 0];
+        foreach ( $this->getEvents() as $event ) {
+            if ( ! $event->getTeam() instanceof MatchTeam ) {
+                continue;
+            }
+            if ( $event->getDiscriminator() === 'score' ) {
+                $score[$event->getTeam()->getType()] += $event->getPoints();
+            }
+            $event->setRunningScore($score);
         }
-        if ( $this->getAwayTeam() ) {
-            $this->getAwayTeam()->recalculateScore();
+        if ($this->getHomeTeam() instanceof MatchTeam ) {
+            $this->getHomeTeam()->setScore($score['H']);
+        }
+        if ($this->getAwayTeam() instanceof MatchTeam ) {
+            $this->getAwayTeam()->setScore($score['A']);
         }
 
         return $this;

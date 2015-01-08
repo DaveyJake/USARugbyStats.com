@@ -36,6 +36,14 @@ class TeamFieldset extends Fieldset
             ),
         ));
 
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'abbreviation',
+            'options' => array(
+                'label' => 'Abbreviation',
+            ),
+        ));
+
         $this->add(
             array(
                 'type' => 'UsaRugbyStats\Application\Common\ObjectSelect',

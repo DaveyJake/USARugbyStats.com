@@ -5,10 +5,10 @@
 
     <entity name="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamEvent\CardEvent" table="competition_competition_match_team_event_card">
 
-		<field name="type" type="string" length="1" />
+        <field name="type" type="string" length="1" />
 
         <many-to-one field="player" target-entity="UsaRugbyStats\Competition\Entity\Competition\Match\MatchTeamPlayer">
-        	<join-column name="player_id" referenced-column-name="id" />
+            <join-column name="player_id" referenced-column-name="id" on-delete="SET NULL" />
         </many-to-one>
 
     </entity>

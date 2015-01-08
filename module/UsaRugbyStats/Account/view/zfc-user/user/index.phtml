@@ -1,4 +1,4 @@
-<div style="float:left; padding-right:16px;"><?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()) ?></div>
+<div style="float:left; padding-right:16px;"><?php echo $this->ursPlayerAvatar($this->zfcUserIdentity()) ?></div>
 <h3><?php echo $this->translate('Hello'); ?>, <?php echo $this->zfcUserDisplayName() ?>!</h3>
 <a href="<?php echo $this->url('ldc-user-profile') ?>">[<?php echo $this->translate('Update your profile'); ?>]</a>
 <a href="<?php echo $this->url('zfcuser/logout') ?>">[<?php echo $this->translate('Sign Out'); ?>]</a>
