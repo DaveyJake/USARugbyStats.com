@@ -153,7 +153,7 @@
         <tbody>
           <?php foreach ( $statistics['opponent'] as $teamid=>$teamData): ?>
           <tr>
-            <th rowspan="<?=$this->escapeHtmlAttr(count($teamData['season'])+1); ?>"><?=$this->ursTeamLink($teamid); ?></th>
+            <th rowspan="<?=$this->escapeHtmlAttr(count($teamData['season'])+1); ?>"><?=$this->ursTeamLink($teamid, 'short_logo'); ?></th>
             <td>All-Time</td>
             <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['credits']['played'] ?: 0); ?></td>
             <td style="text-align:center"><?=$this->escapeHtml(@$teamData['career']['credits']['started'] ?: 0); ?></td>
@@ -247,7 +247,7 @@
 
       <ul class="list-group">
         <?php foreach ( $teams as $team ): ?>
-        <li class="list-group-item"><?=$this->ursTeamLink($team); ?></li>
+        <li class="list-group-item"><?=$this->ursTeamLink($team, 'short_logo'); ?></li>
         <?php endforeach; ?>
       </ul>
 
