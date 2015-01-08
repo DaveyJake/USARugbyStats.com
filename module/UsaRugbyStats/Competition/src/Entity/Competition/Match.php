@@ -704,7 +704,7 @@ class Match
             $result = $this->getTeam($side)->getPlayers()->filter(function ($slot) use ($p) {
                 return $slot->getPlayer() && $slot->getPlayer()->getId() === $p->getId();
             });
-            if (!empty($result)) {
+            if ($result->count() > 0) {
                 return $result->first();
             }
         }
