@@ -5,7 +5,7 @@ $canEdit = $this->flags->{"match.teams.$matchSideKey.players"}->is_on();
 $team = $match->getTeam($matchSideKey)->getTeam();
 $rosterFetchUrl = $this->hasRole('super_admin')
     ? $this->url('zfcadmin/usarugbystats_competitionadmin/edit/matches/edit/copy-roster', ['id' => $match->getCompetition()->getId(), 'match' => $match->getId(), 'team' => $team->getId()])
-    : $this->url('usarugbystats_frontend_competition_match/update/copy-roster', ['cid' => $match->getCompetition()->getId(), 'mid' => $match->getId(), 'team' => $team->getId()]);
+    : $this->url('usarugbystats_frontend_competition_match/copy-roster', ['cid' => $match->getCompetition()->getId(), 'mid' => $match->getId(), 'team' => $team->getId()]);
 
 $argv = $this->vars()->getArrayCopy();
 ?>
@@ -28,14 +28,22 @@ $argv = $this->vars()->getArrayCopy();
     <tfoot>
         <tr>
             <td colspan="4" style="text-align:center">
-                <a class="btn btn-sm btn-primary competition-match-team-roster-useprevious"><i class="glyphicon glyphicon-retweet"></i>&nbsp;&nbsp;Load roster from previous match</a>
-                <?= $this->ursCopyMatchRosterFromPreviousMatch(
-                        $team,
-                        'CopyMatchRosterForSide' . $matchSideKey,
-                        $rosterFetchUrl,
-                        ".competition-match-team-roster-{$matchSideKey} .competition-match-team-roster-useprevious"
-                    );
-                ?>
+                <a id="CopyRoster<?=$matchSideKey;?>Button" class="btn btn-sm btn-primary competition-match-team-roster-useprevious"><i class="glyphicon glyphicon-retweet"></i>&nbsp;&nbsp;Load roster from previous match</a>
+                <script type="text/javascript">
+                $('#CopyRoster<?=$matchSideKey;?>Button').click(function() {
+                	ursCopyMatchRosterFromPreviousMatch_CopyRoster<?=$matchSideKey;?>(<?=$this->escapejs($team->getId());?>, function(data) {
+                    	var button = $('#CopyRoster<?=$matchSideKey;?>');
+                        $.each(data.roster, function (position, player) {
+                            var playerSelect = button.closest('.competition-match-team-roster')
+                                                     .find('.competition-match-team-roster-slot-'+position+' .column-player select');
+                            if (playerSelect.length > 0) {
+                                playerSelect.val(player);
+                            }
+                        });
+                	});
+                });
+                </script>
+                <?=$this->ursCopyMatchRosterFromPreviousMatch("CopyRoster{$matchSideKey}", $rosterFetchUrl); ?>
             </td>
         </tr>
     </tfoot>

@@ -29,7 +29,19 @@
                 <?php   $teamSide = @$match instanceof \UsaRugbyStats\Competition\Entity\Competition\Match ? $match->getTeam($type) : NULL; ?>
                 <?php   if ( $teamSide && $teamSide->getTeam() && $teamSide->getTeam()->getRemoteId() && $this->getHelperPluginManager()->has('ursRemoteDataSyncTriggerSyncTeam') ): ?>
                 <a id="<?=$type?>RosterSyncButton" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Sync Team Members"><i class="glyphicon glyphicon-refresh"></i></a>
-                <?php     echo $this->ursRemoteDataSyncTriggerSyncTeam($teamSide->getTeam(), "{$type}TeamRosterSync", "#{$type}RosterSyncButton"); ?>
+                <script>
+                $('#<?=$type?>RosterSyncButton').click(function() {
+                	ursRemoteDataSyncTriggerSyncTeam_TeamRosterSync(<?=$this->escapejs($teamSide->getTeam()->getId());?>, function(data) {
+                        if (data.status == 4) { 
+                            setTimeout(function () {  $('#TeamRosterSync').modal('hide'); }, 5000);
+                        }
+                        if (data.status == 3 || data.status == 4) {
+                            setTimeout(function () { document.location.reload(true); }, 5000);
+                        }
+                	});
+                });
+                </script>
+                <?php     echo $this->ursRemoteDataSyncTriggerSyncTeam("TeamRosterSync"); ?>
                 <?php   endif; ?>
                 <?php endif; ?>
             </div>
