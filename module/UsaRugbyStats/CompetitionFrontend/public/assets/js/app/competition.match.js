@@ -333,6 +333,31 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
         	});
         }
         
+        $scope.copyPreviousRoster = function(side, teamid) {
+        	ursCopyMatchRosterFromPreviousMatch_CopyRosterFromPreviousMatch(teamid, function(data) {
+        		if ( ! angular.isDefined($rootScope.match.teams[side].players) ) {
+        			$rootScope.match.teams[side].players = {};
+        		}
+                $.each(data.roster, function (position, player) {
+                	var exists = false;
+                	$.each($rootScope.formdata.players[side], function(key,pobj) {
+                		if (pobj.value == player) {
+                			exists = true;
+                		}
+                	});
+                	if (!exists) {
+                		return;
+                	}
+            		if ( ! angular.isDefined($rootScope.match.teams[side].players[position]) ) {
+            			$rootScope.match.teams[side].players[position] = {};
+            		}
+            		$rootScope.match.teams[side].players[position].player = player;                	
+                	$('select[name=match\\\[teams\\\]\\\['+side+'\\\]\\\[players\\\]\\\['+position+'\\\]\\\[player\\\]]').val(player);
+                	
+                });
+        	});
+        }
+        
         $scope.saveChangesToRoster = function() {
             if ( $scope.matchRosterIsBeingSaved ) {
                 return;

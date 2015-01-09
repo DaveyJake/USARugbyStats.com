@@ -244,14 +244,16 @@ $this->layout()->containerAttributes = array_merge(
                     <tr>
             	       <th class="home-player">
             	           <div style="float:left" ng-show="isEditingRoster && permissions['match.teams.H.players']">
-                             <a id="RosterSyncButton" ng-click="syncTeamRoster(homeTeam.id)" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-refresh"></i> Run Roster Sync</a>
+                             <a id="RosterSyncButton" ng-click="syncTeamRoster(homeTeam.id)" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-refresh"></i> Player Sync</a>
+                             <a id="CopyRosterHButton" ng-click="copyPreviousRoster('H', homeTeam.id)" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-retweet"></i> Use Previous Roster</a>
                            </div>
             	           {{homeTeam.name}}
             	       </th>
             		   <th></th>
             		   <th class="away-player">
             	           <div style="float:right" ng-show="isEditingRoster && permissions['match.teams.A.players']">
-                             <a id="RosterSyncButton" ng-click="syncTeamRoster(awayTeam.id)" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-refresh"></i> Run Roster Sync</a>
+                             <a id="RosterSyncButton" ng-click="syncTeamRoster(awayTeam.id)" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-refresh"></i> Player Sync</a>
+                             <a id="CopyRosterHButton" ng-click="copyPreviousRoster('A', awayTeam.id)" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-retweet"></i> Use Previous Roster</a>
                            </div>
             		      {{awayTeam.name}}
             		   </th>
@@ -646,4 +648,6 @@ $this->layout()->containerAttributes = array_merge(
     <?php $this->inlinescript()->appendScript("\$('MatchDetailsEditDialog').modal({show:false});"); ?>
 </div>
 
-<?php echo $this->ursRemoteDataSyncTriggerSyncTeam(); ?>
+<?=$this->ursRemoteDataSyncTriggerSyncTeam(); ?>
+<?=$this->ursCopyMatchRosterFromPreviousMatch("CopyRosterFromPreviousMatch", $this->url('usarugbystats_frontend_competition_match/copy-roster', ['cid' => $match->getCompetition()->getId(), 'mid' => $match->getId(), 'team' => 'XXXXXX'])); ?>
+
