@@ -5,19 +5,19 @@ use Zend\View\Helper\AbstractHelper;
 
 class StatusCheckerFunctionViewHelper extends AbstractHelper
 {
-    protected $hasRun = false;
+    protected $hasRun = array();
 
     public function __invoke($id)
     {
-        // Only run once
-        if ($this->hasRun) {
+        // Only run once per ID
+        if (isset($this->hasRun[$id])) {
             return;
         }
-        $this->hasRun = true;
+        $this->hasRun[$id] = true;
 
         $statusUrl = $this->view->url('usarugbystats_remotedatasync_queue_trigger_statuscheck', [], ['query' => ['id' => 'XXXXX']]);
         $javascript = <<<EOB
-function ursRemoteDataSyncWatchJobStatus(data, completedCallback)
+function ursRemoteDataSyncWatchJobStatus_{$id}(data, completedCallback)
 {
     var statusUrl = '{$statusUrl}'.replace(/=XXXXX$/, '=' + data.token);
     var runner = setInterval(function () {

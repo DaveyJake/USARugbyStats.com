@@ -327,6 +327,12 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
             });
         }
         
+        $scope.syncTeamRoster = function(teamid) {
+        	ursRemoteDataSyncTriggerSyncTeam_TeamRosterSync(teamid, function() {
+        		$scope.refreshPage();
+        	});
+        }
+        
         $scope.saveChangesToRoster = function() {
             if ( $scope.matchRosterIsBeingSaved ) {
                 return;

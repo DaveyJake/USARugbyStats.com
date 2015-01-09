@@ -7,7 +7,19 @@ $form->setAttribute('method', 'post');
 <?php if ( $entity->getRemoteId() && $this->getHelperPluginManager()->has('ursRemoteDataSyncTriggerSyncTeam') ): ?>
 <div class="pull-right">
     <a id="RosterSyncButton" class="btn btn-md btn-primary"><i class="glyphicon glyphicon-refresh"></i> Run Roster Sync</a>
-    <?php echo $this->ursRemoteDataSyncTriggerSyncTeam($entity, 'TeamRosterSync', '#RosterSyncButton'); ?>
+    <script>
+    $('#RosterSyncButton').click(function() {
+    	ursRemoteDataSyncTriggerSyncTeam_TeamRosterSync(<?=$this->escapejs($entity->getId());?>, function(data) {
+            if (data.status == 4) { 
+                setTimeout(function () {  $('#TeamRosterSync').modal('hide'); }, 5000);
+            }
+            if (data.status == 3 || data.status == 4) {
+                setTimeout(function () { document.location.reload(true); }, 5000);
+            }
+    	});
+    });
+    </script>
+    <?php     echo $this->ursRemoteDataSyncTriggerSyncTeam("TeamRosterSync"); ?>
 </div>
 <?php endif; ?>
 

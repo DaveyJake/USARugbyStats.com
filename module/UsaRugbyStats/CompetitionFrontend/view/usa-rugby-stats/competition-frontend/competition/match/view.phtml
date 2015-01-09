@@ -242,9 +242,19 @@ $this->layout()->containerAttributes = array_merge(
             <table>
             	<thead>
                     <tr>
-            	       <th class="home-player">{{homeTeam.name}}</th>
+            	       <th class="home-player">
+            	           <div style="float:left" ng-show="isEditingRoster && permissions['match.teams.H.players']">
+                             <a id="RosterSyncButton" ng-click="syncTeamRoster(homeTeam.id)" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-refresh"></i> Run Roster Sync</a>
+                           </div>
+            	           {{homeTeam.name}}
+            	       </th>
             		   <th></th>
-            		   <th class="away-player">{{awayTeam.name}}</th>
+            		   <th class="away-player">
+            	           <div style="float:right" ng-show="isEditingRoster && permissions['match.teams.A.players']">
+                             <a id="RosterSyncButton" ng-click="syncTeamRoster(awayTeam.id)" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-refresh"></i> Run Roster Sync</a>
+                           </div>
+            		      {{awayTeam.name}}
+            		   </th>
             	   </tr>
             	</thead>
             	<tbody>
@@ -635,3 +645,5 @@ $this->layout()->containerAttributes = array_merge(
     </div>
     <?php $this->inlinescript()->appendScript("\$('MatchDetailsEditDialog').modal({show:false});"); ?>
 </div>
+
+<?php echo $this->ursRemoteDataSyncTriggerSyncTeam(); ?>
