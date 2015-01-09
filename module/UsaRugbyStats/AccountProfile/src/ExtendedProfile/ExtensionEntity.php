@@ -17,6 +17,14 @@ class ExtensionEntity
 
     protected $citizenship;
 
+    public static $citizenshipMap = [
+        'US' => 'U.S. Citizen',
+        'RA' => 'Resident Alien',
+        'NA' => 'Non-resident Alien',
+        'CR' => 'Collegiate Resident',
+        'CN' => 'Collegiate Non-resident',
+    ];
+
     public function getId()
     {
         return $this->id;
@@ -103,7 +111,9 @@ class ExtensionEntity
         // US = US Citizen
         // RA = Resident Alien
         // NA = Non-resident Alien
-        if (is_null($key) || in_array($key, ['US', 'RA', 'NA'])) {
+        // CR = Collegiate Resident
+        // CN = Collegiate Non-resident
+        if (array_key_exists($key, self::$citizenshipMap)) {
             $this->citizenship = $key;
         }
 

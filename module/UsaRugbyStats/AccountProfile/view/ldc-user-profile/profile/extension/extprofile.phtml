@@ -1,4 +1,6 @@
 <?php
+use UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionEntity;
+
 $validationGroup = $this->validationGroup ?: array();
 $includeEverything = ( is_array($this->validationGroup) && empty($this->validationGroup) );
 ?>
@@ -50,13 +52,7 @@ $includeEverything = ( is_array($this->validationGroup) && empty($this->validati
         <div class="col-sm-8">
             <?php if ( $includeEverything || in_array('citizenship', $validationGroup, true) ): ?>
             <?php echo $this->formElement($element); ?>
-            <?php else: ?>
-                <?php switch ( $element->getValue() ) {
-                    case 'US': echo "U.S. Citizen"; break;
-                    case 'RA': echo "Resident Alien"; break;
-                    case 'NA': echo "Non-resident Alien"; break;
-                    default: echo "Not Specified"; break;
-                }?>
+            <?php else: echo $this->escapeHtml(@ExtensionEntity::$citizenshipMap[$element->getValue()] ?: 'Unknown')?>
             <?php endif;?>
             <?php echo $this->formElementErrors($element) ?>
         </div>

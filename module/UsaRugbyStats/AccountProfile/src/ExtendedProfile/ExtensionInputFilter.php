@@ -66,7 +66,7 @@ class ExtensionInputFilter extends InputFilter
             'validators' => array(array(
                 'name' => 'InArray',
                 'options' => array(
-                    'haystack' => ['US','RA','NA'],
+                    'haystack' => array_keys(ExtensionEntity::$citizenshipMap),
                 ),
             )),
         ));
