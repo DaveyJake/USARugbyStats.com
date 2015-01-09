@@ -339,6 +339,14 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
         			$rootScope.match.teams[side].players = {};
         		}
                 $.each(data.roster, function (position, player) {
+                	// Reset the position to "No Player Selected"
+            		if ( ! angular.isDefined($rootScope.match.teams[side].players[position]) ) {
+            			$rootScope.match.teams[side].players[position] = {};
+            		}
+            		$rootScope.match.teams[side].players[position].player = null;
+            		$('select[name=match\\\[teams\\\]\\\['+side+'\\\]\\\[players\\\]\\\['+position+'\\\]\\\[player\\\]]').val('');
+                	
+            		// Only add the player if they're still eligible
                 	var exists = false;
                 	$.each($rootScope.formdata.players[side], function(key,pobj) {
                 		if (pobj.value == player) {
@@ -348,12 +356,10 @@ angular.module('ursCompetitionMatch', ['rt.encodeuri', 'ngRange', 'ngOrderObject
                 	if (!exists) {
                 		return;
                 	}
-            		if ( ! angular.isDefined($rootScope.match.teams[side].players[position]) ) {
-            			$rootScope.match.teams[side].players[position] = {};
-            		}
-            		$rootScope.match.teams[side].players[position].player = player;                	
-                	$('select[name=match\\\[teams\\\]\\\['+side+'\\\]\\\[players\\\]\\\['+position+'\\\]\\\[player\\\]]').val(player);
                 	
+                	// Select the player
+            		$rootScope.match.teams[side].players[position].player = player;                	
+                	$('select[name=match\\\[teams\\\]\\\['+side+'\\\]\\\[players\\\]\\\['+position+'\\\]\\\[player\\\]]').val(player);                	
                 });
         	});
         }
