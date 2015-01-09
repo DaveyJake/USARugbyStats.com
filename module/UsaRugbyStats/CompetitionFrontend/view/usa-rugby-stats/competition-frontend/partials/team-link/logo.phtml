@@ -1,0 +1,4 @@
+<a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $team->getId()]); ?>"<?php if(@$options['new_window']):?> target="_blank"<?php endif;?>>
+  <img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($team)); ?>" height="24">
+  <?=$this->escapeHtml($this->ursTeamName($team)); ?>
+</a>

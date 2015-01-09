@@ -10,18 +10,18 @@ $link_options = isset($link_options) ? (array)$link_options : array();
 	<thead>
 	  <tr>
 			<th class="team"><?=empty($this->divisionTitle) ? 'Team' : $this->escapeHtml($this->divisionTitle); ?></th>
-			<th class="<?=$isExpanded ? '' : 'more'; ?>">GP</th>
-			<th class="record">R</th>
-			<th class="<?=$isExpanded ? '' : 'more'; ?>">W</th>
-			<th class="<?=$isExpanded ? '' : 'more'; ?>">L</th>
-			<th class="<?=$isExpanded ? '' : 'more'; ?>">T</th>
-			<th class="<?=$isExpanded ? '' : 'more'; ?>">PF</th>
-			<th class="<?=$isExpanded ? '' : 'more'; ?>">PA</th>
-			<th class="<?=$isExpanded ? '' : 'more'; ?>">PD</th>
-			<th class="<?=$isExpanded ? '' : 'more'; ?>">BT</th>
-			<th class="<?=$isExpanded ? '' : 'more'; ?>">BL</th>
-			<th class="<?=$isExpanded ? '' : 'more'; ?>">FF</th>
-			<th class="points">PTS</th>
+			<th class="statcolumn<?=$isExpanded ? '' : ' more'; ?>">GP</th>
+			<th class="statcolumn record">Record</th>
+			<th class="statcolumn<?=$isExpanded ? '' : ' more'; ?>">W</th>
+			<th class="statcolumn<?=$isExpanded ? '' : ' more'; ?>">L</th>
+			<th class="statcolumn<?=$isExpanded ? '' : ' more'; ?>">T</th>
+			<th class="statcolumn<?=$isExpanded ? '' : ' more'; ?>">PF</th>
+			<th class="statcolumn<?=$isExpanded ? '' : ' more'; ?>">PA</th>
+			<th class="statcolumn<?=$isExpanded ? '' : ' more'; ?>">PD</th>
+			<th class="statcolumn<?=$isExpanded ? '' : ' more'; ?>">BT</th>
+			<th class="statcolumn<?=$isExpanded ? '' : ' more'; ?>">BL</th>
+			<th class="statcolumn<?=$isExpanded ? '' : ' more'; ?>">FF</th>
+			<th class="statcolumn points">PTS</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,19 +29,19 @@ $link_options = isset($link_options) ? (array)$link_options : array();
 	    <?php   $srTeam = $standingsRow->getTeam(); ?>
 		<tr<?php if ( $relativeToTeam && $srTeam->getId() == $this->relativeTo->getId() ) echo ' class="active"';?>>
 			<td class="team"><a href="<?=$this->url('usarugbystats_frontend_team', ['id' => $srTeam->getId()]); ?>"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>><img src="<?=$this->escapeHtmlAttr($this->ursTeamLogoUrl($srTeam)); ?>"> <?=$this->escapeHtml($this->ursTeamName($srTeam)); ?></a></td>
-			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalGames()); ?></td>
-			<td class="record"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?>-<?=$this->escapeHtml($standingsRow->getTotalLosses()); ?>-<?=$this->escapeHtml($standingsRow->getTotalTies()); ?></td>
-			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?></td>
-			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalLosses()); ?></td>
-			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalTies()); ?></td>
+			<td class="statcolumn<?=$isExpanded ? '' : ' more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalGames()); ?></td>
+			<td class="statcolumn record"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?>-<?=$this->escapeHtml($standingsRow->getTotalLosses()); ?>-<?=$this->escapeHtml($standingsRow->getTotalTies()); ?></td>
+			<td class="statcolumn<?=$isExpanded ? '' : ' more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalWins()); ?></td>
+			<td class="statcolumn<?=$isExpanded ? '' : ' more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalLosses()); ?></td>
+			<td class="statcolumn<?=$isExpanded ? '' : ' more'; ?>"><?=$this->escapeHtml($standingsRow->getTotalTies()); ?></td>
 
-			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreInFavor()); ?></td>
-			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreAgainst()); ?></td>
-			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreDifferential()); ?></td>
-			<td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getTryBonuses()); ?></td>
-            <td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getLossBonuses()); ?></td>
-            <td class="<?=$isExpanded ? '' : 'more'; ?>"><?=$this->escapeHtml($standingsRow->getForfeits()); ?></td>
-			<td class="points"><?=$this->escapeHtml($standingsRow->getTotalPoints()); ?></td>
+			<td class="statcolumn<?=$isExpanded ? '' : ' more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreInFavor()); ?></td>
+			<td class="statcolumn<?=$isExpanded ? '' : ' more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreAgainst()); ?></td>
+			<td class="statcolumn<?=$isExpanded ? '' : ' more'; ?>"><?=$this->escapeHtml($standingsRow->getScoreDifferential()); ?></td>
+			<td class="statcolumn<?=$isExpanded ? '' : ' more'; ?>"><?=$this->escapeHtml($standingsRow->getTryBonuses()); ?></td>
+            <td class="statcolumn<?=$isExpanded ? '' : ' more'; ?>"><?=$this->escapeHtml($standingsRow->getLossBonuses()); ?></td>
+            <td class="statcolumn<?=$isExpanded ? '' : ' more'; ?>"><?=$this->escapeHtml($standingsRow->getForfeits()); ?></td>
+			<td class="statcolumn points"><?=$this->escapeHtml($standingsRow->getTotalPoints()); ?></td>
 		</tr>
 		<?php endforeach; ?>
     </tbody>

@@ -614,15 +614,7 @@ table thead tr {
 }
 table thead th {
   line-height: 40px;
-  padding: 0 10px;
-}
-
-table thead th:first-of-type {
-  padding-left: 30px;
-  text-align: left;
-}
-table thead th:last-of-type {
-  padding-right: 30px;
+  padding: 0 4px;
 }
 table tbody tr {
   width: 100%;
@@ -655,29 +647,27 @@ table tbody tr:nth-child(odd) {
 }
 table tbody td {
   line-height: 40px;
-  padding: 0 10px;
+  padding: 0 4px;
 }
 table tbody td a {
   color: #6f747a;
 }
-table tbody td:first-of-type {
-  padding-left: 30px;
-}
-table tbody td:last-of-type {
-  padding-right: 30px;
-}
 table tbody td.date {
+  white-space: nowrap;
   width: 15%;
 }
-table tbody td.opponent {
-  width: 30%;
-  max-width: 250px;
+table tbody td.opponent div {
+  max-width: 320px;
   text-overflow: ellipsis;
-  white-space: no-wrap;
   overflow: hidden;
+  white-space: nowrap;
+}
+.col-sm-5 table tbody td.opponent div {
+  max-width: 190px;
 }
 table tbody td.result-time {
-  width: 15%;
+	max-width: 160px;
+	min-width: 120px;
 }
 
 table tbody td.type {
@@ -695,7 +685,9 @@ table tbody td img {
   margin-bottom: 2px;
   padding: 0 6px;
 }
-
+table tbody td.toolbox a.btn {
+	margin-right: 8px !important;
+}
 
 #standings tr:hover,
 #schedule tr:hover {
@@ -725,29 +717,62 @@ table tbody td img {
 #schedule tr:hover:nth-child(even):hover {
   background: #f2f3f5;
 }
+#schedule .date {
+	padding-left: 15px;
+	padding-right: 10px;
+}
 #schedule .result-time span {
   font-size: 12px;
   font-weight: bold;
-  color: #c23752;
   padding-right: 5px;
+  white-space: nowrap;
 }
-.col-sm-5 #schedule .type,
-.col-sm-5 #schedule .location {
-  display: none;
+#schedule .result-time span[data-result=W] {
+  color: #00BB00 !important;
 }
+#schedule .result-time span[data-result=L] {
+  color: #c23752 !important;
+}
+.col-sm-5 #schedule .type {
+  display:none;
+}
+.col-sm-5 #schedule .toolbox {
+  display:none;
+}
+#schedule .home {
+	padding-left: 15px;
+}
+#schedule .away {
+	padding-right: 15px;	
+}
+#schedule .home div, #schedule .away div {
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#schedule .home-logo, #schedule .away-logo {
+	width: 45px;
+	max-width: 45px;
+	padding: 0;
+	margin: 0;
+}
+
 #standings table tbody td:first-of-type {
   padding-left: 10px;
+}
+#standings .statcolumn {
+	text-align: center;
+	padding: 0 6px;
 }
 #standings {
   padding-right: 0;
 }
 #standings .points {
-  text-align: center;
   font-weight: bold;
 }
 #standings .record {
   width: 17%;
-  text-align: center;
   font-size: 12px;
   position: relative;
 }
@@ -757,7 +782,7 @@ table tbody td img {
   background: #3C454E; 
   padding: 8px 0 0 15px;
   overflow:hidden;
-  text-overflow:ellipsis
+  text-overflow:ellipsis;
 }
 
 #standings .sub-title a {
@@ -771,7 +796,7 @@ table tbody td img {
 }
 
 /*@TODO work around - Competition View schedule */
-.tab-pane#standings .record, #standings.col-sm-7 .record {
+.tab-pane#standings .record, #standings.standings-expanded .record {
   display: none;
 }
 
@@ -783,8 +808,11 @@ table tbody td img {
   text-align: center;
 }
 
-td.away {
+td.home, th.home {
   text-align: right;
+}
+td.away, th.away {
+  text-align: left;
 }
 
 /*@End Work Around*/
@@ -800,26 +828,26 @@ td.away {
   display: none;
   text-align: center;
 }
-#standings.col-sm-7 .title {
+#standings.standings-expanded .title {
   margin: 0;
 }
-#standings.col-sm-7 td {
+#standings.standings-expanded td {
   border-left: 1px solid #eff0f3;
 }
-#standings.col-sm-7 tr.active {
+#standings.standings-expanded tr.active {
   position: relative;
 }
-#standings.col-sm-7 tr.active td {
+#standings.standings-expanded tr.active td {
   border-left: 0;
 }
-#standings.col-sm-7 tr.active td.points {
+#standings.standings-expanded tr.active td.points {
   background: #c23752;
 }
-#standings.col-sm-7 .team {
+#standings.standings-expanded .team {
   width: 55%;
 }
-#standings.col-sm-7 .points {
-  width: 10%;
+#standings.standings-expanded .points {
+  width: 75px !important;
   background: #f4f5f7;
   padding-right: 10px;
   padding-left: 10px;
@@ -827,7 +855,7 @@ td.away {
 }
 
 
-#standings.col-sm-7 thead .points {
+#standings.standings-expanded thead .points {
   background: #e6e8ec;
 }
 .panel .tabs {
@@ -1280,4 +1308,23 @@ footer {
 }
 footer p {
   margin: 0;
+}
+
+
+
+
+#team #players table td:first-of-type, #team #players table th:first-of-type {
+	padding-left: 10px;
+}
+#team #players table td:last-of-type, #team #players table th:last-of-type {
+	padding-right: 10px;
+}
+#team #players table th.name {
+	padding-left: 16px;
+}
+#team #players table .position {
+	text-align: center;
+}
+#team #players table .points {
+	text-align: center;
 }

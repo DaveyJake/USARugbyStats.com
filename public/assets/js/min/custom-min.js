@@ -1,1 +1,0 @@
-$(document).ready(function(){$("#drawer").click(function(){$("#content").hasClass("open")?$("#content").removeClass("open"):$("#content").addClass("open")})});

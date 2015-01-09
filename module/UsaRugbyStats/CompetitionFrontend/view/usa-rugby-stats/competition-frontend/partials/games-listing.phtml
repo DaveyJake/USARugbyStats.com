@@ -11,7 +11,7 @@ $now = new DateTime();
 
 	<?php if ( $isRelativeToTeam ): ?>
 
-<table class="responsive">
+<table id="schedule" class="team schedule responsive">
 
 	<thead class="header">
 		<th class="date">Date</th>
@@ -23,13 +23,13 @@ $now = new DateTime();
 
 	<?php else: ?>
 
-<table class="competition responsive">
+<table id="schedule" class="competition schedule responsive">
 
 	<thead class="header">
 		<th class="date">Date</th>
-		<th class="opponent">Away</th>
+		<th class="home" colspan="2">Home</th>
 		<th class="result-time">Result/Time</th>
-		<th class="opponent">Home</th>
+		<th class="away" colspan="2">Away</th>
 		<th class="type">Type</th>
 		<th class="toolbox"></th>
 	</thead>
