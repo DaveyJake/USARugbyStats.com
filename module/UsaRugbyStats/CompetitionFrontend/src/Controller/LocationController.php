@@ -62,7 +62,7 @@ class LocationController extends AbstractActionController
         $location = $this->getLocationEntityFromRoute();
 
         $repository = $this->getMatchService()->getRepository();
-        $collection = new ArrayCollection($repository->findBy(['location' => $location]));
+        $collection = new ArrayCollection($repository->findBy(['location' => $location], ['date' => 'ASC']));
         $now = new \DateTime();
         list($upcomingMatches, $pastMatches) = $collection->partition(function ($key, Match $m) use ($now) {
             return $m->getDate() >= $now;
