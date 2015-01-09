@@ -167,39 +167,39 @@ $this->layout()->containerAttributes = array_merge(
             <div ng-show="matchEventAddedSuccessfully" class="alert alert-success" style="border:0;border-radius:0;margin-bottom:0;padding:10px;">
                 <p class="text-right"><i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Event added successfully!</p>
             </div>
-            <table>
+            <table id="gamestream">
             	<thead>
             	   <tr>
-            		 <th>MIN</th>
-            		 <th>EVENT</th>
-            		 <th>SIDE</th>
-            		 <th style="text-align:center">SCORE</th>
-            		 <th>DETAILS</th>
-            		 <th width="60" ng-show="canAddEvents()"></th>
+            		 <th class="minute">MIN</th>
+            		 <th class="event">EVENT</th>
+            		 <th class="side">SIDE</th>
+            		 <th class="score">SCORE</th>
+            		 <th class="details">DETAILS</th>
+            		 <th class="toolbox" ng-show="canAddEvents()"></th>
             	   </tr>
             	</thead>
             	<tbody>
             	   <tr ng-repeat="(ekey,event) in matchEvents | orderBy:'minute'">
-            		 <td ng-show="event.id > 0">{{event.minute}}'</td>
-            		 <td ng-show="event.id > 0">
+            		 <td class="minute" ng-show="event.id > 0">{{event.minute}}'</td>
+            		 <td class="event" ng-show="event.id > 0">
             		   {{event.type}} {{event.event}}
             		 </td>
-            		 <td ng-show="event.id > 0 && event.side == 'H'">
+            		 <td class="side" ng-show="event.id > 0 && event.side == 'H'">
             		   <a href="/team/{{homeTeam.id}}" target="_blank">
             		     <img ng-src="/assets/img/teamlogos/{{homeTeam.id}}.png" height="20" style="padding-right: 0">
             		     <span ng-show="homeTeam.abbreviation">{{homeTeam.abbreviation}}</span>
             		     <span ng-hide="homeTeam.abbreviation">{{homeTeam.name}}</span>
             		   </a>
             		 </td>
-            		 <td ng-show="event.id > 0 && event.side == 'A'">
+            		 <td class="side" ng-show="event.id > 0 && event.side == 'A'">
             		   <a href="/team/{{awayTeam.id}}" target="_blank">
             		     <img ng-src="/assets/img/teamlogos/{{awayTeam.id}}.png" height="20" style="padding-right: 0">
             		     <span ng-show="awayTeam.abbreviation">{{awayTeam.abbreviation}}</span>
             		     <span ng-hide="awayTeam.abbreviation">{{awayTeam.name}}</span>
             		   </a>
             		 </td>
-            		 <td style="text-align:center">{{event.runningScore.H}} - {{event.runningScore.A}}</td>
-            		 <td>
+            		 <td class="score" style="text-align:center">{{event.runningScore.H}} - {{event.runningScore.A}}</td>
+            		 <td class="details">
             		   <div ng-show="event.id > 0 && event.event != 'sub'">
             		      <span ng-show="extdata.teamPlayer[event.player]">
             		        #{{extdata.teamPlayer[event.player].number}} -
@@ -212,7 +212,7 @@ $this->layout()->containerAttributes = array_merge(
                 		 On: #{{extdata.teamPlayer[event.playerOn].number}} - <a ng-href="/player/{{extdata.teamPlayer[event.playerOn].acct}}" target="_blank">{{extdata.player[extdata.teamPlayer[event.playerOn].acct].name}}</a>
             		   </div>
             		 </td>
-            		 <td ng-show="event.id > 0 && canAddEvents()" style="text-align:right; padding-right: 10px;">
+            		 <td class="toolbox" ng-show="event.id > 0 && canAddEvents()">
             		   <a ng-click="trashEvent(event)" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
             		 </td>
             	</tbody>

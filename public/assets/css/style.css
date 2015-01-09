@@ -683,7 +683,6 @@ table tbody td.position {
 table tbody td img {
   height: 23px;
   margin-bottom: 2px;
-  padding: 0 6px;
 }
 table tbody td.toolbox a.btn {
 	margin-right: 8px !important;
@@ -1327,4 +1326,22 @@ footer p {
 }
 #team #players table .points {
 	text-align: center;
+}
+
+
+#gamestream .minute {
+	padding-left: 10px;
+	padding-right: 5px;
+	text-align: center;
+	width: 50px;
+}
+#gamestream .score {
+	text-align: center;
+	padding: 0 10px;
+	width: 80px;
+}
+#gamestream .toolbox {
+	width: 60px;
+	text-align:right;
+	padding-right: 0px;
 }
