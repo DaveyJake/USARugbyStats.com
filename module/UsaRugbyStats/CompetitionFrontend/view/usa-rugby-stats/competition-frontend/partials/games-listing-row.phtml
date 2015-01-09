@@ -18,12 +18,14 @@ if ( $isRelativeToTeam ): ?>
 <tr data-matchdatetime="<?=$this->escapeHtmlAttr($match->getDate()->format('U')); ?>">
 	<td class="date"><a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>><?=$this->escapeHtml($match->getDate()->format('M jS')); ?></a></td>
 	<td class="opponent">
+	   <div>
 	<?php   $opponent = $match->getTeam('H')->getTeam()->getId() == $this->relativeTo->getId()
 	                  ? $match->getTeam('A')
 	                  : $match->getTeam('H');
 	?>
 
 	<?=($opponent->getType() == 'H' ? '@' : 'vs.'); ?> <img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($opponent)); ?>"><?php echo $this->ursTeamLink($opponent, 'default', $link_options); ?>
+	   </div>
 	</td>
 	<td class="result-time">
 	<a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>>
@@ -36,7 +38,8 @@ if ( $isRelativeToTeam ): ?>
 	<?php   $opponentSide = $teamSide == 'H' ? 'A' : 'H'; ?>
 	<?php   $winningSide = $match->getWinningSide(); ?>
 	<?php   if ( $match->isComplete() ): ?>
-	  <span><?=$this->escapeHtml($winningSide == 'D' ? 'D' : ( $winningSide == $teamSide ? 'W' : 'L')); ?></span>
+	<?php     $result = ($winningSide == 'D' ? 'D' : ( $winningSide == $teamSide ? 'W' : 'L')); ?>
+	  <span data-result="<?=$this->escapeHtmlAttr($result);?>"><?=$this->escapeHtml($result); ?></span>
 	<?php endif;?>
 	  <?=$this->escapeHtml($match->getTeam($teamSide)->getScore()); ?> -
 	  <?=$this->escapeHtml($match->getTeam($opponentSide)->getScore()); ?>
@@ -60,10 +63,9 @@ if ( $isRelativeToTeam ): ?>
 		<a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>><?=$this->escapeHtml($match->getDate()->format('M jS')); ?></a>
 	</td>
 
-	<td class="away">
-		<?php echo $this->ursTeamLink($match->getTeam('A'), 'default', $link_options); ?><img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>">
-	</td>
-
+	<td class="home"><div><?php echo $this->ursTeamLink($match->getTeam('H'), 'default', $link_options); ?></div></td>
+	<td class="home-logo"><img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('H'))); ?>"></td>
+	
 	<td class="result-time">
 	  <a href="<?=$this->escapeHtmlAttr($matchViewUrl); ?>"<?php if(@$link_options['new_window']) echo ' target="_blank"';?>>
 		<?php if ( $match->isCancelled() ): ?>
@@ -71,15 +73,14 @@ if ( $isRelativeToTeam ): ?>
 		<?php elseif ( $match->isNotStarted() || $now <= $match->getDate() ): ?>
 		  <?=$this->escapeHtml($match->getDate()->format('g:i a T'));?>
 		<?php else: ?>
-		  <?=$this->escapeHtml($match->getTeam('A')->getScore()); ?> -
-		  <?=$this->escapeHtml($match->getTeam('H')->getScore()); ?>
+		  <?=$this->escapeHtml($match->getTeam('H')->getScore()); ?> -
+		  <?=$this->escapeHtml($match->getTeam('A')->getScore()); ?>
 		<?php endif; ?>
       </a>
 	</td>
 
-	<td class="home">
-		<img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('H'))); ?>"><?php echo $this->ursTeamLink($match->getTeam('H'), 'default', $link_options); ?>
-	</td>
+	<td class="away-logo"><img src="<?php echo $this->escapeHtmlAttr($this->ursTeamLogoUrl($match->getTeam('A'))); ?>"></td>
+	<td class="away"><div><?php echo $this->ursTeamLink($match->getTeam('A'), 'default', $link_options); ?></div></td>
 
     <td class="type"><?=$this->escapeHtml($match->getCompetition()->getTypeString());?></td>
     <td class="toolbox nolink" style="text-align:right">

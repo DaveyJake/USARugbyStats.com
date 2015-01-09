@@ -1,3 +1,5 @@
+<?php use UsaRugbyStats\AccountProfile\ExtendedProfile\ExtensionEntity; ?>
+
 <div class="page-header">
 
   <?php if ( $this->user()->getId() == $player->getId() ):?>
@@ -230,8 +232,7 @@
             <div class="col-xs-5">Citizenship:</div>
             <div class="col-xs-7">
               <?php if (isset($citizenship)): ?>
-                <?php $citizenshipValues = ['US' => 'U.S. Citizen', 'RA' => 'Resident Alien', 'NA' => 'Non-resident Alien']; ?>
-                <?=$this->escapeHtml(@$citizenshipValues[$citizenship] ?: 'N/A') ?>
+                <?=$this->escapeHtml(@ExtensionEntity::$citizenshipMap[$citizenship] ?: 'N/A') ?>
               <?php else: ?>
               N/A
               <?php endif;?>
@@ -247,7 +248,7 @@
 
       <ul class="list-group">
         <?php foreach ( $teams as $team ): ?>
-        <li class="list-group-item"><?=$this->ursTeamLink($team, 'short_logo'); ?></li>
+        <li class="list-group-item"><?=$this->ursTeamLink($team, 'logo'); ?></li>
         <?php endforeach; ?>
       </ul>
 

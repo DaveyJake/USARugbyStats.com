@@ -35,7 +35,7 @@
                 <?php   echo $this->render('usa-rugby-stats/competition-frontend/competition/teamlisting', $this->vars()); ?>
         	</div>
 
-        	<div class="tab-pane" id="standings">
+        	<div class="tab-pane standings-expanded" id="standings">
             	<?php if ( isset($this->standings['by-division']) && !empty($this->standings['by-division']) ): ?>
                 <?php   echo $this->render('usa-rugby-stats/competition-frontend/partials/standings-bydivision', ['standings' => $this->standings, 'isExpanded' => true] ); ?>
                 <?php else: ?>
