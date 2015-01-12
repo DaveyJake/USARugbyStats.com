@@ -10,7 +10,6 @@ use ZF\ApiProblem\ApiProblem;
 use ZF\ApiProblem\ApiProblemResponse;
 use UsaRugbyStats\Competition\Entity\Competition\Match;
 use UsaRugbyStats\CompetitionApi\Extractor\CompetitionMatchExtractor;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 
 class CompetitionMatchController extends AbstractRestfulController
 {
@@ -179,7 +178,8 @@ class CompetitionMatchController extends AbstractRestfulController
 
     protected function extractMatch(Match $m)
     {
-        $hydrator = new DoctrineObject($this->getServiceLocator()->get('Doctrine\ORM\EntityManager'));
-        return CompetitionMatchExtractor::extract($m, $hydrator);
+        $form = $this->getServiceLocator()->get('usarugbystats_competition_competition_match_updateform');
+
+        return CompetitionMatchExtractor::extract($m, $form);
     }
 }
