@@ -53,13 +53,13 @@ class AppearanceCreditCalculator implements ListenerAggregateInterface
         @$e->getParams()['result']['career']['credits']['started'] += 1;
         @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['cumulative']['credits']['played'] += 1;
         @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['cumulative']['credits']['started'] += 1;
-        
+
         if ( ( $team = $this->getTeam($position) ) instanceof Team ) {
             @$e->getParams()['result']['team'][$team->getId()]['career']['credits']['played'] += 1;
             @$e->getParams()['result']['team'][$team->getId()]['career']['credits']['started'] += 1;
             @$e->getParams()['result']['team'][$team->getId()]['season'][$e->getParams()['matchYear']]['credits']['played'] += 1;
             @$e->getParams()['result']['team'][$team->getId()]['season'][$e->getParams()['matchYear']]['credits']['started'] += 1;
-            
+
             @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['team'][$team->getId()]['credits']['played'] += 1;
             @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['team'][$team->getId()]['credits']['started'] += 1;
         }
