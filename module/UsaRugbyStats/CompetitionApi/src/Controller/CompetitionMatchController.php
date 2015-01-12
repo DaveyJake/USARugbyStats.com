@@ -173,6 +173,13 @@ class CompetitionMatchController extends AbstractRestfulController
             return new ApiProblem(404, 'Match not found!');
         }
 
+        if ( $match->getHomeTeam() instanceof \Doctrine\ORM\Proxy\Proxy ) {
+            trigger_error("Home team is a proxy in match #{$match->getId()} :(", E_USER_NOTICE);
+        }
+        if ( $match->getAwayTeam() instanceof \Doctrine\ORM\Proxy\Proxy ) {
+            trigger_error("Away team is a proxy in match #{$match->getId()} :(", E_USER_NOTICE);
+        }
+
         return $match;
     }
 
