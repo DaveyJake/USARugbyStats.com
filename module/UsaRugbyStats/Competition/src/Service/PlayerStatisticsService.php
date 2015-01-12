@@ -57,7 +57,7 @@ class PlayerStatisticsService implements EventManagerAwareInterface
 
             //--------- Result Array Structure Preconfiguration ---------//
             if ( !isset($params['result']['season'][$matchYear]) ) {
-                $params['result']['season'][$matchYear] = $entryTemplate;
+                $params['result']['season'][$matchYear] = ['cumulative' => $entryTemplate, 'team' => [], 'opponent' => []];
             }
             $teamid = $playerPosition->getTeam()->getTeam()->getId();
             if ( !isset($params['result']['team'][$teamid]) ) {
@@ -66,6 +66,9 @@ class PlayerStatisticsService implements EventManagerAwareInterface
             if ( !isset($params['result']['team'][$teamid]['season'][$matchYear]) ) {
                 $params['result']['team'][$teamid]['season'][$matchYear] = $entryTemplate;
             }
+            if ( !isset($params['result']['season'][$matchYear]['team'][$teamid]) ) {
+                $params['result']['season'][$matchYear]['team'][$teamid] = $entryTemplate;
+            }
             $opponent = $match->getTeam($playerPosition->getTeam()->getType() == 'H' ? 'A' : 'H');
             $opponentId = $opponent->getTeam()->getId();
             if ( !isset($params['result']['opponent'][$opponentId]['career']) ) {
@@ -73,6 +76,9 @@ class PlayerStatisticsService implements EventManagerAwareInterface
             }
             if ( !isset($params['result']['opponent'][$opponentId]['season'][$matchYear]) ) {
                 $params['result']['opponent'][$opponentId]['season'][$matchYear] = $entryTemplate;
+            }
+            if ( !isset($params['result']['season'][$matchYear]['opponent'][$opponentId]) ) {
+                $params['result']['season'][$matchYear]['opponent'][$opponentId] = $entryTemplate;
             }
             //--------- Result Array Structure Preconfiguration ---------//
 
@@ -104,10 +110,10 @@ class PlayerStatisticsService implements EventManagerAwareInterface
                 $params['result']['career']['PTS'] += $result['value'];
 
                 // Increment counters for season stats
-                if (isset($params['result']['season'][$matchYear][$result['type']])) {
-                    $params['result']['season'][$matchYear][$result['type']]++;
+                if (isset($params['result']['season'][$matchYear]['cumulative'][$result['type']])) {
+                    $params['result']['season'][$matchYear]['cumulative'][$result['type']]++;
                 }
-                $params['result']['season'][$matchYear]['PTS'] += $result['value'];
+                $params['result']['season'][$matchYear]['cumulative']['PTS'] += $result['value'];
 
                 // Increment counters for team stats
                 if (isset($params['result']['team'][$teamid]['career'][$result['type']])) {
@@ -118,6 +124,10 @@ class PlayerStatisticsService implements EventManagerAwareInterface
                     $params['result']['team'][$teamid]['season'][$matchYear][$result['type']]++;
                 }
                 $params['result']['team'][$teamid]['season'][$matchYear]['PTS'] += $result['value'];
+                if (isset($params['result']['season'][$matchYear]['team'][$teamid][$result['type']])) {
+                    $params['result']['season'][$matchYear]['team'][$teamid][$result['type']]++;
+                }
+                $params['result']['season'][$matchYear]['team'][$teamid]['PTS'] += $result['value'];
 
                 // Increment counters for opponent stats
                 if (isset($params['result']['opponent'][$opponentId]['career'][$result['type']])) {
@@ -128,6 +138,10 @@ class PlayerStatisticsService implements EventManagerAwareInterface
                     $params['result']['opponent'][$opponentId]['season'][$matchYear][$result['type']]++;
                 }
                 $params['result']['opponent'][$opponentId]['season'][$matchYear]['PTS'] += $result['value'];
+                if (isset($params['result']['season'][$matchYear]['opponent'][$opponentId][$result['type']])) {
+                    $params['result']['season'][$matchYear]['opponent'][$opponentId][$result['type']]++;
+                }
+                $params['result']['season'][$matchYear]['opponent'][$opponentId]['PTS'] += $result['value'];
 
                 $this->getEventManager()->trigger(__FUNCTION__ . '.match.event.post', $this, $params);
             }

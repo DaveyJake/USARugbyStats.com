@@ -51,20 +51,25 @@ class AppearanceCreditCalculator implements ListenerAggregateInterface
 
         @$e->getParams()['result']['career']['credits']['played'] += 1;
         @$e->getParams()['result']['career']['credits']['started'] += 1;
-        @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['credits']['played'] += 1;
-        @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['credits']['started'] += 1;
-
+        @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['cumulative']['credits']['played'] += 1;
+        @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['cumulative']['credits']['started'] += 1;
+        
         if ( ( $team = $this->getTeam($position) ) instanceof Team ) {
             @$e->getParams()['result']['team'][$team->getId()]['career']['credits']['played'] += 1;
             @$e->getParams()['result']['team'][$team->getId()]['career']['credits']['started'] += 1;
             @$e->getParams()['result']['team'][$team->getId()]['season'][$e->getParams()['matchYear']]['credits']['played'] += 1;
             @$e->getParams()['result']['team'][$team->getId()]['season'][$e->getParams()['matchYear']]['credits']['started'] += 1;
+            
+            @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['team'][$team->getId()]['credits']['played'] += 1;
+            @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['team'][$team->getId()]['credits']['started'] += 1;
         }
         if ( ( $opponent = $this->getOpponent($position) ) instanceof Team ) {
             @$e->getParams()['result']['opponent'][$opponent->getId()]['career']['credits']['played'] += 1;
             @$e->getParams()['result']['opponent'][$opponent->getId()]['career']['credits']['started'] += 1;
             @$e->getParams()['result']['opponent'][$opponent->getId()]['season'][$e->getParams()['matchYear']]['credits']['played'] += 1;
             @$e->getParams()['result']['opponent'][$opponent->getId()]['season'][$e->getParams()['matchYear']]['credits']['started'] += 1;
+            @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['opponent'][$opponent->getId()]['credits']['played'] += 1;
+            @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['opponent'][$opponent->getId()]['credits']['started'] += 1;
         }
 
         $e->getParams()['match_credits']['played'] = 1;
@@ -100,14 +105,16 @@ class AppearanceCreditCalculator implements ListenerAggregateInterface
 
         // Give the player a sub credit as they were subbed into the game
         @$e->getParams()['result']['career']['credits']['sub'] += 1;
-        @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['credits']['sub'] += 1;
+        @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['cumulative']['credits']['sub'] += 1;
         if ( ( $team = $this->getTeam($position) ) instanceof Team ) {
             @$e->getParams()['result']['team'][$team->getId()]['career']['credits']['sub'] += 1;
             @$e->getParams()['result']['team'][$team->getId()]['season'][$e->getParams()['matchYear']]['credits']['sub'] += 1;
+            @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['team'][$team->getId()]['credits']['sub'] += 1;
         }
         if ( ( $opponent = $this->getOpponent($position) ) instanceof Team ) {
             @$e->getParams()['result']['opponent'][$opponent->getId()]['career']['credits']['sub'] += 1;
             @$e->getParams()['result']['opponent'][$opponent->getId()]['season'][$e->getParams()['matchYear']]['credits']['sub'] += 1;
+            @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['opponent'][$opponent->getId()]['credits']['sub'] += 1;
         }
 
         // If they don't already have a played credit...
@@ -117,14 +124,16 @@ class AppearanceCreditCalculator implements ListenerAggregateInterface
 
         // give them a credit for having played in the game, since they were subbed in
         @$e->getParams()['result']['career']['credits']['played'] += 1;
-        @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['credits']['played'] += 1;
+        @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['cumulative']['credits']['played'] += 1;
         if ( ( $team = $this->getTeam($position) ) instanceof Team ) {
             @$e->getParams()['result']['team'][$team->getId()]['career']['credits']['played'] += 1;
             @$e->getParams()['result']['team'][$team->getId()]['season'][$e->getParams()['matchYear']]['credits']['played'] += 1;
+            @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['team'][$team->getId()]['credits']['played'] += 1;
         }
         if ( ( $opponent = $this->getOpponent($position) ) instanceof Team ) {
             @$e->getParams()['result']['opponent'][$opponent->getId()]['career']['credits']['played'] += 1;
             @$e->getParams()['result']['opponent'][$opponent->getId()]['season'][$e->getParams()['matchYear']]['credits']['played'] += 1;
+            @$e->getParams()['result']['season'][$e->getParams()['matchYear']]['opponent'][$opponent->getId()]['credits']['played'] += 1;
         }
     }
 
