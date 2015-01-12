@@ -63,7 +63,9 @@ class AppearanceCreditCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->service->processMatch($this->event);
 
         $this->assertEquals(['played' => 1, 'started' => 1], $this->params['result']['career']['credits']);
-        $this->assertEquals(['played' => 1, 'started' => 1], $this->params['result']['season']['2014-15']['credits']);
+        $this->assertEquals(['played' => 1, 'started' => 1], $this->params['result']['season']['2014-15']['cumulative']['credits']);
+        $this->assertEquals(['played' => 1, 'started' => 1], $this->params['result']['season']['2014-15']['team']['123']['credits']);
+        $this->assertEquals(['played' => 1, 'started' => 1], $this->params['result']['season']['2014-15']['opponent']['456']['credits']);
         $this->assertEquals(['played' => 1, 'started' => 1], $this->params['result']['team']['123']['career']['credits']);
         $this->assertEquals(['played' => 1, 'started' => 1], $this->params['result']['team']['123']['season']['2014-15']['credits']);
         $this->assertEquals(['played' => 1, 'started' => 1], $this->params['result']['opponent']['456']['career']['credits']);
@@ -96,9 +98,10 @@ class AppearanceCreditCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->params['event']->setPlayerOn($pos);
 
         $this->service->processMatchEvent($this->event);
-
         $this->assertEquals(['played' => 1, 'sub' => 1], $this->params['result']['career']['credits']);
-        $this->assertEquals(['played' => 1, 'sub' => 1], $this->params['result']['season']['2014-15']['credits']);
+        $this->assertEquals(['played' => 1, 'sub' => 1], $this->params['result']['season']['2014-15']['cumulative']['credits']);
+        $this->assertEquals(['played' => 1, 'sub' => 1], $this->params['result']['season']['2014-15']['team']['123']['credits']);
+        $this->assertEquals(['played' => 1, 'sub' => 1], $this->params['result']['season']['2014-15']['opponent']['456']['credits']);
         $this->assertEquals(['played' => 1, 'sub' => 1], $this->params['result']['team']['123']['career']['credits']);
         $this->assertEquals(['played' => 1, 'sub' => 1], $this->params['result']['team']['123']['season']['2014-15']['credits']);
         $this->assertEquals(['played' => 1, 'sub' => 1], $this->params['result']['opponent']['456']['career']['credits']);
@@ -146,7 +149,9 @@ class AppearanceCreditCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->service->processMatchEvent($this->event);
 
         $this->assertEquals(['played' => 1, 'sub' => 1, 'started' => 1], $this->params['result']['career']['credits']);
-        $this->assertEquals(['played' => 1, 'sub' => 1, 'started' => 1], $this->params['result']['season']['2014-15']['credits']);
+        $this->assertEquals(['played' => 1, 'sub' => 1, 'started' => 1], $this->params['result']['season']['2014-15']['cumulative']['credits']);
+        $this->assertEquals(['played' => 1, 'sub' => 1, 'started' => 1], $this->params['result']['season']['2014-15']['team']['123']['credits']);
+        $this->assertEquals(['played' => 1, 'sub' => 1, 'started' => 1], $this->params['result']['season']['2014-15']['opponent']['456']['credits']);
         $this->assertEquals(['played' => 1, 'sub' => 1, 'started' => 1], $this->params['result']['team']['123']['career']['credits']);
         $this->assertEquals(['played' => 1, 'sub' => 1, 'started' => 1], $this->params['result']['team']['123']['season']['2014-15']['credits']);
         $this->assertEquals(['played' => 1, 'sub' => 1, 'started' => 1], $this->params['result']['opponent']['456']['career']['credits']);
