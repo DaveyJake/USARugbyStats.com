@@ -8,7 +8,7 @@ return array(
         'authenticationService' => 'zfcuser_auth_service',
 
         'tableNamePrefix' => '',
-        'tableNameSuffix' => '_audit',
+        'tableNameSuffix' => '_log',
         'revisionTableName' => 'Revision',
         'revisionEntityTableName' => 'RevisionEntity',
     ),
