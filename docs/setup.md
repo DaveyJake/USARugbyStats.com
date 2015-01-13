@@ -22,7 +22,7 @@ cd vagrant;
 vagrant up
 ```
 
-After a significant period of time the VM should be up and running
+After a significant period of time the VM should be up and running.  You can SSH into it by running `vagrant ssh`
 
 ### 3. Add Host File Entry
 
@@ -39,6 +39,14 @@ You should now be able to access the application through the URL: http://usarugb
 
 (On MacOS you may also need to run: `dscacheutil -flushcache`)
 
+### 4. Import testing data
+
+If you want to import the extended test data fixtures, SSh into the VM and run:
+
+```
+cd /project;
+bin/console data-importer run-fixtures --group=testing;
+```
 
 ## The Hard Way
 
