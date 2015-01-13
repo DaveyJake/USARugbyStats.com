@@ -70,7 +70,19 @@ On Ubuntu this works out to be:
 apt-get install nginx mysql-server redis-server php5-fpm php5-cli php5-curl php5-json php5-intl php5-mysql php5-gd git supervisor
 ```
 
-### 2. Configure MySQL
+### 2. Clone the Repository
+
+```bash
+## Clone the repository
+git clone https://github.com/USARugbyCMS/USARugbyStats.com.git
+cd USARugbyStats.com 
+```
+
+### 3. Configure NGINX
+
+Configure a standard NGINX + PHP-FPM vhost to point to webroot to the `public` folder of your repository clone.
+
+### 4. Configure MySQL
 
 ```bash
 mysql> CREATE USER usarugbystats@localhost IDENTIFIED BY 'enter_the_password_here';
@@ -78,8 +90,7 @@ mysql> GRANT ALL ON usarugbystats.* TO usarugbystats@localhost;
 mysql> CREATE DATABASE usarugbystats;
 ```
 
-
-### 3. Install Composer
+### 5. Install Composer
 
 ```bash
 cd /usr/local/bin
@@ -88,14 +99,9 @@ mv composer.phar composer
 chmod +x composer
 ```
 
-### 4. Install the application
+### 6. Install the application
 
 ```bash
-## Clone the repository
-git clone https://github.com/adamlundrigan/USARugby-Stats.git usarugbystats
-cd usarugbystats
-
-## Configure the application
 cd config/autoload
 
 cp doctrine.local.php.dist doctrine.local.php
@@ -103,6 +109,7 @@ cp doctrine.local.php.dist doctrine.local.php
 
 cp htsession.local.php.dist htsession.local.php
 cp zfcuserredirect.local.php.dist zfcuserredirect.local.php
+# You shouldn't need to edit these files unless you choose a different local domain name
 
 ## Run initial application setup
 bin/app_rebuild.sh
