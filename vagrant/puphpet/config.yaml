@@ -189,7 +189,7 @@ redis:
     settings:
         conf_port: '6379'
 beanstalkd:
-    install: '1'
+    install: '0'
     settings:
         listenaddress: 0.0.0.0
         listenport: '13000'
