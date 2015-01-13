@@ -11,19 +11,11 @@ The application comes bundled with a Vagrant manifest for building a fully-funct
 
 ```bash
 ## Clone the repository
-git clone https://github.com/adamlundrigan/USARugby-Stats.git usarugbystats
-cd usarugbystats
+git clone git@github.com:USARugbyCMS/USARugbyStats.com.git
+cd USARugbyStats.com
 ```
 
-### 2. (Optional) Development Fixtures
-
-There are some additional database fixtures under the 'Development' namespace that need to be manually enabled if you want them.  These will insert some test entities into the database (teams, unions, competitions)
-
-```
-cp config/autoload/dev_fixtures.local.php.dist config/autoload/dev_fixtures.local.php
-```
-
-### 3. Boot it up
+### 2. Boot it up
 
 ```
 cd vagrant;
@@ -32,7 +24,7 @@ vagrant up
 
 After a significant period of time the VM should be up and running
 
-### 4. Add Host File Entry
+### 3. Add Host File Entry
 
 Add the following to your host file
  - *nix: `/etc/hosts`
@@ -45,7 +37,7 @@ Add the following to your host file
 
 You should now be able to access the application through the URL: http://usarugbystats.dev/
 
-(On Mac OSX you may also need to run: `dscacheutil -flushcache`)
+(On MacOS you may also need to run: `dscacheutil -flushcache`)
 
 
 ## The Hard Way
@@ -100,6 +92,9 @@ cd config/autoload
 
 cp doctrine.local.php.dist doctrine.local.php
 # Edit file to add mysql user information
+
+cp htsession.local.php.dist htsession.local.php
+cp zfcuserredirect.local.php.dist zfcuserredirect.local.php
 
 ## Run initial application setup
 bin/app_rebuild.sh

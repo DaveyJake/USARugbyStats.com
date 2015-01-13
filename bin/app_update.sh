@@ -5,7 +5,7 @@ APPROOT=`cd $APPROOT ; cd ../ ; pwd`;
 cd $APPROOT;
 
 echo ">>> Installing dependencies via Composer...";
-COMPOSER_PROCESS_TIMEOUT=3600 composer install --dev;
+COMPOSER_PROCESS_TIMEOUT=3600 composer install;
 
 echo ">>> Updating database structure and running migration...";
 ./bin/doctrine-module orm:clear-cache:metadata
