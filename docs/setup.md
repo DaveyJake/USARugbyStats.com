@@ -80,7 +80,7 @@ cd USARugbyStats.com
 
 ### 3. Configure NGINX
 
-Configure a standard NGINX + PHP-FPM vhost to point to webroot to the `public` folder of your repository clone.
+Configure a standard NGINX + PHP-FPM vhost and point the webroot to the `public` folder of your repository clone.
 
 ### 4. Configure MySQL
 
